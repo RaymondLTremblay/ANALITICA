@@ -13,121 +13,47 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 
-**Instructor:** Raymond L. Tremblay   
-  
-**Oficina**: NL 104			 		 
-**Teléfono**: (787) 850-0000 (dept de biología)			  		
-**Coreo electrónico**: raymond.tremblay_at_upr_dot_edu	
+**Presidente:** Raymond L. Tremblay, PhD   
+**Coreo electrónico**: raymond.tremblay_at_gmail_dot_com	
+
+**Secretario:** Denny Fernandez-del-Viso, PhD   
+**Coreo electrónico**: dsfernandez_at_gmail_dot_com 
+
+**Tesorero:**Julian Hernandez-Serrano, PhD   
+**Coreo electrónico**: analiticafundacion_at_gmail_dot_com 
+
+
+
+
+### Libros posible para los talleres      
  
-
-### Horario de clase
-**Presentación de temas y discución**: M, J at 9:00-10:20am (80 mins) (NOTE: Necesita traer su laptop!)   
-
-**Hora de Estudiantes**:    
-- M y J from 1:00 a 3:00pm (NL 104)    
-
-
-### Libros       
-- [Garrett Grolemund, Hadley Wickham. R for Data Science](https://r4ds.had.co.nz) En Ingles. 
 - [Garrett Grolemund, Hadley Wickham. R para Ciencia de Datos](https://es.r4ds.hadley.nz) En Español.
-- [Tremblay y Hernández-Serrano, 2018](https://www.amazon.com/Gráficas-Versátiles-ggplot2-Análisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&keywords=Graficas+versatiles&qid=1591404029&sr=8-1).
+- [Garrett Grolemund, Hadley Wickham. R for Data Science](https://r4ds.had.co.nz) En Ingles.
+- [Tremblay y Hernández-Serrano. Graficas Versatiles con ggplot2, 2018](https://www.amazon.com/Gráficas-Versátiles-ggplot2-Análisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&keywords=Graficas+versatiles&qid=1591404029&sr=8-1).
 
-•	Articulos revisados por pares serán asignados.    
 
-### Programados
+### Programados para talleres
 - [R- free statistical programming language](https://cran.r-project.org/) 
 - [RStudio](https://rstudio.com)
 - MS Excel, Numbers o Google Sheet
 
-### Prerequisitos    
-- BIOL 3011-3013: Biología General y Laboratorio primer semestre 
-- BIOL 3012-3014: Biología General y Laboratorio segundo semestre  
-
-### Descripción del curso  
-Estudio de las diferentes técnicas estadísticas con aplicación a la Biología. Se enfatizará en la estadística descriptiva, análisis de regresiones y correlaciones, pruebas de hipótesis paramétricas y no paramétricas y análisis de frecuencias y varianza. Además, se utilizarán las computadoras como mecanismos para facilitar y agilizar el cómputo y análisis estadístico.
-
-### Objetivos del curso
-
-Al finalizar el curso el estudiante podrá:
-
-    1. Discutir la importancia de la estadística en los estudios biológicos.
-    2. Ordenar datos biológicos en forma lógica.
-    3. Diferenciar entre los diferentes tipos de datos biológicos.
-    4. Diferenciar los diferentes tipos de escalas biológicas.
-    5. Organizar y resumir datos en forma de tablas.
-    6. Confeccionar polígonos de frecuencia.
-    7. Creación de gráficas para demostrar patrones.
-    8. Hacer uso adecuado de las diferentes estadísticas descriptivas.
-    9. Describir las diferentes medidas de tendencia central.
-    10. Basado en las medidas de tendencia central, inferir algunas de las características de la muestra bajo estudio.
-    11. Determinar cuándo se deben calcular en forma grupal las medidas de tendencia central y dispersión de la muestra.
-    12. Calcular probabilidades en situaciones específicas.
-    13. Establecer la diferencia entre distribuciones discretas y continuas.
-    14. Formular una hipótesis nula y alterna, adecuada para una situación en particular.
-    15. Distinguir de acuerdo al tipo de datos recolectados cuándo utilizar pruebas paramétricas o pruebas no paramétricas.
-    16. Evaluar los supuestos de las pruebas, tal como distribución normal e igualdad de varianza
-    17. Evaluar la hipótesis nula y determinar el grado de significación de esta hipótesis haciendo uso de los diferentes análisis estadísticos.
-    18. Confeccionar tablas de contingencia y establecer homogeneidad.
-    19. Determinar cuándo se debe utilizar un análisis de regresión.
-    20. Calcular coeficientes de regresión.
-    21. Determinar intervalos de confianza y significación de una regresión.
-    22. Calcular el coeficiente de correlación.
-    23. Realizar comparaciones entre coeficientes de correlación simples.
-    24. Desarrollar y analizar diseños experimentales utilizando técnicas de muestreo y recolección de datos apropiados.
-    25. Determinar el error de muestra.
-    26. Conocer y aplicar las pruebas básicas en estadísticas.
-    27. Evaluar situaciones experimentales y poder desarrollar un diseño experimental adecuado y lógico para analizar el problema y llegar a conclusiones.
-    28. Se hará énfasis en el uso de programados estadísticos para calcular los índices y probar hipótesis. Los programa de computadora puede incluir R, SPSS, Minitab o otros.  
-
-### Puntuación: 
-Este curso sera evaluado con los siguiente items:
-
-Ejercicios practico (4-6 total)	  30%     
-Pruebas cortas y participación    20%     
-Examen parcial # 1 (fecha TBD)	  20%   
-Examen parcial # 2 (fecha TBD)   	20%    
-Examen Final (fecha TBD)   	      10%   
-
-NOTE: 
-Escala de Notas: 
-
-  * A (100 to 90) 
-  * B (89 to 80) 
-  * C (79 to 70) 
-  * D (69 to 60) 
-  * F (< 60) 
-
-### Examenes:
-Habrá dos examen parciales y un examen final *comprensivo*.  Estos exámenes serán de selecciones múltiples, pareo, respuesta corta, y análisis de conceptos.  El examen final será comprensivo (los temas de todo el semestre).  En este examen se hará énfasis en la comprensión de los supuestos de las pruebas y la capacidad de seleccionar la prueba correcta basado en el diseño experimental y los supuestos. 
-
-### Conferencias
-En la clase las notas serán basado primeramente en la participación y algunas pruebas cortas.  Su participación es esencial para el aprendizaje (y para un ambiente positivo). Aprender *NO* es un proceso pasivo: los estudiantes deben participar haciendo preguntas y discutir el material con su conocimiento anterior (Su bagaje de conocimiento).  
-
-### Ejercicios  
-Los ejercicios están enfocado en la aplicación de conceptos y métodos discutido en la clase y solución de problemas. Se hará un esfuerza de usar datos reales para demostrar como trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.   
 
 
-### Faltar a clase y examen:
-*Los trabajos cortos y pruebas cortas NO se reponen*.  Si falta a la clase es su responsabilidad hablar son los otros estudiantes para saber lo que se discutió en la clase. Los examen se reponen solamente por una escusa valida.    
 
-### Derechos de Estudiantes con Impedimentos
+### Faltar a talleres o actividades:
+Los certificados de participación a los talleres serán limitado a los que participan con un porcentaje significativo de ellos.  Para cada grupos de talleres la cantitad necesaria para cumplir con un certificado sera indicado y informado a los participantes popr escrito.      
 
-La UPR-Humacao cumple con las leyes ADA (Americans with Disabilities Act) y
-51 (Servicios Educativos Integrales para Personas con Impedimentos) para garantizar
-igualdad en el acceso a la educación y servicios. Estudiantes con impedimentos: informe al (la) profesor(a) de cada curso sobre sus necesidades especiales y/o de acomodo razonable para el curso, en la tarjeta de información de la primera semana y visite la Oficina de Servicios para la Población con Impedimentos (SERPI) a la brevedad posible. Se mantendrá la confidencialidad.
 
-### Statement on Academic Dishonesty
-Cheating, plagiarism or otherwise obtaining grades under false pretenses constitute academic dishonesty according to the code of this university. Plagiarism is using the ideas or words of another person without giving credit to the original source; this includes copying another student in class. Always cite the source of your information. This includes copying or paraphrasing from a book, journal, or unpublished material without giving credit to the author(s), and submitting a term paper that was used in another course. Academic dishonesty will not be tolerated and penalties can include filing a final grade of "F"; reducing the student's final course grade one or two full grade points; awarding a failing mark on the coursework in question; or requiring the student to retake or resubmit the coursework. For more details, see the [University of Nevada, Reno General Catalog](http://catalog.unr.edu/).
 
-### Comentario sobre grabar videos y/o audio de las clases
-Los estudiantes no PUEDEN grabar la clase por forma de video o audio sin el permiso del profesor.  Algunos estudiantes con necesidades especiales pueden hablar con el profesor para pedir el permiso.  Este permiso tiene que ser por escrito (por ejemplo por email).  
+### Comentario sobre grabar videos y/o audio de los talleres
+no PUEDEN grabar los talleres por forma de video o audio sin el permiso del instructor.  Algunos participantes con necesidades especiales pueden hablar con el instructor para pedir el permiso.  Este permiso tiene que ser por escrito (por ejemplo por email).  
 
 
 ### Espacio libre de acoso sexual
-La Universidad de Puerto Rico prohíbe el descrimen por razón de sexo y género en todas sus modalidades, incluyendo el hostigamiento sexual. Según la Política Institucional contra el hostigamiento sexual, en la Universidad de Puerto Rico, Cert. Núm. 130 (2014-2015) de la Junta de Gobierno, si un(a) estudiante está siendo o fue afectado por conductas relacionadas a hostigamiento sexual, puede acudir ante la Oficina del Procurador Estudiantil, el Decanato de Estudiantes o el Coordinador de Cumplimiento con Título IX para una orientación o presentar una querella.
+ANALITICA se compromete a promover un espacio positivo y libre de descrimen. 
 
-### Protocolo de la Clase
-Los teléfono mobile serán apagado durante la clase.  Si necesita una calculadora traerla al salón. El teléfono no debería esta visible durante la clase al menos que pide permiso al instructor. Recuerda que que se usara computadoras portatiles en cada sesión.
+### Protocolo de los talleres
+Recuerda que que se usara computadoras portatiles en cada sesión.
 
 
 ```{r echo=FALSE, eval=FALSE}
