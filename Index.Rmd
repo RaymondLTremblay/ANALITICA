@@ -1,6 +1,6 @@
 ---
-title: "Bienvenido a BIOL 3740"
-author: "BIOMETRIA"
+title: "ANALITICA"
+
 output:
   html_document: 
     theme: spacelab
