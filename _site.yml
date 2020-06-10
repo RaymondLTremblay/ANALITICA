@@ -9,14 +9,16 @@ navbar:
       menu: 
         - 
           href: Introducción.html
-          text: Introducción
+          text: ¿Qué es la Estadística?
+          
+          
       text: "Estadistica basica"
     - 
       menu: 
         - 
           href: ggplo2.html
           text: Introducción a Gráficos
-      text: Gráficos
+      text: Producción de Gráficos
     - 
       menu: 
         - 
@@ -36,15 +38,24 @@ navbar:
       menu: 
         - 
           href: Plataforma.html
-          text: "Ejercico Platafroma de RStudio"
+          text: "Lo básico de RStudio"
         - 
           href: RMarkdown.html
-          text: "Ejercico Platafroma de RSMarkdown"
+          text: "Lo básico de RMarkdown"
+          
+        - 
+          href: Tendencias_Centrales.html
+          text: " Tendencias Centrales"
+          
+        - 
+          href: Medidas_Dispersión.html
+          text: " Medidas de Dispersión"  
+          
       text: Ejercicios
     - 
       menu: 
         - 
-          href: HIV.html
+          href: Descipción_de_Talleres.html
           text: "Tabla de Talleres Futuros"
       text: Talleres
     - 

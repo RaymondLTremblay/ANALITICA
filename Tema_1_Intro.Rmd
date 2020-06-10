@@ -113,7 +113,7 @@ Niveles de mediciones
 
 
 - Continua
-  - Son valores que son continuos o por por lo mennos existe los valores intermedios
+  - Son valores que son continuos o por por lo menos existe los valores intermedios
   - la distancia entre el valor 13 y 15 y igual que 101 y 103, hay dos unidades que los separa. 
   
         - Numeros de hijos por familia (0, 2, 5, 3, 8, 4)
