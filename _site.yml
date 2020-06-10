@@ -1,0 +1,60 @@
+--- 
+name: "BIOL 3740"
+output_dir: "."
+navbar: 
+  title: "BIOL 3740"
+  left: 
+    -  text: "Home"
+       href: Descripción.html
+       
+    -  text: "Schedule"
+       href: schedule.html
+       
+    -  text: "El Menu"  
+       menu: 
+        - text: "Introducción"
+          href: Introducción.html
+           
+        - text: "¿Qué es Plagio?"
+          href: Plagio.html
+          
+    
+    
+
+    
+    -  text: "Los Temas"
+       menu: 
+        - text: "Introducción a BIOL 3740"
+          href: Tema_1_Intro.html
+          
+        - text: "Historia breve de la estadística cuantitativa"
+          href: Tema_2_Historia.html
+          
+        - text: "Explorando los datos con gráficos"
+          href: Tema_3_Graficos.html
+          
+        - text: "Los Supuestos de las pruebas parametricas"
+          href: Tema_4_Supuestos.html
+          
+          
+      
+    - text: "Ejercicios"
+      menu: 
+        - text: "Ejercico Platafroma de RStudio"
+          href: Plataforma.html
+          
+        - text: "Ejercico Platafroma de RSMarkdown"
+          href: RMarkdown.html
+          
+      
+    - text: "Los Datos"
+      menu: 
+        - text: "Datos sobre HIV"
+          href: HIV.html
+          
+        - text: COVID-19
+          href: COVID-19.html
+          
+      
+  
+

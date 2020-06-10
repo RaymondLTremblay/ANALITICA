@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="BIOMETRIA" />
+
+
+<title>Bienvenido a BIOL 3740</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">BIOL 3740</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Descripción.html">Home</a>
+</li>
+<li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    El Menu
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introducción.html">Introducción</a>
+    </li>
+    <li>
+      <a href="Plagio.html">¿Qué es Plagio?</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Temas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tema_1_Intro.html">Introducción a BIOL 3740</a>
+    </li>
+    <li>
+      <a href="Tema_2_Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="Tema_3_Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="Tema_4_Supuestos.html">Los Supuestos de las pruebas parametricas</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Ejercico Platafroma de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Ejercico Platafroma de RSMarkdown</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Bienvenido a BIOL 3740</h1>
+<h4 class="author">BIOMETRIA</h4>
+
+</div>
+
+
+<p><strong>Instructor:</strong> Raymond L. Tremblay</p>
+<p><strong>Oficina</strong>: NL 104<br />
+<strong>Teléfono</strong>: (787) 850-0000 (dept de biología)<br />
+<strong>Coreo electrónico</strong>: raymond.tremblay_at_upr_dot_edu</p>
+<div id="horario-de-clase" class="section level3">
+<h3>Horario de clase</h3>
+<p><strong>Presentación de temas y discución</strong>: M, J at 9:00-10:20am (80 mins) (NOTE: Necesita traer su laptop!)</p>
+<p><strong>Hora de Estudiantes</strong>:<br />
+- M y J from 1:00 a 3:00pm (NL 104)</p>
+</div>
+<div id="libros" class="section level3">
+<h3>Libros</h3>
+<ul>
+<li><a href="https://r4ds.had.co.nz">Garrett Grolemund, Hadley Wickham. R for Data Science</a> En Ingles.</li>
+<li><a href="https://es.r4ds.hadley.nz">Garrett Grolemund, Hadley Wickham. R para Ciencia de Datos</a> En Español.</li>
+<li><a href="https://www.amazon.com/Gráficas-Versátiles-ggplot2-Análisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&amp;keywords=Graficas+versatiles&amp;qid=1591404029&amp;sr=8-1">Tremblay y Hernández-Serrano, 2018</a>.</li>
+</ul>
+<p>• Articulos revisados por pares serán asignados.</p>
+</div>
+<div id="programados" class="section level3">
+<h3>Programados</h3>
+<ul>
+<li><a href="https://cran.r-project.org/">R- free statistical programming language</a></li>
+<li><a href="https://rstudio.com">RStudio</a></li>
+<li>MS Excel, Numbers o Google Sheet</li>
+</ul>
+</div>
+<div id="prerequisitos" class="section level3">
+<h3>Prerequisitos</h3>
+<ul>
+<li>BIOL 3011-3013: Biología General y Laboratorio primer semestre</li>
+<li>BIOL 3012-3014: Biología General y Laboratorio segundo semestre</li>
+</ul>
+</div>
+<div id="descripción-del-curso" class="section level3">
+<h3>Descripción del curso</h3>
+<p>Estudio de las diferentes técnicas estadísticas con aplicación a la Biología. Se enfatizará en la estadística descriptiva, análisis de regresiones y correlaciones, pruebas de hipótesis paramétricas y no paramétricas y análisis de frecuencias y varianza. Además, se utilizarán las computadoras como mecanismos para facilitar y agilizar el cómputo y análisis estadístico.</p>
+</div>
+<div id="objetivos-del-curso" class="section level3">
+<h3>Objetivos del curso</h3>
+<p>Al finalizar el curso el estudiante podrá:</p>
+<pre><code>1. Discutir la importancia de la estadística en los estudios biológicos.
+2. Ordenar datos biológicos en forma lógica.
+3. Diferenciar entre los diferentes tipos de datos biológicos.
+4. Diferenciar los diferentes tipos de escalas biológicas.
+5. Organizar y resumir datos en forma de tablas.
+6. Confeccionar polígonos de frecuencia.
+7. Creación de gráficas para demostrar patrones.
+8. Hacer uso adecuado de las diferentes estadísticas descriptivas.
+9. Describir las diferentes medidas de tendencia central.
+10. Basado en las medidas de tendencia central, inferir algunas de las características de la muestra bajo estudio.
+11. Determinar cuándo se deben calcular en forma grupal las medidas de tendencia central y dispersión de la muestra.
+12. Calcular probabilidades en situaciones específicas.
+13. Establecer la diferencia entre distribuciones discretas y continuas.
+14. Formular una hipótesis nula y alterna, adecuada para una situación en particular.
+15. Distinguir de acuerdo al tipo de datos recolectados cuándo utilizar pruebas paramétricas o pruebas no paramétricas.
+16. Evaluar los supuestos de las pruebas, tal como distribución normal e igualdad de varianza
+17. Evaluar la hipótesis nula y determinar el grado de significación de esta hipótesis haciendo uso de los diferentes análisis estadísticos.
+18. Confeccionar tablas de contingencia y establecer homogeneidad.
+19. Determinar cuándo se debe utilizar un análisis de regresión.
+20. Calcular coeficientes de regresión.
+21. Determinar intervalos de confianza y significación de una regresión.
+22. Calcular el coeficiente de correlación.
+23. Realizar comparaciones entre coeficientes de correlación simples.
+24. Desarrollar y analizar diseños experimentales utilizando técnicas de muestreo y recolección de datos apropiados.
+25. Determinar el error de muestra.
+26. Conocer y aplicar las pruebas básicas en estadísticas.
+27. Evaluar situaciones experimentales y poder desarrollar un diseño experimental adecuado y lógico para analizar el problema y llegar a conclusiones.
+28. Se hará énfasis en el uso de programados estadísticos para calcular los índices y probar hipótesis. Los programa de computadora puede incluir R, SPSS, Minitab o otros.  </code></pre>
+</div>
+<div id="puntuación" class="section level3">
+<h3>Puntuación:</h3>
+<p>Este curso sera evaluado con los siguiente items:</p>
+<p>Ejercicios practico (4-6 total) 30%<br />
+Pruebas cortas y participación 20%<br />
+Examen parcial # 1 (fecha TBD) 20%<br />
+Examen parcial # 2 (fecha TBD) 20%<br />
+Examen Final (fecha TBD) 10%</p>
+<p>NOTE: Escala de Notas:</p>
+<ul>
+<li>A (100 to 90)</li>
+<li>B (89 to 80)</li>
+<li>C (79 to 70)</li>
+<li>D (69 to 60)</li>
+<li>F (&lt; 60)</li>
+</ul>
+</div>
+<div id="examenes" class="section level3">
+<h3>Examenes:</h3>
+<p>Habrá dos examen parciales y un examen final <em>comprensivo</em>. Estos exámenes serán de selecciones múltiples, pareo, respuesta corta, y análisis de conceptos. El examen final será comprensivo (los temas de todo el semestre). En este examen se hará énfasis en la comprensión de los supuestos de las pruebas y la capacidad de seleccionar la prueba correcta basado en el diseño experimental y los supuestos.</p>
+</div>
+<div id="conferencias" class="section level3">
+<h3>Conferencias</h3>
+<p>En la clase las notas serán basado primeramente en la participación y algunas pruebas cortas. Su participación es esencial para el aprendizaje (y para un ambiente positivo). Aprender <em>NO</em> es un proceso pasivo: los estudiantes deben participar haciendo preguntas y discutir el material con su conocimiento anterior (Su bagaje de conocimiento).</p>
+</div>
+<div id="ejercicios" class="section level3">
+<h3>Ejercicios</h3>
+<p>Los ejercicios están enfocado en la aplicación de conceptos y métodos discutido en la clase y solución de problemas. Se hará un esfuerza de usar datos reales para demostrar como trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown. Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato <em>.html</em>.</p>
+</div>
+<div id="faltar-a-clase-y-examen" class="section level3">
+<h3>Faltar a clase y examen:</h3>
+<p><em>Los trabajos cortos y pruebas cortas NO se reponen</em>. Si falta a la clase es su responsabilidad hablar son los otros estudiantes para saber lo que se discutió en la clase. Los examen se reponen solamente por una escusa valida.</p>
+</div>
+<div id="derechos-de-estudiantes-con-impedimentos" class="section level3">
+<h3>Derechos de Estudiantes con Impedimentos</h3>
+<p>La UPR-Humacao cumple con las leyes ADA (Americans with Disabilities Act) y 51 (Servicios Educativos Integrales para Personas con Impedimentos) para garantizar igualdad en el acceso a la educación y servicios. Estudiantes con impedimentos: informe al (la) profesor(a) de cada curso sobre sus necesidades especiales y/o de acomodo razonable para el curso, en la tarjeta de información de la primera semana y visite la Oficina de Servicios para la Población con Impedimentos (SERPI) a la brevedad posible. Se mantendrá la confidencialidad.</p>
+</div>
+<div id="statement-on-academic-dishonesty" class="section level3">
+<h3>Statement on Academic Dishonesty</h3>
+<p>Cheating, plagiarism or otherwise obtaining grades under false pretenses constitute academic dishonesty according to the code of this university. Plagiarism is using the ideas or words of another person without giving credit to the original source; this includes copying another student in class. Always cite the source of your information. This includes copying or paraphrasing from a book, journal, or unpublished material without giving credit to the author(s), and submitting a term paper that was used in another course. Academic dishonesty will not be tolerated and penalties can include filing a final grade of “F”; reducing the student’s final course grade one or two full grade points; awarding a failing mark on the coursework in question; or requiring the student to retake or resubmit the coursework. For more details, see the <a href="http://catalog.unr.edu/">University of Nevada, Reno General Catalog</a>.</p>
+</div>
+<div id="comentario-sobre-grabar-videos-yo-audio-de-las-clases" class="section level3">
+<h3>Comentario sobre grabar videos y/o audio de las clases</h3>
+<p>Los estudiantes no PUEDEN grabar la clase pop forma de video o audio sin el permiso del profesor. Algunos estudiantes con necesidades especiales pueden hablar con el profesor para pedir el permiso. Este permiso tiene que ser por escrito (por ejemplo por email).</p>
+</div>
+<div id="espacio-libre-de-acoso-sexual" class="section level3">
+<h3>Espacio libre de acoso sexual</h3>
+<p>La Universidad de Puerto Rico prohíbe el discrimen por razón de sexo y género en todas sus modalidades, incluyendo el hostigamiento sexual. Según la Política Institucional contra el hostigamiento sexual, en la Universidad de Puerto Rico, Cert. Núm. 130 (2014-2015) de la Junta de Gobierno, si un(a) estudiante está siendo o fue afectado por conductas relacionadas a hostigamiento sexual, puede acudir ante la Oficina del Procurador Estudiantil, el Decanato de Estudiantes o el Coordinador de Cumplimiento con Título IX para una orientación o presentar una querella.</p>
+</div>
+<div id="protocolo-de-la-clase" class="section level3">
+<h3>Protocolo de la Clase</h3>
+<p>Los teléfono mobile serán apagado durante la clase. Si necesita una calculadora traerla al salón. El teléfono no debería esta visible durante la clase al menos que pide permiso al instructor. Recuerda que que se usara computadoras portatiles en cada sesión.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

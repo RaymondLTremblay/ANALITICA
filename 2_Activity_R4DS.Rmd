@@ -1,0 +1,27 @@
+---
+title: "2_Activity_R4DS"
+author: "R Tremblay"
+date: "1/18/2020"
+output: html_document
+---
+
+# En esta actividad seguirán utilizando la plataforma R para visualiuzar los datos.  
+Ud sometera su trabajo como un documento .html y lo cargará a Edmodo.
+
+
+Recuerda que este libro esta disponible gratuitamente en el internet tanto en Español Español, https://es.r4ds.hadley.nz/index.html como en Ingles, https://r4ds.had.co.nz/index.html . En Edmodo ya le envie los enlaces.
+
+
+Haber sometido el primer trabajo.
+
+# Segundo paso
+Del libro R4DS, leer y entender las secciones 3.4 HASTA 3.6.1.
+
+Reproducir la **mayoria** de las gráficas y hacer los ejercicios y contestar las preguntas.
+
+
+# Tercer Paso
+
+Someter su trabajo en Edmodo en formato .html.
+
+Esta Actividad se sometera el 31 de enero no más tarde de las 11pm.  

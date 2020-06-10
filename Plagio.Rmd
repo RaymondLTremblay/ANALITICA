@@ -1,0 +1,31 @@
+---
+title: "Plagio"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ¿Qué es el Plagio?
+
+El plagio es un actividad academica y social que en primer lugar no reconoce la fuente de información donde proviene las ideas, analisis o datos.  Es necesario que la información en un documento que no es de su proprio trabajo y analisis intelectual que se identifique la fuente o sea referencias de proveniencia de la información.  
+
+# Consecuencia del plagio
+
+ No copiarse en los examenes o en los trabajos asignados. 
+ Si el se detecta que el estudiante hizo plagio el estudiante obtendrá CERO en el examen o trabajo.
+ En adición el estudiante puede ser expulsado de la clase o del colegio si es encontrado culpable luego del debido proceso de ley. 
+ 
+# Las leyes de la UPR que define el plagio
+
+fghjk
+
+# Recursos universitarios para evaluar el plagio
+
+fghjkfghjkghjk
+
+

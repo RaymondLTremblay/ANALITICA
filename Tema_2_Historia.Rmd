@@ -1,0 +1,27 @@
+---
+title: "Tema_2_Historia"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Definición de la que es la estadistica
+
+
+
+## Algunos personas importantes
+
+
+
+## Dessarollo tematico 
+
+
+## Dessarollo temporal 
+
+
+

@@ -1,0 +1,24 @@
+---
+title: "Calendario, Primavera 2020"
+author: "BIOL 3740"
+date: "Agosto, 2020"
+output: 
+  html_document: 
+    theme: spacelab
+    toc: no
+    toc_float: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Favor mirar el calendario regularmente, ya que este puede cambiar!
+
+```{r include=FALSE}
+courseSchedule <- read.csv("Schedule_2020.csv")
+```
+
+```{r results='asis', echo=FALSE}
+knitr::kable(courseSchedule,caption="")
+```
