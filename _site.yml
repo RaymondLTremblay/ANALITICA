@@ -1,60 +1,60 @@
 --- 
-name: "BIOL 3740"
-output_dir: "."
+name: "ANALITICA Fundación"
 navbar: 
-  title: "BIOL 3740"
   left: 
-    -  text: "Home"
-       href: Descripción.html
-       
-    -  text: "Schedule"
-       href: schedule.html
-       
-    -  text: "El Menu"  
-       menu: 
-        - text: "Introducción"
+    - 
+      href: Descripción.html
+      text: Descripción
+    - 
+      menu: 
+        - 
           href: Introducción.html
-           
-        - text: "¿Qué es Plagio?"
-          href: Plagio.html
-          
-    
-    
-
-    
-    -  text: "Los Temas"
-       menu: 
-        - text: "Introducción a BIOL 3740"
+          text: Introducción
+      text: "Estadistica basica"
+    - 
+      menu: 
+        - 
+          href: ggplo2.html
+          text: Introducción a Gráficos
+      text: Gráficos
+    - 
+      menu: 
+        - 
           href: Tema_1_Intro.html
-          
-        - text: "Historia breve de la estadística cuantitativa"
+          text: "Introducción a BIOL 3740"
+        - 
           href: Tema_2_Historia.html
-          
-        - text: "Explorando los datos con gráficos"
+          text: "Historia breve de la estadística cuantitativa"
+        - 
           href: Tema_3_Graficos.html
-          
-        - text: "Los Supuestos de las pruebas parametricas"
+          text: "Explorando los datos con gráficos"
+        - 
           href: Tema_4_Supuestos.html
-          
-          
-      
-    - text: "Ejercicios"
+          text: "Los Supuestos de las pruebas parametricas"
+      text: "Los Temas"
+    - 
       menu: 
-        - text: "Ejercico Platafroma de RStudio"
+        - 
           href: Plataforma.html
-          
-        - text: "Ejercico Platafroma de RSMarkdown"
+          text: "Ejercico Platafroma de RStudio"
+        - 
           href: RMarkdown.html
-          
-      
-    - text: "Los Datos"
+          text: "Ejercico Platafroma de RSMarkdown"
+      text: Ejercicios
+    - 
       menu: 
-        - text: "Datos sobre HIV"
+        - 
           href: HIV.html
-          
-        - text: COVID-19
+          text: "Tabla de Talleres Futuros"
+      text: Talleres
+    - 
+      menu: 
+        - 
+          href: HIV.html
+          text: "Datos sobre HIV"
+        - 
           href: COVID-19.html
-          
-      
-  
-
+          text: COVID-19
+      text: "Los Datos"
+  title: ANALITICA
+output_dir: "."

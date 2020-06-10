@@ -1,5 +1,5 @@
 ---
-title: "Descripción"
+title: "Intro a ggplot2"
 output: html_document
 ---
 
@@ -7,4 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Descripción de la organización.
+## Introducción a ggplot2
+
+
