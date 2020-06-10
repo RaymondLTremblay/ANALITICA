@@ -1,5 +1,9 @@
-# Curso de Biometría: BIOL 3740
-Este sitio es una guia para el curso de Biometria, BIOL3740 en la Universidad de Puerto Rico en Humacao.  El objetivo de este sitio es presentar una organización simple y basica para el curso de estadistica con ejemplos diversos. 
+# ANALITICA Fundación
+Es una organización sin fines de lucro para dessarollar conocimiento de Ciencia de Datos en español. 
 
-El curso hara enfasis en los supuestos de las pruebas parametrica y no-paramétrica
+La organización tiene como objetivo
+
+1. Fomentar el conocimiento y herramientas para de analisis estadistico
+2. Fomentar el conocimiento y herramienta para la vizualisión de datos 
+2. Ayudar en analisis a organizaciones y individuos. 
 
