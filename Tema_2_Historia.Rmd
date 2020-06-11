@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Definición de la que es la estadistica
 
-
+El estadistica es relativamente un nuevo concepto y un poco más
 
 ## Algunos personas importantes
 
