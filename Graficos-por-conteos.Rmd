@@ -82,7 +82,7 @@ En el ultimo gráfico tenemos la peculiaridad que hay múltiples lagartos con el
 
 ### **geom_count**
 
-Por otro lado, la función **geom_count** varía el tamaño de los puntos de acuerdo a como cambia el tamaño con relación a una variable. Esta función es una extensión de **geom_point**.  Con **geom_count** veremos que la diferencia es que ahora el tamaño de los puntos está relacionado a su frecuencia en el archivo de datos. El tamaño de cada punto representa valores que cuando son pequeños es que son menos frecuentes la cantidad de lagartijos que tienen esta frecuencia en el archivo de datos y los más grandes es que son más comunes.  Esto se demuestra en la Figura ref{fig:geom count1} a continuación:
+Por otro lado, la función **geom_count** varía el tamaño de los puntos de acuerdo a como cambia el tamaño con relación a una variable. Esta función es una extensión de **geom_point**.  Con **geom_count** veremos que la diferencia es que ahora el tamaño de los puntos está relacionado a su frecuencia en el archivo de datos. El tamaño de cada punto representa valores que cuando son pequeños es que son menos frecuentes la cantidad de lagartijos que tienen esta frecuencia en el archivo de datos y los más grandes es que son más comunes.  Esto se demuestra en la figura a continuación:
 
 ```{r geom count1}
 
@@ -97,7 +97,9 @@ ggplot(aes(SVL, WEIGHT))+
 
 ```
 
-En el gráfico de la Figura  también los tamaños de los puntos están proporcionales a su frecuencia. Note que hay que añadir size=..prop.. y group=1 para que trabaje bien la función. Note que en este caso la suma de todas las frecuencias es 1.  Vemos que, al contrario de la Figura }, ahora los puntos salen en proporción a la frecuencia.
+## El tamaño de los puntos proporcional a su frecuencia
+
+En el gráfico siguiente los tamaños de los puntos están proporcionales a su frecuencia. Note que hay que añadir **(size=..prop.. y group=1)** en la función **geom_count()**.  Note que en este caso la suma de todas las frecuencias es 1.  Vemos que, al contrario de la Figura anterior, ahora los puntos salen en proporción a la frecuencia.
 
 ```{r geom count2}
 
@@ -111,34 +113,7 @@ ggplot(aes(SVL, WEIGHT))+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-
-```{r}
-age=c(21, 22, 22, 21, 21,
-      20, 20, 21, 20, 21, 
-      19, 22)
-kids=c(3, 2, 2, 2 , 2,
-       0, 2, 2, 1, 0, 
-       1, 2)
-
-df=data.frame(age,kids)
-df
-```
-
-```{r}
-ggplot(df,aes(age, kids))+
-  geom_count(aes(size=..prop.., group=1))+
-   ylab("Número de hijos")+
-  xlab("Edad")+
-  theme(axis.title=element_text(size=10,face="bold"))
-```
-
-
-
-En el siguiente gráfico, Figura , una de las variables, WEIGHT o peso del lagartijo, se usa para que la suma de la proporción equivalga a 1. *Entonces aquí cada grupo de {Y} suma a 1*. Por ejemplo, en los *Anolis* de peso de 2 gramos hay 4 puntos de valor de 0.25 que da una suma de 1.
-
-
-
-
+En el siguiente gráfico, una de las variables, WEIGHT o peso del lagartijo, se usa para que la suma de la proporción equivalga a 1. Entonces aquí cada grupo de {Y} suma a 1. Nota que los grupos son el tamaño del hocico a la cloaca (SVL) **geom_count(aes(size=..prop.., group=SVL))**. Por ejemplo, en los *Anolis* que tiene el tamaño de 35 hay 4 puntos de valor de 0.25 que da una suma de 1.
 
 ```{r geom count2a}
 
@@ -152,7 +127,9 @@ ggplot(aes(SVL, WEIGHT))+
   theme(axis.title=element_text(size=14,face="bold"))
 ```
 
-Si hay más de un grupo, se puede ver la proporción basada en los grupos usando colour. Aquí, en la Figura , vemos el efecto de usar el color, y del patrón uno observa que la mayoría de los pequeños *Anolis* se observa en el periodo lluvioso y los grandes en el periodo seco.
+## Seperando factores por color
+
+Si hay más de un grupo, se puede ver la proporción basada en los grupos/factores usando la función **colour** o **color**. Aquí, vemos el efecto de usar el color, y del patrón uno observa que la mayoría de los pequeños *Anolis* se observa en el periodo lluvioso y los grandes en el periodo seco. Nota que aquí se añade la variable que quisieramos que fuese separado por color.  Se uso la estación de tiempo seco o húmedo en la columna *Season*. 
 
 ```{r geom count3}
 
@@ -167,7 +144,7 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 
 ```
 
-En la siguiente demostración, Figura , se separan los gráficos de acuerdo al sitio de muestreo usando facet_wrap y añadiendo en aes group=    , facet_wrap se explica en detalle más adelante.) Aquí se observa que el muestreo en el sitio llamado Torre Sur fue hecho solamente en el periodo lluvioso.  Note que para crear los dos gráficos separados por una variable discreta se usa *facet_wrap* con una tilde, $sim$, seguido del nombre de la variable, que en este caso es la localidad de muestreo, **survey_Site**.
+En la siguiente demostración, se separan los gráficos de acuerdo al sitio de muestreo usando facet_wrap y añadiendo en aes group=    , facet_wrap se explica en detalle más adelante.) Aquí se observa que el muestreo en el sitio llamado Torre Sur fue hecho solamente en el periodo lluvioso.  Note que para crear los dos gráficos separados por una variable discreta se usa *facet_wrap* con una tilde, $sim$, seguido del nombre de la variable, que en este caso es la localidad de muestreo, **survey_Site**.
 
 ```{r geom count4}
 names(Anolis) # this gives me the names of columns
@@ -218,6 +195,36 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   facet_wrap(~Survey_Site)+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
+
+
+# Ejemplo #2
+
+Aquí creamos una base de datos, crean dos lista, una de las edades de las personas y cuantos hijos ellos quieren tener.  
+
+```{r}
+edad=c(21, 22, 22, 21, 21,
+      20, 20, 21, 20, 21, 
+      19, 22, 21, 22, 22, 
+      21, 21,20, 20, 21, 
+      20, 21, 19, 22)
+hijos=c(3, 2, 2, 2 , 2,
+       0, 2, 2, 1, 0, 
+       2, 3, 4, 3, 3, 
+       3 , 3,1, 3, 3, 
+       1, 0, 1, 2)
+
+df=data.frame(edad,hijos)
+df
+```
+
+```{r}
+ggplot(df,aes(edad, hijos))+
+  geom_count(aes(size=..prop.., group=1))+
+   ylab("Número de hijos")+
+  xlab("Edad")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
 
 A continuación se resumen las opciones y parámetros más importantes de geom_count:
 
