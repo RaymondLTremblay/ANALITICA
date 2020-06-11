@@ -1,6 +1,6 @@
 --- 
 name: "ANALITICA Fundación"
-navbar: 
+navbar:
   left: 
     - 
       menu: 
@@ -25,6 +25,9 @@ navbar:
         - 
           href: ggplo2.html
           text: "Introducción a Gráficos"
+        - 
+          href: Graficos-por-conteos.html
+          text: "Gráficos para conteos"
       text: "Visualización"
     - 
       menu: 
@@ -63,4 +66,6 @@ navbar:
           text: COVID-19
       text: "Los Datos"
   title: ANALITICA
+  
+
 output_dir: "."

@@ -52,10 +52,7 @@ tail(Exam_Anxiety, n=2)
 
 library(readr)
 Anxiety <- Exam_Anxiety
-<<<<<<< HEAD
-=======
 
->>>>>>> 14e90c09f4dcea37984bedcafcb8ea32ba11f106
 
 examData = Anxiety
 Exam_Anxiety = Anxiety

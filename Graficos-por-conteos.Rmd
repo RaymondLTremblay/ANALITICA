@@ -1,0 +1,341 @@
+---
+title: "Graficos para conteos"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Gráficos para conteos por localidad con **geom_point** y **geom_count**
+
+La función *geom_point* se utiliza para gráficar los datos en forma de puntitos.  Típicamente tenemos información en el eje de X y de Y, de manera que la función representa los datos distribuidos en ambos ejes.
+
+
+```{r, message=FALSE}
+library(ggversa) # la función "library" activa el packete de **ggversa** donde se encuentra los archivos
+library(ggplot2) # ggplot2 es la librería que se usará para gráficar los datos
+library(tidyverse) # una serie de packetes para organizar y visualizar los datos
+library(gt) # Para que las tablas se vean más organizada
+
+gt(head(Anolis))   # la función *head* es para visualizar las primeros 6 filas
+```
+
+
+
+Comenzaremos con un ejemplo hecho con **geom_point** para después así apreciar las ventajas de **geom_count**.  Se usará un subgrupo de los datos de unas especies de *Anolis*, ese pequeño lagartijo habitan es nativo de Puerto Rico.  Primero se visualizan las primeras 7 filas del archivo con las dos variables de interés. Específicamente, utilizaremos los datos de los lagartos con individuos que tienen entre 4 cm y 20 cm de largo. El primer paso es seleccionar las columnas de interes usando la función **select( )**, el segundo paso es filtrar los datos especifico para tener los *Anolis* que tiene un peso menor de 4 y un SVL mayor a 20.   
+
+
+
+El el primer paso se muestran las filas del 1 al 7 usando **head( )** y se seleccionan las columnas de peso de los lagartos WEIGHT con valor menor de 4 y tamaño SVL mayor a 20.  Note que se utilizo **&** para decir que cada fila tiene que cumplir con ambas condiciones, el largartijo tiene que tener tanto un peso menor de 4 y un tamaño mayor de 20.  Si una de las dos información faltaba no estará incluido en los este archivo reducido. 
+
+```{r}
+
+Anolis %>%
+  select(WEIGHT, SVL)%>%  # selecciona
+  filter(WEIGHT<4 & SVL>20)%>%
+  head(n=7)%>%
+  gt()
+
+```
+
+
+
+
+
+```{r geom point-count}
+
+Anolis %>%
+  select(WEIGHT, SVL)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT))+
+  geom_point()+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  theme(axis.title=element_text(size=10,face="italic", colour="red"))+
+  ggtitle("the greatest figure on the planet")+
+  theme(title=element_text(size=20,face="bold", colour="green"))
+
+```
+
+En este gráfico (Figura ref{fig:geom point-count}) tenemos la peculiaridad que hay múltiples lagartos con el mismo peso y tamaño, por lo que los puntos quedarán solapados.  A consecuencia de esto, uno no necesariamente va a poder apreciar la frecuencia de los datos.  Más adelante se demostrará cómo resolver ese problema.
+
+Por otro lado, la función geom_count varía el tamaño de los puntos de acuerdo a como cambia el tamaño con relación a una variable. Esta función es una extensión de geom_point.  Con geom_count veremos que la diferencia es que ahora el tamaño de los puntos está relacionado a su frecuencia en el archivo de datos. El tamaño de cada punto representa valores que cuando son pequeños es que son menos frecuentes en el archivo de datos y los más grandes es que son más comunes.  Esto se demuestra en la Figura ref{fig:geom count1} a continuación:
+
+```{r geom count1}
+
+Anolis %>%
+  select(WEIGHT, SVL)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT))+
+  geom_count()+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  theme(axis.title=element_text(size=14,face="bold"))
+
+```
+
+En el gráfico de la Figura  también los tamaños de los puntos están proporcionales a su frecuencia. Note que hay que añadir size=..prop.. y group=1 para que trabaje bien la función. Note que en este caso la suma de todas las frecuencias es 1.  Vemos que, al contrario de la Figura }, ahora los puntos salen en proporción a la frecuencia.
+
+```{r geom count2}
+
+Anolis %>%
+  select(WEIGHT, SVL)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT))+
+  geom_count(aes(size=..prop.., group=1))+
+   ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+
+```{r}
+age=c(21, 22, 22, 21, 21,
+      20, 20, 21, 20, 21, 
+      19, 22)
+kids=c(3, 2, 2, 2 , 2,
+       0, 2, 2, 1, 0, 
+       1, 2)
+
+df=data.frame(age,kids)
+df
+```
+
+```{r}
+ggplot(df,aes(age, kids))+
+  geom_count(aes(size=..prop.., group=1))+
+   ylab("Número de hijos")+
+  xlab("Edad")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+
+
+En el siguiente gráfico, Figura , una de las variables, WEIGHT o peso del lagartijo, se usa para que la suma de la proporción equivalga a 1. *Entonces aquí cada grupo de {Y} suma a 1*. Por ejemplo, en los *Anolis* de peso de 2 gramos hay 4 puntos de valor de 0.25 que da una suma de 1.
+
+
+
+
+
+```{r geom count2a}
+
+Anolis %>%
+  select(WEIGHT, SVL)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT))+
+  geom_count(aes(size=..prop.., group=SVL))+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  theme(axis.title=element_text(size=14,face="bold"))
+```
+
+Si hay más de un grupo, se puede ver la proporción basada en los grupos usando colour. Aquí, en la Figura , vemos el efecto de usar el color, y del patrón uno observa que la mayoría de los pequeños *Anolis* se observa en el periodo lluvioso y los grandes en el periodo seco.
+
+```{r geom count3}
+
+Anolis %>%
+  select(WEIGHT, SVL, SEASON)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT, colour=SEASON))+
+  geom_count(aes(size=..prop.., group=WEIGHT))+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+```
+
+En la siguiente demostración, Figura , se separan los gráficos de acuerdo al sitio de muestreo usando facet_wrap y añadiendo en aes group=    , facet_wrap se explica en detalle más adelante.) Aquí se observa que el muestreo en el sitio llamado Torre Sur fue hecho solamente en el periodo lluvioso.  Note que para crear los dos gráficos separados por una variable discreta se usa *facet_wrap* con una tilde, $sim$, seguido del nombre de la variable, que en este caso es la localidad de muestreo, **survey_Site**.
+
+```{r geom count4}
+names(Anolis) # this gives me the names of columns
+
+  
+Anolis %>%
+  select(WEIGHT, SVL, SEASON, PERCH_SUBSTRATE)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT, colour=SEASON))+
+  geom_count(aes(size=..prop.., group=WEIGHT))+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  facet_wrap(~PERCH_SUBSTRATE)+
+  theme(axis.title=element_text(size=10,face="bold"))+
+  theme(plot.title = element_text(colour = "dark green", face = "bold", size = 20, hjust = 1))+
+  scale_color_manual(values = c("orange", "dodger blue"))
+
+
+```
+
+Para el gráfico de la Figura ref{fig:geom count5}, se cambia la forma de los puntos con {shape}. La opción de {shape}index(shape) es para modificar los tipos de símbolos disponibles. (Vea la Figura ref{fig:PlotSimbolos} para notar la variedad de símbolos disponibles.) Los números de los símbolos van de 0 a 25, y solamente los números 21 al 25 son símbolos rellenados con color, lo que se hace al utilizar la opción de {fill}.  El símbolo típicamente utilizado en los gráficos de emph{ggplot2} es el 16 (un punto).   Aquí cambiamos del símbolo 16 al 1.
+
+```{r geom count5}
+
+Anolis %>%
+  select(WEIGHT, SVL, SEASON, Survey_Site)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT, colour=SEASON))+
+  geom_count(shape=11,fill="yellow",colour="black",
+             aes(size=..prop.., group=Survey_Site))+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  facet_wrap(~Survey_Site)+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+En el siguiente gráfico, Figura ref{fig:geom count6}, se cambia la forma del punto a un triángulo con el parámetro {shape =2} y el grosor de la línea del triángulo con el parámetro {stroke}. El parámetro {stroke}index{stroke} es para modificar el grosor de la línea alrededor del punto.
+
+```{r geom count6}
+Anolis %>%
+  select(WEIGHT, SVL, SEASON, Survey_Site)%>%
+  filter(WEIGHT<4 & SVL>20)%>%
+ggplot(aes(SVL, WEIGHT, colour=SEASON))+
+  geom_count(shape= 20, alpha=.5,
+             aes(size=..prop.., group=Survey_Site))+
+  ylab("Peso en gramos")+
+  xlab("Tamaño del hocico a la cloaca")+
+  facet_wrap(~Survey_Site)+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+A continuación se resumen las opciones y parámetros más importantes de geom_count:
+
+
+* ggplot(el archivo de datos, aes(x= la variable secuencial, y = la variable secuencial más de un grupo, color= si hay necesidad))
+ * geom_count(x, y, alpha, colour, fill, shape, size, stroke)
+ 
+    1. alpha: la intensidad de los colores (explicado más adelante)
+    2. colour: color de las líneas
+    3. fill: para rellenar de color
+    4. shape: la forma de los puntos
+    5. size: el tamaño de los puntos
+    6. stroke: para cambiar el grosor del borde del punto
+
+
+
+## Gráficos de una variable continua o discreta 
+Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (medidas de largo o ancho, conteos, etc.) o discretos (agrupados por categoría).  A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.
+
+
+
+# Gráficos de Puntos
+
+
+## Gráficos de puntos:  Dotplot de Wilkinson con geom_dotplot
+En el gráfico de puntos, conocido como Wilkinson dotplot, la posición de los compartimentos, o {bins, depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de {Y. Esto se demuestra en la Figura ref{fig:dipodium-puntos utilizando los datos de la orquídea emph{Dipodium.  Note que se podría haber usado geom_dotplot sin parámetros y los puntos quedarían representados de color negro. El parámetro emph{fill cambia el color de los puntos y el parámetro emph{colour cambia el color de la línea que rodea el círculo.
+
+```{r dipodium-puntos}
+
+head(dipodium) # data is from ggversa library
+nrow(dipodium)
+#tail(dipodium)
+
+a=ggplot(dipodium, aes(Number_of_fruits))
+
+a+geom_dotplot(fill="blue", colour="yellow",
+                stackratio=.5) +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+Con la opción {stackdir uno puede ubicar los puntos de forma diferente; por ejemplo, centrados al eje de {Y como se muestra en la Figura ref{fig:dipodium-puntos8.  Para especificar la dirección en que se quieren ubicar los datos, se indica que los puntos comienzan al centro con el parámetro emph{center; si comienzan arriba, con emph{down; si abajo, con emph{up; y si al centro con los puntos alineados, con emph{centerwhole.  En el ejemplo de la  Figura ref{fig:dipodium-puntos8 se centralizaron los puntos.
+
+```{r dipodium-puntos8}
+# centerwhole, up, down, center, 
+a=ggplot(dipodium, aes(Number_of_fruits))
+a+geom_dotplot(fill="red", colour="black",
+                stackdir="center", stackratio = 0.5) + # stackdir is to identify where point are distributed from
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+A continuación se demostrará cómo modificar algunas variables utilizando {geom_dotplot.  Cuando se utilicen otras funciones tipo {geom, muchas de las opciones explicadas a continuación pueden ser viables y aplicables.  Comencemos con el gráfico de la Figura ref{fig:dipodium-puntos1. Para tener la lista de los nombres de las columnas se usa la función {namesindex{names para así descubrir el nombre de cada columna en el archivo.  Posteriormente se cambia el tamaño de los puntos con {dotsize, a la vez que se cambia la orientación de los datos como se muestra en la misma figura.  También se cambia la intensidad del color usando {alpha, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción {fill (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue.
+
+```{r dipodium-puntos1}
+
+names(dipodium)
+
+a=ggplot(dipodium, aes(Species_Name, Number_of_fruits))
+a+geom_dotplot(fill="red", colour="black",
+               dotsize=1, stackdir="down",  stackratio = 0.7) +
+  labs(x="Especie de orquídea", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+Note que en la gráfica anterior, Figura ref{fig:dipodium-puntos1, aparece un grupo en que no se sabía cuál especie de orquídea era.  Entonces, se identificó como {NA en el gráfico (la columna de puntos de la derecha).  Normalmente uno no va a querer mostrar esos datos al menos que haya una razón para ello.  Esos datos se pueden remover utilizando una opción de excluir datos innecesarios del archivo antes de generar el gráfico.  El signo de exclamación emph{!index{!is.na es para indicarle que excluya algo, en este caso el valor es {NA cuando se usa con la opción {is.na.  Seguido de eso va el nombre del archivo, el signo de dólar y después el nombre de la columna que contiene los {NAs. Se aprovecha y se usa también la opción {binaxis para agrupar los datos en el eje de {X o el eje de {Y; en la Figura ref{fig:dipodium-puntos2 se agruparon los puntos en el eje de {Y como se muestra a continuación, pero centrados los puntos de acuerdo a su especie:
+
+
+### HERE
+
+```{r dipodium-puntos2}
+
+#dipodium$Species_Name
+
+a=ggplot(dipodium[!is.na(dipodium$Species_Name),],
+         aes(Species_Name, Number_of_fruits, na.omit=TRUE))
+
+a+geom_dotplot(fill="red", colour="black",
+               dotsize=.5, stackdir="center", alpha=.5, binaxis = "y") +
+  labs(x="Especie de orquídea", y="Número de frutos")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+ El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos.  Eso se puede cambiar utilizando la opción {binwidth ({bin width o el ancho del compartimento).  Cuando el método (o sea, si se especifica la opción {method) para representar los puntos es densidad de puntos (opción {dotdensity), entonces {binwidth es el máximo del ancho de los {bins.  Alternativamente, cuando el método se especifica como {histodot, el {binwidth organizará los puntos a una distancia fija de los {bins.  A continuación, en la Figura ref{fig:dipodium-puntos4, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2.0 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente.  Además, se cambió el tamaño de los puntos con emph{dotsize a 0.2.
+
+```{r dipodium-puntos4}
+
+a=ggplot(dipodium, aes(Number_of_fruits))
+a+geom_dotplot(binwidth = 2, dotsize=0.1) +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+La opción de {stackratio es para especificar el grado de solapamiento de los puntos uno sobre el otro, o el espacio que separa cada punto. A la Figura ref{fig:dipodium-puntos4 mostrada anteriormente, ahora se le añade en la Figura ref{fig:dipodium-puntos5 que las dos especies estén de color diferente usando {fill.  Además, para que los puntos no se solapen unos con otros se usa la función {position= {dodge.
+
+```{r dipodium-puntos5}
+
+a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
+a+geom_dotplot(binwidth = .3, stackratio = .7, position = "dodge") +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+Ahora veremos cómo ubicar los puntos uno encima de los otros pero que a la misma vez la cantidad de puntos cambie de acuerdo al grupo.  Continuaremos con el ejemplo anterior de las orquídeas emph{Dipodium. En la Figura ref{fig:dipodium-puntos6 también se usa la opción {stackgroups en combinación con {binwidth y {method para lograr ese efecto, tal como se muestra a continuación:
+
+```{r dipodium-puntos6}
+a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
+a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = "histodot", stackratio = 0.5) +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+Otra alternativa para lograr la misma representación de poner los puntos uno encima de los otros por grupo es utilizando la opción {binpositions= {all, tal como se muestra a continuación en la Figura ref{fig:dipodium-puntos7:
+
+```{r dipodium-puntos7}
+
+a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
+a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = "all") +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+A continuación se resumen las opciones y parámetros más importantes de geom_dotplot:
+
+
+  * ggplot(el archivo de datos, aes(la variable continua))
+  * geom_dotplot (x, y, alpha, color, fill, na.rm, binwidth, binaxis, method, binposition, stackdir, stackratio, dotsize, stackgroup)
+    + alpha: la intensidad del color
+    + fill:  el color de los puntos
+    + color: el color de la línea alrededor (en este caso alrededor de los puntos)
+    + na.rm: remueve los datos NA con una advertencia, el valor predeterminado es {FALSE}; si se define como {TRUE}, los remueve sin advertencia
+    + binwidth: el ancho de los compartimentos donde por omisión el rango es de 1/30 el rango de los datos
+    + binaxis: determina si se agrupa en el eje de {X} (de forma predeterminada) o en el eje de {Y}
+    + method: el método predeterminado es {dotdensity}, donde los {bins} estarán organizados por la densidad de los puntos; cuando es {histodot}, estarán organizados por una distancia fija de los {bins}
+    + binposition: cuando {method} es {dotdensity}, {bygroup} (el predeterminado) posiciona los grupos {bins} por separado; cuando el {method} es {all}, determina las posiciones de los bins con todos los datos sin tomar en cuenta los diferentes grupos a que pertenecen los datos; este último parámetro se usa cuando hay más de un grupo.
+    + stackdir: determina en qué dirección se apilan los puntos; para arriba es {up} (predeterminado), para abajo es {down}, para el centro es {center}, y en el centro con los puntos alineados es {centerwhole}
+    + stackratio: determina cuán cercano se amplían los datos; el predeterminado es 1, donde los puntos apenas se tocan; si se quieren más cercanos, se usa un número más pequeño; si se quieren más separados, se usa un número más grande
+    + dotsize: el tamaño de los puntos relativo al {binwidth}; el valor predeterminado es 1
+    + stackgroup: determina si los puntos deberían estar apilados en una variable de grupo.
