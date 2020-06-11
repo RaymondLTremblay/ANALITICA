@@ -12,15 +12,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Definición de la que es la estadistica
 
+<<<<<<< HEAD
 El estadística es relativamente un nuevo concepto y un poco más
+=======
+La estadística es, relativamente hablando, un nuevo concepto y un poco más...
+>>>>>>>
 
 
-Another change
+Another change << esto hay que ponerlo en español
 
 
 ## Algunos personas importantes
 
-
+Esto lo escribió Julián.
 
 ## Dessarollo tematico 
 

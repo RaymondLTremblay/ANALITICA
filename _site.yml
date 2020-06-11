@@ -3,25 +3,11 @@ name: "ANALITICA Fundación"
 navbar: 
   left: 
     - 
-      href: Descripción.html
-      text: Descripción
-    - 
       menu: 
         - 
           href: Introducción.html
           text: ¿Qué es la Estadística?
-          
-          
-      text: "Estadistica basica"
-    - 
-      menu: 
-        - 
-          href: ggplo2.html
-          text: Introducción a Gráficos
-      text: Producción de Gráficos
-    - 
-      menu: 
-        - 
+        -   
           href: Tema_1_Intro.html
           text: "Introducción a BIOL 3740"
         - 
@@ -32,8 +18,20 @@ navbar:
           text: "Explorando los datos con gráficos"
         - 
           href: Tema_4_Supuestos.html
-          text: "Los Supuestos de las pruebas parametricas"
-      text: "Los Temas"
+          text: "Los Supuestos de las pruebas paramétricas"
+      text: "Estadistica basica"
+    - 
+      menu: 
+        - 
+          href: ggplo2.html
+          text: "Introducción a Gráficos"
+      text: "Visualización"
+    - 
+      menu: 
+        - 
+          href: podcast1.html
+          text: "t-test Podcast"
+      text: "Podcasts"
     - 
       menu: 
         - 
@@ -42,15 +40,12 @@ navbar:
         - 
           href: RMarkdown.html
           text: "Lo básico de RMarkdown"
-          
         - 
           href: Tendencias_Centrales.html
           text: " Tendencias Centrales"
-          
         - 
           href: Medidas_Dispersión.html
-          text: " Medidas de Dispersión"  
-          
+          text: " Medidas de Dispersión"
       text: Ejercicios
     - 
       menu: 

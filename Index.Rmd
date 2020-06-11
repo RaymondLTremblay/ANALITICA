@@ -12,6 +12,40 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
+# Analítica Fundación
+## Quienes Somos
+
+2-3 sentences
+
+### Descripción de los objetivos de la Fundación
+
+Más en detalle
+
+## Fecha de Incorporación: 
+
+
+# Servicios
+
+## Talleres
+  * Talleres de Estadística Cuantitativos y Cualitativos
+  * Talleres de Visualización de datos
+  * Talleres de introducción a programados de análisis y más
+    - R 
+    - RStudio
+    - RMarkdown
+    - Python
+    - GitHub
+
+    
+## Análisis Especializados    
+  * Análisis de datos para científicos
+  * Análisis de datos para corporaciones
+  
+## Evaluación e impacto externa de actividades
+  * fghjkl
+  
+  
+# Contactos
 
 **Presidente:** Raymond L. Tremblay, PhD   
 **Coreo electrónico**: raymond.tremblay_at_gmail_dot_com	
@@ -22,14 +56,15 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 **Tesorero:**Julian Hernández-Serrano, PhD   
 **Coreo electrónico**: analiticafundacion_at_gmail_dot_com 
 
-# La Fundación
 
-## Fecha de Incorporación: 
 
-### Descripción de los objetivos de la Fundación
 
-###### Objetivo 1:
 
+*******
+
+
+
+TODO lo de abajo tiene que ser movido a la pestaña de Talleres
 
 
 
