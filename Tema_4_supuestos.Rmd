@@ -234,7 +234,7 @@ round(stat.desc(dlf[, c("day1", "day2", "day3")], basic = FALSE, norm = TRUE), d
 library(ggplot2)
 library(car)
 library(readr)
-RExam <- read_csv("~/Google Drive/Biometry/Biometria 2015/Biometria_2015_RStudio/Data files/RExam.csv")
+RExam <- read_csv("Data_files_csv/RExam.csv")
 
 rexam=RExam
 head(rexam)

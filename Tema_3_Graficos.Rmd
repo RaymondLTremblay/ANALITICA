@@ -51,7 +51,8 @@ tail(Exam_Anxiety, n=2)
 ```{r the data}
 
 library(readr)
-Anxiety <- read_csv("~/Google Drive/Classes/Biometria/2019_Agosto_Biometria/Anxiety.csv")
+Anxiety <- Exam_Anxiety
+
 
 examData = Anxiety
 Exam_Anxiety = Anxiety
