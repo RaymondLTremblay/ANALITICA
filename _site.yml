@@ -28,6 +28,9 @@ navbar:
         - 
           href: Graficos-por-conteos.html
           text: "Gráficos para conteos"
+        - 
+          href: Grafico-de-puntos-de-Wilkinson.html
+          text: "Gráficos de puntos de Wilkinson"
       text: "Visualización"
     - 
       menu: 
