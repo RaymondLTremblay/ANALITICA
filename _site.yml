@@ -23,8 +23,8 @@ navbar:
     - 
       menu: 
         - 
-          href: ggplo2.html
-          text: "Introducción a Gráficos"
+          href: ggplot2.html
+          text: "Introducción a la visualización de datos"
         - 
           href: Graficos-por-conteos.html
           text: "Gráficos para conteos"

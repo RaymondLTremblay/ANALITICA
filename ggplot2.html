@@ -11,7 +11,7 @@
 
 
 
-<title>Intro a ggplot2</title>
+<title>Introducción a la visualización de datos</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -248,6 +251,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -255,6 +321,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -303,7 +379,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="ggplo2.html">Introducción a Gráficos</a>
+      <a href="ggplot2.html">Introducción a la visualización de datos</a>
     </li>
     <li>
       <a href="Graficos-por-conteos.html">Gráficos para conteos</a>
@@ -385,17 +461,55 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Intro a ggplot2</h1>
+<h1 class="title toc-ignore">Introducción a la visualización de datos</h1>
 
 </div>
 
 
-<div id="introducción-a-ggplot2" class="section level2">
-<h2>Introducción a ggplot2</h2>
+<div id="que-es-visualizar-datos" class="section level1">
+<h1>¿Que es visualizar datos?</h1>
+</div>
+<div id="ejemplos-históricos" class="section level1">
+<h1>Ejemplos históricos</h1>
+</div>
+<div id="ejemplos-de-gráficos-horibles" class="section level1">
+<h1>Ejemplos de Gráficos horibles</h1>
+</div>
+<div id="errores-típicos-en-la-produccion-de-gráficos." class="section level1">
+<h1>Errores típicos en la produccion de gráficos.</h1>
+</div>
+<div id="gráficos-en-3d" class="section level1">
+<h1>Gráficos en 3D</h1>
+<p>Uno de los error principal cuando se hace gráficos es concentrar se en la decoración del gráfico para dar una impresión grandiosa y no en pasar un mensaje a la audiencia. Algunos de los errores incluye</p>
+<ul>
+<li>Dimensiones innecesarias como los gráficos 3D para enseñar el conteo. Este es un caso que uno ve regularmente en muchos sitios, artículos científicos, revistas y periódicos y trabajos de estudiantes. <strong>NO</strong> hay ninguna razón de añadir una otra dimensión en esta gráfica ya que no ayuda a entender los datos y hasta puede causar dificultad de entender cual son los valores reales que representa las barras.</li>
+</ul>
+<p><img src="Graficos/A3D.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="errores-de-escala" class="section level1">
+<h1>Errores de escala</h1>
+<p>Muchas veces la variable en “X” tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos un linea que representa la cantidad de casos de una enfermedad, y el eje de x el año de recolección de los datos. Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos puntos.</p>
+<p>En el siguiente gráfico se resuelve el problema dejando que la escala se ajuste a la cantidad de años.</p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="la-cantidad-de-ticks." class="section level1">
+<h1>La cantidad de “ticks”.</h1>
+<p>La cantidad de grupos en las escalas es frecuentamente un problema donde o hay demasiado o no suficiente. Vemos aquí dos ejemplos de estos problemas. En el primero no se puede leer con facilidad la secuencia de los datos en la variable “x”. En el segunda gráfico no se enseña tanta información</p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="escala-de-y-incluye-el-cero-o-no" class="section level1">
+<h1>Escala de “Y”, ¿incluye el cero o no?</h1>
+<p>En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados. Aquí van a observar dos gráfica, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeño y en la segunda con los mismo datos no se observa esta diferencia. El único componente que cambio fue la escala.</p>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot;</code></pre>
+<pre><code>##  [1] 90.32880 89.30773 96.36707 81.29303 85.53447 87.34681 84.62220 88.71928
+##  [9] 92.61805 94.29548</code></pre>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /> ## Los números en tablas</p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -428,6 +542,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
