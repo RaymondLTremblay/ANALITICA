@@ -121,7 +121,7 @@ knitr::include_graphics("Graficos/Minard_Carne_Paris.png")
 # Ejemplos de Gráficos horibles
 
 
-## Errores típicos en la produccion de gráficos. 
+## Errores típicos en la producción de gráficos. 
 
 ## Gráficos en 3D
 
@@ -137,7 +137,7 @@ knitr::include_graphics("Graficos/A3D.png")
  
 
 
-## Errores de escala
+## Errores de escala en los ejes
 
 Muchas veces la variable en "X" tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos un linea que representa la cantidad de casos de una enfermedad, y el eje de x el año de recolección de los datos.  Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos puntos. 
 
