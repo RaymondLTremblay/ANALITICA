@@ -466,8 +466,8 @@ div.tocify {
 </div>
 
 
-<div id="que-es-visualizar-datos" class="section level1">
-<h1>¿Que es visualizar datos?</h1>
+<div id="que-es-visualizar-datos-uy-cual-es-el-problema" class="section level1">
+<h1>¿Que es visualizar datos uy cual es el problema?</h1>
 <p>La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si patrones. Naturalmente, no se necesita gráficos para entender ciertos ideas. Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y entender los datos con valores numéricos o lista no es ayuda.</p>
 <p>Por ejemplo trata de explicar cual es la diferencia (si hay) en las dos listas siguientes.</p>
 <pre><code>## Warning in doTryCatch(return(expr), name, parentenv, handler): unable to load shared object &#39;/Library/Frameworks/R.framework/Resources/modules//R_X11.so&#39;:
@@ -475,18 +475,20 @@ div.tocify {
 ##   Referenced from: /Library/Frameworks/R.framework/Versions/4.0/Resources/modules/R_X11.so
 ##   Reason: image not found</code></pre>
 <pre><code>## $V1
-##   [1] 26 22 27 26 20 27 24 25 25 22 22 22 24 22 20 22 24 25 20 21 25 24 25 23 27
-##  [26] 25 21 24 20 25 25 23 21 22 24 20 21 27 24 25 26 25 20 20 22 26 20 23 27 27
-##  [51] 20 26 23 20 20 27 23 21 21 24 26 20 23 20 21 23 27 24 23 25 25 21 26 23 22
-##  [76] 21 21 24 24 23 20 21 26 26 22 22 23 27 20 22 26 21 20 23 20 23 20 22 23 23</code></pre>
+##   [1] 22 21 25 24 22 23 24 27 22 21 22 20 24 24 20 25 23 21 26 25 26 20 23 27 22
+##  [26] 21 20 25 25 22 25 26 21 25 25 27 25 23 22 27 27 24 20 22 24 26 21 26 21 20
+##  [51] 24 26 25 25 21 21 27 21 27 22 22 26 22 20 23 27 23 26 20 24 27 23 22 24 23
+##  [76] 20 22 27 26 23 27 23 22 26 25 27 25 21 24 22 24 26 24 23 23 21 20 23 26 23</code></pre>
 <hr />
 <pre><code>## $V1
-##   [1] 22 21 23 23 21 23 24 23 26 23 21 24 26 25 25 21 20 24 25 23 25 21 25 25 25
-##  [26] 21 23 21 23 25 21 23 25 26 23 23 20 24 23 23 26 26 26 22 26 24 21 23 25 25
-##  [51] 20 21 20 23 25 21 25 25 23 25 21 20 22 21 25 20 20 23 22 23 25 21 26 21 22
-##  [76] 26 25 24 26 25 21 25 23 26 26 25 25 20 23 26 26 22 20 25 24 26 24 26 25 20</code></pre>
+##   [1] 25 20 26 24 26 22 23 20 23 23 20 20 21 24 24 25 21 24 20 24 23 23 21 24 24
+##  [26] 21 22 20 21 25 26 25 23 25 26 25 20 25 20 25 24 24 23 22 23 20 23 24 20 20
+##  [51] 24 25 21 24 25 26 20 23 22 20 26 20 20 22 23 25 24 21 20 24 22 22 21 25 22
+##  [76] 25 22 21 26 20 24 21 25 20 21 22 20 20 21 24 23 24 26 26 22 20 26 21 23 20</code></pre>
 <p>Probablemente no es evidente a primera vista cual es la diferencia.</p>
 <hr />
+<div id="resumir-la-información-en-tablas" class="section level2">
+<h2>Resumir la información en tablas</h2>
 <p>Una de las alternativas es resumir los datos en una tablas</p>
 <pre class="r"><code>df%&gt;%
   select(V1, Salon)%&gt;%
@@ -494,7 +496,9 @@ div.tocify {
   summarize(promedio=mean(V1), 
              mínimo=min(V1),
              máximo=max(V1))%&gt;%
-  gt()</code></pre>
+  gt()%&gt;%
+  tab_header(
+    title = &quot;Edad de los Estudiantes&quot;)</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p><style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -831,7 +835,14 @@ div.tocify {
 }
 </style>
 <div id="cnponzlhqk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Edad de los Estudiantes</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Salon</th>
@@ -843,25 +854,29 @@ div.tocify {
   <tbody class="gt_table_body">
     <tr>
       <td class="gt_row gt_left">Salon_1</td>
-      <td class="gt_row gt_right">23.10</td>
+      <td class="gt_row gt_right">23.53</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">27</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Salon_2</td>
-      <td class="gt_row gt_right">23.36</td>
+      <td class="gt_row gt_right">22.72</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">26</td>
     </tr>
   </tbody>
   
   
-</table></div> Lo que uno observa es que las dos listas tienen valores muy similares pero el máximo valor en cada lista es diferente.</p>
+</table></div> Lo que uno observa es que las dos listas tienen valores muy similares pero el máximo valor en cada lista es diferente. Si hay muchos valores en una lista típicamente los humanos no podemos entender estos patrones. Por consecuencia es importante buscar maneras de resumir los datos en algo más conciso.</p>
+</div>
+<div id="visualizar-muchos-datos" class="section level2">
+<h2>Visualizar muchos datos</h2>
 <p>Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una <strong>Boxplot</strong> (Gráfico de caja).</p>
 <pre class="r"><code>ggplot(df, aes(y=V1, x=Salon))+
   geom_boxplot()+
   ylab(&quot;Edad de los estudiantes&quot;)</code></pre>
 <p><img src="ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="ejemplos-históricos" class="section level1">
 <h1>Ejemplos históricos</h1>
@@ -880,35 +895,109 @@ div.tocify {
 </div>
 <div id="ejemplos-de-gráficos-horibles" class="section level1">
 <h1>Ejemplos de Gráficos horibles</h1>
+<div id="errores-típicos-en-la-produccion-de-gráficos." class="section level2">
+<h2>Errores típicos en la produccion de gráficos.</h2>
 </div>
-<div id="errores-típicos-en-la-produccion-de-gráficos." class="section level1">
-<h1>Errores típicos en la produccion de gráficos.</h1>
-</div>
-<div id="gráficos-en-3d" class="section level1">
-<h1>Gráficos en 3D</h1>
+<div id="gráficos-en-3d" class="section level2">
+<h2>Gráficos en 3D</h2>
 <p>Uno de los error principal cuando se hace gráficos es concentrar se en la decoración del gráfico para dar una impresión grandiosa y no en pasar un mensaje a la audiencia. Algunos de los errores incluye</p>
 <ul>
 <li>Dimensiones innecesarias como los gráficos 3D para enseñar el conteo. Este es un caso que uno ve regularmente en muchos sitios, artículos científicos, revistas y periódicos y trabajos de estudiantes. <strong>NO</strong> hay ninguna razón de añadir una otra dimensión en esta gráfica ya que no ayuda a entender los datos y hasta puede causar dificultad de entender cual son los valores reales que representa las barras.</li>
 </ul>
 <p><img src="Graficos/A3D.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="errores-de-escala" class="section level1">
-<h1>Errores de escala</h1>
+<div id="errores-de-escala" class="section level2">
+<h2>Errores de escala</h2>
 <p>Muchas veces la variable en “X” tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos un linea que representa la cantidad de casos de una enfermedad, y el eje de x el año de recolección de los datos. Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos puntos.</p>
 <p>En el siguiente gráfico se resuelve el problema dejando que la escala se ajuste a la cantidad de años.</p>
 <p><img src="ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="la-cantidad-de-ticks." class="section level1">
-<h1>La cantidad de “ticks”.</h1>
+<div id="la-cantidad-de-ticks." class="section level2">
+<h2>La cantidad de “ticks”.</h2>
 <p>La cantidad de grupos en las escalas es frecuentamente un problema donde o hay demasiado o no suficiente. Vemos aquí dos ejemplos de estos problemas. En el primero no se puede leer con facilidad la secuencia de los datos en la variable “x”. En el segunda gráfico no se enseña tanta información</p>
 <p><img src="ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="escala-de-y-incluye-el-cero-o-no" class="section level1">
-<h1>Escala de “Y”, ¿incluye el cero o no?</h1>
+<div id="probelma-de-escala-incluir-el-cero-o-no" class="section level2">
+<h2>Probelma de escala, incluir el cero o no?</h2>
 <p>En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados. Aquí van a observar dos gráfica, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeño y en la segunda con los mismo datos no se observa esta diferencia. El único componente que cambio fue la escala.</p>
 <p><img src="ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div id="los-números-en-tablas" class="section level2">
-<h2>Los números en tablas</h2>
+</div>
+<div id="construcción-de-tablas" class="section level2">
+<h2>Construcción de Tablas:</h2>
+<p>Se menciona errores comunes cuando se prepara tablas</p>
+<ol style="list-style-type: decimal">
+<li>Errores comunes en tablas es incluir exceso de valores significativos en diferentes formato en la misma columna.</li>
+<li>Los valores numéricos no están justificado a la derecha.</li>
+<li>Las escala de los valores no están mencionados.</li>
+</ol>
+<p>Aquí presento dos tablas una con los errores y la segunda son estos errores corregidos.</p>
+<div id="tabla-con-errores" class="section level3">
+<h3>Tabla con errores</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">Tamaño de muestra</th>
+<th align="center">El largo de la hoja</th>
+<th align="left">valor de p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Especie 1</td>
+<td align="left">27273</td>
+<td align="center">11.03</td>
+<td align="left">0.000000001</td>
+</tr>
+<tr class="even">
+<td>Especie 2</td>
+<td align="left">169019</td>
+<td align="center">13.5</td>
+<td align="left">0.098979676</td>
+</tr>
+<tr class="odd">
+<td>Especie</td>
+<td align="left">1.087^6</td>
+<td align="center">14.5</td>
+<td align="left">.0300001</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="tabla-con-errores-solucionados" class="section level3">
+<h3>Tabla con errores solucionados</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Tamaño de muestra</th>
+<th align="right">El largo de la hoja (cm)</th>
+<th align="right">valor de p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mujeres</td>
+<td align="right">27273</td>
+<td align="right">11.0</td>
+<td align="right">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Hombres</td>
+<td align="right">169019</td>
+<td align="right">13.5</td>
+<td align="right">0.099</td>
+</tr>
+<tr class="odd">
+<td align="left">Especie</td>
+<td align="right">1087669</td>
+<td align="right">14.5</td>
+<td align="right">0.030</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 

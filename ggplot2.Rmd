@@ -21,7 +21,7 @@ library(ggplot2)
 
 
 
-# ¿Que es visualizar datos?
+# ¿Que es visualizar datos uy cual es el problema?
 
 La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si patrones. Naturalmente, no se necesita gráficos para entender ciertos ideas.  Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y entender los datos con valores numéricos o lista no es ayuda. 
 
@@ -54,7 +54,7 @@ Probablemente no es evidente a primera vista cual es la diferencia.
 
 
 ***
-
+## Resumir la información en tablas
 
 Una de las alternativas es resumir los datos en una tablas
 
@@ -80,11 +80,14 @@ df%>%
   summarize(promedio=mean(V1), 
              mínimo=min(V1),
              máximo=max(V1))%>%
-  gt()
+  gt()%>%
+  tab_header(
+    title = "Edad de los Estudiantes")
   
 ```
-Lo que uno observa es que las dos listas tienen valores muy similares pero el máximo valor en cada lista es diferente.
+Lo que uno observa es que las dos listas tienen valores muy similares pero el máximo valor en cada lista es diferente. Si hay muchos valores en una lista típicamente los humanos no podemos entender estos patrones. Por consecuencia es importante buscar maneras de resumir los datos en algo más conciso. 
 
+## Visualizar muchos datos
 
 Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una **Boxplot** (Gráfico de caja).  
 
@@ -118,9 +121,9 @@ knitr::include_graphics("Graficos/Minard_Carne_Paris.png")
 # Ejemplos de Gráficos horibles
 
 
-# Errores típicos en la produccion de gráficos. 
+## Errores típicos en la produccion de gráficos. 
 
-# Gráficos en 3D
+## Gráficos en 3D
 
 Uno de los error principal cuando se hace gráficos es concentrar se en la decoración del gráfico para dar una impresión grandiosa y no en pasar un mensaje a la audiencia. Algunos de los errores incluye
 
@@ -134,7 +137,7 @@ knitr::include_graphics("Graficos/A3D.png")
  
 
 
-# Errores de escala
+## Errores de escala
 
 Muchas veces la variable en "X" tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos un linea que representa la cantidad de casos de una enfermedad, y el eje de x el año de recolección de los datos.  Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos puntos. 
 
@@ -175,7 +178,7 @@ l2=ggplot(df, aes(x,y))+
 grid.arrange(l1,l2,ncol=1)
 ```
 
-#  La cantidad de "ticks".
+##  La cantidad de "ticks".
 
 La cantidad de grupos en las escalas es frecuentamente un problema donde o hay demasiado o no suficiente.  Vemos aquí dos ejemplos de estos problemas. En el primero no se puede leer con facilidad la secuencia de los datos en la variable "x". En el segunda gráfico no se enseña tanta información
 
@@ -206,7 +209,7 @@ grid.arrange(a,b,ncol=1)
 ```
 
 
-# Escala de "Y", ¿incluye el cero o no?
+## Probelma de escala, incluir el cero o no?
 
 
 En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados.  Aquí van a observar dos gráfica, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo "D" tiene valores más pequeño y en la segunda con los mismo datos no se observa esta diferencia. El único componente que cambio fue la escala.   
@@ -239,9 +242,31 @@ grid.arrange(b,c, nrow=1)
 ```
 
 
+## Construcción de Tablas:
 
+Se menciona errores comunes cuando se prepara tablas
 
-## Los números en tablas
+  1. Errores comunes en tablas es incluir exceso de valores significativos en diferentes formato en la misma columna.
+  2. Los valores numéricos no están justificado a la derecha.
+  3. Las escala de los valores no están mencionados.
+  
+  Aquí presento dos tablas una con los errores y la segunda son estos errores corregidos. 
+  
+  
+### Tabla con errores 
+  
+|         | Tamaño de muestra | El largo de la hoja | valor de p  |
+|---------|:-------|:--------:|:-------------|
+| Especie 1 | 27273 |  11.03  | 0.000000001 |
+| Especie 2 | 169019 | 13.5  | 0.098979676 |
+| Especie  | 1.087^6 | 14.5  | .0300001 |
 
+***
 
+### Tabla con errores solucionados
 
+|         | Tamaño de muestra | El largo de la hoja (cm) | valor de p  |
+|:---------|-------:|--------:|-------------:|
+| Mujeres | 27273 | 11.0  | <0.001 |
+| Hombres | 169019 | 13.5 | 0.099 |
+| Especie  | 1087669 | 14.5  | 0.030 |
