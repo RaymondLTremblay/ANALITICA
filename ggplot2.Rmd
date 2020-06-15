@@ -56,7 +56,7 @@ Probablemente no es evidente a primera vista cual es la diferencia.
 ***
 ## Resumir la información en tablas
 
-Una de las alternativas es resumir los datos en una tablas
+Una de las alternativas es resumir los datos en una tablas, por ejemplo por grupos
 
 ```{r include=FALSE}
 Edad_Salon_1$Seq=seq(1:100)
