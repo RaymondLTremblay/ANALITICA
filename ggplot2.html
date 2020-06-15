@@ -468,9 +468,415 @@ div.tocify {
 
 <div id="que-es-visualizar-datos" class="section level1">
 <h1>¿Que es visualizar datos?</h1>
+<p>La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si patrones. Naturalmente, no se necesita gráficos para entender ciertos ideas. Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y entender los datos con valores numéricos o lista no es ayuda.</p>
+<p>Por ejemplo trata de explicar cual es la diferencia (si hay) en las dos listas siguientes.</p>
+<pre><code>## Warning in doTryCatch(return(expr), name, parentenv, handler): unable to load shared object &#39;/Library/Frameworks/R.framework/Resources/modules//R_X11.so&#39;:
+##   dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6): Library not loaded: /opt/X11/lib/libSM.6.dylib
+##   Referenced from: /Library/Frameworks/R.framework/Versions/4.0/Resources/modules/R_X11.so
+##   Reason: image not found</code></pre>
+<pre><code>## $V1
+##   [1] 26 22 27 26 20 27 24 25 25 22 22 22 24 22 20 22 24 25 20 21 25 24 25 23 27
+##  [26] 25 21 24 20 25 25 23 21 22 24 20 21 27 24 25 26 25 20 20 22 26 20 23 27 27
+##  [51] 20 26 23 20 20 27 23 21 21 24 26 20 23 20 21 23 27 24 23 25 25 21 26 23 22
+##  [76] 21 21 24 24 23 20 21 26 26 22 22 23 27 20 22 26 21 20 23 20 23 20 22 23 23</code></pre>
+<hr />
+<pre><code>## $V1
+##   [1] 22 21 23 23 21 23 24 23 26 23 21 24 26 25 25 21 20 24 25 23 25 21 25 25 25
+##  [26] 21 23 21 23 25 21 23 25 26 23 23 20 24 23 23 26 26 26 22 26 24 21 23 25 25
+##  [51] 20 21 20 23 25 21 25 25 23 25 21 20 22 21 25 20 20 23 22 23 25 21 26 21 22
+##  [76] 26 25 24 26 25 21 25 23 26 26 25 25 20 23 26 26 22 20 25 24 26 24 26 25 20</code></pre>
+<p>Probablemente no es evidente a primera vista cual es la diferencia.</p>
+<hr />
+<p>Una de las alternativas es resumir los datos en una tablas</p>
+<pre class="r"><code>df%&gt;%
+  select(V1, Salon)%&gt;%
+  group_by(Salon)%&gt;%
+  summarize(promedio=mean(V1), 
+             mínimo=min(V1),
+             máximo=max(V1))%&gt;%
+  gt()</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#cnponzlhqk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cnponzlhqk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cnponzlhqk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cnponzlhqk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cnponzlhqk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cnponzlhqk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cnponzlhqk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cnponzlhqk .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cnponzlhqk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cnponzlhqk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cnponzlhqk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cnponzlhqk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cnponzlhqk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cnponzlhqk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#cnponzlhqk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnponzlhqk .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnponzlhqk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#cnponzlhqk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cnponzlhqk .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#cnponzlhqk .gt_left {
+  text-align: left;
+}
+
+#cnponzlhqk .gt_center {
+  text-align: center;
+}
+
+#cnponzlhqk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cnponzlhqk .gt_font_normal {
+  font-weight: normal;
+}
+
+#cnponzlhqk .gt_font_bold {
+  font-weight: bold;
+}
+
+#cnponzlhqk .gt_font_italic {
+  font-style: italic;
+}
+
+#cnponzlhqk .gt_super {
+  font-size: 65%;
+}
+
+#cnponzlhqk .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="cnponzlhqk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Salon</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">promedio</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">mínimo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">máximo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">Salon_1</td>
+      <td class="gt_row gt_right">23.10</td>
+      <td class="gt_row gt_center">20</td>
+      <td class="gt_row gt_center">27</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Salon_2</td>
+      <td class="gt_row gt_right">23.36</td>
+      <td class="gt_row gt_center">20</td>
+      <td class="gt_row gt_center">26</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div> Lo que uno observa es que las dos listas tienen valores muy similares pero el máximo valor en cada lista es diferente.</p>
+<p>Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una <strong>Boxplot</strong> (Gráfico de caja).</p>
+<pre class="r"><code>ggplot(df, aes(y=V1, x=Salon))+
+  geom_boxplot()+
+  ylab(&quot;Edad de los estudiantes&quot;)</code></pre>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ejemplos-históricos" class="section level1">
 <h1>Ejemplos históricos</h1>
+<div id="ejemplo-de-la-campaña-de-napoleon-para-invadir-a-rusia" class="section level2">
+<h2>Ejemplo de la Campaña de Napoleon para invadir a Rusia</h2>
+<p>Esta sección no es exhaustiva y solamente para representar algunos ejemplos de gráficos y su desarrollo. Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó en lo que se llama gráficas informativas (Information Graphics). El es reconocido por haber sido muy inovador en el uso de greaficos para demostrar patrones. El más famoso de este fue sobre la campaña de guerra de Napoleon para invadir a Rusia (1812-1813).</p>
+<p>En este mapa, vemos el movimiento de la campaña de Napoleon para invadir a Rusia. El movimiento representa la cantidad de hombres que comenzaron el camino hacia Rusia (la linea marón clara) hasta Moscú, el viaje de regreso (el color negro). El ancho de la barra representa la cantidad de hombres presente en el ejercicio militar. Cuando comenzaron (saliendo de Paris) eran más de 422,000 soldados, al llegar a Moscú ya era solamente 100,000 soldados. Cuando finalmente, al regresar a Paris, despues de invadir a Rusia, Napoleon tenia solamente 10,000 soldados con él.</p>
+<p>Nota el gráfico debajo, este representa la temperatura de regreso de Moscú, y miran como al bajar la temperatura más y más los soldados murieron. La mortandad en gran parte fue por no estar preparado para el frio.</p>
+<p><img src="Graficos/Carte_Napoleon.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="donde-proviene-la-carne-que-consumen-la-gente-de-paris" class="section level2">
+<h2>Donde proviene la carne que consumen la gente de Paris</h2>
+<p>Un otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color negro representa carne vaca, el color verde es la ternera y el rojo es el cordero. El uso “Pie Charts” para identificar la proporción de cada grupo y el tamaño del “Pie Chart” para identificar la cantidad relativa con los otros departamentos (Organización política local).</p>
+<p><img src="Graficos/Minard_Carne_Paris.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="ejemplos-de-gráficos-horibles" class="section level1">
 <h1>Ejemplos de Gráficos horibles</h1>
@@ -490,20 +896,20 @@ div.tocify {
 <h1>Errores de escala</h1>
 <p>Muchas veces la variable en “X” tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos un linea que representa la cantidad de casos de una enfermedad, y el eje de x el año de recolección de los datos. Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos puntos.</p>
 <p>En el siguiente gráfico se resuelve el problema dejando que la escala se ajuste a la cantidad de años.</p>
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="la-cantidad-de-ticks." class="section level1">
 <h1>La cantidad de “ticks”.</h1>
 <p>La cantidad de grupos en las escalas es frecuentamente un problema donde o hay demasiado o no suficiente. Vemos aquí dos ejemplos de estos problemas. En el primero no se puede leer con facilidad la secuencia de los datos en la variable “x”. En el segunda gráfico no se enseña tanta información</p>
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="escala-de-y-incluye-el-cero-o-no" class="section level1">
 <h1>Escala de “Y”, ¿incluye el cero o no?</h1>
 <p>En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados. Aquí van a observar dos gráfica, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeño y en la segunda con los mismo datos no se observa esta diferencia. El único componente que cambio fue la escala.</p>
-<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot;</code></pre>
-<pre><code>##  [1] 90.32880 89.30773 96.36707 81.29303 85.53447 87.34681 84.62220 88.71928
-##  [9] 92.61805 94.29548</code></pre>
-<p><img src="ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /> ## Los números en tablas</p>
+<p><img src="ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="los-números-en-tablas" class="section level2">
+<h2>Los números en tablas</h2>
+</div>
 </div>
 
 
