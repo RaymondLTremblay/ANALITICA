@@ -24,7 +24,7 @@ navbar:
       menu: 
         - 
           href: Errores-tipicos-en-la-visualizacion.html
-          text: "Errores tipicos en la visualización"
+          text: "Errores típicos en la visualización"
         - 
           href: ggplot2.html
           text: "Introducción a la visualización de datos"
