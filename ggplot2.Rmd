@@ -125,7 +125,7 @@ En este mapa, vemos el movimiento de la campaña de Napoleón para invadir a Rus
 
 Nota el gráfico debajo, este representa la temperatura de regreso de Moscú, y miran como al bajar la temperatura más y más los soldados murieron. La mortandad en gran parte fue por no estar preparado para el frío. La escala de temperatura no era el de Celcius ni de Farenheit, pero una escala que se llama **Réaumus**, donde el punto de congelación y hirviendo es de 0° y 80° respectivamente. Esta escala se uso en multiples paises de Europa hasta medio del siglo 19.    
 
-```{r echo=FALSE, out.width = '70%', fig.align='center'}
+```{r echo=FALSE, out.width = '80%', fig.align='center'}
 knitr::include_graphics("Graficos/Carte_Napoleon.png")
 ```
 
@@ -133,23 +133,24 @@ knitr::include_graphics("Graficos/Carte_Napoleon.png")
 
 Un otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color **negro** representa carne vaca, el color `r colorize("el color verde", "green")` es la ternera y el `r colorize("color rojo", "red")` es el cordero.  El uso "Pie Charts" para identificar la proporción de cada grupo y el tamaño del "Pie Chart"  para identificar la cantidad relativa con los otros departamentos (Organización política local).  
 
-```{r echo=FALSE, out.width = '60%', fig.align='center'}
+```{r echo=FALSE, out.width = '70%', fig.align='center'}
 knitr::include_graphics("Graficos/Minard_Carne_Paris.png")
 ```
 
 # Gráfico Combcox 
 
-La guerra de Crimea (1853-1856) fue una de las primeras guerras donde se comenzó a contabilizar la causa de los soldados. Esta guerra tenia como conflicto general entre Rusia y sus aliados por el otro lado el Emperio Otaman, Francia, Reino Unido y Sardania (ahora parte de Italia). El objetivo al principio era sobre el acceso a las tierras Santas en Palestina por los cristianos.  Lo que es interesante de esta guerra con relación la historía de la evolución de los gráficos es el impacto que tuvo una enfermera de los Reinos Unidos que se llama Florence Nightingale (1820_1910).   Era no solamente una persona que tuvo impacto sobre el desarrollo de como se hace la ciencia de "Enfermeria" pero tuvo impacto en como visualizar los las enfermedades y mortandad. Aquí una ilustración de ella.      
+La guerra de Crimea (1853-1856) fue una de las primeras guerras donde se comenzó a contabilizar la causa de muerte de los soldados. Esta guerra tenia como conflicto entre Rusia y sus aliados por el otro lado el Emperio Otaman, Francia, Reino Unido y Sardania (ahora parte de Italia). El objetivo al principio era sobre el acceso a las tierras Santas en Palestina por los cristianos.  Lo que es interesante de esta guerra con relación la historía de la evolución de los gráficos es el impacto que tuvo una enfermera de los Reinos Unidos que se llama Florence Nightingale (1820_1910).   Era no solamente una persona que tuvo impacto sobre el desarrollo de como se hace la ciencia de "Enfermería" pero tuvo impacto en como visualizar las causas principales de las mortandad durante una guerra. Aquí una ilustración de ella.      
 
 
 ```{r echo=FALSE, out.width = '40%', fig.align='center'}
 knitr::include_graphics("Graficos/Florence_Nightingale.png")
 ```
 
-Como enfermera en las campos militares, ella se percato que la gran mayoría de los soldados se mueren no por la guerra pero por la poca calidad de condición de salud en estas situaciones.  Para tratar de impactar los políticos para que aportan más a la condiciones de los soldados ella recolecto datos y produjo unos gráfico para describir la causa de mortandad en Crimea.  Uno de estos que tuvo un impacto es sobre es el siguiente gráfico.  
+Como enfermera en las campos militares, ella se percato que la gran mayoría de los soldados mueren no por la guerra pero por la poca calidad de condición de salud en los campos de guerra.  Para tratar de impactar los políticos para que aportan más a la condiciones de los soldados ella recolecto datos y produjo unos gráfico para describir la causa de mortandad en Crimea.  Uno de estos que tuvo un impacto es sobre es el siguiente gráfico.  
 
-Lo que ella demeustra en este gráfico es cual son las causas de mortandad de los soldados en diferentes meses del año.  El color `r colorize("gris", "grey")`, represente la cantidad de soldados muertos por enfermedades (no por estar batallas), el color `r colorize("verde", "green")`, representa los soldados que murieron por otras razón no por estar en batalla no por enfermedades, y el color `r colorize("amarillo", "yellow")` son los que murieron por estas en batallas. Es claro que el siguiente gráfico que la causa principal de mortandad no es el campo de batalla, pero por otras causas.   
+Lo que ella demuestra en este gráfico es cual son las causas de mortandad de los soldados en diferentes meses del año.  El color `r colorize("gris", "grey")`, represente la cantidad de soldados muertos por enfermedades (no por estar batallas), el color `r colorize("verde", "green")`, representa los soldados que murieron por otras razón no por estar en batalla no por enfermedades, y el color `r colorize("amarillo", "yellow")` son los que murieron por estas en batallas. Es claro que la causa principal de mortandad no es el campo de batalla, pero por enfermedades no relacionados al campo de batalla. Como resultado de este gráfico se hizo unos cambios en las condiciones de los soldados reduciendo la mortandad. 
 
-```{r echo=FALSE, out.width = '40%', fig.align='center'}
+
+```{r echo=FALSE, out.width = '60%', fig.align='center'}
 knitr::include_graphics("Graficos/coxcombchart.png")
 ```
