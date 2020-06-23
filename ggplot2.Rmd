@@ -154,3 +154,27 @@ Lo que ella demuestra en este gráfico es cual son las causas de mortandad de lo
 ```{r echo=FALSE, out.width = '60%', fig.align='center'}
 knitr::include_graphics("Graficos/coxcombchart.png")
 ```
+
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+
+#Aquí se reconstruye el gráfico con herramientas modernas.  Los datos provienen de la página de Wikipedia **Crimean War**.
+
+
+Pais=c("Imperio Otamano", "Imperio Otamano","Francia","Francia", "Reino Unidos","Reino Unidos", "Sardinia","Sardania", "Rusia y aliados","Rusia y aliados")
+Fatalidad=c("En acción", "Otras Enfermedades", "En acción", "Otras Enfermedades" ,"En acción", "Otras Enfermedades", "En acción", "Otras Enfermedades", "En acción", "Otras Enfermedades")
+
+Num_soldados=c(20900, 24500,  20240, 75375, 4602, 17580, 28, 2138, 41000,89000)
+
+Coxcomb=data.frame(Pais,Fatalidad, Num_soldados)
+Coxcomb
+```
+```{r eval=FALSE, include=FALSE}
+ggplot(Coxcomb, aes(x=Num_soldados))+
+  geom_bar(aes(fill=Pais,  colour="black", width = 1))+
+  coord_polar()
+```
+
