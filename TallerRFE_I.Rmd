@@ -8,7 +8,7 @@ output:
     toc_float: yes
 ---
 
-## R 
+# R 
 R is an open-source programming environment, for statistical computing and data visualization, among other capabilities.
 
 __R has many features to recommend it (Kabacoff, 2015):__  
@@ -39,7 +39,7 @@ __chapter 1__
 ## RStudio
 Programming, editing, project management, and other procedures in R, are more easy and efficient using an integrated development environment (IDE), and the most used and versatile is [RStudio](https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf).
 
-####_Exercises_
+#### _Exercises_
 __Open RStudio:__  
 
 +  browse all the components of the interface  

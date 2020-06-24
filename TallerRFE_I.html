@@ -473,8 +473,8 @@ div.tocify {
 </div>
 
 
-<div id="r" class="section level2">
-<h2>R</h2>
+<div id="r" class="section level1">
+<h1>R</h1>
 <p>R is an open-source programming environment, for statistical computing and data visualization, among other capabilities.</p>
 <p><strong>R has many features to recommend it (Kabacoff, 2015):</strong></p>
 <ul>
@@ -490,11 +490,12 @@ div.tocify {
 </ul>
 <p>#####<strong>where to look in the book?</strong>: <strong>chapter 1</strong></p>
 <hr />
-</div>
 <div id="rstudio" class="section level2">
 <h2>RStudio</h2>
 <p>Programming, editing, project management, and other procedures in R, are more easy and efficient using an integrated development environment (IDE), and the most used and versatile is <a href="https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf">RStudio</a>.</p>
-<p>####<em>Exercises</em> <strong>Open RStudio:</strong></p>
+<div id="exercises" class="section level4">
+<h4><em>Exercises</em></h4>
+<p><strong>Open RStudio:</strong></p>
 <ul>
 <li>browse all the components of the interface<br />
 </li>
@@ -512,6 +513,7 @@ div.tocify {
 </ul>
 <p>#####<strong>where to look in the book?</strong>: <strong>chapter 2 &amp; 3 </strong></p>
 <hr />
+</div>
 </div>
 <div id="r-markdown-or-r-notebook" class="section level2">
 <h2>R Markdown (or <a href="https://bookdown.org/yihui/rmarkdown/notebook.html#using-notebooks">R Notebook</a>)</h2>
@@ -1071,16 +1073,8 @@ aggdata</code></pre>
 <h3>Using a data.table</h3>
 <p>The <strong>data.table</strong> package allows for an improved functionality of data.frames operations. First, we have to convert a data.frame into a data.table. Thereafter you can select subgroups and apply functions to them.</p>
 <pre class="r"><code># activate data.table package
-library(data.table)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;data.table&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     between, first, last</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     transpose</code></pre>
-<pre class="r"><code># conver data.frame o data.table
+library(data.table)
+# conver data.frame o data.table
 melodataDT &lt;- data.table(melodata)
 class(melodataDT)</code></pre>
 <pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
@@ -1138,20 +1132,6 @@ library(ggplot2)
 library(Rmisc)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## Loading required package: plyr</code></pre>
-<pre><code>## ------------------------------------------------------------------------------</code></pre>
-<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
-## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
-## library(plyr); library(dplyr)</code></pre>
-<pre><code>## ------------------------------------------------------------------------------</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     compact</code></pre>
 <pre class="r"><code># statistics for the bars&amp;errors graph
 melo.bars &lt;- summarySE(melodata, measurevar=&quot;alturatotal&quot;, groupvars=&quot;estado&quot;)
 melo.bars</code></pre>
@@ -1189,6 +1169,7 @@ ggplot(melo.bars, aes(x=estado, y=alturatotal)) +
 <p>Lander, J. P., 2014.R for everyone. Pearson Education, Inc., Upper Saddle River, NJ, USA.</p>
 <p>Verzani, J., 2012. <a href="https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf">Getting started with RStudio</a>. O’Reilly, Sebastopol, Calif.</p>
 <p>Xie, Y., J. J. Allaire, G. Grolemund, 2018. <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a>. Chapman &amp; Hall/CRC.</p>
+</div>
 </div>
 
 
