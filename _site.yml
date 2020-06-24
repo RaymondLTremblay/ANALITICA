@@ -8,8 +8,8 @@ navbar:
           href: Introducción.html
           text: ¿Qué es la Estadística?
         -   
-          href: Tema_1_Intro.html
-          text: "Introducción a BIOL 3740"
+          href: TallerRFE_I.html
+          text: "Introducción a R, Rstudio y RMarkdown"
         - 
           href: Tema_2_Historia.html
           text: "Historia breve de la estadística cuantitativa"
