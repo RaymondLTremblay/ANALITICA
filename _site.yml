@@ -6,7 +6,7 @@ navbar:
       menu: 
         - 
           href: E1-Introducción.html
-          text: ¿Qué es la Estadística?
+          text: "¿Qué es la Estadística?"
         - 
           href: E2-Historia.html
           text: "Historia breve de la estadística cuantitativa"
