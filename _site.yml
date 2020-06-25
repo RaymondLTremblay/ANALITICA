@@ -17,7 +17,7 @@ navbar:
           href: Tema_3_Graficos.html
           text: "Explorando los datos con gráficos"
         - 
-          href: Tema_4_Supuestos.html
+          href: Tema_4_supuestos.html
           text: "Los Supuestos de las pruebas paramétricas"
         -   
           href: TallerRFE_II.html
