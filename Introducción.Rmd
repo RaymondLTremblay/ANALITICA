@@ -1,0 +1,16 @@
+---
+title: "Introducción"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Esta es la introducción
+hola amigos
+nueva prueba
+
