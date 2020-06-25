@@ -386,16 +386,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
     </li>
     <li>
-      <a href="Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
     </li>
     <li>
-      <a href="Graficos-por-conteos.html">Gráficos para conteos</a>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
     </li>
     <li>
-      <a href="Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
     </li>
   </ul>
 </li>
@@ -588,11 +588,10 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1] -1.040682189  0.401040525  0.002697734  1.401461684 -0.272169726
-## [6]  0.069864607</code></pre>
+<pre><code>## [1]  0.5864844  0.3639241 -0.2252967  1.1057591 -1.1839793 -1.3484632</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
-<pre><code>##           0%          25%          50%          75%         100% 
-## -3.267185543 -0.721497927 -0.007574264  0.717049844  2.983327709</code></pre>
+<pre><code>##            0%           25%           50%           75%          100% 
+## -3.1869763320 -0.6977511544 -0.0009318127  0.7082179935  2.9294111734</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
 <p>How to do a simple linear point graph and add text to graph, change the axis name</p>
 <pre class="r"><code>library(ggplot2)

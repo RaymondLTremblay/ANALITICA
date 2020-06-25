@@ -32,16 +32,16 @@ navbar:
     - 
       menu: 
         - 
-          href: ggplot2.html
+          href: G1-ggplot2.html
           text: "Qué es la visualización de datos y ejemplos historicos"
         - 
-          href: Errores-tipicos-en-la-visualizacion.html
+          href: G2-Errores-tipicos-en-la-visualizacion.html
           text: "Errores típicos en la visualización"
         - 
-          href: Graficos-por-conteos.html
+          href: G3-Graficos-por-conteos.html
           text: "Gráficos para conteos"
         - 
-          href: Grafico-de-puntos-de-Wilkinson.html
+          href: G4-Grafico-de-puntos-de-Wilkinson.html
           text: "Gráficos de puntos de Wilkinson"
       text: "Visualización"
     - 
