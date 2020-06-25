@@ -86,11 +86,9 @@ The R Markdown has three types of content:
 
 The YAML header is a metadata section of the document, and can be edited to include basic information of the document:
 
+>![](Graficos/YAML.png){#id .class width=300px}\
 
 
-```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '25%'}
-#knitr::include_graphics("Graficos/YAML.png")
-```
 
 You can change (or eliminate) the title, author, and date.  The output option is originally created by RStudio, and depends on the output format that you produce (html, pdf, Word).  A R Markdown document (html_document) can be transformed into a R Notebook (html_notebook) and _vice versa_. 
 
