@@ -31,7 +31,7 @@ __R has many features to recommend it (Kabacoff, 2015):__
 
 * R __runs on a wide array of platforms__, including Windows, Unix, and Mac OS X. It’s likely to run on any computer you may have.  If you don’t want to learn a new language, a variety of graphic user interfaces (GUIs) are available, offering the power of R through menus and dialogs.
 
-#####__where to look in the book?__:
+### __where to look in the book?__:
 __chapter 1__
 
 ***

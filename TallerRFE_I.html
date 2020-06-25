@@ -408,7 +408,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="podcast1.html">t-test Podcast</a>
+      <a href="podcast_t_test.html">t-test Podcast</a>
     </li>
   </ul>
 </li>
@@ -494,8 +494,11 @@ div.tocify {
 <li><p>R functionality <strong>can be integrated into applications written in other languages</strong>, including C++, Java, Python, PHP, Pentaho, SAS, and SPSS. This allows you to continue working in a language that you may be familiar with, while adding R’s capabilities to your applications.</p></li>
 <li><p>R <strong>runs on a wide array of platforms</strong>, including Windows, Unix, and Mac OS X. It’s likely to run on any computer you may have. If you don’t want to learn a new language, a variety of graphic user interfaces (GUIs) are available, offering the power of R through menus and dialogs.</p></li>
 </ul>
-<p>#####<strong>where to look in the book?</strong>: <strong>chapter 1</strong></p>
+<div id="where-to-look-in-the-book" class="section level3">
+<h3><strong>where to look in the book?</strong>:</h3>
+<p><strong>chapter 1</strong></p>
 <hr />
+</div>
 <div id="rstudio" class="section level2">
 <h2>RStudio</h2>
 <p>Programming, editing, project management, and other procedures in R, are more easy and efficient using an integrated development environment (IDE), and the most used and versatile is <a href="https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf">RStudio</a>.</p>
@@ -1079,16 +1082,8 @@ aggdata</code></pre>
 <h3>Using a data.table</h3>
 <p>The <strong>data.table</strong> package allows for an improved functionality of data.frames operations. First, we have to convert a data.frame into a data.table. Thereafter you can select subgroups and apply functions to them.</p>
 <pre class="r"><code># activate data.table package
-library(data.table)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;data.table&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     between, first, last</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     transpose</code></pre>
-<pre class="r"><code># conver data.frame o data.table
+library(data.table)
+# conver data.frame o data.table
 melodataDT &lt;- data.table(melodata)
 class(melodataDT)</code></pre>
 <pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
@@ -1146,20 +1141,6 @@ library(ggplot2)
 library(Rmisc)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## Loading required package: plyr</code></pre>
-<pre><code>## ------------------------------------------------------------------------------</code></pre>
-<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
-## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
-## library(plyr); library(dplyr)</code></pre>
-<pre><code>## ------------------------------------------------------------------------------</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     compact</code></pre>
 <pre class="r"><code># statistics for the bars&amp;errors graph
 melo.bars &lt;- summarySE(melodata, measurevar=&quot;alturatotal&quot;, groupvars=&quot;estado&quot;)
 melo.bars</code></pre>
