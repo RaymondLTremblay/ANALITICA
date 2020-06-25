@@ -25,10 +25,12 @@ navbar:
         - 
           href: E7-TRAvanzado.html
           text: "Modelos Lineales" 
+        - 
+          href: E8-Tipos_de_Datos.html
+          text: "Tipos de Datos"   
           
           
-          
-      text: "Estadistica basica"
+      text: "Estadística básica"
     - 
       menu: 
         - 
