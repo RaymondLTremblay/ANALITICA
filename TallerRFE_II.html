@@ -21,11 +21,12 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -252,6 +253,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -259,6 +323,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -296,6 +370,12 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="Tema_4_Supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="TRAvanzado.html">Modelos Lineales</a>
     </li>
   </ul>
 </li>
@@ -398,33 +478,6 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#statistical-tests-and-graphs-for-the-relationship-between-two-variables">Statistical tests and graphs for the relationship between two variables</a><ul>
-<li><a href="#regression-analysis">Regression analysis</a><ul>
-<li><a href="#simple-linear-regression">Simple linear regression</a><ul>
-<li><a href="#interpreting-the-results-table">Interpreting the results table</a></li>
-</ul></li>
-<li><a href="#polynomial-regression">Polynomial regression</a><ul>
-<li><a href="#where-to-look-in-the-book">where to look in the book?</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#analysis-of-variance-anova">Analysis of variance (ANOVA)</a><ul>
-<li><a href="#one-way-anova">One-way ANOVA</a><ul>
-<li><a href="#visualization-using-ggplot2">Visualization using ggplot2</a></li>
-<li><a href="#anova-test">ANOVA test</a><ul>
-<li><a href="#normality-and-homocedasticity-requirements">Normality and homocedasticity requirements</a></li>
-</ul></li>
-<li><a href="#pairwise-comparisson">Pairwise comparisson</a></li>
-<li><a href="#two-sample-comparisson">Two-sample comparisson</a><ul>
-<li><a href="#where-to-look-in-the-book-1">where to look in the book?</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#references">References</a></li>
-</ul></li>
-</ul>
-</div>
 
 <div id="statistical-tests-and-graphs-for-the-relationship-between-two-variables" class="section level2">
 <h2>Statistical tests and graphs for the relationship between two variables</h2>
@@ -440,14 +493,25 @@ $(document).ready(function () {
 <pre class="r"><code>library(EnvStats)
 #Q-Q plot
 women</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["height"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"58","2":"115"},{"1":"59","2":"117"},{"1":"60","2":"120"},{"1":"61","2":"123"},{"1":"62","2":"126"},{"1":"63","2":"129"},{"1":"64","2":"132"},{"1":"65","2":"135"},{"1":"66","2":"139"},{"1":"67","2":"142"},{"1":"68","2":"146"},{"1":"69","2":"150"},{"1":"70","2":"154"},{"1":"71","2":"159"},{"1":"72","2":"164"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<pre class="r"><code>qqPlot(women$weight, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<pre><code>##    height weight
+## 1      58    115
+## 2      59    117
+## 3      60    120
+## 4      61    123
+## 5      62    126
+## 6      63    129
+## 7      64    132
+## 8      65    135
+## 9      66    139
+## 10     67    142
+## 11     68    146
+## 12     69    150
+## 13     70    154
+## 14     71    159
+## 15     72    164</code></pre>
+<pre class="r"><code>EnvStats::qqPlot(women$weight, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
 <p><img src="TallerRFE_II_files/figure-html/regr_norm-1.png" width="672" /></p>
-<pre class="r"><code>qqPlot(women$height, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<pre class="r"><code>EnvStats::qqPlot(women$height, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
 <p><img src="TallerRFE_II_files/figure-html/regr_norm-2.png" width="672" /></p>
 <p>Now we will test normality using the Shapiro-Wilk test, with the null hypothesis that data are normally distributed.</p>
 <pre class="r"><code>shapiro.test(women$weight)</code></pre>
@@ -575,11 +639,57 @@ summary(fit2)</code></pre>
 library(multcomp)
 data(cholesterol)
 cholesterol</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["trt"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["response"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1time","2":"3.8612","_rn_":"1"},{"1":"1time","2":"10.3868","_rn_":"2"},{"1":"1time","2":"5.9059","_rn_":"3"},{"1":"1time","2":"3.0609","_rn_":"4"},{"1":"1time","2":"7.7204","_rn_":"5"},{"1":"1time","2":"2.7139","_rn_":"6"},{"1":"1time","2":"4.9243","_rn_":"7"},{"1":"1time","2":"2.3039","_rn_":"8"},{"1":"1time","2":"7.5301","_rn_":"9"},{"1":"1time","2":"9.4123","_rn_":"10"},{"1":"2times","2":"10.3993","_rn_":"11"},{"1":"2times","2":"8.6027","_rn_":"12"},{"1":"2times","2":"13.6320","_rn_":"13"},{"1":"2times","2":"3.5054","_rn_":"14"},{"1":"2times","2":"7.7703","_rn_":"15"},{"1":"2times","2":"8.6266","_rn_":"16"},{"1":"2times","2":"9.2274","_rn_":"17"},{"1":"2times","2":"6.3159","_rn_":"18"},{"1":"2times","2":"15.8258","_rn_":"19"},{"1":"2times","2":"8.3443","_rn_":"20"},{"1":"4times","2":"13.9621","_rn_":"21"},{"1":"4times","2":"13.9606","_rn_":"22"},{"1":"4times","2":"13.9176","_rn_":"23"},{"1":"4times","2":"8.0534","_rn_":"24"},{"1":"4times","2":"11.0432","_rn_":"25"},{"1":"4times","2":"12.3692","_rn_":"26"},{"1":"4times","2":"10.3921","_rn_":"27"},{"1":"4times","2":"9.0286","_rn_":"28"},{"1":"4times","2":"12.8416","_rn_":"29"},{"1":"4times","2":"18.1794","_rn_":"30"},{"1":"drugD","2":"16.9819","_rn_":"31"},{"1":"drugD","2":"15.4576","_rn_":"32"},{"1":"drugD","2":"19.9793","_rn_":"33"},{"1":"drugD","2":"14.7389","_rn_":"34"},{"1":"drugD","2":"13.5850","_rn_":"35"},{"1":"drugD","2":"10.8648","_rn_":"36"},{"1":"drugD","2":"17.5897","_rn_":"37"},{"1":"drugD","2":"8.8194","_rn_":"38"},{"1":"drugD","2":"17.9635","_rn_":"39"},{"1":"drugD","2":"17.6316","_rn_":"40"},{"1":"drugE","2":"21.5119","_rn_":"41"},{"1":"drugE","2":"27.2445","_rn_":"42"},{"1":"drugE","2":"20.5199","_rn_":"43"},{"1":"drugE","2":"15.7707","_rn_":"44"},{"1":"drugE","2":"22.8850","_rn_":"45"},{"1":"drugE","2":"23.9527","_rn_":"46"},{"1":"drugE","2":"21.5925","_rn_":"47"},{"1":"drugE","2":"18.3058","_rn_":"48"},{"1":"drugE","2":"20.3851","_rn_":"49"},{"1":"drugE","2":"17.3071","_rn_":"50"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<pre><code>##       trt response
+## 1   1time   3.8612
+## 2   1time  10.3868
+## 3   1time   5.9059
+## 4   1time   3.0609
+## 5   1time   7.7204
+## 6   1time   2.7139
+## 7   1time   4.9243
+## 8   1time   2.3039
+## 9   1time   7.5301
+## 10  1time   9.4123
+## 11 2times  10.3993
+## 12 2times   8.6027
+## 13 2times  13.6320
+## 14 2times   3.5054
+## 15 2times   7.7703
+## 16 2times   8.6266
+## 17 2times   9.2274
+## 18 2times   6.3159
+## 19 2times  15.8258
+## 20 2times   8.3443
+## 21 4times  13.9621
+## 22 4times  13.9606
+## 23 4times  13.9176
+## 24 4times   8.0534
+## 25 4times  11.0432
+## 26 4times  12.3692
+## 27 4times  10.3921
+## 28 4times   9.0286
+## 29 4times  12.8416
+## 30 4times  18.1794
+## 31  drugD  16.9819
+## 32  drugD  15.4576
+## 33  drugD  19.9793
+## 34  drugD  14.7389
+## 35  drugD  13.5850
+## 36  drugD  10.8648
+## 37  drugD  17.5897
+## 38  drugD   8.8194
+## 39  drugD  17.9635
+## 40  drugD  17.6316
+## 41  drugE  21.5119
+## 42  drugE  27.2445
+## 43  drugE  20.5199
+## 44  drugE  15.7707
+## 45  drugE  22.8850
+## 46  drugE  23.9527
+## 47  drugE  21.5925
+## 48  drugE  18.3058
+## 49  drugE  20.3851
+## 50  drugE  17.3071</code></pre>
 <pre class="r"><code># creating box-plot graph for each group
 library(ggplot2)
 ggplot(cholesterol, aes(x=trt, y=response)) + geom_boxplot(fill=&quot;cornflowerblue&quot;) +
@@ -595,11 +705,12 @@ attach(cholesterol)
 cholTr &lt;- data.table(cholesterol)
 cholStat &lt;- cholTr[, list(Media=mean(response), StDev=sd(response)), by=list(Treatment=trt)]
 cholStat</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Treatment"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["Media"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["StDev"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1time","2":"5.78197","3":"2.878113"},{"1":"2times","2":"9.22497","3":"3.483054"},{"1":"4times","2":"12.37478","3":"2.923119"},{"1":"drugD","2":"15.36117","3":"3.454636"},{"1":"drugE","2":"20.94752","3":"3.345003"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<pre><code>##    Treatment    Media    StDev
+## 1:     1time  5.78197 2.878113
+## 2:    2times  9.22497 3.483054
+## 3:    4times 12.37478 2.923119
+## 4:     drugD 15.36117 3.454636
+## 5:     drugE 20.94752 3.345003</code></pre>
 <pre class="r"><code># ANOVA
 fit &lt;- aov(response ~ trt)  
 summary(fit)</code></pre>
@@ -619,7 +730,7 @@ summary(fit)</code></pre>
 </ul>
 <p>First will see if the response variable has a <a href="https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2809-72-75-0">normal distribution</a>:</p>
 <pre class="r"><code># Q-Q plot
-qqPlot(cholesterol$response, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+EnvStats::qqPlot(cholesterol$response, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
 <p><img src="TallerRFE_II_files/figure-html/normality-1.png" width="672" /></p>
 <p>The data falls within the 95% confidence envelope, suggesting that the normality assumption has been met fairly well.</p>
 <p>Now we will test homogeneity of variance, using the <a href="https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2810-77-79-0">Bartlett’s test:</a></p>
@@ -668,11 +779,14 @@ drogaB &lt;- c(9.9,9.0,11.1,9.6,8.7,10.4,9.5)
 #tabla de datos - no funciona data.frame(drogaA, drogaB)
 tabla &lt;- list(Droga_A = drogaA, Droga_B = drogaB)
 as.data.frame(lapply(tabla, `length&lt;-`, max(sapply(tabla, length))))</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Droga_A"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Droga_B"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"8.8","2":"9.9"},{"1":"8.4","2":"9.0"},{"1":"7.9","2":"11.1"},{"1":"8.7","2":"9.6"},{"1":"9.1","2":"8.7"},{"1":"9.6","2":"10.4"},{"1":"NA","2":"9.5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<pre><code>##   Droga_A Droga_B
+## 1     8.8     9.9
+## 2     8.4     9.0
+## 3     7.9    11.1
+## 4     8.7     9.6
+## 5     9.1     8.7
+## 6     9.6    10.4
+## 7      NA     9.5</code></pre>
 <pre class="r"><code>#hipótesis alterna: droga A - drogaB diferente de 0 (menor o mayor)
 pruebat &lt;- t.test(drogaA,drogaB, var.equal = TRUE, alternative = &quot;two.sided&quot;)
 pruebat</code></pre>
@@ -702,6 +816,8 @@ pruebat</code></pre>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -734,6 +850,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

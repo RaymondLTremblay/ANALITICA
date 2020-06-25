@@ -19,6 +19,15 @@ navbar:
         - 
           href: Tema_4_Supuestos.html
           text: "Los Supuestos de las pruebas paramétricas"
+        -   
+          href: TallerRFE_II.html
+          text: "Regresión simple y ANOVA"
+        - 
+          href: TRAvanzado.html
+          text: "Modelos Lineales" 
+          
+          
+          
       text: "Estadistica basica"
     - 
       menu: 

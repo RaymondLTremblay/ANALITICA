@@ -371,6 +371,12 @@ div.tocify {
     <li>
       <a href="Tema_4_Supuestos.html">Los Supuestos de las pruebas paramétricas</a>
     </li>
+    <li>
+      <a href="TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="TRAvanzado.html">Modelos Lineales</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -538,7 +544,7 @@ div.tocify {
 </ul>
 <p>The YAML header is a metadata section of the document, and can be edited to include basic information of the document:</p>
 <div class="figure">
-<img src="Graficos/YAML.png" alt="El proceso de Investigación" width="100%" />
+<img src="Graficos/YAML.png" alt="El proceso de Investigación" width="25%" />
 <p class="caption">
 El proceso de Investigación
 </p>
@@ -556,7 +562,7 @@ El proceso de Investigación
 <p>Inside the {r} you can write <a href="https://bookdown.org/yihui/rmarkdown/r-code.html">chunk options</a> that control the behavior of the code output, when producing the final document.</p>
 <p>Another way to create code chunks (including for other scripting languages) and select options, is using the <img src="insertchunk.png" /> drop-menu.</p>
 <div class="figure">
-<img src="Graficos/Insertchunk.png" alt="El proceso de Investigación" width="100%" />
+<img src="Graficos/Insertchunk.png" alt="El proceso de Investigación" width="25%" />
 <p class="caption">
 El proceso de Investigación
 </p>
@@ -571,7 +577,7 @@ El proceso de Investigación
 </ol>
 <p>In the previous section you can find how to control chunk output, with several options, but you can also select the options using <img src="outputchunk.png" />.</p>
 <div class="figure">
-<img src="Graficos/outputchunk.png" alt="El proceso de Investigación" width="100%" />
+<img src="Graficos/outputchunk.png" alt="El proceso de Investigación" width="25%" />
 <p class="caption">
 El proceso de Investigación
 </p>
@@ -581,7 +587,7 @@ El proceso de Investigación
 <h3>Using Knit to produce a HTML or Word document</h3>
 <p>Now you can produce a HTML or Word document (this is called knitting, <a href="https://rmarkdown.rstudio.com/lesson-9.html">Knit</a>), using the following menu:</p>
 <div class="figure">
-<img src="Graficos/previewknit.png" alt="El proceso de Investigación" width="100%" />
+<img src="Graficos/previewknit.png" alt="El proceso de Investigación" width="25%" />
 <p class="caption">
 El proceso de Investigación
 </p>
@@ -908,7 +914,7 @@ We are considering three tools to input data for analyses:</p>
 <li><strong>import Excel files</strong> using the Import Dataset menu, in the Environment tab (usually upper-right component of RStudio)</li>
 </ul>
 <div class="figure">
-<img src="Graficos/importdataset.png" alt="El proceso de Investigación" width="100%" />
+<img src="Graficos/importdataset.png" alt="El proceso de Investigación" width="25%" />
 <p class="caption">
 El proceso de Investigación
 </p>
@@ -1073,8 +1079,16 @@ aggdata</code></pre>
 <h3>Using a data.table</h3>
 <p>The <strong>data.table</strong> package allows for an improved functionality of data.frames operations. First, we have to convert a data.frame into a data.table. Thereafter you can select subgroups and apply functions to them.</p>
 <pre class="r"><code># activate data.table package
-library(data.table)
-# conver data.frame o data.table
+library(data.table)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<pre class="r"><code># conver data.frame o data.table
 melodataDT &lt;- data.table(melodata)
 class(melodataDT)</code></pre>
 <pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
@@ -1132,6 +1146,20 @@ library(ggplot2)
 library(Rmisc)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## Loading required package: plyr</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     compact</code></pre>
 <pre class="r"><code># statistics for the bars&amp;errors graph
 melo.bars &lt;- summarySE(melodata, measurevar=&quot;alturatotal&quot;, groupvars=&quot;estado&quot;)
 melo.bars</code></pre>

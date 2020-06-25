@@ -88,7 +88,7 @@ The YAML header is a metadata section of the document, and can be edited to incl
 
 
 
-```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '100%'}
+```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '25%'}
 knitr::include_graphics("Graficos/YAML.png")
 ```
 
@@ -109,7 +109,7 @@ Inside the {r} you can write [chunk options](https://bookdown.org/yihui/rmarkdow
 
 Another way to create code chunks (including for other scripting languages) and select options, is using the ![](insertchunk.png) drop-menu.
 
-```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '100%'}
+```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '25%'}
 knitr::include_graphics("Graficos/insertchunk.png")
 ```
 
@@ -124,7 +124,7 @@ Use the green triangle button on the toolbar of a code chunk that has the tool t
 In the previous section you can find how to control chunk output, with several options, but you can also select the options using ![](outputchunk.png).
 
 
-```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '100%'}
+```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '25%'}
 knitr::include_graphics("Graficos/outputchunk.png")
 ```
 
@@ -133,7 +133,7 @@ Now you can produce a HTML or Word document (this is called knitting, [Knit](htt
 
 
 
-```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '100%'}
+```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '25%'}
 knitr::include_graphics("Graficos/previewknit.png")
 ```
 
@@ -409,7 +409,7 @@ We are considering three tools to input data for analyses:
 + __reading text__ file with comma separated values (read.csv)
 + __import Excel files__ using the Import Dataset menu, in the Environment tab (usually upper-right component of RStudio)
 
-```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '100%'}
+```{r echo=FALSE, fig.cap="El proceso de Investigación", out.width = '25%'}
 knitr::include_graphics("Graficos/importdataset.png")
 ```
 

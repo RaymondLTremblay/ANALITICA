@@ -35,7 +35,7 @@ DATA FILE = Exam Anxiety
 
 ```{r}
 library(readr)
-Exam_Anxiety <- read_csv("Data_files_csv/Exam Anxiety.csv")
+Exam_Anxiety <- read_csv("Data/Exam Anxiety.csv")
 ```
 
 
@@ -50,12 +50,11 @@ tail(Exam_Anxiety, n=2)
 
 ```{r the data}
 
-library(readr)
-Anxiety <- Exam_Anxiety
 
 
-examData = Anxiety
+Anxiety = Exam_Anxiety
 Exam_Anxiety = Anxiety
+examData=Anxiety
 ```
 
 
@@ -110,7 +109,7 @@ range(Exam_Anxiety$Revise)
 
 ```{r}
 y=rnorm(1001)
-y
+head(y)
 
 quantile(y)
 probs = c(0.01, 0.10, 0.50,.90)
@@ -212,7 +211,7 @@ A biologist was worried about the potential health effects of music festivals. S
 
 ```{r festival data}
 library(readr)
-DownloadFestival <- read_csv("Data_files_csv/DownloadFestival.csv")
+DownloadFestival <- read_csv("Data/DownloadFestival.csv")
 
 FD=DownloadFestival
 head(FD)  # ver las 6 primeras filas
@@ -349,7 +348,7 @@ ggplot(Festivalday1, aes(gender, day1))+ geom_boxplot()
 library(Hmisc) # you need this package to add the confidence interval
 
 library(readr)
-Hiccups <- read_csv("Data_files_csv/Hiccups.csv")
+Hiccups <- read_csv("Data/Hiccups.csv")
 ```
 
 ```{r}

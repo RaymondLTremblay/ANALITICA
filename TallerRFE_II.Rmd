@@ -2,14 +2,11 @@
 title: "Taller RFE 20191102"
 author: "D. S. Fernandez del Viso"
 date: "10/30/2019"
-output:
+
+output: 
   html_document:
-    df_print: paged
     toc: yes
-    toc_depth: '5'
-  html_notebook:
-    toc: yes
-    toc_depth: 5
+    toc_float: yes
 ---
 
 ## Statistical tests and graphs for the relationship between two variables
@@ -29,8 +26,8 @@ But first, we have to prove that our data are close to a normal distribution, an
 library(EnvStats)
 #Q-Q plot
 women
-qqPlot(women$weight, add.line = TRUE, points.col = "blue", line.col = "red")
-qqPlot(women$height, add.line = TRUE, points.col = "blue", line.col = "red")
+EnvStats::qqPlot(women$weight, add.line = TRUE, points.col = "blue", line.col = "red")
+EnvStats::qqPlot(women$height, add.line = TRUE, points.col = "blue", line.col = "red")
 ```
 
 Now we will test normality using the Shapiro-Wilk test, with the null hypothesis that data are normally distributed.
@@ -138,7 +135,7 @@ But, wait! To apply the procedure above, there are a couple of requirements from
 First will see if the response variable has a [normal distribution](https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2809-72-75-0):
 ```{r normality}
 # Q-Q plot
-qqPlot(cholesterol$response, add.line = TRUE, points.col = "blue", line.col = "red")
+EnvStats::qqPlot(cholesterol$response, add.line = TRUE, points.col = "blue", line.col = "red")
 ```
 
 The data falls within the 95% confidence envelope, suggesting that the normality assumption has been met fairly well.

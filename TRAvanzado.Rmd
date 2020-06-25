@@ -2,11 +2,10 @@
 title: "Taller IPERT - R Avanzado"
 author: "D. S. Fernandez del Viso"
 date: "1/31/2020"
-output:
+output: 
   html_document:
-    toc: true
-    toc_depth: 5
-  word_document: default
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -65,8 +64,7 @@ Para leer los datos emplearemos el siguiente código (obtenido del menú _Import
 
 ```{r}
 library(readxl)
-reg.multiple <- read_excel("mod_empiricos.xlsx", 
-                            sheet = "bmi")
+reg.multiple <- read_excel("Data/mod_empiricos.xlsx", sheet = "bmi")
 # para ver las primeras seis filas de datos
 head(reg.multiple)
 ```
@@ -84,7 +82,7 @@ head(reg.multiple)
 * Evaluación gráfica de normalidad de la variable dependiente. 
 ```{r qqplot, message=FALSE}
 library(EnvStats)
-qqPlot(reg.multiple$BMI, add.line = TRUE, points.col = "blue", line.col = "red")
+EnvStats::qqPlot(reg.multiple$BMI, add.line = TRUE, points.col = "blue", line.col = "red")
 ```
 
 * Prueba estadística de normalidad Shapiro & Wilk ($H_0:distribución\enspace normal$)
@@ -372,7 +370,7 @@ Los datos deben tener un arreglo de _sujetos x factores-variables_.
 ```{r}
 # datos desde Excel - tomando la hoja 'tumor'
 library(readxl)
-tumor <- read_excel("tumor_drug_repeat.xlsx", 
+tumor <- read_excel("Data/tumor_drug_repeat.xlsx", 
     sheet = "tumor")
 head(tumor, 10)
 tail(tumor)
@@ -553,7 +551,7 @@ Cargamos los datos a partir de una hoja de cálculo externa:
 
 ```{r message=FALSE, warning=FALSE}
 library(readxl)
-Titanic <- read_excel("Titanic.xlsx")
+Titanic <- read_excel("Data/Titanic.xlsx")
 head(Titanic)
 ```
 

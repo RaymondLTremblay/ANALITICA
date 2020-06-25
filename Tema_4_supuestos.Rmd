@@ -46,7 +46,7 @@ La categoria son
 ```{r histogram}
 
 library(readr)
-DownloadFestival <- read_csv("Data_files_csv/DownloadFestival.csv")
+DownloadFestival <- read_csv("Data/DownloadFestival.csv")
 ```
 
 ```{r}
@@ -234,7 +234,7 @@ round(stat.desc(dlf[, c("day1", "day2", "day3")], basic = FALSE, norm = TRUE), d
 library(ggplot2)
 library(car)
 library(readr)
-RExam <- read_csv("Data_files_csv/RExam.csv")
+RExam <- read_csv("Data/RExam.csv")
 
 rexam=RExam
 head(rexam)
