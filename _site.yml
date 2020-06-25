@@ -47,9 +47,10 @@ navbar:
     - 
       menu: 
         - 
-          href: podcast_t_test.html
-          text: "t-test Podcast"
-      text: "Podcasts"
+          href: screencast_t_test.html
+          text: "t-test Screencast"
+      text: "Sreencasts"
+      
     - 
       menu: 
         - 

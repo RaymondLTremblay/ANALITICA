@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 ### Descripción de los objetivos de la Fundación
 
-Más en detalle
+Más detalles
 
 ## Fecha de Incorporación: 
 

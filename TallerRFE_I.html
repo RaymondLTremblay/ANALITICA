@@ -402,13 +402,13 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Podcasts
+    Sreencasts
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="podcast_t_test.html">t-test Podcast</a>
+      <a href="screencast_t_test.html">t-test Screencast</a>
     </li>
   </ul>
 </li>
@@ -1082,8 +1082,16 @@ aggdata</code></pre>
 <h3>Using a data.table</h3>
 <p>The <strong>data.table</strong> package allows for an improved functionality of data.frames operations. First, we have to convert a data.frame into a data.table. Thereafter you can select subgroups and apply functions to them.</p>
 <pre class="r"><code># activate data.table package
-library(data.table)
-# conver data.frame o data.table
+library(data.table)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<pre class="r"><code># conver data.frame o data.table
 melodataDT &lt;- data.table(melodata)
 class(melodataDT)</code></pre>
 <pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
@@ -1141,6 +1149,20 @@ library(ggplot2)
 library(Rmisc)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## Loading required package: plyr</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     compact</code></pre>
 <pre class="r"><code># statistics for the bars&amp;errors graph
 melo.bars &lt;- summarySE(melodata, measurevar=&quot;alturatotal&quot;, groupvars=&quot;estado&quot;)
 melo.bars</code></pre>
