@@ -1,0 +1,186 @@
+---
+title: "Taller RFE 20191102"
+author: "D. S. Fernandez del Viso"
+date: "10/30/2019"
+
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## Statistical tests and graphs for the relationship between two variables
+In this section we will consider the testing of statistical hypothesis for the relationship of two or more variables, and the graphs that will help in the interpretation of the results.
+
+### Regression analysis
+__Regression analysis__ is a broad term for a set of methodologies used to predict a _response variable_ (also called a _dependent_, _criterion_, or _outcome variable_) from one or more _predictor variables_ (also called _independent_ or _explanatory variables_). In general, regression analysis can be used to identify the explanatory variables that are related to a response variable, to describe the form of the relationships involved, and to provide an equation for predicting the response variable from the explanatory variables.
+
+#### Simple linear regression
+When the regression model contains one dependent variable and one independent variable, the approach is called __simple linear regression__.
+
+The data set __women__ in the base installation provides the height and weight for a set of 15 women ages 30 to 39. Suppose you want to predict weight from height. Having an equation for predicting weight from height can help you to identify overweight or underweight individuals.
+
+But first, we have to prove that our data are close to a normal distribution, an assumption of the parametric methods, like linear regression.  First we will build a Q-Q plot that will show how good is the agreement between the quantiles of the data (using z transformation) and the theoretical quantile of the corresponding normal distribution ($\mu = 0, \sigma = 1$)
+
+```{r regr_norm, message=FALSE}
+library(EnvStats)
+#Q-Q plot
+women
+EnvStats::qqPlot(women$weight, add.line = TRUE, points.col = "blue", line.col = "red")
+EnvStats::qqPlot(women$height, add.line = TRUE, points.col = "blue", line.col = "red")
+```
+
+Now we will test normality using the Shapiro-Wilk test, with the null hypothesis that data are normally distributed.
+```{r sw_norm}
+shapiro.test(women$weight)
+shapiro.test(women$height)
+```
+
+Then we proceed with the parametric regression analysis:
+```{r regr_linear}
+library(ggplot2)
+# linear regression using lm (linear model) function
+fit <- lm(weight ~ height, data=women)
+summary(fit)
+#graph with regression line, confidence interval (95%)
+ggplot(data=women, aes(x=women$height, y=women$weight)) +
+  geom_point(pch=19, color="blue", size=2) +
+  geom_smooth(method="lm", color="red", linetype=2) +
+  labs(x="Height, inches", y="Weight, lb")
+#graph: residuals
+plot(women$height,residuals(fit),
+     xlab="Height (in inches)",
+     ylab="residuals")
+```
+
+The resulting predictive equation is:
+
+>![](eqlinear.jpg){#id .class width=240px}\
+
+##### Interpreting the results table
+
+From the Pr(>|t|) column, you see that the regression coefficient (3.45) is significantly different from zero (p < 0.001) and indicates that there is an expected increase of 3.45 pounds of weight for every 1 inch increase in height. The multiple R-squared (0.991) indicates that the model accounts for 99.1% of the variance in weights. The residual standard error (1.53 pounds) can be thought of as the average error in predicting weight from height using this model. The F statistic tests whether the predictor variables, taken together, predict the response variable above chance levels.
+
+#### Polynomial regression
+The residuals plot from the linear regression, indicates a non-random distribution of the prediction error of the linear model.  You might be able to improve your prediction using a regression with a quadratic term (that is, X2), so we have now a __polynomial regression__
+
+```{r regr_polyn}
+fit2 <- lm(weight ~ height + I(height^2), data=women)
+summary(fit2)
+
+ggplot(women, aes(x = women$height, y = women$weight)) +
+  geom_point(aes(x = women$height, y = women$weight), color ="blue") +
+  stat_smooth(aes(), method = "lm", formula = y ~ poly(x,2), color ="red", linetype=2, se =TRUE, size = 1) +
+  labs(x="Height, inches", y="Weight, lb.")
+plot(women$height,residuals(fit2),
+     xlab="Height (in inches)",
+     ylab="residuals")
+```
+
+The new polynomial equation is:
+
+>![](eqpoly.jpg){#id .class width=320px}\
+
+The amount of variance accounted for has increased to 99.9%. The significance of the squared term (t = 13.89, p < .001) suggests that inclusion of the quadratic term improves the model fit.  The prediction error (residuals) is smaller, and their distribution looks more random.
+
+##### where to look in the book?
+__chapter 19__
+
+***
+
+## Analysis of variance (ANOVA)
+Previously we considered regression models for predicting a quantitative response variable from quantitative predictor variables.  But we can include nominal or ordinal factors as predictors as well.  When factors are included as explanatory variables, our focus usually shifts from prediction to understanding group differences, and the methodology is referred to as [analysis of variance (ANOVA)](https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2808-1-5-0). ANOVA methodology is used to analyze a wide variety of experimental and quasi-experimental designs.
+
+### One-way ANOVA
+
+In the following example, fifty patients received one of five cholesterol-reducing drug regimens (trt). Three of the treatment conditions involved the same drug administered as 20 mg once per day (1time), 10mg twice per day (2times), or 5 mg four times per day (4times). The two remaining conditions (drugD and drugE) represented competing drugs. Which drug regimen produced the greatest cholesterol reduction (response)?
+
+#### Visualization using ggplot2
+We are going to use box-plots to observe differences between treatments, using __ggplot2__.
+```{r ggplot2_multip_boxplots, message=FALSE}
+# obtaining data from a package
+library(multcomp)
+data(cholesterol)
+cholesterol
+# creating box-plot graph for each group
+library(ggplot2)
+ggplot(cholesterol, aes(x=trt, y=response)) + geom_boxplot(fill="cornflowerblue") +
+  labs(x = "Tratamientos", y = "Reducción Colesterol, %")
+```
+
+#### ANOVA test
+In a one-way ANOVA, we are interested in comparing the dependent variable means of two or more groups defined by a categorical grouping factor.
+
+```{r anova, message=FALSE, warning=FALSE}
+library(data.table)
+attach(cholesterol)
+# Mean and StDev by treatment using data.table
+cholTr <- data.table(cholesterol)
+cholStat <- cholTr[, list(Media=mean(response), StDev=sd(response)), by=list(Treatment=trt)]
+cholStat
+# ANOVA
+fit <- aov(response ~ trt)	
+summary(fit)
+detach(cholesterol)
+```
+
+The results of the analysis indicate that there are significant differential effects of the treatments to reduce cholesterol, this is because the probability of a real no-difference (type I error) is very low (Pr(>F) = 9.82e-13).  
+
+##### Normality and homocedasticity requirements
+But, wait! To apply the procedure above, there are a couple of requirements from the data:
+
++ data must have a normal distribution
++ equality of variance between the groups
+
+First will see if the response variable has a [normal distribution](https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2809-72-75-0):
+```{r normality}
+# Q-Q plot
+EnvStats::qqPlot(cholesterol$response, add.line = TRUE, points.col = "blue", line.col = "red")
+```
+
+The data falls within the 95% confidence envelope, suggesting that the normality assumption has been met fairly well.
+
+Now we will test homogeneity of variance, using the [Bartlett’s test:](https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2810-77-79-0)
+```{r homovariance}
+bartlett.test(response ~ trt, data=cholesterol)
+```
+
+Bartlett’s test indicates that the variances in the five groups do not differ significantly (p = 0.97).
+
+#### Pairwise comparisson
+
+The ANOVA F test for treatment tells you that the five drug regimens are not equally effective, but it does not tell you which treatments differ from one another. You can use a [multiple comparison procedure](https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2811-59-60-0) to answer this question. For example, the __TukeyHSD()__ function provides a test of all pairwise differences between group means, as shown next.
+```{r multiple}
+TukeyHSD(fit)
+par(las=2)
+par(mar=c(5,8,4,2))
+plot(TukeyHSD(fit))
+```
+
+For example, the mean cholesterol reductions for 1-time and 2-times are not significantly different from each other (p = 0.138), whereas the difference between 1-time and 4-times is significantly different (p < .001).  In this graph, confidence intervals that include 0 indicate treatments that are not significantly different (p > 0.5).
+
+#### Two-sample comparisson
+
+When the hypothesis testing is about two samples, the ANOVA test is equivalent to a __t-test__.
+
+```{r rtdoscolas}
+#datos
+drogaA <- c(8.8,8.4,7.9,8.7,9.1,9.6)
+drogaB <- c(9.9,9.0,11.1,9.6,8.7,10.4,9.5)
+#tabla de datos - no funciona data.frame(drogaA, drogaB)
+tabla <- list(Droga_A = drogaA, Droga_B = drogaB)
+as.data.frame(lapply(tabla, `length<-`, max(sapply(tabla, length))))
+#hipótesis alterna: droga A - drogaB diferente de 0 (menor o mayor)
+pruebat <- t.test(drogaA,drogaB, var.equal = TRUE, alternative = "two.sided")
+pruebat
+```
+
+##### where to look in the book?
+__chapter 18__
+
+
+### References
+
+Kabacoff, R., 2015. R in action: data analysis and graphics with R, Second edition. ed. Manning, Shelter Island.
+
+Verzani, J., 2012. [Getting started with RStudio](https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf). O’Reilly, Sebastopol, Calif.

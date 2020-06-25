@@ -5,25 +5,25 @@ navbar:
     - 
       menu: 
         - 
-          href: Introducción.html
+          href: E1-Introducción.html
           text: ¿Qué es la Estadística?
+        - 
+          href: E2-Historia.html
+          text: "Historia breve de la estadística cuantitativa"
         -   
-          href: TallerRFE_I.html
+          href: E3-TallerRFE_I.html
           text: "Introducción a R, Rstudio y RMarkdown"
         - 
-          href: Tema_2_Historia.html
-          text: "Historia breve de la estadística cuantitativa"
-        - 
-          href: Tema_3_Graficos.html
+          href: E4-Graficos.html
           text: "Explorando los datos con gráficos"
         - 
-          href: Tema_4_supuestos.html
+          href: E5-supuestos.html
           text: "Los Supuestos de las pruebas paramétricas"
         -   
-          href: TallerRFE_II.html
+          href: E6-TallerRFE_II.html
           text: "Regresión simple y ANOVA"
         - 
-          href: TRAvanzado.html
+          href: E7-TRAvanzado.html
           text: "Modelos Lineales" 
           
           

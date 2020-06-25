@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Raymond L. Tremblay" />
+
+
+<title>Tema_4_supuestos</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadistica basica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E1-Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="E2-Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="E3-TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="E4-Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="E5-supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="E6-TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tema_4_supuestos</h1>
+<h4 class="author">Raymond L. Tremblay</h4>
+<h4 class="date">2/7/2017</h4>
+
+</div>
+
+
+<p>Add and activate packages. NOTE THE NEW FUNCTION to install all packages ONLY IF Needed…..</p>
+<p>Visualize the distribution of the data “Histogram”</p>
+<p>Los datos son de un festival de Rock y Heavy Metal en UK La categoria son 0 = You smell like a rotting corpse 4 = You smell like of sweet roses</p>
+<pre class="r"><code>library(readr)
+DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   ticknumb = col_double(),
+##   gender = col_character(),
+##   day1 = col_double(),
+##   day2 = col_double(),
+##   day3 = col_double()
+## )</code></pre>
+<pre class="r"><code>dlf &lt;- DownloadFestival
+
+dlf=subset(DownloadFestival, day1&lt;5)
+head(dlf)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   ticknumb gender  day1  day2   day3
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1     2111 Male    2.64  1.35  1.61 
+## 2     2229 Female  0.97  1.41  0.290
+## 3     2338 Male    0.84 NA    NA    
+## 4     2384 Female  3.03 NA    NA    
+## 5     2401 Female  0.88  0.08 NA    
+## 6     2405 Male    0.85 NA    NA</code></pre>
+<pre class="r"><code>tail(dlf)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   ticknumb gender  day1  day2  day3
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     4749 Female  0.52 NA       NA
+## 2     4756 Female  2.91  0.94    NA
+## 3     4758 Female  2.61  1.44    NA
+## 4     4759 Female  1.47 NA       NA
+## 5     4760 Male    1.28 NA       NA
+## 6     4765 Female  1.26 NA       NA</code></pre>
+<pre class="r"><code>hist.day1 &lt;- ggplot(dlf, aes(day1)) + 
+  geom_histogram(aes(y=..density..), colour=&quot;black&quot;, fill=&quot;white&quot;) 
+
+hist.day1+ 
+  labs(x=&quot;Hygiene score on day 1&quot;, y = &quot;Density&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="E5-supuestos_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>hist.day1</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="E5-supuestos_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>ggsave(&quot;histogram_festival_hygiene.pdf&quot;) # Can be either be a device function (e.g. png()), or one of &quot;eps&quot;, &quot;ps&quot;, &quot;tex&quot; (pictex), &quot;pdf&quot;, &quot;jpeg&quot;, &quot;tiff&quot;, &quot;png&quot;, &quot;bmp&quot;, &quot;svg&quot; or &quot;wmf&quot; (windows only)</code></pre>
+<pre><code>## Saving 7 x 5 in image
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p>#Remove the outlier from the day1 hygiene score dlf<span class="math inline">\(day1 &lt;- ifelse(dlf\)</span>day1 &gt; 5, NA, dlf<span class="math inline">\(day1) df\)</span>Column = ifelse(df$column_to_be evaluated, replace_with_NA, otherwise_leave_as_before)</p>
+<pre class="r"><code>dlf$day1 &lt;- ifelse(dlf$day1 &gt; 5, NA, dlf$day1)
+
+
+# Note here that we use ..density..  # CUAL ES LA DIFERENCIA entre densidad y frecuencia?  
+
+hist.day1 &lt;- ggplot(dlf, aes(day1)) + 
+  theme(legend.position = &quot;none&quot;) + 
+  geom_histogram(aes(y=..density..), colour=&quot;black&quot;, fill=&quot;white&quot;) + 
+  labs(x=&quot;Hygiene score on day 1&quot;, y = &quot;Density&quot;)
+
+hist.day1</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="E5-supuestos_files/figure-html/remove%20outlier-1.png" width="672" /></p>
+<p>The Normal Distribution</p>
+<p><a href="https://en.wikipedia.org/wiki/Normal_distribution" class="uri">https://en.wikipedia.org/wiki/Normal_distribution</a></p>
+<ol style="list-style-type: decimal">
+<li>visualization if the observed distribution follows a theoretical normal distribution</li>
+<li>Test to determine if the observed distribution follows a theoretical distribution</li>
+</ol>
+<p><span class="math display">\[P(x)=\frac{1}{{\sigma\sqrt{ 2\pi}}}{e}^{\frac{{(x-µ)}^{2}}{{2\sigma}^{2}}}\]</span></p>
+<pre class="r"><code># Ahora añadir la linea de distribución normal
+
+hist.day1 + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(dlf$day1,na.rm = TRUE), 
+                sd = sd(dlf$day1 , na.rm = TRUE)), 
+                colour = &quot;red&quot;, size = 1)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="E5-supuestos_files/figure-html/adding%20the%20normal%20curve-1.png" width="672" /></p>
+<pre class="r"><code>shapiro.test(dlf$day1)  # don&#39;t use with more than 40 a 200 data point</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  dlf$day1
+## W = 0.99591, p-value = 0.03184</code></pre>
+<pre class="r"><code>length(dlf$day1)</code></pre>
+<pre><code>## [1] 809</code></pre>
+<p>A third method</p>
+<ol start="3" style="list-style-type: decimal">
+<li>The QQ plot method</li>
+</ol>
+<pre class="r"><code>#Q-Q plot for day 1:
+qqplot.day1 &lt;- qplot(sample = dlf$day3, stat=&quot;qq&quot;)</code></pre>
+<pre><code>## Warning: `stat` is deprecated</code></pre>
+<pre class="r"><code>qqplot.day1</code></pre>
+<pre><code>## Warning: Removed 686 rows containing non-finite values (stat_qq).</code></pre>
+<p><img src="E5-supuestos_files/figure-html/qqplot-1.png" width="672" /></p>
+<p>Add a straight line on the qqplot</p>
+<pre class="r"><code># This function is to add a straight line through the qqplot
+qqplot.data &lt;- function (vec) # argument: vector of numbers
+{
+  # following four lines from base R&#39;s qqline()
+  y &lt;- quantile(vec[!is.na(vec)], c(0.25, 0.75))
+  x &lt;- qnorm(c(0.25, 0.75))
+  slope &lt;- diff(y)/diff(x)
+  int &lt;- y[1L] - slope * x[1L]
+  
+  d &lt;- data.frame(resids = vec)
+  
+  ggplot(d, aes(sample = resids)) + 
+    stat_qq() + 
+    geom_abline(slope = slope, intercept = int, color=&quot;red&quot;)
+  
+}
+
+qqplot.data(dlf$day3)</code></pre>
+<pre><code>## Warning: Removed 686 rows containing non-finite values (stat_qq).</code></pre>
+<p><img src="E5-supuestos_files/figure-html/qqplot%20and%20line-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(&quot;qqplot.png&quot;)</code></pre>
+<pre><code>## Saving 7 x 5 in image</code></pre>
+<pre><code>## Warning: Removed 686 rows containing non-finite values (stat_qq).</code></pre>
+<pre class="r"><code>dlf=DownloadFestival
+#Quantifying normality with numbers
+library(psych)      #load the &quot;psych&quot; library, if you haven&#39;t already, for the describe() function.
+
+#Using the describe() function for a single variable.
+psych::describe(dlf$day2)</code></pre>
+<pre><code>##    vars   n mean   sd median trimmed  mad min  max range skew kurtosis   se
+## X1    1 264 0.96 0.72   0.79    0.87 0.61   0 3.44  3.44 1.08     0.76 0.04</code></pre>
+<p>Que es la varianza? The variance <span class="math display">\[s^{ 2 }=\frac { \sum _{ i=1 }^{ n }{ (x_{ i }-\bar { x } ) } ^{ 2 } }{ n-1 } \]</span></p>
+<p>Que es la desviación estandard</p>
+<p>The standard deviation of the mean <span class="math display">\[s=\sqrt { s^{ 2 } } \]</span></p>
+<p>Multiple variables</p>
+<pre class="r"><code>#Two alternative ways to describe multiple variables.
+psych::describe(cbind(dlf$day1, dlf$day2, dlf$day3))</code></pre>
+<pre><code>##    vars   n mean   sd median trimmed  mad  min   max range skew kurtosis   se
+## X1    1 810 1.79 0.94   1.79    1.77 0.70 0.02 20.02 20.00 8.83   168.97 0.03
+## X2    2 264 0.96 0.72   0.79    0.87 0.61 0.00  3.44  3.44 1.08     0.76 0.04
+## X3    3 123 0.98 0.71   0.76    0.90 0.61 0.02  3.41  3.39 1.01     0.59 0.06</code></pre>
+<pre class="r"><code>psych::describe(dlf[,c(&quot;day1&quot;, &quot;day2&quot;, &quot;day3&quot;)])</code></pre>
+<pre><code>##      vars   n mean   sd median trimmed  mad  min   max range skew kurtosis   se
+## day1    1 810 1.79 0.94   1.79    1.77 0.70 0.02 20.02 20.00 8.83   168.97 0.03
+## day2    2 264 0.96 0.72   0.79    0.87 0.61 0.00  3.44  3.44 1.08     0.76 0.04
+## day3    3 123 0.98 0.71   0.76    0.90 0.61 0.02  3.41  3.39 1.01     0.59 0.06</code></pre>
+<p>Dicover the Mode. La moda en R</p>
+<pre class="r"><code># the mode
+library(modeest)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;rmutil&#39;:
+##   method         from 
+##   plot.residuals psych</code></pre>
+<pre class="r"><code>mfv(dlf$day1, method=&quot;mfv&quot;)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>mfv(dlf$day2, method=&quot;mfv&quot;)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>mfv(dlf$day3, method=&quot;mfv&quot;)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Test of normality, Shapiro Wilks Test</p>
+<pre class="r"><code>library(pastecs)
+stat.desc(dlf$day3, basic = FALSE, norm = TRUE) # &quot;norm=TRUE&quot;&quot; is to calculate the Shapiro Wilk Test</code></pre>
+<pre><code>##       median         mean      SE.mean CI.mean.0.95          var      std.dev 
+## 7.600000e-01 9.765041e-01 6.404352e-02 1.267805e-01 5.044934e-01 7.102770e-01 
+##     coef.var     skewness     skew.2SE     kurtosis     kurt.2SE   normtest.W 
+## 7.273672e-01 1.007813e+00 2.309035e+00 5.945454e-01 6.862946e-01 9.077516e-01 
+##   normtest.p 
+## 3.804486e-07</code></pre>
+<pre class="r"><code>stat.desc(cbind(dlf$day1, dlf$day2, dlf$day3), basic = FALSE, norm = TRUE)</code></pre>
+<pre><code>##                        V1           V2           V3
+## median       1.790000e+00 7.900000e-01 7.600000e-01
+## mean         1.793358e+00 9.609091e-01 9.765041e-01
+## SE.mean      3.318617e-02 4.436095e-02 6.404352e-02
+## CI.mean.0.95 6.514115e-02 8.734781e-02 1.267805e-01
+## var          8.920705e-01 5.195239e-01 5.044934e-01
+## std.dev      9.444949e-01 7.207801e-01 7.102770e-01
+## coef.var     5.266627e-01 7.501022e-01 7.273672e-01
+## skewness     8.832504e+00 1.082811e+00 1.007813e+00
+## skew.2SE     5.140707e+01 3.611574e+00 2.309035e+00
+## kurtosis     1.689671e+02 7.554615e-01 5.945454e-01
+## kurt.2SE     4.923139e+02 1.264508e+00 6.862946e-01
+## normtest.W   6.539142e-01 9.083191e-01 9.077516e-01
+## normtest.p   1.545986e-37 1.281630e-11 3.804486e-07</code></pre>
+<pre class="r"><code>round(stat.desc(dlf[, c(&quot;day1&quot;, &quot;day2&quot;, &quot;day3&quot;)], basic = FALSE, norm = TRUE), digits = 3)</code></pre>
+<pre><code>##                 day1  day2  day3
+## median         1.790 0.790 0.760
+## mean           1.793 0.961 0.977
+## SE.mean        0.033 0.044 0.064
+## CI.mean.0.95   0.065 0.087 0.127
+## var            0.892 0.520 0.504
+## std.dev        0.944 0.721 0.710
+## coef.var       0.527 0.750 0.727
+## skewness       8.833 1.083 1.008
+## skew.2SE      51.407 3.612 2.309
+## kurtosis     168.967 0.755 0.595
+## kurt.2SE     492.314 1.265 0.686
+## normtest.W     0.654 0.908 0.908
+## normtest.p     0.000 0.000 0.000</code></pre>
+<div id="levenes-test-testing-for-assumption-of-normality-among-groups" class="section level1">
+<h1>Levene’s Test: testing for assumption of normality among groups</h1>
+<pre class="r"><code>#Levene&#39;s test for comparison of variances of exam scores in the two universities.
+library(ggplot2)
+library(car)
+library(readr)
+RExam &lt;- read_csv(&quot;Data/RExam.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   exam = col_double(),
+##   computer = col_double(),
+##   lectures = col_double(),
+##   numeracy = col_double(),
+##   uni = col_double()
+## )</code></pre>
+<pre class="r"><code>rexam=RExam
+head(rexam)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##    exam computer lectures numeracy   uni
+##   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1    18       54     75          7     0
+## 2    30       47      8.5        1     0
+## 3    40       58     69.5        6     0
+## 4    30       37     67          6     0
+## 5    40       53     44.5        2     0
+## 6    15       48     76.5        8     0</code></pre>
+<pre class="r"><code>ggplot(rexam, aes(numeracy, fill=as.factor(uni)))+
+  geom_histogram()+
+  facet_wrap(~uni)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="E5-supuestos_files/figure-html/levene%20test-1.png" width="672" /></p>
+<pre class="r"><code> leveneTest(rexam$lectures, rexam$uni)</code></pre>
+<pre><code>## Warning in leveneTest.default(rexam$lectures, rexam$uni): rexam$uni coerced to
+## factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  1  1.4222 0.2359
+##       98</code></pre>
+<pre class="r"><code>leveneTest(rexam$lectures, rexam$uni, center = mean)</code></pre>
+<pre><code>## Warning in leveneTest.default(rexam$lectures, rexam$uni, center = mean):
+## rexam$uni coerced to factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
+##       Df F value Pr(&gt;F)
+## group  1  1.7306 0.1914
+##       98</code></pre>
+<pre class="r"><code>leveneTest(rexam$computer, rexam$uni)</code></pre>
+<pre><code>## Warning in leveneTest.default(rexam$computer, rexam$uni): rexam$uni coerced to
+## factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  1  0.1078 0.7434
+##       98</code></pre>
+<pre class="r"><code>leveneTest(rexam$numeracy, rexam$uni)</code></pre>
+<pre><code>## Warning in leveneTest.default(rexam$numeracy, rexam$uni): rexam$uni coerced to
+## factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&gt;F)  
+## group  1   5.366 0.02262 *
+##       98                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>x=c(0,2,3,4,5,6,100,1000)
+x</code></pre>
+<pre><code>## [1]    0    2    3    4    5    6  100 1000</code></pre>
+<pre class="r"><code>log(x+1)</code></pre>
+<pre><code>## [1] 0.000000 1.098612 1.386294 1.609438 1.791759 1.945910 4.615121 6.908755</code></pre>
+<pre class="r"><code>sqrt(x)</code></pre>
+<pre><code>## [1]  0.000000  1.414214  1.732051  2.000000  2.236068  2.449490 10.000000
+## [8] 31.622777</code></pre>
+<pre class="r"><code>head(log(dlf$day1))</code></pre>
+<pre><code>## [1]  0.97077892 -0.03045921 -0.17435339  1.10856262 -0.12783337 -0.16251893</code></pre>
+<pre class="r"><code>head(dlf)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   ticknumb gender  day1  day2   day3
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1     2111 Male    2.64  1.35  1.61 
+## 2     2229 Female  0.97  1.41  0.290
+## 3     2338 Male    0.84 NA    NA    
+## 4     2384 Female  3.03 NA    NA    
+## 5     2401 Female  0.88  0.08 NA    
+## 6     2405 Male    0.85 NA    NA</code></pre>
+<pre class="r"><code>dlf$lgday1=log(dlf$day1)
+head(dlf)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   ticknumb gender  day1  day2   day3  lgday1
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1     2111 Male    2.64  1.35  1.61   0.971 
+## 2     2229 Female  0.97  1.41  0.290 -0.0305
+## 3     2338 Male    0.84 NA    NA     -0.174 
+## 4     2384 Female  3.03 NA    NA      1.11  
+## 5     2401 Female  0.88  0.08 NA     -0.128 
+## 6     2405 Male    0.85 NA    NA     -0.163</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
