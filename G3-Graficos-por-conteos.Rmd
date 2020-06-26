@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-# **geom_point** y **geom_count**
+# Gráficos con **geom_point** y **geom_count**
 
 
 ***
@@ -148,7 +148,7 @@ ggplot(aes(SVL, WEIGHT))+
 # El tamaño de los puntos proporcional a su frecuencia
 
 ## Proporción considerando todos los datos
-En el gráfico siguiente los tamaños de los puntos están proporcionales a su frecuencia. Note que hay que añadir **(size=..prop.. y group=1)** en la función **geom_count()**.  Note que en este caso la suma de todas las frecuencias es 1.  Vemos que, al contrario de la Figura anterior, ahora los puntos salen en proporción a la frecuencia.
+En el gráfico siguiente los tamaños de los puntos están proporcionales a su frecuencia. Note que hay que añadir **(size=..prop.. y group=1)** en la función **geom_count()**.  Note que en este caso la suma de todas las frecuencias es 1.  Vemos que, al contrario de la Figura anterior, ahora los puntos salen en proporción a la frecuencia. Nota que la frecuencia en este caso es calculado como denominador la cantidad total de toda la información en el archivo.   
 
 ```{r geom count2}
 
@@ -165,9 +165,9 @@ ggplot(aes(SVL, WEIGHT))+
 ***
 
 
-## Proporción considerando la variable en "x"
+## Proporcional a la variable en "x"
 
-En el siguiente gráfico, una de las variables, WEIGHT o peso de las lagartijas, se usa para que la suma de la proporción equivalga a 1. Entonces aquí cada grupo de {Y} suma a 1. Nota que los grupos son el tamaño del hocico a la cloaca (SVL) **geom_count(aes(size=..prop.., group=SVL))**. Por ejemplo, en los *Anolis* que tiene el tamaño de 35 hay 4 puntos cada uno de valor de 0.25 que da una suma de 1 (hay 4 cuatro lagartija que tiene un SVL de 35).
+En el siguiente gráfico, una de las variables, WEIGHT o peso de las lagartijas, se usa para que la suma de la proporción equivalga a 1. Entonces aquí cada grupo de {Y} suma a 1. Nota que los grupos son el tamaño del hocico a la cloaca (SVL) **geom_count(aes(size=..prop.., group=SVL))**. Por ejemplo, en los *Anolis* que tiene el tamaño de 35 hay 4 puntos cada uno de valor de 0.25 que da una suma de 1 (hay 4 cuatro lagartija que tiene un SVL de 35). Nota que la frecuencia en este caso es calculado como denominador la cantidad total por los valores que corresponde a un valor en "x".
 
 ```{r geom count2a}
 
