@@ -37,7 +37,7 @@ library(ggplot2)
 
 # ¿Que es la visualización de datos?
 
-La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si existe patrones. Naturalmente, no se necesita gráficos para entender ciertas ideas.  Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y entender los datos con valores numéricos o lista no es ayuda. 
+La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si existe patrones. Naturalmente, no se necesita gráficos para entender ciertas ideas.  Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y hay solapamiento entre los valores.  Si por ejemplo yo menciono que la edad de los estudiantes el un salón de pre escolar es de cerca de 5 años y el primer año universitario es de 19 años es fácil percibir la diferencia entender la diferencia entre estos grupos.  Pero si describe de dos salones de estudiantes en la universidad pudiese haber solapamiento entre las edades de los estudiantes y determinar si la edad de estos estudiantes es igual o diferente no es tan evidentes. Si uno pone una lista de las edades de los estudiantes de estos salones, uno pudiese tratar de entenderlos si es igual o diferentes mirando la lista.   
 
 Por ejemplo trata de explicar cual es la diferencia (si hay) en las dos listas siguientes. 
 
@@ -105,7 +105,7 @@ df%>%
 
 ## Visualizar muchos datos
 
-Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una **Boxplot** (Gráfico de caja).  
+Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una **Boxplot** (Gráfico de caja). Se observa que el promedio es igual y el valor mínimo, y que la única diferencia es solamente el valor máximo en los datos.    
 
 ```{r}
 ggplot(df, aes(y=V1, x=Salon))+

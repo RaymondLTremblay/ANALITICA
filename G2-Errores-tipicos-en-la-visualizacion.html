@@ -349,7 +349,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Estadistica basica
+    Estadística básica
      
     <span class="caret"></span>
   </a>
@@ -374,6 +374,9 @@ div.tocify {
     </li>
     <li>
       <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
     </li>
   </ul>
 </li>
@@ -475,23 +478,23 @@ div.tocify {
 </div>
 
 
-<div id="ejemplos-de-gráficos-problematicos" class="section level1">
-<h1>Ejemplos de Gráficos problematicos</h1>
+<div id="ejemplos-de-gráficos-problemáticos" class="section level1">
+<h1>Ejemplos de Gráficos problemáticos</h1>
 <div id="errores-típicos-en-la-producción-de-gráficos." class="section level2">
 <h2>Errores típicos en la producción de gráficos.</h2>
 </div>
 <div id="gráficos-en-3d" class="section level2">
 <h2>Gráficos en 3D</h2>
-<p>Uno de los error principal cuando se hace gráficos es concentrar sé en la decoración del gráfico para dar una impresión grandiosa y no en pasar un mensaje a la audiencia. Algunos de los errores incluye.</p>
+<p>Uno de los error principal cuando se hace gráficos es concentrarse en la decoración del gráfico para dar una impresión grandiosa y no en pasar un mensaje facil a la audiencia. Algunos de los errores incluye.</p>
 <ul>
-<li>Dimensiones innecesarias como los gráficos 3D para enseñar el conteo. Este es un caso que uno ve regularmente en muchos sitios, artículos científicos, revistas y periódicos y trabajos de estudiantes. <strong>NO</strong> hay ninguna razón de añadir una otra dimensión en esta gráfica ya que no ayuda a entender los datos y hasta puede causar dificultad de entender cual son los valores reales que representa las barras. Desafortunademente la facilidad de aplicar un gráfico en 3D en MS Excel por cualquier tipo de datos ha amplificado el mal uso de este tipo representación de datos.</li>
+<li>Dimensiones innecesarias como los gráficos 3D para enseñar el conteo. Este es un caso que uno ve regularmente en muchos sitios, artículos científicos, revistas y periódicos y trabajos de estudiantes. <strong>NO</strong> hay ninguna razón de añadir una otra dimensión en la siguiente gráfica ya que no nos ayuda a entender los datos y hasta puede causar dificultad de entender cual son los valores reales que representa las barras. Desafortunademente la facilidad de aplicar un gráfico en 3D en MS Excel por cualquier tipo de datos ha amplificado el mal uso de este tipo representación de datos.</li>
 </ul>
-<p>En el gráfico abajo la tercera dimensión no aporta al entendimiento de los resultados. Visualizando las barras el valor en el eje de “y” que representa la barra en 3D, es representado por el frente o detrás de la caja 3D. Por consecuencia a añadir 3D en este caso es complicar el apreciación de los valores.</p>
+<p>En el gráfico abajo la tercera dimensión (3D) no aporta al entendimiento de los resultados. Añadiendo al problema visualizando las barras el valor en el eje de “y” que representa la barra en 3D, es representado por el frente o detrás de la caja 3D. Por consecuencia a añadir 3D en este caso es complicar el apreciación de los valores.</p>
 <p><img src="Graficos/A3D.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="errores-de-escala-en-los-ejes" class="section level2">
 <h2>Errores de escala en los ejes</h2>
-<p>Muchas veces la variable en “X” tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos un linea que representa la cantidad de casos de una enfermedad, y el eje de “x” el año de recolección de los datos. Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos intervalos.</p>
+<p>Muchas veces la variable en “X” tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos una linea que representa la cantidad de casos de una enfermedad, y el eje de “x” el año de recolección de los datos. Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos intervalos.</p>
 <p>En el siguiente gráfico se resuelve el problema dejando que la escala se ajuste a los intervalos correctos de años.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-4-1.png" width="50%" /></p>
 </div>
@@ -502,15 +505,16 @@ div.tocify {
 </div>
 <div id="problema-de-escala-incluir-el-cero-o-no" class="section level2">
 <h2>Problema de escala, incluir el cero o no?</h2>
-<p>En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados. Aquí van a observar dos gráficos, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeños, pero se cambia de escala y se incluye el cero (en la segunda figura) con los mismo datos no se aprecia esta diferencia tan marcada. El único componente que se cambio fue la escala. ¿Cual es la escala correcta? Depende de los tipos de valores, y el mensaje que el investigador quiere transmitir. Por ejemplo si en realidad NUNCA es posible (o improbable) llegar al cero no seria correcto enseñar la escala de cero. Un ejemplo exagerado, si se mide la temperatura en la escala de Kelvin, y Ud demuestra en una figura la temperatura típica de un lugar, por ejemplo la ciudad de Paris, no seria lógico tener el eje de “y” que se extiende a 0° Kelvin ya que la temperatura de este lugar no puede llegar a esta temperatura, lo lógico seria de tener una escala que representa los valores mínimo y máximo en el periodo del estudio.</p>
+<p>En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados. Aquí van a observar dos gráficos, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeños, pero cuando se cambia de escala y se incluye el cero (en la segunda figura) con los mismo datos no se aprecia esta diferencia tan marcada. El único componente que se cambio fue la escala con los mismos datos. ¿Cúal es la escala correcta? Depende de los tipos de valores, y el mensaje que el investigador quiere transmitir. Por ejemplo si en realidad NUNCA es posible (o improbable) llegar al cero no seria correcto enseñar la escala de cero. Un ejemplo exagerado, si el grupo se mide la temperatura en la escala de Kelvin, y Ud demuestra en una figura la temperatura típica de un lugar, por ejemplo si el grupo “D” representa la ciudad de Paris, no seria lógico tener el eje de “y” que se extiende a 0° Kelvin ya que la temperatura de este lugar no puede llegar a esta temperatura, lo lógico seria de tener una escala que representa los valores mínimo y máximo en el periodo del estudio.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="construcción-de-tablas" class="section level2">
 <h2>Construcción de Tablas:</h2>
 <p>Aquí demuestro algunos errores comunes cuando se prepara tablas.</p>
 <ol style="list-style-type: decimal">
-<li>Errores comunes en tablas es incluir un exceso de valores significativos en diferentes formato en la misma columna.</li>
-<li>Los valores numéricos no están justificado a la derecha.</li>
+<li>Errores comunes en tablas es incluir un exceso de valores significativos y en diferentes formato en la misma columna.</li>
+<li>Los valores numéricos no están justificado a la derecha. Es importante que los valores numéricos sean justificado a la derecha ya que nuestra apreciación de la diferencias numéricas van de derecho a izquierdo, y automáticamente un valor de 112 y más grande que un valor de tiene dos dígitos.<br />
+</li>
 <li>Las escala de los valores no están mencionados.</li>
 </ol>
 <p>Aquí presento dos tablas una con los errores y la segunda son estos errores corregidos. ¿Encuentra los errores?</p>
