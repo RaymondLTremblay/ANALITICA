@@ -399,6 +399,9 @@ div.tocify {
     <li>
       <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
     </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -483,16 +486,16 @@ div.tocify {
 <p>La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si existe patrones. Naturalmente, no se necesita gráficos para entender ciertas ideas. Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y hay solapamiento entre los valores. Si por ejemplo yo menciono que la edad de los estudiantes el un salón de pre escolar es de cerca de 5 años y el primer año universitario es de 19 años es fácil percibir la diferencia entender la diferencia entre estos grupos. Pero si describe de dos salones de estudiantes en la universidad pudiese haber solapamiento entre las edades de los estudiantes y determinar si la edad de estos estudiantes es igual o diferente no es tan evidentes. Si uno pone una lista de las edades de los estudiantes de estos salones, uno pudiese tratar de entenderlos si es igual o diferentes mirando la lista.</p>
 <p>Por ejemplo trata de explicar cual es la diferencia (si hay) en las dos listas siguientes.</p>
 <pre><code>## $V1
-##   [1] 27 25 21 22 27 25 24 22 20 20 21 22 20 27 27 25 23 27 20 20 22 24 23 20 26
-##  [26] 21 27 25 25 27 26 23 24 22 27 24 26 22 24 27 27 26 22 26 24 27 23 20 23 20
-##  [51] 24 27 27 22 20 26 20 21 21 23 26 27 22 21 22 23 22 25 25 23 22 25 21 23 27
-##  [76] 24 27 22 27 21 21 25 22 26 27 24 20 24 27 26 25 21 23 21 25 27 22 22 27 27</code></pre>
+##   [1] 27 24 26 26 24 26 24 23 26 26 24 24 21 24 27 26 23 20 21 24 20 21 23 24 26
+##  [26] 22 27 27 22 22 22 22 23 25 23 24 24 22 25 27 27 24 25 20 23 20 21 27 20 21
+##  [51] 26 23 26 26 26 23 21 23 25 20 25 21 20 26 21 21 24 23 22 23 27 27 26 24 20
+##  [76] 25 25 25 27 26 22 21 26 25 24 24 27 24 23 23 27 20 20 21 22 21 23 25 21 22</code></pre>
 <hr />
 <pre><code>## $V1
-##   [1] 25 23 24 21 21 23 20 26 26 21 21 25 25 24 20 23 24 21 23 20 21 24 25 20 26
-##  [26] 25 23 21 23 24 25 21 23 22 21 26 26 24 23 26 23 26 25 20 25 26 24 21 26 22
-##  [51] 26 24 20 21 26 24 23 25 25 21 20 26 21 25 23 20 22 20 26 20 25 20 23 20 24
-##  [76] 22 24 25 26 26 20 20 23 25 22 25 21 23 26 22 20 24 21 20 20 22 26 25 25 26</code></pre>
+##   [1] 20 22 25 21 24 24 23 26 25 20 21 20 24 25 21 20 21 20 26 22 21 26 22 20 24
+##  [26] 22 23 23 24 26 26 20 23 23 21 26 22 25 21 26 24 20 20 22 20 20 23 25 22 26
+##  [51] 20 26 25 24 20 23 23 23 22 21 24 22 23 21 23 20 24 25 25 26 22 26 20 22 20
+##  [76] 20 21 20 26 23 26 26 22 25 24 20 22 22 24 21 26 26 21 25 21 21 22 26 23 22</code></pre>
 <p>Probablemente no es evidente a primera vista cual es la diferencia entre las dos listas de datos.</p>
 <hr />
 <div id="resumir-la-información-en-tablas" class="section level2">
@@ -861,13 +864,13 @@ div.tocify {
   <tbody class="gt_table_body">
     <tr>
       <td class="gt_row gt_left">Salon_1</td>
-      <td class="gt_row gt_right">23.76</td>
+      <td class="gt_row gt_right">23.63</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">27</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Salon_2</td>
-      <td class="gt_row gt_right">23.12</td>
+      <td class="gt_row gt_right">22.81</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">26</td>
     </tr>

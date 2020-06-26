@@ -10,15 +10,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE,  message=FALSE, warning=FALSE)
 ```
 
+
+
+
 # Gráficos de Puntos con **geom_dotplot**
-
-
-## Gráficos de una variable continua o discreta 
-Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría).  A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.
-
-
-## Gráficos de puntos:  Dotplot de Wilkinson con geom_dotplot
-En el gráfico de puntos, conocido como *Wilkinson dotplot*, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de *Y*. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea *dipodium* en el archivo de **ggversa**.  Note que se podría haber usado **geom_dotplot** sin parámetros adicional y los puntos quedarían representados de color negro. El parámetro **fill** cambia el color de los puntos y el parámetro **colour o color** cambia el color de la línea que rodea el círculo.
 
 ## Los paquetes a instalar
 
@@ -33,6 +28,17 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas
 ```
 
 
+***
+
+## Gráficos de una variable continua o discreta 
+Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría).  A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.
+
+
+## Gráficos de puntos:  Dotplot de Wilkinson con geom_dotplot
+En el gráfico de puntos, conocido como *Wilkinson dotplot*, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de *Y*. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea *dipodium* en el archivo de **ggversa**.  Note que se podría haber usado **geom_dotplot** sin parámetros adicional y los puntos quedarían representados de color negro. El parámetro **fill** cambia el color de los puntos y el parámetro **colour o color** cambia el color de la línea que rodea el círculo.
+
+
+***
 
 ```{r dipodium-puntos, message=FALSE, warning=FALSE}
 
@@ -43,6 +49,8 @@ a+geom_dotplot(fill="blue", colour="yellow",
   labs(x="Número de Frutos", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
+
+***
 
 ## La posición de los datos con **stackdir**
 
@@ -83,6 +91,8 @@ d=d+geom_dotplot(fill="black", colour="white",
 ```{r grid dotplot, echo=FALSE}
 grid.arrange(a,b,c,d,ncol=2)
 ```
+
+
 ## Modificación estética del gráfico, tamaño del punto, color del punto y la intensidad
 
 A continuación se demostrará cómo modificar algunas variables utilizando **geom_dotplot**.  Cuando se utilicen otras funciones tipo **geom_**, muchas de las opciones explicadas a continuación pueden ser viables y aplicables.  Se cambia el tamaño de los puntos con **dotsize**, a la vez que se cambia la orientación de los datos como se muestra en la misma figura.  También se cambia la intensidad del color usando **alpha**, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción **fill** (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue. Nota que en los dos gráficos se cambia el **stackratio** que es la proporción de solapamiento de puntos. En adición se cambia el tamaño de los puntos con **dotsize**. 
@@ -109,6 +119,8 @@ b=ggplot(dipodium, aes(Number_of_fruits))+
 grid.arrange(a,b,ncol=2)
 ```
 
+*** 
+
 ## El solapamiento de los puntos con **stackratio**
 
 La opción de **stackratio** es para especificar el grado de solapamiento de los puntos uno sobre el otro, o el espacio que separa cada punto. A la figura anteriormente, ahora se le añade un solapamiento diferente.  Además, para que los puntos no se solapen unos con otros se usa la función **position=dodge**.  Si quiere modificar el solapamiento tiene que usar **position=position_dodge(width = 0.1)** para identificar la cantidad de solapamiento de los grupos, más pequeño el número más solapamiento entre los grupos
@@ -133,6 +145,11 @@ geom_dotplot(binwidth = .3, stackratio = .7, position=position_dodge(width = 0.7
 grid.arrange(a,b,ncol=2)
 ```
 
+
+***
+
+## La función **stackgroups**
+
 Ahora veremos cómo ubicar los puntos uno encima de los otros o sea apilar los puntos pero que a la misma vez la cantidad de puntos cambie de acuerdo al grupo.  Continuaremos con el ejemplo anterior de las orquídeas *Dipodium*. En la Figura se usa la opción **stackgroups** en combinación con **binwidth** y **method** para lograr ese efecto, tal como se muestra a continuación:
 
 ```{r dipodium-puntos6}
@@ -141,6 +158,9 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = "histodot", stackrati
   labs(x="Número de Frutos", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
+
+***
+
 
 ## Remover los **NA** con **drop_na**
 
@@ -174,7 +194,11 @@ geom_dotplot(dotsize=.5, stackdir="center", alpha=.9, binaxis = "y") +
 grid.arrange(conNA,sinNA,ncol=2)
 ```
 
-`
+***
+
+# La función **binwidth**
+
+
 
  El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos.  Eso se puede cambiar utilizando la opción **binwidth** (binwidth o sea el ancho del compartimento).  Cuando el método (o sea, si se especifica la opción **method**) para representar los puntos es la densidad de puntos (opción **dotdensity**), entonces **binwidth** es el máximo del ancho de compartimiento.  Alternativamente, cuando el método se específica como **histodot**, el **binwidth** organizará los puntos a una distancia fija de los compartimiento.  A continuación, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2 y de 1 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente.  Además, se cambió el tamaño de los puntos con **dotsize** a 0.1.
 
@@ -198,9 +222,9 @@ grid.arrange(a,b,ncol=2)
 ```
 
 
+***
 
-
-## binpositions 
+## La función **binpositions** 
 
 Otra alternativa para lograr la misma representación de poner los puntos uno encima de los otros por grupo es utilizando la opción **binpositions= all**. 
 
@@ -211,6 +235,10 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = "all", dotsize 
   labs(x="Número de Frutos", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
+
+
+***
+
 # Opciones y Parametros de **geom_dotplot**
 
 A continuación se resumen las opciones y parámetros más importantes de geom_dotplot:

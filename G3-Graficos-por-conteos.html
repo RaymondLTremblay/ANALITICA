@@ -399,6 +399,9 @@ div.tocify {
     <li>
       <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
     </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -1394,6 +1397,7 @@ ggplot(aes(SVL, WEIGHT))+
   ggtitle(&quot;the greatest figure on the planet&quot;)</code></pre>
 <p><img src="G3-Graficos-por-conteos_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>En el último gráfico tenemos la peculiaridad que hay múltiples lagartijas con el mismo peso y tamaño, por lo que los puntos quedarán solapados. A consecuencia de esto, uno no necesariamente va a poder apreciar la frecuencia de los datos. Más adelante se demostrará cómo resolver ese problema.</p>
+<hr />
 </div>
 <div id="geom_count" class="section level2">
 <h2><strong>geom_count</strong></h2>
@@ -1518,14 +1522,14 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 <ul>
 <li><p>ggplot(el archivo de datos, aes(x= la variable secuencial, y = la variable secuencial más de un grupo, color= si hay necesidad))</p></li>
 <li><p>geom_count(x, y, alpha, colour, fill, shape, size, stroke)</p>
-<ol style="list-style-type: decimal">
+<ul>
 <li>alpha: la intensidad de los colores (explicado más adelante)</li>
 <li>colour: color de las líneas</li>
 <li>fill: para rellenar de color</li>
 <li>shape: la forma de los puntos</li>
 <li>size: el tamaño de los puntos</li>
 <li>stroke: para cambiar el grosor del borde del punto</li>
-</ol></li>
+</ul></li>
 </ul>
 </div>
 

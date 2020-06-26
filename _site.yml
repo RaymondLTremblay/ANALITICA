@@ -45,6 +45,9 @@ navbar:
         - 
           href: G4-Grafico-de-puntos-de-Wilkinson.html
           text: "Gráficos de puntos de Wilkinson"
+        - 
+          href: G5_geom_area_densidad_freqpoly.html
+          text: "Gráficos de area y densidad"
       text: "Visualización"
     - 
       menu: 

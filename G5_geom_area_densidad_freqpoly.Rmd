@@ -1,4 +1,5 @@
 ---
+title: "Geom_area_densidad_freqpoly"
 output: 
   html_document:
     toc: yes
@@ -23,7 +24,7 @@ library(gridExtra) # Un paquete para organizar las figuras de ggplot2
 ```
 
 
-
+***
 
 
 # Gráfico de área con **geom_area**
@@ -53,6 +54,8 @@ a+geom_area(stat="bin", fill="steelblue1",
   labs(x="Distancia", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
+
+***
 
 # Los tipos de **linetype** 
 
@@ -88,6 +91,8 @@ a+geom_area(stat="bin", alpha=0.5)+
 
 ```
 
+## La función densidad **aes(y=..density..)**
+
 Uno puede utilizar la opción **stat** a la vez que identifica el eje de **Y** como la densidad con la siguiente modificación **aes(y=..density..)** para visualizar el gráfico de densidad en los datos en vez de mostrar el conteo/frecuencia para cada grupo. Si uno compara las dos gráficas anteriores a estas nuevas gráficas uno observa que la densidad de camas en hospitales por 100,000 cambio con los años habitantes, que hubo un aumento en densidad (proporcionalmente más camas en 2006). Nota que no hay un pico cerca de uno.     
 
 ```{r dipodium-area5,  echo=TRUE, tidy=FALSE,  warning=FALSE, message=FALSE, fig.align='center'}
@@ -100,7 +105,9 @@ a+geom_area(aes(y=..density..),stat="bin", alpha=0.5)+
 
 ```
 
-A continuación se resumen las opciones y parámetros más importantes de **geom_area**:
+***
+
+## Opciones y Parametros de **geom_area**:
 
 
 * ggplot (el archivo de datos, aes(la variable continua))
@@ -114,10 +121,13 @@ A continuación se resumen las opciones y parámetros más importantes de **geom
   + stat: el método predeterminado es {identity}, que representa los datos, o la transformación estadística
   
   
-
+***
 
 ## Gráfico de densidad con **geom_density**
 Un gráfico de densidad, también conocido como una función de probabilidad de densidad, **pdf** o **probability density function** en inglés, se utiliza con variables que contienen datos continuos.  La función de densidad es continua en el rango de los valores, y la suma de todas la probabilidades es igual a uno. Vimos anteriormente que se puede visualizar la densidad también con **geom_area** y **geom_histogram**. La función **geom_density** facilita la producción del gráfico y amplía las alternativas como se explica en breve.
+
+
+### ¿Qué es un kernel?
 
 Estimar la densidad de los datos en un gráfico requiere seleccionar un parámetro, un **kernel**, para suavizar la distribución.  El más utilizado es el **gaussian**, que representa la distribución normal o conocida comúnmente como distribución de forma de campana. Si no se especifica cuál **kernel** utilizar, la distribución normal es la predeterminada; por ejemplo, cuando se especifica **geom_density()** sin ninguna otra opción.  
 Otra alternativa es usar **geom_density(kernel = c(kernel={gaussian})**, u otras alternativas.  Otros parámetros para **kernel** son: 
@@ -132,19 +142,20 @@ Otra alternativa es usar **geom_density(kernel = c(kernel={gaussian})**, u otras
 7. gaussian
  
 
-EL **kernel** es un tipo especial de función de probabilidad de densidad que tiene ciertas propiedades específicas, ya sea que esta no sea negativa y con valores reales de manera tal que el gráfico salga simétrico, y que la suma de la integral sea igual a uno.
+EL **kernel** es un tipo especial de función de probabilidad de densidad que tiene ciertas propiedades específicas, ya sea que esta no sea negativa y con valores reales de manera tal que el gráfico salga simétrico, y que la suma de la integral sea igual a uno. Se añadio tambien *geom_density* para comparar el resultado de las dos funciones. 
 
-Note que en el gráfico siguiente se usó el parámetro {alpha=0.4}.  Este modifica la transparencia del color azul del parámetro fill=blue.  La intensidad de **alpha=0.4** puede variar de 0 a 1, tal como se ha explicado anteriormente.  En el ejemplo a continuación se utilizan los datos de la *Dipodium rosea* otra vez.  
+Note que en el gráfico siguiente se usó el parámetro *alpha=0.4*.  Este modifica la transparencia del color azul del parámetro fill=blue.  La intensidad de **alpha=0.4** puede variar de 0 a 1, tal como se ha explicado anteriormente.  En el ejemplo a continuación se utilizan los datos de la *Dipodium rosea* otra vez.  
 
 ```{r dipodium-densidad, echo=TRUE, fig.pos='H', tidy=FALSE,message=FALSE, warning=FALSE,  fig.align='center'}
 
 
 a=ggplot(DW, aes(Distance))
-a+geom_density(kernel = c(kernel="gaussian"),
+a+geom_area(aes(y=..density..),stat="bin", alpha=0.5)+
+  geom_density(kernel = c(kernel="gaussian"),
                alpha=0.4, fill="blue")+
   labs(x="Distancia", y="Densidad")+
-  theme(axis.title=element_text(size=10,face="bold"))+
-  geom_area(aes(y=..density..),stat="bin", alpha=0.5)
+  theme(axis.title=element_text(size=10,face="bold"))
+  
 ```
 
 La función de **geom_density** se puede entender mejor si se evalúa con datos simulados. Vamos a continuación a simular datos con diferentes tamaños de muestra para visualizar las densidades. En la simulación a continuación se crean 4 data frame con 2000, 500, 50 y 10 datos respectivamente con la función **rnorm**. Naturalmente, lo que se observa es que si los datos provienen de una distribución normal, entre más datos se incluyan, la distribución correspondiente se acerca más a como debe lucir una distribución normal.  Pero, lo contrario es que con pocos datos, es probable que la densidad no se asemeje a la distribución teórica (normal).
@@ -192,14 +203,15 @@ d=ggplot(d, aes(d))+
 grid.arrange(a,b,c,d,ncol=2)
 ```
 
+***
 
-A continuación se resumen las opciones y parámetros más importantes de **geom_density**:
+# Opciones y Parametros de **geom_density**:
 
 
 * ggplot(el archivo de datos, aes(la variable continua))
 
   + geom_density(kernel= {…}), x, y, alpha, color, fill, linetype, size, weight
-  + **…** representa el parámetro deseado; ej. gaussian, triangular, rectangular, etc.
+     - **…** representa el parámetro deseado; ej. gaussian, triangular, rectangular, etc.
   + alpha: la intensidad del color
   + fill: el color del área
   + color: el color de la línea alrededor del área
@@ -208,13 +220,13 @@ A continuación se resumen las opciones y parámetros más importantes de **geom
   + weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo o suma de los valores si no un valor ponderado (promedio ponderado)
   
     
+***
 
+## Gráfico de frecuencia de polígono con **geom_freqpoly**
 
-## Gráfico de frecuencia de polígono con geom\_freqpoly
+El gráfico de frecuencia de polígono es similar al gráfico de área y de densidad, la diferencia es que no se rellena el area con color.  También se puede cambiar la cantidad de compartimentos usando **binwidth**.  En el gráfico de polígono, es solamente la línea la que gráficamos y no hay parámetro de **fill** del área debajo de la línea. 
 
-El gráfico de frecuencia de polígono es similar al gráfico de área y de densidad.  También se puede cambiar la cantidad de compartimentos usando {binwidth}.  En el gráfico de polígono, es solamente la línea la que graficamos y no hay parámetro de {fill} del área debajo de la línea como se muestra en la Figura \ref{fig:dipodium-poligono} a continuación..
-
-```{r dipodium-poligono, echo=TRUE, tidy=FALSE,message=FALSE, warning=FALSE,  fig.align='center', fig.height=4, fig.width=5}
+```{r dipodium-poligono, echo=TRUE, tidy=FALSE,message=FALSE, warning=FALSE,  fig.align='center'}
 
 
 a=ggplot(DW, aes(Distance))
@@ -224,31 +236,33 @@ a+geom_freqpoly(binwidth=.1, color="steelblue")+
 
 ```
 
+Se modifica otras opciones como sigue: intensidad del color con **alpha**, el tipo de línea con **linetype** y el grosor de la línea con **size** tal como se muestra a continuación.
 
-En un gráfico similar, Figura \ref{fig:dipodium-poligono2}, se modifican otras opciones como sigue: intensidad del color con \emph{alpha}, el tipo de línea con \emph{linetype} y el grosor de la línea con \emph{size} tal como se muestra a continuación.
-
-```{r dipodium-poligono2, echo=TRUE, tidy=FALSE,message=FALSE, warning=FALSE,  fig.align='center', fig.height=4, fig.width=5}
-
+```{r dipodium-poligono2, echo=TRUE, tidy=FALSE,message=FALSE, warning=FALSE,  fig.align='center'}
 
 
-a=ggplot(DW, aes(Distance, colour=Species_Name))
-a+geom_freqpoly( alpha=0.8, size=1.5, binwidth=.1)+
+DW%>%
+  drop_na()%>%
+ggplot(aes(Distance, colour=Species_Name))+
+geom_freqpoly(alpha=0.8, size=1.5, binwidth=.1)+
   labs(x="Distancia", y="Frecuencia")+
   theme(axis.title=element_text(size=14,face="bold"))
 
 ```
 
-A continuación se resumen las opciones y parámetros más importantes de geom\_freqpoly:
+***
 
-\begin{itemize}
-ggplot}(el archivo de datos, aes(la variable continua))
-   \begin{itemize}
-geom\_freqpoly}(stat={bin}), x, y, alpha, color, fill, linetype, size
-   \begin{itemize}
-  alpha}: la intensidad del color
-  color}: el color de la línea alrededor del área
-  linetype}: representa el estilo de línea; vea sección \hyperref[sec:Especificación Estética]{{Especificación Estética}}
-  size}: representa el grosor de la línea
+# Opciones y Parametros de **geom_freqpoly**
+
+
+
+* ggplot(el archivo de datos, aes(la variable continua))
+
+  + geom_freqpoly(stat={bin}, x, y, alpha, color, fill, linetype, size)
+  + alpha: la intensidad del color
+  + color: el color de la línea alrededor del área
+  + linetype: representa el estilo de línea; vea sección
+  + size: representa el grosor de la línea
  
  
 
@@ -256,15 +270,4 @@ geom\_freqpoly}(stat={bin}), x, y, alpha, color, fill, linetype, size
 
 
 
-
-```{r}
-DW=dipodium
-
-
-DW %>%
-  select(DBH, Species_Name) %>%
-   filter(Species_Name=="r")%>%
-  summarize(promedio=mean(DBH, na.rm=TRUE))
-  
-```
 

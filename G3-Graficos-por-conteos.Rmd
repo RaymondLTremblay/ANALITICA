@@ -124,6 +124,9 @@ ggplot(aes(SVL, WEIGHT))+
 
 En el último gráfico tenemos la peculiaridad que hay múltiples lagartijas con el mismo peso y tamaño, por lo que los puntos quedarán solapados.  A consecuencia de esto, uno no necesariamente va a poder apreciar la frecuencia de los datos.  Más adelante se demostrará cómo resolver ese problema.
 
+
+***
+
 ## **geom_count**
 
 Por otro lado, la función **geom_count** varía el tamaño de los puntos de acuerdo a como cambia el tamaño con relación a una variable. Esta función es una extensión de **geom_point**.  Con **geom_count** veremos que la diferencia es que ahora el tamaño de los puntos está relacionado a su frecuencia en el archivo de datos. El tamaño de cada punto representa la frecuencia o valores de la cantidad de lagartijas que tienen estas en el archivo de datos y los más grandes es que son más comunes.  Esto se demuestra en la figura a continuación:
@@ -283,12 +286,12 @@ A continuación se resumen las opciones y parámetros más importantes de geom_c
 * ggplot(el archivo de datos, aes(x= la variable secuencial, y = la variable secuencial más de un grupo, color= si hay necesidad))
  * geom_count(x, y, alpha, colour, fill, shape, size, stroke)
  
-    1. alpha: la intensidad de los colores (explicado más adelante)
-    2. colour: color de las líneas
-    3. fill: para rellenar de color
-    4. shape: la forma de los puntos
-    5. size: el tamaño de los puntos
-    6. stroke: para cambiar el grosor del borde del punto
+    + alpha: la intensidad de los colores (explicado más adelante)
+    + colour: color de las líneas
+    + fill: para rellenar de color
+    + shape: la forma de los puntos
+    + size: el tamaño de los puntos
+    + stroke: para cambiar el grosor del borde del punto
 
 
 
