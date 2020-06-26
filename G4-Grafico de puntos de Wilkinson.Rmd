@@ -27,7 +27,7 @@ library(ggversa) # la función "library" activa el paquete de **ggversa** donde 
 library(ggplot2) # ggplot2 es la librería que se usará para visualizar los datos
 library(tidyverse) # una serie de paquetes para organizar y visualizar los datos
 library(gt) # Un paquete para que las tablas se vean más organizada. 
-library(gridExtra) # Un paquete para organizar las figuras de ggplot
+library(gridExtra) # Un paquete para organizar las figuras de ggplot2
 
 gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas
 ```
