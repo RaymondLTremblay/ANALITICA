@@ -349,7 +349,7 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Estadistica basica
+    Estadística básica
      
     <span class="caret"></span>
   </a>
@@ -374,6 +374,9 @@ div.tocify {
     </li>
     <li>
       <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
     </li>
   </ul>
 </li>
@@ -475,15 +478,15 @@ div.tocify {
 </div>
 
 
-<div id="gráficos-de-puntos" class="section level1">
-<h1>Gráficos de Puntos</h1>
+<div id="gráficos-de-puntos-con-geom_dotplot" class="section level1">
+<h1>Gráficos de Puntos con <strong>geom_dotplot</strong></h1>
 <div id="gráficos-de-una-variable-continua-o-discreta" class="section level2">
 <h2>Gráficos de una variable continua o discreta</h2>
-<p>Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (medidas de largo o ancho, conteos, etc.) o discretos (agrupados por categoría). A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.</p>
+<p>Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría). A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.</p>
 </div>
 <div id="gráficos-de-puntos-dotplot-de-wilkinson-con-geom_dotplot" class="section level2">
 <h2>Gráficos de puntos: Dotplot de Wilkinson con geom_dotplot</h2>
-<p>En el gráfico de puntos, conocido como <em>Wilkinson dotplot</em>, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de <em>Y</em>. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea <em>dipodium</em> en el archivo de <strong>ggversa</strong>. Note que se podría haber usado <strong>geom_dotplot</strong> sin parámetros y los puntos quedarían representados de color negro. El parámetro <strong>fill</strong> cambia el color de los puntos y el parámetro <strong>colour o color</strong> cambia el color de la línea que rodea el círculo.</p>
+<p>En el gráfico de puntos, conocido como <em>Wilkinson dotplot</em>, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de <em>Y</em>. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea <em>dipodium</em> en el archivo de <strong>ggversa</strong>. Note que se podría haber usado <strong>geom_dotplot</strong> sin parámetros adicional y los puntos quedarían representados de color negro. El parámetro <strong>fill</strong> cambia el color de los puntos y el parámetro <strong>colour o color</strong> cambia el color de la línea que rodea el círculo.</p>
 </div>
 <div id="los-paquetes-a-instalar" class="section level2">
 <h2>Los paquetes a instalar</h2>
@@ -491,6 +494,7 @@ div.tocify {
 library(ggplot2) # ggplot2 es la librería que se usará para visualizar los datos
 library(tidyverse) # una serie de paquetes para organizar y visualizar los datos
 library(gt) # Un paquete para que las tablas se vean más organizada. 
+library(gridExtra) # Un paquete para organizar las figuras de ggplot
 
 gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas</code></pre>
 <style>html {
@@ -1003,33 +1007,50 @@ a+geom_dotplot(fill=&quot;blue&quot;, colour=&quot;yellow&quot;,
                 stackratio=.5) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1300 rows containing non-finite values (stat_bindot).</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos-1.png" width="672" /></p>
 </div>
 <div id="la-posición-de-los-datos-con-stackdir" class="section level2">
 <h2>La posición de los datos con <strong>stackdir</strong></h2>
-<p>Con la opción <strong>stackdir</strong> uno puede ubicar los puntos de forma diferente; por ejemplo, centrados al eje de Y como se muestra en la siguiente figura. Para especificar la dirección en que se quieren ubicar los datos, se indica que los puntos comienzan al centro con el parámetro <strong>center</strong>; si comienzan arriba, con <strong>down</strong>; si abajo, con <strong>up</strong>; y si al centro con los puntos alineados, con <strong>centerwhole</strong>. En el ejemplo de la Figura ref{fig:dipodium-puntos8 se centralizaron los puntos.</p>
+<p>Con la opción <strong>stackdir</strong> uno puede ubicar los puntos de forma diferente; por ejemplo, centrados al eje de Y como se muestra en la siguiente figura. Para especificar la dirección en que se quieren ubicar los datos, se indica que los puntos comienzan al centro con el parámetro <strong>center</strong>; si comienzan arriba, con <strong>down</strong>; si abajo, con <strong>up</strong>; y si al centro con los puntos alineados, con <strong>centerwhole</strong> (centralizados, pero con los daos aliñados).</p>
 <pre class="r"><code># Practica cambiando stackdir por las otras alternativas: centerwhole, up, down, center, 
 a=ggplot(dipodium, aes(Number_of_fruits))
-a+geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
+a=a+geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
                 stackdir=&quot;center&quot;, stackratio = 0.5) + 
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+b=ggplot(dipodium, aes(Number_of_fruits))
+b=b+geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
+                stackdir=&quot;centerwhole&quot;, stackratio = 0.5) + 
+  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+c=ggplot(dipodium, aes(Number_of_fruits))
+c=c+geom_dotplot(fill=&quot;orange&quot;, colour=&quot;black&quot;,
+                stackdir=&quot;up&quot;, stackratio = 0.5) + 
+  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+d=ggplot(dipodium, aes(Number_of_fruits))
+d=d+geom_dotplot(fill=&quot;black&quot;, colour=&quot;white&quot;,
+                stackdir=&quot;down&quot;, stackratio = 0.5) + 
+  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1300 rows containing non-finite values (stat_bindot).</code></pre>
-<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos8-1.png" width="672" /></p>
-</div>
-<div id="modificación-estética-del-gráfico-tamaño-del-punto-color-del-punto-y-la-intensidad" class="section level2">
-<h2>Modificación estética del gráfico, tamaño del punto, color del punto y la intensidad</h2>
-<p>A continuación se demostrará cómo modificar algunas variables utilizando <strong>geom_dotplot</strong>. Cuando se utilicen otras funciones tipo <strong>geom_</strong>, muchas de las opciones explicadas a continuación pueden ser viables y aplicables. Se cambia el tamaño de los puntos con <strong>dotsize</strong>, a la vez que se cambia la orientación de los datos como se muestra en la misma figura. También se cambia la intensidad del color usando <strong>alpha</strong>, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción <strong>fill</strong> (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue.</p>
-<pre class="r"><code>a=ggplot(dipodium, aes(Species_Name, Number_of_fruits))
-a+geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
-               dotsize=1, stackdir=&quot;down&quot;,  stackratio = 0.7) +
+<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/grid%20dotplot-1.png" width="672" /> ## Modificación estética del gráfico, tamaño del punto, color del punto y la intensidad</p>
+<p>A continuación se demostrará cómo modificar algunas variables utilizando <strong>geom_dotplot</strong>. Cuando se utilicen otras funciones tipo <strong>geom_</strong>, muchas de las opciones explicadas a continuación pueden ser viables y aplicables. Se cambia el tamaño de los puntos con <strong>dotsize</strong>, a la vez que se cambia la orientación de los datos como se muestra en la misma figura. También se cambia la intensidad del color usando <strong>alpha</strong>, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción <strong>fill</strong> (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue. Nota que en los dos gráficos se cambia el <strong>stackratio</strong> que es la proporción de solapamiento de puntos. En adición se cambia el tamaño de los puntos con <strong>dotsize</strong>.</p>
+<pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
+               dotsize=3, stackdir=&quot;center&quot;,  stackratio = 0.2) +
+  labs(x=&quot;Especie de orquídea&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+
+b=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
+               dotsize=1, stackdir=&quot;center&quot;,  stackratio = 0.7) +
   labs(x=&quot;Especie de orquídea&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos1-1.png" width="672" /></p>
+<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/grid%20dotplot2-1.png" width="672" /></p>
 </div>
 <div id="remover-los-na-con-drop_na" class="section level2">
 <h2>Remover los <strong>NA</strong> con <strong>drop_na</strong></h2>
@@ -1037,7 +1058,7 @@ a+geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
 <pre class="r"><code>drop</code></pre>
 <pre><code>## function (x) 
 ## .Internal(drop(x))
-## &lt;bytecode: 0x7fb7a2b88f10&gt;
+## &lt;bytecode: 0x7f8c46d6e008&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <pre class="r"><code>dipodium%&gt;%
   select(Species_Name, Number_of_fruits)%&gt;%
@@ -1053,7 +1074,6 @@ geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
 a+geom_dotplot(binwidth = 2, dotsize=0.1) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## Warning: Removed 1300 rows containing non-finite values (stat_bindot).</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos4-1.png" width="672" /></p>
 </div>
 <div id="el-solapamiento-de-los-puntos-con-stackratio" class="section level2">
@@ -1063,14 +1083,12 @@ a+geom_dotplot(binwidth = 2, dotsize=0.1) +
 a+geom_dotplot(binwidth = .3, stackratio = .7, position = &quot;dodge&quot;) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## Warning: Removed 1300 rows containing non-finite values (stat_bindot).</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos5-1.png" width="672" /></p>
 <p>Ahora veremos cómo ubicar los puntos uno encima de los otros o sea apilar los puntos pero que a la misma vez la cantidad de puntos cambie de acuerdo al grupo. Continuaremos con el ejemplo anterior de las orquídeas <em>Dipodium</em>. En la Figura se usa la opción <strong>stackgroups</strong> en combinación con <strong>binwidth</strong> y <strong>method</strong> para lograr ese efecto, tal como se muestra a continuación:</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
 a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = &quot;histodot&quot;, stackratio = 0.5) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## Warning: Removed 1300 rows containing non-finite values (stat_bindot).</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos6-1.png" width="672" /></p>
 </div>
 <div id="binpositions" class="section level2">
@@ -1080,7 +1098,6 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = &quot;histodot&quot;,
 a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = &quot;all&quot;) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<pre><code>## Warning: Removed 1300 rows containing non-finite values (stat_bindot).</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos7-1.png" width="672" /> # Opciones y Parametros de <strong>geom_dotplot</strong></p>
 <p>A continuación se resumen las opciones y parámetros más importantes de geom_dotplot:</p>
 <ul>

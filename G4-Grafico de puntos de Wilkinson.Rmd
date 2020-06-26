@@ -7,18 +7,18 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,  message=FALSE, warning=FALSE)
 ```
 
-# Gráficos de Puntos
+# Gráficos de Puntos con **geom_dotplot**
 
 
 ## Gráficos de una variable continua o discreta 
-Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (medidas de largo o ancho, conteos, etc.) o discretos (agrupados por categoría).  A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.
+Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría).  A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.
 
 
 ## Gráficos de puntos:  Dotplot de Wilkinson con geom_dotplot
-En el gráfico de puntos, conocido como *Wilkinson dotplot*, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de *Y*. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea *dipodium* en el archivo de **ggversa**.  Note que se podría haber usado **geom_dotplot** sin parámetros y los puntos quedarían representados de color negro. El parámetro **fill** cambia el color de los puntos y el parámetro **colour o color** cambia el color de la línea que rodea el círculo.
+En el gráfico de puntos, conocido como *Wilkinson dotplot*, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de *Y*. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea *dipodium* en el archivo de **ggversa**.  Note que se podría haber usado **geom_dotplot** sin parámetros adicional y los puntos quedarían representados de color negro. El parámetro **fill** cambia el color de los puntos y el parámetro **colour o color** cambia el color de la línea que rodea el círculo.
 
 ## Los paquetes a instalar
 
@@ -27,13 +27,14 @@ library(ggversa) # la función "library" activa el paquete de **ggversa** donde 
 library(ggplot2) # ggplot2 es la librería que se usará para visualizar los datos
 library(tidyverse) # una serie de paquetes para organizar y visualizar los datos
 library(gt) # Un paquete para que las tablas se vean más organizada. 
+library(gridExtra) # Un paquete para organizar las figuras de ggplot
 
 gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas
 ```
 
 
 
-```{r dipodium-puntos}
+```{r dipodium-puntos, message=FALSE, warning=FALSE}
 
 a=ggplot(dipodium, aes(Number_of_fruits))
 
@@ -45,29 +46,69 @@ a+geom_dotplot(fill="blue", colour="yellow",
 
 ## La posición de los datos con **stackdir**
 
-Con la opción **stackdir** uno puede ubicar los puntos de forma diferente; por ejemplo, centrados al eje de Y como se muestra en la siguiente figura.  Para especificar la dirección en que se quieren ubicar los datos, se indica que los puntos comienzan al centro con el parámetro **center**; si comienzan arriba, con **down**; si abajo, con **up**; y si al centro con los puntos alineados, con **centerwhole**.  En el ejemplo de la  Figura ref{fig:dipodium-puntos8 se centralizaron los puntos.
+Con la opción **stackdir** uno puede ubicar los puntos de forma diferente; por ejemplo, centrados al eje de Y como se muestra en la siguiente figura.  Para especificar la dirección en que se quieren ubicar los datos, se indica que los puntos comienzan al centro con el parámetro **center**; si comienzan arriba, con **down**; si abajo, con **up**; y si al centro con los puntos alineados, con **centerwhole** (centralizados, pero con los daos aliñados).
 
 ```{r dipodium-puntos8}
 # Practica cambiando stackdir por las otras alternativas: centerwhole, up, down, center, 
 a=ggplot(dipodium, aes(Number_of_fruits))
-a+geom_dotplot(fill="red", colour="black",
+a=a+geom_dotplot(fill="red", colour="black",
                 stackdir="center", stackratio = 0.5) + 
   labs(x="Número de Frutos", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
+
+b=ggplot(dipodium, aes(Number_of_fruits))
+b=b+geom_dotplot(fill="blue", colour="black",
+                stackdir="centerwhole", stackratio = 0.5) + 
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+c=ggplot(dipodium, aes(Number_of_fruits))
+c=c+geom_dotplot(fill="orange", colour="black",
+                stackdir="up", stackratio = 0.5) + 
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+d=ggplot(dipodium, aes(Number_of_fruits))
+d=d+geom_dotplot(fill="black", colour="white",
+                stackdir="down", stackratio = 0.5) + 
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+
+
+
 ```
 
+
+```{r grid dotplot, echo=FALSE}
+grid.arrange(a,b,c,d,ncol=2)
+```
 ## Modificación estética del gráfico, tamaño del punto, color del punto y la intensidad
 
-A continuación se demostrará cómo modificar algunas variables utilizando **geom_dotplot**.  Cuando se utilicen otras funciones tipo **geom_**, muchas de las opciones explicadas a continuación pueden ser viables y aplicables.  Se cambia el tamaño de los puntos con **dotsize**, a la vez que se cambia la orientación de los datos como se muestra en la misma figura.  También se cambia la intensidad del color usando **alpha**, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción **fill** (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue.
+A continuación se demostrará cómo modificar algunas variables utilizando **geom_dotplot**.  Cuando se utilicen otras funciones tipo **geom_**, muchas de las opciones explicadas a continuación pueden ser viables y aplicables.  Se cambia el tamaño de los puntos con **dotsize**, a la vez que se cambia la orientación de los datos como se muestra en la misma figura.  También se cambia la intensidad del color usando **alpha**, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción **fill** (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue. Nota que en los dos gráficos se cambia el **stackratio** que es la proporción de solapamiento de puntos. En adición se cambia el tamaño de los puntos con **dotsize**. 
 
-```{r dipodium-puntos1}
+```{r dipodium-puntos1, echo=TRUE}
 
-a=ggplot(dipodium, aes(Species_Name, Number_of_fruits))
-a+geom_dotplot(fill="red", colour="black",
-               dotsize=1, stackdir="down",  stackratio = 0.7) +
+a=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(fill="blue", colour="black",
+               dotsize=3, stackdir="center",  stackratio = 0.2) +
   labs(x="Especie de orquídea", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
+
+
+b=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(fill="blue", colour="black",
+               dotsize=1, stackdir="center",  stackratio = 0.7) +
+  labs(x="Especie de orquídea", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
 ```
+
+
+```{r grid dotplot2, echo=FALSE}
+grid.arrange(a,b,ncol=2)
+```
+
 
 ## Remover los **NA** con **drop_na**
 
