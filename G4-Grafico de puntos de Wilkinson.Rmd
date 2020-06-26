@@ -109,49 +109,29 @@ b=ggplot(dipodium, aes(Number_of_fruits))+
 grid.arrange(a,b,ncol=2)
 ```
 
-
-## Remover los **NA** con **drop_na**
-
-Note que en la gráfica anterior, aparece un grupo en que no se sabía cuál especie de orquídea era.  Entonces, se identificó como {NA en el gráfico (la columna de puntos de la derecha).  Normalmente uno no va a querer mostrar esos datos al menos que haya una razón para ello.  Esos datos se pueden remover utilizando una opción de excluir datos innecesarios del archivo antes de generar el gráfico.  Con las funciones en **drop_na** del paquete **tidyr** uno puede remover las variables que tienen **NA**. Se aprovecha y se usa también la opción binaxis para agrupar los datos en el eje de X o el eje de Y; en este ejemplo se agruparon los puntos en el eje de Y como se muestra a continuación, pero centrados los puntos de acuerdo a su especie:
-
-
-
-```{r dipodium-puntos2, message=FALSE}
-drop
-
-dipodium%>%
-  select(Species_Name, Number_of_fruits)%>%
-  drop_na()%>%
-  ggplot(aes(Species_Name, Number_of_fruits))+
-geom_dotplot(fill="red", colour="black",
-               dotsize=.5, stackdir="center", alpha=.5, binaxis = "y") +
-  labs(x="Especie de orquídea", y="Número de frutos")+
-  theme(axis.title=element_text(size=10,face="bold"))
-```
-
- El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos.  Eso se puede cambiar utilizando la opción **binwidth** (bin width o sea el ancho del compartimento).  Cuando el método (o sea, si se especifica la opción **method**) para representar los puntos es densidad de puntos (opción **dotdensity**), entonces **binwidth** es el máximo del ancho de compartimiento.  Alternativamente, cuando el método se especifica como **histodot**, el **binwidth** organizará los puntos a una distancia fija de los compartimiento.  A continuación, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2.0 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente.  Además, se cambió el tamaño de los puntos con **dotsize** a 0.2.
-
-```{r dipodium-puntos4}
-
-a=ggplot(dipodium, aes(Number_of_fruits))
-a+geom_dotplot(binwidth = 2, dotsize=0.1) +
-  labs(x="Número de Frutos", y="Frecuencia")+
-  theme(axis.title=element_text(size=10,face="bold"))
-```
-
 ## El solapamiento de los puntos con **stackratio**
 
-La opción de **stackratio** es para especificar el grado de solapamiento de los puntos uno sobre el otro, o el espacio que separa cada punto. A la figura anteriormente, ahora se le añade un solapamiento diferente.  Además, para que los puntos no se solapen unos con otros se usa la función **position= dodge**.
+La opción de **stackratio** es para especificar el grado de solapamiento de los puntos uno sobre el otro, o el espacio que separa cada punto. A la figura anteriormente, ahora se le añade un solapamiento diferente.  Además, para que los puntos no se solapen unos con otros se usa la función **position=dodge**.  Si quiere modificar el solapamiento tiene que usar **position=position_dodge(width = 0.1)** para identificar la cantidad de solapamiento de los grupos, más pequeño el número más solapamiento entre los grupos
 
 ```{r dipodium-puntos5}
 
-a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
-a+geom_dotplot(binwidth = .3, stackratio = .7, position = "dodge") +
+a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))+
+  geom_dotplot(binwidth = .3, stackratio = .7, position = "dodge") +
   labs(x="Número de Frutos", y="Frecuencia")+
-  theme(axis.title=element_text(size=10,face="bold"))
+  theme(axis.title=element_text(size=10,face="bold"))+
+  theme(legend.position = "none")
+
+
+b=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))+
+geom_dotplot(binwidth = .3, stackratio = .7, position=position_dodge(width = 0.7)) +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))+
+  theme(legend.position = "none")
 ```
 
-
+```{r solapamiento, echo=FALSE}
+grid.arrange(a,b,ncol=2)
+```
 
 Ahora veremos cómo ubicar los puntos uno encima de los otros o sea apilar los puntos pero que a la misma vez la cantidad de puntos cambie de acuerdo al grupo.  Continuaremos con el ejemplo anterior de las orquídeas *Dipodium*. En la Figura se usa la opción **stackgroups** en combinación con **binwidth** y **method** para lograr ese efecto, tal como se muestra a continuación:
 
@@ -162,6 +142,64 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = "histodot", stackrati
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
+## Remover los **NA** con **drop_na**
+
+Cuando hay un grupo no indentificado típicamente se usa **NA** en la el archivo para identifica la falta de información. En otros programas por ejemplo se usa el **999**.  En este archivo se identificó dos especie de orquídea, *Dipodium roseum* y *Dipodium pardalinum* y hubo ocasiones que no se podia asignar la información una especies especifica (ya que se parecen mucho morfologicamente).  Entonces, se identificó como **NA** en el gráfico (la columna de puntos de la derecha).  Normalmente uno no va a querer mostrar esos datos al menos que haya una razón para ello.  Esos datos se pueden remover utilizando una opción de excluir datos innecesarios del archivo antes de generar el gráfico.  Con las funciones en **drop_na** del paquete **tidyr** uno puede remover las variables que tienen **NA**. Se aprovecha y se usa también la opción binaxis para agrupar los datos en el eje de X o el eje de Y; en este ejemplo se agruparon los puntos en el eje de Y como se muestra a continuación, pero centrados los puntos de acuerdo a su especie:
+
+
+
+```{r dipodium-puntos2, message=FALSE}
+
+
+conNA=dipodium%>%
+  select(Species_Name, Number_of_fruits)%>%
+  ggplot(aes(Species_Name, Number_of_fruits, fill=Species_Name))+
+geom_dotplot(dotsize=.5, stackdir="center", alpha=.5, binaxis = "y") +
+  labs(x="Especie de orquídea", y="Número de frutos")+
+  theme(axis.title=element_text(size=10,face="bold"))+
+  theme(legend.position = "none")
+
+
+sinNA=dipodium%>%
+  select(Species_Name, Number_of_fruits)%>%
+  drop_na()%>%
+  ggplot(aes(Species_Name, Number_of_fruits, fill=Species_Name))+
+geom_dotplot(dotsize=.5, stackdir="center", alpha=.9, binaxis = "y") +
+  labs(x="Especie de orquídea", y="Número de frutos")+
+  theme(axis.title=element_text(size=10,face="bold"))+
+  theme(legend.position = "none")
+```
+
+```{r grid dotplot3, echo=FALSE}
+grid.arrange(conNA,sinNA,ncol=2)
+```
+
+`
+
+ El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos.  Eso se puede cambiar utilizando la opción **binwidth** (binwidth o sea el ancho del compartimento).  Cuando el método (o sea, si se especifica la opción **method**) para representar los puntos es la densidad de puntos (opción **dotdensity**), entonces **binwidth** es el máximo del ancho de compartimiento.  Alternativamente, cuando el método se específica como **histodot**, el **binwidth** organizará los puntos a una distancia fija de los compartimiento.  A continuación, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2 y de 1 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente.  Además, se cambió el tamaño de los puntos con **dotsize** a 0.1.
+
+```{r dipodium-puntos4}
+
+a=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(binwidth = 2, dotsize=0.1) +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+
+b=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(binwidth = 1, dotsize=0.1) +
+  labs(x="Número de Frutos", y="Frecuencia")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+
+```{r grid dotplot4, echo=FALSE}
+grid.arrange(a,b,ncol=2)
+```
+
+
+
+
 ## binpositions 
 
 Otra alternativa para lograr la misma representación de poner los puntos uno encima de los otros por grupo es utilizando la opción **binpositions= all**. 
@@ -169,7 +207,7 @@ Otra alternativa para lograr la misma representación de poner los puntos uno en
 ```{r dipodium-puntos7}
 
 a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
-a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = "all") +
+a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = "all", dotsize = .5) +
   labs(x="Número de Frutos", y="Frecuencia")+
   theme(axis.title=element_text(size=10,face="bold"))
 ```
