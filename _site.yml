@@ -48,6 +48,9 @@ navbar:
         - 
           href: G5_geom_area_densidad_freqpoly.html
           text: "Gráficos de area y densidad"
+        - 
+          href: G6_geom_histogram.html
+          text: "Histogramas"
       text: "Visualización"
     - 
       menu: 

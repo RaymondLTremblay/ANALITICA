@@ -1,5 +1,7 @@
 ---
 title: "Grafico de puntos de Wilkinson"
+author: "RLT"
+date: "6/30/2020"
 output: 
   html_document:
     toc: yes

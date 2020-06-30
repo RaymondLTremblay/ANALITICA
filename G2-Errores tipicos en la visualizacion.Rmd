@@ -1,5 +1,7 @@
 ---
 title: "Erorres_Tipicos_en_la_visualizacion"
+author: "RLT"
+date: "6/30/2020"
 output: 
   html_document:
     toc: yes
