@@ -51,6 +51,9 @@ navbar:
         - 
           href: G6_geom_histogram.html
           text: "Histogramas"
+        -
+          href: G7_geom_bar.html
+          text: "Gráficos de barras"
       text: "Visualización"
     - 
       menu: 
