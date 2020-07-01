@@ -31,7 +31,7 @@ library(ggversa)
 ```
 
 
-## Diagrama de caja con geom\_boxplot
+# Diagrama de caja con geom_boxplot
 
 Para datos que no tienen una distribución normal, típicamente se usa un diagrama de caja para visualizar la distribución de los datos.  El diagrama de caja distribuye los datos basándose en el rango del orden de tamaño o valor numérico.  Primeramente, los datos son ordenados de menor a mayor.  Los valores en el gráfico correspondiente representan los cuartiles 25, 50 y 75. Los bigotes (las líneas que se extienden de las cajas) representan 1.5 veces multiplicado por el rango intercuartil (RIC), o la distancia entre el primer cuartil (25) y el tercer cuartil (75). Los datos que están fuera de ese rango se representan con puntos. Los gráficos que usan muescas, o **notch**, las calculan de acuerdo a la siguiente fórmula: (1.58 x RIC) / (raíz cuadrada de la muestra). Utilizaremos nuevamente los datos de la orquídea **Dipodium** en los siguientes ejemplos, particularmente representando la cantidad de flores y el número de frutos.
 
