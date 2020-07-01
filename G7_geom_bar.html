@@ -702,15 +702,15 @@ tail(Pop_PR, n=4)</code></pre>
 <h3>Primero miramos los datos</h3>
 <pre class="r"><code>names(ASBESTOS_QUEBEC)</code></pre>
 <pre><code>## [1] &quot;Year&quot;          &quot;Mes&quot;           &quot;Temp_Prom_Max&quot; &quot;Temp_Prom_Min&quot;
-## [5] &quot;Fecha&quot;</code></pre>
+## [5] &quot;Fecha&quot;         &quot;NegPos&quot;</code></pre>
 <pre class="r"><code>head(ASBESTOS_QUEBEC)</code></pre>
-<pre><code>##   Year Mes Temp_Prom_Max Temp_Prom_Min   Fecha
-## 1 1948   6          22.2           9.9 1948-06
-## 2 1948   7          25.5          14.2 1948-07
-## 3 1948   8          24.9          14.2 1948-08
-## 4 1948   9          21.6           8.4 1948-09
-## 5 1948  10          12.0           2.6 1948-10
-## 6 1948  11          10.3           1.9 1948-11</code></pre>
+<pre><code>##   Year Mes Temp_Prom_Max Temp_Prom_Min   Fecha NegPos
+## 1 1948   6          22.2           9.9 1948-06   TRUE
+## 2 1948   7          25.5          14.2 1948-07   TRUE
+## 3 1948   8          24.9          14.2 1948-08   TRUE
+## 4 1948   9          21.6           8.4 1948-09   TRUE
+## 5 1948  10          12.0           2.6 1948-10   TRUE
+## 6 1948  11          10.3           1.9 1948-11   TRUE</code></pre>
 <pre class="r"><code>is.data.frame(ASBESTOS_QUEBEC) # para determinar si el archivo es un data frame?</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>attach(ASBESTOS_QUEBEC)</code></pre>

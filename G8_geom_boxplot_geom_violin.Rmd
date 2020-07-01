@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 ```
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -28,6 +28,7 @@ colorize <- function(x, color) {
 ```{r}
 library(tidyverse)
 library(ggversa)
+library(gridExtra) # Para organizar múltiples gráficos juntos
 ```
 
 
@@ -38,36 +39,39 @@ Para datos que no tienen una distribución normal, típicamente se usa un diagra
 En el primer gráfico a continuación, Fig. 1 (arriba a la izquierda), se muestra un diagrama de caja básico. Note que la variable en la primera **x** tiene valor de 1, lo que significa que hay un solo grupo. En el segundo gráfico, Fig. 2 (arriba a la derecha), se modifica con la opción de **notch**. En el tercer gráfico, Figura Fig. 3 (abajo a la izquierda), se cambió el color de la caja, la forma o **shape** de los valores atípicos o **outliers**, y su tamaño.  En los tres primeros gráficos, se usan todos los datos en un mismo diagrama de caja.  En el cuarto gráfico, Fig. 4 (abajo a la derecha), observamos la distribución de la cantidad de flores por el número de frutos observado por planta.  Note que para este último caso en particular, hay más de un grupo.
 
 ```{r boxplot, echo=TRUE}
-boxplot1 <- ggplot(dipodium, aes(Number_of_fruits, x=1))
-boxplot1 + geom_boxplot()+
+boxplot1 <- ggplot(dipodium, aes(Number_of_fruits, x=1))+ 
+  geom_boxplot()+
            annotate("text", x= 0.7,y= 7, label="Fig. 1")+
   labs(x="1", y="Cantidad de Frutos")+
-  theme(axis.title=element_text(size=14,face="bold"))
-```
+  theme(axis.title=element_text(size=10,face="bold"))
 
 
-```{r bp2}
-boxplot2 <- ggplot(dipodium, aes(Number_of_fruits, x=1))
-boxplot2 + geom_boxplot(notch=TRUE) +
+boxplot2 <- ggplot(dipodium, aes(Number_of_fruits, x=1))+
+  geom_boxplot(notch=TRUE) +
            annotate("text", x= 0.7,y= 7, label="Fig. 2")+
   labs(x="1", y="Cantidad de Frutos")+
-  theme(axis.title=element_text(size=14,face="bold"))
+  theme(axis.title=element_text(size=10,face="bold"))
 
-boxplot3 <- ggplot(dipodium, aes(Number_of_fruits, x=1))
-boxplot3 + geom_boxplot(notch=TRUE,
+boxplot3 <- ggplot(dipodium, aes(Number_of_fruits, x=1))+ 
+  geom_boxplot(notch=TRUE,
            fill="blue", alpha=0.5, outlier.shape=17,
            outlier.color="red", outlier.size=5)+
            annotate("text", x= 0.7,y= 7, label="Fig. 3")+
   labs(x="1", y="Cantidad de Frutos")+
-  theme(axis.title=element_text(size=14,face="bold"))
+  theme(axis.title=element_text(size=10,face="bold"))
 
 boxplot4 <- ggplot(na.omit(dipodium[,c("Number_of_fruits",
       "Number_of_Flowers")]),
-       aes(factor(Number_of_fruits), Number_of_Flowers))
-boxplot4 + geom_boxplot(notch=FALSE)+
-           annotate("text", x= 2,y= 35, label="Fig. 4")+
-  labs(x="Cantidad de Frutos", y="Cantidad de Flores")+
-  theme(axis.title=element_text(size=14,face="bold"))
+       aes(factor(Number_of_Flowers), Number_of_fruits))+ 
+  geom_boxplot(notch=FALSE)+
+           annotate("text", x= 2,y= 10, label="Fig. 4")+
+  labs(y="Cantidad de Frutos", x="Cantidad de Flores")+
+  theme(axis.title=element_text(size=10,face="bold"))+
+   theme(axis.text.x = element_text(angle = 90))
+  
+
+grid.arrange(boxplot1,boxplot2, boxplot3, boxplot4,ncol=2)
+
 ```
 
 # Opciones y Parametros de **geom_boxplot**:
@@ -76,36 +80,40 @@ boxplot4 + geom_boxplot(notch=FALSE)+
  
   + geom_boxplot(stat, position, outlier.color, outlier.shape, outlier.size, notch, notchwidth, varwidth)
   
-    + stat: transformación estadística de los datos; solamente se necesita si se quiere anular el método por defecto que usa geom\_boxplot
+    + stat: transformación estadística de los datos; solamente se necesita si se quiere anular el método por defecto que usa geom_boxplot
     + position: para ajustar el solapamiento de los datos
     + outlier.color: define el color de los valores atípicos
     + outlier.shape: define la forma de los valores atípicos
     + outlier.size: define el tamaño de los valores atípicos
     + notch: para producir las muescas; se define con los valores TRUE o FALSE
     + notchwidth: define el ancho de las muescas relativo a la caja (por defecto es 0.5)
-    + varwidth: produce un diagrama de caja estándar y por defecto es FALSE; si es TRUE, produce un diagrama donde el ancho en el eje de {X} es proporcional a la raíz cuadrada del número de observaciones en los grupos
+    + varwidth: produce un diagrama de caja estándar y por defecto es FALSE; si es TRUE, produce un diagrama donde el ancho en el eje de **X** es proporcional a la raíz cuadrada del número de observaciones en los grupos. 
 
+***
 
-\subsection{Diagrama de violín con geom\_violin}
+# Diagrama de violín con **geom_violin**
 
-El gráfico de violín es similar al gráfico de caja, pero la {caja} es curvada para dar una apreciación de la densidad de los datos.  Si la distribución de los datos sigue una curva normal, saldrá entonces como una curva de campana orientada verticalmente. Para los ejemplos a continuación, utilizaremos los datos de la orquídea \emph{Caladenia valida} que empleada anteriormente.
+El gráfico de violín es similar al gráfico de caja, pero la caja es curvada para dar una apreciación de la densidad de los datos.  Si la distribución de los datos sigue una curva normal, saldrá entonces como una curva de campana orientada verticalmente. Para los ejemplos a continuación, utilizaremos los datos de la orquídea terestre australiana *Caladenia valida*.
 
-El modelo básico del gráfico de violín se  muestra en la Figura \ref{fig:geomviolin1},  Note que, tal como ocurre con geom\_boxplot, si se tiene solamente un grupo, se tiene que incluir {x=1}.
+El modelo básico del gráfico de violín se  muestra en la Figura,  Note que, tal como ocurre con **geom_boxplot**, si se tiene solamente un grupo, se tiene que incluir **x=1**. Lo que uno observa es que la mayoria de la información encuentre cerca del valor 5 y 10
 
 ```{r geomviolin1, echo=TRUE}
 library(ggplot2)
-CalVal=caladeniavalida
+CalVal=caladeniavalida 
 violinplot1 <- ggplot(CalVal, aes(DCL, x=1))
 violinplot1 +
   geom_violin()+
   annotate("text", x= 0.75,y= 19, size=8,
            label="", na.rm=TRUE)+
-  theme(axis.title=element_text(size=10,face="bold"))
+  theme(axis.title=element_text(size=10,face="bold"))+
+  ylab("EL largo del apendizaje dorsal")
 ```
 
-\subsection{Geom\_violin con múltiples grupos}
+***
 
-A continuación, en la Figura \ref{fig:geomviolin2}, vamos a producir el gráfico de violín por diferentes factores o grupos de acuerdo al año, a la vez que se le añade color azul a los violines y se le cambia la intensidad al color con {alpha=}.
+## **Geom_violin** con múltiples grupos
+
+A continuación vamos a producir el gráfico de violín por diferentes factores o grupos de acuerdo al año, a la vez que se le añade color azul a los violines y se le cambia la intensidad al color con **alpha=()**.
 
 ```{r geomviolin2}
 violinplot2 <- ggplot(CalVal, aes(y=LCL, x=factor(Year)))
@@ -114,36 +122,45 @@ violinplot2 +
   annotate("text", x=2,y= 19, size=8,
            label="", na.rm=TRUE)+
   labs(x="Año", y="LCL")+
-  theme(axis.title=element_text(size=10,face="bold"))
+  theme(axis.title=element_text(size=10,face="bold"))+
+  ylab("EL largo del apendizaje lateral")
 ```
 
-\subsection{Geom\_violin utilizado con geom\_point y geom\_jitter}
+***
 
-Al gráfico anterior se le pueden añadir los datos para visualizar mejor la distribución.  Los datos de altura de la planta {OH} fueron recolectado de forma discreta en unidades de 5 cm, por lo que todos los valores similares aparecerán solapados unos sobre otros. Debido a esta situación particular de ese tipo de datos, añadirle puntos para visualizarlos con la función geom\_point realmente no ayuda mucho a entender su distribución, tal como se muestra en la Figura \ref{fig:geomviolin3}(a).  Esto es debido a que no se puede apreciar la cantidad de datos utilizados para contruir los violines.  Por otro lado, uno puedo utilizar geom\_jitter y tener una mejor apreciación de su distribución, tal como se muestra en la Figura \ref{fig:geomviolin3}(b).  
 
-Es importante tomar en consideración que si se le añade geom\_point \emph{antes} de geom\_violin, los puntos podrían quedar \emph{escondidos detrás} del violín.
+## **Geom_violin** utilizado con **geom_point** y **geom_jitter**
+
+Al gráfico anterior se le pueden añadir los datos para visualizar mejor la distribución.  Los datos de altura de la planta **OH** fueron recolectado de forma discreta en unidades de 5 cm, por lo que todos los valores similares aparecerán solapados unos sobre otros. Debido a esta situación particular de ese tipo de datos, añadirle puntos para visualizarlos con la función **geom_point** realmente no ayuda mucho a entender su distribución.  Esto es debido a que no se puede apreciar la cantidad de datos utilizados para construir los violines.  Por otro lado, uno puedo utilizar **geom_jitter** y tener una mejor apreciación de su distribución.  
+
+Es importante tomar en consideración que si se le añade **geom_point** antes de **geom_violin**, los puntos podrían quedar escondidos detrás del violín.
 
 ```{r geomviolin3}
 
-violinplot3 <- ggplot(CalVal, aes(y=OH, x=factor(Year)))
-violinplot3 +
+violingp=violinplot3a <- ggplot(CalVal, aes(y=OH, x=factor(Year)))+
   geom_violin()+
-  geom_point()+
+  geom_point()+  # Note que los puntos serán sobrepuestos sobre el violín 
   annotate("text", x=2,y= 20, size=8,
            label="", na.rm=TRUE)+
   labs(x="Año", y="OH")+
   theme(axis.title=element_text(size=10,face="bold"))
 
-violinplot3 +
+violingv=violinplot3a +
   geom_violin()+
-  geom_jitter(position = position_jitter(width = .2))+
+  geom_jitter(position = position_jitter(width = .2))+ # Note que los puntos serán sobrepuestos sobre el violín pero no solapan uno encima del otro.    
   annotate("text", x=2,y= 20, size=8,
            label="", na.rm=TRUE)+
   labs(x="Año", y="OH")+
   theme(axis.title=element_text(size=10,face="bold"))
+
+grid.arrange(violingp, violingv, ncol=2)
 ```
 
-En el próximo gráfico, Figura \ref{fig:geomviolin4}, se invocó geom\_jitter antes que geom\_violin, pero a la misma vez se le cambió la intensidad del color para que se vean mejor los puntos. Vemos que algunos de los puntos que antes estaban medio escondidos ahora se revelan sobre el violín un poco mejor.
+***
+
+## geom_jitter y solapamiento de **geom**
+
+En el próximo gráfico, se invocó **geom_jitter** antes que **geom_violin**, pero a la misma vez se le cambió la intensidad del color para que se vean mejor los puntos. Vemos que algunos de los puntos que antes están medio escondidos y los que no solapan el violin se revelan sobre mejor.
 
 ```{r geomviolin4}
 
@@ -157,9 +174,10 @@ violinplot3 +
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-\subsection{Geom\_violin y los cuartiles}
+***
+## Los cuartiles y geom_violin
 
-Ahora en la Figura \ref{fig:geomviolin5} se muestran el cuartil 25, la mediana (50 ) y el cuartil 75 en el mismo gráfico de violín con líneas horizontales.
+Ahora se muestran el cuartil 25, la mediana (50) y el cuartil 75 en el mismo gráfico de violín con líneas horizontales.
 
 ```{r geomviolin5}
 
@@ -172,7 +190,10 @@ violinplot3 +
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-En la Figura \ref{fig:geomviolin6} se le añade color al contorno de los violines y las líneas de los cuartiles.
+***
+# Añadiendo color al contorno del violin
+
+En esta figura se le añade color al contorno de los violines y las líneas de los cuartiles.
 
 ```{r geomviolin6}
 
@@ -185,9 +206,9 @@ violinplot3 +
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-\subsection{Geom\_violin por categoría}
+## Geom_violin por categoría o factor
 
-En la Figura \ref{fig:geomviolin7} se cambia el color de cada grupo, {Year}. Para lograr ese efecto se le añade otra variable para representar los grupos (o categorías) por color; en este caso, la distribución de los tamaños de las plantas en términos de si produjeron frutos o no.
+En la Figura se cambia el color de cada grupo, **Year**. Para lograr ese efecto se le añade otra variable para representar los grupos (o categorías) por color; en este caso, la distribución de los tamaños de las plantas en términos de si produjeron frutos o no.
 
 ```{r geomviolin7}
 
@@ -198,12 +219,13 @@ violinplot3 +
   annotate("text", x=2,y= 20, size=8,
            label="")+
   labs(x="Año", y="OH")+
-  theme(axis.title=element_text(size=10,face="bold"))
+  theme(axis.title=element_text(size=10,face="bold"))+
+  ylab("Altura de la planta")
 ```
 
-\subsection{Geom\_violin en proporción al tamaño de la muestra}
+## Geom_violin en proporción al tamaño de la muestra
 
-En la Figura \ref{fig:geomviolin8} se modifica el mismo gráfico para que tome en consideración el tamaño de muestra utilizando la opción de {scale} con el parámetro {count}. En otras palabras, los violines van a quedar modificados para incluir el tamaño de la muestra; o sea, la escala máxima del ancho es proporcional al tamaño de la muestra.  Entonces, en este caso (Figura \ref{fig:geomviolin8}) vemos el año donde hubo mayor (2007) y menor (2008) tamaño de muestra de acuerdo al ancho que se muestra para cada violín.
+En la Figura se modifica el mismo gráfico para que tome en consideración el tamaño de muestra utilizando la opción de **scale** con el parámetro **count**. En otras palabras, los violines van a quedar modificados para incluir el tamaño de la muestra; o sea, la escala máxima del ancho es proporcional al tamaño de la muestra.  Entonces, en este caso vemos el año donde hubo mayor (2007) y menor (2008) tamaño de muestra de acuerdo al ancho que se muestra para cada violín.
 
 ```{r geomviolin8}
 
@@ -215,9 +237,9 @@ violinplot3 +
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-\subsection{Geom\_violin no en proporción al tamaño de la muestra}
+## Geom_violin no en proporción al tamaño de la muestra
 
-En la Figura \ref{fig:geomviolin9} se modifica el ancho del violín a 1 en la escala del eje de {X}. En otras palabras, en este caso el ancho ({width}) del violín para el primer año va de 2003.5 al 2004.5, para el segundo violín de 2004.5 a 2005.5 y así sucesivamente en forma consecutiva para los demás años. Este enfoque crea una grado de uniformidad para cada ancho.
+En la Figura se modifica el ancho del violín a 1 en la escala del eje de **X**. En otras palabras, en este caso el ancho **width** del violín para el primer año va de 2003.5 al 2004.5, para el segundo violín de 2004.5 a 2005.5 y así sucesivamente en forma consecutiva para los demás años. Este enfoque crea una grado de uniformidad para cada ancho. En este caso el ancho no esta relacionado con el tamaño de muestra como el ejemplo anterior.  
 
 ```{r geomviolin9}
 
@@ -229,9 +251,9 @@ violinplot3 +
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-\subsection{Geom\_violin y el cambio de orientación}
+## Geom_violin y el cambio de orientación
 
-En la Figura \ref{fig:geomviolin10} cambiamos la orientación de los gráficos anteriores utilizando la opción {coord\_flip()}.
+En la Figura cambiamos la orientación de los gráficos anteriores utilizando la opción **coord_flip()**.
 
 ```{r geomviolin10}
 
@@ -243,18 +265,16 @@ violinplot3 +
   theme(axis.title=element_text(size=10,face="bold"))
 ```
 
-A continuación se resumen las opciones y parámetros más importantes de geom\_violin:
+# Opciones y Parametros de **geom_violin**:
 
-\begin{itemize}
-  \item {\color{red}ggplot}(el archivo de datos, aes(la variable continua, x=1)): {x=1} si es un grupo o el nombre de la variable discreta si hay múltiples grupos
-  \item {\color{red}geom\_violin}(x, y, alpha, colour, fill, linetype, size, weight)
-  \begin{itemize}
- \item {\color{red}alpha}: la intensidad del color
-    \item {\color{red}color}: el color de la línea alrededor del violín
-    \item {\color{red}fill}: el color que se usa para rellenar el violín
-    \item {\color{red}linetype}: representa el estilo de línea; vea la sección \hyperref[sec:Especificación Estética]{{Especificación Estética}}
-    \item {\color{red}size}: representa el grosor de la línea
-    \item {\color{red}scale}: la escala que se usa para producir el violín tomando en cuenta el tamaño de muestra proporcionalmente; utiliza los parámetros {count} o {width}
-    \item {\color{red}weight}: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado)
-  \end{itemize}
-\end{itemize}
+
+  * ggplot(el archivo de datos, aes(la variable continua, x=1)): {x=1} si es un grupo o el nombre de la variable discreta si hay múltiples grupos
+   + geom_violin(x, y, alpha, colour, fill, linetype, size, weight)
+
+      + alpha: la intensidad del color
+      + color: el color de la línea alrededor del violín
+      + fill: el color que se usa para rellenar el violín
+      + linetype: representa el estilo de línea; vea la sección
+      + size: representa el grosor de la línea
+      + scale: la escala que se usa para producir el violín tomando en cuenta el tamaño de muestra proporcionalmente; utiliza los parámetros **count** o **width**
+      + weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado). 
