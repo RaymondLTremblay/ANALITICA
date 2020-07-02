@@ -12,6 +12,43 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
+# Analítica Fundación
+## Quienes Somos
+
+Analítica Fundación, Inc., es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico.  Su visión principal es proveer todo tipo de servicios educativos, investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.
+
+Su misión es la siguiente:
+
+
+### Descripción de los objetivos de la Fundación
+
+Más detalles
+
+## Fecha de Incorporación: 
+
+
+# Servicios
+
+## Talleres
+  * Talleres de Estadística Cuantitativos y Cualitativos
+  * Talleres de Visualización de datos
+  * Talleres de introducción a programados de análisis y más
+    - R 
+    - RStudio
+    - RMarkdown
+    - Python
+    - GitHub
+
+    
+## Análisis Especializados    
+  * Análisis de datos para científicos
+  * Análisis de datos para corporaciones
+  
+## Evaluación e impacto externa de actividades
+  * fghjkl
+  
+  
+# Contactos
 
 **Presidente:** Raymond L. Tremblay, PhD   
 **Coreo electrónico**: raymond.tremblay_at_gmail_dot_com	
@@ -22,13 +59,15 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 **Tesorero:**Julian Hernández-Serrano, PhD   
 **Coreo electrónico**: analiticafundacion_at_gmail_dot_com 
 
-# La Fundación
-
-## Fecha de Incorporación: 
-
-## Descripción de los objetivos de la Fundación
 
 
+
+
+*******
+
+
+
+TODO lo de abajo tiene que ser movido a la pestaña de Talleres
 
 
 

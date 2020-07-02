@@ -1,0 +1,27 @@
+---
+title: "Podcasts"
+output:
+  html_document: 
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Screencast
+
+Como subir un podcast a nuestra pagina, aqui esta un ejemplo de como subir un enlace de Youtube
+
+#[ The name you want to give to the podcast](the link to the podcast)
+
+[An example of t-test](https://www.youtube.com/watch?v=pTmLQvMM-1M)
+
+```{r}
+
+```
+
+
+ podcast1

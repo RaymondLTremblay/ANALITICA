@@ -1,0 +1,277 @@
+---
+title: "Tema_4_supuestos"
+author: "Raymond L. Tremblay"
+date: "2/7/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+
+Add and activate packages.
+NOTE THE NEW FUNCTION to install all packages ONLY IF Needed.....
+
+```{r packages, include=FALSE}
+#----Install and Load Packages-----
+#install.packages("car", dependencies = TRUE)
+#install.packages("ggplot2")
+#install.packages("pastecs")
+#install.packages("psych")
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(car, pastecs, psych, ggplot2)
+
+
+library(car) # Companion to applied regression
+library(ggplot2)  # Data Visualization
+library(pastecs) # Space time Ecological Series
+library(psych)   # Procedures for Psychological, psychometric and Personality Research
+#library(modeest) # package to calculate the mode of a dataset
+```
+
+
+Visualize the distribution of the data "Histogram"
+
+
+Los datos son de un festival de Rock y Heavy Metal en UK
+La categoria son
+0 = You smell like a rotting corpse
+4 = You smell like of sweet roses
+
+
+```{r histogram}
+
+library(readr)
+DownloadFestival <- read_csv("Data/DownloadFestival.csv")
+```
+
+```{r}
+dlf <- DownloadFestival
+
+dlf=subset(DownloadFestival, day1<5)
+head(dlf)
+tail(dlf)
+
+hist.day1 <- ggplot(dlf, aes(day1)) + 
+  geom_histogram(aes(y=..density..), colour="black", fill="white") 
+
+hist.day1+ 
+  labs(x="Hygiene score on day 1", y = "Density")
+
+hist.day1
+
+ggsave("histogram_festival_hygiene.pdf") # Can be either be a device function (e.g. png()), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only)
+
+```
+
+#Remove the outlier from the day1 hygiene score
+dlf$day1 <- ifelse(dlf$day1 > 5, NA, dlf$day1)
+df$Column = ifelse(df$column_to_be evaluated, replace_with_NA, otherwise_leave_as_before)
+
+
+```{r remove outlier}
+dlf$day1 <- ifelse(dlf$day1 > 5, NA, dlf$day1)
+
+
+# Note here that we use ..density..  # CUAL ES LA DIFERENCIA entre densidad y frecuencia?  
+
+hist.day1 <- ggplot(dlf, aes(day1)) + 
+  theme(legend.position = "none") + 
+  geom_histogram(aes(y=..density..), colour="black", fill="white") + 
+  labs(x="Hygiene score on day 1", y = "Density")
+
+hist.day1
+
+```
+
+
+
+The Normal Distribution
+
+https://en.wikipedia.org/wiki/Normal_distribution
+
+
+1. visualization if the observed distribution follows a theoretical normal distribution
+2. Test to determine if the observed distribution follows a theoretical distribution
+
+
+ $$P(x)=\frac{1}{{\sigma\sqrt{ 2\pi}}}{e}^{\frac{{(x-µ)}^{2}}{{2\sigma}^{2}}}$$
+ 
+
+
+
+
+```{r adding the normal curve}
+# Ahora añadir la linea de distribución normal
+
+hist.day1 + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(dlf$day1,na.rm = TRUE), 
+                sd = sd(dlf$day1 , na.rm = TRUE)), 
+                colour = "red", size = 1)
+
+shapiro.test(dlf$day1)  # don't use with more than 40 a 200 data point
+length(dlf$day1)
+```
+
+A third method
+
+3. The QQ plot method
+
+```{r qqplot}
+#Q-Q plot for day 1:
+qqplot.day1 <- qplot(sample = dlf$day3, stat="qq")
+qqplot.day1
+
+```
+
+
+
+Add a straight line on the qqplot
+```{r qqplot and line}
+
+# This function is to add a straight line through the qqplot
+qqplot.data <- function (vec) # argument: vector of numbers
+{
+  # following four lines from base R's qqline()
+  y <- quantile(vec[!is.na(vec)], c(0.25, 0.75))
+  x <- qnorm(c(0.25, 0.75))
+  slope <- diff(y)/diff(x)
+  int <- y[1L] - slope * x[1L]
+  
+  d <- data.frame(resids = vec)
+  
+  ggplot(d, aes(sample = resids)) + 
+    stat_qq() + 
+    geom_abline(slope = slope, intercept = int, color="red")
+  
+}
+
+qqplot.data(dlf$day3)
+
+
+ggsave("qqplot.png")
+```
+
+```{r quantifying normality}
+
+dlf=DownloadFestival
+#Quantifying normality with numbers
+library(psych)		#load the "psych" library, if you haven't already, for the describe() function.
+
+#Using the describe() function for a single variable.
+psych::describe(dlf$day2)
+
+```
+Que es la varianza?
+The variance
+$$s^{ 2 }=\frac { \sum _{ i=1 }^{ n }{ (x_{ i }-\bar { x } ) } ^{ 2 } }{ n-1 } $$
+
+Que es la desviación estandard
+
+The standard deviation of the mean
+$$s=\sqrt { s^{ 2 } } $$
+
+
+
+
+
+
+
+
+Multiple variables
+
+```{r multiple variables}
+#Two alternative ways to describe multiple variables.
+psych::describe(cbind(dlf$day1, dlf$day2, dlf$day3))
+psych::describe(dlf[,c("day1", "day2", "day3")])
+
+```
+
+
+Dicover the Mode. La moda en R
+
+```{r mode}
+# the mode
+library(modeest)
+
+mfv(dlf$day1, method="mfv")
+mfv(dlf$day2, method="mfv")
+mfv(dlf$day3, method="mfv")
+
+
+
+```
+
+
+
+
+Test of normality, Shapiro Wilks Test
+
+```{r test of normality}
+
+library(pastecs)
+stat.desc(dlf$day3, basic = FALSE, norm = TRUE) # "norm=TRUE"" is to calculate the Shapiro Wilk Test
+```
+
+```{r description by variable}
+stat.desc(cbind(dlf$day1, dlf$day2, dlf$day3), basic = FALSE, norm = TRUE)
+```
+
+```{r rounding}
+round(stat.desc(dlf[, c("day1", "day2", "day3")], basic = FALSE, norm = TRUE), digits = 3)
+
+```
+
+# Levene's Test: testing for assumption of normality among groups
+
+```{r levene test}
+#Levene's test for comparison of variances of exam scores in the two universities.
+library(ggplot2)
+library(car)
+library(readr)
+RExam <- read_csv("Data/RExam.csv")
+
+rexam=RExam
+head(rexam)
+
+ggplot(rexam, aes(numeracy, fill=as.factor(uni)))+
+  geom_histogram()+
+  facet_wrap(~uni)
+
+
+
+ leveneTest(rexam$lectures, rexam$uni)
+leveneTest(rexam$lectures, rexam$uni, center = mean)
+
+leveneTest(rexam$computer, rexam$uni)
+leveneTest(rexam$numeracy, rexam$uni)
+
+
+
+
+```
+
+
+
+
+```{r transformation}
+
+x=c(0,2,3,4,5,6,100,1000)
+x
+log(x+1)
+sqrt(x)
+
+head(log(dlf$day1))
+
+head(dlf)
+dlf$lgday1=log(dlf$day1)
+head(dlf)
+```
+
+
+

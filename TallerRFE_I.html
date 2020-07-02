@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="D. S. Fernandez del Viso" />
+
+<meta name="date" content="2019-10-19" />
+
+<title>Taller RFE 20191026</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadistica basica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tema_2_Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="Tema_3_Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="Tema_4_supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="TRAvanzado.html">Modelos Lineales</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Taller RFE 20191026</h1>
+<h4 class="author">D. S. Fernandez del Viso</h4>
+<h4 class="date">10/19/2019</h4>
+
+</div>
+
+
+<div id="r" class="section level1">
+<h1>R</h1>
+<p>R is an open-source programming environment, for statistical computing and data visualization, among other capabilities.</p>
+<p><strong>R has many features to recommend it (Kabacoff, 2015):</strong></p>
+<ul>
+<li><p>Most commercial statistical software platforms cost thousands, if not tens of thousands, of dollars. <strong>R is free!</strong> If you’re a teacher or a student, the benefits are obvious.</p></li>
+<li><p>R is a comprehensive statistical platform, offering all manner of data-analytic techniques. Just about <strong>any type of data analysis can be done in R.</strong></p></li>
+<li><p>R contains <strong>advanced statistical routines</strong> not yet available in other packages. In fact, new methods become available for download on a weekly basis.</p></li>
+<li><p>R has <strong>state-of-the-art graphics capabilities</strong>. If you want to visualize complex data, R has the most comprehensive and powerful feature set available.</p></li>
+<li><p>R is a powerful platform for <strong>interactive data analysis and exploration</strong>. For example, the results of any analytic step can easily be saved, manipulated, and used as input for additional analyses.</p></li>
+<li><p>Getting data into a usable form from multiple sources can be a challenging proposition. R can easily <strong>import data from a wide variety of sources</strong>, including text files, database-management systems, statistical packages, and specialized data stores. It can write data out to these systems as well. R can also access data directly from web pages, social media sites, and a wide range of online data services.</p></li>
+<li><p>R provides an unparalleled <strong>platform for programming</strong> new statistical methods in an easy, straightforward manner. It’s easily extensible and provides a natural language for quickly programming recently published methods.</p></li>
+<li><p>R functionality <strong>can be integrated into applications written in other languages</strong>, including C++, Java, Python, PHP, Pentaho, SAS, and SPSS. This allows you to continue working in a language that you may be familiar with, while adding R’s capabilities to your applications.</p></li>
+<li><p>R <strong>runs on a wide array of platforms</strong>, including Windows, Unix, and Mac OS X. It’s likely to run on any computer you may have. If you don’t want to learn a new language, a variety of graphic user interfaces (GUIs) are available, offering the power of R through menus and dialogs.</p></li>
+</ul>
+<div id="where-to-look-in-the-book" class="section level3">
+<h3><strong>where to look in the book?</strong>:</h3>
+<p><strong>chapter 1</strong></p>
+<hr />
+</div>
+<div id="rstudio" class="section level2">
+<h2>RStudio</h2>
+<p>Programming, editing, project management, and other procedures in R, are more easy and efficient using an integrated development environment (IDE), and the most used and versatile is <a href="https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf">RStudio</a>.</p>
+<div id="exercises" class="section level4">
+<h4><em>Exercises</em></h4>
+<p><strong>Open RStudio:</strong></p>
+<ul>
+<li>browse all the components of the interface<br />
+</li>
+<li>establish a Working Directory<br />
+</li>
+<li>create a <strong>R Script</strong> (compare with the R console)</li>
+</ul>
+<p><img src="CreateNotebook.png" /></p>
+<ul>
+<li>write code to calculate the area of a geometric surface, and run it<br />
+</li>
+<li>explore other windows and menus of RStudio<br />
+</li>
+<li>load packages</li>
+</ul>
+<p>#####<strong>where to look in the book?</strong>: <strong>chapter 2 &amp; 3 </strong></p>
+<hr />
+</div>
+</div>
+<div id="r-markdown-or-r-notebook" class="section level2">
+<h2>R Markdown (or <a href="https://bookdown.org/yihui/rmarkdown/notebook.html#using-notebooks">R Notebook</a>)</h2>
+<p>As important as carrying out the data analysis of an investigation (main objective of this workshop), it is also important to communicate the results to an audience, and receive acknowledgement and comments about them. Usually that aspect is addressed at the end (as in the workshop book: Chapter 28), but if we do so, we can leave behind notes, results, graphs, et c., which at some point we have to find, organize and move to a final document.</p>
+<div id="creating-a-r-markdown-document" class="section level3">
+<h3>Creating a R Markdown document</h3>
+<p>First, check if you have the package <strong>rmarkdown</strong> installed; for this, look into the <strong>Packages</strong> menu (User Library).</p>
+<p>To create a R Markdown document, use the left-upper corner menu:</p>
+<blockquote>
+<p><img src="CreateNotebook.png" id="id" class="class" width="100" /><br />
+</p>
+</blockquote>
+<p>Select <strong>R Markdown</strong>.</p>
+</div>
+<div id="editing-the-document" class="section level3">
+<h3>Editing the document</h3>
+<p>The R Markdown has three types of content:</p>
+<ul>
+<li>an (optional) <strong>YAML header</strong> surrounded by - - -</li>
+<li>R <strong>code chunks</strong> surrounded by ```</li>
+<li>simple <strong>text</strong> mixed with formatted text, images, tables</li>
+</ul>
+<p>The YAML header is a metadata section of the document, and can be edited to include basic information of the document:</p>
+<div class="figure">
+<img src="Graficos/YAML.png" alt="El proceso de Investigación" width="25%" />
+<p class="caption">
+El proceso de Investigación
+</p>
+</div>
+<p>You can change (or eliminate) the title, author, and date. The output option is originally created by RStudio, and depends on the output format that you produce (html, pdf, Word). A R Markdown document (html_document) can be transformed into a R Notebook (html_notebook) and <em>vice versa</em>.</p>
+<p>The text and other document features (web links, images, tables) are edited or created using a <a href="https://drive.google.com/open?id=1M2sswt7_dMUqvI9Dx9e_DiGHwKaKgNAe">R Markdown syntax</a>.</p>
+</div>
+<div id="inserting-r-code-chunks" class="section level3">
+<h3>Inserting R code chunks</h3>
+<p>A <a href="https://rmarkdown.rstudio.com/lesson-3.html">code chunk</a> is simply a piece of R code by itself, embedded in a R Markdown document. The format is:</p>
+<blockquote>
+<p><img src="chunk.png" id="id.class" width="180" height="120" /><br />
+</p>
+</blockquote>
+<p>Inside the {r} you can write <a href="https://bookdown.org/yihui/rmarkdown/r-code.html">chunk options</a> that control the behavior of the code output, when producing the final document.</p>
+<p>Another way to create code chunks (including for other scripting languages) and select options, is using the <img src="insertchunk.png" /> drop-menu.</p>
+<div class="figure">
+<img src="Graficos/Insertchunk.png" alt="El proceso de Investigación" width="25%" />
+<p class="caption">
+El proceso de Investigación
+</p>
+</div>
+</div>
+<div id="executing-code-chunks-and-controling-output" class="section level3">
+<h3>Executing code chunks and controling output</h3>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://bookdown.org/yihui/rmarkdown/notebook.html#using-notebooks">Code in the notebook can be executed</a> in different ways: Use the green triangle button on the toolbar of a code chunk that has the tool tip “Run Current Chunk”, or Ctrl + Shift + Enter (macOS: Cmd + Shift + Enter) to run the current chunk, or use “Run Selected Line(s)”, for one or more selected lines of code.</p></li>
+<li><p>Press Ctrl + Enter (macOS: Cmd + Enter) to run just the current statement.</p></li>
+<li><p>There are other ways to run a batch of chunks if you click the menu Run on the editor toolbar, such as “Run All”, “Run All Chunks Above”, and “Run All Chunks Below”.</p></li>
+</ol>
+<p>In the previous section you can find how to control chunk output, with several options, but you can also select the options using <img src="outputchunk.png" />.</p>
+<div class="figure">
+<img src="Graficos/outputchunk.png" alt="El proceso de Investigación" width="25%" />
+<p class="caption">
+El proceso de Investigación
+</p>
+</div>
+</div>
+<div id="using-knit-to-produce-a-html-or-word-document" class="section level3">
+<h3>Using Knit to produce a HTML or Word document</h3>
+<p>Now you can produce a HTML or Word document (this is called knitting, <a href="https://rmarkdown.rstudio.com/lesson-9.html">Knit</a>), using the following menu:</p>
+<div class="figure">
+<img src="Graficos/previewknit.png" alt="El proceso de Investigación" width="25%" />
+<p class="caption">
+El proceso de Investigación
+</p>
+</div>
+<p>Producing a PDF document requires a <em>LaTex</em> version for your computer (usually requires more than 1 GB!).</p>
+</div>
+<div id="extras" class="section level3">
+<h3>Extras</h3>
+<p><a href="https://yihui.name/tinytex/">TinyTex</a><br />
+<a href="http://rpubs.com/">RPubs</a></p>
+<p>#####<strong>where to look in the book?</strong>: <strong>chapters 27 &amp; 28</strong></p>
+<hr />
+</div>
+</div>
+<div id="basic-operations-and-variable-types" class="section level2">
+<h2>Basic operations and variable types</h2>
+<ol style="list-style-type: decimal">
+<li>Open a new R Markdown, and name it <em>“Apuntes del Taller R”</em>.</li>
+<li>Save it with a short name.</li>
+<li>Edit the YAML metadata information, including a new title, your name and date.</li>
+<li>Write a title for a section called: “Ejercicios Introductorios”. In this section we are going to practice some common R operations and variable types.</li>
+<li>Create a chunk.</li>
+<li>Using <strong>#</strong> write titles and short descriptions inside the chunk.</li>
+</ol>
+<div id="mathematical-operations-and-variable-assignment" class="section level3">
+<h3>Mathematical operations and variable assignment</h3>
+<pre class="r"><code>#basic math operations
+56 + 45</code></pre>
+<pre><code>## [1] 101</code></pre>
+<pre class="r"><code>56/45</code></pre>
+<pre><code>## [1] 1.244444</code></pre>
+<pre class="r"><code>#order of operations and parentheses
+6 + 5 * 9</code></pre>
+<pre><code>## [1] 51</code></pre>
+<pre class="r"><code>(6 + 5) * 9</code></pre>
+<pre><code>## [1] 99</code></pre>
+<pre class="r"><code>5 + 3 / 2 * 3</code></pre>
+<pre><code>## [1] 9.5</code></pre>
+<pre class="r"><code>5 + 3 / (2 * 3)</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<pre class="r"><code>#variable assignment
+#you can use &lt;- or = , but the first is more used
+v1 &lt;- 2.5
+v1</code></pre>
+<pre><code>## [1] 2.5</code></pre>
+<pre class="r"><code>long &lt;- v1
+width &lt;- 1.25
+area &lt;- long * width
+long</code></pre>
+<pre><code>## [1] 2.5</code></pre>
+<pre class="r"><code>width</code></pre>
+<pre><code>## [1] 1.25</code></pre>
+<pre class="r"><code>area</code></pre>
+<pre><code>## [1] 3.125</code></pre>
+</div>
+<div id="data-types" class="section level3">
+<h3>Data types</h3>
+<p>There are four basic data types in R:</p>
+<ul>
+<li><strong>numeric</strong> (including <em>integer</em>, <em>double</em>)</li>
+<li><strong>character</strong> (including “strings”, <em>factor</em>)</li>
+<li><strong>time</strong> (including <em>Date</em> and <em>POSIXct</em>)</li>
+<li><strong>logical</strong> (TRUE, FALSE)</li>
+</ul>
+<div id="numeric" class="section level4">
+<h4>numeric</h4>
+<pre class="r"><code># how to know if a variable contain a numeric data?
+vari1 &lt;- 14 / 2
+vari1</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="r"><code>class(vari1)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code># a numeric data can be an integer
+vari2 &lt;- as.integer(14 / 2)
+vari2</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="r"><code>class(vari2)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="r"><code># try 15/2</code></pre>
+</div>
+<div id="character" class="section level4">
+<h4>character</h4>
+<pre class="r"><code># characters must use &quot; &quot;
+char1 &lt;- &quot;hola&quot;
+char1</code></pre>
+<pre><code>## [1] &quot;hola&quot;</code></pre>
+<pre class="r"><code>class(char1)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code># numeric to factor
+char2 &lt;- factor(3)
+char2</code></pre>
+<pre><code>## [1] 3
+## Levels: 3</code></pre>
+<pre class="r"><code>class(char2)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre class="r"><code># nchar output is the length of a character variable (or numeric treated as character)
+nchar(char1)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>nchar(12358)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code># does it works with a factor?</code></pre>
+</div>
+<div id="date-and-time-of-the-day" class="section level4">
+<h4>Date and Time of the day</h4>
+<p>Using <strong>as.Date</strong> store a date string (“year-month-day”) as a Date type data; it can be converted to numeric (<strong>as.numeric</strong>), counting days since January 1, 1970. With <strong>as.POSIXct</strong> a string of date and time of the day (“year-month-day hour:minute:second”) is converted to a time (POSIXct) class data; numerically is the number of seconds</p>
+<pre class="r"><code># as.Date store a date string as Date data
+today &lt;- as.Date(&quot;2019-10-26&quot;)
+today</code></pre>
+<pre><code>## [1] &quot;2019-10-26&quot;</code></pre>
+<pre class="r"><code>class(today)</code></pre>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<pre class="r"><code># number of days since January 1, 1970
+today.days &lt;- as.numeric(today)
+today.days</code></pre>
+<pre><code>## [1] 18195</code></pre>
+<pre class="r"><code>class(today.days)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code># date and time
+today.time &lt;- as.POSIXct(&quot;2019-10-26 09:00&quot;)
+today.time</code></pre>
+<pre><code>## [1] &quot;2019-10-26 09:00:00 AST&quot;</code></pre>
+<pre class="r"><code>class(today.time)</code></pre>
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
+<pre class="r"><code># how many seconds since January 1, 1970?</code></pre>
+</div>
+<div id="logical" class="section level4">
+<h4>logical</h4>
+<p>A variable can store logical data (<strong>TRUE</strong> or <strong>FALSE</strong>), as result of a logical statement.</p>
+<pre class="r"><code># does a equal/no equal b?
+a &lt;- 23 + 2/3
+b &lt;- 25 - 2/3
+equal &lt;- a == b
+equal</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>class(equal)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="r"><code>noequal &lt;- a != b
+noequal</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code># comparing characters, logical results depend on alphanumeric order
+char &lt;- &quot;2data&quot; &gt; &quot;data2&quot;
+char</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code># what is the result: equal*5 - noequal*5 ? Why?</code></pre>
+<p>#####<strong>where to look in the book?</strong>: <strong>chapter 4</strong></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="datasets" class="section level2">
+<h2>Datasets</h2>
+<p>The first step in any data analysis is the creation of a <strong>dataset</strong> containing the data to be analyzed, in a format that meets your needs. In R, this task involves the following:</p>
+<ul>
+<li>Selecting a data structure to hold your data</li>
+<li>Entering or importing your data into the data structure</li>
+</ul>
+<div id="data-structures" class="section level3">
+<h3>Data structures</h3>
+<p>R has a wide variety of objects for holding data, including scalars, vectors, matrices, arrays, data frames, and lists. They differ in terms of the type of data they can hold, how they are created, their structural complexity, and the notation used to identify and access individual elements.</p>
+<p><strong>R data structures:</strong></p>
+<ul>
+<li><em>vector</em></li>
+<li><em>matrix</em></li>
+<li><em>data frame</em></li>
+<li><em>array</em></li>
+<li><em>list</em></li>
+</ul>
+<div id="vectors" class="section level4">
+<h4>Vectors</h4>
+<p>Vectors are one-dimensional arrays that can hold numeric data, character data, or logical data. The combine function: <strong>c(…)</strong> is used to form the vector.</p>
+<pre class="r"><code># numeric data
+vec.num &lt;- c(1, 2, 5, 3, 6, -2, 2.3)
+vec.num</code></pre>
+<pre><code>## [1]  1.0  2.0  5.0  3.0  6.0 -2.0  2.3</code></pre>
+<pre class="r"><code># character data
+vec.char &lt;- c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;)
+vec.char</code></pre>
+<pre><code>## [1] &quot;one&quot;   &quot;two&quot;   &quot;three&quot;</code></pre>
+<pre class="r"><code># What happen if we combine different types of data?
+##
+# vectors can be created with numeric and logic operators:
+vec.oper &lt;- c(2/5, 3, 5+3, 4-7, 4 == 4.01, 3.5 &lt; 3.5001, &quot;data&quot; &lt; &quot;2data&quot;)
+vec.oper</code></pre>
+<pre><code>## [1]  0.4  3.0  8.0 -3.0  0.0  1.0  0.0</code></pre>
+<pre class="r"><code># vectors can be created with the content of variables:
+vec.var &lt;- c(equal, a, b, today.days)
+vec.var</code></pre>
+<pre><code>## [1]     0.00000    23.66667    24.33333 18195.00000</code></pre>
+<pre class="r"><code># the function seq(...) can be used to create vectors:
+vec.seq &lt;- seq(3, 4.5, 0.2) # c(...) is not necessary
+vec.seq</code></pre>
+<pre><code>## [1] 3.0 3.2 3.4 3.6 3.8 4.0 4.2 4.4</code></pre>
+<p>You can refer to elements of a vector using a numeric vector of positions within brackets.</p>
+<pre class="r"><code># vector created from simple sequence
+vec.ref &lt;- c(3:11)
+vec.ref</code></pre>
+<pre><code>## [1]  3  4  5  6  7  8  9 10 11</code></pre>
+<pre class="r"><code># locate the first three elements and last two elements
+# first we need the length of the vector:
+length(vec.ref)</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="r"><code># now we can look for the elements:
+vec.ref[c(1:3, 8, 9)]</code></pre>
+<pre><code>## [1]  3  4  5 10 11</code></pre>
+<pre class="r"><code># another way:
+vec.ref[-(4:7)]</code></pre>
+<pre><code>## [1]  3  4  5 10 11</code></pre>
+<p>We can do operations with vectors.</p>
+<pre class="r"><code># multiplying two vectors
+f &lt;- c(1, 2, 3, 5, 7)
+g &lt;- c(2, 4, 6, 8, 10)
+vec.mult &lt;- f * g
+vec.mult</code></pre>
+<pre><code>## [1]  2  8 18 40 70</code></pre>
+<pre class="r"><code># What happen if vectors are of different length?</code></pre>
+<p>#####<strong>where to look in the book?</strong>: <strong>chapter 4 </strong></p>
+<hr />
+</div>
+<div id="matrices" class="section level4">
+<h4>Matrices</h4>
+<p>A matrix is a two-dimensional array in which each element has the same class (numeric, character, or logical). Matrices are created with the <strong>matrix(…)</strong> function. The general format is:</p>
+<blockquote>
+<div class="line-block">mymatrix &lt;- matrix(<em>vector</em>,<br />
+      nrow=<em>number of rows</em>,<br />
+      ncol=<em>number of columns</em>,<br />
+      byrow=<em>logical value</em>,<br />
+      dimnames=list(<em>character vector of row names</em>, <em>character vector of column names</em>)<br />
+      )</div>
+</blockquote>
+<pre class="r"><code># data vector - [age,glu,chol]
+vec.diabetes &lt;- c(32,90,160,26,130,200,40,200,180,55,150,260)
+# name vectors
+RowN &lt;- c(&quot;patient 1&quot;,&quot;patient 2&quot;,&quot;patient 3&quot;,&quot;patient 4&quot;)
+ColN &lt;- c(&quot;Age&quot;,&quot;Glucose&quot;,&quot;Cholesterol&quot;)
+# matrix
+mtx.diabetes &lt;- matrix(vec.diabetes,
+                       ncol = 3,
+                       byrow = TRUE,
+                       dimnames = list(RowN,ColN)
+                       )
+mtx.diabetes</code></pre>
+<pre><code>##           Age Glucose Cholesterol
+## patient 1  32      90         160
+## patient 2  26     130         200
+## patient 3  40     200         180
+## patient 4  55     150         260</code></pre>
+<pre class="r"><code>class(mtx.diabetes)</code></pre>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
+<p>Data selection from a matrix, is similar as vectors, but now we must specify rows and columns.</p>
+<pre class="r"><code># selecting all rows and two columns
+new.matrix1 &lt;- mtx.diabetes[ ,2:3]
+new.matrix1</code></pre>
+<pre><code>##           Glucose Cholesterol
+## patient 1      90         160
+## patient 2     130         200
+## patient 3     200         180
+## patient 4     150         260</code></pre>
+<pre class="r"><code># selecting first and last patient, and age and cholesterol
+new.matrix2 &lt;- mtx.diabetes[c(1,4),c(1,3)]
+new.matrix2</code></pre>
+<pre><code>##           Age Cholesterol
+## patient 1  32         160
+## patient 4  55         260</code></pre>
+</div>
+<div id="data-frames" class="section level4">
+<h4>Data frames</h4>
+<p>A data frame is more general than a matrix in that different columns can contain different classes of data (numeric, character, and so on). Data frames are the most common data structure you will deal with in R. A data frame is created with the <strong>data.frame(…)</strong> function:</p>
+<blockquote>
+<p>mydata &lt;- data.frame(col1, col2, col3,…)</p>
+</blockquote>
+<p>where col1, col2, col3, and so on are column vectors of any type (such as character, numeric, or logical).</p>
+<pre class="r"><code># column vectors
+ID &lt;- c(1L,2L,3L,4L)
+chol &lt;- c(160, 200, 180, 260)
+glu &lt;- c(90, 130, 200, 150)
+age &lt;- c(32,26,40,55)
+sex &lt;- c(&quot;M&quot;,&quot;F&quot;,&quot;M&quot;,&quot;M&quot;)
+diabetes &lt;- c(&quot;neg&quot;,&quot;pos&quot;,&quot;pos&quot;,&quot;neg&quot;)
+# data frame from vectors
+patientdata &lt;- data.frame(ID, age, sex, glu, chol, diabetes)
+class(patientdata)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>patientdata</code></pre>
+<pre><code>##   ID age sex glu chol diabetes
+## 1  1  32   M  90  160      neg
+## 2  2  26   F 130  200      pos
+## 3  3  40   M 200  180      pos
+## 4  4  55   M 150  260      neg</code></pre>
+<pre class="r"><code># changing the name of the columns
+new.patiendata &lt;- setNames(patientdata, c(&quot;Patient ID&quot;,&quot;Age&quot;,&quot;Birth Sex&quot;,&quot;Blood Glucose&quot;,&quot;Cholesterol&quot;,&quot;Diabetes Diagnosis&quot;))
+new.patiendata</code></pre>
+<pre><code>##   Patient ID Age Birth Sex Blood Glucose Cholesterol Diabetes Diagnosis
+## 1          1  32         M            90         160                neg
+## 2          2  26         F           130         200                pos
+## 3          3  40         M           200         180                pos
+## 4          4  55         M           150         260                neg</code></pre>
+<p>Data selection from a data frame is similar to selection from a matrix, but also is possible to do logical selections using factor columns.</p>
+<pre class="r"><code># selecting columns by name
+select.df1 &lt;- new.patiendata[ ,c(&quot;Blood Glucose&quot;,&quot;Diabetes Diagnosis&quot;)]
+select.df1</code></pre>
+<pre><code>##   Blood Glucose Diabetes Diagnosis
+## 1            90                neg
+## 2           130                pos
+## 3           200                pos
+## 4           150                neg</code></pre>
+<pre class="r"><code># selecting using logical operator
+select.df2 &lt;- new.patiendata[new.patiendata$`Diabetes Diagnosis`==&quot;pos&quot;,]
+select.df2</code></pre>
+<pre><code>##   Patient ID Age Birth Sex Blood Glucose Cholesterol Diabetes Diagnosis
+## 2          2  26         F           130         200                pos
+## 3          3  40         M           200         180                pos</code></pre>
+<p>#####<strong>where to look in the book?</strong>: <strong>chapter 5</strong></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="data-input" class="section level2">
+<h2>Data input</h2>
+<p>R provides a wide range of tools for importing data, and create data frames. The definitive guide for importing data in R is the R Data Import/Export manual available at <a href="http://mng.bz/urwn" class="uri">http://mng.bz/urwn</a>.<br />
+We are considering three tools to input data for analyses:</p>
+<ul>
+<li><strong>manually</strong>: as we did before with the matrix and data frame examples.</li>
+<li><strong>reading text</strong> file with comma separated values (read.csv)</li>
+<li><strong>import Excel files</strong> using the Import Dataset menu, in the Environment tab (usually upper-right component of RStudio)</li>
+</ul>
+<div class="figure">
+<img src="Graficos/importdataset.png" alt="El proceso de Investigación" width="25%" />
+<p class="caption">
+El proceso de Investigación
+</p>
+</div>
+<div id="reading-csv-files" class="section level3">
+<h3>Reading CSV files</h3>
+<p>CSV files are text files where values in each line are separated by commas (i.e. 1,2,3,5,7,11), and have a carriage return code at the end of each line. The file can be created with any text editor or exported from a spreadsheet application (Excel, for example). To read a CSV file use the following basic code:</p>
+<pre class="r"><code>library(readr)
+honeymoondata &lt;- read_csv(&quot;Data/honeymoon.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Person = col_double(),
+##   Satisfaction_Base = col_double(),
+##   Satisfaction_6_Months = col_double(),
+##   Satisfaction_12_Months = col_double(),
+##   Satisfaction_18_Months = col_double(),
+##   Gender = col_double()
+## )</code></pre>
+<pre class="r"><code>dim(honeymoondata)</code></pre>
+<pre><code>## [1] 115   6</code></pre>
+<pre class="r"><code>head(honeymoondata)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   Person Satisfaction_Ba… Satisfaction_6_… Satisfaction_12… Satisfaction_18…
+##    &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1      1                6                6                5                2
+## 2      2                7                7                8                4
+## 3      3                4                6                2                2
+## 4      4                6                9                4                1
+## 5      5                6                7                6                6
+## 6      6                5               10                4                2
+## # … with 1 more variable: Gender &lt;dbl&gt;</code></pre>
+<pre class="r"><code>class(honeymoondata)</code></pre>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
+</div>
+<div id="import-data-from-excel-file" class="section level3">
+<h3>Import data from Excel file</h3>
+<p>RStudio provides a menu driven tool to import data from an Excel file (and other types, too). It requires that you have installed and activate the <strong>readxl</strong> package. Use the menu <strong>Import Dataset</strong>, select the <em>File</em>, select the <em>Sheet</em> with the data you are interested in, and check <em>First Row as Names</em> if that is the case.</p>
+<div class="figure">
+<img src="Graficos/importexcel.png" alt="El proceso de Investigación" width="100%" />
+<p class="caption">
+El proceso de Investigación
+</p>
+</div>
+<p>These menu actions will generate a code that you can use inside your procedure.</p>
+<pre class="r"><code>library(readr)
+melocactus &lt;- read_csv(&quot;Data/melocactus.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   azimuto = col_double(),
+##   distancia = col_double(),
+##   alturatotal = col_double(),
+##   longinflo = col_double(),
+##   estado = col_character()
+## )</code></pre>
+<pre class="r"><code>melodata=melocactus
+class(melodata)</code></pre>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>head(melodata)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   azimuto distancia alturatotal longinflo estado
+##     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
+## 1       0     12.0           20         5 S     
+## 2       0     11.6           47        10 S     
+## 3       0     17.8           27        16 X     
+## 4       2      2.75          48        29 S     
+## 5       3      2.71          23         0 S     
+## 6       3      2.71          16         0 S</code></pre>
+<pre class="r"><code>tail(melodata)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   azimuto distancia alturatotal longinflo estado
+##     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
+## 1     355       6            43        11 S     
+## 2     355       4            44        15 E     
+## 3     355       4.5          46        22 E     
+## 4     355       2.5          21         0 E     
+## 5     355       2.5          46        11 E     
+## 6     358       5             6         0 S</code></pre>
+<p>#####<strong>where to look in the book?</strong>: <strong>chapter 6 </strong></p>
+<hr />
+</div>
+</div>
+<div id="descriptive-statistics" class="section level2">
+<h2>Descriptive Statistics</h2>
+<p>R has a large number of ways to calculate descriptive statistics on the datasets, some are included in the basic installation, and others in packages that need download-installation (using <strong>install.packages(…)</strong> or the <strong>Package</strong> menu) and load (activation) to the R environment (using <strong>library(…)</strong>).</p>
+<div id="using-summary" class="section level3">
+<h3>Using <strong>summary</strong></h3>
+<p><strong>summary</strong> is the simplest way to obtain some descriptive statistics from our data.</p>
+<pre class="r"><code># select the columns (variable) to analyze
+melovars &lt;- c(&quot;alturatotal&quot;,&quot;longinflo&quot;)
+# use summary
+summary(melodata[melovars])</code></pre>
+<pre><code>##   alturatotal      longinflo     
+##  Min.   : 3.00   Min.   : 0.000  
+##  1st Qu.:11.00   1st Qu.: 0.000  
+##  Median :18.00   Median : 0.000  
+##  Mean   :21.93   Mean   : 5.966  
+##  3rd Qu.:30.00   3rd Qu.:11.000  
+##  Max.   :69.00   Max.   :35.000</code></pre>
+</div>
+<div id="using-sapply-and-a-function" class="section level3">
+<h3>Using <strong>sapply</strong> and a <strong>function</strong></h3>
+<p>A more general way to calculate descriptive statistics is using the <strong>sapply</strong> procedure, with the syntax:</p>
+<blockquote>
+<p>sapply(x, FUN, options))</p>
+</blockquote>
+<p>where <em>FUN</em> is a simple system function (like mean(<em>var</em>), sd(<em>var</em>), et c.) or an user-defined <strong>function</strong>, with the following syntax:</p>
+<blockquote>
+<p>myfunction &lt;- function(arg1, arg2, … ){<br />
+statements<br />
+return(object)<br />
+}</p>
+</blockquote>
+<pre class="r"><code># defining function
+mystats &lt;- function(x){
+                m &lt;- mean(x)
+                md &lt;- median(x)
+                n &lt;- length(x)
+                s &lt;- sd(x)
+                return(c(n=n, mean=m, median=md, stdev=s))
+}
+# sapply function on dataset
+sapply(melodata[melovars], mystats)</code></pre>
+<pre><code>##        alturatotal  longinflo
+## n        145.00000 145.000000
+## mean      21.93103   5.965517
+## median    18.00000   0.000000
+## stdev     14.18120   8.065198</code></pre>
+<p>We can select some of the data to apply the statistics.</p>
+<pre class="r"><code># select plants with longitude of inflorescence different from 0
+melo.inflo &lt;- melodata[melodata$longinflo &gt; 0,&quot;longinflo&quot;]
+# sapply function mystats
+sapply(melo.inflo, mystats)</code></pre>
+<pre><code>##        longinflo
+## n      69.000000
+## mean   12.536232
+## median 11.000000
+## stdev   7.359627</code></pre>
+</div>
+<div id="using-aggregate" class="section level3">
+<h3>Using aggregate</h3>
+<p>When you have variables that can be considered as factor, you can use the <strong>aggregate</strong> function to obtain basic statistics aggregating by such factors. The function has the following syntax:</p>
+<blockquote>
+<p>aggregate(x, by, FUN)</p>
+</blockquote>
+<pre class="r"><code># calculate the mean of plant heights (alturatotal) by plant status (estado)
+aggdata &lt;- aggregate(melodata$alturatotal, by = list(melodata$estado), mean)
+aggdata</code></pre>
+<pre><code>##   Group.1        x
+## 1       E 21.92593
+## 2       S 23.04000
+## 3       X 20.00000</code></pre>
+<pre class="r"><code># we can change the names of columns
+aggdata &lt;- setNames(aggdata, c(&quot;Plant Status&quot;,&quot;Mean Height, cm&quot;))
+aggdata</code></pre>
+<pre><code>##   Plant Status Mean Height, cm
+## 1            E        21.92593
+## 2            S        23.04000
+## 3            X        20.00000</code></pre>
+<hr />
+</div>
+<div id="using-a-data.table" class="section level3">
+<h3>Using a data.table</h3>
+<p>The <strong>data.table</strong> package allows for an improved functionality of data.frames operations. First, we have to convert a data.frame into a data.table. Thereafter you can select subgroups and apply functions to them.</p>
+<pre class="r"><code># activate data.table package
+library(data.table)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<pre class="r"><code># conver data.frame o data.table
+melodataDT &lt;- data.table(melodata)
+class(melodataDT)</code></pre>
+<pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
+<pre class="r"><code># descriptive statistics by groups
+meloDS &lt;- melodataDT[, list(Media=mean(alturatotal), Median=median(alturatotal), StDev=sd(alturatotal)), by=list(Status=estado)]
+meloDS</code></pre>
+<pre><code>##    Status    Media Median    StDev
+## 1:      S 23.04000     18 15.52456
+## 2:      X 20.00000     17 11.01298
+## 3:      E 21.92593     18 14.90722</code></pre>
+<pre class="r"><code># ordering results
+meloDS[order(Media)]</code></pre>
+<pre><code>##    Status    Media Median    StDev
+## 1:      X 20.00000     17 11.01298
+## 2:      E 21.92593     18 14.90722
+## 3:      S 23.04000     18 15.52456</code></pre>
+<p>#####where to look in the book? <strong>chapters 11, 18</strong></p>
+<hr />
+</div>
+</div>
+<div id="introduction-to-graphs" class="section level2">
+<h2>Introduction to graphs</h2>
+<p>R is a great platform for <em>building</em> graphs. Literally, in a typical interactive session, you build a graph one statement at a time, adding features, until you have what you want.<br />
+The <strong>base graphics</strong> system of R is described at the beginning of <strong>chapter 7</strong> in the Lander’s book. Two other systems, that are widely used, and provide extensive options are <a href="www.statmethods.net/RiA/lattice.pdf"><strong>lattice</strong></a> and <a href="https://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a>. We will be mostly using the base graphics system and ggplot2.</p>
+<div id="the-primary-graph-for-a-variable-the-histogram" class="section level3">
+<h3>The primary graph for a variable: the histogram</h3>
+<p>Histograms display the distribution of a continuous variable by dividing the range of scores into a specified number of bins on the x-axis and displaying the frequency of scores in each bin on the y-axis.</p>
+<div id="introducing-ggplot2-building-a-histogram" class="section level4">
+<h4>Introducing ggplot2: building a histogram</h4>
+<p>Now we are going to build a histogram using ggplot2. <a href="https://ggplot2.tidyverse.org/reference/">ggplot2</a> provides a system for creating graphs based on the grammar of graphics. The intention of the ggplot2 package is to provide a comprehensive, grammar-based system for generating graphs in a unified and coherent manner, allowing users to create new and innovative data visualizations. The power of this approach has led ggplot2 to become an important tool for visualizing data using R.</p>
+<p>First, let see a basic ggplot2 histogram:</p>
+<pre class="r"><code># activating ggplot2
+library(ggplot2)
+# basic histogram
+ggplot(melodata, aes(alturatotal))+
+  geom_histogram(color=&quot;white&quot;, bins = 14)</code></pre>
+<p><img src="TallerRFE_I_files/figure-html/histo-1.png" width="672" /> Now a more detailed histogram, including several <em>layers</em>:</p>
+<pre class="r"><code>hist.melodata &lt;- ggplot(melodata, aes(alturatotal)) + 
+  geom_histogram(aes(y=..density..), bins = 14, colour=&quot;white&quot;, fill=&quot;green&quot;) +
+  geom_rug(sides = &quot;t&quot;, color = &quot;black&quot;) +
+  labs(x=&quot;Total heigth,cm&quot;, y = &quot;Density&quot;) +
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(melodata$alturatotal, na.rm = TRUE), 
+                            sd = sd(melodata$alturatotal, na.rm = TRUE)), 
+                colour = &quot;red&quot;, size = 1)
+hist.melodata</code></pre>
+<p><img src="TallerRFE_I_files/figure-html/histoplus-1.png" width="672" /></p>
+</div>
+</div>
+<div id="the-popular-graph-bars-with-errors" class="section level3">
+<h3>The popular graph: bars with errors</h3>
+<p>Descriptive statistics are usually graph using bars (for the means), and up and down lines for some measure of deviation or error (standard deviation, standard error, or confidence interval).</p>
+<pre class="r"><code># summarySE provides the standard deviation, standard error of the mean, and a (default 95%) confidence interval
+library(ggplot2)
+library(Rmisc)</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: plyr</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     compact</code></pre>
+<pre class="r"><code># statistics for the bars&amp;errors graph
+melo.bars &lt;- summarySE(melodata, measurevar=&quot;alturatotal&quot;, groupvars=&quot;estado&quot;)
+melo.bars</code></pre>
+<pre><code>##   estado  N alturatotal       sd       se       ci
+## 1      E 27    21.92593 14.90722 2.868895 5.897098
+## 2      S 75    23.04000 15.52456 1.792622 3.571876
+## 3      X 43    20.00000 11.01298 1.679464 3.389295</code></pre>
+<pre class="r"><code># Error bars represent standard error of the mean
+ggplot(melo.bars, aes(x=estado, y=alturatotal)) +
+  geom_bar(position=position_dodge(), stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;,
+           width=0.5) +
+  geom_errorbar(aes(ymin=alturatotal-se, ymax=alturatotal+se),
+                  width=.2,  # Width of the error bars
+                  position=position_dodge(.9)) +
+  scale_x_discrete(&quot;Plant Condition&quot;) +
+  scale_y_continuous(&quot;Plant Heigth, cm&quot;)</code></pre>
+<p><img src="TallerRFE_I_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>#####where to look in the book? <strong>chapter 7</strong></p>
+<hr />
+</div>
+</div>
+<div id="homework" class="section level2">
+<h2><em>Homework</em></h2>
+<p>Here is an assigment to complete, and send me for review.</p>
+<ul>
+<li>Look in your kitchen, fridge, or elsewhere, for food with nutrition labels (Nutrition Facts).</li>
+<li>Find ten canned (sealed) foods, ten in boxes or bags (dry food), and ten beverages or creamy (liquids).</li>
+<li>For each item, take note of the values for calories per serving, serving size (g), total fat (g), cholesterol (mg), sodium (mg), total carbohydrates (g), and protein (g), for each food.</li>
+<li>Create an Excel workbook with the data, using the template: <a href="https://drive.google.com/open?id=1AXlCx-_zgPfmUB0YVC0Zi4ZFJtWspcmp">Template for Food Data</a></li>
+</ul>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Kabacoff, R., 2015. R in action: data analysis and graphics with R, Second edition. ed. Manning, Shelter Island.</p>
+<p>Lander, J. P., 2014.R for everyone. Pearson Education, Inc., Upper Saddle River, NJ, USA.</p>
+<p>Verzani, J., 2012. <a href="https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf">Getting started with RStudio</a>. O’Reilly, Sebastopol, Calif.</p>
+<p>Xie, Y., J. J. Allaire, G. Grolemund, 2018. <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a>. Chapman &amp; Hall/CRC.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

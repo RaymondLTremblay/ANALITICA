@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="RLT" />
+
+
+<title>Gráficos de barras con geom_bar</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadística básica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E1-Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="E2-Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="E3-TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="E4-Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="E5-supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="E6-TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
+    <li>
+      <a href="G6_geom_histogram.html">Histogramas</a>
+    </li>
+    <li>
+      <a href="G7_geom_bar.html">Gráficos de barras</a>
+    </li>
+    <li>
+      <a href="G8_geom_boxplot_geom_violin.html">Gráficos de caja y de violín</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Gráficos de barras con <strong>geom_bar</strong></h1>
+<h4 class="author">RLT</h4>
+<h4 class="date">6/30/2020</h4>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)
+library(ggversa)
+DW=dipodium</code></pre>
+<hr />
+<div id="una-variable-discreta-gráfico-de-barras-con-geom_bar" class="section level1">
+<h1>Una variable discreta: Gráfico de barras con <strong>geom_bar</strong></h1>
+<p>El gráfico de barras es una representación de la frecuencia de ocurrencia de eventos para valores discretos; por ejemplo, sí o no, o valores categóricos. La función <strong>geom_bar</strong> genera un gráfico que tabula la cantidad de veces que ocurre un evento. La altura de las barras representa el número de observaciones de una categoría discreta representada en el eje de <strong>X</strong>.</p>
+<p>En el siguiente ejemplo, primero removeremos los <strong>NA</strong> del archivo usando <strong>drop_na()</strong>, es el función que excluye todas las filas que contienen los <strong>NA</strong>. Nuevamente utilizaremos el archivo de datos de la <em>Dipodium rosea</em>:</p>
+<pre class="r"><code># DW$Number_of_Flowers  # Antes de hacer los análisis mira los datos, y vea que hay muchas filas con **NA**, remueve **#** para activar la función. 
+
+# Method 1
+
+DW %&gt;%
+  drop_na(Number_of_Flowers)%&gt;%
+  ggplot(aes(Number_of_Flowers))+
+  geom_bar(fill=&quot;red&quot;,color=&quot;white&quot;)+
+  xlab(&quot;Cantidad de Flores&quot;)+
+  ylab(&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="cambio-de-intensidad-de-color-con-alpha" class="section level1">
+<h1>Cambio de intensidad de color con <strong>alpha</strong></h1>
+<p>Se puede cambiar la intensidad del color de las barras usando <strong>alpha</strong>. los valores pueden variar de 0 a 1, donde 1 es mas intenso el color, aquí se utiliza un <strong>alpha=0.3</strong>.</p>
+<pre class="r"><code>b=ggplot(DW[!is.na(DW$Number_of_Flowers),],
+         aes(Number_of_Flowers))
+b+geom_bar(alpha=.3,
+               fill=&quot;blue&quot;,color=&quot;white&quot;)+
+  xlab(&quot;Posiciones de las flores \n en la inflorescencia&quot;)+
+  ylab(&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra1-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="multiples-grupos" class="section level1">
+<h1>Multiples grupos</h1>
+<p>Ahora le añadiremos una variable discreta que representa las frecuencias de las plantas con frutos y la frecuencia de plantas sin frutos para las posiciones de la flor en la inflorescencia. En el <strong>script</strong> se observa que la variable <strong>Frutos_si_o_no</strong> se identifica como un factor. Esto es necesario porque en el archivo de datos la presencia de frutos y flores fue identificada como 1 o 0 o sea valores numéricos. Si se hubiera identificado como <strong>Sí</strong> o <strong>No</strong>, no habría la necesidad de identificar que es un factor. En tal caso, es necesario identificar que estos valores son una categoría usando factor. El gráfico presenta las variables discretas una sobre la otra. Note en la Figura al igual que con <strong>geom_histogram</strong>, la frecuencia del segundo grupo es añadida a la frecuencia del primer grupo.</p>
+<pre class="r"><code>DW%&gt;%
+  select(Fruit_position_effect,Frutos_si_o_no )%&gt;%
+  drop_na(Fruit_position_effect)%&gt;%
+ggplot(aes(Fruit_position_effect))+
+geom_bar(aes(fill=factor(Frutos_si_o_no)),color=&quot;white&quot;)+
+  xlab(&quot;Posiciones de las flores en la inflorescencia&quot;)+
+  ylab(&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra2-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="posicionar-las-barras-uno-al-lado-del-otro" class="section level1">
+<h1>Posicionar las barras uno al lado del otro</h1>
+<p>Para presentar los grupos uno al lado del otro se usa el parámetro <strong>position =“dodge”</strong>, lo que hará que cada grupo quede posicionado contiguamente. Además, removeremos la leyenda con <strong>guides(fill=FALSE)</strong> como se muestra a continuación con los datos de la <em>Dipodium rosea</em>:</p>
+<pre class="r"><code>DW%&gt;%
+  select(Fruit_position_effect,Frutos_si_o_no )%&gt;%
+  drop_na(Fruit_position_effect)%&gt;%
+  ggplot(aes(Fruit_position_effect))+
+  geom_bar(aes(fill=factor(Frutos_si_o_no)),color=&quot;white&quot;,
+           position = &quot;dodge&quot;)+
+  xlab(&quot;Posiciones de las flores en la inflorescencia&quot;)+
+  ylab(&quot;Frecuencia&quot;)+
+  guides(fill=FALSE)+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra3-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="posicionar-las-barras-una-encima-de-la-otra" class="section level1">
+<h1>Posicionar las barras una encima de la otra</h1>
+<p>En el próximo gráfico, la frecuencia de ambos grupos comienza en cero pero aún saldrán sobrepuestos uno al otro usando <strong>position=identity</strong></p>
+<pre class="r"><code>DW%&gt;%
+  select(Fruit_position_effect,Frutos_si_o_no )%&gt;%
+  drop_na(Fruit_position_effect)%&gt;%
+  ggplot(aes(Fruit_position_effect))+
+  geom_bar(aes(fill=factor(Frutos_si_o_no)),color=&quot;white&quot;,
+           position = &quot;identity&quot;)+ # Para que cada grupo comience en cero
+  xlab(&quot;Posiciones de las flores en la inflorescencia&quot;)+
+  ylab(&quot;Frecuencia&quot;)+
+  guides(fill=FALSE)+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra3b-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="porcentaje-porporcional-a-todos-los-valores" class="section level1">
+<h1>Porcentaje porporcional a todos los valores</h1>
+<p>Para mostrar el porcentaje de cada uno de los grupos, tenemos que usar una fórmula para calcular la proporción por grupo usando <strong>y=(..count..)/sum(..count..)</strong>. Así la suma de todas las barras equivale al 100%. Vemos que en las categorías altas (que aparecen más a la derecha en el gráfico) algunas barras están más anchas. Esto se debe a que, en el archivo de datos, para algunas de estas posiciones de las flores en la inflorescencia no hay información para la segunda especie (la que aparece en azul). Esto se puede resolver añadiendo la información en el archivo original.</p>
+<p>fill=factor(Frutos_si_o_no)</p>
+<pre class="r"><code>DW%&gt;%
+  select(Fruit_position_effect,Frutos_si_o_no )%&gt;%
+  drop_na(Fruit_position_effect)%&gt;%
+  ggplot(aes(Fruit_position_effect))+
+  geom_bar(aes(y=(..count..)/sum(..count..), 
+               fill=factor(Frutos_si_o_no)),
+               color=&quot;white&quot;, position=&quot;identity&quot;)+ # Para que cada grupo comience en cero
+  xlab(&quot;Posiciones de las flores en la inflorescencia&quot;)+
+  ylab(&quot;Frecuencia&quot;)+
+  guides(fill=FALSE)+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra3a-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="porcentaje-por-valos-de-cada-x" class="section level1">
+<h1>Porcentaje por valos de cada <strong>X</strong></h1>
+<p>Para que cada barra represente el 100% de los grupos en el eje de <strong>X</strong>, se usa el parámetro <strong>position=“fill”</strong>. En el siguiente ejemplo se le añade la variable discreta en este caso; o sea, si la planta tiene frutos (verde) o no (rojo). Ecologicamente se observa que la posición de las flores arriba (&gt;27) en la inflorescencia resulta en menos frutos porcentualmente que las posiciones más abajo.</p>
+<pre class="r"><code>require(scales)</code></pre>
+<pre><code>## Loading required package: scales</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following objects are masked from &#39;package:psych&#39;:
+## 
+##     alpha, rescale</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code>DW%&gt;%
+  select(Fruit_position_effect,Frutos_si_o_no )%&gt;%
+  drop_na(Fruit_position_effect)%&gt;%
+ggplot(aes(factor(Fruit_position_effect),
+             fill=factor(Frutos_si_o_no)))+
+geom_bar(aes(y=(..count..)/sum(..count..)),
+           position=&quot;fill&quot;)+
+  xlab(&quot;Posiciones de las flores en la inflorescencia&quot;)+
+  ylab(&quot;Proporción&quot;)+
+    guides(fill=FALSE)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra4-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="reordenar-las-barras-con-geom_bar" class="section level1">
+<h1>Reordenar las barras con <strong>geom_bar</strong></h1>
+<p>En el siguiente gráfico, reordenamos la secuencia en <strong>X</strong> por orden del número de flores y su frecuencia. Primero, hay que crear una función para reordenar la variable, la que llamaremos <strong>reorder_size</strong>. El segundo paso es invocar esta función desde <strong>ggplot</strong>. La función es aplicable a cualquier variable que uno quisiera ordenar y tener como factor. En la figura podemos observar que en el muestreo hay solamente una planta con la siguiente cantidad de flores (1, 3, 4, 7, 8, 34, 36, 37, 43; extremo izquierda), y hay 13 plantas con 23 flores (extremo derecha) y otras frecuencias de plantas con diferentes cantidades de flores entre medio.</p>
+<pre class="r"><code># Aquí se crea una función para re-ordenar la variable X. 
+
+reorder_size &lt;- function(x) {
+  factor(x, levels = names(sort(table(x))))
+}
+
+
+
+DW%&gt;%
+  select(Number_of_Flowers )%&gt;%
+  drop_na(Number_of_Flowers)%&gt;%
+ggplot(aes(reorder_size(Number_of_Flowers)))+
+geom_bar(fill=&quot;olivedrab&quot;)+
+  scale_y_continuous(breaks=c(0:13))+
+  labs(y=&quot;Número de plantas con la cantidad de flores&quot;, x=&quot;Cantidad de flores \n en la inflorescencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/dipodium-barra5-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="pirámides-poblacionales-con-geom_bar" class="section level1">
+<h1>Pirámides poblacionales con <strong>geom_bar</strong></h1>
+<p>Un ejemplo interesante de <strong>geom_bar</strong> es cuando creamos pirámides poblacionales. Para el próximo ejemplo utilizaremos datos del censo de la base de datos de la Oficina del Censo de los EE. UU. ({US Census}) del 2015 sobre la población de Puerto Rico. Los datos representan la cantidad de mujeres en <span style="color: blue;">azul</span> y hombres en <span style="color: red;">rojo</span> en categorías de edad; o sea, de 0 a 4 años, de 5 a 9 años y así sucesivamente. La última categoría incluye todos los puertorriqueños de 85 años o más. Para producir este gráfico, se generarán dos <strong>geom_bar</strong> uno al lado del otro; uno con los datos de <strong>Mujer</strong> (derecha) y otro con los datos de <strong>Hombre</strong> (izquierda).</p>
+<p>Para especificar que se usen solamente los datos de un subgrupo de cada variable, se hace de la misma manera que en R; o sea,</p>
+<pre><code>subset(Pop_PR,Pop_PR$Sexo==&quot;Mujer&quot;) </code></pre>
+<p>También note que tenemos datos a la izquierda y a la derecha del valor de cero. Se produce este patrón usando {-Valor} en uno de los grupos, donde el valor es el tamaño poblacional por grupo de edad. Por último, se tiene que añadir <strong>coord_flip()</strong> para que las barras queden de forma horizontal.</p>
+<pre class="r"><code># Para observar las primeras 4 filas del archivo
+head(Pop_PR, n=4)</code></pre>
+<pre><code>##     Sexo  Valor Edad
+## 1 Hombre  89507    0
+## 2 Hombre 102622    5
+## 3 Hombre 112350   10
+## 4 Hombre 124179   15</code></pre>
+<pre class="r"><code># Para observar las ultimas 4 filas del archivo
+tail(Pop_PR, n=4)</code></pre>
+<pre><code>##     Sexo Valor Edad
+## 33 Mujer 87289   70
+## 34 Mujer 65082   75
+## 35 Mujer 46233   80
+## 36 Mujer 47803   85</code></pre>
+<pre class="r"><code>ggplot(data=Pop_PR) +
+  geom_bar(aes(Edad,Valor,group=Sexo,fill=Sexo),
+           stat = &quot;identity&quot;,
+           subset(Pop_PR,Pop_PR$Sexo==&quot;Mujer&quot;)) +
+  geom_bar(aes(Edad,-Valor,group=Sexo,fill=Sexo),
+           stat = &quot;identity&quot;,
+           subset(Pop_PR,Pop_PR$Sexo==&quot;Hombre&quot;)) +
+  scale_y_continuous(breaks=seq(-140000,140000,40000),
+                     labels=abs(seq(-140000,140000,40000))) +
+  coord_flip()+
+  ylab(&quot;Tamaño poblacional&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geom-barraDemo-1.png" width="672" /></p>
+<hr />
+<p>Si no se le añade coord_flip(), el gráfico quedará representado con las barras de forma vertical (o en columnas).</p>
+<pre class="r"><code>unique(Pop_PR$Sexo)</code></pre>
+<pre><code>## [1] Hombre Mujer 
+## Levels: Hombre Mujer</code></pre>
+<pre class="r"><code>ggplot(data=Pop_PR) +
+  geom_bar(aes(Edad,Valor,group=Sexo,fill=Sexo),
+           stat = &quot;identity&quot;,
+           subset(Pop_PR,Pop_PR$Sexo==&quot;Mujer&quot;))+
+  geom_bar(aes(Edad,-Valor,group=Sexo,fill=Sexo),
+           stat = &quot;identity&quot;,
+           subset(Pop_PR,Pop_PR$Sexo==&quot;Hombre&quot;)) +
+  scale_y_continuous(breaks=seq(-140000,140000,40000),
+                     labels=abs(seq(-140000,140000,40000))) +
+  ylab(&quot;Tamaño poblacional&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geom-barraDemo2-1.png" width="672" /></p>
+<hr />
+<div id="patrones-de-temperatura-en-tiempo-con-geom_bar" class="section level2">
+<h2>Patrones de temperatura en tiempo con <strong>geom_bar</strong></h2>
+<p>Este tipo de representación puede ser efectiva para mostrar patrones en donde los valores son negativos y positivos; por ejemplo, la temperatura. Para demostrarlo, ahora daremos un ejemplo que proviene del pueblo de Asbestos, Quebec, Canadá. Los datos fueron extraídos de la base de datos de <a href="http://climate.weather.gc.ca/historical_data/search_historic_data_e.html" class="uri">http://climate.weather.gc.ca/historical_data/search_historic_data_e.html</a> (identifier 7020360). El archivo de datos contiene la temperatura promedio (por mes) de la máxima y la mínima del 1948 al 1987. Seleccionaremos solamente un conjunto limitado de los datos del año 1963 al 1968. Además, tendremos que voltear la información alrededor del eje de <strong>X</strong> para que se pueda leer, tal como se demuestra en la Figura. El primer paso es identificar que la variable Fecha es de tipo dato secuencial fecha y tiempo. El segundo paso es identificar si los valores de temperatura máxima están por debajo o por encima del punto de congelación, &lt; 0C°, o &gt; 0C°, creando una nueva columna que aquí llamamos <strong>NegPos</strong>. El tercer paso es usar solamente un subgrupo de información del archivo para mejorar la representación, ya que este tiene datos del 1948 al 1987. Se seleccionan los años 1963 al 1966.</p>
+<div id="primero-miramos-los-datos" class="section level3">
+<h3>Primero miramos los datos</h3>
+<pre class="r"><code>names(ASBESTOS_QUEBEC)</code></pre>
+<pre><code>## [1] &quot;Year&quot;          &quot;Mes&quot;           &quot;Temp_Prom_Max&quot; &quot;Temp_Prom_Min&quot;
+## [5] &quot;Fecha&quot;         &quot;NegPos&quot;</code></pre>
+<pre class="r"><code>head(ASBESTOS_QUEBEC)</code></pre>
+<pre><code>##   Year Mes Temp_Prom_Max Temp_Prom_Min   Fecha NegPos
+## 1 1948   6          22.2           9.9 1948-06   TRUE
+## 2 1948   7          25.5          14.2 1948-07   TRUE
+## 3 1948   8          24.9          14.2 1948-08   TRUE
+## 4 1948   9          21.6           8.4 1948-09   TRUE
+## 5 1948  10          12.0           2.6 1948-10   TRUE
+## 6 1948  11          10.3           1.9 1948-11   TRUE</code></pre>
+<pre class="r"><code>is.data.frame(ASBESTOS_QUEBEC) # para determinar si el archivo es un data frame?</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>attach(ASBESTOS_QUEBEC)</code></pre>
+</div>
+<div id="identificar-que-la-variable-fecha-es-una-variable-de-tiempo.-en-modulo-habrá-una-sección-que-discute-solamente-de-fechas-y-horas." class="section level3">
+<h3>Identificar que la variable “Fecha” es una variable de tiempo. En modulo habrá una sección que discute solamente de fechas y horas.</h3>
+<pre class="r"><code># Identificar que la variable &quot;Fecha&quot; es una variable de tiempo.
+names(ASBESTOS_QUEBEC)[names(ASBESTOS_QUEBEC) == &#39;Date.Time&#39;] &lt;- &#39;Fecha&#39;</code></pre>
+</div>
+<div id="crear-la-nueva-variable-temp_prom_max" class="section level3">
+<h3>Crear la nueva variable Temp_Prom_Max;</h3>
+<p>Aquí se crea una nueva columna con para identificar si los datos son positivos o negativos, si es positiva = “TRUE”, si es negativa = “FALSE”.</p>
+<pre class="r"><code>ASBESTOS_QUEBEC$NegPos=ASBESTOS_QUEBEC$Temp_Prom_Max&gt;=0</code></pre>
+</div>
+<div id="selecionar-solamente-un-subgrupo-de-los-datos" class="section level3">
+<h3>Selecionar solamente un subgrupo de los datos</h3>
+<pre class="r"><code>ASBESTOSsub=subset(ASBESTOS_QUEBEC, Year&gt;1962 &amp; Year&lt;1967)</code></pre>
+</div>
+<div id="uniendo-las-partes-para-crear-el-gráfico" class="section level3">
+<h3>Uniendo las partes para crear el gráfico</h3>
+<pre class="r"><code>ggplot(data=ASBESTOSsub,
+  aes(x=Fecha, y=Temp_Prom_Max, fill=NegPos)) +
+  geom_bar(stat = &quot;identity&quot;, position=&quot;identity&quot;)+
+  theme(axis.text.x=element_text(angle=90))+
+  guides(fill=FALSE)+
+  xlab(&quot;Fecha&quot;)+
+  ylab(&quot;Temperatura promedio máxima por mes en Celsius&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="gráfico-de-barras-ajuste-de-posiciones-con-geom_bar" class="section level2">
+<h2>Gráfico de barras: Ajuste de posiciones con <strong>geom_bar</strong></h2>
+<p>A veces queremos hacer que las barras luzcan de diferentes maneras; por ejemplo, que las posiciones de las barras no salgan verticales o tan gruesas. Además, se puede modificar la representación de las barras para que la altura de ellas no represente el número de observaciones; por ejemplo, que represente una suma sobre otra variable.</p>
+<p>Los datos que utilizaremos para la próxima demostración provienen del archivo de lagartos <strong>Anolis</strong> que contiene información sobre su edad, sexo, periodo de muestreo y localidad donde fueron muestreados.</p>
+<pre class="r"><code>library(ggversa)
+names(Anolis)</code></pre>
+<pre><code>##  [1] &quot;STUDY&quot;                    &quot;Survey_Site&quot;             
+##  [3] &quot;LOCATION&quot;                 &quot;TIME&quot;                    
+##  [5] &quot;DATE&quot;                     &quot;SEASON&quot;                  
+##  [7] &quot;SPECIES&quot;                  &quot;SEX_AGE&quot;                 
+##  [9] &quot;HEIGHT&quot;                   &quot;DISTANCE_FROM_CENTERLINE&quot;
+## [11] &quot;PERCH_SUBSTRATE&quot;          &quot;PERCH_DIAMETER&quot;          
+## [13] &quot;WEIGHT&quot;                   &quot;SVL&quot;                     
+## [15] &quot;TAIL&quot;</code></pre>
+<p>El primer gráfico a continuación, produce por omisión barras negras que representan la suma de la cantidad de observaciones.</p>
+<pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE))
+barraA+geom_bar(fill=grey(.3))+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geombar2-1.png" width="672" /></p>
+<p>En el segundo, el ancho de las barras fue reducido para que se vean menos angostas usando la opción <strong>width</strong>, ene ejemplo se reduce el ancho de las barras <strong>width=.3</strong>. Además, se cambia la descripción de los ejes al castellano. También selecciono un otro color de gris y se modifico su intensidad con <strong>fill=grey(.5)</strong>.</p>
+<pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE))
+barraA+geom_bar(width=.3, fill=grey(.5))+
+  labs(y=&quot;Frecuencia&quot;, x=&quot;Género y edad&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>En el tercer grafico las barras fueron rotadas usando la opción <strong>coord_flip()</strong> y puestas sobre lo que antes era el eje de <strong>Y</strong>. En el cuarto, se añadió una variable discreta como color; en este caso, fue usada la escala de color gris para distinguir entre la temporada seca <strong>dry</strong> la lluviosa <strong>wet</strong>. Si no se añade la opción scale_fill_grey(), las categorías tendrían color.</p>
+<pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE))
+barraA+geom_bar(fill=grey(.5))+coord_flip()+
+  labs(y=&quot;Frecuencia&quot;, x=&quot;Género y edad&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geombar2a-1.png" width="672" /></p>
+<pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE, fill=SEASON))
+barraA+geom_bar()+scale_fill_grey()+
+  labs(y=&quot;Frecuencia&quot;, x=&quot;Género y edad&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geombar2a-2.png" width="672" /> ### Posiciones d elas barras</p>
+<p>Si uno quiere posicionar las categorías una al lado de la otra, se usa <strong>(position={dodge})</strong>. El parámetro <strong>dodge</strong> le indica <strong>esquivar</strong> en el sentido de mover al lado.</p>
+<pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE,fill=SEASON))
+barraA+geom_bar()+
+  labs(y=&quot;Frecuencia&quot;, x=&quot;Género y edad&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geombar3-1.png" width="672" /></p>
+<pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE,fill=SEASON))
+barraA+geom_bar(position=&quot;dodge&quot;)+
+  labs(y=&quot;Frecuencia&quot;, x=&quot;Género y edad&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G7_geom_bar_files/figure-html/geombar3-2.png" width="672" /></p>
+</div>
+</div>
+<div id="opciones-y-parametros-de-geom_bar" class="section level1">
+<h1>Opciones y Parametros de <strong>geom_bar</strong>:</h1>
+<ul>
+<li>ggplot(el archivo de datos, aes(la variable continua))</li>
+<li>geom_bar(stat=bin, x, y, alpha, color, fill, linetype, size)
+<ul>
+<li>alpha: la intensidad del color</li>
+<li>fill: el color de la barra</li>
+<li>color: el color de la línea alrededor de la barra</li>
+<li>linetype: representa el estilo de línea</li>
+<li>size: representa el grosor de la línea</li>
+<li>weight; para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado).</li>
+</ul></li>
+</ul>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

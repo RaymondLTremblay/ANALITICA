@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="D. S. Fernandez del Viso" />
+
+<meta name="date" content="2019-10-30" />
+
+<title>Taller RFE 20191102</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadistica basica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tema_2_Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="Tema_3_Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="Tema_4_supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="TRAvanzado.html">Modelos Lineales</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Taller RFE 20191102</h1>
+<h4 class="author">D. S. Fernandez del Viso</h4>
+<h4 class="date">10/30/2019</h4>
+
+</div>
+
+
+<div id="statistical-tests-and-graphs-for-the-relationship-between-two-variables" class="section level2">
+<h2>Statistical tests and graphs for the relationship between two variables</h2>
+<p>In this section we will consider the testing of statistical hypothesis for the relationship of two or more variables, and the graphs that will help in the interpretation of the results.</p>
+<div id="regression-analysis" class="section level3">
+<h3>Regression analysis</h3>
+<p><strong>Regression analysis</strong> is a broad term for a set of methodologies used to predict a <em>response variable</em> (also called a <em>dependent</em>, <em>criterion</em>, or <em>outcome variable</em>) from one or more <em>predictor variables</em> (also called <em>independent</em> or <em>explanatory variables</em>). In general, regression analysis can be used to identify the explanatory variables that are related to a response variable, to describe the form of the relationships involved, and to provide an equation for predicting the response variable from the explanatory variables.</p>
+<div id="simple-linear-regression" class="section level4">
+<h4>Simple linear regression</h4>
+<p>When the regression model contains one dependent variable and one independent variable, the approach is called <strong>simple linear regression</strong>.</p>
+<p>The data set <strong>women</strong> in the base installation provides the height and weight for a set of 15 women ages 30 to 39. Suppose you want to predict weight from height. Having an equation for predicting weight from height can help you to identify overweight or underweight individuals.</p>
+<p>But first, we have to prove that our data are close to a normal distribution, an assumption of the parametric methods, like linear regression. First we will build a Q-Q plot that will show how good is the agreement between the quantiles of the data (using z transformation) and the theoretical quantile of the corresponding normal distribution (<span class="math inline">\(\mu = 0, \sigma = 1\)</span>)</p>
+<pre class="r"><code>library(EnvStats)
+#Q-Q plot
+women</code></pre>
+<pre><code>##    height weight
+## 1      58    115
+## 2      59    117
+## 3      60    120
+## 4      61    123
+## 5      62    126
+## 6      63    129
+## 7      64    132
+## 8      65    135
+## 9      66    139
+## 10     67    142
+## 11     68    146
+## 12     69    150
+## 13     70    154
+## 14     71    159
+## 15     72    164</code></pre>
+<pre class="r"><code>EnvStats::qqPlot(women$weight, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/regr_norm-1.png" width="672" /></p>
+<pre class="r"><code>EnvStats::qqPlot(women$height, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/regr_norm-2.png" width="672" /></p>
+<p>Now we will test normality using the Shapiro-Wilk test, with the null hypothesis that data are normally distributed.</p>
+<pre class="r"><code>shapiro.test(women$weight)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  women$weight
+## W = 0.96036, p-value = 0.6986</code></pre>
+<pre class="r"><code>shapiro.test(women$height)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  women$height
+## W = 0.96359, p-value = 0.7545</code></pre>
+<p>Then we proceed with the parametric regression analysis:</p>
+<pre class="r"><code>library(ggplot2)
+# linear regression using lm (linear model) function
+fit &lt;- lm(weight ~ height, data=women)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = weight ~ height, data = women)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.7333 -1.1333 -0.3833  0.7417  3.1167 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -87.51667    5.93694  -14.74 1.71e-09 ***
+## height        3.45000    0.09114   37.85 1.09e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.525 on 13 degrees of freedom
+## Multiple R-squared:  0.991,  Adjusted R-squared:  0.9903 
+## F-statistic:  1433 on 1 and 13 DF,  p-value: 1.091e-14</code></pre>
+<pre class="r"><code>#graph with regression line, confidence interval (95%)
+ggplot(data=women, aes(x=women$height, y=women$weight)) +
+  geom_point(pch=19, color=&quot;blue&quot;, size=2) +
+  geom_smooth(method=&quot;lm&quot;, color=&quot;red&quot;, linetype=2) +
+  labs(x=&quot;Height, inches&quot;, y=&quot;Weight, lb&quot;)</code></pre>
+<pre><code>## Warning: Use of `women$height` is discouraged. Use `height` instead.</code></pre>
+<pre><code>## Warning: Use of `women$weight` is discouraged. Use `weight` instead.</code></pre>
+<pre><code>## Warning: Use of `women$height` is discouraged. Use `height` instead.</code></pre>
+<pre><code>## Warning: Use of `women$weight` is discouraged. Use `weight` instead.</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/regr_linear-1.png" width="672" /></p>
+<pre class="r"><code>#graph: residuals
+plot(women$height,residuals(fit),
+     xlab=&quot;Height (in inches)&quot;,
+     ylab=&quot;residuals&quot;)</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/regr_linear-2.png" width="672" /></p>
+<p>The resulting predictive equation is:</p>
+<blockquote>
+<p><img src="eqlinear.jpg" id="id" class="class" width="240" /><br />
+</p>
+</blockquote>
+<div id="interpreting-the-results-table" class="section level5">
+<h5>Interpreting the results table</h5>
+<p>From the Pr(&gt;|t|) column, you see that the regression coefficient (3.45) is significantly different from zero (p &lt; 0.001) and indicates that there is an expected increase of 3.45 pounds of weight for every 1 inch increase in height. The multiple R-squared (0.991) indicates that the model accounts for 99.1% of the variance in weights. The residual standard error (1.53 pounds) can be thought of as the average error in predicting weight from height using this model. The F statistic tests whether the predictor variables, taken together, predict the response variable above chance levels.</p>
+</div>
+</div>
+<div id="polynomial-regression" class="section level4">
+<h4>Polynomial regression</h4>
+<p>The residuals plot from the linear regression, indicates a non-random distribution of the prediction error of the linear model. You might be able to improve your prediction using a regression with a quadratic term (that is, X2), so we have now a <strong>polynomial regression</strong></p>
+<pre class="r"><code>fit2 &lt;- lm(weight ~ height + I(height^2), data=women)
+summary(fit2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = weight ~ height + I(height^2), data = women)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.50941 -0.29611 -0.00941  0.28615  0.59706 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 261.87818   25.19677  10.393 2.36e-07 ***
+## height       -7.34832    0.77769  -9.449 6.58e-07 ***
+## I(height^2)   0.08306    0.00598  13.891 9.32e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3841 on 12 degrees of freedom
+## Multiple R-squared:  0.9995, Adjusted R-squared:  0.9994 
+## F-statistic: 1.139e+04 on 2 and 12 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>ggplot(women, aes(x = women$height, y = women$weight)) +
+  geom_point(aes(x = women$height, y = women$weight), color =&quot;blue&quot;) +
+  stat_smooth(aes(), method = &quot;lm&quot;, formula = y ~ poly(x,2), color =&quot;red&quot;, linetype=2, se =TRUE, size = 1) +
+  labs(x=&quot;Height, inches&quot;, y=&quot;Weight, lb.&quot;)</code></pre>
+<pre><code>## Warning: Use of `women$height` is discouraged. Use `height` instead.</code></pre>
+<pre><code>## Warning: Use of `women$weight` is discouraged. Use `weight` instead.</code></pre>
+<pre><code>## Warning: Use of `women$height` is discouraged. Use `height` instead.</code></pre>
+<pre><code>## Warning: Use of `women$weight` is discouraged. Use `weight` instead.</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/regr_polyn-1.png" width="672" /></p>
+<pre class="r"><code>plot(women$height,residuals(fit2),
+     xlab=&quot;Height (in inches)&quot;,
+     ylab=&quot;residuals&quot;)</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/regr_polyn-2.png" width="672" /></p>
+<p>The new polynomial equation is:</p>
+<blockquote>
+<p><img src="eqpoly.jpg" id="id" class="class" width="320" /><br />
+</p>
+</blockquote>
+<p>The amount of variance accounted for has increased to 99.9%. The significance of the squared term (t = 13.89, p &lt; .001) suggests that inclusion of the quadratic term improves the model fit. The prediction error (residuals) is smaller, and their distribution looks more random.</p>
+<div id="where-to-look-in-the-book" class="section level5">
+<h5>where to look in the book?</h5>
+<p><strong>chapter 19</strong></p>
+<hr />
+</div>
+</div>
+</div>
+</div>
+<div id="analysis-of-variance-anova" class="section level2">
+<h2>Analysis of variance (ANOVA)</h2>
+<p>Previously we considered regression models for predicting a quantitative response variable from quantitative predictor variables. But we can include nominal or ordinal factors as predictors as well. When factors are included as explanatory variables, our focus usually shifts from prediction to understanding group differences, and the methodology is referred to as <a href="https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2808-1-5-0">analysis of variance (ANOVA)</a>. ANOVA methodology is used to analyze a wide variety of experimental and quasi-experimental designs.</p>
+<div id="one-way-anova" class="section level3">
+<h3>One-way ANOVA</h3>
+<p>In the following example, fifty patients received one of five cholesterol-reducing drug regimens (trt). Three of the treatment conditions involved the same drug administered as 20 mg once per day (1time), 10mg twice per day (2times), or 5 mg four times per day (4times). The two remaining conditions (drugD and drugE) represented competing drugs. Which drug regimen produced the greatest cholesterol reduction (response)?</p>
+<div id="visualization-using-ggplot2" class="section level4">
+<h4>Visualization using ggplot2</h4>
+<p>We are going to use box-plots to observe differences between treatments, using <strong>ggplot2</strong>.</p>
+<pre class="r"><code># obtaining data from a package
+library(multcomp)
+data(cholesterol)
+cholesterol</code></pre>
+<pre><code>##       trt response
+## 1   1time   3.8612
+## 2   1time  10.3868
+## 3   1time   5.9059
+## 4   1time   3.0609
+## 5   1time   7.7204
+## 6   1time   2.7139
+## 7   1time   4.9243
+## 8   1time   2.3039
+## 9   1time   7.5301
+## 10  1time   9.4123
+## 11 2times  10.3993
+## 12 2times   8.6027
+## 13 2times  13.6320
+## 14 2times   3.5054
+## 15 2times   7.7703
+## 16 2times   8.6266
+## 17 2times   9.2274
+## 18 2times   6.3159
+## 19 2times  15.8258
+## 20 2times   8.3443
+## 21 4times  13.9621
+## 22 4times  13.9606
+## 23 4times  13.9176
+## 24 4times   8.0534
+## 25 4times  11.0432
+## 26 4times  12.3692
+## 27 4times  10.3921
+## 28 4times   9.0286
+## 29 4times  12.8416
+## 30 4times  18.1794
+## 31  drugD  16.9819
+## 32  drugD  15.4576
+## 33  drugD  19.9793
+## 34  drugD  14.7389
+## 35  drugD  13.5850
+## 36  drugD  10.8648
+## 37  drugD  17.5897
+## 38  drugD   8.8194
+## 39  drugD  17.9635
+## 40  drugD  17.6316
+## 41  drugE  21.5119
+## 42  drugE  27.2445
+## 43  drugE  20.5199
+## 44  drugE  15.7707
+## 45  drugE  22.8850
+## 46  drugE  23.9527
+## 47  drugE  21.5925
+## 48  drugE  18.3058
+## 49  drugE  20.3851
+## 50  drugE  17.3071</code></pre>
+<pre class="r"><code># creating box-plot graph for each group
+library(ggplot2)
+ggplot(cholesterol, aes(x=trt, y=response)) + geom_boxplot(fill=&quot;cornflowerblue&quot;) +
+  labs(x = &quot;Tratamientos&quot;, y = &quot;Reducción Colesterol, %&quot;)</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/ggplot2_multip_boxplots-1.png" width="672" /></p>
+</div>
+<div id="anova-test" class="section level4">
+<h4>ANOVA test</h4>
+<p>In a one-way ANOVA, we are interested in comparing the dependent variable means of two or more groups defined by a categorical grouping factor.</p>
+<pre class="r"><code>library(data.table)
+attach(cholesterol)
+# Mean and StDev by treatment using data.table
+cholTr &lt;- data.table(cholesterol)
+cholStat &lt;- cholTr[, list(Media=mean(response), StDev=sd(response)), by=list(Treatment=trt)]
+cholStat</code></pre>
+<pre><code>##    Treatment    Media    StDev
+## 1:     1time  5.78197 2.878113
+## 2:    2times  9.22497 3.483054
+## 3:    4times 12.37478 2.923119
+## 4:     drugD 15.36117 3.454636
+## 5:     drugE 20.94752 3.345003</code></pre>
+<pre class="r"><code># ANOVA
+fit &lt;- aov(response ~ trt)  
+summary(fit)</code></pre>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## trt          4 1351.4   337.8   32.43 9.82e-13 ***
+## Residuals   45  468.8    10.4                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>detach(cholesterol)</code></pre>
+<p>The results of the analysis indicate that there are significant differential effects of the treatments to reduce cholesterol, this is because the probability of a real no-difference (type I error) is very low (Pr(&gt;F) = 9.82e-13).</p>
+<div id="normality-and-homocedasticity-requirements" class="section level5">
+<h5>Normality and homocedasticity requirements</h5>
+<p>But, wait! To apply the procedure above, there are a couple of requirements from the data:</p>
+<ul>
+<li>data must have a normal distribution</li>
+<li>equality of variance between the groups</li>
+</ul>
+<p>First will see if the response variable has a <a href="https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2809-72-75-0">normal distribution</a>:</p>
+<pre class="r"><code># Q-Q plot
+EnvStats::qqPlot(cholesterol$response, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/normality-1.png" width="672" /></p>
+<p>The data falls within the 95% confidence envelope, suggesting that the normality assumption has been met fairly well.</p>
+<p>Now we will test homogeneity of variance, using the <a href="https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2810-77-79-0">Bartlett’s test:</a></p>
+<pre class="r"><code>bartlett.test(response ~ trt, data=cholesterol)</code></pre>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  response by trt
+## Bartlett&#39;s K-squared = 0.57975, df = 4, p-value = 0.9653</code></pre>
+<p>Bartlett’s test indicates that the variances in the five groups do not differ significantly (p = 0.97).</p>
+</div>
+</div>
+<div id="pairwise-comparisson" class="section level4">
+<h4>Pairwise comparisson</h4>
+<p>The ANOVA F test for treatment tells you that the five drug regimens are not equally effective, but it does not tell you which treatments differ from one another. You can use a <a href="https://livebook.manning.com#!/book/r-in-action-second-edition/chapter-9/point-2811-59-60-0">multiple comparison procedure</a> to answer this question. For example, the <strong>TukeyHSD()</strong> function provides a test of all pairwise differences between group means, as shown next.</p>
+<pre class="r"><code>TukeyHSD(fit)</code></pre>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = response ~ trt)
+## 
+## $trt
+##                   diff        lwr       upr     p adj
+## 2times-1time   3.44300 -0.6582817  7.544282 0.1380949
+## 4times-1time   6.59281  2.4915283 10.694092 0.0003542
+## drugD-1time    9.57920  5.4779183 13.680482 0.0000003
+## drugE-1time   15.16555 11.0642683 19.266832 0.0000000
+## 4times-2times  3.14981 -0.9514717  7.251092 0.2050382
+## drugD-2times   6.13620  2.0349183 10.237482 0.0009611
+## drugE-2times  11.72255  7.6212683 15.823832 0.0000000
+## drugD-4times   2.98639 -1.1148917  7.087672 0.2512446
+## drugE-4times   8.57274  4.4714583 12.674022 0.0000037
+## drugE-drugD    5.58635  1.4850683  9.687632 0.0030633</code></pre>
+<pre class="r"><code>par(las=2)
+par(mar=c(5,8,4,2))
+plot(TukeyHSD(fit))</code></pre>
+<p><img src="TallerRFE_II_files/figure-html/multiple-1.png" width="672" /></p>
+<p>For example, the mean cholesterol reductions for 1-time and 2-times are not significantly different from each other (p = 0.138), whereas the difference between 1-time and 4-times is significantly different (p &lt; .001). In this graph, confidence intervals that include 0 indicate treatments that are not significantly different (p &gt; 0.5).</p>
+</div>
+<div id="two-sample-comparisson" class="section level4">
+<h4>Two-sample comparisson</h4>
+<p>When the hypothesis testing is about two samples, the ANOVA test is equivalent to a <strong>t-test</strong>.</p>
+<pre class="r"><code>#datos
+drogaA &lt;- c(8.8,8.4,7.9,8.7,9.1,9.6)
+drogaB &lt;- c(9.9,9.0,11.1,9.6,8.7,10.4,9.5)
+#tabla de datos - no funciona data.frame(drogaA, drogaB)
+tabla &lt;- list(Droga_A = drogaA, Droga_B = drogaB)
+as.data.frame(lapply(tabla, `length&lt;-`, max(sapply(tabla, length))))</code></pre>
+<pre><code>##   Droga_A Droga_B
+## 1     8.8     9.9
+## 2     8.4     9.0
+## 3     7.9    11.1
+## 4     8.7     9.6
+## 5     9.1     8.7
+## 6     9.6    10.4
+## 7      NA     9.5</code></pre>
+<pre class="r"><code>#hipótesis alterna: droga A - drogaB diferente de 0 (menor o mayor)
+pruebat &lt;- t.test(drogaA,drogaB, var.equal = TRUE, alternative = &quot;two.sided&quot;)
+pruebat</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  drogaA and drogaB
+## t = -2.4765, df = 11, p-value = 0.03076
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.8752609 -0.1104534
+## sample estimates:
+## mean of x mean of y 
+##  8.750000  9.742857</code></pre>
+<div id="where-to-look-in-the-book-1" class="section level5">
+<h5>where to look in the book?</h5>
+<p><strong>chapter 18</strong></p>
+</div>
+</div>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Kabacoff, R., 2015. R in action: data analysis and graphics with R, Second edition. ed. Manning, Shelter Island.</p>
+<p>Verzani, J., 2012. <a href="https://www.cs.utexas.edu/~cannata/dataVis/Class%20Notes/Getting%20Started%20with%20RStudio.pdf">Getting started with RStudio</a>. O’Reilly, Sebastopol, Calif.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

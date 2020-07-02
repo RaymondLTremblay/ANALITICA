@@ -1,39 +1,71 @@
 --- 
 name: "ANALITICA Fundación"
-navbar: 
+navbar:
   left: 
     - 
-      href: Descripción.html
-      text: Descripción
-    - 
       menu: 
         - 
-          href: Introducción.html
-          text: ¿Qué es la Estadística?
-          
-          
-      text: "Estadistica basica"
-    - 
-      menu: 
+          href: E1-Introducción.html
+          text: "¿Qué es la Estadística?"
         - 
-          href: ggplo2.html
-          text: Introducción a Gráficos
-      text: Producción de Gráficos
-    - 
-      menu: 
-        - 
-          href: Tema_1_Intro.html
-          text: "Introducción a BIOL 3740"
-        - 
-          href: Tema_2_Historia.html
+          href: E2-Historia.html
           text: "Historia breve de la estadística cuantitativa"
+        -   
+          href: E3-TallerRFE_I.html
+          text: "Introducción a R, Rstudio y RMarkdown"
         - 
-          href: Tema_3_Graficos.html
+          href: E4-Graficos.html
           text: "Explorando los datos con gráficos"
         - 
-          href: Tema_4_Supuestos.html
-          text: "Los Supuestos de las pruebas parametricas"
-      text: "Los Temas"
+          href: E5-supuestos.html
+          text: "Los Supuestos de las pruebas paramétricas"
+        -   
+          href: E6-TallerRFE_II.html
+          text: "Regresión simple y ANOVA"
+        - 
+          href: E7-TRAvanzado.html
+          text: "Modelos Lineales" 
+        - 
+          href: E8-Tipos_de_Datos.html
+          text: "Tipos de Datos"   
+          
+          
+      text: "Estadística básica"
+    - 
+      menu: 
+        - 
+          href: G1-ggplot2.html
+          text: "Qué es la visualización de datos y ejemplos historicos"
+        - 
+          href: G2-Errores-tipicos-en-la-visualizacion.html
+          text: "Errores típicos en la visualización"
+        - 
+          href: G3-Graficos-por-conteos.html
+          text: "Gráficos para conteos"
+        - 
+          href: G4-Grafico-de-puntos-de-Wilkinson.html
+          text: "Gráficos de puntos de Wilkinson"
+        - 
+          href: G5_geom_area_densidad_freqpoly.html
+          text: "Gráficos de area y densidad"
+        - 
+          href: G6_geom_histogram.html
+          text: "Histogramas"
+        -
+          href: G7_geom_bar.html
+          text: "Gráficos de barras"
+          
+        -
+          href: G8_geom_boxplot_geom_violin.html
+          text: "Gráficos de caja y de violín"
+      text: "Visualización"
+    - 
+      menu: 
+        - 
+          href: screencast_t_test.html
+          text: "t-test Screencast"
+      text: "Sreencasts"
+      
     - 
       menu: 
         - 
@@ -42,15 +74,12 @@ navbar:
         - 
           href: RMarkdown.html
           text: "Lo básico de RMarkdown"
-          
         - 
           href: Tendencias_Centrales.html
           text: " Tendencias Centrales"
-          
         - 
           href: Medidas_Dispersión.html
-          text: " Medidas de Dispersión"  
-          
+          text: " Medidas de Dispersión"
       text: Ejercicios
     - 
       menu: 
@@ -68,4 +97,6 @@ navbar:
           text: COVID-19
       text: "Los Datos"
   title: ANALITICA
+  
+
 output_dir: "."

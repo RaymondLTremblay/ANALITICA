@@ -1,0 +1,182 @@
+---
+title: "Introducción a la visualización de datos"
+author: "RLT"
+date: "6/30/2020"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align='center')
+```
+
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
+
+```{r include=FALSE, message=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(gt)
+library(random)
+library(ggplot2)
+```
+
+
+
+
+# ¿Que es la visualización de datos?
+
+La visualización de datos tiene como objetivo facilitar la apreciación de datos y determinar si existe patrones. Naturalmente, no se necesita gráficos para entender ciertas ideas.  Por ejemplo si un estudiantes tiene 25 años un otro estudiante tiene 20 años. No hay que hacer un gráfico para entender que hay 5 años de diferencia entre uno y el otro. Se hace gráficos típicamente cuando hay muchos datos y hay solapamiento entre los valores.  Si por ejemplo yo menciono que la edad de los estudiantes el un salón de pre escolar es de cerca de 5 años y el primer año universitario es de 19 años es fácil percibir la diferencia entender la diferencia entre estos grupos.  Pero si describe de dos salones de estudiantes en la universidad pudiese haber solapamiento entre las edades de los estudiantes y determinar si la edad de estos estudiantes es igual o diferente no es tan evidentes. Si uno pone una lista de las edades de los estudiantes de estos salones, uno pudiese tratar de entenderlos si es igual o diferentes mirando la lista.   
+
+Por ejemplo trata de explicar cual es la diferencia (si hay) en las dos listas siguientes. 
+
+
+```{r echo=FALSE, warning=FALSE}
+set.seed(654875)
+
+Edad_Salon_1=randomNumbers(100, min=20, max=27, col=1)
+
+Edad_Salon_1=as.data.frame(Edad_Salon_1)
+
+Edad_Salon_1=as.list(Edad_Salon_1)
+Edad_Salon_1
+```
+
+****
+
+```{r echo=FALSE}
+
+set.seed(654875)
+Edad_Salon_2=randomNumbers(100, min=20, max=26, col=1)
+
+Edad_Salon_2=as.data.frame(Edad_Salon_2)
+
+Edad_Salon_2=as.list(Edad_Salon_2)
+Edad_Salon_2
+```
+
+Probablemente no es evidente a primera vista cual es la diferencia entre las dos listas de datos.  
+
+
+***
+## Resumir la información en tablas
+
+Una de las alternativas es resumir los datos en una tablas, por ejemplo por grupos. Se observa que hay muy poca diferencia entre los promedios de edad de los estudiantes por cada salón, pero la edad máxima de los estudiantes en los dos salones es diferente. Lo que uno observa es que las dos listas tienen valores muy similares pero el máximo valor en cada lista es diferente. Si hay muchos valores en una lista típicamente los humanos no podemos entender estos patrones. Por consecuencia es importante buscar maneras de resumir los datos en algo más conciso. 
+
+```{r include=FALSE}
+Edad_Salon_1$Seq=seq(1:100)
+Edad_Salon_2$Seq=seq(1:100)
+
+df=bind_rows(Edad_Salon_1, Edad_Salon_2)
+df$Salon=rep(c("Salon_1","Salon_2"), each=100)
+df
+
+```
+
+
+```{r include=FALSE, warning=FALSE}
+as_tibble(df)
+```
+
+```{r, warning=FALSE, message=FALSE}
+df%>%
+  select(V1, Salon)%>%
+  group_by(Salon)%>%
+  summarize(promedio=mean(V1), 
+             mínimo=min(V1),
+             máximo=max(V1))%>%
+  gt()%>%
+  tab_header(
+    title = "Edad de los Estudiantes")
+  
+```
+
+
+## Visualizar muchos datos
+
+Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una **Boxplot** (Gráfico de caja). Se observa que el promedio es igual y el valor mínimo, y que la única diferencia es solamente el valor máximo en los datos.    
+
+```{r}
+ggplot(df, aes(y=V1, x=Salon))+
+  geom_boxplot()+
+  ylab("Edad de los estudiantes")
+```
+
+# Ejemplos históricos
+
+En esta sección presento unos ejemplos históricos de representación gráficos. Esta sección no es exhaustiva y solamente para representar algunos ejemplos de gráficos y su desarrollo.  
+
+## Ejemplo de la Campaña de Napoleón para invadir a Rusia
+
+Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó en lo que se llama gráficas informativas (Information Graphics).  El es reconocido por haber sido muy innovador en el uso de gráficos para demostrar patrones.  El más famoso de este fue sobre la campaña de guerra de Napoleón para invadir a Rusia (1812-1813).       
+
+En este mapa, vemos el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento representa la cantidad de hombres que comenzaron el camino hacia Rusia (`r colorize("la linea con color marón", "brown")`) hasta Moscú, el viaje de regreso el color **negro**. El ancho de la barra representa la cantidad de hombres presente en el ejercicio militar. Cuando comenzaron (saliendo de Paris) eran más de 422,000 soldados, al llegar a Moscú ya era solamente 100,000 soldados. Cuando finalmente, al regresar a Paris, después de invadir a Rusia, Napoleón tenia solamente 10,000 soldados con él..   
+
+Nota el gráfico debajo, este representa la temperatura de regreso de Moscú, y miran como al bajar la temperatura más y más los soldados murieron. La mortandad en gran parte fue por no estar preparado para el frío. La escala de temperatura no era el de Celcius ni de Farenheit, pero una escala que se llama **Réaumus**, donde el punto de congelación y hirviendo es de 0° y 80° respectivamente. Esta escala se uso en multiples paises de Europa hasta medio del siglo 19.    
+
+```{r echo=FALSE, out.width = '80%', fig.align='center'}
+knitr::include_graphics("Graficos/Carte_Napoleon.png")
+```
+
+## Donde proviene la carne que consumen la gente de Paris
+
+Un otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color **negro** representa carne vaca, el color `r colorize("el color verde", "green")` es la ternera y el `r colorize("color rojo", "red")` es el cordero.  El uso "Pie Charts" para identificar la proporción de cada grupo y el tamaño del "Pie Chart"  para identificar la cantidad relativa con los otros departamentos (Organización política local).  
+
+```{r echo=FALSE, out.width = '70%', fig.align='center'}
+knitr::include_graphics("Graficos/Minard_Carne_Paris.png")
+```
+
+# Gráfico Combcox 
+
+La guerra de Crimea (1853-1856) fue una de las primeras guerras donde se comenzó a contabilizar la causa de muerte de los soldados. Esta guerra tenia como conflicto entre Rusia y sus aliados por el otro lado el Emperio Otaman, Francia, Reino Unido y Sardania (ahora parte de Italia). El objetivo al principio era sobre el acceso a las tierras Santas en Palestina por los cristianos.  Lo que es interesante de esta guerra con relación la historía de la evolución de los gráficos es el impacto que tuvo una enfermera de los Reinos Unidos que se llama Florence Nightingale (1820_1910).   Era no solamente una persona que tuvo impacto sobre el desarrollo de como se hace la ciencia de "Enfermería" pero tuvo impacto en como visualizar las causas principales de las mortandad durante una guerra. Aquí una ilustración de ella.      
+
+
+```{r echo=FALSE, out.width = '40%', fig.align='center'}
+knitr::include_graphics("Graficos/Florence_Nightingale.png")
+```
+
+Como enfermera en las campos militares, ella se percato que la gran mayoría de los soldados mueren no por la guerra pero por la poca calidad de condición de salud en los campos de guerra.  Para tratar de impactar los políticos para que aportan más a la condiciones de los soldados ella recolecto datos y produjo unos gráfico para describir la causa de mortandad en Crimea.  Uno de estos que tuvo un impacto es sobre es el siguiente gráfico.  
+
+Lo que ella demuestra en este gráfico es cual son las causas de mortandad de los soldados en diferentes meses del año.  El color `r colorize("gris", "grey")`, represente la cantidad de soldados muertos por enfermedades (no por estar batallas), el color `r colorize("verde", "green")`, representa los soldados que murieron por otras razón no por estar en batalla no por enfermedades, y el color `r colorize("amarillo", "yellow")` son los que murieron por estas en batallas. Es claro que la causa principal de mortandad no es el campo de batalla, pero por enfermedades no relacionados al campo de batalla. Como resultado de este gráfico se hizo unos cambios en las condiciones de los soldados reduciendo la mortandad. 
+
+
+```{r echo=FALSE, out.width = '60%', fig.align='center'}
+knitr::include_graphics("Graficos/coxcombchart.png")
+```
+
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+
+#Aquí se reconstruye el gráfico con herramientas modernas.  Los datos provienen de la página de Wikipedia **Crimean War**.
+
+
+Pais=c("Imperio Otamano", "Imperio Otamano","Francia","Francia", "Reino Unidos","Reino Unidos", "Sardinia","Sardania", "Rusia y aliados","Rusia y aliados")
+Fatalidad=c("En acción", "Otras Enfermedades", "En acción", "Otras Enfermedades" ,"En acción", "Otras Enfermedades", "En acción", "Otras Enfermedades", "En acción", "Otras Enfermedades")
+
+Num_soldados=c(20900, 24500,  20240, 75375, 4602, 17580, 28, 2138, 41000,89000)
+
+Coxcomb=data.frame(Pais,Fatalidad, Num_soldados)
+Coxcomb
+```
+```{r eval=FALSE, include=FALSE}
+ggplot(Coxcomb, aes(x=Num_soldados))+
+  geom_bar(aes(fill=Pais,  colour="black", width = 1))+
+  coord_polar()
+```
+

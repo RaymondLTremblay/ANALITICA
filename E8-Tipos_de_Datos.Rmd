@@ -1,0 +1,15 @@
+---
+title: "Tipos de Datos"
+author: "D. S. Fernandez del Viso"
+date: "6/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tipos de Datos
+
+* numerico
+* entero

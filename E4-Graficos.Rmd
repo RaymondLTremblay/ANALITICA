@@ -1,0 +1,385 @@
+---
+title: "Tema_3_Graficos"
+author: "Raymond L. Tremblay"
+date: "el 4 de febrero, 2020"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(ggplot2)
+library(Hmisc)
+```
+
+ 
+
+La información utilizada en este documento proviene en parte del libro *Discovering Statistics using R* por Andy Field, Jeremy Miles y Zoë Field.  
+
+# Como crear una gráfica de regresión lineal usando ggplot
+
+1.  Subir los datos "ExamAnxiety"
+  Los archivos de datos que se usan en el libro se encuentran en este enlace, https://studysites.sagepub.com/dsur/study/articles.htm
+  
+## see page 136 in book
+
+DATA FILE = Exam Anxiety
+
+
+```{r}
+library(readr)
+Exam_Anxiety <- read_csv("Data/Exam Anxiety.csv")
+```
+
+
+```{r}
+head(Exam_Anxiety, n=1)
+tail(Exam_Anxiety, n=2)
+```
+
+
+
+
+
+```{r the data}
+
+
+
+Anxiety = Exam_Anxiety
+Exam_Anxiety = Anxiety
+examData=Anxiety
+```
+
+
+
+
+
+
+```{r}
+
+head(Exam_Anxiety)  #cuando no pone n=, se ve los primepors 6
+tail(Exam_Anxiety, n=3)
+```
+
+# Medida de tendencia central
+
+# Calculate the mean
+
+
+
+```{r}
+x=c(1,2,3,4,5,6,7,8,9,10, 1100)
+d=c(2:100)
+mean(x)
+mean(d)
+d
+```
+# range
+
+```{r}
+range(d)
+median(x)
+```
+
+
+#Interquartile Range
+
+```{r}
+quantile(x)
+
+
+
+
+quantile(x, probs = c(0.015, 0.25, 0.50,.75, .975)) #Selecionar los quantiles.  
+```
+
+```{r}
+mean(Exam_Anxiety$Revise)
+range(Exam_Anxiety$Revise)
+```
+
+
+
+```{r}
+y=rnorm(1001)
+head(y)
+
+quantile(y)
+probs = c(0.01, 0.10, 0.50,.90)
+```
+
+
+
+
+
+
+How to do a simple linear point graph and add text to graph, change the axis name
+
+
+```{r linear graph}
+library(ggplot2)
+#names(Exam_Anxiety) # para seber el nombre de las columnas
+
+ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety))+ 
+  geom_line(colour="#308A8C")
+
+```
+
+
+```{r}
+tail(iris)
+
+
+ggplot(iris, aes(Sepal.Length, Petal.Length)) +
+      geom_point(aes(col = Species)) +
+  geom_smooth(method="lm", colour="aquamarine") +  # lm is for linear model 
+  labs(x = "El largo del Sepalo", y = "El largo del Petalo")+
+  ggtitle("Basic geom_point and linear regression")
+
+
+# How to add a title, "ggtitle"
+
+# How to save a Graph
+
+ggsave("Iris_size.png") # .jpeg/.jpg/.tiff
+
+
+
+```
+
+
+
+
+```{r more examples}
+
+#Simple scatter with regression line
+scatter <- ggplot(examData, aes(Anxiety, Exam))
+scatter + geom_point(shape=20, colour="red") + 
+          geom_smooth(method = "lm", colour = "blue", se = F) +  # se = F, remueve el intervalo de confianza
+  labs(x = "Exam Anxiety", y = "Exam Performance %")
+
+```
+
+#Simple scatter with regression line + CI
+
+```{r}
+scatter <- ggplot(examData, aes(Anxiety, Exam))
+scatter + geom_point() + 
+          geom_smooth(method = "lm", colour = "Red")+ 
+  labs(x = "Exam Anxiety", y = "Exam Performance %") 
+```
+
+
+#Regresión lineal más el intervalo de confianza. 
+
+```{r}
+scatter <- ggplot(examData, aes(Anxiety, Exam))
+scatter + geom_point() + 
+  geom_smooth(method = "lm", colour = "Red", alpha = 0.2, fill = "orange") + 
+  labs(x = "Exam Anxiety", y = "Exam Performance %") 
+```
+
+
+#Regresión lineal más el intervalo de confianza, usar "colour" por multiples grupos. 
+```{r}
+names(Exam_Anxiety)
+ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety, colour=Gender))+ 
+  geom_point(colour="coral")+
+  geom_smooth(method="lm") +  # lm is for linear model 
+  labs(x = "Exam Anxiety Score", y = "Exam Performance %")+
+  ggtitle("Basic geom_point and linear regression")
+
+```
+
+# Constructing histograms
+
+## Data needed are from festivalData
+
+A biologist was worried about the potential health effects of music festivals. So, one year she went to the Download Festival in UK (Download Festival UK). She measured the higiene of 810 concert goes over the 3 day festival. Each day she attempted find all the individuals she census on the first day.
+ + 0 = you smell like a corpse, that is left to rot
+ + 4 = you smell of sweet roses on fresh spring day
+ 
+ The hypothesis is that the personal hygiene of the concert goers would go down dramatically over the 3 days of the festival. 
+
+
+```{r festival data}
+library(readr)
+DownloadFestival <- read_csv("Data/DownloadFestival.csv")
+
+FD=DownloadFestival
+head(FD)  # ver las 6 primeras filas
+length(FD$ticknumb)  # cuantas filas
+```
+
+Constructing histograms and detecting outliers
+
+```{r have look at the data}
+head(FD, n=2)
+tail(FD)
+
+```
+
+
+```{r histograms}
+head(FD)
+ ggplot(FD, aes(day1))+ 
+  geom_histogram(colour="white", fill="steelblue") + 
+  labs(x = "Hygiene (Day 1 of Festival)", y = "Frequency")
+
+  summary(DownloadFestival)
+#binwidth = 0.6, fill="orange", colour="white"
+```
+
+
+
+
+Subsetting data = removing values larger than x
+
+
+```{r subsetting}
+Festivalday1=subset(DownloadFestival, day1<5)
+summary(Festivalday1)
+```
+
+
+
+```{r no outliers}
+festivalHistogram <- ggplot(Festivalday1, aes(day1))
+festivalHistogram + 
+  geom_histogram(fill="orange", colour="white") + 
+  labs(x = "Hygiene (Day 1 of Festival)", y = "Frequency")
+
+```
+
+How to create boxplots
+
+
+```{r boxplots2}
+
+festivalBoxplot <- ggplot(Festivalday1, aes(x=1,y=day1))
+festivalBoxplot + geom_boxplot() + labs(x = "Gender", y = "Hygiene (Day 1 of Festival)")
+
+
+```
+
+
+Boxplot by Gender
+
+
+```{r boxplots}
+names(Festivalday1)
+festivalBoxplot <- ggplot(Festivalday1, aes(x=gender,y=day2, colour=gender))
+festivalBoxplot + 
+  geom_point()+
+  geom_boxplot(fill="yellow", alpha=0.1) + 
+  labs(x = "Gender", y = "Hygiene (Day 2 of Festival)")
+
+
+```
+
+How to detect outliers.
+Determine the % of data which are outliers (IN Spanish, sesgado)
+NOTE: that I'm constructing a function, which does not exist  
+
+```{r outliers}
+#--------OUTLIERS----------
+
+
+outlierSummary<-function(variable, digits = 2){
+  
+  zvariable<-(variable-mean(variable, na.rm = TRUE))/sd(variable, na.rm = TRUE)
+  
+  outlier95<-abs(zvariable) >= 1.96  # error de 95%
+  outlier99<-abs(zvariable) >= 2.58   # error de 99%
+  outlier999<-abs(zvariable) >= 3.29  # error de 99.9%
+  
+  ncases<-length(na.omit(zvariable))
+  
+  percent95<-round(100*length(subset(outlier95, outlier95 == TRUE))/ncases, digits)
+  percent99<-round(100*length(subset(outlier99, outlier99 == TRUE))/ncases, digits)
+  percent999<-round(100*length(subset(outlier999, outlier999 == TRUE))/ncases, digits)
+  
+  cat("Absolute z-score greater than 1.96 = ", percent95, "%", "\n")
+  cat("Absolute z-score greater than 2.58 = ",  percent99, "%", "\n")
+  cat("Absolute z-score greater than 3.29 = ",  percent999, "%", "\n")
+}
+
+outlierSummary(FD$day3)
+```
+
+
+How to do a BOXPLOT of the distribution of the data, no assuming normal distribution.  
+
+In this figure we show the median and the percentiles and the outliers
+
+```{r boxplot}
+
+library(ggplot2)
+ggplot(FD, aes(gender, day1))+ geom_boxplot()
+
+```
+
+Now to remove outliers
+
+```{r boxplot2}
+
+Festivalday1
+ggplot(Festivalday1, aes(gender, day1))+ geom_boxplot()
+
+```
+#Line and error bars
+
+1. Learn how to reformat data in the correct type of data frame (as the original data set is not in the correct format) with the function "stack"
+2. How to add the mean of the variable with "stat_summary"
+2. How to connect the mean with a line and change color
+3. how to add the error bars and color (The 95% confidence intervals, created with the stat_summary() function and the "mean_cl_boot" argument are bootstrap confidence intervals using the smean.cl.boot() function in Hmisc)
+
+## Install library(Hmisc)
+
+```{r line and error bars}
+
+library(Hmisc) # you need this package to add the confidence interval
+
+library(readr)
+Hiccups <- read_csv("Data/Hiccups.csv")
+```
+
+```{r}
+#hiccupsData=Hiccups
+
+hiccups<-stack(Hiccups) # to reorganize the data in two columns 
+head(hiccups)
+tail(hiccups)
+names(hiccups)=c("Num_Hiccups","Intervention") # change the names of columns
+#hiccups$Intervention_Factor <- factor(hiccups$Intervention, levels = hiccups$Intervention)
+head(hiccups)
+```
+
+
+```{r}
+ggplot(hiccups, aes(y=Num_Hiccups,x=Intervention))+ 
+  stat_summary(fun.y = "mean", geom = "point") + 
+  stat_summary(fun.y = "mean", geom = "line", aes(group = 1),colour = "Red", linetype = "dashed") +      
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, colour="blue") + 
+  labs(x = "Intervention", y = "Mean Number of Hiccups")
+```
+
+```{r}
+ggplot(hiccups, aes(y=Num_Hiccups,x=Intervention))+ 
+  stat_summary(fun.y = mean, geom = "point") + 
+  stat_summary(fun.y = mean, geom = "line", aes(group = 1),colour = "Red", linetype = "dashed") +      
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", width = 0.2, colour="blue") + 
+  labs(x = "Intervention", y = "Mean Number of Hiccups")
+```
+
+
+
+
+

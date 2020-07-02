@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="D. S. Fernandez del Viso" />
+
+
+<title>Taller IPERT - R Avanzado</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadistica basica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tema_2_Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="Tema_3_Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="Tema_4_supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="TRAvanzado.html">Modelos Lineales</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Taller IPERT - R Avanzado</h1>
+<h4 class="author">D. S. Fernandez del Viso</h4>
+<h4 class="date">1/31/2020</h4>
+
+</div>
+
+
+<div id="taller-r-avanzado-regresión-múltiple-anova-glm" class="section level1">
+<h1>Taller R Avanzado: Regresión Múltiple, ANOVA, GLM</h1>
+<div id="lista-de-paquetes-a-instalar" class="section level4">
+<h4>Lista de paquetes a instalar</h4>
+<ul>
+<li>readxl</li>
+<li>car</li>
+<li>EnvStats</li>
+<li>tidyverse</li>
+<li>coefplot</li>
+<li>leaps</li>
+<li>rmarkdown</li>
+<li>ggplot2</li>
+<li>MASS</li>
+<li>multcomp</li>
+<li>effects</li>
+<li>gplots</li>
+<li>agricolae</li>
+<li>plyr</li>
+<li>caret</li>
+</ul>
+</div>
+<div id="lista-de-archivos-a-usar" class="section level4">
+<h4>Lista de archivos a usar</h4>
+<p>Los siguientes archivos deben estar disponible en su directorio de trabajo de R:</p>
+<ul>
+<li><a href="https://drive.google.com/open?id=1kKD0vOoQCBjgoecqvdcdwFiJuiEyaz-U">mod_empiricos.xlsx</a><br />
+</li>
+<li><a href="https://drive.google.com/open?id=1ATmAlI0I6K9m2GG0uukhH_72zQkTJQps">strain_sex_chol.xlsx</a></li>
+<li><a href="https://drive.google.com/open?id=1scOVpqtb6c9EbM90m0pZm3zg98Khde_o">Titanic.xlsx</a></li>
+</ul>
+</div>
+<div id="objetivos-generales" class="section level3">
+<h3>Objetivos Generales</h3>
+<ul>
+<li><p>Conocer y aplicar los métodos disponibles en R para obtener los parámetros de <strong>modelos de regresión múltiple</strong>, evaluar su idoneidad para describir los datos, e interpretar su significado.</p></li>
+<li><p>Aplicar funciones de R para diseños de investigación apropiados para el <strong>análisis de varianza</strong>.</p></li>
+<li><p>Conocer y aplicar funciones de R para extender los modelos lineales a situaciones en las que la variable dependiente no tiene distribución normal <strong>(GLM)</strong>.</p></li>
+</ul>
+<p><strong>DIA 1</strong></p>
+</div>
+</div>
+<div id="regresión-lineal-múltiple" class="section level1">
+<h1>Regresión Lineal Múltiple</h1>
+<p>Cuando tenemos más de una variable predictora (“independiente”), la regresión lineal simple viene a ser una <strong>regresión múltiple</strong>.</p>
+<p><span class="math display">\[Y_j=\alpha+\beta_1X_{1j}+\beta_2X_{2j}+...+\beta_nX_{nj}\]</span></p>
+<div id="ejemplo-1-y-datos" class="section level4">
+<h4>Ejemplo 1 y Datos</h4>
+<p>Usaremos como ejemplo los datos <em>bmi</em> en el archivo <em>mod_empiricos.xlsx</em>. Estos son datos de individuos adultos entre 21 y 79 años, con las siguientes variables: <em>BMI</em>, índice de masa corporal (<span class="math inline">\(kg/m^{2}\)</span>); <em>Age</em>, edad (<em>años</em>); <em>Cholesterol</em>, niveles de colesterol en sangre, (<span class="math inline">\(mg/dL\)</span>); <em>Glucose</em>, niveles de glucosa en la sangre, (<span class="math inline">\(mg/dL\)</span>).</p>
+<p>Para leer los datos emplearemos el siguiente código (obtenido del menú <em>Import Dataset/From Excel</em>):</p>
+<pre class="r"><code>library(readxl)
+reg.multiple &lt;- read_excel(&quot;Data/mod_empiricos.xlsx&quot;, sheet = &quot;bmi&quot;)
+# para ver las primeras seis filas de datos
+head(reg.multiple)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##     BMI   Age Cholesterol Glucose
+##   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+## 1  19.3    21         178      95
+## 2  24.5    57         250      98
+## 3  24.7    46         176     102
+## 4  47.9    47         171     105
+## 5  44.2    61         222     101
+## 6  29.9    74         156      72</code></pre>
+</div>
+<div id="pruebas-de-supuestos-para-regresión-paramétrica-usando-el-método-de-mínimos-cuadrados-ols-ordinary-least-square" class="section level3">
+<h3>Pruebas de supuestos para regresión paramétrica usando el método de mínimos cuadrados (<em>OLS, ordinary least square</em>)</h3>
+<ul>
+<li><strong>Normalidad</strong>: Gráficamente: Q-Q plot; Estadísticamente: prueba de Shapiro &amp; Wilk</li>
+<li><strong>Independencia</strong>: los valores de <span class="math inline">\(Y_j\)</span> son independientes entre si, lo asumimos (no hay autocorrelación).</li>
+<li><strong>Linealidad</strong>: relación lineal entre variable dependiente y cada una de las independientes; gráficas individuales. Puede arreglarse con transformación; prueba de Box Tidwell.</li>
+<li><strong>Homocedasticidad</strong>: varianza de la variable dependiente (residuales) no varía con los valores de las variables independientes; gráfica de los residuales.</li>
+<li><strong>Multicolinealidad</strong>: las variables independientes no deben estar correlacionadas entre si.</li>
+</ul>
+<div id="normalidad" class="section level4">
+<h4>Normalidad</h4>
+<ul>
+<li>Evaluación gráfica de normalidad de la variable dependiente.</li>
+</ul>
+<pre class="r"><code>library(EnvStats)
+EnvStats::qqPlot(reg.multiple$BMI, add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/qqplot-1.png" width="672" /></p>
+<ul>
+<li>Prueba estadística de normalidad Shapiro &amp; Wilk (<span class="math inline">\(H_0:distribución\enspace normal\)</span>)</li>
+</ul>
+<pre class="r"><code>shapiro.test(reg.multiple$BMI)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  reg.multiple$BMI
+## W = 0.96315, p-value = 0.07547</code></pre>
+</div>
+<div id="autocorrelación" class="section level4">
+<h4>Autocorrelación</h4>
+<p>La prueba de Durbin-Watson nos permite evaluar si ocurre autocorrelación entre los valores residuales de la variable dependiente. Por ejemplo, una variable que depende del tiempo, presenta autocorrelación. La <span class="math inline">\(H_0\)</span> es que la autocorrelación en los residuales del modelo es 0.</p>
+<ul>
+<li>Prueba de Durbin-Watson para autocorrelación</li>
+</ul>
+<pre class="r"><code>library(car)
+model &lt;- lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+dbt &lt;- durbinWatsonTest(model, simulate = TRUE)
+dbt</code></pre>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1      0.06609505      1.823275   0.574
+##  Alternative hypothesis: rho != 0</code></pre>
+</div>
+<div id="linealidad" class="section level4">
+<h4>Linealidad</h4>
+<ul>
+<li>Prueba de Box Tidwell para linealidad</li>
+</ul>
+<pre class="r"><code>library(car)
+boxTidwell(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)</code></pre>
+<pre><code>##             MLE of lambda Score Statistic (z) Pr(&gt;|z|)
+## Age              -19.8117             -0.8984   0.3690
+## Cholesterol       20.2797              0.1879   0.8509
+## Glucose           -2.3134              0.1057   0.9158
+## 
+## iterations =  10</code></pre>
+</div>
+<div id="multicolinealidad" class="section level4">
+<h4>Multicolinealidad</h4>
+<ul>
+<li>Matriz de correlación y gráficas de puntos con líneas de regresión</li>
+</ul>
+<pre class="r"><code>library(car)
+#matriz de correlación
+cor(reg.multiple)</code></pre>
+<pre><code>##                   BMI       Age Cholesterol    Glucose
+## BMI         1.0000000 0.1863333  0.28110580 0.22115998
+## Age         0.1863333 1.0000000  0.16966704 0.26705577
+## Cholesterol 0.2811058 0.1696670  1.00000000 0.08266412
+## Glucose     0.2211600 0.2670558  0.08266412 1.00000000</code></pre>
+<pre class="r"><code>#gráfica de regresiones en parejas, con línea de regresión
+scatterplotMatrix(reg.multiple, ~ BMI + Age + Cholesterol + Glucose,
+                  smooth = list(lty = 2), id = TRUE,
+                  regLine = list(lty = 1, col = &quot;red&quot;),
+                  col = &quot;blue&quot;)</code></pre>
+<pre><code>## Warning in applyDefaults(legend, defaults = list(coords = NULL), type =
+## &quot;legend&quot;): unnamed legend arguments, will be ignored</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+</div>
+<div id="modelos-de-regresión-lineal-múltiple" class="section level3">
+<h3>Modelos de regresión lineal múltiple</h3>
+<p>A continuación se calculan los parámetros de diversos modelos de regresión, y se incluye una prueba de homocedasticidad (homogeneidad de la varianza) para cada modelo.</p>
+<div id="modelo-completo-todas-las-variables" class="section level4">
+<h4>Modelo completo (todas las variables)</h4>
+<pre class="r"><code>modRM &lt;- lm(BMI ~ Age + Cholesterol + Glucose, 
+              data = reg.multiple)
+summary(modRM)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.6255  -4.5473  -0.8179   3.7439  18.8116 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 16.81510    5.07180   3.315  0.00164 **
+## Age          0.04103    0.05631   0.729  0.46939   
+## Cholesterol  0.04819    0.02487   1.938  0.05791 . 
+## Glucose      0.01974    0.01493   1.322  0.19188   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.34 on 54 degrees of freedom
+## Multiple R-squared:  0.127,  Adjusted R-squared:  0.07855 
+## F-statistic:  2.62 on 3 and 54 DF,  p-value: 0.06008</code></pre>
+<pre class="r"><code>aic &lt;- AIC(modRM)
+sprintf(&quot;AIC = %.2f&quot;, aic)</code></pre>
+<pre><code>## [1] &quot;AIC = 384.68&quot;</code></pre>
+<pre class="r"><code># prueba de homocedasticidad (Non-constant Variance Score Test)
+# Ho:la varianza es constante en el ámbito de la predicción de Y
+ncvTest(modRM)</code></pre>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.02932531, Df = 1, p = 0.86403</code></pre>
+<pre class="r"><code>spreadLevelPlot(modRM)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre><code>## 
+## Suggested power transformation:  0.757141</code></pre>
+</div>
+<div id="modelo-eliminando-la-variable-age-por-ser-la-menos-correlaciona-con-bmi-y-tener-la-mayor-correlación-con-glucose" class="section level4">
+<h4>Modelo eliminando la variable Age, por ser la menos correlaciona con BMI, y tener la mayor correlación con Glucose</h4>
+<pre class="r"><code>modRM &lt;- lm(BMI ~ Cholesterol + Glucose, 
+              data = reg.multiple)
+summary(modRM)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = BMI ~ Cholesterol + Glucose, data = reg.multiple)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -10.125  -4.748  -1.134   3.321  18.832 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 17.95236    4.80502   3.736 0.000446 ***
+## Cholesterol  0.05098    0.02447   2.083 0.041902 *  
+## Glucose      0.02254    0.01437   1.569 0.122449    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.313 on 55 degrees of freedom
+## Multiple R-squared:  0.1185, Adjusted R-squared:  0.08641 
+## F-statistic: 3.696 on 2 and 55 DF,  p-value: 0.0312</code></pre>
+<pre class="r"><code>aic &lt;- AIC(modRM)
+sprintf(&quot;AIC = %.2f&quot;, aic)</code></pre>
+<pre><code>## [1] &quot;AIC = 383.25&quot;</code></pre>
+<pre class="r"><code># prueba de homocedasticidad
+ncvTest(modRM)</code></pre>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.2490362, Df = 1, p = 0.61775</code></pre>
+<pre class="r"><code>spreadLevelPlot(modRM)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre><code>## 
+## Suggested power transformation:  1.818741</code></pre>
+</div>
+<div id="modelo-con-interacción-entre-age-y-glucose" class="section level4">
+<h4>Modelo con interacción entre Age y Glucose</h4>
+<p>Para denotar interacción entre variables se usa el símbolo <strong>( : )</strong> Para incluir las variables solas y su interacción se utiliza el símbolo <strong>( * )</strong></p>
+<pre class="r"><code>modRM &lt;- lm(BMI ~ Cholesterol + Glucose:Age, 
+              data = reg.multiple)
+summary(modRM)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = BMI ~ Cholesterol + Glucose:Age, data = reg.multiple)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.5225  -4.6283  -0.8796   3.6945  18.8840 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.879e+01  4.645e+00   4.044 0.000165 ***
+## Cholesterol 4.906e-02  2.441e-02   2.010 0.049322 *  
+## Glucose:Age 3.662e-04  2.057e-04   1.780 0.080625 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.274 on 55 degrees of freedom
+## Multiple R-squared:  0.1292, Adjusted R-squared:  0.09751 
+## F-statistic: 4.079 on 2 and 55 DF,  p-value: 0.02229</code></pre>
+<pre class="r"><code>aic &lt;- AIC(modRM)
+sprintf(&quot;AIC = %.2f&quot;, aic)</code></pre>
+<pre><code>## [1] &quot;AIC = 382.54&quot;</code></pre>
+<pre class="r"><code># prueba de homocedasticidad
+ncvTest(modRM)</code></pre>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.07666205, Df = 1, p = 0.78187</code></pre>
+<pre class="r"><code>spreadLevelPlot(modRM)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre><code>## 
+## Suggested power transformation:  0.9950719</code></pre>
+</div>
+</div>
+<div id="selección-automática-de-modelo---método-stepwise" class="section level3">
+<h3>Selección automática de modelo - método “stepwise”</h3>
+<p>Existen métodos para seleccionar automáticamente el mejor modelo, a base de estadísticos indicadores, y que conlleva un procedimiento iterativo. Uno de estos procedimientos es conocido como ‘stepwise’ (por pasos), y aunque no es el más aceptado en la actualidad, ha sido muy usado y es una buena manera de ilustrar el procedimiento, usando nuestros datos.</p>
+<p>En este procedimiento el proceso de selección se basa en mantener el modelo con el menor valor del estadístico <strong>AIC</strong> (Akaike Information Criterion), que indica el modelo con la menor pérdida de información y mayor simplicidad. En el proceso se parte de un modelo nulo (no efecto de predictores) y hasta un modelo muy complejo, incluyendo interacciones. Las variables se incluyen y se quitan, y cada vez se recalcula AIC, hasta obtener el modelo que mantiene el mínimo valor de AIC.</p>
+<pre class="r"><code>#formulación de un modelo nulo y un modelo completo
+modNulo &lt;- lm(BMI ~ 1, data = reg.multiple)
+modFull &lt;- lm(BMI ~ Cholesterol*Glucose + Age*Cholesterol + Age*Glucose, 
+              data = reg.multiple)
+#procedimiento stepwise
+bmistep &lt;- step(modNulo,
+                scope = list(lower=modNulo, upper=modFull,
+                             direction=&quot;both&quot;))</code></pre>
+<pre><code>## Start:  AIC=219.97
+## BMI ~ 1
+## 
+##               Df Sum of Sq    RSS    AIC
+## + Cholesterol  1   196.462 2289.8 217.19
+## + Glucose      1   121.605 2364.6 219.06
+## + Age          1    86.322 2399.9 219.92
+## &lt;none&gt;                     2486.2 219.97
+## 
+## Step:  AIC=217.19
+## BMI ~ Cholesterol
+## 
+##               Df Sum of Sq    RSS    AIC
+## + Glucose      1    98.063 2191.7 216.66
+## &lt;none&gt;                     2289.8 217.19
+## + Age          1    49.203 2240.6 217.93
+## - Cholesterol  1   196.462 2486.2 219.97
+## 
+## Step:  AIC=216.66
+## BMI ~ Cholesterol + Glucose
+## 
+##                       Df Sum of Sq    RSS    AIC
+## &lt;none&gt;                             2191.7 216.66
+## + Cholesterol:Glucose  1    55.387 2136.3 217.17
+## - Glucose              1    98.063 2289.8 217.19
+## + Age                  1    21.337 2170.3 218.09
+## - Cholesterol          1   172.920 2364.6 219.06</code></pre>
+<pre class="r"><code>summary(bmistep)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = BMI ~ Cholesterol + Glucose, data = reg.multiple)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -10.125  -4.748  -1.134   3.321  18.832 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 17.95236    4.80502   3.736 0.000446 ***
+## Cholesterol  0.05098    0.02447   2.083 0.041902 *  
+## Glucose      0.02254    0.01437   1.569 0.122449    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.313 on 55 degrees of freedom
+## Multiple R-squared:  0.1185, Adjusted R-squared:  0.08641 
+## F-statistic: 3.696 on 2 and 55 DF,  p-value: 0.0312</code></pre>
+</div>
+<div id="comparación-de-modelos" class="section level3">
+<h3>Comparación de modelos</h3>
+<div id="gráfica-de-coeficientes" class="section level4">
+<h4>Gráfica de coeficientes</h4>
+<p>Una manera de comparar visualmente modelos (en realidad sus coeficientes) es usar el paquete <strong>coefplot</strong>, en conjunto con <strong>ggplot2</strong>, para crear una gráfica de los coeficientes estimados de cada variable (sola o de interacción), en cada modelo y detectar los que son diferentes de 0, y los modelos que los contienen.</p>
+<pre class="r"><code>library(ggplot2)
+library(coefplot)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;coefplot&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:Rmisc&#39;:
+## 
+##     multiplot</code></pre>
+<pre class="r"><code>#cálculo para todos los modelos
+modbmi1 &lt;- lm(BMI ~ Age + Cholesterol + Glucose, data=reg.multiple)
+modbmi2 &lt;- lm(BMI ~ Age*Glucose + Cholesterol*Glucose + Age*Cholesterol, data=reg.multiple)
+modbmi3 &lt;- lm(BMI ~ Cholesterol + Age:Glucose, data=reg.multiple)
+modbmi4 &lt;- lm(BMI ~ Cholesterol + Glucose, data=reg.multiple)
+modbmi5 &lt;- lm(BMI ~ Cholesterol, data = reg.multiple)
+#comparando coeficientes de todos los modelos
+multiplot(modbmi1, modbmi2, modbmi3, modbmi4, modbmi5, pointSize = 2, intercept=FALSE)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="selección-de-modelo-usando-r-cuadrado-ajustado-y-mallows-cp-para-mejores-modelos" class="section level4">
+<h4>Selección de modelo usando R-cuadrado ajustado y Mallow’s Cp para mejores modelos</h4>
+<p>El estadístico <span class="math inline">\(R^2\)</span> es la cantidad de varianza en la respuesta (variable dependiente) producido por las variables predictoras, mediante el modelo, por lo tanto constituye una buena manera de medir la capacidad del modelo para “explicar” los datos. Sin embargo, en un modelo de regresión múltiple, el <span class="math inline">\(R^2\)</span> aumenta al aumentar el número de predictores, lo cual conlleva a sobrestimar la “calidad” del modelo, con un número excesivo de variables. Usando el <span class="math inline">\(R^2ajustado\)</span> se toma en cuenta el número de parámetros en el modelo, por lo tanto es una medida más realista del ajuste al modelo.</p>
+<p>El estadístico de Mallow, <span class="math inline">\(C_p\)</span>, es otro indicador para seleccionar el mejor modelo en una regresión múltiple; funciona de manera similar al AIC, y sirve para evitar incluir parámetros en exceso en el modelo. La regla general es escoger el modelo con el número de parámetros, en el cual el valor de <span class="math inline">\(C_p\)</span> sea cercano (pero menor) al número de parámetros más 1.</p>
+<pre class="r"><code>library(leaps)
+modSS &lt;- regsubsets(BMI ~ Age*Cholesterol + Cholesterol*Glucose + Age*Glucose, data = reg.multiple, nbest = 3, intercept = TRUE)
+# gráfica para R^2 ajustado
+plot(modSS, scale=&quot;adjr2&quot;)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code># gráfica para Cp
+plot(modSS, scale=&quot;Cp&quot;)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<pre class="r"><code># otra forma de visualizar Cp
+library(car)
+## Mallow Cp
+mallowCp &lt;-
+    subsets(modSS, statistic=&quot;cp&quot;, legend = FALSE, min.size = 1, main = &quot;Mallow Cp&quot;)
+abline(a = 1, b = 1, lty = 2)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+</div>
+</div>
+<div id="ejercicio" class="section level3">
+<h3>EJERCICIO</h3>
+<p>Usar los datos <a href="https://drive.google.com/open?id=1Q5rkNpatiTDg90ieVbwAw_fziIQNA4eJ">deathsmall_cities.xlsx</a> para buscar un modelo de regresión múltiple entre la variable dependiente <em>death1K</em> (muertes anuales por cada 1000 habitantes) y las otras variables del archivo.</p>
+<p>=================================</p>
+<hr />
+<p><strong>DIA 2</strong></p>
+</div>
+</div>
+<div id="anova" class="section level1">
+<h1>ANOVA</h1>
+<p>Cuando necesitamos comparar las medias de más de dos muestras, la metodología estadística utilizada comúnmente para estos casos, es el <strong>análisis de varianza</strong>.</p>
+<div id="modelo-de-una-vía-one-way" class="section level2">
+<h2>Modelo de Una-Vía (One-Way)</h2>
+<p>Tenemos el siguiente modelo para describir el valor de cualquier observación, proveniente de varios grupos (<span class="math inline">\(n_i, i=1...k\)</span>), cada uno con <span class="math inline">\(n_{ij}\)</span> observaciones:</p>
+<p><span class="math display">\[y_{ij} = \mu + \alpha_i + e_{ij}\]</span> donde:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mu\)</span> representa la media de todas las mediciones de todos los grupos.</li>
+<li><span class="math inline">\(\alpha_i\)</span> representa la diferencia entre la media del grupo <span class="math inline">\(n_i\)</span> y la media de todos los grupos.</li>
+<li><span class="math inline">\(e_{ij}\)</span> representa el error aleatorio alrededor de los valores <span class="math inline">\(\mu + \alpha_i\)</span>, de una observación del grupo <span class="math inline">\(n_i\)</span>.</li>
+</ol>
+</blockquote>
+<p>La hipótesis nula para el análisis de varianza de una vía, sería que las medias de los grupos son las mismas (e iguales a la media global, <span class="math inline">\(\mu\)</span>), para esto todos los valores de <span class="math inline">\(\alpha_i\)</span> deben ser igual a 0. La hipótesis alterna sería entonces, que al menos un <span class="math inline">\(\alpha_i\)</span> debe ser diferente de 0.</p>
+<div id="cálculo-de-la-variabilidad-en-forma-de-suma-de-cuadrados-ss" class="section level3">
+<h3>Cálculo de la variabilidad en forma de Suma de Cuadrados (SS)</h3>
+<p>Para propósitos de cálculo del estadístico a ser usado para la prueba de hipótesis (F), se calculan los siguientes estimadores de la variabilidad total, dentro de grupos, y entre grupos:</p>
+<div id="suma-total-de-cuadrados-total-ss" class="section level5">
+<h5>Suma Total de Cuadrados (Total SS)</h5>
+<p><span class="math display">\[\sum_{i=1}^{k} \sum_{j=1}^{n_i}(y_{ij} - \bar{\bar y})^2\]</span></p>
+</div>
+<div id="suma-de-cuadrados-dentro-de-grupos-within-ss" class="section level5">
+<h5>Suma de Cuadrados Dentro de Grupos (Within SS)</h5>
+<p><span class="math display">\[\sum_{i=1}^{k} \sum_{j=1}^{n_i}(y_{ij} - \bar y_i)^2\]</span></p>
+</div>
+<div id="suma-de-cuadrados-entre-grupos-between-ss" class="section level5">
+<h5>Suma de Cuadrados Entre Grupos (Between SS)</h5>
+<p><span class="math display">\[\sum_{i=1}^{k} \sum_{j=1}^{n_i}(\bar y_i - \bar{\bar y})^2\]</span></p>
+<p><strong>Ejemplo de tabla de resultados de prueba de hipótesis ANOVA de una vía</strong></p>
+<div class="figure">
+<img src="onewayanovaresults.png" alt="" />
+<p class="caption">(tomado de Rosner, 2016)</p>
+</div>
+</div>
+<div id="ejemplo-2-y-datos" class="section level4">
+<h4>Ejemplo 2 y Datos</h4>
+<p>(tomado de Zar, 2014)<br />
+En una investigación, 19 cerdos jóvenes fueron asignados, al azar, a cuatro grupos experimentales. Cada grupo se alimentó con una dieta diferente (D1, D2, D3, D4). Luego de ser criados hasta adultos, se midió la masa corporal (kg) de cada animal. Queremos saber si la masa corporal resultó ser igual (<span class="math inline">\(H_0\)</span>) para las cuatro dietas.</p>
+<p><span class="math display">\[H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4\]</span> Vamos a crear una tabla de datos para el ANOVA a partir de vectores; esto es práctico si hay pocos datos y no se quiere depender de un archivo externo:</p>
+<pre class="r"><code># creación de vectores de dietas
+D1 &lt;- c(60.8,67,65,68.6,61.7)
+D2 &lt;- c(68.7,67.7,75,73.3,71.8)
+D3 &lt;- c(69.6,77.1,75.2,71.5)
+D4 &lt;- c(61.9,64.2,63.1,66.7,60.3)
+#data frame con factor Dieta
+df.cerdos &lt;- data.frame(Dieta=c(rep(&quot;D1&quot;, times=length(D1)),
+                        rep(&quot;D2&quot;, times=length(D2)),
+                        rep(&quot;D3&quot;, times=length(D3)),
+                        rep(&quot;D4&quot;, times=length(D4))),
+                   masa=c(D1, D2, D3, D4))
+df.cerdos</code></pre>
+<pre><code>##    Dieta masa
+## 1     D1 60.8
+## 2     D1 67.0
+## 3     D1 65.0
+## 4     D1 68.6
+## 5     D1 61.7
+## 6     D2 68.7
+## 7     D2 67.7
+## 8     D2 75.0
+## 9     D2 73.3
+## 10    D2 71.8
+## 11    D3 69.6
+## 12    D3 77.1
+## 13    D3 75.2
+## 14    D3 71.5
+## 15    D4 61.9
+## 16    D4 64.2
+## 17    D4 63.1
+## 18    D4 66.7
+## 19    D4 60.3</code></pre>
+</div>
+</div>
+<div id="visualización-de-los-datos" class="section level3">
+<h3>Visualización de los datos</h3>
+<pre class="r"><code># creating box-plot graph for each group
+library(ggplot2)
+ggplot(df.cerdos, aes(x=Dieta, y=masa)) + geom_boxplot(fill=&quot;cornflowerblue&quot;) +
+  labs(x = &quot;Dietas&quot;, y = &quot;Masa corporal, kg&quot;)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="función-aov-para-anova" class="section level3">
+<h3>Función aov para ANOVA</h3>
+<p>La función básica <strong>aov</strong> de R calcula los estadísticos del análisis de varianza:</p>
+<pre class="r"><code>analisis &lt;- aov(masa ~ Dieta, df.cerdos)
+summary(analisis)</code></pre>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Dieta        3  338.9  112.98   12.04 0.000283 ***
+## Residuals   15  140.8    9.38                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>La prueba de hipótesis del ANOVA, usando el estadístico F, nos indica que la probabilidad del error tipo I es bastante baja (&lt;&lt; 0.05), por lo cual podemos rechazar la hipótesis nula y decir que al menos una dieta produce una mayor ganancia en masa de los cerdos.</p>
+</div>
+<div id="supuestos-del-anova" class="section level3">
+<h3>Supuestos del ANOVA</h3>
+<p>La prueba de ANOVA, al igual que la prueba t, asume una distribución normal de los datos, y <em>homocedasticidad</em> (homogeneidad de varianzas). Por lo tanto, antes de continuar con otras pruebas es importante primero determinar si los datos cumplen con estos supuestos.</p>
+<div id="prueba-de-normalidad" class="section level4">
+<h4>Prueba de normalidad</h4>
+<p>Examinaremos gráficamente si los efectos (en realidad los residuales) tienen una distribución normal, usando una <em>gráfica de cuantiles-cuantiles</em> (‘Q-Q plot’):</p>
+<pre class="r"><code>library(EnvStats)
+# response &lt;- lm(masa ~ Dieta, data = df.cerdos)
+EnvStats::qqPlot(residuals(analisis), add.line = TRUE, points.col = &quot;blue&quot;, line.col = &quot;red&quot;)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-14-1.png" width="672" /> A continuación la <strong>prueba de Shapiro-Wilk</strong> para normalidad, con una hipótesis nula de que los valores se ajustan a la distribución normal:</p>
+<pre class="r"><code>shapiro.test(residuals(analisis))</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(analisis)
+## W = 0.91042, p-value = 0.07534</code></pre>
+<p>No podemos rechazar la hipótesis nula con esta probabilidad (error tipo I), y aceptamos que los datos tienen una distribución normal.</p>
+<p>Para la homogeneidad de varianza realizamos la <strong>prueba de Bartlett</strong>, que tiene una hipótesis nula de varianzas iguales:</p>
+<pre class="r"><code>bartlett.test(masa ~ Dieta, data=df.cerdos)</code></pre>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  masa by Dieta
+## Bartlett&#39;s K-squared = 0.47515, df = 3, p-value = 0.9243</code></pre>
+<p>No podemos rechazar la hipótesis nula con esta probabilidad (error tipo I), y aceptamos que los datos por grupo tienen homogeneidad de varianza.</p>
+</div>
+</div>
+<div id="pruebas-post-hoc" class="section level3">
+<h3>Pruebas post-hoc</h3>
+<p>El análisis de varianza nos indica, para cierto nivel de probabilidad, si un factor (o más de uno) produce desviaciones de un valor medio global; sin embargo no nos indica cuál o cuáles niveles del factor son los determinantes en la desviación.</p>
+<div id="gráfica-con-intervalos-de-confianza" class="section level4">
+<h4>Gráfica con intervalos de confianza</h4>
+<p>Mediante la siguiente gráfica, de medias e intervalos de confianza (95%), podemos hipotetizar cuáles dietas son diferentes entre sí y cuáles no.</p>
+<pre class="r"><code>library(plyr)
+library(ggplot2)
+ic.dietas &lt;- ddply(df.cerdos, &quot;Dieta&quot;, plyr::summarize,
+                   masa.mean=mean(masa), masa.sd=sd(masa),
+                   Lenght=NROW(masa),
+                   tfrac=qt(p=.95, df=Lenght-1),
+                   Lower=masa.mean - tfrac*masa.sd/sqrt(Lenght),
+                   Upper=masa.mean + tfrac*masa.sd/sqrt(Lenght)
+                   )
+ggplot(ic.dietas, aes(x=masa.mean, y=Dieta)) + geom_point() + geom_errorbarh(aes(xmin=Lower, xmax=Upper), height=.3)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/icplot-1.png" width="672" /></p>
+<p>Para poder determinar si las diferencias específicas entre los niveles de los factores son significativas, debemos utilizar las llamadas <strong>pruebas <em>post-hoc</em> </strong> o <strong>procedimientos de comparaciones múltiples (MCP)</strong>.</p>
+<p>Utilizaremos la <strong>prueba de Tukey</strong> para probar cuáles son las dietas del Ejemplo 2 que se diferencian entre si.</p>
+<pre class="r"><code>library(agricolae)
+posthoc &lt;- TukeyHSD(analisis)
+posthoc</code></pre>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = masa ~ Dieta, data = df.cerdos)
+## 
+## $Dieta
+##         diff        lwr       upr     p adj
+## D2-D1   6.68   1.096263 12.263737 0.0168421
+## D3-D1   8.73   2.807553 14.652447 0.0034914
+## D4-D1  -1.38  -6.963737  4.203737 0.8906642
+## D3-D2   2.05  -3.872447  7.972447 0.7530266
+## D4-D2  -8.06 -13.643737 -2.476263 0.0041505
+## D4-D3 -10.11 -16.032447 -4.187553 0.0009497</code></pre>
+<pre class="r"><code>par(cex = 0.6)
+plot(posthoc)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/tukey-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="anova-con-repeticiones-within-subject" class="section level2">
+<h2>ANOVA con repeticiones (Within-Subject)</h2>
+<p>En el ANOVA con repeticiones, los sujetos son medidos más de una vez.</p>
+<div id="ejemplo-3-y-datos" class="section level4">
+<h4>Ejemplo 3 y Datos</h4>
+<p>Los datos de esta investigación provienen de un experimento con ratones a los que se le injertó un tejido con carcinoma humano. Tres grupos de ratones se sometieron a tres tratamientos: control, y dos drogas (Docetaxel y Paclitaxel), y midieron el tamaño de los tumores (<span class="math inline">\(mm^3\)</span>) seis veces en cada ratón (0, 2, 4, 7, 9, y 11 días). Queremos probar: (a) si hubo un efecto reductor de los tumores por efecto de las drogas (‘Between-Groups’), (b) si el efecto depende del tiempo (‘Within-Subjects’).</p>
+<p>Los datos deben tener un arreglo de <em>sujetos x factores-variables</em>.</p>
+<pre class="r"><code># datos desde Excel - tomando la hoja &#39;tumor&#39;
+library(readxl)
+tumor &lt;- read_excel(&quot;Data/tumor_drug_repeat.xlsx&quot;, 
+    sheet = &quot;tumor&quot;)
+head(tumor, 10)</code></pre>
+<pre><code>## # A tibble: 10 x 4
+##    mouse drugT   time  tsize
+##    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;
+##  1 1_1   control day00  296.
+##  2 1_1   control day02  343.
+##  3 1_1   control day04  354.
+##  4 1_1   control day07  396.
+##  5 1_1   control day09  387.
+##  6 1_1   control day11  432.
+##  7 1_2   control day00  190.
+##  8 1_2   control day02  226.
+##  9 1_2   control day04  212.
+## 10 1_2   control day07  284.</code></pre>
+<pre class="r"><code>tail(tumor)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   mouse drugT      time  tsize
+##   &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;
+## 1 3_12  Paclitaxel day00  221.
+## 2 3_12  Paclitaxel day02  334.
+## 3 3_12  Paclitaxel day04  231.
+## 4 3_12  Paclitaxel day07  177.
+## 5 3_12  Paclitaxel day09  172.
+## 6 3_12  Paclitaxel day11  326.</code></pre>
+</div>
+<div id="gráfica-box-plot-para-visualizar-los-datos" class="section level3">
+<h3>Gráfica box-plot para visualizar los datos</h3>
+<pre class="r"><code>#gráfica de grupos
+boxplot(tsize ~ drugT*time, data = tumor, col = (c(&quot;green&quot;, &quot;blue&quot;, &quot;red&quot;)),
+        las=2, cex.axis=0.70,
+        main = &quot;Tamaño de tumor x tratamiento&quot;,
+        ylab = &quot;Volumen del tumor, mm^3&quot;,
+        cex.lab=0.75)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r"><code># contribución de Robert
+library(ggplot2)
+ggplot(tumor,aes(x=time,y=tsize,))+
+  geom_boxplot(aes(fill=factor(drugT)))+
+  facet_wrap(~drugT)+
+  theme_minimal()+
+  ggtitle(&quot;tumor size through time and treatment&quot;) +
+  theme(axis.text.x=element_text(angle = 90, vjust = 0.5))</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+</div>
+<div id="aov-para-anova-con-repeticiones" class="section level3">
+<h3>aov para ANOVA con repeticiones</h3>
+<pre class="r"><code>#anova con repeticiones
+anovarep &lt;- aov(tsize ~ drugT*time + Error(mouse/(time)), tumor)
+summary(anovarep)</code></pre>
+<pre><code>## 
+## Error: mouse
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## drugT      2  64468   32234   2.325  0.116
+## Residuals 29 402090   13865               
+## 
+## Error: mouse:time
+##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## time         5  21095    4219   1.284 0.27403   
+## drugT:time  10  80822    8082   2.459 0.00959 **
+## Residuals  145 476515    3286                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div id="pruebas-de-supuestos" class="section level4">
+<h4>Pruebas de supuestos</h4>
+<pre class="r"><code># prueba de normalidad de residuales
+shapiro.test(residuals(anovarep[[2]]))</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(anovarep[[2]])
+## W = 0.95444, p-value = 0.2067</code></pre>
+<pre class="r"><code># prueba de homogeneidad de varianza entre grupos
+bartlett.test(tsize ~ drugT, data=tumor)</code></pre>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  tsize by drugT
+## Bartlett&#39;s K-squared = 7.9399, df = 2, p-value = 0.01887</code></pre>
+<pre class="r"><code>bartlett.test(tsize ~ time, data=tumor)</code></pre>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  tsize by time
+## Bartlett&#39;s K-squared = 36.351, df = 5, p-value = 8.078e-07</code></pre>
+</div>
+</div>
+</div>
+<div id="anova-con-dos-factores-two-way-anova" class="section level2">
+<h2>ANOVA con dos factores (‘two-way ANOVA’)</h2>
+<p>En el modelo anterior de ANOVA consideramos el efecto de un solo factor (dieta), vamos a estudiar el caso cuando queremos probar si dos factores son determinantes en las diferencias entre las medias de dos o más grupos (también llamados <strong>celdas</strong>).</p>
+<p>Las hipótesis en este caso son más de una:</p>
+<ol style="list-style-type: decimal">
+<li>hipótesis acerca del efecto del factor A<br />
+</li>
+<li>hipótesis acerca del efecto del factor B<br />
+</li>
+<li>hipótesis acerca del efecto de la interacción entre los factores</li>
+</ol>
+<div id="ejemplo-4-y-datos" class="section level4">
+<h4>Ejemplo 4 y Datos</h4>
+<p>(tomado de Kabacoff, 2015)</p>
+<p>Estaremos utilizando datos contenidos en el sistema base de R: <strong>ToothGrowth</strong></p>
+<pre class="r"><code>TG &lt;- ToothGrowth
+head(TG)</code></pre>
+<pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5</code></pre>
+<pre class="r"><code>tail(TG)</code></pre>
+<pre><code>##     len supp dose
+## 55 24.8   OJ    2
+## 56 30.9   OJ    2
+## 57 26.4   OJ    2
+## 58 27.3   OJ    2
+## 59 29.4   OJ    2
+## 60 23.0   OJ    2</code></pre>
+<p>Conejillos de India (n = 60) fueron asignados al azar (10 por grupo, diseño balanceado) a tratamientos combinados (grupos) de tres dosis de ácido ascórbico (dose: 0.5, 1, o 2 mg) y dos tipos de bebidas (supp: jugo de naranja, OJ o bebida con vitamina C, VC). La variable respuesta, luego de un tiempo con los tratamientos, fue la longitud de los dientes frontales (len: mm). El modelo a usar es: <span class="math display">\[len = interacción(supp\ x\ dosis)\]</span></p>
+<pre class="r"><code>library(gplots)  #para la gráfica
+#tabla tratamientos
+table(TG$supp,TG$dose)</code></pre>
+<pre><code>##     
+##      0.5  1  2
+##   OJ  10 10 10
+##   VC  10 10 10</code></pre>
+<pre class="r"><code>#medias de los grupos
+medias.grupos &lt;- aggregate(TG$len, by=list(TG$supp,TG$dose), FUN=mean)
+medias.grupos &lt;- setNames(medias.grupos, c(&quot;Bebida&quot;, &quot;Dosis, mg&quot;, &quot;Media Long. dientes, mm&quot;))
+medias.grupos</code></pre>
+<pre><code>##   Bebida Dosis, mg Media Long. dientes, mm
+## 1     OJ       0.5                   13.23
+## 2     VC       0.5                    7.98
+## 3     OJ       1.0                   22.70
+## 4     VC       1.0                   16.77
+## 5     OJ       2.0                   26.06
+## 6     VC       2.0                   26.14</code></pre>
+<pre class="r"><code>#desviación estándar
+sd.grupos &lt;- aggregate(TG$len, by=list(TG$supp,TG$dose), FUN=sd)
+sd.grupos &lt;- setNames(sd.grupos, c(&quot;Bebida&quot;, &quot;Dosis, mg&quot;, &quot;DE Long. dientes, mm&quot;))
+sd.grupos</code></pre>
+<pre><code>##   Bebida Dosis, mg DE Long. dientes, mm
+## 1     OJ       0.5             4.459709
+## 2     VC       0.5             2.746634
+## 3     OJ       1.0             3.910953
+## 4     VC       1.0             2.515309
+## 5     OJ       2.0             2.655058
+## 6     VC       2.0             4.797731</code></pre>
+<pre class="r"><code>#convertir dosis (numérico) a factor
+TG$dose &lt;- factor(TG$dose)
+TG</code></pre>
+<pre><code>##     len supp dose
+## 1   4.2   VC  0.5
+## 2  11.5   VC  0.5
+## 3   7.3   VC  0.5
+## 4   5.8   VC  0.5
+## 5   6.4   VC  0.5
+## 6  10.0   VC  0.5
+## 7  11.2   VC  0.5
+## 8  11.2   VC  0.5
+## 9   5.2   VC  0.5
+## 10  7.0   VC  0.5
+## 11 16.5   VC    1
+## 12 16.5   VC    1
+## 13 15.2   VC    1
+## 14 17.3   VC    1
+## 15 22.5   VC    1
+## 16 17.3   VC    1
+## 17 13.6   VC    1
+## 18 14.5   VC    1
+## 19 18.8   VC    1
+## 20 15.5   VC    1
+## 21 23.6   VC    2
+## 22 18.5   VC    2
+## 23 33.9   VC    2
+## 24 25.5   VC    2
+## 25 26.4   VC    2
+## 26 32.5   VC    2
+## 27 26.7   VC    2
+## 28 21.5   VC    2
+## 29 23.3   VC    2
+## 30 29.5   VC    2
+## 31 15.2   OJ  0.5
+## 32 21.5   OJ  0.5
+## 33 17.6   OJ  0.5
+## 34  9.7   OJ  0.5
+## 35 14.5   OJ  0.5
+## 36 10.0   OJ  0.5
+## 37  8.2   OJ  0.5
+## 38  9.4   OJ  0.5
+## 39 16.5   OJ  0.5
+## 40  9.7   OJ  0.5
+## 41 19.7   OJ    1
+## 42 23.3   OJ    1
+## 43 23.6   OJ    1
+## 44 26.4   OJ    1
+## 45 20.0   OJ    1
+## 46 25.2   OJ    1
+## 47 25.8   OJ    1
+## 48 21.2   OJ    1
+## 49 14.5   OJ    1
+## 50 27.3   OJ    1
+## 51 25.5   OJ    2
+## 52 26.4   OJ    2
+## 53 22.4   OJ    2
+## 54 24.5   OJ    2
+## 55 24.8   OJ    2
+## 56 30.9   OJ    2
+## 57 26.4   OJ    2
+## 58 27.3   OJ    2
+## 59 29.4   OJ    2
+## 60 23.0   OJ    2</code></pre>
+<pre class="r"><code>#anova dos factores
+anova2 &lt;- aov(TG$len ~ TG$supp*TG$dose)
+summary(anova2)</code></pre>
+<pre><code>##                 Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## TG$supp          1  205.4   205.4  15.572 0.000231 ***
+## TG$dose          2 2426.4  1213.2  92.000  &lt; 2e-16 ***
+## TG$supp:TG$dose  2  108.3    54.2   4.107 0.021860 *  
+## Residuals       54  712.1    13.2                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>#gráfica de medias y intervalo confianza 95%
+plotmeans(TG$len ~ interaction(TG$supp,TG$dose,sep = &quot; &quot;),
+          connect = list(c(1,3,5),c(2,4,6)),
+          col = c(&quot;orange&quot;, &quot;darkgreen&quot;),
+          main = &quot;Gráfica de Medias de Grupos con IC 95%&quot;,
+          xlab = &quot;Combinación de dosis y bebida&quot;,
+          ylab = &quot;Longitud de dientes frontales, mm&quot;)</code></pre>
+<p><img src="TRAvanzado_files/figure-html/twowanova-1.png" width="672" /></p>
+</div>
+</div>
+<div id="ancova" class="section level2">
+<h2>ANCOVA</h2>
+<p>Aunque en una prueba ANOVA de una vía estamos asumiendo que el único o mayor efecto sobre la variable respuesta, es el factor considerado o tratamiento, otras variables pueden actuar como pseudofactores, produciendo un efecto conjunto con el factor considerado, y las llamamos <strong>covariables</strong>. Vamos a examinar este tipo de análisis para un ANOVA de una vía (un factor), con una covariable. A este tipo de análisis se le conoce como <strong>análisis de covarianza (ANCOVA)</strong>.</p>
+<div id="ejemplo-5-y-datos" class="section level4">
+<h4>Ejemplo 5 y Datos</h4>
+<p>(tomado de Kabacoff, 2015)</p>
+<p>Ratonas preñadas fueron divididas en cuatro grupos de tratamientos, con diferentes dosis de una droga (dose: 0, 5, 50, o 500). El peso promedio de la camada (weigth) era la variable dependiente; el tiempo de gestación (gesttime) fue la covariable.</p>
+<pre class="r"><code>#paquete requerido con los datos
+library(multcomp)
+#datos litter y tabla de n por tratamientos
+data(litter)
+head(litter)</code></pre>
+<pre><code>##   dose weight gesttime number
+## 1    0  28.05     22.5     15
+## 2    0  33.33     22.5     14
+## 3    0  36.37     22.0     14
+## 4    0  35.52     22.0     13
+## 5    0  36.77     21.5     15
+## 6    0  29.60     23.0      5</code></pre>
+<pre class="r"><code>table(litter$dose)</code></pre>
+<pre><code>## 
+##   0   5  50 500 
+##  20  19  18  17</code></pre>
+<pre class="r"><code>#media por grupo de tratamiento
+medias.trat &lt;- aggregate(litter$weight, by=list(litter$dose), FUN=mean)
+medias.trat &lt;- setNames(medias.trat, c(&quot;Dosis&quot;, &quot;Masa, g&quot;))
+medias.trat</code></pre>
+<pre><code>##   Dosis  Masa, g
+## 1     0 32.30850
+## 2     5 29.30842
+## 3    50 29.86611
+## 4   500 29.64647</code></pre>
+<pre class="r"><code>#ANCOVA
+ancova &lt;- aov(weight ~ gesttime + dose, data=litter)
+summary(ancova)</code></pre>
+<pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## gesttime     1  134.3  134.30   8.049 0.00597 **
+## dose         3  137.1   45.71   2.739 0.04988 * 
+## Residuals   69 1151.3   16.69                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Los resultados muestran un efecto significativo del tiempo de gestación, y marginalmente significativo de la dosis. Esto quiere decir que las medias de masa calculadas para los grupos tratados, están afectadas por el tiempo de gestación; es posible remover este efecto, usando la función <strong>effect</strong>:</p>
+<pre class="r"><code>library(effects)
+effect(&quot;dose&quot;, ancova)</code></pre>
+<pre><code>## 
+##  dose effect
+## dose
+##        0        5       50      500 
+## 32.35367 28.87672 30.56614 29.33460</code></pre>
+</div>
+</div>
+<div id="manova---análisis-de-varianza-multivariado" class="section level2">
+<h2>MANOVA - Análisis de Varianza Multivariado</h2>
+<p>Si tenemos más de una variable respuesta, se puede probar el efecto de factores de manera simultánea en todas las variables, usando un MANOVA.</p>
+<div id="ejemplo-6-y-datos" class="section level4">
+<h4>Ejemplo 6 y Datos</h4>
+<p>En este ejemplo se investiga el efecto de la posición de caja de cereales, de diversas marcas, a diferentes niveles de almacenamiento, en el contenido de calorías, grasa y azúcares, que vendrían siendo las variables dependientes; este sería una MANOVA de un factor, con tres niveles: 1 (parte baja), 2 (parte media), y 3 (parte alta).</p>
+<pre class="r"><code>library(MASS)
+# datos en R básico
+data(UScereal) # cargar los datos
+head(UScereal)</code></pre>
+<pre><code>##                           mfr calories   protein      fat   sodium     fibre
+## 100% Bran                   N 212.1212 12.121212 3.030303 393.9394 30.303030
+## All-Bran                    K 212.1212 12.121212 3.030303 787.8788 27.272727
+## All-Bran with Extra Fiber   K 100.0000  8.000000 0.000000 280.0000 28.000000
+## Apple Cinnamon Cheerios     G 146.6667  2.666667 2.666667 240.0000  2.000000
+## Apple Jacks                 K 110.0000  2.000000 0.000000 125.0000  1.000000
+## Basic 4                     G 173.3333  4.000000 2.666667 280.0000  2.666667
+##                              carbo   sugars shelf potassium vitamins
+## 100% Bran                 15.15152 18.18182     3 848.48485 enriched
+## All-Bran                  21.21212 15.15151     3 969.69697 enriched
+## All-Bran with Extra Fiber 16.00000  0.00000     3 660.00000 enriched
+## Apple Cinnamon Cheerios   14.00000 13.33333     1  93.33333 enriched
+## Apple Jacks               11.00000 14.00000     2  30.00000 enriched
+## Basic 4                   24.00000 10.66667     3 133.33333 enriched</code></pre>
+<pre class="r"><code># transformar una variable numérica a factor
+shelf &lt;- factor(UScereal$shelf)
+# selección de variables dependientes en una matriz
+y &lt;- cbind(UScereal$calories, UScereal$fat, UScereal$sugars)
+head(y)</code></pre>
+<pre><code>##          [,1]     [,2]     [,3]
+## [1,] 212.1212 3.030303 18.18182
+## [2,] 212.1212 3.030303 15.15151
+## [3,] 100.0000 0.000000  0.00000
+## [4,] 146.6667 2.666667 13.33333
+## [5,] 110.0000 0.000000 14.00000
+## [6,] 173.3333 2.666667 10.66667</code></pre>
+<pre class="r"><code># media de las variables dependientes por grupo (shelf)
+aggregate(y, by=list(shelf), FUN=mean)</code></pre>
+<pre><code>##   Group.1       V1        V2        V3
+## 1       1 119.4774 0.6621338  6.295493
+## 2       2 129.8162 1.3413488 12.507670
+## 3       3 180.1466 1.9449071 10.856821</code></pre>
+</div>
+<div id="uso-de-la-función-manova" class="section level3">
+<h3>Uso de la función manova</h3>
+<pre class="r"><code>fit &lt;- manova(y ~ shelf)
+summary(fit)</code></pre>
+<pre><code>##           Df Pillai approx F num Df den Df    Pr(&gt;F)    
+## shelf      2 0.4021   5.1167      6    122 0.0001015 ***
+## Residuals 62                                            
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Como obtuvimos un efecto significativo en la prueba, podemos usar los resultados de los ANOVAs de cada variable dependiente:</p>
+<pre class="r"><code>summary.aov(fit)</code></pre>
+<pre><code>##  Response 1 :
+##             Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## shelf        2  50435 25217.6  7.8623 0.0009054 ***
+## Residuals   62 198860  3207.4                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##  Response 2 :
+##             Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## shelf        2  18.44  9.2199  3.6828 0.03081 *
+## Residuals   62 155.22  2.5035                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##  Response 3 :
+##             Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
+## shelf        2  381.33 190.667  6.5752 0.002572 **
+## Residuals   62 1797.87  28.998                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>===============================</p>
+<hr />
+<p><strong>DIA 3</strong></p>
+</div>
+</div>
+</div>
+<div id="glm" class="section level1">
+<h1>GLM</h1>
+<p>En los días 1 y 2 del taller, examinamos modelos lineales que pueden ser usados para probar o predecir la respuesta de una variable respuesta con distribución normal, a partir de variables predictoras continuas y/o categóricas. Pero hay muchas situaciones en las cuales la variable respuesta o dependiente no está distribuida normalmente, o hasta no es continua. Para estos casos podemos usar lo que se conoce como <em>‘Generalized Linear Models’ (GLM)</em>. Entre estos tenemos:</p>
+<ul>
+<li>Cuando la variable dependiente es categórica de tipo binaria (0, 1; si, no; vivo, muerto) o politoma (malo, regular, bueno), se puede usar la <strong>regresión logística</strong>.</li>
+<li>Cuando la variable dependiente es un conteo (número de casos por día), los valores se van a limitar a ciertos números enteros, y nunca negaticos; en este caso se utiliza la regresión con distribución Poisson.</li>
+</ul>
+<div id="regresión-logística" class="section level2">
+<h2>Regresión Logística</h2>
+<p>A continuación voy a mostrar un ejemplo del uso de regresión logística, utilizando la función <strong>glm</strong> (parte del paquete <strong>stats</strong> de la instalación básica de R).</p>
+<div id="ejemplo-7-y-datos" class="section level4">
+<h4>Ejemplo 7 y Datos</h4>
+<p>Los datos que vamos a analizar son de los pasajeros del viaje del Titanic que naufragó. Estos datos muestran los detalles de cada pasajero (variables predictoras) y si cada pasajero sobrevivió o no (variable dependiente binaria). El objetivo es analizar los datos y encontrar un modelo de regresión logística que nos indique la(s) variable(s) que mejor predicen la supervivencia de los pasajeros. Las variables a utilizar son las siguientes:</p>
+<ul>
+<li><em>Survived</em>: 0 no, 1 si</li>
+<li><em>Pclass</em>: categoría del camarote (1, primera; 2, segunda; 3, tercera)</li>
+<li><em>Sex</em>: male o female</li>
+<li><em>Age</em>: edad</li>
+<li><em>Nfamily</em>: número de familiares viajando, se va a construir sumando <em>SibSp</em> y <em>Parch</em>.</li>
+</ul>
+<p>Cargamos los datos a partir de una hoja de cálculo externa:</p>
+<pre class="r"><code>library(readxl)
+Titanic &lt;- read_excel(&quot;Data/Titanic.xlsx&quot;)
+head(Titanic)</code></pre>
+<pre><code>## # A tibble: 6 x 12
+##   PassengerId Survived Pclass Name  Sex     Age SibSp Parch Ticket  Fare Cabin
+##         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1           1        0      3 Brau… male     22     1     0 A/5 2…  7.25 &lt;NA&gt; 
+## 2           2        1      1 Cumi… fema…    38     1     0 PC 17… 71.3  C85  
+## 3           3        1      3 Heik… fema…    26     0     0 STON/…  7.92 &lt;NA&gt; 
+## 4           4        1      1 Futr… fema…    35     1     0 113803 53.1  C123 
+## 5           5        0      3 Alle… male     35     0     0 373450  8.05 &lt;NA&gt; 
+## 6           6        0      3 Mora… male     NA     0     0 330877  8.46 &lt;NA&gt; 
+## # … with 1 more variable: Embarked &lt;chr&gt;</code></pre>
+<p>Creamos la variable <em>Nfamily</em>:</p>
+<pre class="r"><code>library(dplyr)
+Titanic &lt;- Titanic %&gt;% mutate(Nfamily = SibSp + Parch)
+head(Titanic)</code></pre>
+<pre><code>## # A tibble: 6 x 13
+##   PassengerId Survived Pclass Name  Sex     Age SibSp Parch Ticket  Fare Cabin
+##         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+## 1           1        0      3 Brau… male     22     1     0 A/5 2…  7.25 &lt;NA&gt; 
+## 2           2        1      1 Cumi… fema…    38     1     0 PC 17… 71.3  C85  
+## 3           3        1      3 Heik… fema…    26     0     0 STON/…  7.92 &lt;NA&gt; 
+## 4           4        1      1 Futr… fema…    35     1     0 113803 53.1  C123 
+## 5           5        0      3 Alle… male     35     0     0 373450  8.05 &lt;NA&gt; 
+## 6           6        0      3 Mora… male     NA     0     0 330877  8.46 &lt;NA&gt; 
+## # … with 2 more variables: Embarked &lt;chr&gt;, Nfamily &lt;dbl&gt;</code></pre>
+</div>
+<div id="gráficas-logísticas" class="section level3">
+<h3>Gráficas logísticas</h3>
+<p>Vamos a graficar supervivencia en función de variables continuas:</p>
+<pre class="r"><code>library(ggplot2)
+#gráfica con curva logística
+ggplot(Titanic, aes(x=Nfamily, y=Survived, na.rm = TRUE)) +
+  geom_point() +
+  geom_smooth(method = &quot;glm&quot;, 
+    method.args = list(family = &quot;binomial&quot;), 
+    se = FALSE)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(Titanic, aes(x=Age, y=Survived, na.rm = TRUE)) +
+  geom_point() +
+  geom_smooth(method = &quot;glm&quot;, 
+    method.args = list(family = &quot;binomial&quot;), 
+    se = FALSE)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="TRAvanzado_files/figure-html/unnamed-chunk-25-2.png" width="672" /></p>
+</div>
+<div id="tablas-de-contraste" class="section level3">
+<h3>Tablas de contraste</h3>
+<p>Podemos obtener los valores de número de casos en tablas de contraste entre la supervivencia y las variables categóricas:</p>
+<pre class="r"><code>table(Titanic$Survived, Titanic$Sex)</code></pre>
+<pre><code>##    
+##     female male
+##   0     92  734
+##   1    374  109</code></pre>
+<pre class="r"><code>table(Titanic$Survived, Titanic$Pclass)</code></pre>
+<pre><code>##    
+##       1   2   3
+##   0 137 160 529
+##   1 186 117 180</code></pre>
+</div>
+<div id="uso-de-la-función-glm-para-probar-modelos-de-regresión-logística" class="section level3">
+<h3>Uso de la función glm para probar modelos de regresión logística</h3>
+<pre class="r"><code>#modelo logístico:
+reglog &lt;- glm(Survived ~ Age + Sex + Pclass + Nfamily, data = Titanic,
+              family=binomial(logit))
+#resumen de los resultados:
+summary(reglog) </code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Age + Sex + Pclass + Nfamily, family = binomial(logit), 
+##     data = Titanic)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4140  -0.5749  -0.3683   0.4974   2.5730  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  4.418827   0.448752   9.847  &lt; 2e-16 ***
+## Age         -0.013811   0.006591  -2.095  0.03615 *  
+## Sexmale     -3.586491   0.202961 -17.671  &lt; 2e-16 ***
+## Pclass      -0.997279   0.121686  -8.195  2.5e-16 ***
+## Nfamily     -0.178687   0.065789  -2.716  0.00661 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1401.72  on 1045  degrees of freedom
+## Residual deviance:  816.53  on 1041  degrees of freedom
+##   (263 observations deleted due to missingness)
+## AIC: 826.53
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Para interpretar mejor las diferencias entre el efecto de las variables predictoras, es mejor usar ‘razones de probabilidades’ (en inglés <strong>odd ratios (ORs)</strong>), o proporción de casos favorables a desfavorables:</p>
+<p><span class="math display">\[OR_i = \frac{\pi}{1-\pi} \qquad \]</span> donde <span class="math inline">\(\pi\)</span> es la probabilidad de que el evento dependiente (<span class="math inline">\(Y\)</span>) ocurra.</p>
+<pre class="r"><code>#obtener los coeficientes como ORs:
+exp(cbind(OR = coef(reglog), confint(reglog)))</code></pre>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                      OR       2.5 %       97.5 %
+## (Intercept) 82.99889307 35.13335849 204.38944482
+## Age          0.98628432  0.97349704   0.99901923
+## Sexmale      0.02769535  0.01838577   0.04078259
+## Pclass       0.36888197  0.28929248   0.46643303
+## Nfamily      0.83636725  0.73348487   0.94976234</code></pre>
+</div>
+<div id="aprendizaje-automático---machine-learning" class="section level3">
+<h3>Aprendizaje Automático - Machine Learning</h3>
+<p>Los procedimientos de regresión producen modelos que se ubican en el campo de lo que se conoce como Aprendizaje Automático (‘Machine Learning’).</p>
+<p>A continuación utilizaremos el modelo de regresión logística para ilustrar una forma rudimentaria de proceso de aprendizaje automático.</p>
+<div id="división-de-los-datos" class="section level4">
+<h4>División de los datos</h4>
+<p>En primer lugar vamos a separar los datos en dos grupos: uno de aprendizaje (<em>training</em>) y otro de prueba o validación:</p>
+<pre class="r"><code>library(caret)
+# Split the data into training and test set
+set.seed(123)
+training.samples &lt;- Titanic$Survived %&gt;% 
+  createDataPartition(p = 0.8, list = FALSE)
+train.data  &lt;- Titanic[training.samples, ]</code></pre>
+<pre><code>## Warning: The `i` argument of ``[`()` can&#39;t be a matrix as of tibble 3.0.0.
+## Convert to a vector.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre class="r"><code>test.data &lt;- Titanic[-training.samples, ]</code></pre>
+</div>
+<div id="modelo-usando-glm" class="section level4">
+<h4>Modelo usando glm</h4>
+<p>Obtenemos el modelo utilizando los datos de aprendizaje:</p>
+<pre class="r"><code>library(MASS)
+# Fit the model
+model1 &lt;- glm(Survived ~ Age + Sex + Pclass + Nfamily, data = train.data, family = binomial(logit))
+# Summarize the final selected model
+summary(model1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Age + Sex + Pclass + Nfamily, family = binomial(logit), 
+##     data = train.data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.3812  -0.5904  -0.3753   0.5213   2.5877  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  4.159842   0.488266   8.520  &lt; 2e-16 ***
+## Age         -0.008157   0.007110  -1.147   0.2513    
+## Sexmale     -3.535175   0.226353 -15.618  &lt; 2e-16 ***
+## Pclass      -0.977438   0.134437  -7.271 3.58e-13 ***
+## Nfamily     -0.163385   0.072316  -2.259   0.0239 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1115.56  on 829  degrees of freedom
+## Residual deviance:  665.38  on 825  degrees of freedom
+##   (218 observations deleted due to missingness)
+## AIC: 675.38
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+<div id="predicciones-usando-el-20-de-los-datos" class="section level4">
+<h4>Predicciones usando el 20% de los datos</h4>
+<p>Ahora usamos los datos de prueba para calcular el nivel de predicción del modelo:</p>
+<pre class="r"><code># Make predictions
+probabilities &lt;- model1 %&gt;% predict(test.data, type = &quot;response&quot;)
+predicted.classes &lt;- ifelse(probabilities &gt; 0.5, &quot;1&quot;, &quot;0&quot;)
+# Prediction accuracy
+observed.classes &lt;- test.data$Survived
+mean(predicted.classes == observed.classes, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 0.8796296</code></pre>
+</div>
+<div id="probando-con-otro-modelo" class="section level4">
+<h4>Probando con otro modelo</h4>
+<pre class="r"><code>library(MASS)
+# Fit the model
+model2 &lt;- glm(Survived ~ Sex + Pclass + Nfamily, data = train.data, family = binomial(logit))
+# Summarize the final selected model
+summary(model2)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Sex + Pclass + Nfamily, family = binomial(logit), 
+##     data = train.data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4628  -0.5975  -0.3861   0.4905   2.8112  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  3.91000    0.33352  11.723  &lt; 2e-16 ***
+## Sexmale     -3.68952    0.20838 -17.706  &lt; 2e-16 ***
+## Pclass      -0.92656    0.11267  -8.223  &lt; 2e-16 ***
+## Nfamily     -0.22882    0.06069  -3.770 0.000163 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1381.4  on 1047  degrees of freedom
+## Residual deviance:  814.1  on 1044  degrees of freedom
+## AIC: 822.1
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code># Make predictions
+probabilities &lt;- model2 %&gt;% predict(test.data, type = &quot;response&quot;)
+predicted.classes &lt;- ifelse(probabilities &gt; 0.5, &quot;1&quot;, &quot;0&quot;)
+# Prediction accuracy
+observed.classes &lt;- test.data$Survived
+mean(predicted.classes == observed.classes, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 0.8850575</code></pre>
+<hr />
+</div>
+</div>
+<div id="referencias" class="section level3">
+<h3>Referencias</h3>
+<p><strong>Kabacoff, R.</strong>, 2015. <em>R in action: data analysis and graphics with R</em>, Second edition. ed. Manning, Shelter Island.</p>
+<p><strong>Lander, J. P.</strong>, 2014. <em>R for everyone</em>. Pearson Education, Inc., Upper Saddle River, NJ, USA.</p>
+</div>
+<div id="apéndice" class="section level3">
+<h3>Apéndice</h3>
+<p><a href="https://www.statmethods.net/stats/anova.html" class="uri">https://www.statmethods.net/stats/anova.html</a></p>
+<ul>
+<li>One Way Anova (Completely Randomized Design)
+<ul>
+<li>fit &lt;- aov(y ~ A, data=mydataframe)</li>
+</ul></li>
+<li>Randomized Block Design (B is the blocking factor)
+<ul>
+<li>fit &lt;- aov(y ~ A + B, data=mydataframe)</li>
+</ul></li>
+<li>Two Way Factorial Design
+<ul>
+<li>fit &lt;- aov(y ~ A + B + A:B, data=mydataframe)</li>
+<li>fit &lt;- aov(y ~ A*B, data=mydataframe) # same thing</li>
+</ul></li>
+<li>Analysis of Covariance
+<ul>
+<li>fit &lt;- aov(y ~ A + x, data=mydataframe)</li>
+</ul></li>
+</ul>
+<p>For within subjects designs, the data frame has to be rearranged so that each measurement on a subject is a separate observation.</p>
+<ul>
+<li>One Within Factor
+<ul>
+<li>fit &lt;- aov(y~A+Error(Subject/A),data=mydataframe)</li>
+</ul></li>
+<li>Two Within Factors W1 W2, Two Between Factors B1 B2
+<ul>
+<li>fit &lt;- aov(y~(W1<em>W2</em>B1<em>B2)+Error(Subject/(W1</em>W2))+(B1*B2), data=mydataframe)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
