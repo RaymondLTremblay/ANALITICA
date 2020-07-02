@@ -79,9 +79,9 @@ TODO lo de abajo tiene que ser movido a la pestaña de Talleres
 
 
 ### Programados para talleres
-- [R- free statistical programming language](https://cran.r-project.org/) 
-- [RStudio](https://rstudio.com)
-- MS Excel, Numbers o Google Sheet
+- [R- free statistical programming language™](https://cran.r-project.org/) 
+- [RStudio™](https://rstudio.com)
+- MS Excel™, Numbers™ o Google Sheet™ para ingresar los datos
 
 
 
@@ -92,7 +92,7 @@ Los certificados de participación a los talleres serán limitado a los que part
 
 
 ### Comentario sobre grabar videos y/o audio de los talleres
-no PUEDEN grabar los talleres por forma de video o audio sin el permiso del instructor.  Algunos participantes con necesidades especiales pueden hablar con el instructor para pedir el permiso.  Este permiso tiene que ser por escrito (por ejemplo por email).  
+No pueden grabar los talleres por forma de video o audio sin el permiso del instructor.  Algunos participantes con necesidades especiales pueden hablar con el instructor para pedir el permiso.  Este permiso tiene que ser pedido y aprobado por escrito (por ejemplo por email).  
 
 
 ### Espacio libre de acoso sexual
