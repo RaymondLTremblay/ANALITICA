@@ -15,13 +15,17 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 # Analítica Fundación
 ## Quienes Somos
 
-Analítica Fundación, Inc., es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico.  Su visión principal es proveer todo tipo de servicios educativos, investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.
+**Analítica Fundación, Inc.**, es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico.  Su especialidad es el análisis de datso.  Su visión principal es proveer todo tipo de servicios educativos, investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.
 
-Su misión es la siguiente:
+**Visión**: Ofrecer liderazgo en el análisis de datos en el mundo Hispano a través de la práctica y la educación.
 
-Aquí va la misión hecho a las 1:47pm.
+**Misión**: asdf
 
-### Descripción de los objetivos de la Fundación
+**Valores**: asdf
+
+**Metas**: asdf
+
+### Descripción de los objetivos específicos de la Fundación
 
 Más detalles
 
