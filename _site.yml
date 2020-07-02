@@ -1,7 +1,16 @@
+
+
 --- 
 name: "ANALITICA Fundación"
 navbar:
-  left: 
+  left:
+    -
+     menu: 
+       -
+          href: index.html
+          text: "Indice"
+  
+     text: "Indice"
     - 
       menu: 
         - 
