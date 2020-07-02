@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 **Metas**: Ser uno de los focos más importantes de discusión, distribución de recursos e información, y promoción del análisis de datos en el mundo Hispano. 
 
-**Promoción**: aquí va enlace a opúsculo
+**Promoción**: [Opúsculo](https://drive.google.com/file/d/1r8imhmhc0WAzC8_XBL7lcEE0ksvJgi4N/view?usp=sharing)
 
 ### Descripción de los objetivos específicos de Analítica
 
