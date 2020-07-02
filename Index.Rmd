@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 **Promoción**: [Opúsculo](https://drive.google.com/file/d/1r8imhmhc0WAzC8_XBL7lcEE0ksvJgi4N/view?usp=sharing)
 
-### Descripción de los objetivos específicos de Analítica
+### Objetivos específicos
 
 Más detalles
 
@@ -44,41 +44,84 @@ Más detalles
 
 Aquí porqué se fundó.
 
+### Directores
+
+**Oficial**: Raymond L. Tremblay, PhD
+
+> Profesor de Evolución y Biometría del Departamento de Biología de la [Universidad de Puerto Rico en Humacao](https://www.upr.edu/humacao/), [ResearchGate](https://www.researchgate.net/profile/Raymond_Tremblay)
+
+**Oficial**: Denny S. Fernández-Del-Viso, PhD  
+
+> Profesor de XXXXXX y Biometría del Departamento de Biología de la [Universidad de Puerto Rico en Humacao](https://www.upr.edu/humacao/). [ResearchGate](https://www.researchgate.net/profile/Denny_Fernandez2)
+
+**Oficial**: Julián Hernández-Serrano, PhD 
+
+> Profesor de Tecnología del Departamento de Administración de Empresas de la [Universidad de Puerto Rico en Humacao](https://www.upr.edu/humacao/), [ResearchGate](https://www.researchgate.net/profile/Julian_Hernandez-Serrano)
+
 # Servicios
 
-### Talleres
-  * Talleres de Estadística Cuantitativos y Cualitativos
-  * Talleres de Visualización de datos
-  * Talleres de introducción a programados de análisis y más
+### Capacitación
+  * Talleres de estadística y análisis cuantitativo
+  * Talleres de análisis cualitativo
+  * Talleres de visualización de datos
+  * Talleres de introducción a programado y herramientas de análisis, tales como:
     - R 
     - RStudio
     - RMarkdown
     - Python
     - GitHub
-
+    - NVivo
     
 ### Análisis Especializados    
-  * Análisis de datos para científicos
-  * Análisis de datos para corporaciones
+
+  * Servicio de análisis de datos existentes para científicos, corporaciones y organizaciones gubernamentales y no gubernamentales
+    - Diseño de estrategia de análisis
+    - Recolección de datos
+    - Preparación para análisis
+    - Análisis estadístico y aplicación de modelos
+    - Análisis cualitativo
+    - Visualización de los datos
+    - Presentación de resultados
+    - Recomendaciones
+  * Diseño y organización de actividades de capacitación en el análisis de datos para propuestas locales, federales e internacionales
+    - Redacción de elementos de análisis de propuestas
+    - Supervisión y ejecución de la evaluación de programas y proyectos
+    - Entrega de informe oficial de evaluación intermedia (formativa) y final (sumativa) de metas, procesos y resultados, incluyendo conclusiones y recomendaciones finales
+  * Colaboración en el análisis de datos existentes
+    - Subcontratista o asociado para la administración de componentes del análisis de programas o proyectos
+  * Consultoría de análisis para escuelas graduadas y profesionales, y otros centros de investigación
+    - Por hora o por tarea contratada
   
-### Evaluación de impacto de programas y proyectos
-  * asdf
-  
+### Evaluación de impacto
+  * Conceptualización, diseño, implementación, diseño y administración de un plan de evaluación interna o externa de programas o proyectos que puede incluir:
+    - Creación o modificación de instrumentos de evaluación (encuestas, depósitos de bases de datos, etc.)
+    - Dirigir grupos focales y llevar a cabo el análisis (hallazgos y recomendaciones)
+    - Analisis de documentos o bases de datos existentes
+    - Creación de pre/postpruebas para evaluación de efectividad de intervenciones educativas
+    - Entrevistas estructuradas, semiestructuradas o informales a participantes
+    - Diseño de procesos de rastreo de participantes
+
+
   
 # Contactos
 
-**Presidente:** Raymond L. Tremblay, PhD   
-**Coreo electrónico**: raymond.tremblay_at_gmail_dot_com	
+**Coreo electrónico**: analiticafundacion@gmail.com	
 
-**Secretario:** Denny Fernández-del-Viso, PhD   
-**Coreo electrónico**: dsfernandez_at_gmail_dot_com 
+**Canal en Youtube**: [Analítica Fundación](https://www.youtube.com/channel/UC1gdCGTHxlbbAiY21GHH39A?view_as=subscriber)
 
-**Tesorero:**Julian Hernández-Serrano, PhD   
-**Coreo electrónico**: analiticafundacion_at_gmail_dot_com 
+**Twitter**: @Analitica (https://twitter.com/AnaliticaF)
 
+**Facebook**: @analiticafundacion (https://www.facebook.com/analiticafundacion)
 
+**Dirección Postal**: 
 
+          Brisas del Parque I
+          32 Calle Sendero
+          CAGUAS, PR, 00725
 
+**Teléfono**: 
+
+          787-310-4620, 787-214-2448
 
 *******
 
