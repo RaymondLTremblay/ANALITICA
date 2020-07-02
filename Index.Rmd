@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 **Misión**:
 
 - Desarrollar profesionales (facultad, estudiantes, empleados) en el campo de la analítica.
-- Promover el estudio e investigación de la analítica en el lenguaje español (castellano) alrededor del mundo.
+- Promover el estudio e investigación de la analítica alrededor del mundo en el lenguaje español (castellano).
 - Colaborar en el desarrollo de proyectos de análisis en universidades, centros de investigación, empresas, y organizaciones gubernamentales y no gubernamentales.
 - Auspiciar jóvenes estudiantes subgraduados y graduados en la investigación y práctica de la analítica.
 
