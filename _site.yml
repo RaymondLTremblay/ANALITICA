@@ -62,7 +62,11 @@ navbar:
           text: "Gráficos de caja y de violín"
         -
           href: G9_Facet_Grid.html
-          text: "Facet Grid" 
+          text: "Facet Grid"
+          
+        -
+          href: G10_Facet_wrap.html
+          text: "Facet Wrap"
           
       text: "Visualización"
     - 
