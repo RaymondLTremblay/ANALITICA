@@ -97,7 +97,7 @@ Este libro sobre ggplot2 está disponible  [aquí](https://www.amazon.com/Gr%C3%
 
 ### Historia
 
-Analíca Fundación, Inc. fue creada para atender de una forma más ágil el auspicio, apoyo, creación y producción de recursos en apoyo al campo del análisis en Puerto Rico e Iberoamérica.  Aunque existe una enorme producción de recursos provenientes de instituciones universitarias, normalmente esos recursos están muy atados a las instituciones en donde se generan y no necesariamente logran quedar al alcance del público profesional interesado en temas del análisis. Los fundadores hemos querido servir de enlace al inmenso conocimiento que se genera en la academia, organizaciones en el mundo dedicadas a los temas del análisis, e individuos específicos y todos aquellos que se podrían beneficiar del conocimiento, destrezas y herramientas que continuamete se están creando o que ya existen en el mercado que son en su mayor parte son libre de costos.
+Analíca Fundación, Inc. fue creada para atender de una forma más ágil el auspicio, apoyo, creación y producción de recursos en apoyo al campo del análisis en Puerto Rico e Iberoamérica.  Aunque existe una enorme producción de recursos provenientes de instituciones universitarias, normalmente esos recursos están muy atados a las instituciones en donde se generan y no necesariamente logran quedar al alcance del público profesional interesado en temas del análisis. Los fundadores hemos querido servir de enlace al inmenso conocimiento que se genera en la academia, organizaciones en el mundo dedicadas a los temas del análisis, e individuos específicos y todos aquellos que se podrían beneficiar del conocimiento, destrezas y herramientas que continuamete se están creando o que ya existen en el mercado que son en su mayor parte libre de costos.
 
 Para más información sobre Analítica, favor comunicarse con los oficiales como muestra a continuación o en la sección de contactos (más abajo).  
 
@@ -105,15 +105,15 @@ Para más información sobre Analítica, favor comunicarse con los oficiales com
 
 ### Directores
 
-**Oficial**: Raymond L. Tremblay, PhD
+**Oficial**: Raymond L. Tremblay, PhD (raymond.tremblay@gmail.com)
 
 > Profesor de Evolución y Biometría del Departamento de Biología de la Universidad de Puerto Rico en Humacao, [ResearchGate](https://www.researchgate.net/profile/Raymond_Tremblay)
 
-**Oficial**: Denny S. Fernández-Del-Viso, PhD  
+**Oficial**: Denny S. Fernández-Del-Viso, PhD (dsfernandez@gmail.com)
 
 > Profesor de Ecología y Biometría del Departamento de Biología de la Universidad de Puerto Rico en Humacao, [ResearchGate](https://www.researchgate.net/profile/Denny_Fernandez2)
 
-**Oficial**: Julián Hernández-Serrano, PhD 
+**Oficial**: Julián Hernández-Serrano, PhD (julian.hernandez.serrano@protonmail.com)
 
 > Profesor de Tecnología del Departamento de Administración de Empresas de la Universidad de Puerto Rico en Humacao, [ResearchGate](https://www.researchgate.net/profile/Julian_Hernandez-Serrano)
 
