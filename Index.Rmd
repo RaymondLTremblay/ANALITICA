@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 # Analítica Fundación
 ## Quiénes Somos
 
-**Analítica Fundación, Inc.**, es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en el 2018.  Su especialidad es el análisis de datos.  Su objetivo principal es proveer todo tipo de servicios educativos, investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.
+**Analítica Fundación, Inc.**, es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en el 2018.  Su especialidad es el análisis de datos.  Su objetivo principal es proveer todo tipo de servicios educativos, de investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.
 
 **Visión**: Ser un líder en el análisis de datos en el mundo Hispano a través de la práctica y la educación.
 
@@ -48,15 +48,15 @@ Aquí porqué se fundó.
 
 **Oficial**: Raymond L. Tremblay, PhD
 
-> Profesor de Evolución y Biometría del Departamento de Biología de la [Universidad de Puerto Rico en Humacao](https://www.upr.edu/humacao/), [ResearchGate](https://www.researchgate.net/profile/Raymond_Tremblay)
+> Profesor de Evolución y Biometría del Departamento de Biología de la Universidad de Puerto Rico en Humacao, [ResearchGate](https://www.researchgate.net/profile/Raymond_Tremblay)
 
 **Oficial**: Denny S. Fernández-Del-Viso, PhD  
 
-> Profesor de XXXXXX y Biometría del Departamento de Biología de la [Universidad de Puerto Rico en Humacao](https://www.upr.edu/humacao/). [ResearchGate](https://www.researchgate.net/profile/Denny_Fernandez2)
+> Profesor de Ecología y Biometría del Departamento de Biología de la Universidad de Puerto Rico en Humacao, [ResearchGate](https://www.researchgate.net/profile/Denny_Fernandez2)
 
 **Oficial**: Julián Hernández-Serrano, PhD 
 
-> Profesor de Tecnología del Departamento de Administración de Empresas de la [Universidad de Puerto Rico en Humacao](https://www.upr.edu/humacao/), [ResearchGate](https://www.researchgate.net/profile/Julian_Hernandez-Serrano)
+> Profesor de Tecnología del Departamento de Administración de Empresas de la Universidad de Puerto Rico en Humacao, [ResearchGate](https://www.researchgate.net/profile/Julian_Hernandez-Serrano)
 
 # Servicios
 
@@ -84,9 +84,9 @@ Aquí porqué se fundó.
     - Presentación de resultados
     - Recomendaciones
   * Diseño y organización de actividades de capacitación en el análisis de datos para propuestas locales, federales e internacionales
-    - Redacción de elementos de análisis de propuestas
+    - Redacción de componentes de análisis de propuestas
     - Supervisión y ejecución de la evaluación de programas y proyectos
-    - Entrega de informe oficial de evaluación intermedia (formativa) y final (sumativa) de metas, procesos y resultados, incluyendo conclusiones y recomendaciones finales
+    - Entrega de informe oficial de evaluación intermedia (formativa) y final (sumativa) de metas, procesos y resultados, incluyendo conclusiones y recomendaciones
   * Colaboración en el análisis de datos existentes
     - Subcontratista o asociado para la administración de componentes del análisis de programas o proyectos
   * Consultoría de análisis para escuelas graduadas y profesionales, y otros centros de investigación
