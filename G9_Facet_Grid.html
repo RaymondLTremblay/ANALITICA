@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="RLT" />
 
 
-<title>Plagio</title>
+<title>Facet_Grid</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -491,26 +492,109 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Plagio</h1>
+<h1 class="title toc-ignore">Facet_Grid</h1>
+<h4 class="author">RLT</h4>
+<h4 class="date">6/30/2020</h4>
 
 </div>
 
 
-<div id="qué-es-el-plagio" class="section level1">
-<h1>¿Qué es el Plagio?</h1>
-<p>El plagio es un actividad academica y social que en primer lugar no reconoce la fuente de información donde proviene las ideas, analisis o datos. Es necesario que la información en un documento que no es de su proprio trabajo y analisis intelectual que se identifique la fuente o sea referencias de proveniencia de la información.</p>
+<pre class="r"><code>library(ggplot2)
+library(ggversa)</code></pre>
+<hr />
+<div id="gráficos-en-cuadrícula-con-facet_grid" class="section level1">
+<h1>Gráficos en cuadrícula con <strong>facet_grid</strong></h1>
+<p>Esta opción forma una matriz de gráficos por fila y columna por una variable seleccionada. Es una opción que facilita ver los patrones cuando hay dos variables discretas.</p>
+<p><strong>Facet grid</strong> es un opción de gran ventaja de usar ggplot2: Organizando los gráficos en una cuadrícula. Eso resulta ser muy útil para la producción de un gráfico por cada par de variable discreta; o sea, cada grupo producirá un gráfico de acuerdo a su categoría. Los próximos ejemplos se basan en la base de datos del lagartijo <em>Anolis</em>.</p>
+<hr />
+<div id="facet_grid-con-cuadrículas-paradas" class="section level2">
+<h2><strong>Facet_grid</strong> con cuadrículas paradas</h2>
+<p>En la Figura hacemos una demostración utilizando la altura del sitio de muestreo, pero con las categorías se generó una al lado de las otras en una serie. Note la tilde, <strong>~</strong>, antes del nombre de la variable SEX_AGE. Si usamos solamente una variable (como en este caso), la presentación de los gráficos cambiará dependiendo si la tilde está antes o después de la variable, tal demostrado a más adelante.</p>
+<pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
+
+rr+geom_point(aes(color=Survey_Site))+
+  facet_grid(~SEX_AGE)+
+  labs(y=&quot;Altitud, m&quot;)+
+  theme(legend.position=&quot;none&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  xlab(&quot;Distancia entre el hocico y la cloaca&quot;)</code></pre>
+<p><img src="G9_Facet_Grid_files/figure-html/facetgrid-1.png" width="672" /></p>
+<hr />
 </div>
-<div id="consecuencia-del-plagio" class="section level1">
-<h1>Consecuencia del plagio</h1>
-<p>No copiarse en los examenes o en los trabajos asignados. Si el se detecta que el estudiante hizo plagio el estudiante obtendrá CERO en el examen o trabajo. En adición el estudiante puede ser expulsado de la clase o del colegio si es encontrado culpable luego del debido proceso de ley.</p>
+<div id="facet_grid-con-cuadrículas-acostadas" class="section level2">
+<h2><strong>Facet_grid</strong> con cuadrículas acostadas</h2>
+<p>Ahora ponemos la variable antes de la <strong><sub><strong>, pero note que después de la </strong></sub></strong> hay un punot <strong>.</strong>. Notemos el efecto en la Figura a continuación.</p>
+<pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
+
+rr+geom_point(aes(color=Survey_Site))+
+  facet_grid(SEX_AGE~.)+
+  labs(y=&quot;Altitud, m&quot;)+
+  theme(legend.position=&quot;none&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  xlab(&quot;Distancia entre el hocico y la cloaca&quot;)</code></pre>
+<p><img src="G9_Facet_Grid_files/figure-html/facetgrid1-1.png" width="672" /></p>
+<hr />
 </div>
-<div id="las-leyes-de-la-upr-que-define-el-plagio" class="section level1">
-<h1>Las leyes de la UPR que define el plagio</h1>
-<p>fghjk</p>
+<div id="facet_grid-con-cuadrículas-representando-dos-variables" class="section level2">
+<h2><strong>Facet_grid</strong> con cuadrículas representando dos variables</h2>
+<p>Ahora veremos en la enorme ventaja de <strong>facet_grid</strong> al representar dos variables discretas simultáneamente, la edad_sexo de los <em>Anolis</em> y el periodo del año (seco o lluviosos) del muestreo. Note que el parámetro ahora es SEX_AGE<span class="math inline">\(\sim\)</span>SEASON.</p>
+<pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
+
+rr+geom_point(aes(color=Survey_Site))+
+  facet_grid(SEX_AGE~SEASON)+
+  labs(y=&quot;Altitud, m&quot;)+
+  theme(legend.position=&quot;none&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  xlab(&quot;Distancia entre el hocico y la cloaca&quot;)</code></pre>
+<p><img src="G9_Facet_Grid_files/figure-html/facetgrid2-1.png" width="672" /></p>
+<hr />
 </div>
-<div id="recursos-universitarios-para-evaluar-el-plagio" class="section level1">
-<h1>Recursos universitarios para evaluar el plagio</h1>
-<p>fghjkfghjkghjk</p>
+<div id="escalas-libres-en-los-ejes" class="section level2">
+<h2>Escalas libres en los ejes</h2>
+<p>Ahora dejemos que en la escala en el eje de X sea variable. La escala del periodo seco va de 20 a 50 cm y del periodo lluvioso va de 0 a 50 cm. Con esta representación se puede apreciar mejor que los nuevos especímenes nacen en mayores cantidades en el periodo lluvioso. Note que el parámetro ahora es <strong>SEX_AGE~SEASON</strong> y <strong>scales=free_x</strong>.</p>
+<pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
+
+rr+geom_point(aes(color=Survey_Site))+
+  facet_grid(SEX_AGE~SEASON, scales=&quot;free_x&quot;)+
+  labs(y=&quot;Altitud, m&quot;)+
+  theme(legend.position=&quot;none&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  xlab(&quot;Distancia entre el hocico y la cloaca&quot;)</code></pre>
+<p><img src="G9_Facet_Grid_files/figure-html/facetgrid3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+<div id="cambio-de-las-posiciones-de-las-descripciones" class="section level2">
+<h2>Cambio de las posiciones de las descripciones</h2>
+<p>En el próximo gráfico veremos cómo cambiar el lugar donde están colocadas las descripciones de las categorías (sexo y estación del año) usando <strong>switch</strong>. Si se usa <strong>switch</strong> en el eje de <strong>X</strong>, la descripción de ese eje, que antes estaba arriba, ahora pasará abajo. Si se usa en el eje de <strong>Y</strong>, la descripción de la derecha pasa a la izquierda. Si se usa el parámetro <strong>both</strong> ambas descripciones cambian a su lado opuesto.</p>
+<p><img src="G9_Facet_Grid_files/figure-html/facetgrid4-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="facet_grid-con-las-escalas-de-los-ejes-variable-en-x-y-y" class="section level2">
+<h2>Facet_grid con las escalas de los ejes variable en X y Y</h2>
+<p>La opción de <strong>space</strong> con <strong>facet_grid</strong>, da la oportunidad de modificar el rango de los ejes de <strong>Y</strong> y <strong>X</strong>. Por conveniencia, algunos de los rangos de los ejes de las figuras anteriores son iguales. Pero si uno quisiera que cada figura tuviera su propio rango, uno usa <strong>space=free_y</strong> o <strong>free_x</strong> para que sean proporcionales a la escala de los datos en uno o el otro eje. Sin embargo, a veces se quiere que ambos ejes sean proporcionales al rango de los datos y en tal caso se usa <strong>free</strong> solamente como se demuestra en la Figura.</p>
+<pre class="r"><code>rr+geom_point(aes(color=Survey_Site))+
+  facet_grid(~SEX_AGE, scales=&quot;free&quot;)+
+  labs(y=&quot;Altitud, m&quot;)+
+  theme(legend.position=&quot;none&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  xlab(&quot;Distancia entre el hocico y la cloaca&quot;)</code></pre>
+<p><img src="G9_Facet_Grid_files/figure-html/facetgrid5-1.png" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="opciones-y-parametros-de-facet_grid" class="section level1">
+<h1>Opciones y Parametros de <strong>facet_grid</strong>:</h1>
+<ul>
+<li><p>ggplot(el archivo de datos, aes(la variable continua))</p>
+<ul>
+<li><p>facet_grid(.~a, scales, space, switch, drop)</p></li>
+<li><p>facet: a~b para presentar una serie de gráficos tabulados en X y Y</p></li>
+<li><p>scales: usar free si se quiere que las escalas sean determinadas por los gráficos individualmente; si no, todas los gráficos tendrán la misma escala.</p></li>
+<li><p>space: la producción de los gráficos se hará al mismo tamaño; pero si usa free_y, la altura será proporcional a la escala de Y; y si es free_x, el ancho será proporcional a la escala de X; si usa free, entones ambos ejes variarán individualmente; note que este parámetro no tiene efecto si los datos no varían en los diferentes grupos.</p></li>
+<li><p>switch: ubica la descripción abajo cuando es X, y a la izquierda cuando se usa Y, o cambia ambos al usar usar both.</p></li>
+<li><p>drop: añadir drop=FALSE para que muestre todas las variables aunque no tengan información; solamente funciona si toda la fila o columna de datos está vacía.</p></li>
+</ul></li>
+</ul>
 </div>
 
 
