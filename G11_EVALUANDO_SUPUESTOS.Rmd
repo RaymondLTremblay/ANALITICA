@@ -32,6 +32,7 @@ library(tidyverse)
 library(kableExtra)
 library(reshape2)
 library(ggcorrplot)
+library(gridExtra)
 
 ```
 
@@ -65,7 +66,7 @@ Note que aquí el énfasis es de evalur los supuestos con herramientas visual, h
   **BecasaDeMar=BecasaDeMar[-which(BecasaDeMar$SEX=={0}),]**
 
 
-Note aquí el \say{-} (el signo de resta) antes de \say{which}.
+Note aquí el **-** (el signo de resta) antes de **which**.
   
   El siguiente paso, después de remover los individuos no identificados por sexo, es cambiar el nombre de los niveles 1 y 2 a hembra y macho respectivamente. Para evaluar la homogeneidad de varianza entre las estaciones también se le asigna el nombre del periodo: Verano, Pre-migración e Invierno.
 
@@ -137,11 +138,11 @@ Lo que observaremos es que la distribución de los residuales luce más o menos 
   ggtitle("Residuales vs. Valores Estimados")
 res
 ```
+***
 
+## Los residuales de Student para detectar valores sesgados
 
-## Los residuales estandarizados
-
-A continuación se ilustra otro enfoque para evaluar los residuales. En este caso, para visualizar los residuales se usa la raíz cuadrada de los residuales estandarizados. Para esta alternativa, los residuales se dividen por la desviación estándar.  Esta alternativa es apropiada si estamos evaluando diferentes grupos con promedios y varianzas distintas para así hacer la comparación más adecuada.  Note en la figura que se usa otra vez el modelo **modelflower** y los valores calculados en el modelo **.fitted** y la raíz cuadrada de los residuales **.stdresid**. Note ahora también que todos los valores en el eje de **Y** son mayores de cero (el resultado de la estandarización).
+A continuación se ilustra otro enfoque para evaluar los residuales. En este caso, para detectar valores sesgados (ouliers). Se puede visualizar los residuales se usa los residuales estandarizados divido por la desviación estandard. Valores que mayores de 3 serian considerados sesgados. Esta alternativa es apropiada si detectar valores sesgados.  Note en la figura que se usa otra vez el modelo **modelflower** y los valores calculados en el modelo **.fitted** y los residuales de student con **.stdresid**. Note ahora también que todos los valores en el eje de **Y** son mayores de cero.
 
 ```{r Homogeneityvariance2}
   ResEst=ggplot(modelflower,
@@ -150,41 +151,19 @@ A continuación se ilustra otro enfoque para evaluar los residuales. En este cas
   theme(axis.title=element_text(size=20,face="bold"),
         axis.text=element_text(size=20, face="bold"))+
           xlab("Valores estimados")+
-          ylab("Residuales estandarizados")+
+          ylab("Residuales estandarizados \n de Student")+
   ggtitle("Residuales vs. Valores Estimados")
 ResEst
 ```
+***
 
-Ahora se añade la mejor línea a la regressión. En el próximo gráfico, Figura \ref{fig:Homogeneityvariance3}, se le sobrepuso la regresión lineal y observamos que no hay ningún patrón (la línea es relativamente plana). Esto significa que no hay ningún patrón entre los valores estimados y los residuales. \index{ggtitle}
- 
-```{r Homogeneityvariance3}
-# Continuaremos con el modelo anterior:
-ResEst+stat_smooth(method="lm", na.rm = TRUE)+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text=element_text(size=20, face="bold"))+
-  xlab("Valores Estimados")+
-  ylab("Residuales estandarizados")+
-  ggtitle("Residuales vs. Valores Estimados")
-```
+## Valores sesgados con la Distancia de Cook, Di
 
-Vamos a modificar la información de los ejes y mejorar la estética. Con el último gráfico de esta subsección, Figura \ref{fig:Homogeneityvariance4}, se demuestra cómo modificar la información del eje de \say{Y} para identificar que es la raíz cuadrada a la vez que se le cambian los colores de los textos que describen los dos ejes.
- 
-```{r Homogeneityvariance4} 
-# Seguimos con el modelo anterior: 
-ResEst+
-      ylab(expression(sqrt("Residuales Estandarizados")))+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text=element_text(size=20, face="bold"),
-        axis.title.x = element_text(colour = "red"),
-        axis.title.y = element_text(colour = "blue"))+
-        xlab("Valores Estimados")
-```
+Continuando con el tema de evaluar si hay valores que podrían influenciar mucho el análisis, podemos utilizar una de las herramientas para evaluar el peso de cada valor sobre una regresión lineal basada en métodos de los mínimos cuadrados, llamada la **Distancia de Cook**. Este análisis fue desarrollado por R. Dennis Cook en 1977 y tiene como objetivo evaluar cada valor en la matriz de datos y el peso que tiene sobre el resultado (cuando esté este incluido o no en el análisis).  Produce un índice para cada uno de los valores sobre el resultado basándose en los valores residuales que se llama la Distancia de Cook.  Por lo tanto, ese análisis evalúa el impacto relativo de cada valor sobre el índice.  Infortunadamente no está claro cuál es el valor crítico; o sea, qué valor nos puede indicar que se tiene exceso de peso sobre los resultados.  Las dos principales sugerencias son: **Distancia de Cook**, Di, es mayor a 1 (sugerido por R. Dennis Cook Cook mismo en 1982); y que la **Di > 4/n**, donde **n** es el número de observaciones (Bollen *et al*. 1990). 
 
-\subsubsection{La Distancia de Cook, Di}
+Para hacer una ilustración, continuaremos con el modelo **modelflower** usando los valores calculados en el modelo anterior. El gráfico se construirá utilizando la opción **seq_along**, para que los valores en el eje de **X** se basen en la secuencia de datos en el archivo y los valores en el eje de **Y** se basen en los valores de la **Distancia de Cook**.  En este caso, vemos que todos los valores están muy por debajo de 1, lo que sugiere que ninguno de los valores individuales influenciaría mucho en los resultados aún si estos fuesen excluidos.  Si utilizáramos la segunda alternativa de **Di > 4/n**, entonces nos deberían preocupar los 8 valores de Di que son mayores a 4/181=0.022, donde 181 es la cantidad de datos en el archivo.  Si se considera esta segunda alternativa, sería necesario evaluar 8 valores en la tabla de datos que pudiesen ser sospechosos (los valores encima de la línea roja). Note que no es que están incorrectos; más bien, este resultado es solamente una herramienta para evaluar valores que **parecen** tener un impacto considerable sobre los resultados.
 
-Continuando con el tema de evaluar si hay valores que podrían influenciar mucho el análisis, podemos utilizar una de las herramientas para evaluar el peso (\say{the influence} en inglés) de cada valor sobre una regresión lineal basada en métodos de los mínimos cuadrados, llamada la \emph{Distancia de Cook}. Este análisis fue desarrollado por R. Dennis Cook en 1977 y tiene como objetivo evaluar cada valor en la matriz de datos y el peso que tiene sobre el resultado (esté este incluido o no en el análisis).  Produce un índice para cada uno de los valores sobre el resultado basándose en los valores residuales que se llama la \emph{Distancia de Cook}.  Por lo tanto, ese análisis evalúa el impacto relativo de cada valor sobre el índice.  Infortunadamente no está claro cuál es el valor crítico; o sea, qué valor nos puede indicar que se tiene exceso de peso sobre los resultados.  Las dos principales sugerencias son: cuando la \emph{Distancia de Cook}, Di, es mayor a 1 (sugerido por R. Dennis Cook Cook mismo en 1982); y que la \say{Di > 4/n}, donde \say{n} es el número de observaciones (Bollen \textit{et al}. 1990). \index{Distancia de Cook}
 
-Para hacer una ilustración, continuaremos con el modelo \say{modelflower} usando los valores calculados en el modelo anterior. El gráfico se construirá utilizando la opción \say{seq\_along}, para que los valores en el eje de \say{X} se basen en la secuencia de datos en el archivo y los valores en el eje de \say{Y} se basen en los valores de la \emph{Distancia de Cook}, tal como se muestra en la Figura \ref{fig:Cookdistance}.  En este caso, vemos que todos los valores están muy por debajo de 1, lo que sugiere que ninguno de los valores individuales influenciaría mucho en los resultados aún si estos fuesen excluidos.  Si utilizáramos la segunda alternativa de \say{Di > 4/n}, entonces nos deberían preocupar los 8 valores de Di que son mayores a 4/181=0.022, donde 181 es la cantidad de datos en el archivo.  Si se considera esta segunda alternativa, sería necesario evaluar 8 valores en la tabla de datos que pudiesen ser sospechosos (los valores encima de la línea roja). Note que no es que están incorrectos; más bien, este resultado es solamente una herramienta para evaluar valores que \say{parecen} tener un impacto considerable sobre los resultados.
 
 ```{r Cookdistance}
 
@@ -199,16 +178,28 @@ Para hacer una ilustración, continuaremos con el modelo \say{modelflower} usand
         ylab("Distancia de Cook")+
         ggtitle("Distancia de Cook")
 ```
+***
 
-\subsection{Supuesto de normalidad} 
 
-Hay muchas pruebas estadísticas que asumen que los datos provienen de una distribución normal. Pero no todas las pruebas tienen que satisfacer ese supuesto.  Por ejemplo, un Análisis de Componentes Principales o ACP (en inglés, PCA o \say{Principle Component Analysis}) o la prueba de \emph{t} asumen distribución normal.  Por el contrario, las pruebas no paramétricas como Wilcoxon, Mann-Whitney, Kruskall Wallis y otras no asumen esos supuestos.
+## Causas principales de los valores sesgados
 
-Una alternativa tradicional para comprobar la normalidad de los datos es mirar el gráfico de QQ; o sea, una visualización para comparar las probabilidades de dos variables en las que se grafican los cuartiles (recordemos que \say{Q} viene de cuartil). Si las distribuciones de las dos variables son similares, los puntos aparecerán nítidamente en el gráfico de QQ sobre la línea de \say{X-Y}. Eso se demostrará a continuación. \index{Supuesto de Normalidad}
+Los valores que parecen sesgados pueden ser normal de la población estudiada, y por consecuencia en estos casos remoción de estos valores podría resultar en descripción de los resultados incorrectos.  Primero hay que evaluar los siguientes posibles causas de valores sesgados. Si algunos de los siguientes son presentes hay que resolver los valores o removerlos de la hoja de analisis.  
 
-\subsubsection{qplot}
 
-En el gráfico de la Figura \ref{fig:Becasaqqplot2} se representa el consumo por la Becasa de Mar de la base de datos \emph{Godwits}, el ave de las marismas de Argentina que hemos analizado anteriormente.  En el gráfico se nota que los datos a los extremos no están muy cerca de la línea \say{X-Y}, lo que sugiere que el consumo por la Becasa de Mar no tiene una distribución normal. La función qplot es la manera más sencilla para generar el gráfico de QQ con ggplot2.  \index{qplot}
+* los valores recolectado son erróneo.
+* los valores fueron entrado incorrectamente en la hoja de datos
+* los valores recolectado tienen diferente dimensiones, por ejemplo algunos fueron recolectados en cm y otros en mm para la misma variable. 
+ 
+
+## Supuesto de normalidad 
+
+Hay muchas pruebas estadísticas que asumen que los datos provienen de una distribución normal. Pero no todas las pruebas tienen que satisfacer ese supuesto.  Por ejemplo, un Análisis de Componentes Principales o ACP (en inglés, PCA o Principle Component Analysis) o la prueba de t asumen distribución normal.  Por el contrario, las pruebas no paramétricas como Wilcoxon, Mann-Whitney, Kruskall Wallis y otras no asumen ese supuesto.
+
+Una alternativa tradicional para comprobar la normalidad de los datos es mirar el gráfico de QQ; o sea, una visualización para comparar las probabilidades de dos variables en las que se gráfican los cuartiles (recordemos que **Q** viene de cuartil). Si las distribuciones de las dos variables son similares, los puntos aparecerán nítidamente en el gráfico de QQ sobre la línea de **X-Y**. Eso se demostrará a continuación.
+
+## qplot
+
+En el gráfico se representa el consumo por la Becasa de Mar de la base de datos Godwits, el ave de las marismas de Argentina que hemos analizado anteriormente.  En el gráfico se nota que los datos a los extremos no están muy cerca de la línea **X-Y**, lo que sugiere que el consumo por la Becasa de Mar no tiene una distribución normal. La función qplot es la manera más sencilla para generar el gráfico de QQ.
 
 ```{r Becasaqqplot2, message=FALSE}
 # Note que anteriormente ya habíamos depositado los datos en el data.frame BecasaDeMar
@@ -220,27 +211,31 @@ qplot(sample = BecasaDeMar$mgconsumed, stat="qq")+
    
 ```
 
-\subsubsection{stat\_qq}
+***
 
-A pesar de lo fácil de este enfoque, apreciar si los datos quedan nítidamente alineados sobre una línea no es tan evidente en algunos casos.  Por lo tanto, en la siguiente versión del gráfico de QQ producida con la función stat\_qq se le añade una línea con la función geom\_abline para mostrar dónde debería estar localizada la gran mayoría de los datos si estos tuvieran una distribución normal. Para lograrlo, primero hubo que crear un vector de los datos, luego  calcular los cuartiles, la pendiente (\say{slope}) y el intercepto (\say{intercept}) como lo hemos hecho anteriormente.  Ahora vemos que claramente muchos de los datos no yacen en la línea.  Evidentemente, el trazar la línea teórica ayuda a visualizar la conclusión; en este caso, se podría concluir que el consumo de comida por este pájaro no sigue una distribución normal, tal como se muestra en la Figura \ref{fig:Becasaqqplot3} a continuación. \index{stat\_qq}
+## geom_qq y geom_qq_line
+
+A pesar de lo fácil de este enfoque, apreciar si los datos quedan nítidamente alineados sobre una línea no es tan evidente en algunos casos.  Por lo tanto, en la siguiente versión del gráfico de QQ producida con la función **geom_qq** y **geom_qq_line** se le añade una línea para mostrar dónde debería estar localizada la gran mayoría de los datos si estos tuvieran una distribución normal. Ahora vemos que claramente muchos de los datos no yacen en la línea.  Evidentemente, el trazar la línea teórica ayuda a visualizar la conclusión; en este caso, se podría concluir que el consumo de comida por este pájaro no sigue una distribución normal `r colorize("la linea azul", "blue")`.  En el segundo ejemplo se crea un archivo de datos que tiene una distribución normal y esta ejemplo la gran mayoría de los datos solapen la linea, `r colorize("la linea roja", "red")`  
 
 ```{r Becasaqqplot3}
 
-misdatos=Godwits$mgconsumed
-y=quantile(misdatos[!is.na(misdatos)], c(0.25, 0.75))
-x=qnorm(c(0.25, 0.75))
-pendiente=diff(y)/diff(x)
-intercepto=y[1L] - pendiente * x[1L]
-d=data.frame(resids = misdatos)
-
-ggplot(d, aes(sample = resids)) +
-  stat_qq()+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text=element_text(size=20, face="bold"))+
-  geom_abline(slope = pendiente, intercept = intercepto)+
+a= ggplot(Godwits, aes(sample = mgconsumed)) +
+  stat_qq() +
+  stat_qq_line(colour="blue")+
   xlab("Valores teóricos")+
   ylab("Valores observados")
+
+
+df <- data.frame(y = rnorm(2000))
+b <- ggplot(df, aes(sample = y))+ 
+  stat_qq() + 
+  stat_qq_line(colour="red")
+
+grid.arrange(a,b,ncol=2)
 ```
+
+***
+
 
 \subsubsection{La distribución normal}
 
