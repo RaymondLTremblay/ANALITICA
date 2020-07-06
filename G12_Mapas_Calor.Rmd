@@ -23,17 +23,14 @@ colorize <- function(x, color) {
 #`r colorize("some words in red", "red")`
 ```
 
-## La lista de packetes para analisis de los supuestos
+## La lista de packetes para analisis de los Mapas de calor
 
 ```{r}
 library(ggversa)
-library(knitr)
 library(GGally)
 library(tidyverse)
 library(kableExtra)
 library(reshape2)
-library(ggcorrplot)
-library(gridExtra)
 
 ```
 

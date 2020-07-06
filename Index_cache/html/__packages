@@ -38,3 +38,9 @@ gplots
 effects
 caret
 scales
+lubridate
+knitr
+GGally
+kableExtra
+reshape2
+ggcorrplot

@@ -71,6 +71,9 @@ navbar:
         -
           href: G11_EVALUANDO_SUPUESTOS.html
           text: "Evaluando Supuestos"
+        -   
+          href: G12_Mapas_Calor.html
+          text: "Mapas de Calor"
       text: "Visualización"
     - 
       menu: 
