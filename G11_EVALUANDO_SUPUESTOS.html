@@ -594,6 +594,7 @@ qplot(sample = BecasaDeMar$mgconsumed, stat=&quot;qq&quot;)+
    xlab(&quot;Valores teóricos&quot;)+
    ylab(&quot;Valores observados&quot;)</code></pre>
 <p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Becasaqqplot2-1.png" width="672" /></p>
+<hr />
 </div>
 <div id="geom_qq-y-geom_qq_line" class="section level2">
 <h2>geom_qq y geom_qq_line</h2>
@@ -612,43 +613,54 @@ b &lt;- ggplot(df, aes(sample = y))+
 
 grid.arrange(a,b,ncol=2)</code></pre>
 <p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Becasaqqplot3-1.png" width="672" /></p>
-
-<p>Una segunda alternativa para visualizar si los datos siguen una distribución normal es construir un histograma de los datos y graficar sobre este la curva normal basándonos en el promedio y la desviación estándar de los mismos datos. Para construir el histograma se usa la función geom_histogram y para la distribución normal se usa la función stat_function. Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde se representa la razón de consumo y el período en que esto ocurrió. En la Figura (a) vemos la distribución para todos los períodos, y los otros tres en la Figura (b) muestran una distribución para cada uno de los períodos. Se observa en todos los casos que las distribuciones están sesgadas hacia los valores pequeños (hacia la izquierda). Esta visualización nos ayuda a evaluar la normalidad de esos datos.</p>
-<p>Note que en geom_histogram se tiene que incluir</p>
-
-<p>y añadir dentro de la función stat_function todo lo siguiente:</p>
-
-<p>El parámetro  quiere decir . También se necesitan dos parámetros para calcular el promedio () y la desviación estándar (). Con ambos hay que especificar de dónde provenen los datos; en este caso,</p>
-
-<p>Además, si hay NA en los datos, hay que añadir . Veamos.</p>
-<pre class="r"><code>ggplot(Godwits, aes(mgconsumed)) +
+<hr />
+</div>
+<div id="la-distribución-normal" class="section level2">
+<h2>La distribución normal</h2>
+<p>Una segunda alternativa para visualizar si los datos siguen una distribución normal es construir un histograma de los datos y gráficar sobre este la curva normal basándonos en el promedio y la desviación estándar de los mismos datos. Para construir el histograma se usa la función <strong>geom_histogram</strong> y para la distribución teorica normal de estos datos se usa la función <strong>stat_function</strong>. Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde se representa la razón de consumo y el período en que esto ocurrió. En la Figura (a) vemos la distribución para todos los períodos, y los otros tres en la Figura (b) muestran una distribución para cada uno de los períodos. Se observa en todos los casos que las distribuciones están sesgadas hacia los valores pequeños (hacia la izquierda). Esta visualización nos ayuda a evaluar la normalidad de esos datos. NOta que no es una prueba estadística igual como el gráfico de qqplot</p>
+<p>Note que en <strong>geom_histogram</strong> se tiene que incluir</p>
+<p><strong>aes(..density..)</strong></p>
+<p>y añadir dentro de la función <strong>stat_function</strong> todo lo siguiente:</p>
+<p>stat_function(fun = dnorm, args = list(mean = mean(Godwits<span class="math inline">\(mgconsumed,  na.rm = TRUE),  sd = sd(Godwits\)</span>mgconsumed, na.rm = TRUE)), colour = “red”, size = 1.)</p>
+<p>El parámetro <strong>dnorm</strong> quiere decir densidad de la distribución normal. También se necesitan dos parámetros para calcular el promedio (mean) y la desviación estándar (sd). Con ambos hay que especificar de dónde provienen los datos; en este caso,</p>
+<p><strong>Godwits$mgconsumed</strong></p>
+<p>Además, si hay NA en los datos, hay que añadir <strong>na.rm = TRUE</strong> para excluir los <strong>NA</strong>. Veamos.</p>
+<pre class="r"><code>a=ggplot(Godwits, aes(mgconsumed)) +
   theme(legend.position = &quot;none&quot;) +
   geom_histogram(aes(y=..density..),
                  colour=&quot;black&quot;, fill=&quot;white&quot;)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text = element_text(size=20,face=&quot;bold&quot;))+
+  theme(axis.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text = element_text(size=12,face=&quot;bold&quot;))+
   labs(x = &quot;Razón de Consumo&quot;, y = &quot;Densidad&quot;) +
   stat_function(fun = dnorm,
         args = list(mean = mean(Godwits$mgconsumed,
                                 na.rm = TRUE),
     sd = sd(Godwits$mgconsumed,na.rm = TRUE)),
-    colour = &quot;red&quot;, size = 1)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(Godwits, aes(mgconsumed)) +
+    colour = &quot;red&quot;, size = 1)
+
+
+
+
+
+b= ggplot(Godwits, aes(mgconsumed)) +
   theme(legend.position = &quot;none&quot;) +
   geom_histogram(aes(y=..density..),
                  colour=&quot;black&quot;, fill=&quot;white&quot;)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text = element_text(size=20,face=&quot;bold&quot;))+
+  theme(axis.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text = element_text(size=12,face=&quot;bold&quot;))+
   labs(x = &quot;Razón de Consumo&quot;, y = &quot;Densidad&quot;) +
   stat_function(fun = dnorm, args = list(mean =
     mean(Godwits$mgconsumed, na.rm = TRUE),
     sd = sd(Godwits$mgconsumed, na.rm = TRUE)),
     colour = &quot;red&quot;, size = 1)+
-    facet_wrap(~PERIOD)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density-2.png" width="672" /></p>
+    facet_wrap(~PERIOD)
 
-<p>Continuaremos con este mismo análisis pero esta vez evaluaremos la distribución del peso de gorriones en un trabajo de captura y recaptura en 6 meses diferentes. Utilizaremos la base de datos . En la Figura (a) observamos un histograma de la distribución de los pesos de estas aves por cada mes. Vemos claramente que hay meses (mayo, septiembre y octubre) en los que se tuvieron muchas menos observaciones. En el segundo gráfico, Figura (b), observamos el histograma y la curva normal para todos los datos sin importar el mes. Igualmente, esta visualización nos ayuda a evaluar la normalidad de los datos. </p>
+grid.arrange(a,b,ncol=1)</code></pre>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density-1.png" width="672" /> ***</p>
+</div>
+<div id="stat_function" class="section level2">
+<h2>stat_function</h2>
+<p>Continuaremos con este mismo análisis pero esta vez evaluaremos la distribución del peso de gorriones en un trabajo de captura y recaptura en 6 meses diferentes. Utilizaremos la base de datos <strong>SparrowsElphick</strong>. En la figura (a) observamos un histograma de la distribución de los pesos de estas aves por cada mes. Vemos claramente que hay meses (mayo, septiembre y octubre) en los que se tuvieron muchas menos observaciones. En el segundo gráfico, Figura (b), observamos el histograma y la curva normal para todos los datos sin importar el mes. Igualmente, esta visualización nos ayuda a evaluar la normalidad de los datos.</p>
 <pre class="r"><code>Sparrows=SparrowsElphick
 
 Sparrows$fMonth&lt;-factor(Sparrows$Month,
@@ -656,62 +668,67 @@ Sparrows$fMonth&lt;-factor(Sparrows$Month,
              labels = c(&quot;Mayo&quot;, &quot;Junio&quot;, &quot;Julio&quot;, &quot;Agosto&quot;,
                                    &quot;Sept.&quot;, &quot;Oct.&quot;))
 
-ggplot(Sparrows, aes(wt))+
+a=ggplot(Sparrows, aes(wt))+
   geom_histogram(binwidth=1, colour=&quot;white&quot;)+
   facet_wrap(~fMonth)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text = element_text(size=20,face=&quot;bold&quot;))+
+  theme(axis.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text = element_text(size=12,face=&quot;bold&quot;))+
   xlab(&quot;Peso&quot;)+
-  ylab(&quot;Frecuencia&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density3-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(Sparrows, aes(wt)) +
+  ylab(&quot;Frecuencia&quot;)
+
+b=ggplot(Sparrows, aes(wt)) +
   theme(legend.position = &quot;none&quot;)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text = element_text(size=20,face=&quot;bold&quot;))+
+  theme(axis.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text = element_text(size=12,face=&quot;bold&quot;))+
   geom_histogram(aes(y=..density..), colour=&quot;black&quot;,
                  fill=&quot;white&quot;) +
   labs(x = &quot;Peso&quot;, y = &quot;Densidad&quot;) +
   stat_function(fun = dnorm, args = list(mean =
       mean(Sparrows$wt, na.rm = TRUE),
       sd = sd(Sparrows$wt, na.rm = TRUE)),
-      colour = &quot;red&quot;, size = 1)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density3-2.png" width="672" /></p>
-<div id="section" class="section level5">
-<h5></h5>
+      colour = &quot;red&quot;, size = 1)
 
-<p>A continuación se muestra otra alternativa en la Figura  para observar los datos anteriores. Nada más que estos ahora se representan sustituyendo las funciones geom_histogram y stat_function por geom_density para la construcción de curvas de densidad. Otra vez utilizaremos la base de datos . La curva normal que se genera es tipo gausiana (o  en inglés). Nótese que para el segundo conjunto de gráficos, Figura (b), no se le especificó la opción en  igual a  ya que de forma predeterminada la función geom_density usa el parámetro ; o sea, no es necesario especificarla si eso es lo que se quiere. Una distribución en donde el pico es más alto significa que hay mayor densidad de datos en esa región de la variable en el eje de . Podemos apreciar que la curva de densidad no sigue claramente una distribución normal con respecto a los valores en . </p>
+grid.arrange(a,b,ncol=2)</code></pre>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density3-1.png" width="672" /> ***</p>
+</div>
+<div id="visualizando-la-distribuciones-con-geom_density" class="section level2">
+<h2>Visualizando la distribuciones con <strong>geom_density</strong></h2>
+<p>A continuación se muestra otra alternativa para observar los datos anteriores. Nada más que estos ahora se representan sustituyendo las funciones <strong>geom_histogram</strong> y <strong>stat_function</strong> por <strong>geom_density</strong> para la construcción de curvas de densidad. Otra vez utilizaremos la base de datos <strong>SparrowsElphick</strong>. La curva normal que se genera es tipo gausiana (gaussian en inglés). Nóte que para el segundo conjunto de gráficos, (b), no se le especificó la opción en <strong>kernel</strong> igual a <strong>gaussian</strong> ya que de forma predeterminada la función <strong>geom_density</strong> usa el parámetro <strong>gaussian</strong>; o sea, no es necesario especificarla si eso es lo que se quiere. Una distribución en donde el pico es más alto significa que hay mayor densidad de datos en esa región de la variable en el eje de <strong>X</strong>. Podemos apreciar que la curva de densidad no sigue claramente una distribución normal con respecto a los valores en <strong>X</strong>.</p>
 <pre class="r"><code># Note que anteriormente ya habíamos depositado los datos en el data.frame Sparrows:
-ggplot(Sparrows, aes(wt))+
+a= ggplot(Sparrows, aes(wt))+
 geom_density(aes(group=fMonth, fill=fMonth),
              kernel=&quot;gaussian&quot;)+
   facet_wrap(~fMonth)+
   guides(fill=FALSE)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text=element_text(size=20, face=&quot;bold&quot;))+
+  theme(axis.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text=element_text(size=12, face=&quot;bold&quot;))+
   ylab(&quot;Densidad&quot;)+
-  xlab(&quot;Peso&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density4-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(Sparrows, aes(wt))+
+  xlab(&quot;Peso&quot;)
+
+b= ggplot(Sparrows, aes(wt))+
   geom_density(aes(group=fMonth,
-                   fill=fMonth,
-                   colour=fMonth),
+                   fill=fMonth),
                alpha=.4)+
   scale_color_discrete()+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text=element_text(size=20, face=&quot;bold&quot;))+
+  theme(axis.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text=element_text(size=12, face=&quot;bold&quot;))+
   ylab(&quot;Densidad&quot;)+
   xlab(&quot;Peso&quot;)+
-  labs(colour=&quot;Mes&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density4-2.png" width="672" /></p>
+  labs(colour=&quot;Mes&quot;)
 
-<p>Hoy en día la cantidad de datos que se obtienen en diferentes estudios puede ser muy impresionante. Muchas veces el objetivo es detectar si unas variables, entre muchas otras, podrían predecir la variable de respuesta. A consecuencia de eso, el problema mayor es tomar en cuenta la colinealidad entre variables explicativas. La colinealidad es simplemente la correlación entre variables en un modelo de análisis de regresión múltiple, en donde las variables predictivas están altamente correlacionadas. </p>
+grid.arrange(a,b,ncol=1)</code></pre>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density4-1.png" width="672" /> ***</p>
+</div>
+<div id="colinealidad-entre-covariables-con-ggpairs" class="section level2">
+<h2>Colinealidad entre covariables con <strong>ggpairs</strong></h2>
+<p>Hoy en día la cantidad de datos que se obtienen en diferentes estudios puede ser muy impresionante. Muchas veces el objetivo es detectar si unas variables, entre muchas otras, podrían predecir la variable de respuesta. A consecuencia de eso, el problema mayor es tomar en cuenta la colinealidad entre variables explicativas. La colinealidad es simplemente la correlación entre variables en un modelo de análisis de regresión múltiple, en donde las variables predictivas están altamente correlacionadas.</p>
 <p>Un ejemplo sencillo de variables con colinealidad podría incluir la relación entre el largo y ancho de las hojas de una herbácea y cómo estas están correlacionadas con la producción de flores. Es probable que la correlación entre el largo y el ancho de la hoja estén correlacionadas con la producción de las flores de formas muy similares; o sea, con una pendiente que explicaría ambas relaciones de formas similares. Entonces, al añadir ambas variables al modelo de regresión múltiple, no estaríamos explicando variaciones distintas, si no más bien la misma variación. Cuando hay mucha colinealidad entre variables explicativas, se debería seleccionar un subgrupo de estas variables que expliquen variaciones distintas para el modelo y no incluir todas las variables.</p>
-<p>A continuación exploraremos diferentes alternativas para llevar a cabo este tipo de análisis utilizando otra vez los datos de la orquídea . En el primer ejemplo, se utiliza la función  para evaluar solo una relación: la correlación entre la distancia de la planta a un árbol y la altura de la planta, dejando otras variables a un lado. Como deseamos el estimado de la correlación solamente, utilizamos un par de variables a la vez para evaluar la correlación entre la distancia de la orquídea al árbol y la altura de la inflorescencia (mostrado más adelante). Concluimos que a mayor distancia del árbol, menor es la altura de la inflorescencia al este análisis arrojar un valor de pendiente de -0.095 como se muetra en el Ejemplo . </p>
+<p>A continuación exploraremos diferentes alternativas para llevar a cabo este tipo de análisis utilizando otra vez los datos de la orquídea <em>Dipodium</em>. En el primer ejemplo, se utiliza la función <strong>cor</strong> para evaluar solo una relación: la correlación entre la distancia de la planta a un árbol y la altura de la planta, dejando otras variables a un lado. Como deseamos el estimado de la correlación solamente, utilizamos un par de variables a la vez para evaluar la correlación entre la distancia de la orquídea al árbol y la altura de la inflorescencia (mostrado más adelante). Concluimos que a mayor distancia del árbol, menor es la altura de la inflorescencia al este análisis arrojar un valor de pendiente de -0.095 como se muestra en el ejemplo.</p>
 <pre class="r"><code>cor(dipodium$Distance, 
     dipodium$Height_Inflo,
     use=&quot;pairwise.complete.obs&quot;)</code></pre>
 <pre><code>## [1] -0.09541256</code></pre>
-<p>Otra alternativa es hacer el análisis de correlación de muchas variables en conjunto. En la Tabla , , se muestra la correlación entre las tres variables siguientes: DBH, cantidad de flores y altura de la inflorescencia. En esa tabla se observa la correlación de Pearson para estos datos. Recordemos que esta correlación asume distribución normal.</p>
+<p>Otra alternativa es hacer el análisis de correlación de muchas variables en conjunto. En la tabla, <strong>Correlaciones de Pearson</strong>, se muestra la correlación entre las tres variables siguientes: DBH, cantidad de flores y altura de la inflorescencia. En esa tabla se observa la correlación de Pearson para estos datos. Recordemos que esta correlación asume distribución normal.</p>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  use=&quot;pairwise.complete.obs&quot;),2))</code></pre>
 <table>
@@ -775,7 +792,10 @@ Height_Inflo
 </tr>
 </tbody>
 </table>
-<p>Usando la función  se pueden también calcular estimados de correlación sin asumir distribución normal usando los métodos  o  mostrados en la Tabla , , y Tabla , , respectivamente.  </p>
+<hr />
+<div id="tabla-de-correlacion-de-kendall" class="section level3">
+<h3>Tabla de correlacion de Kendall</h3>
+<p>Usando la función <strong>cor</strong> se puede también calcular estimados de correlación sin asumir distribución normal usando los métodos <strong>Kendall</strong> o <strong>Spearman</strong> mostrados en la Tabla siguiente.</p>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  method=&quot;kendall&quot;,
  use=&quot;pairwise.complete.obs&quot;),2), 
@@ -845,6 +865,9 @@ Height_Inflo
 </tr>
 </tbody>
 </table>
+</div>
+<div id="tabla-de-correlación-de-spearman" class="section level3">
+<h3>Tabla de correlación de Spearman</h3>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  method=&quot;spearman&quot;,
  use=&quot;pairwise.complete.obs&quot;),2))</code></pre>

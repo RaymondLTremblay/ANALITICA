@@ -236,44 +236,40 @@ grid.arrange(a,b,ncol=2)
 
 ***
 
+## La distribución normal
 
-\subsubsection{La distribución normal}
+Una segunda alternativa para visualizar si los datos siguen una distribución normal es construir un histograma de los datos y gráficar sobre este la curva normal basándonos en el promedio y la desviación estándar de los mismos datos.  Para construir el histograma se usa la función **geom_histogram** y para la  distribución teorica normal de estos datos se usa la función **stat_function**.  Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde se representa la razón de consumo y el período en que esto ocurrió. En la Figura (a) vemos la distribución para todos los períodos, y los otros tres en la Figura (b) muestran una distribución para cada uno de los períodos.  Se observa en todos los casos que las distribuciones están sesgadas hacia los valores pequeños (hacia la izquierda).  Esta visualización nos ayuda a evaluar la normalidad de esos datos. NOta que no es una prueba estadística igual como el gráfico de qqplot
 
-Una segunda alternativa para visualizar si los datos siguen una distribución normal es construir un histograma de los datos y graficar sobre este la curva normal basándonos en el promedio y la desviación estándar de los mismos datos.  Para construir el histograma se usa la función geom\_histogram y para la distribución normal se usa la función stat\_function.  Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde se representa la razón de consumo y el período en que esto ocurrió. En la Figura \ref{fig:density}(a) vemos la distribución para todos los períodos, y los otros tres en la Figura \ref{fig:density}(b) muestran una distribución para cada uno de los períodos.  Se observa en todos los casos que las distribuciones están sesgadas hacia los valores pequeños (hacia la izquierda).  Esta visualización nos ayuda a evaluar la normalidad de esos datos.
+Note que en **geom_histogram** se tiene que incluir 
 
-Note que en geom\_histogram se tiene que incluir 
+  **aes(..density..)** 
 
-\begin{verbatim} 
-  aes(..density..) 
-\end{verbatim} 
 
-y añadir dentro de la función stat\_function todo lo siguiente: 
+y añadir dentro de la función **stat_function** todo lo siguiente: 
 
-\begin{verbatim} 
   stat_function(fun = dnorm,
         args = list(mean = mean(Godwits$mgconsumed,
                                 na.rm = TRUE),
     sd = sd(Godwits$mgconsumed,
             na.rm = TRUE)),
             colour = "red", size = 1.)
-\end{verbatim}
 
-El parámetro \say{dnorm} quiere decir \say{distribución normal}.  También se necesitan dos parámetros para calcular el promedio (\say{mean}) y la desviación estándar (\say{sd}).  Con ambos hay que especificar de dónde provenen los datos; en este caso, 
 
-\begin{verbatim} 
-  Godwits$mgconsumed
-\end{verbatim}  
+El parámetro **dnorm** quiere decir densidad de la distribución normal.  También se necesitan dos parámetros para calcular el promedio (mean) y la desviación estándar (sd).  Con ambos hay que especificar de dónde provienen los datos; en este caso, 
 
-Además, si hay NA en los datos, hay que añadir \say{na.rm = TRUE}.  Veamos.
+  **Godwits$mgconsumed**
+ 
+
+Además, si hay NA en los datos, hay que añadir **na.rm = TRUE** para excluir los **NA**.  Veamos.
 
 ```{r density, message=FALSE}
 
-ggplot(Godwits, aes(mgconsumed)) +
+a=ggplot(Godwits, aes(mgconsumed)) +
   theme(legend.position = "none") +
   geom_histogram(aes(y=..density..),
                  colour="black", fill="white")+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text = element_text(size=20,face="bold"))+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text = element_text(size=12,face="bold"))+
   labs(x = "Razón de Consumo", y = "Densidad") +
   stat_function(fun = dnorm,
         args = list(mean = mean(Godwits$mgconsumed,
@@ -285,12 +281,12 @@ ggplot(Godwits, aes(mgconsumed)) +
 
 
 
-ggplot(Godwits, aes(mgconsumed)) +
+b= ggplot(Godwits, aes(mgconsumed)) +
   theme(legend.position = "none") +
   geom_histogram(aes(y=..density..),
                  colour="black", fill="white")+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text = element_text(size=20,face="bold"))+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text = element_text(size=12,face="bold"))+
   labs(x = "Razón de Consumo", y = "Densidad") +
   stat_function(fun = dnorm, args = list(mean =
     mean(Godwits$mgconsumed, na.rm = TRUE),
@@ -298,11 +294,13 @@ ggplot(Godwits, aes(mgconsumed)) +
     colour = "red", size = 1)+
     facet_wrap(~PERIOD)
 
+grid.arrange(a,b,ncol=1)
 ```
+***
 
-\subsubsection{stat\_function}
+## stat_function 
 
-Continuaremos con este mismo análisis pero esta vez evaluaremos la distribución del peso de gorriones en un trabajo de captura y recaptura en 6 meses diferentes.  Utilizaremos la base de datos \emph{SparrowsElphick}.  En la Figura \ref{fig:density3}(a) observamos un  histograma de la distribución de los pesos de estas aves por cada mes. Vemos claramente que hay meses (mayo, septiembre y octubre) en los que se tuvieron muchas menos observaciones.  En el segundo gráfico, Figura \ref{fig:density3}(b), observamos el histograma y la curva normal para todos los datos sin importar el mes. Igualmente, esta visualización nos ayuda a evaluar la normalidad de los datos. \index{stat\_function}
+Continuaremos con este mismo análisis pero esta vez evaluaremos la distribución del peso de gorriones en un trabajo de captura y recaptura en 6 meses diferentes.  Utilizaremos la base de datos **SparrowsElphick**.  En la figura (a) observamos un histograma de la distribución de los pesos de estas aves por cada mes. Vemos claramente que hay meses (mayo, septiembre y octubre) en los que se tuvieron muchas menos observaciones.  En el segundo gráfico, Figura (b), observamos el histograma y la curva normal para todos los datos sin importar el mes. Igualmente, esta visualización nos ayuda a evaluar la normalidad de los datos. 
 
 ```{r density3}
 
@@ -313,18 +311,18 @@ Sparrows$fMonth<-factor(Sparrows$Month,
              labels = c("Mayo", "Junio", "Julio", "Agosto",
                                    "Sept.", "Oct."))
 
-ggplot(Sparrows, aes(wt))+
+a=ggplot(Sparrows, aes(wt))+
   geom_histogram(binwidth=1, colour="white")+
   facet_wrap(~fMonth)+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text = element_text(size=20,face="bold"))+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text = element_text(size=12,face="bold"))+
   xlab("Peso")+
   ylab("Frecuencia")
 
-ggplot(Sparrows, aes(wt)) +
+b=ggplot(Sparrows, aes(wt)) +
   theme(legend.position = "none")+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text = element_text(size=20,face="bold"))+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text = element_text(size=12,face="bold"))+
   geom_histogram(aes(y=..density..), colour="black",
                  fill="white") +
   labs(x = "Peso", y = "Densidad") +
@@ -332,49 +330,51 @@ ggplot(Sparrows, aes(wt)) +
       mean(Sparrows$wt, na.rm = TRUE),
       sd = sd(Sparrows$wt, na.rm = TRUE)),
       colour = "red", size = 1)
+
+grid.arrange(a,b,ncol=2)
 ```
+***
 
+## Visualizando la distribuciones con **geom_density**
 
-#####
-
-
-\subsubsection{geom\_density}
-
-A continuación se muestra otra alternativa en la Figura \ref{fig:density4} para observar los datos anteriores.  Nada más que estos ahora se representan sustituyendo las funciones geom\_histogram y stat\_function por geom\_density para la construcción de curvas de densidad.  Otra vez utilizaremos la base de datos \emph{SparrowsElphick}.  La curva normal que se genera es tipo gausiana (o \say{gaussian} en inglés). Nótese que para el segundo conjunto de gráficos, Figura \ref{fig:density4}(b),  no se le especificó la opción en \say{kernel} igual a \say{gaussian} ya que de forma predeterminada la función geom\_density usa el parámetro \say{gaussian}; o sea, no es necesario especificarla si eso es lo que se quiere. Una distribución en donde el pico es más alto significa que hay mayor densidad de datos en esa región de la variable en el eje de \say{X}. Podemos apreciar que la curva de densidad no sigue claramente una distribución normal con respecto a los valores en \say{X}. \index{geom\_density}
+A continuación se muestra otra alternativa para observar los datos anteriores.  Nada más que estos ahora se representan sustituyendo las funciones **geom_histogram** y **stat_function** por **geom_density** para la construcción de curvas de densidad.  Otra vez utilizaremos la base de datos **SparrowsElphick**.  La curva normal que se genera es tipo gausiana (gaussian en inglés). Nóte que para el segundo conjunto de gráficos, (b), no se le especificó la opción en **kernel** igual a **gaussian** ya que de forma predeterminada la función **geom_density** usa el parámetro **gaussian**; o sea, no es necesario especificarla si eso es lo que se quiere. Una distribución en donde el pico es más alto significa que hay mayor densidad de datos en esa región de la variable en el eje de **X**. Podemos apreciar que la curva de densidad no sigue claramente una distribución normal con respecto a los valores en **X**.
 
 ```{r density4}
 
 # Note que anteriormente ya habíamos depositado los datos en el data.frame Sparrows:
-ggplot(Sparrows, aes(wt))+
+a= ggplot(Sparrows, aes(wt))+
 geom_density(aes(group=fMonth, fill=fMonth),
              kernel="gaussian")+
   facet_wrap(~fMonth)+
   guides(fill=FALSE)+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text=element_text(size=20, face="bold"))+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text=element_text(size=12, face="bold"))+
   ylab("Densidad")+
   xlab("Peso")
 
-ggplot(Sparrows, aes(wt))+
+b= ggplot(Sparrows, aes(wt))+
   geom_density(aes(group=fMonth,
-                   fill=fMonth,
-                   colour=fMonth),
+                   fill=fMonth),
                alpha=.4)+
   scale_color_discrete()+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text=element_text(size=20, face="bold"))+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text=element_text(size=12, face="bold"))+
   ylab("Densidad")+
   xlab("Peso")+
   labs(colour="Mes")
+
+grid.arrange(a,b,ncol=1)
 ```
+***
 
-\subsection{Colinealidad entre covariables con ggpairs}
 
-Hoy en día la cantidad de datos que se obtienen en diferentes estudios puede ser muy impresionante. Muchas veces el objetivo es detectar si unas variables, entre muchas otras, podrían predecir la variable de respuesta.  A consecuencia de eso, el problema mayor es tomar en cuenta la colinealidad entre variables explicativas.  La colinealidad es simplemente la correlación entre variables en un modelo de análisis de regresión múltiple, en donde las variables predictivas están altamente correlacionadas.  \index{ggpairs}
+## Colinealidad entre covariables con **ggpairs**
+
+Hoy en día la cantidad de datos que se obtienen en diferentes estudios puede ser muy impresionante. Muchas veces el objetivo es detectar si unas variables, entre muchas otras, podrían predecir la variable de respuesta.  A consecuencia de eso, el problema mayor es tomar en cuenta la colinealidad entre variables explicativas.  La colinealidad es simplemente la correlación entre variables en un modelo de análisis de regresión múltiple, en donde las variables predictivas están altamente correlacionadas.
 
 Un ejemplo sencillo de variables con colinealidad podría incluir la relación entre el largo y ancho de las hojas de una herbácea y cómo estas están correlacionadas con la producción de flores. Es probable que la correlación entre el largo y el ancho de la hoja estén correlacionadas con la producción de las flores de formas muy similares; o sea, con una pendiente que explicaría ambas relaciones de formas similares. Entonces, al añadir ambas variables al modelo de regresión múltiple, no estaríamos explicando variaciones distintas, si no más bien la misma variación. Cuando hay mucha colinealidad entre variables explicativas, se debería seleccionar un subgrupo de estas variables que expliquen variaciones distintas para el modelo y no incluir todas las variables.
 
-A continuación exploraremos diferentes alternativas para llevar a cabo este tipo de análisis utilizando otra vez los datos de la orquídea \emph{Dipodium}.  En el primer ejemplo, se utiliza la función \say{cor} para evaluar solo una relación: la correlación entre la distancia de la planta a un árbol y la altura de la planta, dejando otras variables a un lado.  Como deseamos el estimado de la correlación solamente, utilizamos un par de variables a la vez para evaluar la correlación entre la distancia de la orquídea al árbol y la altura de la inflorescencia (mostrado más adelante).  Concluimos que a mayor distancia del árbol, menor es la altura de la inflorescencia al este análisis arrojar un valor de pendiente de -0.095 como se muetra en el Ejemplo \ref{correlation1}. \index{Correlaciones de Spearman}
+A continuación exploraremos diferentes alternativas para llevar a cabo este tipo de análisis utilizando otra vez los datos de la orquídea *Dipodium*.  En el primer ejemplo, se utiliza la función **cor** para evaluar solo una relación: la correlación entre la distancia de la planta a un árbol y la altura de la planta, dejando otras variables a un lado.  Como deseamos el estimado de la correlación solamente, utilizamos un par de variables a la vez para evaluar la correlación entre la distancia de la orquídea al árbol y la altura de la inflorescencia (mostrado más adelante).  Concluimos que a mayor distancia del árbol, menor es la altura de la inflorescencia al este análisis arrojar un valor de pendiente de -0.095 como se muestra en el ejemplo.
 
 ```{r correlation1, rexample=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 cor(dipodium$Distance, 
@@ -382,15 +382,18 @@ cor(dipodium$Distance,
     use="pairwise.complete.obs")
 ```
 
-Otra alternativa es hacer el análisis de correlación de muchas variables en conjunto.  En la Tabla \ref{fig:CP}, \say{Correlaciones de Pearson}, se muestra la correlación entre las tres variables siguientes: DBH, cantidad de flores y altura de la inflorescencia.  En esa tabla se observa la correlación de Pearson para estos datos. Recordemos que esta correlación asume distribución normal. 
+Otra alternativa es hacer el análisis de correlación de muchas variables en conjunto.  En la tabla, **Correlaciones de Pearson**, se muestra la correlación entre las tres variables siguientes: DBH, cantidad de flores y altura de la inflorescencia.  En esa tabla se observa la correlación de Pearson para estos datos. Recordemos que esta correlación asume distribución normal. 
 
 ```{r correlation2}
 
 kable(signif(cor(dipodium[,c(3, 8, 9)],
  use="pairwise.complete.obs"),2))
 ```
+***
 
-Usando la función \say{cor} se pueden también calcular estimados de correlación sin asumir distribución normal usando los métodos \say{Kendall} o \say{Spearman} mostrados en la Tabla \ref{fig:CK}, \say{Correlaciones de Kendall}, y Tabla \ref{fig:CS}, \say{Correlaciones de Spearman}, respectivamente. \index{geom\_density} \index{Correlaciones de Kendall}
+### Tabla de correlación de Kendall
+
+Usando la función **cor** se puede también calcular estimados de correlación sin asumir distribución normal usando los métodos **Kendall** o **Spearman** mostrados en la Tabla siguiente. 
 
 ```{r correlation3}
 kable(signif(cor(dipodium[,c(3, 8, 9)],
@@ -399,25 +402,29 @@ kable(signif(cor(dipodium[,c(3, 8, 9)],
  caption =
   "\\label{fig:CK}Correlaciones de Kendall")
 ```
-
+### Tabla de correlación de Spearman 
 ```{r correlation4}
 
 kable(signif(cor(dipodium[,c(3, 8, 9)],
  method="spearman",
- use="pairwise.complete.obs"),2))
+ use="pairwise.complete.obs"),1))
 ```
 
-En esas tres tablas podemos apreciar un patrón consistente entre todos los métodos; o sea, la altura de la inflorescencia está altamente correlacionada con la cantidad de flores (con coeficientes de correlación de 0.82, 0.65, y 0.81 respectivamente).  Note que para facilitar la lectura de los valores, se usó la función \say{signif} para así identificar solamente los valores significativos del análisis. 
-
-Brevemente recapitulamos, si los datos no siguen una distribución normal, se deberían utilizar los métodos Kendall o Spearman.  Si se tienen pocos datos,  Kendall tiende a ser una mejor alternativa para determinar el indice de correlación.  Se le advierte, sin embargo, que consulte libros de estadística sobre este tema antes que realice un análisis de este tipo ya que la decisión de seleccionar una alternativa sobre otra no es tan sencilla. \index{Correlaciones de Spearman} \index{Correlaciones de Kendall}
 
 
+En esas tres tablas podemos apreciar un patrón consistente entre todos los métodos; o sea, la altura de la inflorescencia está altamente correlacionada con la cantidad de flores (con coeficientes de correlación de 0.82, 0.65, y 0.81 respectivamente).  Note que para facilitar la lectura de los valores, se usó la función **signif** para así identificar solamente los valores significativos del análisis. 
 
-Además, los métodos utilizados emplearon el parámetro \say{pairwise.complete.obs}, ya que obviaría los \say{NA} en las columnas que se utilizan para calcular la correlación. Por lo tanto, la cantidad de pares de datos utilizados para calcular las diferentes correlaciones entre variables puede variar si hay \say{NA} en el archivo.  Tome en consideración que hay otras cuatro alternativas para analizar los datos cuando tenemos \say{NA} presentes: \say{everything}, \say{all.obs}, \say{complete.obs} y \say{na.or.complete}.  No vamos a discutir esas alternativas en el presente libro.  Sería bueno que busque información en R para sus usos. 
+Brevemente recapitulamos, si los datos no siguen una distribución normal, se deberían utilizar los métodos Kendall o Spearman.  Si se tienen pocos datos,  Kendall tiende a ser una mejor alternativa para determinar el indice de correlación.  Se le advierte, sin embargo, que consulte libros de estadística sobre este tema antes que realice un análisis de este tipo ya que la decisión de seleccionar una alternativa sobre otra no es tan sencilla. 
 
-Finalmente, también se utilizó el comando \say{kable} ya que es una manera efectiva de organizar los resultados en una tabla.
 
-\subsubsection{Uso de GGally}
+## Seleción de parametros pra correlaciones cuando hay NA
+
+
+Además, los analísis anteriores utilizados emplearon el parámetro **pairwise.complete.obs**, ya que obviaría los **NA** en las columnas que se utilizan para calcular la correlación. Por lo tanto, la cantidad de pares de datos utilizados para calcular las diferentes correlaciones entre variables puede variar si hay **NA** en el archivo.  Tome en consideración que hay otras cuatro alternativas para analizar los datos cuando tenemos **NA** presentes: **everything**, **all.obs**, **complete.obs** y **na.or.complete**.  No vamos a discutir esas alternativas en el presente libro.  Sería bueno que busque información en R para sus usos. Estas alternativas se discutiran en otros modulos.  
+
+Finalmente, también se utilizó el comando **kable** ya que es una manera efectiva de organizar los resultados en una tabla.
+
+## Uso de GGally para ver correlaciones
 
 Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar la librería \say{GGally}, ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas. \index{GGally}
 
