@@ -68,6 +68,9 @@ navbar:
           href: G10_Facet_wrap.html
           text: "Facet Wrap"
           
+        -
+          href: G11_EVALUANDO_SUPUESTOS.html
+          text: "Evaluando Supuestos"
       text: "Visualización"
     - 
       menu: 

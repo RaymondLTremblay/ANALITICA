@@ -1,0 +1,175 @@
+---
+title: "G12_Mapas_Calor"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
+
+## La lista de packetes para analisis de los supuestos
+
+```{r}
+library(ggversa)
+library(knitr)
+library(GGally)
+library(tidyverse)
+library(kableExtra)
+library(reshape2)
+library(ggcorrplot)
+library(gridExtra)
+
+```
+
+
+
+
+
+## Mapas de calor o mapas críticos o Heat Maps con **geom_tile**
+
+Cuando hay muchas variables en el análisis, a veces podría ser más fácil observar las diferencias entre ellas usando colores en vez de números; por ejemplo, para visualizar los coeficientes de correlación entre pares de variables continuas. Un mapa de calor (heat map en inglés) nos puede ayudar pues justamente es una visualización con gradientes de colores de valores continuos.  Continuaremos utilizando la base de datos de la orquídea *Dipodium* para explicar los tres pasos para construir un mapa de calor de los coeficientes de correlación. 
+
+
+Primero, necesitamos calcular los coeficientes de correlación con la opción **cor**. Luego visualizaremos los datos con la función **kable**.
+
+```{r heatmap data1, message=FALSE}
+
+DWCor=round(cor(dipodium[c(3, 6, 8, 9, 13)],
+                use="pairwise.complete.obs"),3)
+
+kable(DWCor) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, font_size = 10) 
+ 
+
+
+
+```
+
+
+Segundo, reorganizaremos los datos en un data.frame usando la librería **reshape2** y la opción **melt**. En nuestro caso, lo que queremos es producir un data.frame con solo dos columnas con las variables en pares con su respectivo valor de correlación. En el nuevo data.frame, **DWMelt**, vemos tres columnas cada una representando las variables y la última con el valor de correlación.
+
+## Matriz de correlaciones
+
+```{r heatmap data2, message=FALSE}
+
+
+DWMelt= melt(DWCor, varnames= c("x1", "y1"),
+             value.name = "Correlation")
+head(DWMelt)
+```
+
+Finalmente, el tercer paso es producir la figura con **geom_tile**.  El gráfico de la Figura se produce sin modificar los parámetros.  En el segundo gráfico se modifican los colores usando la guía de color para asignarlos a diferentes grupos a la vez que se remueven los nombres de los ejes de **X** y de **Y**.  A este mapa de calor básico se le asignan las variables de **x** y **y** y el valor que queremos que tenga un rango de color, en este caso el valor de correlación. Para remover el nombre de la variables **x** y **y**, se usa **labs(x=NULL, y=NULL)**, ya que ggplot2 lo pone automáticamente cuando se construye un gráfico. 
+
+```{r heatmap1}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  theme(axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+
+Le cambiamos los colores del gráfico, usando **scale_fill_gradient2**. Asignamos los valores más bajos al color amarillo, los más altos al rojo y los valores intermedios al color anaranjado. Para esta opción de **scale_fill_gradient2**, hay que asignar tanto los colores al extremo y el del medio.  El resultado se puede ver en la Figura. Note que los valores de correlaciones varían de -1 a +1.  El límite del rango se asigna especificando **limits=c(valor mínimo, valor máximo)**.  Dado esto, en este ejemplo la intensidad de colores no es tan amplia porque no hay valores muy negativos.
+
+```{r heatmap2, warning=FALSE}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient2(low="white",
+                       mid="orange", high="red",
+  guide=guide_colorbar(ticks=FALSE,
+                       barheight=5, limits=c(-1,1)))+
+  theme_minimal()+
+  labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+En el siguiente gráfico, se cambia el valor intermedio a blanco (para valores más cercanos a cero). 
+
+```{r heatmap3}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient2(low="yellow",
+                       mid="white", high="red",
+  guide=guide_colorbar(ticks=FALSE,
+                       barheight=5, limits=c(-1,1)))+
+  theme_minimal()+
+  labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+Se puede también hacer la selección de solamente dos colores con la función **scale_fill_gradient** (vea que esa opción no es lo mismo que **scale_fill_gradient2**). En este caso los gradientes de colores en el centro de la distribución (el cero) no está definido. 
+
+```{r heatmap4}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient(low="white",
+                      high="red", limits=c(-1,1))+
+  theme_minimal()+labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+
+## La función **ggcorr**
+
+La función **ggcor** tiene la ventaja de producir un gráfico de calor que representa solamente un espejo de los resultados.  En los gráficos anteriores las misma información estaba ariba y abajo de la diagonal.  Este represente solamente uno de los dos.   
+
+```{r}
+
+ggcorr(DWCor, low = "steelblue", mid = "white", high = "darkred", nbreaks=5)
+```
+
+Para un segundo ejemplo de **ggcorr**
+
+```{r}
+
+ggcorr(DWCor, geom = "blank", label = TRUE, hjust = 0.75) +
+  geom_point(size = 10, aes(color = coefficient > 0, alpha = abs(coefficient) > 0.5)) +
+  scale_alpha_manual(values = c("TRUE" = 0.25, "FALSE" = 0)) +
+  guides(color = FALSE, alpha = FALSE)
+```
+
+
+Para muchos ejemplos vea este enlace. <https://briatte.github.io/ggcorr/>
+
+
+
+## Opciones y Parametros de **geom_tile**
+
+   * ggplot(el archivo de datos, aes(x= la variable discreta, y=variable continua, ymax= el valor máximo, ymin= el valor mínimo))
+
+   * geom_tile(x, y,  alpha, color, fill, linetype, size)
+
+   * alpha: la intensidad del color
+   * color: el color de la línea
+   * fill:  el color de los cuadros
+   * linetype: representa el estilo de línea 
+   * size: representa el ancho de la línea

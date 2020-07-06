@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>G12_Mapas_Calor</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadística básica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E1-Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="E2-Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="E3-TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="E4-Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="E5-supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="E6-TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
+    <li>
+      <a href="G6_geom_histogram.html">Histogramas</a>
+    </li>
+    <li>
+      <a href="G7_geom_bar.html">Gráficos de barras</a>
+    </li>
+    <li>
+      <a href="G8_geom_boxplot_geom_violin.html">Gráficos de caja y de violín</a>
+    </li>
+    <li>
+      <a href="G9_Facet_Grid.html">Facet Grid</a>
+    </li>
+    <li>
+      <a href="G10_Facet_wrap.html">Facet Wrap</a>
+    </li>
+    <li>
+      <a href="G11_EVALUANDO_SUPUESTOS.html">Evaluando Supuestos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">G12_Mapas_Calor</h1>
+
+</div>
+
+
+<div id="la-lista-de-packetes-para-analisis-de-los-supuestos" class="section level2">
+<h2>La lista de packetes para analisis de los supuestos</h2>
+<pre class="r"><code>library(ggversa)
+library(knitr)
+library(GGally)
+library(tidyverse)
+library(kableExtra)
+library(reshape2)
+library(ggcorrplot)
+library(gridExtra)</code></pre>
+</div>
+<div id="mapas-de-calor-o-mapas-críticos-o-heat-maps-con-geom_tile" class="section level2">
+<h2>Mapas de calor o mapas críticos o Heat Maps con <strong>geom_tile</strong></h2>
+<p>Cuando hay muchas variables en el análisis, a veces podría ser más fácil observar las diferencias entre ellas usando colores en vez de números; por ejemplo, para visualizar los coeficientes de correlación entre pares de variables continuas. Un mapa de calor (heat map en inglés) nos puede ayudar pues justamente es una visualización con gradientes de colores de valores continuos. Continuaremos utilizando la base de datos de la orquídea <em>Dipodium</em> para explicar los tres pasos para construir un mapa de calor de los coeficientes de correlación.</p>
+<p>Primero, necesitamos calcular los coeficientes de correlación con la opción <strong>cor</strong>. Luego visualizaremos los datos con la función <strong>kable</strong>.</p>
+<pre class="r"><code>DWCor=round(cor(dipodium[c(3, 6, 8, 9, 13)],
+                use=&quot;pairwise.complete.obs&quot;),3)
+
+kable(DWCor) %&gt;%
+  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F, font_size = 10) </code></pre>
+<table class="table table-striped" style="font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+DBH
+</th>
+<th style="text-align:right;">
+Distance
+</th>
+<th style="text-align:right;">
+Number_of_Flowers
+</th>
+<th style="text-align:right;">
+Height_Inflo
+</th>
+<th style="text-align:right;">
+Number_of_fruits
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DBH
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.329
+</td>
+<td style="text-align:right;">
+-0.035
+</td>
+<td style="text-align:right;">
+-0.100
+</td>
+<td style="text-align:right;">
+-0.009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Distance
+</td>
+<td style="text-align:right;">
+0.329
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.042
+</td>
+<td style="text-align:right;">
+-0.095
+</td>
+<td style="text-align:right;">
+-0.157
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number_of_Flowers
+</td>
+<td style="text-align:right;">
+-0.035
+</td>
+<td style="text-align:right;">
+0.042
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.818
+</td>
+<td style="text-align:right;">
+0.234
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Height_Inflo
+</td>
+<td style="text-align:right;">
+-0.100
+</td>
+<td style="text-align:right;">
+-0.095
+</td>
+<td style="text-align:right;">
+0.818
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.106
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number_of_fruits
+</td>
+<td style="text-align:right;">
+-0.009
+</td>
+<td style="text-align:right;">
+-0.157
+</td>
+<td style="text-align:right;">
+0.234
+</td>
+<td style="text-align:right;">
+0.106
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
+<p>Segundo, reorganizaremos los datos en un data.frame usando la librería <strong>reshape2</strong> y la opción <strong>melt</strong>. En nuestro caso, lo que queremos es producir un data.frame con solo dos columnas con las variables en pares con su respectivo valor de correlación. En el nuevo data.frame, <strong>DWMelt</strong>, vemos tres columnas cada una representando las variables y la última con el valor de correlación.</p>
+</div>
+<div id="matriz-de-correlaciones" class="section level2">
+<h2>Matriz de correlaciones</h2>
+<pre class="r"><code>DWMelt= melt(DWCor, varnames= c(&quot;x1&quot;, &quot;y1&quot;),
+             value.name = &quot;Correlation&quot;)
+head(DWMelt)</code></pre>
+<pre><code>##                  x1       y1 Correlation
+## 1               DBH      DBH       1.000
+## 2          Distance      DBH       0.329
+## 3 Number_of_Flowers      DBH      -0.035
+## 4      Height_Inflo      DBH      -0.100
+## 5  Number_of_fruits      DBH      -0.009
+## 6               DBH Distance       0.329</code></pre>
+<p>Finalmente, el tercer paso es producir la figura con <strong>geom_tile</strong>. El gráfico de la Figura se produce sin modificar los parámetros. En el segundo gráfico se modifican los colores usando la guía de color para asignarlos a diferentes grupos a la vez que se remueven los nombres de los ejes de <strong>X</strong> y de <strong>Y</strong>. A este mapa de calor básico se le asignan las variables de <strong>x</strong> y <strong>y</strong> y el valor que queremos que tenga un rango de color, en este caso el valor de correlación. Para remover el nombre de la variables <strong>x</strong> y <strong>y</strong>, se usa <strong>labs(x=NULL, y=NULL)</strong>, ya que ggplot2 lo pone automáticamente cuando se construye un gráfico.</p>
+<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  theme(axis.text.y=element_text(size=10, face=&quot;bold&quot;),
+        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
+  labs(fill=&quot;Correlación&quot;)</code></pre>
+<p><img src="G12_Mapas_Calor_files/figure-html/heatmap1-1.png" width="672" /></p>
+<p>Le cambiamos los colores del gráfico, usando <strong>scale_fill_gradient2</strong>. Asignamos los valores más bajos al color amarillo, los más altos al rojo y los valores intermedios al color anaranjado. Para esta opción de <strong>scale_fill_gradient2</strong>, hay que asignar tanto los colores al extremo y el del medio. El resultado se puede ver en la Figura. Note que los valores de correlaciones varían de -1 a +1. El límite del rango se asigna especificando <strong>limits=c(valor mínimo, valor máximo)</strong>. Dado esto, en este ejemplo la intensidad de colores no es tan amplia porque no hay valores muy negativos.</p>
+<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient2(low=&quot;white&quot;,
+                       mid=&quot;orange&quot;, high=&quot;red&quot;,
+  guide=guide_colorbar(ticks=FALSE,
+                       barheight=5, limits=c(-1,1)))+
+  theme_minimal()+
+  labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
+        axis.text.y=element_text(size=10, face=&quot;bold&quot;),
+        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
+  labs(fill=&quot;Correlación&quot;)</code></pre>
+<p><img src="G12_Mapas_Calor_files/figure-html/heatmap2-1.png" width="672" /></p>
+<p>En el siguiente gráfico, se cambia el valor intermedio a blanco (para valores más cercanos a cero).</p>
+<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient2(low=&quot;yellow&quot;,
+                       mid=&quot;white&quot;, high=&quot;red&quot;,
+  guide=guide_colorbar(ticks=FALSE,
+                       barheight=5, limits=c(-1,1)))+
+  theme_minimal()+
+  labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
+        axis.text.y=element_text(size=10, face=&quot;bold&quot;),
+        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
+  labs(fill=&quot;Correlación&quot;)</code></pre>
+<p><img src="G12_Mapas_Calor_files/figure-html/heatmap3-1.png" width="672" /></p>
+<p>Se puede también hacer la selección de solamente dos colores con la función <strong>scale_fill_gradient</strong> (vea que esa opción no es lo mismo que <strong>scale_fill_gradient2</strong>). En este caso los gradientes de colores en el centro de la distribución (el cero) no está definido.</p>
+<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient(low=&quot;white&quot;,
+                      high=&quot;red&quot;, limits=c(-1,1))+
+  theme_minimal()+labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
+        axis.text.y=element_text(size=10, face=&quot;bold&quot;),
+        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
+  labs(fill=&quot;Correlación&quot;)</code></pre>
+<p><img src="G12_Mapas_Calor_files/figure-html/heatmap4-1.png" width="672" /></p>
+</div>
+<div id="la-función-ggcorr" class="section level2">
+<h2>La función <strong>ggcorr</strong></h2>
+<p>La función <strong>ggcor</strong> tiene la ventaja de producir un gráfico de calor que representa solamente un espejo de los resultados. En los gráficos anteriores las misma información estaba ariba y abajo de la diagonal. Este represente solamente uno de los dos.</p>
+<pre class="r"><code>ggcorr(DWCor, low = &quot;steelblue&quot;, mid = &quot;white&quot;, high = &quot;darkred&quot;, nbreaks=5)</code></pre>
+<p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Para un segundo ejemplo de <strong>ggcorr</strong></p>
+<pre class="r"><code>ggcorr(DWCor, geom = &quot;blank&quot;, label = TRUE, hjust = 0.75) +
+  geom_point(size = 10, aes(color = coefficient &gt; 0, alpha = abs(coefficient) &gt; 0.5)) +
+  scale_alpha_manual(values = c(&quot;TRUE&quot; = 0.25, &quot;FALSE&quot; = 0)) +
+  guides(color = FALSE, alpha = FALSE)</code></pre>
+<p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Para muchos ejemplos vea este enlace. <a href="https://briatte.github.io/ggcorr/" class="uri">https://briatte.github.io/ggcorr/</a></p>
+</div>
+<div id="opciones-y-parametros-de-geom_tile" class="section level2">
+<h2>Opciones y Parametros de <strong>geom_tile</strong></h2>
+<ul>
+<li><p>ggplot(el archivo de datos, aes(x= la variable discreta, y=variable continua, ymax= el valor máximo, ymin= el valor mínimo))</p>
+<ul>
+<li><p>geom_tile(x, y, alpha, color, fill, linetype, size)</p></li>
+<li><p>alpha: la intensidad del color</p></li>
+<li><p>color: el color de la línea</p></li>
+<li><p>fill: el color de los cuadros</p></li>
+<li><p>linetype: representa el estilo de línea</p></li>
+<li><p>size: representa el ancho de la línea</p></li>
+</ul></li>
+</ul>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

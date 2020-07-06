@@ -1,8 +1,10 @@
 ---
 title: "Evaluando_supuestos"
 author: "RLT"
-date: "07/05/2020"
-output: html_document
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -426,140 +428,20 @@ Finalmente, también se utilizó el comando **kable** ya que es una manera efect
 
 ## Uso de GGally para ver correlaciones
 
-Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar la librería \say{GGally}, ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas. \index{GGally}
+Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar el paquete **GGally**, ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas.
 
-En los gráficos de la Figura \ref{fig:ggpairs} observamos los coeficientes de correlación, la distribución de los datos y la visualización de correlación por cada par. Además, vemos el diagrama de caja de los datos cuando hay variables discretas. Note al extremo derecho que la variable \say{Herbivory} tiene una categoría no identificada, que incluye los \say{NA}.
+En los gráficos de la siguiente Figura observamos los coeficientes de correlación, la distribución de los datos y la visualización de correlación por cada par. Además, vemos el diagrama de caja de los datos cuando hay variables discretas. Note al extremo derecho que la variable **Herbivory** tiene una categoría no identificada, que incluye los **NA**.
 
-Con la función de ggpairs podemos calcular las correlaciones entre las variables y a la misma vez producir todos los gráficos entre las variables y gráficos de distribución de densidad de cada variable. En el gráfico de la Figura \ref{fig:ggpairs}, podemos observar en la parte izquierda la distribución de los datos en pares.  En la diagonal se observa la densidad de cada una de las variables.  En la parte superior derecha se observa el valor de correlación y en el extremo derecho se observan los diagramas de caja de las variables discretas con relación a la variable de la izquierda.  Este gráfico es sumamente práctico, ya que produce mucha información con pocos pasos.  Desafortunadamente no hay manera de remover los \say{NA} al presente.  A consecuencia de esto, al extremo derecho uno observa en las cajas abajo una barra con muchos valores (la de la derecha), pero esta representa todos los valores \say{NA} en la tabla de datos.  En este caso, la presencia de herbaria en las plantas no fue recolectada y en cambio se dejó con un \say{NA}.  Note que aquí no se pueden poner ceros u otros valores.  Las alternativas podrían ser \say{H} para evidenciar la presencia de herbaria y \say{n} por la falta de esta.
+Con la función de **ggpairs** podemos calcular las correlaciones entre las variables y a la misma vez producir todos los gráficos entre las variables y gráficos de distribución de densidad de cada variable. En el gráfico podemos observar en la parte izquierda la distribución de los datos en pares.  En la diagonal se observa la densidad de cada una de las variables.  En la parte superior derecha se observa el valor de correlación y en el extremo derecho se observan los diagramas de caja de las variables discretas con relación a la variable de la izquierda.  Este gráfico es sumamente práctico, ya que produce mucha información con pocos pasos.  Desafortunadamente, no hay manera de remover los **NA** al presente.  A consecuencia de esto, al extremo derecho uno observa en las cajas abajo una barra con muchos valores (la de la derecha), pero esta representa todos los valores **NA** en la tabla de datos.  En este caso, la presencia de herbivoría en las plantas no fue recolectada y en cambio se dejó con un **NA**.  Note que aquí no se pueden poner ceros u otros valores.  Las alternativas podrían ser **H** para evidenciar la presencia de herbaria y **n** para las plantas donde no hay evidencia de herbivoría.
 
 ```{r ggpairs, warning=FALSE, message=FALSE}
-names(dipodium)
+names(dipodium) # para ver los nombres de las variables/columnas
 
 ggpairs(dipodium[,c(8, 9, 13, 14, 10)])
 ```
 
-\subsubsection{Mapas de calor o mapas críticos o \emph{Heat Maps} con geom\_tile}
-
-Cuando hay muchas variables en el análisis, a veces podría ser más fácil observar las diferencias entre ellas usando colores en vez de números; por ejemplo, para visualizar los coeficientes de correlación entre pares de variables continuas. Un mapa de calor (o \say{heat map} en inglés) nos puede ayudar pues justamente es una visualización con gradientes de colores de valores continuos.  Continuaremos utilizando la base de datos de la orquídea \emph{Dipodium} para explicar los tres pasos para construir un mapa de calor de los coeficientes de correlación. \index{geom\_tile}
-
-
-Primero, necesitamos calcular los coeficientes de correlación con la opción \say{cor}. Luego visualizaremos los datos con la función \say{kable}, tal como se muestra en la Tabla \ref{fig:CC}.
-
-```{r heatmap data1, message=FALSE}
-
-DWCor=round(cor(dipodium[c(3, 6, 8, 9, 13)],
-                use="pairwise.complete.obs"),3)
-
-kable(DWCor) %>%
-  kable_styling(bootstrap_options = "striped", full_width = F, font_size = 10) 
- 
-
-
-
-```
-
-
-Segundo, reorganizaremos los datos en un data.frame usando la librería \say{reshape2} y la opción \say{melt}. En nuestro caso, lo que queremos es producir un data.frame con solo dos columnas con las variables en pares con su respectivo valor de correlación. En el nuevo data.frame, DWMelt, vemos tres columnas cada una representando las variables y la última con el valor de correlación, tal como aparece en el Ejemplo \ref{heatmap data2}.
-
-\subsection{Matriz de correlaciones}
-
-```{r heatmap data2, message=FALSE}
-
-
-DWMelt= melt(DWCor, varnames= c("x1", "y1"),
-             value.name = "Correlation")
-head(DWMelt)
-```
-
-Finalmente, el tercer paso es producir la figura con geom\_tile.  El gráfico de la Figura \ref{fig:heatmap1} se produce sin modificar los parámetros.  En el gráfico de Figura \ref{fig:heatmap2}, se modifican los colores usando la guía de color para asignarlos a diferentes grupos a la vez que se remueven los nombres de los ejes de \say{X} y de \say{Y}.  A este mapa de calor básico se le asignan las variables de \say{x} y \say{y} y el valor que queremos que tenga un rango de color, en este caso el valor de correlación. Para remover el nombre de la variables \say{x} y \say{y}, se usa \say{labs(x=NULL, y=NULL)}, ya que ggplot2 lo pone automáticamente cuando se construye un gráfico. \index{geom\_tile}
-
-```{r heatmap1}
-
-ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  theme(axis.text.y=element_text(size=10, face="bold"),
-        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
-  labs(fill="Correlación")
-```
-
-\noindent
-Además, le cambiamos los colores del gráfico, usando \say{scale\_fill\_gradient2}. Asignamos los valores más bajos al color amarillo, los más altos al rojo y los valores intermedios al color anaranjado. Para esta opción de \say{scale\_fill\_gradient2}, hay que asignar tanto los colores al extremo y el del medio.  El resultado se puede ver en la Figura \ref{fig:heatmap2}. Note que los valores de correlaciones varían de -1 a +1.  El límite del rango se asigna especificando \say{limits=c(valor mínimo, valor máximo)}.  Dado esto, en este ejemplo la intensidad de colores no es tan amplia porque no hay valores muy negativos. \index{geom\_tile}
-
-```{r heatmap2, warning=FALSE}
-
-ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  scale_fill_gradient2(low="white",
-                       mid="orange", high="red",
-  guide=guide_colorbar(ticks=FALSE,
-                       barheight=5, limits=c(-1,1)))+
-  theme_minimal()+
-  labs(x=NULL, y=NULL)+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text.y=element_text(size=10, face="bold"),
-        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
-  labs(fill="Correlación")
-```
-
-En el siguiente gráfico, Figura \ref{fig:heatmap3}, se cambia el valor intermedio a blanco (para valores más cercanos a cero). \index{geom\_tile}
-
-```{r heatmap3}
-
-ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  scale_fill_gradient2(low="yellow",
-                       mid="white", high="red",
-  guide=guide_colorbar(ticks=FALSE,
-                       barheight=5, limits=c(-1,1)))+
-  theme_minimal()+
-  labs(x=NULL, y=NULL)+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text.y=element_text(size=10, face="bold"),
-        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
-  labs(fill="Correlación")
-```
-
-Se puede también hacer la selección de solamente dos colores con la función \say{scale\_fill\_gradient} (vea que esa opción no es lo mismo que \say{scale\_fill\_gradient2}). En este caso los gradientes de colores en el centro de la distribución (el cero) no está definido, como se muestra en la Figura \ref{fig:heatmap4}. \index{geom\_tile}
-
-```{r heatmap4}
-
-ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  scale_fill_gradient(low="yellow",
-                      high="red", limits=c(-1,1))+
-  theme_minimal()+labs(x=NULL, y=NULL)+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text.y=element_text(size=10, face="bold"),
-        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
-  labs(fill="Correlación")
-```
-
-
-Play with tihs function  
-
-Look for info on the web, and the package ggcorrplot
-
-```{r}
-
-ggcorr(DWCor)
-```
+***
 
 
 
 
-
-A continuación se resumen las opciones y parámetros más importantes de gráficos de mapas de calor con geom\_tile:
-
-\begin{itemize}
-  \item {\color{red}ggplot}(el archivo de datos, aes(x= la variable discreta, y=variable continua, ymax= el valor máximo, ymin= el valor mínimo))
-  \begin{itemize}
-  \item {\color{red}geom\_tile}(x, y,  alpha, color, fill, linetype, size)
-  \begin{itemize}
-    \item {\color{red}alpha}: la intensidad del color
-    \item {\color{red}color}: el color de la línea
-    \item {\color{red}fill}:  el color de los cuadros
-    \item {\color{red}linetype}: representa el estilo de línea; vea sección \hyperref[sec:Especificación Estética]{\say{Especificación Estética}}
-    \item {\color{red}size}: representa el ancho de la línea
-\end{itemize}
-\end{itemize}
-\end{itemize}

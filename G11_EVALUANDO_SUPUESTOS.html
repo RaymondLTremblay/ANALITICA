@@ -11,7 +11,6 @@
 
 <meta name="author" content="RLT" />
 
-<meta name="date" content="2020-07-05" />
 
 <title>Evaluando_supuestos</title>
 
@@ -21,10 +20,12 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -251,6 +252,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -258,6 +322,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -344,6 +418,9 @@ $(document).ready(function () {
     <li>
       <a href="G10_Facet_wrap.html">Facet Wrap</a>
     </li>
+    <li>
+      <a href="G11_EVALUANDO_SUPUESTOS.html">Evaluando Supuestos</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -420,7 +497,6 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Evaluando_supuestos</h1>
 <h4 class="author">RLT</h4>
-<h4 class="date">07/05/2020</h4>
 
 </div>
 
@@ -793,8 +869,8 @@ Height_Inflo
 </tbody>
 </table>
 <hr />
-<div id="tabla-de-correlacion-de-kendall" class="section level3">
-<h3>Tabla de correlacion de Kendall</h3>
+<div id="tabla-de-correlación-de-kendall" class="section level3">
+<h3>Tabla de correlación de Kendall</h3>
 <p>Usando la función <strong>cor</strong> se puede también calcular estimados de correlación sin asumir distribución normal usando los métodos <strong>Kendall</strong> o <strong>Spearman</strong> mostrados en la Tabla siguiente.</p>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  method=&quot;kendall&quot;,
@@ -870,7 +946,7 @@ Height_Inflo
 <h3>Tabla de correlación de Spearman</h3>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  method=&quot;spearman&quot;,
- use=&quot;pairwise.complete.obs&quot;),2))</code></pre>
+ use=&quot;pairwise.complete.obs&quot;),1))</code></pre>
 <table>
 <thead>
 <tr>
@@ -893,10 +969,10 @@ Height_Inflo
 DBH
 </td>
 <td style="text-align:right;">
-1.0000
+1.000
 </td>
 <td style="text-align:right;">
--0.0017
+-0.002
 </td>
 <td style="text-align:right;">
 -0.08
@@ -907,13 +983,13 @@ DBH
 Number_of_Flowers
 </td>
 <td style="text-align:right;">
--0.0017
+-0.002
 </td>
 <td style="text-align:right;">
-1.0000
+1.000
 </td>
 <td style="text-align:right;">
-0.81
+0.80
 </td>
 </tr>
 <tr>
@@ -921,10 +997,10 @@ Number_of_Flowers
 Height_Inflo
 </td>
 <td style="text-align:right;">
--0.0800
+-0.080
 </td>
 <td style="text-align:right;">
-0.8100
+0.800
 </td>
 <td style="text-align:right;">
 1.00
@@ -932,15 +1008,21 @@ Height_Inflo
 </tr>
 </tbody>
 </table>
-<p>En esas tres tablas podemos apreciar un patrón consistente entre todos los métodos; o sea, la altura de la inflorescencia está altamente correlacionada con la cantidad de flores (con coeficientes de correlación de 0.82, 0.65, y 0.81 respectivamente). Note que para facilitar la lectura de los valores, se usó la función  para así identificar solamente los valores significativos del análisis.</p>
-<p>Brevemente recapitulamos, si los datos no siguen una distribución normal, se deberían utilizar los métodos Kendall o Spearman. Si se tienen pocos datos, Kendall tiende a ser una mejor alternativa para determinar el indice de correlación. Se le advierte, sin embargo, que consulte libros de estadística sobre este tema antes que realice un análisis de este tipo ya que la decisión de seleccionar una alternativa sobre otra no es tan sencilla.  </p>
-<p>Además, los métodos utilizados emplearon el parámetro , ya que obviaría los  en las columnas que se utilizan para calcular la correlación. Por lo tanto, la cantidad de pares de datos utilizados para calcular las diferentes correlaciones entre variables puede variar si hay  en el archivo. Tome en consideración que hay otras cuatro alternativas para analizar los datos cuando tenemos  presentes: , ,  y . No vamos a discutir esas alternativas en el presente libro. Sería bueno que busque información en R para sus usos.</p>
-<p>Finalmente, también se utilizó el comando  ya que es una manera efectiva de organizar los resultados en una tabla.</p>
-
-<p>Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar la librería , ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas. </p>
-<p>En los gráficos de la Figura  observamos los coeficientes de correlación, la distribución de los datos y la visualización de correlación por cada par. Además, vemos el diagrama de caja de los datos cuando hay variables discretas. Note al extremo derecho que la variable  tiene una categoría no identificada, que incluye los .</p>
-<p>Con la función de ggpairs podemos calcular las correlaciones entre las variables y a la misma vez producir todos los gráficos entre las variables y gráficos de distribución de densidad de cada variable. En el gráfico de la Figura , podemos observar en la parte izquierda la distribución de los datos en pares. En la diagonal se observa la densidad de cada una de las variables. En la parte superior derecha se observa el valor de correlación y en el extremo derecho se observan los diagramas de caja de las variables discretas con relación a la variable de la izquierda. Este gráfico es sumamente práctico, ya que produce mucha información con pocos pasos. Desafortunadamente no hay manera de remover los  al presente. A consecuencia de esto, al extremo derecho uno observa en las cajas abajo una barra con muchos valores (la de la derecha), pero esta representa todos los valores  en la tabla de datos. En este caso, la presencia de herbaria en las plantas no fue recolectada y en cambio se dejó con un . Note que aquí no se pueden poner ceros u otros valores. Las alternativas podrían ser  para evidenciar la presencia de herbaria y  por la falta de esta.</p>
-<pre class="r"><code>names(dipodium)</code></pre>
+<p>En esas tres tablas podemos apreciar un patrón consistente entre todos los métodos; o sea, la altura de la inflorescencia está altamente correlacionada con la cantidad de flores (con coeficientes de correlación de 0.82, 0.65, y 0.81 respectivamente). Note que para facilitar la lectura de los valores, se usó la función <strong>signif</strong> para así identificar solamente los valores significativos del análisis.</p>
+<p>Brevemente recapitulamos, si los datos no siguen una distribución normal, se deberían utilizar los métodos Kendall o Spearman. Si se tienen pocos datos, Kendall tiende a ser una mejor alternativa para determinar el indice de correlación. Se le advierte, sin embargo, que consulte libros de estadística sobre este tema antes que realice un análisis de este tipo ya que la decisión de seleccionar una alternativa sobre otra no es tan sencilla.</p>
+</div>
+</div>
+<div id="seleción-de-parametros-pra-correlaciones-cuando-hay-na" class="section level2">
+<h2>Seleción de parametros pra correlaciones cuando hay NA</h2>
+<p>Además, los analísis anteriores utilizados emplearon el parámetro <strong>pairwise.complete.obs</strong>, ya que obviaría los <strong>NA</strong> en las columnas que se utilizan para calcular la correlación. Por lo tanto, la cantidad de pares de datos utilizados para calcular las diferentes correlaciones entre variables puede variar si hay <strong>NA</strong> en el archivo. Tome en consideración que hay otras cuatro alternativas para analizar los datos cuando tenemos <strong>NA</strong> presentes: <strong>everything</strong>, <strong>all.obs</strong>, <strong>complete.obs</strong> y <strong>na.or.complete</strong>. No vamos a discutir esas alternativas en el presente libro. Sería bueno que busque información en R para sus usos. Estas alternativas se discutiran en otros modulos.</p>
+<p>Finalmente, también se utilizó el comando <strong>kable</strong> ya que es una manera efectiva de organizar los resultados en una tabla.</p>
+</div>
+<div id="uso-de-ggally-para-ver-correlaciones" class="section level2">
+<h2>Uso de GGally para ver correlaciones</h2>
+<p>Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar el paquete <strong>GGally</strong>, ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas.</p>
+<p>En los gráficos de la siguiente Figura observamos los coeficientes de correlación, la distribución de los datos y la visualización de correlación por cada par. Además, vemos el diagrama de caja de los datos cuando hay variables discretas. Note al extremo derecho que la variable <strong>Herbivory</strong> tiene una categoría no identificada, que incluye los <strong>NA</strong>.</p>
+<p>Con la función de <strong>ggpairs</strong> podemos calcular las correlaciones entre las variables y a la misma vez producir todos los gráficos entre las variables y gráficos de distribución de densidad de cada variable. En el gráfico podemos observar en la parte izquierda la distribución de los datos en pares. En la diagonal se observa la densidad de cada una de las variables. En la parte superior derecha se observa el valor de correlación y en el extremo derecho se observan los diagramas de caja de las variables discretas con relación a la variable de la izquierda. Este gráfico es sumamente práctico, ya que produce mucha información con pocos pasos. Desafortunadamente, no hay manera de remover los <strong>NA</strong> al presente. A consecuencia de esto, al extremo derecho uno observa en las cajas abajo una barra con muchos valores (la de la derecha), pero esta representa todos los valores <strong>NA</strong> en la tabla de datos. En este caso, la presencia de herbivoría en las plantas no fue recolectada y en cambio se dejó con un <strong>NA</strong>. Note que aquí no se pueden poner ceros u otros valores. Las alternativas podrían ser <strong>H</strong> para evidenciar la presencia de herbaria y <strong>n</strong> para las plantas donde no hay evidencia de herbivoría.</p>
+<pre class="r"><code>names(dipodium) # para ver los nombres de las variables/columnas</code></pre>
 <pre><code>##  [1] &quot;Tree Number&quot;             &quot;Tree species&quot;           
 ##  [3] &quot;DBH&quot;                     &quot;Plant number&quot;           
 ##  [5] &quot;Ramet number&quot;            &quot;Distance&quot;               
@@ -954,209 +1036,14 @@ Height_Inflo
 ## [21] &quot;Cardinal orientation&quot;</code></pre>
 <pre class="r"><code>ggpairs(dipodium[,c(8, 9, 13, 14, 10)])</code></pre>
 <p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/ggpairs-1.png" width="672" /></p>
-
-<p>Cuando hay muchas variables en el análisis, a veces podría ser más fácil observar las diferencias entre ellas usando colores en vez de números; por ejemplo, para visualizar los coeficientes de correlación entre pares de variables continuas. Un mapa de calor (o  en inglés) nos puede ayudar pues justamente es una visualización con gradientes de colores de valores continuos. Continuaremos utilizando la base de datos de la orquídea  para explicar los tres pasos para construir un mapa de calor de los coeficientes de correlación. </p>
-<p>Primero, necesitamos calcular los coeficientes de correlación con la opción . Luego visualizaremos los datos con la función , tal como se muestra en la Tabla .</p>
-<pre class="r"><code>DWCor=round(cor(dipodium[c(3, 6, 8, 9, 13)],
-                use=&quot;pairwise.complete.obs&quot;),3)
-
-kable(DWCor) %&gt;%
-  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F, font_size = 10) </code></pre>
-<table class="table table-striped" style="font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-DBH
-</th>
-<th style="text-align:right;">
-Distance
-</th>
-<th style="text-align:right;">
-Number_of_Flowers
-</th>
-<th style="text-align:right;">
-Height_Inflo
-</th>
-<th style="text-align:right;">
-Number_of_fruits
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-DBH
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.329
-</td>
-<td style="text-align:right;">
--0.035
-</td>
-<td style="text-align:right;">
--0.100
-</td>
-<td style="text-align:right;">
--0.009
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Distance
-</td>
-<td style="text-align:right;">
-0.329
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.042
-</td>
-<td style="text-align:right;">
--0.095
-</td>
-<td style="text-align:right;">
--0.157
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number_of_Flowers
-</td>
-<td style="text-align:right;">
--0.035
-</td>
-<td style="text-align:right;">
-0.042
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.818
-</td>
-<td style="text-align:right;">
-0.234
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Height_Inflo
-</td>
-<td style="text-align:right;">
--0.100
-</td>
-<td style="text-align:right;">
--0.095
-</td>
-<td style="text-align:right;">
-0.818
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
-0.106
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number_of_fruits
-</td>
-<td style="text-align:right;">
--0.009
-</td>
-<td style="text-align:right;">
--0.157
-</td>
-<td style="text-align:right;">
-0.234
-</td>
-<td style="text-align:right;">
-0.106
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-</tr>
-</tbody>
-</table>
-<p>Segundo, reorganizaremos los datos en un data.frame usando la librería  y la opción . En nuestro caso, lo que queremos es producir un data.frame con solo dos columnas con las variables en pares con su respectivo valor de correlación. En el nuevo data.frame, DWMelt, vemos tres columnas cada una representando las variables y la última con el valor de correlación, tal como aparece en el Ejemplo .</p>
-
-<pre class="r"><code>DWMelt= melt(DWCor, varnames= c(&quot;x1&quot;, &quot;y1&quot;),
-             value.name = &quot;Correlation&quot;)
-head(DWMelt)</code></pre>
-<pre><code>##                  x1       y1 Correlation
-## 1               DBH      DBH       1.000
-## 2          Distance      DBH       0.329
-## 3 Number_of_Flowers      DBH      -0.035
-## 4      Height_Inflo      DBH      -0.100
-## 5  Number_of_fruits      DBH      -0.009
-## 6               DBH Distance       0.329</code></pre>
-<p>Finalmente, el tercer paso es producir la figura con geom_tile. El gráfico de la Figura  se produce sin modificar los parámetros. En el gráfico de Figura , se modifican los colores usando la guía de color para asignarlos a diferentes grupos a la vez que se remueven los nombres de los ejes de  y de . A este mapa de calor básico se le asignan las variables de  y  y el valor que queremos que tenga un rango de color, en este caso el valor de correlación. Para remover el nombre de la variables  y , se usa , ya que ggplot2 lo pone automáticamente cuando se construye un gráfico. </p>
-<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  theme(axis.text.y=element_text(size=10, face=&quot;bold&quot;),
-        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
-  labs(fill=&quot;Correlación&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/heatmap1-1.png" width="672" /></p>
-<p> Además, le cambiamos los colores del gráfico, usando . Asignamos los valores más bajos al color amarillo, los más altos al rojo y los valores intermedios al color anaranjado. Para esta opción de , hay que asignar tanto los colores al extremo y el del medio. El resultado se puede ver en la Figura . Note que los valores de correlaciones varían de -1 a +1. El límite del rango se asigna especificando . Dado esto, en este ejemplo la intensidad de colores no es tan amplia porque no hay valores muy negativos. </p>
-<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  scale_fill_gradient2(low=&quot;white&quot;,
-                       mid=&quot;orange&quot;, high=&quot;red&quot;,
-  guide=guide_colorbar(ticks=FALSE,
-                       barheight=5, limits=c(-1,1)))+
-  theme_minimal()+
-  labs(x=NULL, y=NULL)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text.y=element_text(size=10, face=&quot;bold&quot;),
-        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
-  labs(fill=&quot;Correlación&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/heatmap2-1.png" width="672" /></p>
-<p>En el siguiente gráfico, Figura , se cambia el valor intermedio a blanco (para valores más cercanos a cero). </p>
-<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  scale_fill_gradient2(low=&quot;yellow&quot;,
-                       mid=&quot;white&quot;, high=&quot;red&quot;,
-  guide=guide_colorbar(ticks=FALSE,
-                       barheight=5, limits=c(-1,1)))+
-  theme_minimal()+
-  labs(x=NULL, y=NULL)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text.y=element_text(size=10, face=&quot;bold&quot;),
-        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
-  labs(fill=&quot;Correlación&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/heatmap3-1.png" width="672" /></p>
-<p>Se puede también hacer la selección de solamente dos colores con la función  (vea que esa opción no es lo mismo que ). En este caso los gradientes de colores en el centro de la distribución (el cero) no está definido, como se muestra en la Figura . </p>
-<pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
-  geom_tile(aes(fill=Correlation))+
-  scale_fill_gradient(low=&quot;yellow&quot;,
-                      high=&quot;red&quot;, limits=c(-1,1))+
-  theme_minimal()+labs(x=NULL, y=NULL)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text.y=element_text(size=10, face=&quot;bold&quot;),
-        axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
-  labs(fill=&quot;Correlación&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/heatmap4-1.png" width="672" /></p>
-<p>Play with tihs function</p>
-<p>Look for info on the web, and the package ggcorrplot</p>
-<pre class="r"><code>ggcorr(DWCor)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>A continuación se resumen las opciones y parámetros más importantes de gráficos de mapas de calor con geom_tile:</p>
-
-</div>
+<hr />
 </div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1189,6 +1076,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
