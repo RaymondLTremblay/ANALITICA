@@ -12,6 +12,20 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
+
+
 # Analítica Fundación
 ## Quiénes Somos
 
@@ -38,7 +52,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 **Promoción**: [Opúsculo](https://drive.google.com/file/d/1r8imhmhc0WAzC8_XBL7lcEE0ksvJgi4N/view?usp=sharing)
 
-### Objetivos específicos
+## Objetivos específicos
 
 - Diseño, creación, organización y administración de actividades sobre análisis:
     - Talleres
@@ -52,15 +66,17 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 - Capacitación y apoyo en el diseño, administración y publicación de estudios cuantitativos y cualitativos.
 - Creación y venta de libros y manuales técnicos sobre el uso de herramientas de análisis de datos en español (castellano).
 
-### Recursos
+## Recursos
 
-**Gráficas Verstátiles con ggplot2: Análisis Visual de Datos**: 
 
-          Este libro es sobre la visualización y producción efectiva de gráficos. El énfasis es en el paquete de ggplot2, que está basado en el lenguaje de programación R. Contiene una enorme variedad de representaciones de datos con más de 200 ejemplos. 
+## `r colorize("**Gráficas Verstátiles con ggplot2: Análisis Visual de Datos**", "blue")`
+ 
 
-          La visualización ayuda a entender lo que pueden comunicar los datos. Además, ayuda a expandir el análisis estadístico a través de múltiples métodos y expresar las inferencias de ese análisis. Todo los scripts de los gráficos están incluidos para facilitar el aprendizaje y uso del paquete ggplot2.
+      Este libro es sobre la visualización y producción efectiva de gráficos. El énfasis es en el paquete de ggplot2, que está basado en el lenguaje de programación R. Contiene una enorme variedad de representaciones de datos con más de 200 ejemplos. 
 
-          Este libro está dirigido a científicos y no científicos, analistas de datos, y estudiantes de todos los niveles y de todas las disciplinas que tengan interés en producir gráficos de alta calidad para visualizar datos, llevar a cabo análisis científicos, extrapolar resultados de experimentos y otros tipos de visualización.
+      La visualización ayuda a entender lo que pueden comunicar los datos. Además, ayuda a expandir el análisis estadístico a través de múltiples métodos y expresar las inferencias de ese análisis. Todo los scripts de los gráficos están incluidos para facilitar el aprendizaje y uso del paquete ggplot2.
+
+      Este libro está dirigido a científicos y no científicos, analistas de datos, y estudiantes de todos los niveles y de todas las disciplinas que tengan interés en producir gráficos de alta calidad para visualizar datos, llevar a cabo análisis científicos, extrapolar resultados de experimentos y otros tipos de visualización.
           
           Capítulo 1: Breve introducción sobre R, el ambiente RStudio y el paquete ggptlo2.
           Capítulo 2: Continuación con conceptos mínimos de R y explicación de los datos utilizados en el libro.
@@ -91,13 +107,13 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
           Capítulo 27: Breve introducción de la transformación y manipulación de datos en R.
           Capítulo 28: Ejemplos detallados para todas las 35 funciones demostradas en el libro.
           
-          Para todas las demostraciones se ofrecen los "scripts" y más de 200 ejemplos con los datos originales, incluyendo cómo cambiar las caraterísticas de los elementos de cada gráfico (colores, escalas, ejes, leyendas, etc.).
+      Para todas las demostraciones se ofrecen los "scripts" y más de 200 ejemplos con los datos originales, incluyendo cómo cambiar las caraterísticas de los elementos de cada gráfico (colores, escalas, ejes, leyendas, etc.).
 
-Este libro sobre ggplot2 está disponible  [aquí](https://www.amazon.com/Gr%C3%A1ficas-Vers%C3%A1tiles-ggplot2-An%C3%A1lisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&keywords=gr%C3%A1ficas+vers%C3%A1tiles&qid=1593970135&sr=8-1).
+Este libro sobre ggplot2 está disponible en formato Kindle  [aquí](https://www.amazon.com/Gr%C3%A1ficas-Vers%C3%A1tiles-ggplot2-An%C3%A1lisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&keywords=gr%C3%A1ficas+vers%C3%A1tiles&qid=1593970135&sr=8-1).
 
-### Historia
+## Historia
 
-Analíca Fundación, Inc. fue creada para atender de una forma más ágil el auspicio, apoyo, creación y producción de recursos en apoyo al campo del análisis en Puerto Rico e Iberoamérica.  Aunque existe una enorme producción de recursos provenientes de instituciones universitarias, normalmente esos recursos están muy atados a las instituciones en donde se generan y no necesariamente logran quedar al alcance del público profesional interesado en temas del análisis. Los fundadores hemos querido servir de enlace al inmenso conocimiento que se genera en la academia, organizaciones en el mundo dedicadas a los temas del análisis, e individuos específicos y todos aquellos que se podrían beneficiar del conocimiento, destrezas y herramientas que continuamete se están creando o que ya existen en el mercado que son en su mayor parte libre de costos.
+Analíca Fundación, Inc. fue creada para atender de una forma más ágil el auspicio, apoyo, creación y producción de recursos en apoyo al campo del análisis en Puerto Rico e Iberoamérica.  Aunque existe una enorme producción de recursos provenientes de instituciones universitarias, normalmente esos recursos están muy atados a las instituciones en donde se generan y no necesariamente logran quedar al alcance del público profesional interesado en temas del análisis. Los fundadores hemos querido servir de enlace al inmenso conocimiento que se genera en la academia, organizaciones en el mundo dedicadas a los temas del análisis, e individuos específicos y todos aquellos que se podrían beneficiar del conocimiento, destrezas y herramientas que continuamente se están creando o que ya existen en el mercado que son en su mayor parte libre de costos.
 
 Para más información sobre Analítica, favor comunicarse con los oficiales como muestra a continuación o en la sección de contactos (más abajo).  
 
@@ -190,7 +206,9 @@ TODO lo de abajo tiene que ser movido a la pestaña de Talleres
 
 
 
-### Libros posible para los talleres      
+ESTO DEBERIA IR EN OTRA SECCION, UNA QUE DAMOS TALLERES
+
+## Libros posible para los talleres      
  
 - [Garrett Grolemund, Hadley Wickham. R para Ciencia de Datos](https://es.r4ds.hadley.nz) En Español.
 - [Garrett Grolemund, Hadley Wickham. R for Data Science](https://r4ds.had.co.nz) En Ingles.

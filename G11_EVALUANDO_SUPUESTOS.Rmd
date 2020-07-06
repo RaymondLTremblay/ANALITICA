@@ -1,0 +1,563 @@
+---
+title: "Evaluando_supuestos"
+author: "RLT"
+date: "07/05/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
+
+## La lista de packetes para analisis de los supuestos
+
+```{r}
+library(ggversa)
+library(knitr)
+library(GGally)
+library(tidyverse)
+library(kableExtra)
+library(reshape2)
+library(ggcorrplot)
+
+```
+
+La ética en estadística basado en comprobar y cumplir con los supuestos de las pruebas estadística que se usan.  La gran mayoría de las pruebas tradicional asume que los datos cumple con algunos supuestos, algunos típicos son. 
+
+1. distribución normal
+2. igualdad de varianza
+3. simetría de las distribuciones
+4. datos recolectado al azar
+ 
+
+Cuando no se cumple con los datos estamos aumentando la probabilidad de tipo de error 1, es decir rechazar la hipótesis nula cuando se debería aceptar o tipo de error 2, cuando se debería aceptar la alterna cuando se debería rechazar.
+
+Por consecuencia es **primodial** que cada investigador cumple con evaluar los supuestos de las pruebas que usa y si no cumple que busca métodos alternos.  Por ejemplo métodos de análisis que podría usar pruebas no paramétrica tambien estadística bayesiana o robusta.  
+
+En el siguiente modulo se habla de como asegurar que cumple con los supuestos básico de las pruebas paramétricas que incluye t-test, ANOVA entre otros.  
+
+Note que aquí el énfasis es de evalur los supuestos con herramientas visual, hay herramientas estadística que son igual para cada una de estos supuestos.  Vea la sección de estadística para estas alterativas para detalles más completos.  
+
+***
+
+# Homogeneidad de varianza
+
+  La homogeneidad de varianza es un supuesto primordial en el análisis de varianza (ANOVA) y sus vertientes.  Este mismo supuesto es también importante en el análisis de regresión simple y multivariable; por ejemplo, en el análisis discriminante (*discriminant function analysis* en inglés). Utilizaremos los datos de la Becasa de Mar *Limosa haemastica*, un ave migrante de las costas de las marismas de Argentina, de la base de datos Godwits.  Para determinar si la razón de adquisición de comida es diferente entre sexo, tiempo del año, y la combinación de estas dos variables (en otras palabras, las interacciones entre ambas), hay que asumir lo siguiente: 1ro. la varianza en las observaciones entre sexo es similar, 2do. la variación en las tres estaciones es similar, y 3ro. la variación entre los grupos por sexo es similar. 
+
+## Gráficos de cajas condicionales
+
+  Para el ejemplo BecasaDeMar, se removieron algunos datos del análisis como se explica a continuación. En la variable **SEX**, hay tres categorías: 0 = sexo no identificado, 1 = hembra, y 2 = macho. Se removió la categoría de **no identificado** usando la siguiente función **which**:
+
+
+  **BecasaDeMar=BecasaDeMar[-which(BecasaDeMar$SEX=={0}),]**
+
+
+Note aquí el \say{-} (el signo de resta) antes de \say{which}.
+  
+  El siguiente paso, después de remover los individuos no identificados por sexo, es cambiar el nombre de los niveles 1 y 2 a hembra y macho respectivamente. Para evaluar la homogeneidad de varianza entre las estaciones también se le asigna el nombre del periodo: Verano, Pre-migración e Invierno.
+
+  Por ejemplo, con relación al supuesto de homogeneidad, en la figura se nota que hay un poco de variación en la varianza de ciertos grupos, pero en general no habría que preocuparse de una desigualdad como tal, aunque los 4 individuos identificados como puntos en la gráfica en el periodo de verano deberían ser evaluados con más detenimiento para asegurarse que los datos están correctos y que representen datos biológicamente posibles y no error en la toma de los datos o cuando se entraron en la hoja de datos.
+
+### Selección de los datos
+
+```{r BecasaDeMar, rexample=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+BecasaDeMar=Godwits
+
+BecasaDeMar=BecasaDeMar[-which(BecasaDeMar$SEX=="0"),]
+
+BecasaDeMar$fSEXO <- factor(BecasaDeMar$SEX,
+            levels = c(1, 2),
+            labels = c("Hembra", "Macho"))
+
+BecasaDeMar$fPERIODO <- factor(BecasaDeMar$PERIOD,
+            levels = c(0, 1, 2),
+            labels = c("Verano", "Pre-migración", "Invierno"))
+
+ head(BecasaDeMar)           
+```
+
+
+
+```{r BecasaDeMarBP}
+
+BecasaMar <- ggplot(BecasaDeMar,
+                    aes(y=mgconsumed, fSEXO))
+BecasaMar + geom_boxplot(notch=TRUE)+
+            facet_wrap(~fPERIODO)+
+  theme(axis.title=element_text(size=12,face="bold"),
+        axis.text=element_text(size=12, face="bold"))+
+            xlab("Sexo de las aves")+
+            ylab("Razón de consumo")
+```
+***
+
+
+## Homogeneidad de varianza en modelos de regresión
+
+Para el análisis de tipo regresión es necesario evaluar la homogeneidad de los datos utilizando los residuales del modelo. Esto lo logramos graficándolos contra los valores estimados (fitted values) y haciendo un gráfico de caja condicional con los residuales.  Los residuales tienen que ser similares en todos los grupos. Si la variación de los residuales no es igual, será necesario transformar los datos o usar otras técnicas que no requieran del supuesto de la homogeneidad de varianza; por ejemplo, mínimos cuadrados generalizados (generalized least square, en inglés) o un análisis no paramétrico. 
+
+El gráfico que utilizaremos se llama caja condicional ya que la distribución es condicional al grupo. El residual se calcula como la diferencia entre el valor observado y el valor esperado; en este caso, en la variable de **y**.
+
+A continuación, completamos el análisis utilizando otra vez los datos de la orquídea **Dipodium**.  Primero hay que hacer un análisis de regresión simple usando **lm()** y darle un nombre al análisis o sea el modelo. Subseguientemente uno puede llamar los valores necesarios para hacer el gráfico con **.fitted** y **.resid**.  
+
+```{r Homogeneityvariance, rexample=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+
+modelflower=lm(Number_of_Flowers~Height_Inflo,
+         data=dipodium)
+
+summary(modelflower)
+```
+Lo que observaremos es que la distribución de los residuales luce más o menos uniforme alrededor del promedio de los residuales (el cero).  Hay aproximadamente igual cantidad de valores mayor a cero (por encima de la línea en verde) y menor a cero (por debajo de la línea en verde) que están distribuidos a través de la variable en el eje de **X**, o valores estimados. En adición que los residuales (negativos o positivos) no son limitado a sub grupos de de los valores estimados (en la **X**).   
+
+
+ Note que se está aplicando el modelo **modelflower**, y se usan los valores calculados en el modelo **.fitted** y **.resid** para producir el gráfico. Se añade una linea horizontal para identificar el modelo nulo con **geom_hline**.  
+
+```{r Homogeneityvariance1}
+  res<-ggplot(modelflower, aes(.fitted, .resid))+
+  geom_point()+
+  geom_hline(yintercept=0,
+           col="green", linetype="dashed")+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+  xlab("Valores estimados")+
+           ylab("Residuales")+
+  ggtitle("Residuales vs. Valores Estimados")
+res
+```
+
+
+## Los residuales estandarizados
+
+A continuación se ilustra otro enfoque para evaluar los residuales. En este caso, para visualizar los residuales se usa la raíz cuadrada de los residuales estandarizados. Para esta alternativa, los residuales se dividen por la desviación estándar.  Esta alternativa es apropiada si estamos evaluando diferentes grupos con promedios y varianzas distintas para así hacer la comparación más adecuada.  Note en la figura que se usa otra vez el modelo **modelflower** y los valores calculados en el modelo **.fitted** y la raíz cuadrada de los residuales **.stdresid**. Note ahora también que todos los valores en el eje de **Y** son mayores de cero (el resultado de la estandarización).
+
+```{r Homogeneityvariance2}
+  ResEst=ggplot(modelflower,
+                 aes(.fitted, sqrt(abs(.stdresid)))) +
+                 geom_point(na.rm=TRUE)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+          xlab("Valores estimados")+
+          ylab("Residuales estandarizados")+
+  ggtitle("Residuales vs. Valores Estimados")
+ResEst
+```
+
+Ahora se añade la mejor línea a la regressión. En el próximo gráfico, Figura \ref{fig:Homogeneityvariance3}, se le sobrepuso la regresión lineal y observamos que no hay ningún patrón (la línea es relativamente plana). Esto significa que no hay ningún patrón entre los valores estimados y los residuales. \index{ggtitle}
+ 
+```{r Homogeneityvariance3}
+# Continuaremos con el modelo anterior:
+ResEst+stat_smooth(method="lm", na.rm = TRUE)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+  xlab("Valores Estimados")+
+  ylab("Residuales estandarizados")+
+  ggtitle("Residuales vs. Valores Estimados")
+```
+
+Vamos a modificar la información de los ejes y mejorar la estética. Con el último gráfico de esta subsección, Figura \ref{fig:Homogeneityvariance4}, se demuestra cómo modificar la información del eje de \say{Y} para identificar que es la raíz cuadrada a la vez que se le cambian los colores de los textos que describen los dos ejes.
+ 
+```{r Homogeneityvariance4} 
+# Seguimos con el modelo anterior: 
+ResEst+
+      ylab(expression(sqrt("Residuales Estandarizados")))+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"),
+        axis.title.x = element_text(colour = "red"),
+        axis.title.y = element_text(colour = "blue"))+
+        xlab("Valores Estimados")
+```
+
+\subsubsection{La Distancia de Cook, Di}
+
+Continuando con el tema de evaluar si hay valores que podrían influenciar mucho el análisis, podemos utilizar una de las herramientas para evaluar el peso (\say{the influence} en inglés) de cada valor sobre una regresión lineal basada en métodos de los mínimos cuadrados, llamada la \emph{Distancia de Cook}. Este análisis fue desarrollado por R. Dennis Cook en 1977 y tiene como objetivo evaluar cada valor en la matriz de datos y el peso que tiene sobre el resultado (esté este incluido o no en el análisis).  Produce un índice para cada uno de los valores sobre el resultado basándose en los valores residuales que se llama la \emph{Distancia de Cook}.  Por lo tanto, ese análisis evalúa el impacto relativo de cada valor sobre el índice.  Infortunadamente no está claro cuál es el valor crítico; o sea, qué valor nos puede indicar que se tiene exceso de peso sobre los resultados.  Las dos principales sugerencias son: cuando la \emph{Distancia de Cook}, Di, es mayor a 1 (sugerido por R. Dennis Cook Cook mismo en 1982); y que la \say{Di > 4/n}, donde \say{n} es el número de observaciones (Bollen \textit{et al}. 1990). \index{Distancia de Cook}
+
+Para hacer una ilustración, continuaremos con el modelo \say{modelflower} usando los valores calculados en el modelo anterior. El gráfico se construirá utilizando la opción \say{seq\_along}, para que los valores en el eje de \say{X} se basen en la secuencia de datos en el archivo y los valores en el eje de \say{Y} se basen en los valores de la \emph{Distancia de Cook}, tal como se muestra en la Figura \ref{fig:Cookdistance}.  En este caso, vemos que todos los valores están muy por debajo de 1, lo que sugiere que ninguno de los valores individuales influenciaría mucho en los resultados aún si estos fuesen excluidos.  Si utilizáramos la segunda alternativa de \say{Di > 4/n}, entonces nos deberían preocupar los 8 valores de Di que son mayores a 4/181=0.022, donde 181 es la cantidad de datos en el archivo.  Si se considera esta segunda alternativa, sería necesario evaluar 8 valores en la tabla de datos que pudiesen ser sospechosos (los valores encima de la línea roja). Note que no es que están incorrectos; más bien, este resultado es solamente una herramienta para evaluar valores que \say{parecen} tener un impacto considerable sobre los resultados.
+
+```{r Cookdistance}
+
+  ggplot(modelflower,
+        aes(seq_along(.cooksd), .cooksd))+
+        geom_bar(stat="identity",
+        position="identity", fill="steelblue")+
+  geom_hline(yintercept =0.022, colour="red")+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+        xlab("La secuencia de las observaciones")+
+        ylab("Distancia de Cook")+
+        ggtitle("Distancia de Cook")
+```
+
+\subsection{Supuesto de normalidad} 
+
+Hay muchas pruebas estadísticas que asumen que los datos provienen de una distribución normal. Pero no todas las pruebas tienen que satisfacer ese supuesto.  Por ejemplo, un Análisis de Componentes Principales o ACP (en inglés, PCA o \say{Principle Component Analysis}) o la prueba de \emph{t} asumen distribución normal.  Por el contrario, las pruebas no paramétricas como Wilcoxon, Mann-Whitney, Kruskall Wallis y otras no asumen esos supuestos.
+
+Una alternativa tradicional para comprobar la normalidad de los datos es mirar el gráfico de QQ; o sea, una visualización para comparar las probabilidades de dos variables en las que se grafican los cuartiles (recordemos que \say{Q} viene de cuartil). Si las distribuciones de las dos variables son similares, los puntos aparecerán nítidamente en el gráfico de QQ sobre la línea de \say{X-Y}. Eso se demostrará a continuación. \index{Supuesto de Normalidad}
+
+\subsubsection{qplot}
+
+En el gráfico de la Figura \ref{fig:Becasaqqplot2} se representa el consumo por la Becasa de Mar de la base de datos \emph{Godwits}, el ave de las marismas de Argentina que hemos analizado anteriormente.  En el gráfico se nota que los datos a los extremos no están muy cerca de la línea \say{X-Y}, lo que sugiere que el consumo por la Becasa de Mar no tiene una distribución normal. La función qplot es la manera más sencilla para generar el gráfico de QQ con ggplot2.  \index{qplot}
+
+```{r Becasaqqplot2, message=FALSE}
+# Note que anteriormente ya habíamos depositado los datos en el data.frame BecasaDeMar
+qplot(sample = BecasaDeMar$mgconsumed, stat="qq")+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text = element_text(size=20,face="bold"))+
+   xlab("Valores teóricos")+
+   ylab("Valores observados")
+   
+```
+
+\subsubsection{stat\_qq}
+
+A pesar de lo fácil de este enfoque, apreciar si los datos quedan nítidamente alineados sobre una línea no es tan evidente en algunos casos.  Por lo tanto, en la siguiente versión del gráfico de QQ producida con la función stat\_qq se le añade una línea con la función geom\_abline para mostrar dónde debería estar localizada la gran mayoría de los datos si estos tuvieran una distribución normal. Para lograrlo, primero hubo que crear un vector de los datos, luego  calcular los cuartiles, la pendiente (\say{slope}) y el intercepto (\say{intercept}) como lo hemos hecho anteriormente.  Ahora vemos que claramente muchos de los datos no yacen en la línea.  Evidentemente, el trazar la línea teórica ayuda a visualizar la conclusión; en este caso, se podría concluir que el consumo de comida por este pájaro no sigue una distribución normal, tal como se muestra en la Figura \ref{fig:Becasaqqplot3} a continuación. \index{stat\_qq}
+
+```{r Becasaqqplot3}
+
+misdatos=Godwits$mgconsumed
+y=quantile(misdatos[!is.na(misdatos)], c(0.25, 0.75))
+x=qnorm(c(0.25, 0.75))
+pendiente=diff(y)/diff(x)
+intercepto=y[1L] - pendiente * x[1L]
+d=data.frame(resids = misdatos)
+
+ggplot(d, aes(sample = resids)) +
+  stat_qq()+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+  geom_abline(slope = pendiente, intercept = intercepto)+
+  xlab("Valores teóricos")+
+  ylab("Valores observados")
+```
+
+\subsubsection{La distribución normal}
+
+Una segunda alternativa para visualizar si los datos siguen una distribución normal es construir un histograma de los datos y graficar sobre este la curva normal basándonos en el promedio y la desviación estándar de los mismos datos.  Para construir el histograma se usa la función geom\_histogram y para la distribución normal se usa la función stat\_function.  Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde se representa la razón de consumo y el período en que esto ocurrió. En la Figura \ref{fig:density}(a) vemos la distribución para todos los períodos, y los otros tres en la Figura \ref{fig:density}(b) muestran una distribución para cada uno de los períodos.  Se observa en todos los casos que las distribuciones están sesgadas hacia los valores pequeños (hacia la izquierda).  Esta visualización nos ayuda a evaluar la normalidad de esos datos.
+
+Note que en geom\_histogram se tiene que incluir 
+
+\begin{verbatim} 
+  aes(..density..) 
+\end{verbatim} 
+
+y añadir dentro de la función stat\_function todo lo siguiente: 
+
+\begin{verbatim} 
+  stat_function(fun = dnorm,
+        args = list(mean = mean(Godwits$mgconsumed,
+                                na.rm = TRUE),
+    sd = sd(Godwits$mgconsumed,
+            na.rm = TRUE)),
+            colour = "red", size = 1.)
+\end{verbatim}
+
+El parámetro \say{dnorm} quiere decir \say{distribución normal}.  También se necesitan dos parámetros para calcular el promedio (\say{mean}) y la desviación estándar (\say{sd}).  Con ambos hay que especificar de dónde provenen los datos; en este caso, 
+
+\begin{verbatim} 
+  Godwits$mgconsumed
+\end{verbatim}  
+
+Además, si hay NA en los datos, hay que añadir \say{na.rm = TRUE}.  Veamos.
+
+```{r density, message=FALSE}
+
+ggplot(Godwits, aes(mgconsumed)) +
+  theme(legend.position = "none") +
+  geom_histogram(aes(y=..density..),
+                 colour="black", fill="white")+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text = element_text(size=20,face="bold"))+
+  labs(x = "Razón de Consumo", y = "Densidad") +
+  stat_function(fun = dnorm,
+        args = list(mean = mean(Godwits$mgconsumed,
+                                na.rm = TRUE),
+    sd = sd(Godwits$mgconsumed,na.rm = TRUE)),
+    colour = "red", size = 1)
+
+
+
+
+
+ggplot(Godwits, aes(mgconsumed)) +
+  theme(legend.position = "none") +
+  geom_histogram(aes(y=..density..),
+                 colour="black", fill="white")+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text = element_text(size=20,face="bold"))+
+  labs(x = "Razón de Consumo", y = "Densidad") +
+  stat_function(fun = dnorm, args = list(mean =
+    mean(Godwits$mgconsumed, na.rm = TRUE),
+    sd = sd(Godwits$mgconsumed, na.rm = TRUE)),
+    colour = "red", size = 1)+
+    facet_wrap(~PERIOD)
+
+```
+
+\subsubsection{stat\_function}
+
+Continuaremos con este mismo análisis pero esta vez evaluaremos la distribución del peso de gorriones en un trabajo de captura y recaptura en 6 meses diferentes.  Utilizaremos la base de datos \emph{SparrowsElphick}.  En la Figura \ref{fig:density3}(a) observamos un  histograma de la distribución de los pesos de estas aves por cada mes. Vemos claramente que hay meses (mayo, septiembre y octubre) en los que se tuvieron muchas menos observaciones.  En el segundo gráfico, Figura \ref{fig:density3}(b), observamos el histograma y la curva normal para todos los datos sin importar el mes. Igualmente, esta visualización nos ayuda a evaluar la normalidad de los datos. \index{stat\_function}
+
+```{r density3}
+
+Sparrows=SparrowsElphick
+
+Sparrows$fMonth<-factor(Sparrows$Month,
+             levels = c(5, 6, 7, 8, 9, 10),
+             labels = c("Mayo", "Junio", "Julio", "Agosto",
+                                   "Sept.", "Oct."))
+
+ggplot(Sparrows, aes(wt))+
+  geom_histogram(binwidth=1, colour="white")+
+  facet_wrap(~fMonth)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text = element_text(size=20,face="bold"))+
+  xlab("Peso")+
+  ylab("Frecuencia")
+
+ggplot(Sparrows, aes(wt)) +
+  theme(legend.position = "none")+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text = element_text(size=20,face="bold"))+
+  geom_histogram(aes(y=..density..), colour="black",
+                 fill="white") +
+  labs(x = "Peso", y = "Densidad") +
+  stat_function(fun = dnorm, args = list(mean =
+      mean(Sparrows$wt, na.rm = TRUE),
+      sd = sd(Sparrows$wt, na.rm = TRUE)),
+      colour = "red", size = 1)
+```
+
+
+#####
+
+
+\subsubsection{geom\_density}
+
+A continuación se muestra otra alternativa en la Figura \ref{fig:density4} para observar los datos anteriores.  Nada más que estos ahora se representan sustituyendo las funciones geom\_histogram y stat\_function por geom\_density para la construcción de curvas de densidad.  Otra vez utilizaremos la base de datos \emph{SparrowsElphick}.  La curva normal que se genera es tipo gausiana (o \say{gaussian} en inglés). Nótese que para el segundo conjunto de gráficos, Figura \ref{fig:density4}(b),  no se le especificó la opción en \say{kernel} igual a \say{gaussian} ya que de forma predeterminada la función geom\_density usa el parámetro \say{gaussian}; o sea, no es necesario especificarla si eso es lo que se quiere. Una distribución en donde el pico es más alto significa que hay mayor densidad de datos en esa región de la variable en el eje de \say{X}. Podemos apreciar que la curva de densidad no sigue claramente una distribución normal con respecto a los valores en \say{X}. \index{geom\_density}
+
+```{r density4}
+
+# Note que anteriormente ya habíamos depositado los datos en el data.frame Sparrows:
+ggplot(Sparrows, aes(wt))+
+geom_density(aes(group=fMonth, fill=fMonth),
+             kernel="gaussian")+
+  facet_wrap(~fMonth)+
+  guides(fill=FALSE)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+  ylab("Densidad")+
+  xlab("Peso")
+
+ggplot(Sparrows, aes(wt))+
+  geom_density(aes(group=fMonth,
+                   fill=fMonth,
+                   colour=fMonth),
+               alpha=.4)+
+  scale_color_discrete()+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text=element_text(size=20, face="bold"))+
+  ylab("Densidad")+
+  xlab("Peso")+
+  labs(colour="Mes")
+```
+
+\subsection{Colinealidad entre covariables con ggpairs}
+
+Hoy en día la cantidad de datos que se obtienen en diferentes estudios puede ser muy impresionante. Muchas veces el objetivo es detectar si unas variables, entre muchas otras, podrían predecir la variable de respuesta.  A consecuencia de eso, el problema mayor es tomar en cuenta la colinealidad entre variables explicativas.  La colinealidad es simplemente la correlación entre variables en un modelo de análisis de regresión múltiple, en donde las variables predictivas están altamente correlacionadas.  \index{ggpairs}
+
+Un ejemplo sencillo de variables con colinealidad podría incluir la relación entre el largo y ancho de las hojas de una herbácea y cómo estas están correlacionadas con la producción de flores. Es probable que la correlación entre el largo y el ancho de la hoja estén correlacionadas con la producción de las flores de formas muy similares; o sea, con una pendiente que explicaría ambas relaciones de formas similares. Entonces, al añadir ambas variables al modelo de regresión múltiple, no estaríamos explicando variaciones distintas, si no más bien la misma variación. Cuando hay mucha colinealidad entre variables explicativas, se debería seleccionar un subgrupo de estas variables que expliquen variaciones distintas para el modelo y no incluir todas las variables.
+
+A continuación exploraremos diferentes alternativas para llevar a cabo este tipo de análisis utilizando otra vez los datos de la orquídea \emph{Dipodium}.  En el primer ejemplo, se utiliza la función \say{cor} para evaluar solo una relación: la correlación entre la distancia de la planta a un árbol y la altura de la planta, dejando otras variables a un lado.  Como deseamos el estimado de la correlación solamente, utilizamos un par de variables a la vez para evaluar la correlación entre la distancia de la orquídea al árbol y la altura de la inflorescencia (mostrado más adelante).  Concluimos que a mayor distancia del árbol, menor es la altura de la inflorescencia al este análisis arrojar un valor de pendiente de -0.095 como se muetra en el Ejemplo \ref{correlation1}. \index{Correlaciones de Spearman}
+
+```{r correlation1, rexample=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+cor(dipodium$Distance, 
+    dipodium$Height_Inflo,
+    use="pairwise.complete.obs")
+```
+
+Otra alternativa es hacer el análisis de correlación de muchas variables en conjunto.  En la Tabla \ref{fig:CP}, \say{Correlaciones de Pearson}, se muestra la correlación entre las tres variables siguientes: DBH, cantidad de flores y altura de la inflorescencia.  En esa tabla se observa la correlación de Pearson para estos datos. Recordemos que esta correlación asume distribución normal. 
+
+```{r correlation2}
+
+kable(signif(cor(dipodium[,c(3, 8, 9)],
+ use="pairwise.complete.obs"),2))
+```
+
+Usando la función \say{cor} se pueden también calcular estimados de correlación sin asumir distribución normal usando los métodos \say{Kendall} o \say{Spearman} mostrados en la Tabla \ref{fig:CK}, \say{Correlaciones de Kendall}, y Tabla \ref{fig:CS}, \say{Correlaciones de Spearman}, respectivamente. \index{geom\_density} \index{Correlaciones de Kendall}
+
+```{r correlation3}
+kable(signif(cor(dipodium[,c(3, 8, 9)],
+ method="kendall",
+ use="pairwise.complete.obs"),2), 
+ caption =
+  "\\label{fig:CK}Correlaciones de Kendall")
+```
+
+```{r correlation4}
+
+kable(signif(cor(dipodium[,c(3, 8, 9)],
+ method="spearman",
+ use="pairwise.complete.obs"),2))
+```
+
+En esas tres tablas podemos apreciar un patrón consistente entre todos los métodos; o sea, la altura de la inflorescencia está altamente correlacionada con la cantidad de flores (con coeficientes de correlación de 0.82, 0.65, y 0.81 respectivamente).  Note que para facilitar la lectura de los valores, se usó la función \say{signif} para así identificar solamente los valores significativos del análisis. 
+
+Brevemente recapitulamos, si los datos no siguen una distribución normal, se deberían utilizar los métodos Kendall o Spearman.  Si se tienen pocos datos,  Kendall tiende a ser una mejor alternativa para determinar el indice de correlación.  Se le advierte, sin embargo, que consulte libros de estadística sobre este tema antes que realice un análisis de este tipo ya que la decisión de seleccionar una alternativa sobre otra no es tan sencilla. \index{Correlaciones de Spearman} \index{Correlaciones de Kendall}
+
+
+
+Además, los métodos utilizados emplearon el parámetro \say{pairwise.complete.obs}, ya que obviaría los \say{NA} en las columnas que se utilizan para calcular la correlación. Por lo tanto, la cantidad de pares de datos utilizados para calcular las diferentes correlaciones entre variables puede variar si hay \say{NA} en el archivo.  Tome en consideración que hay otras cuatro alternativas para analizar los datos cuando tenemos \say{NA} presentes: \say{everything}, \say{all.obs}, \say{complete.obs} y \say{na.or.complete}.  No vamos a discutir esas alternativas en el presente libro.  Sería bueno que busque información en R para sus usos. 
+
+Finalmente, también se utilizó el comando \say{kable} ya que es una manera efectiva de organizar los resultados en una tabla.
+
+\subsubsection{Uso de GGally}
+
+Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar la librería \say{GGally}, ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas. \index{GGally}
+
+En los gráficos de la Figura \ref{fig:ggpairs} observamos los coeficientes de correlación, la distribución de los datos y la visualización de correlación por cada par. Además, vemos el diagrama de caja de los datos cuando hay variables discretas. Note al extremo derecho que la variable \say{Herbivory} tiene una categoría no identificada, que incluye los \say{NA}.
+
+Con la función de ggpairs podemos calcular las correlaciones entre las variables y a la misma vez producir todos los gráficos entre las variables y gráficos de distribución de densidad de cada variable. En el gráfico de la Figura \ref{fig:ggpairs}, podemos observar en la parte izquierda la distribución de los datos en pares.  En la diagonal se observa la densidad de cada una de las variables.  En la parte superior derecha se observa el valor de correlación y en el extremo derecho se observan los diagramas de caja de las variables discretas con relación a la variable de la izquierda.  Este gráfico es sumamente práctico, ya que produce mucha información con pocos pasos.  Desafortunadamente no hay manera de remover los \say{NA} al presente.  A consecuencia de esto, al extremo derecho uno observa en las cajas abajo una barra con muchos valores (la de la derecha), pero esta representa todos los valores \say{NA} en la tabla de datos.  En este caso, la presencia de herbaria en las plantas no fue recolectada y en cambio se dejó con un \say{NA}.  Note que aquí no se pueden poner ceros u otros valores.  Las alternativas podrían ser \say{H} para evidenciar la presencia de herbaria y \say{n} por la falta de esta.
+
+```{r ggpairs, warning=FALSE, message=FALSE}
+names(dipodium)
+
+ggpairs(dipodium[,c(8, 9, 13, 14, 10)])
+```
+
+\subsubsection{Mapas de calor o mapas críticos o \emph{Heat Maps} con geom\_tile}
+
+Cuando hay muchas variables en el análisis, a veces podría ser más fácil observar las diferencias entre ellas usando colores en vez de números; por ejemplo, para visualizar los coeficientes de correlación entre pares de variables continuas. Un mapa de calor (o \say{heat map} en inglés) nos puede ayudar pues justamente es una visualización con gradientes de colores de valores continuos.  Continuaremos utilizando la base de datos de la orquídea \emph{Dipodium} para explicar los tres pasos para construir un mapa de calor de los coeficientes de correlación. \index{geom\_tile}
+
+
+Primero, necesitamos calcular los coeficientes de correlación con la opción \say{cor}. Luego visualizaremos los datos con la función \say{kable}, tal como se muestra en la Tabla \ref{fig:CC}.
+
+```{r heatmap data1, message=FALSE}
+
+DWCor=round(cor(dipodium[c(3, 6, 8, 9, 13)],
+                use="pairwise.complete.obs"),3)
+
+kable(DWCor) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, font_size = 10) 
+ 
+
+
+
+```
+
+
+Segundo, reorganizaremos los datos en un data.frame usando la librería \say{reshape2} y la opción \say{melt}. En nuestro caso, lo que queremos es producir un data.frame con solo dos columnas con las variables en pares con su respectivo valor de correlación. En el nuevo data.frame, DWMelt, vemos tres columnas cada una representando las variables y la última con el valor de correlación, tal como aparece en el Ejemplo \ref{heatmap data2}.
+
+\subsection{Matriz de correlaciones}
+
+```{r heatmap data2, message=FALSE}
+
+
+DWMelt= melt(DWCor, varnames= c("x1", "y1"),
+             value.name = "Correlation")
+head(DWMelt)
+```
+
+Finalmente, el tercer paso es producir la figura con geom\_tile.  El gráfico de la Figura \ref{fig:heatmap1} se produce sin modificar los parámetros.  En el gráfico de Figura \ref{fig:heatmap2}, se modifican los colores usando la guía de color para asignarlos a diferentes grupos a la vez que se remueven los nombres de los ejes de \say{X} y de \say{Y}.  A este mapa de calor básico se le asignan las variables de \say{x} y \say{y} y el valor que queremos que tenga un rango de color, en este caso el valor de correlación. Para remover el nombre de la variables \say{x} y \say{y}, se usa \say{labs(x=NULL, y=NULL)}, ya que ggplot2 lo pone automáticamente cuando se construye un gráfico. \index{geom\_tile}
+
+```{r heatmap1}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  theme(axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+\noindent
+Además, le cambiamos los colores del gráfico, usando \say{scale\_fill\_gradient2}. Asignamos los valores más bajos al color amarillo, los más altos al rojo y los valores intermedios al color anaranjado. Para esta opción de \say{scale\_fill\_gradient2}, hay que asignar tanto los colores al extremo y el del medio.  El resultado se puede ver en la Figura \ref{fig:heatmap2}. Note que los valores de correlaciones varían de -1 a +1.  El límite del rango se asigna especificando \say{limits=c(valor mínimo, valor máximo)}.  Dado esto, en este ejemplo la intensidad de colores no es tan amplia porque no hay valores muy negativos. \index{geom\_tile}
+
+```{r heatmap2, warning=FALSE}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient2(low="white",
+                       mid="orange", high="red",
+  guide=guide_colorbar(ticks=FALSE,
+                       barheight=5, limits=c(-1,1)))+
+  theme_minimal()+
+  labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+En el siguiente gráfico, Figura \ref{fig:heatmap3}, se cambia el valor intermedio a blanco (para valores más cercanos a cero). \index{geom\_tile}
+
+```{r heatmap3}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient2(low="yellow",
+                       mid="white", high="red",
+  guide=guide_colorbar(ticks=FALSE,
+                       barheight=5, limits=c(-1,1)))+
+  theme_minimal()+
+  labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+Se puede también hacer la selección de solamente dos colores con la función \say{scale\_fill\_gradient} (vea que esa opción no es lo mismo que \say{scale\_fill\_gradient2}). En este caso los gradientes de colores en el centro de la distribución (el cero) no está definido, como se muestra en la Figura \ref{fig:heatmap4}. \index{geom\_tile}
+
+```{r heatmap4}
+
+ggplot(DWMelt, aes(x=x1, y=y1))+
+  geom_tile(aes(fill=Correlation))+
+  scale_fill_gradient(low="yellow",
+                      high="red", limits=c(-1,1))+
+  theme_minimal()+labs(x=NULL, y=NULL)+
+  theme(axis.title=element_text(size=20,face="bold"),
+        axis.text.y=element_text(size=10, face="bold"),
+        axis.text.x=element_text(size=8, face="bold", angle = 90, hjust = 1))+
+  labs(fill="Correlación")
+```
+
+
+Play with tihs function  
+
+Look for info on the web, and the package ggcorrplot
+
+```{r}
+
+ggcorr(DWCor)
+```
+
+
+
+
+
+A continuación se resumen las opciones y parámetros más importantes de gráficos de mapas de calor con geom\_tile:
+
+\begin{itemize}
+  \item {\color{red}ggplot}(el archivo de datos, aes(x= la variable discreta, y=variable continua, ymax= el valor máximo, ymin= el valor mínimo))
+  \begin{itemize}
+  \item {\color{red}geom\_tile}(x, y,  alpha, color, fill, linetype, size)
+  \begin{itemize}
+    \item {\color{red}alpha}: la intensidad del color
+    \item {\color{red}color}: el color de la línea
+    \item {\color{red}fill}:  el color de los cuadros
+    \item {\color{red}linetype}: representa el estilo de línea; vea sección \hyperref[sec:Especificación Estética]{\say{Especificación Estética}}
+    \item {\color{red}size}: representa el ancho de la línea
+\end{itemize}
+\end{itemize}
+\end{itemize}
