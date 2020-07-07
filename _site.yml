@@ -74,6 +74,10 @@ navbar:
         -   
           href: G12_Mapas_Calor.html
           text: "Mapas de Calor"
+          
+        -   
+          href: G13_geom_line.html
+          text: "Gráficos con lineas"
       text: "Visualización"
     - 
       menu: 

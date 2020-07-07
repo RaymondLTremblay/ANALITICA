@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Geom_line</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadística básica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E1-Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="E2-Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="E3-TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="E4-Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="E5-supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="E6-TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
+    <li>
+      <a href="G6_geom_histogram.html">Histogramas</a>
+    </li>
+    <li>
+      <a href="G7_geom_bar.html">Gráficos de barras</a>
+    </li>
+    <li>
+      <a href="G8_geom_boxplot_geom_violin.html">Gráficos de caja y de violín</a>
+    </li>
+    <li>
+      <a href="G9_Facet_Grid.html">Facet Grid</a>
+    </li>
+    <li>
+      <a href="G10_Facet_wrap.html">Facet Wrap</a>
+    </li>
+    <li>
+      <a href="G11_EVALUANDO_SUPUESTOS.html">Evaluando Supuestos</a>
+    </li>
+    <li>
+      <a href="G12_Mapas_Calor.html">Mapas de Calor</a>
+    </li>
+    <li>
+      <a href="G13_geom_line.html">Gráficos con lineas</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Geom_line</h1>
+
+</div>
+
+
+<pre class="r"><code>library(ggversa)
+library(ggplot2)
+library(gt)</code></pre>
+<div id="gráficos-de-línea" class="section level2">
+<h2>Gráficos de línea</h2>
+</div>
+<div id="gráfico-de-línea-básico-con-geom_line" class="section level2">
+<h2>Gráfico de línea básico con <strong>geom_line</strong></h2>
+<p>Los gráficos de línea se usan frecuentemente cuando hay una variable de datos continuos ordenada secuencialmente, como las series en tiempo (años, hora, minutos, u otras secuencias). En los ejemplos que veremos a continuación se muestra la relación entre la detección del cáncer de tiroides en EE. UU. entre los años 1975 y 2012, su aumento y el nivel de mortandad.</p>
+<p>En la Figura se muestra el cambio en número de casos de cáncer de tiroides por cada 100,000 habitantes. La columna <strong>Year</strong>, año, es una variable numérica, y típicamente no se gráfica correctamente porque no se toma como numérica automáticamente. Es necesario identificarla como que contiene valores enteros usando la opción <strong>as.integer</strong>.</p>
+<p>En primer lugar, crearemos un nuevo <strong>data.frame</strong> para agrupar solamente los nuevos casos de cáncer. Para crear un <strong>data.frame</strong> solamente con esos datos se usa la opción <strong>which</strong>, con el siguiente procedimiento:</p>
+<p>subconjunto del_archivo[which( el_archivo$la_variable == “la variable de interés”),]</p>
+<p>Note que la variable de interés es un conjunto de valores en “la_variable” o es una categoría, como en este caso, nuevos casos (o “New Cases”). El símbolo “==” significa “que sea exactamente igual a…”</p>
+<p>Aquí vemos parte de los datos originales:</p>
+<pre class="r"><code>library(ggversa)
+
+subTiroide=Tiroide[which(Tiroide$Cases==&quot;New Cases&quot;),]
+gt(head(subTiroide))</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#xegrlncpxz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xegrlncpxz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xegrlncpxz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xegrlncpxz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xegrlncpxz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xegrlncpxz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xegrlncpxz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xegrlncpxz .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xegrlncpxz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xegrlncpxz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xegrlncpxz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xegrlncpxz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xegrlncpxz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xegrlncpxz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#xegrlncpxz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xegrlncpxz .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xegrlncpxz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#xegrlncpxz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xegrlncpxz .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#xegrlncpxz .gt_left {
+  text-align: left;
+}
+
+#xegrlncpxz .gt_center {
+  text-align: center;
+}
+
+#xegrlncpxz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xegrlncpxz .gt_font_normal {
+  font-weight: normal;
+}
+
+#xegrlncpxz .gt_font_bold {
+  font-weight: bold;
+}
+
+#xegrlncpxz .gt_font_italic {
+  font-style: italic;
+}
+
+#xegrlncpxz .gt_super {
+  font-size: 65%;
+}
+
+#xegrlncpxz .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="xegrlncpxz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Cases</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Rate</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">1975</td>
+      <td class="gt_row gt_center">New Cases</td>
+      <td class="gt_row gt_right">4.8</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">1976</td>
+      <td class="gt_row gt_center">New Cases</td>
+      <td class="gt_row gt_right">4.8</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">1977</td>
+      <td class="gt_row gt_center">New Cases</td>
+      <td class="gt_row gt_right">5.4</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">1978</td>
+      <td class="gt_row gt_center">New Cases</td>
+      <td class="gt_row gt_right">5.1</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">1979</td>
+      <td class="gt_row gt_center">New Cases</td>
+      <td class="gt_row gt_right">4.5</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">1980</td>
+      <td class="gt_row gt_center">New Cases</td>
+      <td class="gt_row gt_right">4.3</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p>El procedimiento para preparar el gráfico de tiroides se presenta a continuación:</p>
+<pre class="r"><code>ggplot(subTiroide, aes(x=as.integer(Year), y=Rate))+
+  geom_line(size=2)+
+  annotate(&quot;text&quot;, x= 1990,y= 12, size= 4,
+           label=&quot;Nuevos \n casos&quot;, color=&quot;red&quot;)+
+  guides(color=&quot;none&quot;)+
+    ylab(&quot;Números de nuevos casos\n por 100,000 habitantes&quot;)+
+    xlab(&quot;Años&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G13_geom_line_files/figure-html/graficalinea1-1.png" width="672" /></p>
+<p>Note que se utilizó la función <strong>annonate</strong> para escribir información sobre el gráfico. Esta función será discutida con más detalle más adelante.</p>
+<hr />
+</div>
+<div id="gráfico-con-múltiples-líneas-con-geom_line" class="section level2">
+<h2>Gráfico con múltiples líneas con geom_line</h2>
+<p>A veces es importante comparar dos o más secuencias de datos. Eso se mostrará en la Figura continuando con el mismo ejemplo de tiroides anterior pero esta vez se le añadirá la razón de mortandad por tiroidismo en EEUU en el mismo gráfico. Usando la función <strong>group=</strong> identifica cual son los grupos, si hubiese más de dos grupos hubiese una linea para cada grupo. Lo que se observa es que aunque hay mucha más gente que es diagnosticada con cáncer de la tiroides, la proporción de gente que muere de este tipo de cáncer es consistente a través del tiempo.</p>
+<pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year),
+                    y=Rate, group=Cases, color=Cases))+
+  geom_line(size=2)+
+  annotate(&quot;text&quot;, x= 1990,y= 8, size=4,
+           label=&quot;Nuevos casos&quot;)+
+  annotate(&quot;text&quot;, x= 2000,y= 1, size= 4,
+           label=&quot;Mortandad&quot;)+
+  guides(color=&quot;none&quot;)+
+  ylab(&quot;Números de nuevos casos\n por 100,000 habitantes&quot;)+
+  xlab(&quot;Años&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G13_geom_line_files/figure-html/graficalinea2-1.png" width="672" /></p>
+<p>La función <strong>annonate</strong> nos permitió añadir la descripción <strong>Mortandad</strong> a la línea inferior en forma de texto <strong>text</strong> a la altura del punto 2000 en el eje de <strong>X</strong> y a la altura del punto 1 en el eje de <strong>Y</strong>. De igual manera se hizo con la descripción <strong>Nuevos Casos</strong> en la coordenada (1990, 8).</p>
+</div>
+<div id="gráfico-de-líneas-con-ejes-expandidos-con-geom_line" class="section level2">
+<h2>Gráfico de líneas con ejes expandidos con <strong>geom_line</strong></h2>
+<p>Muchas veces el intervalo de la escala de los ejes no es el óptimo. Continuando con el ejemplo anterior, modificamos el eje de <strong>X</strong> en la Figura para que incluya el último año (el último valor de la secuencia en el eje de <strong>X</strong>). Para ello se indica en el mismo código que el límite de <strong>X</strong> en el eje se vea a intervalos de 10 años con la función <strong>xlim</strong>. Note que para expandir el eje de <strong>Y</strong> se usaría la misma técnica.</p>
+<pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
+                    group=Cases, color=Cases))+
+  geom_line(size=2)+
+  annotate(&quot;text&quot;, x= 1990,y= 10, size=4,
+           label=&quot;Nuevos casos&quot;)+
+  annotate(&quot;text&quot;, x= 1995,y= 1, size= 4,
+           label=&quot;Mortandad&quot;)+
+  guides(color=&quot;none&quot;)+
+  ylab(&quot;Razón&quot;)+
+  xlab(&quot;Años&quot;)+
+  xlim(min(Tiroide$Year-5), max(Tiroide$Year+6))+
+  theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
+<p><img src="G13_geom_line_files/figure-html/graficalinea-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-líneas-con-los-puntos-añadidos-con-geom_line" class="section level2">
+<h2>Gráfico de líneas con los puntos añadidos con <strong>geom_line</strong></h2>
+<p>A veces nos interesa que la línea muestre los puntos que la componen. En el próximo ejemplo, lo mostraremos nuevamente utilizando el ejemplo anterior de tiroides. A continuación el código modificado que muestra ese efecto añadiendo <strong>geom_point</strong>:</p>
+<pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate, 
+                    group=Cases,
+                    color=Cases))+
+  geom_line(size=1)+
+  annotate(&quot;text&quot;, x= 1990,y= 8, size=4,
+           label=&quot;Nuevos casos&quot;)+
+  annotate(&quot;text&quot;, x= 2000,y= 2, size=4,
+           label=&quot;Mortandad&quot;)+
+  guides(color=&quot;none&quot;)+
+  ylab(&quot;Razón&quot;)+
+  xlab(&quot;Años&quot;)+
+  geom_point(color=&quot;black&quot;, size=2)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G13_geom_line_files/figure-html/graficalinea4-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-línea-con-los-puntos-en-otro-estilo-con-geom_line" class="section level2">
+<h2>Gráfico de línea con los puntos en otro estilo con <strong>geom_line</strong></h2>
+<p>Para cambiar el estilo de los puntos en un gráfico de línea se usan los parámetros <strong>size, shape, color</strong> y <strong>fill</strong>. Como ya habrá notado, estas alternativas para modificar la apariencia de los gráficos son comunes en casi todos los tipos de gráficos en <strong>ggplot2</strong>. La forma <strong>shape</strong> de los puntos predeterminada es un círculo con tamaño de 2, <strong>size=2</strong>. La opción de <strong>fill</strong> (para rellenar el punto con un color específico) es aplicable solamente al parámetro <strong>shape</strong> con valor de 21 al 25.</p>
+<p>Un punto importante que hay que observar es que si las líneas y los puntos son de diferentes colores, se tienen que especificar los puntos con <strong>geom_point</strong> después de la línea con <strong>geom_line</strong> ya que ggplot funciona con capas de información. En otras palabras, lo que se especifica primero, sale primero.</p>
+<pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
+                    group=Cases, color=Cases))+
+  geom_line(size=3)+
+  annotate(&quot;text&quot;, x= 1990, y= 10, label=&quot;Nuevos casos&quot;)+
+  annotate(&quot;text&quot;, x= 1990, y= 2, label=&quot;Mortandad&quot;)+
+  guides(color=&quot;none&quot;)+
+  ylab(&quot;Razón&quot;)+
+  xlab(&quot;Años&quot;)+
+  geom_point(shape=22, size=3, colour=&quot;blue&quot;, fill=&quot;white&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G13_geom_line_files/figure-html/graficalinea5-1.png" width="672" /></p>
+<div id="ejemplo-de-modificar-el-orden-de-capas" class="section level3">
+<h3>Ejemplo de modificar el orden de capas</h3>
+<p>Nuevamente, si las líneas y los puntos son de diferentes colores, se tienen que especificar los puntos <strong>geom_point</strong> después de la función <strong>geom_line</strong>. Por ejemplo,se puede ver el resultado cuando <strong>geom_point</strong> se específica antes de la línea. Los puntos están debajo de la línea, lo que los hace difícil de apreciar. Recordemos entonces que el orden de las funciones puede tener un impacto muy importante en la producción de un gráfico.</p>
+<pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
+                    group=Cases, color=Cases))+
+  geom_point(shape=22, size=4, color=&quot;blue&quot;, fill=&quot;white&quot;)+
+  geom_line(size=3)+
+  guides(color=&quot;none&quot;)+
+  ylab(&quot;Razón&quot;)+
+  xlab(&quot;Años&quot;)+
+  scale_x_continuous(limits=c(2000, 2010))+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G13_geom_line_files/figure-html/graficalinea6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="opciones-y-parametros-de-geom_line" class="section level2">
+<h2>Opciones y Parametros de <strong>geom_line</strong></h2>
+<ul>
+<li><p>ggplot(el archivo de datos, aes(la variables continua))</p></li>
+<li><p>geom_line(alpha, color, group, fill, size, linetype)</p>
+<ul>
+<li>alpha: la intensidad del color</li>
+<li>color: el color de la línea</li>
+<li>group: identifica los grupos</li>
+<li>linetype: el tipo de línea</li>
+<li>size: el ancho de la línea</li>
+</ul></li>
+</ul>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+---
+title: "Geom_line"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
+
+```{r}
+library(ggversa)
+library(ggplot2)
+library(gt)
+```
+
+
+
+## Gráficos de línea
+## Gráfico de línea básico con **geom_line**
+
+Los gráficos de línea se usan frecuentemente cuando hay una variable de datos continuos ordenada secuencialmente, como las series en tiempo (años, hora, minutos, u otras secuencias).  En los ejemplos que veremos a continuación se muestra la relación entre la detección del cáncer de tiroides en EE. UU. entre los años 1975 y 2012, su aumento y el nivel de mortandad.
+
+En la Figura se muestra el cambio en número de casos de cáncer de tiroides por cada 100,000 habitantes.  La columna **Year**, año, es una variable numérica, y típicamente no se gráfica correctamente porque no se toma como numérica automáticamente.  Es necesario identificarla como que contiene valores enteros usando la opción **as.integer**.
+
+En primer lugar, crearemos un nuevo **data.frame** para agrupar solamente los nuevos casos de cáncer.  Para crear un **data.frame** solamente con esos datos se usa la opción **which**, con el siguiente procedimiento:
+
+
+  subconjunto del_archivo[which(
+    el_archivo$la_variable == "la variable de interés"),]
+
+  Note que la variable de interés es un conjunto
+    de valores en "la_variable" o es una
+    categoría, como en este caso, nuevos casos (o "New Cases").  El símbolo "=="
+    significa "que sea exactamente igual a..."
+
+
+Aquí vemos parte de los datos originales:
+
+```{r importtiroide}
+library(ggversa)
+
+subTiroide=Tiroide[which(Tiroide$Cases=="New Cases"),]
+gt(head(subTiroide))
+
+```
+
+El procedimiento para preparar el gráfico de tiroides se presenta a continuación:
+
+```{r graficalinea1}
+ggplot(subTiroide, aes(x=as.integer(Year), y=Rate))+
+  geom_line(size=2)+
+  annotate("text", x= 1990,y= 12, size= 4,
+           label="Nuevos \n casos", color="red")+
+  guides(color="none")+
+    ylab("Números de nuevos casos\n por 100,000 habitantes")+
+    xlab("Años")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+Note que se utilizó la función **annonate** para escribir información sobre el gráfico.  Esta función será discutida con más detalle más adelante.
+
+***
+
+
+## Gráfico con múltiples líneas con geom_line
+A veces es importante comparar dos o más secuencias de datos. Eso se mostrará en la Figura continuando con el mismo ejemplo de tiroides anterior pero esta vez se le añadirá la razón de mortandad por tiroidismo en EEUU en el mismo gráfico. Usando la función **group=** identifica cual son los grupos, si hubiese más de dos grupos hubiese una linea para cada grupo.  Lo que se observa es que aunque hay mucha más gente que es diagnosticada con cáncer de la tiroides, la proporción de gente que muere de este tipo de cáncer es consistente a través del tiempo.
+
+```{r graficalinea2}
+ggplot(Tiroide, aes(x=as.integer(Year),
+                    y=Rate, group=Cases, color=Cases))+
+  geom_line(size=2)+
+  annotate("text", x= 1990,y= 8, size=4,
+           label="Nuevos casos")+
+  annotate("text", x= 2000,y= 1, size= 4,
+           label="Mortandad")+
+  guides(color="none")+
+  ylab("Números de nuevos casos\n por 100,000 habitantes")+
+  xlab("Años")+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+La función **annonate** nos permitió añadir la descripción **Mortandad** a la línea inferior en forma de texto **text** a la altura del punto 2000 en el eje de **X** y a la altura del punto 1 en el eje de **Y**.  De igual manera se hizo con la descripción **Nuevos Casos** en la coordenada (1990, 8).
+
+## Gráfico de líneas con ejes expandidos con **geom_line**
+
+Muchas veces el intervalo de la escala de los ejes no es el óptimo. Continuando con el ejemplo anterior, modificamos el eje de **X** en la Figura para que incluya el último año (el último valor de la secuencia en el eje de **X**). Para ello se indica en el mismo código que el límite de **X** en el eje  se vea a intervalos de 10 años con la función **xlim**. Note que para expandir el eje de **Y** se usaría la misma técnica.
+
+
+```{r graficalinea}
+ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
+                    group=Cases, color=Cases))+
+  geom_line(size=2)+
+  annotate("text", x= 1990,y= 10, size=4,
+           label="Nuevos casos")+
+  annotate("text", x= 1995,y= 1, size= 4,
+           label="Mortandad")+
+  guides(color="none")+
+  ylab("Razón")+
+  xlab("Años")+
+  xlim(min(Tiroide$Year-5), max(Tiroide$Year+6))+
+  theme(axis.title=element_text(size=14,face="bold"))
+```
+
+## Gráfico de líneas con los puntos añadidos con **geom_line**
+
+A veces nos interesa que la línea muestre los puntos que la componen. En el próximo ejemplo, lo mostraremos nuevamente utilizando el ejemplo anterior de tiroides.  A continuación el código modificado que muestra ese efecto añadiendo **geom_point**:
+
+```{r graficalinea4}
+ggplot(Tiroide, aes(x=as.integer(Year), y=Rate, 
+                    group=Cases,
+                    color=Cases))+
+  geom_line(size=1)+
+  annotate("text", x= 1990,y= 8, size=4,
+           label="Nuevos casos")+
+  annotate("text", x= 2000,y= 2, size=4,
+           label="Mortandad")+
+  guides(color="none")+
+  ylab("Razón")+
+  xlab("Años")+
+  geom_point(color="black", size=2)+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+## Gráfico de línea con los puntos en otro estilo con **geom_line**
+
+Para cambiar el estilo de los puntos en un gráfico de línea se usan los parámetros **size, shape, color** y **fill**.  Como ya habrá notado, estas alternativas para modificar la apariencia de los gráficos son comunes en casi todos los tipos de gráficos en **ggplot2**. La forma **shape** de los puntos predeterminada es un círculo con tamaño de 2, **size=2**. La opción de **fill** (para rellenar el punto con un color específico) es aplicable solamente al parámetro **shape** con valor de 21 al 25.
+
+Un punto importante que hay que observar es que si las líneas y los puntos son de diferentes colores, se tienen que especificar los puntos con **geom_point** después de la línea con **geom_line** ya que ggplot funciona con capas de información.  En otras palabras, lo que se especifica primero, sale primero.
+
+
+```{r graficalinea5}
+ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
+                    group=Cases, color=Cases))+
+  geom_line(size=3)+
+  annotate("text", x= 1990, y= 10, label="Nuevos casos")+
+  annotate("text", x= 1990, y= 2, label="Mortandad")+
+  guides(color="none")+
+  ylab("Razón")+
+  xlab("Años")+
+  geom_point(shape=22, size=3, colour="blue", fill="white")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+```
+
+### Ejemplo de modificar el orden de capas
+
+Nuevamente, si las líneas y los puntos son de diferentes colores, se tienen que especificar los puntos **geom_point** después de la función **geom_line**.  Por ejemplo,se puede ver el resultado cuando **geom_point** se específica antes de la línea. Los puntos están debajo de la línea, lo que los hace difícil de apreciar.  Recordemos entonces que el orden de las funciones puede tener un impacto muy importante en la producción de un gráfico.
+
+```{r graficalinea6}
+ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
+                    group=Cases, color=Cases))+
+  geom_point(shape=22, size=4, color="blue", fill="white")+
+  geom_line(size=3)+
+  guides(color="none")+
+  ylab("Razón")+
+  xlab("Años")+
+  scale_x_continuous(limits=c(2000, 2010))+
+  theme(axis.title=element_text(size=10,face="bold"))
+```
+
+## Opciones y Parametros de **geom_line**
+
+  * ggplot(el archivo de datos, aes(la variables continua))
+   
+  * geom_line(alpha, color, group, fill, size, linetype)
+ 
+    * alpha: la intensidad del color
+    * color: el color de la línea
+    * group: identifica los grupos
+    * linetype: el tipo de línea
+    * size: el ancho de la línea
+
+
+
