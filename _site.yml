@@ -78,6 +78,10 @@ navbar:
         -   
           href: G13_geom_line.html
           text: "Gráficos con lineas"
+          
+        -   
+          href: G14_geom_point_geom_jitter.html
+          text: "Geom_point y geom_jitter"
       text: "Visualización"
     - 
       menu: 

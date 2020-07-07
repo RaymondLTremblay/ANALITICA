@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Geom_point_geom_jitter</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadística básica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E1-Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="E2-Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="E3-TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="E4-Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="E5-supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="E6-TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
+    <li>
+      <a href="G6_geom_histogram.html">Histogramas</a>
+    </li>
+    <li>
+      <a href="G7_geom_bar.html">Gráficos de barras</a>
+    </li>
+    <li>
+      <a href="G8_geom_boxplot_geom_violin.html">Gráficos de caja y de violín</a>
+    </li>
+    <li>
+      <a href="G9_Facet_Grid.html">Facet Grid</a>
+    </li>
+    <li>
+      <a href="G10_Facet_wrap.html">Facet Wrap</a>
+    </li>
+    <li>
+      <a href="G11_EVALUANDO_SUPUESTOS.html">Evaluando Supuestos</a>
+    </li>
+    <li>
+      <a href="G12_Mapas_Calor.html">Mapas de Calor</a>
+    </li>
+    <li>
+      <a href="G13_geom_line.html">Gráficos con lineas</a>
+    </li>
+    <li>
+      <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Talleres
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="HIV.html">Datos sobre HIV</a>
+    </li>
+    <li>
+      <a href="COVID-19.html">COVID-19</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Geom_point_geom_jitter</h1>
+
+</div>
+
+
+<pre class="r"><code>library(ggplot2)
+library(ggversa)
+library(gt)
+library(gridExtra)</code></pre>
+<hr />
+<div id="gráficos-de-puntos-con-geom_point" class="section level1">
+<h1>Gráficos de puntos con geom_point</h1>
+<p>El tipo de gráfico básico de puntos que relaciona dos variables continuas se puede hacer en ggplot2 con <strong>geom_point</strong>. Es probablemente el gráfico más utilizado. A continuación en el gráfico de la Figura apreciamos la producción básica de este tipo de gráfico combinando a <strong>ggplot (el archivo, aes(x, y))</strong> y a <strong>geom_point()</strong>. Este produce unos puntos negros para demostrar la relación. Se puede cambiar la descripción de los nombres de los ejes <strong>labels</strong> utilizando <strong>labs</strong>, al nombrar cada uno de ellos <strong>x=Altura de la inflorescencia</strong>, y <strong>y={Número de Flores</strong>.</p>
+<p>Para este gráfico se representa la altura de las inflorescencias y la cantidad de flores de una orquídea terrestre de <em>Dipodium roseum</em>. En general, el patrón demuestra que las plantas con inflorescencias más larga tienen más flores.</p>
+<pre class="r"><code>library(ggplot2)
+
+ggplot(dipodium, aes(Height_Inflo, Number_of_Flowers))+
+  geom_point()+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Flores&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntos-1.png" width="672" /> *** ## Añadir una tercera variable con color en los puntos</p>
+<p>En el gráfico se sobrepuso información adicional. Ahora el objetivo es visualizar si las inflorescencias más altas y con muchas flores también se pueden relacionar a más frutos. Dos pasos son necesarios. A este nuevo gráfico se le añadió la tercera variable, la cantidad de frutos, con una escala continua. Con el siguiente primer paso,</p>
+<p>ggplot(dipodium, aes(Height_Inflo, Number_of_Flowers, color=Number_of_fruits)),</p>
+<p>se le añade la variable que se desea salga en color,</p>
+<p>color=Number_of_fruits.</p>
+<p>Para este gráfico, los colores serán asignados automáticamente. En la Figura podemos ver que van del negro al azul claro. A pesar de que no se seleccionaron esos colores específicamente, en ggplot2 casi todo se puede modificar (incluyendo esos colores) tal como se verá en la próxima sección.</p>
+<pre class="r"><code>m=ggplot(na.omit(dipodium), aes(Height_Inflo, factor(Number_of_Flowers),
+                       colour=Number_of_fruits))
+
+m+geom_point()+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Flores&quot;)+
+  labs(color=&quot;Cantidad de\n Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA-1.png" width="672" /> ***</p>
+<div id="modificar-el-rango-de-colores-de-los-puntos" class="section level2">
+<h2>Modificar el rango de colores de los puntos</h2>
+<p>Para especificar el rango de color que uno quiere, por ejemplo de azul a rojo y pasando por amarillo, utilizar la opción y parámetros siguientes:</p>
+<p>scale_colour_gradient2(low= {blue}, high= {red},<br />
+mid= {yellow},<br />
+midpoint=4)</p>
+<p>Note que el valor <strong>midpoint</strong> identifica el valor en el medio del rango para que salga en amarillo. Ahora las plantas que tengan cuatro frutos tendrán asignado el color amarillo. Note que la descripción de la leyenda, <strong>Cantidad de Frutos</strong>, se hizo usando <strong>labs(color={Cantidad de Frutos})</strong>. Note además que aparece a la derecha. Más adelante veremos cómo posicionar la leyenda en otra ubicación.</p>
+<pre class="r"><code>m+geom_point()+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Flores&quot;)+
+  scale_colour_gradient2(low=&quot;blue&quot;,
+                         high=&quot;red&quot;,
+                         mid=&quot;yellow&quot;,
+                         midpoint=4)+
+  labs(color=&quot;Cantidad de Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA1-1.png" width="672" /> ***</p>
+</div>
+<div id="modificar-la-posición-de-la-leyenda" class="section level2">
+<h2>Modificar la posición de la leyenda</h2>
+<p>Para posicionar la leyenda dentro del gráfico, como se muestra en la Figura, se usa la opción</p>
+<p>theme(legend.position=c(0,1), legend.justification=c(0,1))</p>
+<p>El centro del gráfico tiene las coordinadas de (0.5, 0.5), las que ubicarían la leyenda en el centro mismo. La posición (0,0) es la coordenada izquierda inferior, la (1,1) es la derecha superior, la (0,1) es la izquierda superior, y la (1,0) es la derecha inferior. Para información más detallada sobre la ubicación de la leyenda dentro de un gráfico.</p>
+<pre class="r"><code># para incluir la leyenda dentro del gráfico
+m+geom_point()+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Flores&quot;)+
+  scale_colour_gradient2(low=&quot;blue&quot;,
+                         high=&quot;red&quot;,mid=&quot;yellow&quot;,
+                         midpoint=4)+
+  labs(color=&quot;Cantidad de Frutos&quot;)+
+  theme(legend.position=c(0,1),
+        legend.justification=c(0,1),
+        legend.background = element_blank())+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA2-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="geom_point-y-la-mortandad-infantil" class="section level2">
+<h2>Geom_point y la mortandad infantil</h2>
+<p>Visualicemos ahora otro gráfico utilizando datos sobre la mortandad infantil (NMI) y su relación con la mortandad maternal (NMP) durante el parto. En el ejemplo de la Figura  se observa esta relación. A continuación le añadimos una columna que identifica en qué continente se encuentra el país. Seleccionamos solamente dos grupos geográficos identificados como América=AM y Unión Europea=EU. Las variables fueron transformadas con la función logarítmica {log}. Para seleccionar solamente las dos regiones geográficas, se usó la función de {subset}. La barra {|} quiere decir que se seleccionaron solamente las filas que cumplen con las dos condiciones; en nuestro caso, los países de América y de la Unión Europea. Eso se demuestra a continuación:</p>
+<pre class="r"><code># log(1)
+
+Parto=PartosInfantes
+Parto$logNMI=log(Parto$NMI+1)
+Parto$logNMP=log(Parto$NMP+1)
+Parto$logGSPC=log(Parto$GSPC+1)
+Parto$sumaalgo=Parto$NMI+Parto$NMP*sqrt(Parto$GSPC)^2
+
+
+Partosub=subset(Parto, Grupo==&quot;AM&quot;|Grupo==&quot;EU&quot;|Grupo==&quot;AF&quot;)
+
+gt(head(Partosub))</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ireskfdnna .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ireskfdnna .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ireskfdnna .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ireskfdnna .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ireskfdnna .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ireskfdnna .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ireskfdnna .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ireskfdnna .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ireskfdnna .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ireskfdnna .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ireskfdnna .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ireskfdnna .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ireskfdnna .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ireskfdnna .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#ireskfdnna .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ireskfdnna .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ireskfdnna .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ireskfdnna .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ireskfdnna .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ireskfdnna .gt_left {
+  text-align: left;
+}
+
+#ireskfdnna .gt_center {
+  text-align: center;
+}
+
+#ireskfdnna .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ireskfdnna .gt_font_normal {
+  font-weight: normal;
+}
+
+#ireskfdnna .gt_font_bold {
+  font-weight: bold;
+}
+
+#ireskfdnna .gt_font_italic {
+  font-style: italic;
+}
+
+#ireskfdnna .gt_super {
+  font-size: 65%;
+}
+
+#ireskfdnna .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="ireskfdnna" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">NMI</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">NMP</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GSPC</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Grupo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Pais</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">logNMI</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">logNMP</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">logGSPC</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">sumaalgo</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">8723</td>
+      <td class="gt_row gt_center">400</td>
+      <td class="gt_row gt_right">605.1878</td>
+      <td class="gt_row gt_center">AM</td>
+      <td class="gt_row gt_center">Argentina</td>
+      <td class="gt_row gt_right">9.073833</td>
+      <td class="gt_row gt_right">5.9939614</td>
+      <td class="gt_row gt_right">6.407190</td>
+      <td class="gt_row gt_right">250798.1379</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">60</td>
+      <td class="gt_row gt_center">5</td>
+      <td class="gt_row gt_right">1720.1595</td>
+      <td class="gt_row gt_center">AM</td>
+      <td class="gt_row gt_center">Bahamas</td>
+      <td class="gt_row gt_right">4.110874</td>
+      <td class="gt_row gt_right">1.7917595</td>
+      <td class="gt_row gt_right">7.450753</td>
+      <td class="gt_row gt_right">8660.7973</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">42</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_right">1146.0417</td>
+      <td class="gt_row gt_center">AM</td>
+      <td class="gt_row gt_center">Barbados</td>
+      <td class="gt_row gt_right">3.761200</td>
+      <td class="gt_row gt_right">0.6931472</td>
+      <td class="gt_row gt_right">7.044941</td>
+      <td class="gt_row gt_right">1188.0417</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">121</td>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_right">278.5792</td>
+      <td class="gt_row gt_center">AM</td>
+      <td class="gt_row gt_center">Belize</td>
+      <td class="gt_row gt_right">4.804021</td>
+      <td class="gt_row gt_right">1.0986123</td>
+      <td class="gt_row gt_right">5.633286</td>
+      <td class="gt_row gt_right">678.1584</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">7756</td>
+      <td class="gt_row gt_center">540</td>
+      <td class="gt_row gt_right">208.7842</td>
+      <td class="gt_row gt_center">AM</td>
+      <td class="gt_row gt_center">Bolivia</td>
+      <td class="gt_row gt_right">8.956351</td>
+      <td class="gt_row gt_right">6.2934193</td>
+      <td class="gt_row gt_right">5.346079</td>
+      <td class="gt_row gt_right">120499.4649</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">45682</td>
+      <td class="gt_row gt_center">1400</td>
+      <td class="gt_row gt_right">947.4277</td>
+      <td class="gt_row gt_center">AM</td>
+      <td class="gt_row gt_center">Brazil</td>
+      <td class="gt_row gt_right">10.729482</td>
+      <td class="gt_row gt_right">7.2449415</td>
+      <td class="gt_row gt_right">6.854806</td>
+      <td class="gt_row gt_right">1372080.7744</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p>Ahora veamos el resultado en la Figura a continuación.</p>
+<pre class="r"><code>ggplot(Partosub, aes(logNMP, log(NMI+1), colour=Grupo))+
+geom_point()+
+  xlab(&quot;Mortandad durante el parto (log)&quot;)+
+  ylab(&quot;Mortandad infantil (log)&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosDemo2-1.png" width="672" /></p>
+</div>
+<div id="opciones-y-parametros-de-geom_point" class="section level2">
+<h2>Opciones y Parametros de <strong>geom_point</strong></h2>
+<ul>
+<li><p>ggplot(el archivo de datos, aes(la variable discreta))</p></li>
+<li><p>geom_jitter(alpha, color, fill, shape, size)</p></li>
+<li><p>alpha: la intensidad del color</p></li>
+<li><p>color: el color de la línea alrededor de las barras</p></li>
+<li><p>fill: el color de las barras</p></li>
+<li><p>linetype: representa el estilo de línea</p></li>
+<li><p>size: representa el grosor de la línea</p></li>
+<li><p>weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado)</p></li>
+</ul>
+<hr />
+</div>
+<div id="gráfico-de-puntos-con-jitter-y-con-geom_jitter" class="section level2">
+<h2>Gráfico de puntos con jitter y con <strong>geom_jitter</strong></h2>
+<p>Con frecuencia hacemos representaciones gráficas en que aparecen muchos datos que se solapan unos sobre otros, lo que no permite visualizar y apreciar la cantidad de datos que se están representando. Podemos mejorar la representación con la opción geom_jitter. Esta forma de graficar es muy similar al gráfico de puntos y sumamente efectiva cuando tenemos demasiados datos aglomerados. La diferencia más importante es que los datos no están exactamente en las coordenadas tal como se especifica en los datos de la tabla o archivo CSV; más bien están levemente desplazados.</p>
+<p>En el siguiente ejemplo, se usan los mismos datos de la orquídea <em>Dipodium</em> para la generación de los dos gráficos: una con <strong>geom_point</strong> y la otra con <strong>geom_jitter</strong>. En el gráfico de la Figura (a), los puntos están posicionados exactamente de acuerdo a los valores como aparece en la hoja de cálculo. A consecuencia de eso, los datos iguales estarán completamente solapados. Por otro lado, en el gráfico de <strong>jitter</strong> en la Figura (b), los valores se han desplazado un poco. En este último caso, ya que los datos no están completamente solapados, eso ayuda a visualizar mejor la cantidad de datos del análisis.</p>
+<pre class="r"><code>a=ggplot(dipodium, aes(Height_Inflo, Number_of_fruits))+
+  geom_point(size=3,shape=23,fill=&quot;red&quot;, color=&quot;red&quot;)+
+  labs(x=&quot;Altura de la inflorescencia&quot;, y=&quot;Cantidad de Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+b= ggplot(dipodium, aes(Height_Inflo, Number_of_fruits))+
+  geom_jitter(size=2,shape=23,fill=&quot;blue&quot;, color=&quot;blue&quot;)+
+  labs(x=&quot;Altura de la inflorescencia&quot;, y=&quot;Cantidad de Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+grid.arrange(a,b,ncol=2)</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficajitter-1.png" width="672" /></p>
+<p>Veamos un ejemplo más contundente de la utilidad de <strong>geom_jitter</strong>. En el próximo ejemplo a continuación, Figura (a), el gráfico nuevamente tiene los datos posicionados exactamente en las coordenadas como aparece en el archivo de datos. La variables son la altura de la inflorescencia y el valor de presencia o ausencia de frutos. Por ende, en el eje de <strong>Y</strong> hay solamente dos valores: 0 = sin frutos, o 1 = con frutos, y eso es sin importar la frecuencia de los eventos; en otras palabras, solo indica <strong>sí</strong> o <strong>no</strong>. En el segundo gráfico, Figura (b), la opción de geom_jitter es aplicada y uno puede apreciar mejor la cantidad de datos en el archivo dado el grado de dispersión.</p>
+<p>Se podría argumentar que de hecho la dispersión de los datos es exagerada y no está suficientemente concentrada alrededor de los valores originales de 0 y 1. En tal caso, para reducir la dispersión alrededor de las categorías, en la Figura (c) se le asigna la cantidad de dispersión usando <strong>geom_jitter(width = x.xx, height = x.xx)</strong>; <strong>width</strong> es para controlar el <strong>jitter</strong> (o dispersión) en el eje de <strong>X</strong>, y <strong>height</strong> es para controlarla en el eje de <strong>Y</strong>. En el tercer gráfico, Figura (c), se redujo la dispersión de 0.5 a 0.10, lo que hace que los puntos estén dispersados entre los valores de -0.10 a 0.10 dentro de las categorías 0 y 1 en el eje de <strong>Y</strong>. Tengamos en cuenta que la dispersión de {jitter} por omisión es de 40% de la resolución hacia lo ancho <strong>width</strong> y hacia lo alto <strong>height</strong>. Entonces, eso quiere decir que <strong>jitter</strong> usará 80% del espacio del compartimento, o <strong>bin</strong>; o sea, el espacio que le toca dentro del gráfico. Esto se aprecia mejor en el gráfico de la Figura (b), donde se ve que los datos están demasiado dispersos entre -0.5 y 0.5 alrededor del cero. Pero sin duda este gráfico permite apreciar mucho mejor la cantidad de datos que contiene.</p>
+<pre class="r"><code>a=ggplot(dipodium, aes(Height_Inflo, Frutos_si_o_no))+
+  geom_point(size=1,shape=23,
+             fill=&quot;red&quot;, color=&quot;red&quot;)+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+b= ggplot(dipodium, aes(Height_Inflo, Frutos_si_o_no))+
+  geom_jitter(size=0.5,shape=23,
+              fill=&quot;blue&quot;, color=&quot;blue&quot;)+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+c= ggplot(dipodium, aes(Height_Inflo, Frutos_si_o_no))+
+  geom_jitter(height =0.05,size=.5,shape=7,
+              fill=&quot;white&quot;, color=&quot;blue&quot;, stroke=.5)+
+  labs(x=&quot;Altura de la inflorescencia&quot;,
+       y=&quot;Número de Frutos&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+grid.arrange(a,b,c,ncol=3)</code></pre>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficajitter2-1.png" width="672" /></p>
+</div>
+<div id="opciones-y-parametros-de-geom_jitter" class="section level2">
+<h2>Opciones y Parametros de <strong>geom_jitter</strong></h2>
+<ul>
+<li><p>ggplot(el archivo de datos, aes(la variable discreta))</p></li>
+<li><p>geom_jitter(alpha, color, fill, shape, size)</p></li>
+<li><p>alpha: la intensidad del color</p></li>
+<li><p>color: el color de la línea alrededor de las barras</p></li>
+<li><p>fill: el color de las barras</p></li>
+<li><p>linetype: representa el estilo de línea</p></li>
+<li><p>size: representa el grosor de la línea</p></li>
+<li><p>weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado)</p></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
