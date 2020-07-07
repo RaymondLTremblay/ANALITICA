@@ -82,6 +82,10 @@ navbar:
         -   
           href: G14_geom_point_geom_jitter.html
           text: "Geom_point y geom_jitter"
+          
+        -   
+          href: G15_gganimate.html
+          text: "Gráficos animados"
       text: "Visualización"
     - 
       menu: 
