@@ -63,26 +63,21 @@ navbar:
         -
           href: G9_Facet_Grid.html
           text: "Facet Grid"
-          
         -
           href: G10_Facet_wrap.html
           text: "Facet Wrap"
-          
         -
           href: G11_EVALUANDO_SUPUESTOS.html
           text: "Evaluando Supuestos"
         -   
           href: G12_Mapas_Calor.html
           text: "Mapas de Calor"
-          
         -   
           href: G13_geom_line.html
           text: "Gráficos con lineas"
-          
         -   
           href: G14_geom_point_geom_jitter.html
           text: "Geom_point y geom_jitter"
-          
         -   
           href: G15_gganimate.html
           text: "Gráficos animados en movimiento"
