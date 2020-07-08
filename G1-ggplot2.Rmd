@@ -76,7 +76,7 @@ Probablemente notes que no es evidente a primera vista cuál es la diferencia en
 ***
 ## Resumir la información en tablas
 
-Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la tabla "Edad de los Estudiantes" podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.
+(ref:ListasDeDatos) Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la **Tabla: Edad de los Estudiantes** podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.
 
 En conclusión, con este simple ejercicio podemos afirmar que las dos listas de edades tienen valores muy similares, pero que hay otras características (por ejemplo, el valor máximo) que los hace diferentes. También podemos reconocer que si hay muchos valores en una lista, típicamente los humanos no podemos entender esos patrones a simple vista. Por lo tanto, es importante recurrir a diversos métodos para resumir los datos de forma más concisa, efectiva y eficiente, tal como lo demostraremos próximamente.
 
@@ -95,7 +95,8 @@ df
 as_tibble(df)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+
+```{r , warning=FALSE, message=FALSE}
 # para disparar tabla:
 df%>%
   select(V1, Salón)%>%
@@ -105,7 +106,7 @@ df%>%
              máxima=max(V1))%>%
   gt()%>%
   tab_header(
-    title = "Edad de los Estudiantes")
+    title = "Tabla: Edad de los Estudiantes")
   
 ```
 
@@ -113,9 +114,9 @@ df%>%
 
 ## Cómo visualizar muchos datos
 
-Llegar a conclusiones prematuras sobre las edades de los estudiantes simplemente con echarle un vistazo rápido nos podría conducir a un error. Una mejor alternativa es visualizar las listas de datos con un gráfico.   En ese caso, podemos visualizar esos datos con un gráfico llamado **Diagrama de caja** o *Boxplot*, tal como se muestra a continuación. Se observa que el promedio es aproximadamente igual, que ambos muestran valores mínimos idénticos, y que entonces la única diferencia es el valor máximo en los datos.  Esa conclusión se pudo alcanzar simplemente produciendo un gráfico. Esa es la importancia de visualizar los datos antes de llegar a conclusiones.
+Llegar a conclusiones prematuras sobre las edades de los estudiantes simplemente con echarle un vistazo rápido nos podría conducir a un error. Una mejor alternativa es visualizar las listas de datos con un gráfico.   En ese caso, podemos visualizar esos datos con un gráfico llamado **Diagrama de caja** o *Boxplot*, tal como se muestra en **Figura: Diagrama de Caja**. Se observa que el promedio es aproximadamente igual, que ambos muestran valores mínimos idénticos, y que entonces la única diferencia es el valor máximo en los datos.  Esa conclusión se pudo alcanzar simplemente produciendo un gráfico. Esa es la importancia de visualizar los datos antes de llegar a conclusiones.
 
-```{r}
+```{r, fig.cap='Figura: Diagrama de Caja'}
 # para producir un diagrama de caja:
 ggplot(df, aes(y=V1, x=Salón))+
   geom_boxplot()+
