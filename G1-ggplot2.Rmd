@@ -70,7 +70,7 @@ Edad_Salon_2=as.list(Edad_Salon_2)
 Edad_Salon_2
 ```
 
-Probablemente vea que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos.  
+Probablemente note que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos.  
 
 
 ***
