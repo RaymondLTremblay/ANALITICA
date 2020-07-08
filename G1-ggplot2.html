@@ -520,17 +520,17 @@ div.tocify {
 <p>Veamos un ejemplo. Si uno lista las edades de estudiantes universitarios de dos salones, tendremos el reto de intentar discernir si sus edades son aproximadamente iguales o diferentes solo al mirar la lista. ¿Será posible? A ver, intenta explicar cuál es la diferencia (si existe alguna) en las edades de las dos listas siguientes.</p>
 <p>Edades del salón 1:</p>
 <pre><code>## $V1
-##   [1] 23 25 24 27 24 20 21 25 26 23 25 26 25 24 23 20 26 24 24 24 24 20 20 25 25
-##  [26] 20 23 23 25 22 23 20 23 20 23 21 24 27 27 26 23 26 20 21 20 26 26 26 25 21
-##  [51] 25 25 21 27 23 22 23 26 27 27 26 25 22 25 25 25 24 24 21 26 24 23 23 27 27
-##  [76] 27 25 22 26 26 25 21 27 27 21 20 24 26 24 26 23 21 20 23 23 23 25 25 27 25</code></pre>
+##   [1] 25 27 24 22 25 24 23 25 21 25 25 27 22 20 27 20 25 23 24 25 22 21 22 24 27
+##  [26] 25 24 23 21 22 21 22 25 22 21 20 20 20 20 27 21 24 24 26 20 21 26 27 24 21
+##  [51] 27 27 22 25 26 23 27 26 22 21 24 26 23 27 26 24 27 23 22 24 24 22 20 20 23
+##  [76] 27 25 23 22 20 20 25 22 27 22 20 26 21 24 23 26 21 26 24 25 23 23 22 23 25</code></pre>
 <hr />
 <p>Edades del salón 2:</p>
 <pre><code>## $V1
-##   [1] 25 26 26 24 24 22 24 25 20 20 23 26 25 23 26 26 20 26 23 21 22 24 26 25 23
-##  [26] 26 24 25 24 20 23 20 23 23 23 22 26 25 24 24 26 24 25 23 25 20 25 26 22 22
-##  [51] 20 23 23 22 23 25 22 24 20 24 26 21 23 24 20 21 26 21 20 25 23 25 25 24 21
-##  [76] 26 26 21 26 22 24 26 26 25 24 22 22 20 24 21 20 24 24 22 23 22 20 21 23 22</code></pre>
+##   [1] 23 21 22 20 23 23 26 21 22 20 26 24 23 26 25 25 25 26 22 23 21 21 23 23 22
+##  [26] 22 21 25 25 22 20 22 20 24 23 21 23 23 22 26 23 25 23 25 20 26 24 26 23 25
+##  [51] 22 24 23 20 23 24 23 21 26 23 21 21 20 22 21 20 22 26 26 23 26 25 24 20 23
+##  [76] 24 24 24 24 24 25 21 23 24 24 22 26 22 20 22 25 20 23 23 25 26 23 26 23 22</code></pre>
 <p>Probablemente notes que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos. Necesitamos ayuda para visualizar la diferencia. A continuación se explican un par de maneras de ver esa misma información.</p>
 <hr />
 <div id="resumir-la-información-en-tablas" class="section level2">
@@ -901,13 +901,13 @@ df%&gt;%
   <tbody class="gt_table_body">
     <tr>
       <td class="gt_row gt_left">Salón_1</td>
-      <td class="gt_row gt_right">23.89</td>
+      <td class="gt_row gt_right">23.48</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">27</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Salón_2</td>
-      <td class="gt_row gt_right">23.32</td>
+      <td class="gt_row gt_right">23.09</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">26</td>
     </tr>
@@ -937,7 +937,7 @@ Figura: Diagrama de Caja
 <div id="campaña-de-napoleón" class="section level2">
 <h2>1. Campaña de Napoleón</h2>
 <p>Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó al desarrollo del tema que hoy día se conoce como <strong>gráficas informativas</strong> (o <em>Information Graphics</em> en inglés). Él se reconoce por sus innovaciones al utilizar gráficos para demostrar patrones. El gráfico más famoso creado por este señor fue sobre la campaña de guerra de Napoleón para invadir a Rusia (1812-1813), explicado a continuación.</p>
-<p>En la ilustración <strong>Mapa: Campaña de Napoleón</strong> podemos apreciar el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento de ida está representado con la cantidad de hombres que comenzaron el camino hacia Rusia hasta Moscú (<span style="color: brown;">la barra de color marrón</span>), y el viaje de regreso con la barra de color <strong>negro</strong>. El ancho de cada barra representa la cantidad de hombres presentes en el ejercicio militar. Los datos históricos comprueban que cuando comenzaron la campaña militar (saliendo de París) eran más de 422,000 soldados, al llegar a Moscú ya eran solamente 100,000 soldados, y cuando finalmente regresaron a París, luego de haber intentado invadir a Rusia, Napoleón tenía solamente 10,000 soldados con él.</p>
+<p>En la ilustración <strong>Mapa: Campaña de Napoleón</strong> podemos apreciar el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento de ida está representado con la cantidad de hombres que comenzaron el camino hacia Rusia hasta Moscú (<span style="color: brown;">la barra de color marrón</span>), y el viaje de regreso con la barra de color <strong>negro</strong>. El ancho de cada barra representa la cantidad de hombres presentes en el ejercicio militar. Los datos históricos comprueban que cuando comenzaron la campaña militar (saliendo de París) eran más de 422 mil soldados, al llegar a Moscú ya eran solamente 100 mil soldados, y cuando finalmente regresaron a París, luego de haber intentado infructuosamente de conquistar a Rusia, Napoleón tenía solamente 10 mil soldados con él.</p>
 <p>Observemos el gráfico debajo de las barras. Este representa la temperatura al regresar de Moscú. Se puede observar que a la vez que bajaba la temperatura, más y más de los soldados fallecían. Podemos concluir, entonces, que la mortandad en gran parte se debió a no estar preparados para el frío. Vale hacer notar que la escala de temperatura en aquel entonces no era de Celcios ni de Farenheit. La escala ilustrada se llama <strong>Réaumus</strong>, que presentaba un punto de congelación y de ebullición de 0° y 80° respectivamente. Esa escala se usó en múltiples países de Europa hasta mediados del Siglo XIX.</p>
 <div class="figure" style="text-align: center">
 <img src="Graficos/Carte_Napoleon.png" alt="Mapa: Campaña de Napoleón" width="80%" />
