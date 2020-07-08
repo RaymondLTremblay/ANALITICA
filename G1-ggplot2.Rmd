@@ -111,11 +111,12 @@ df%>%
 
 
 
-## Visualizar muchos datos
+## Cómo visualizar muchos datos
 
-Una otra alternativa es visualizar los datos con un gráfico, en este caso se uso una **Boxplot** (Gráfico de caja). Se observa que el promedio es igual y el valor mínimo, y que la única diferencia es solamente el valor máximo en los datos.    
+Llegar a conclusiones prematuras sobre las edades de los estudiantes simplemente con echarle un vistazo rápido nos podría conducir a un error. Una mejor alternativa es visualizar las listas de datos con un gráfico.   En ese caso, podemos visualizar esos datos con un gráfico llamado **Diagrama de caja** o *Boxplot*, tal como se muestra a continuación. Se observa que el promedio es aproximadamente igual, que ambos muestran valores mínimos idénticos, y que entonces la única diferencia es el valor máximo en los datos.  Esa conclusión se pudo alcanzar simplemente produciendo un gráfico. Esa es la importancia de visualizar los datos antes de llegar a conclusiones.
 
 ```{r}
+# para producir un diagrama de caja:
 ggplot(df, aes(y=V1, x=Salón))+
   geom_boxplot()+
   ylab("Edad de los estudiantes")
