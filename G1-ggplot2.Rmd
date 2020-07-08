@@ -57,7 +57,6 @@ Edad_Salon_1
 ```
 
 ****
-
 Edades del salón 2:
 
 ```{r echo=FALSE}
@@ -71,7 +70,7 @@ Edad_Salon_2=as.list(Edad_Salon_2)
 Edad_Salon_2
 ```
 
-Probablemente no es evidente a primera vista cual es la diferencia entre las dos listas de datos.  
+Probablemente vea que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos.  
 
 
 ***
