@@ -520,22 +520,22 @@ div.tocify {
 <p>Veamos un ejemplo. Si uno lista las edades de estudiantes universitarios de dos salones, tendremos el reto de intentar discernir si sus edades son aproximadamente iguales o diferentes solo al mirar la lista. ¿Será posible? A ver, intenta explicar cuál es la diferencia (si existe alguna) en las edades de las dos listas siguientes.</p>
 <p>Edades del salón 1:</p>
 <pre><code>## $V1
-##   [1] 22 23 22 24 26 25 23 20 24 26 22 21 24 23 26 27 20 20 20 25 21 24 24 20 21
-##  [26] 26 24 21 26 26 26 27 23 21 20 25 27 24 25 20 22 20 27 20 24 21 27 27 27 23
-##  [51] 25 21 21 23 25 20 23 22 24 24 22 20 25 25 22 25 27 23 25 26 21 27 20 26 21
-##  [76] 22 27 25 24 21 26 22 21 24 22 22 27 21 21 24 22 25 23 24 21 24 26 20 25 27</code></pre>
+##   [1] 23 20 27 27 25 24 27 22 25 21 25 22 27 20 23 24 25 23 25 24 25 21 27 27 24
+##  [26] 27 21 23 22 23 26 27 24 22 24 24 27 21 23 22 26 20 27 25 20 25 20 20 25 24
+##  [51] 24 23 25 27 24 23 21 26 21 24 20 24 20 23 20 27 27 22 25 24 20 22 27 24 20
+##  [76] 27 23 22 26 20 25 23 22 25 23 21 20 26 25 27 25 20 25 25 20 25 26 21 22 25</code></pre>
 <hr />
 <p>Edades del salón 2:</p>
 <pre><code>## $V1
-##   [1] 21 26 24 21 24 24 20 21 23 25 20 25 23 21 25 23 25 23 26 23 24 25 21 20 25
-##  [26] 26 21 26 26 21 21 26 26 26 24 24 25 20 21 22 23 25 22 22 26 21 21 21 23 25
-##  [51] 24 24 25 20 24 25 23 22 20 23 23 20 21 26 22 24 25 24 21 22 21 21 26 20 26
-##  [76] 21 21 20 20 23 21 26 24 21 24 20 22 26 22 25 20 22 26 24 20 21 22 22 22 21</code></pre>
+##   [1] 23 25 26 23 23 20 23 25 25 26 23 21 22 25 20 22 22 24 25 21 22 25 25 22 24
+##  [26] 24 23 26 24 21 25 20 24 20 20 24 25 25 20 23 20 25 22 26 26 22 23 26 23 24
+##  [51] 25 23 25 23 26 22 25 23 23 21 25 24 21 23 20 21 25 22 26 20 22 24 26 20 24
+##  [76] 26 20 22 21 23 24 20 23 21 20 21 23 21 26 26 23 25 20 21 22 25 23 20 26 23</code></pre>
 <p>Probablemente notes que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos. Necesitamos ayuda para visualizar la diferencia. A continuación se explican un par de maneras de ver esa misma información.</p>
 <hr />
 <div id="resumir-la-información-en-tablas" class="section level2">
 <h2>Resumir la información en tablas</h2>
-<p>(ref:ListasDeDatos) Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la <strong>Tabla: Edad de los Estudiantes</strong> podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.</p>
+<p>Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la <strong>Tabla: Edad de los Estudiantes</strong> podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.</p>
 <p>En conclusión, con este simple ejercicio podemos afirmar que las dos listas de edades tienen valores muy similares, pero que hay otras características (por ejemplo, el valor máximo) que los hace diferentes. También podemos reconocer que si hay muchos valores en una lista, típicamente los humanos no podemos entender esos patrones a simple vista. Por lo tanto, es importante recurrir a diversos métodos para resumir los datos de forma más concisa, efectiva y eficiente, tal como lo demostraremos próximamente.</p>
 <pre class="r"><code># para disparar tabla:
 df%&gt;%
@@ -901,13 +901,13 @@ df%&gt;%
   <tbody class="gt_table_body">
     <tr>
       <td class="gt_row gt_left">Salón_1</td>
-      <td class="gt_row gt_right">23.41</td>
+      <td class="gt_row gt_right">23.63</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">27</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Salón_2</td>
-      <td class="gt_row gt_right">22.90</td>
+      <td class="gt_row gt_right">23.07</td>
       <td class="gt_row gt_center">20</td>
       <td class="gt_row gt_center">26</td>
     </tr>
@@ -933,18 +933,28 @@ Figura: Diagrama de Caja
 </div>
 <div id="ejemplos-históricos" class="section level1">
 <h1>Ejemplos históricos</h1>
-<p>En esta sección presento unos ejemplos históricos de representación gráficos. Esta sección no es exhaustiva y solamente para representar algunos ejemplos de gráficos y su desarrollo.</p>
+<p>En esta sección se presentan unos ejemplos históricos de representaciones gráficas. Esta sección no es exhaustiva y su presentación tiene como objetivo demostrar la representación de algunos ejemplos de forma gráfica.</p>
 <div id="ejemplo-de-la-campaña-de-napoleón-para-invadir-a-rusia" class="section level2">
-<h2>Ejemplo de la Campaña de Napoleón para invadir a Rusia</h2>
-<p>Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó en lo que se llama gráficas informativas (Information Graphics). El es reconocido por haber sido muy innovador en el uso de gráficos para demostrar patrones. El más famoso de este fue sobre la campaña de guerra de Napoleón para invadir a Rusia (1812-1813).</p>
-<p>En este mapa, vemos el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento representa la cantidad de hombres que comenzaron el camino hacia Rusia (<span style="color: brown;">la linea con color marón</span>) hasta Moscú, el viaje de regreso el color <strong>negro</strong>. El ancho de la barra representa la cantidad de hombres presente en el ejercicio militar. Cuando comenzaron (saliendo de Paris) eran más de 422,000 soldados, al llegar a Moscú ya era solamente 100,000 soldados. Cuando finalmente, al regresar a Paris, después de invadir a Rusia, Napoleón tenia solamente 10,000 soldados con él..</p>
-<p>Nota el gráfico debajo, este representa la temperatura de regreso de Moscú, y miran como al bajar la temperatura más y más los soldados murieron. La mortandad en gran parte fue por no estar preparado para el frío. La escala de temperatura no era el de Celcius ni de Farenheit, pero una escala que se llama <strong>Réaumus</strong>, donde el punto de congelación y hirviendo es de 0° y 80° respectivamente. Esta escala se uso en multiples paises de Europa hasta medio del siglo 19.</p>
-<p><img src="Graficos/Carte_Napoleon.png" width="80%" style="display: block; margin: auto;" /></p>
+<h2>Ejemplo de la campaña de Napoleón para invadir a Rusia</h2>
+<p>Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó en el desarrollo del tema que hoy día se conoce como <strong>gráficas informativas</strong> (o -Information Graphics- en inglés). Él se reconoce por sus innovaciones al utilizar gráficos para demostrar patrones. El gráfico más famoso creado por este señor fue sobre la campaña de guerra de Napoleón para invadir a Rusia (1812-1813), explicado a continuación.</p>
+<p>En la ilustración <strong>Mapa: Campaña de Napoleón</strong> podemos apreciar el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento de ida está representado con la cantidad de hombres que comenzaron el camino hacia Rusia (<span style="color: brown;">la línea de color marrón</span>) hasta Moscú, y el viaje de regreso de color <strong>negro</strong>. El ancho de cada barra representa la cantidad de hombres presentes en el ejercicio militar. Los datos históricos comprueban que cuando comenzaron la campaña militar (saliendo de París) eran más de 422,000 soldados, al llegar a Moscú ya eran solamente 100,000 soldados, y cuando finalmente regresaron a París, luego de haber intentado invadir a Rusia, Napoleón tenía solamente 10,000 soldados con él.</p>
+<p>Observemos el gráfico debajo de la barra inferior. Este representa la temperatura al regresar de Moscú. Se puede observar que a la vez que bajaba la temperatura, más y más de los soldados fallecieron. Podemos concluir, entonces, que la mortandad en gran parte se debió a no estar preparados para el frío. Vale hacer notar que la escala de temperatura en aquel entonces no era de Celcius ni de Farenheit. La escala ilustrada se llama <strong>Réaumus</strong>, en que el punto de congelación y de ebullición es de 0° y 80° respectivamente. Esa escala se usó en múltiples países de Europa hasta mediados del Siglo XIX.</p>
+<div class="figure" style="text-align: center">
+<img src="Graficos/Carte_Napoleon.png" alt="Mapa: Campaña de Napoleón" width="80%" />
+<p class="caption">
+Mapa: Campaña de Napoleón
+</p>
+</div>
 </div>
 <div id="donde-proviene-la-carne-que-consumen-la-gente-de-paris" class="section level2">
 <h2>Donde proviene la carne que consumen la gente de Paris</h2>
-<p>Un otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color <strong>negro</strong> representa carne vaca, el color <span style="color: green;">el color verde</span> es la ternera y el <span style="color: red;">color rojo</span> es el cordero. El uso “Pie Charts” para identificar la proporción de cada grupo y el tamaño del “Pie Chart” para identificar la cantidad relativa con los otros departamentos (Organización política local).</p>
-<p><img src="Graficos/Minard_Carne_Paris.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color <strong>negro</strong> representa carne vaca, el color <span style="color: green;">el color verde</span> es la ternera y el <span style="color: red;">color rojo</span> es el cordero. El uso “Pie Charts” para identificar la proporción de cada grupo y el tamaño del “Pie Chart” para identificar la cantidad relativa con los otros departamentos (Organización política local).</p>
+<div class="figure" style="text-align: center">
+<img src="Graficos/Minard_Carne_Paris.png" alt="Figura: Origen de la carne de París" width="70%" />
+<p class="caption">
+Figura: Origen de la carne de París
+</p>
+</div>
 </div>
 </div>
 <div id="gráfico-combcox" class="section level1">

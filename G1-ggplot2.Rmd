@@ -76,7 +76,7 @@ Probablemente notes que no es evidente a primera vista cuál es la diferencia en
 ***
 ## Resumir la información en tablas
 
-(ref:ListasDeDatos) Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la **Tabla: Edad de los Estudiantes** podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.
+Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la **Tabla: Edad de los Estudiantes** podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.
 
 En conclusión, con este simple ejercicio podemos afirmar que las dos listas de edades tienen valores muy similares, pero que hay otras características (por ejemplo, el valor máximo) que los hace diferentes. También podemos reconocer que si hay muchos valores en una lista, típicamente los humanos no podemos entender esos patrones a simple vista. Por lo tanto, es importante recurrir a diversos métodos para resumir los datos de forma más concisa, efectiva y eficiente, tal como lo demostraremos próximamente.
 
@@ -125,25 +125,25 @@ ggplot(df, aes(y=V1, x=Salón))+
 
 # Ejemplos históricos
 
-En esta sección presento unos ejemplos históricos de representación gráficos. Esta sección no es exhaustiva y solamente para representar algunos ejemplos de gráficos y su desarrollo.  
+En esta sección se presentan unos ejemplos históricos de representaciones gráficas. Esta sección no es exhaustiva y su presentación tiene como objetivo demostrar la representación de algunos ejemplos de forma gráfica.
 
-## Ejemplo de la Campaña de Napoleón para invadir a Rusia
+## Ejemplo de la campaña de Napoleón para invadir a Rusia
 
-Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó en lo que se llama gráficas informativas (Information Graphics).  El es reconocido por haber sido muy innovador en el uso de gráficos para demostrar patrones.  El más famoso de este fue sobre la campaña de guerra de Napoleón para invadir a Rusia (1812-1813).       
+Charles Joseph Minard (1781-1870; Francia) es una de las personas que contribuyó en el desarrollo del tema que hoy día se conoce como **gráficas informativas** (o -Information Graphics- en inglés).  Él se reconoce por sus innovaciones al utilizar gráficos para demostrar patrones.  El gráfico más famoso creado por este señor fue sobre la campaña de guerra de Napoleón para invadir a Rusia (1812-1813), explicado a continuación. 
 
-En este mapa, vemos el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento representa la cantidad de hombres que comenzaron el camino hacia Rusia (`r colorize("la linea con color marón", "brown")`) hasta Moscú, el viaje de regreso el color **negro**. El ancho de la barra representa la cantidad de hombres presente en el ejercicio militar. Cuando comenzaron (saliendo de Paris) eran más de 422,000 soldados, al llegar a Moscú ya era solamente 100,000 soldados. Cuando finalmente, al regresar a Paris, después de invadir a Rusia, Napoleón tenia solamente 10,000 soldados con él..   
+En la ilustración **Mapa: Campaña de Napoleón** podemos apreciar el movimiento de la campaña de Napoleón para invadir a Rusia. El movimiento de ida está representado con la cantidad de hombres que comenzaron el camino hacia Rusia (`r colorize("la línea de color marrón", "brown")`) hasta Moscú, y el viaje de regreso de color **negro**. El ancho de cada barra representa la cantidad de hombres presentes en el ejercicio militar. Los datos históricos comprueban que cuando comenzaron la campaña militar (saliendo de París) eran más de 422,000 soldados, al llegar a Moscú ya eran solamente 100,000 soldados, y cuando finalmente regresaron a París, luego de haber intentado invadir a Rusia, Napoleón tenía solamente 10,000 soldados con él.   
 
-Nota el gráfico debajo, este representa la temperatura de regreso de Moscú, y miran como al bajar la temperatura más y más los soldados murieron. La mortandad en gran parte fue por no estar preparado para el frío. La escala de temperatura no era el de Celcius ni de Farenheit, pero una escala que se llama **Réaumus**, donde el punto de congelación y hirviendo es de 0° y 80° respectivamente. Esta escala se uso en multiples paises de Europa hasta medio del siglo 19.    
+Observemos el gráfico debajo de la barra inferior.  Este representa la temperatura al regresar de Moscú.  Se puede observar que a la vez que bajaba la temperatura, más y más de los soldados fallecieron.  Podemos concluir, entonces, que la mortandad en gran parte se debió a no estar preparados para el frío. Vale hacer notar que la escala de temperatura en aquel entonces no era de Celcius ni de Farenheit.  La escala ilustrada se llama **Réaumus**, en que el punto de congelación y de ebullición es de 0° y 80° respectivamente. Esa escala se usó en múltiples países de Europa hasta mediados del Siglo XIX.
 
-```{r echo=FALSE, out.width = '80%', fig.align='center'}
+```{r echo=FALSE, out.width = '80%', fig.align='center', fig.cap='Mapa: Campaña de Napoleón'}
 knitr::include_graphics("Graficos/Carte_Napoleon.png")
 ```
 
 ## Donde proviene la carne que consumen la gente de Paris
 
-Un otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color **negro** representa carne vaca, el color `r colorize("el color verde", "green")` es la ternera y el `r colorize("color rojo", "red")` es el cordero.  El uso "Pie Charts" para identificar la proporción de cada grupo y el tamaño del "Pie Chart"  para identificar la cantidad relativa con los otros departamentos (Organización política local).  
+Otro ejemplo de Minard es la siguiente gráfico que representa donde proviene la carne que la gente en Paris comen. El color **negro** representa carne vaca, el color `r colorize("el color verde", "green")` es la ternera y el `r colorize("color rojo", "red")` es el cordero.  El uso "Pie Charts" para identificar la proporción de cada grupo y el tamaño del "Pie Chart"  para identificar la cantidad relativa con los otros departamentos (Organización política local).  
 
-```{r echo=FALSE, out.width = '70%', fig.align='center'}
+```{r echo=FALSE, out.width = '70%', fig.align='center', fig.cap='Figura: Origen de la carne de París'}
 knitr::include_graphics("Graficos/Minard_Carne_Paris.png")
 ```
 
