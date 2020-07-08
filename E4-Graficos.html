@@ -430,6 +430,9 @@ div.tocify {
     <li>
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
+    <li>
+      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -613,10 +616,10 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1] -0.02978156  0.80422895  0.11914086 -0.15987746  2.32982998  0.08976166</code></pre>
+<pre><code>## [1]  0.10593856  0.38119536 -0.06399965 -1.21497916 -0.69877503  0.27498733</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
 <pre><code>##          0%         25%         50%         75%        100% 
-## -3.03019072 -0.65656524 -0.02972697  0.62905977  3.56565212</code></pre>
+## -3.02450012 -0.68820839 -0.01373425  0.67260112  3.29653384</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
 <p>How to do a simple linear point graph and add text to graph, change the axis name</p>
 <pre class="r"><code>library(ggplot2)

@@ -9,6 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+
 ```
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -22,11 +23,14 @@ colorize <- function(x, color) {
 }
 
 #`r colorize("some words in red", "red")`
+
+
 ```
 
 ## La lista de packetes para analisis de los supuestos
 
 ```{r}
+library(ggplot2)
 library(ggversa)
 library(knitr)
 library(GGally)

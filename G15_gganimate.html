@@ -523,14 +523,14 @@ library(gapminder)
 library(ggplot2)
 library(animation)
 library(gt)</code></pre>
-<pre class="r"><code># Load required package</code></pre>
-<p>Los datos provienen del paquete <strong>gapminder</strong> y el archivo <strong>gapminder</strong>. Estos datos representa la expectativa de supervivencia en diferentes 142 paises entre 1952 y 2007. Aquí observamos las primeras 6 filas del archivo.</p>
+<p>El paquete <strong>gganimate</strong> extiende el paquete de <strong>ggplot2</strong> y implementa unas funciones para animar gráficos que típicamente estuviese estática. El paquete fue desarrollado por Pedersen y Robinson (2017).Siempre puede ir al siguiente enlace para tener más información y otros ejemplos. <a href="https://gganimate.com/articles/gganimate.html" class="uri">https://gganimate.com/articles/gganimate.html</a>. Note que antes de utilizar este modulo se asume que se conozca la estructura de la creación de gráficos con ggplot2.</p>
+<p>Los datos provienen del paquete <strong>gapminder</strong> y el archivo <strong>gapminder</strong>. Estos datos representa la expectativa de supervivencia en diferentes 142 países entre 1952 y 2007. Aquí observamos las primeras 6 filas del archivo.</p>
 <pre class="r"><code>gt(head(gapminder))</code></pre>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zeszlgjcmc .gt_table {
+#ovpxkyshkv .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -553,7 +553,7 @@ library(gt)</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_heading {
+#ovpxkyshkv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -565,7 +565,7 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_title {
+#ovpxkyshkv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -575,7 +575,7 @@ library(gt)</code></pre>
   border-bottom-width: 0;
 }
 
-#zeszlgjcmc .gt_subtitle {
+#ovpxkyshkv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -585,13 +585,13 @@ library(gt)</code></pre>
   border-top-width: 0;
 }
 
-#zeszlgjcmc .gt_bottom_border {
+#ovpxkyshkv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_col_headings {
+#ovpxkyshkv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -606,7 +606,7 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_col_heading {
+#ovpxkyshkv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -626,7 +626,7 @@ library(gt)</code></pre>
   overflow-x: hidden;
 }
 
-#zeszlgjcmc .gt_column_spanner_outer {
+#ovpxkyshkv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -638,15 +638,15 @@ library(gt)</code></pre>
   padding-right: 4px;
 }
 
-#zeszlgjcmc .gt_column_spanner_outer:first-child {
+#ovpxkyshkv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zeszlgjcmc .gt_column_spanner_outer:last-child {
+#ovpxkyshkv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zeszlgjcmc .gt_column_spanner {
+#ovpxkyshkv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -658,7 +658,7 @@ library(gt)</code></pre>
   width: 100%;
 }
 
-#zeszlgjcmc .gt_group_heading {
+#ovpxkyshkv .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -680,7 +680,7 @@ library(gt)</code></pre>
   vertical-align: middle;
 }
 
-#zeszlgjcmc .gt_empty_group_heading {
+#ovpxkyshkv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -695,19 +695,19 @@ library(gt)</code></pre>
   vertical-align: middle;
 }
 
-#zeszlgjcmc .gt_striped {
+#ovpxkyshkv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zeszlgjcmc .gt_from_md > :first-child {
+#ovpxkyshkv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zeszlgjcmc .gt_from_md > :last-child {
+#ovpxkyshkv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zeszlgjcmc .gt_row {
+#ovpxkyshkv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -726,7 +726,7 @@ library(gt)</code></pre>
   overflow-x: hidden;
 }
 
-#zeszlgjcmc .gt_stub {
+#ovpxkyshkv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -738,7 +738,7 @@ library(gt)</code></pre>
   padding-left: 12px;
 }
 
-#zeszlgjcmc .gt_summary_row {
+#ovpxkyshkv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -748,7 +748,7 @@ library(gt)</code></pre>
   padding-right: 5px;
 }
 
-#zeszlgjcmc .gt_first_summary_row {
+#ovpxkyshkv .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -758,7 +758,7 @@ library(gt)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_grand_summary_row {
+#ovpxkyshkv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -768,7 +768,7 @@ library(gt)</code></pre>
   padding-right: 5px;
 }
 
-#zeszlgjcmc .gt_first_grand_summary_row {
+#ovpxkyshkv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -778,7 +778,7 @@ library(gt)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_table_body {
+#ovpxkyshkv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -787,7 +787,7 @@ library(gt)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_footnotes {
+#ovpxkyshkv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -801,13 +801,13 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_footnote {
+#ovpxkyshkv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#zeszlgjcmc .gt_sourcenotes {
+#ovpxkyshkv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -821,46 +821,46 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#zeszlgjcmc .gt_sourcenote {
+#ovpxkyshkv .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#zeszlgjcmc .gt_left {
+#ovpxkyshkv .gt_left {
   text-align: left;
 }
 
-#zeszlgjcmc .gt_center {
+#ovpxkyshkv .gt_center {
   text-align: center;
 }
 
-#zeszlgjcmc .gt_right {
+#ovpxkyshkv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zeszlgjcmc .gt_font_normal {
+#ovpxkyshkv .gt_font_normal {
   font-weight: normal;
 }
 
-#zeszlgjcmc .gt_font_bold {
+#ovpxkyshkv .gt_font_bold {
   font-weight: bold;
 }
 
-#zeszlgjcmc .gt_font_italic {
+#ovpxkyshkv .gt_font_italic {
   font-style: italic;
 }
 
-#zeszlgjcmc .gt_super {
+#ovpxkyshkv .gt_super {
   font-size: 65%;
 }
 
-#zeszlgjcmc .gt_footnote_marks {
+#ovpxkyshkv .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="zeszlgjcmc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="ovpxkyshkv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -925,67 +925,66 @@ library(gt)</code></pre>
   
   
 </table></div>
-<p>Primero creamos un gráfico de puntos sin animación. En el eje de <strong>X</strong> representa el GDP per capita en cada pais, y en el eje de <strong>Y</strong> la supervivencia. El tamaño del unto es relativo el tamaño del pais. La escala en el eje de <strong>X</strong> fue cambiado a una logarítmica usando <strong>scale_x_log10()</strong>.</p>
+<p>Primero creamos un gráfico de puntos sin animación o sea estático. En el eje de <strong>X</strong> representa el GDP per capita en cada país, y en el eje de <strong>Y</strong> la supervivencia. El tamaño del punto es relativo el tamaño del país. La escala en el eje de <strong>X</strong> fue cambiado a una logarítmica usando <strong>scale_x_log10()</strong>. Aunque es difícil percibir la diferencia cada país tiene su proprio color.</p>
 <pre class="r"><code>p &lt;- ggplot(
   gapminder, 
   aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)) +
-  geom_point(show.legend = FALSE, alpha = 0.7) +
-  scale_color_viridis_d() +
+  geom_point(show.legend = FALSE, alpha = 0.8) +
   scale_size(range = c(2, 12)) +
   scale_x_log10() +
   labs(x = &quot;GDP per capita&quot;, y = &quot;Expectativa de Vida&quot;)
 p</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <div id="gráficos-con-animación" class="section level2">
 <h2>Gráficos con animación:</h2>
-<p>Para incluir las transiciones en tiempo se usa la función <strong>transition_time</strong>. El largo de transición sera corespondiente as la diferencia entre la variable de tiemo (en este casa “Time”)</p>
-<p>La variable <strong>frame_time</strong> añade arriba una leyenda del tiempo de transición. Note que se usa la función <strong>labs</strong> y se añade el titulo, lo que hay en los corchetes es el cambio en tiempo.</p>
+<p>Para incluir las transiciones en tiempo se usa la función <strong>transition_time</strong>. El largo de transición sera corresponde as la diferencia entre la variable de tiempo (en este casa “Time”).</p>
+<p>La variable <strong>frame_time</strong> añade arriba una leyenda del tiempo de transición. Note que se usa la función <strong>labs</strong> y se añade el titulo y lo que hay entre los corchetes es la variable del cambio en tiempo.</p>
 <pre class="r"><code>GDP_time=p + transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;)
 #GDP_time</code></pre>
 <pre class="r"><code>animate(GDP_time, height = 600, width =600)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-7-1.gif" /><!-- --></p>
 <pre class="r"><code>anim_save(&quot;GDP_time.gif&quot;)</code></pre>
-<p><img src="GDP_time.gif" /></p>
 </div>
 <div id="crear-facet-animados." class="section level2">
 <h2>Crear facet animados.</h2>
-<p>Para crear un gráfico por grupo y observar el de patrones de cambio en tiempo por continente se añade <strong>facet_wrap</strong>. Se añade esta función al</p>
+<p>Igual que para los gráficos de ggplot2 se puede crear una gráica por cada variable discreta. Para crear un gráfico por grupo y observar el de patrones de cambio en tiempo por continente se añade <strong>facet_wrap</strong>. En este próximo gráfico se produce un por cada continente.</p>
 <pre class="r"><code>p + facet_wrap(~continent) +
   transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-9-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
 </div>
-<div id="animación-de-los-ejes" class="section level2">
-<h2>Animación de los ejes</h2>
-<p>En este caso lo que observamos es que la leyenda en en <strong>x</strong> varia con los años, y la de <strong>y</strong> la dejamos fija. Si se usa <strong>view_follow(fixed_x = TRUE)</strong>, la leyenda en y variaria con el cambio en GDP per capita y la de <strong>x</strong> seria fija. Si queremos que los dos ejes varian con los datos se usa <strong>view_follow()</strong>, sin poner nada dentro de los paréntesis.</p>
+<div id="animación-de-los-ejes-ejes-variables" class="section level2">
+<h2>Animación de los ejes: ejes variables</h2>
+<p>En este caso lo que observamos es que la leyenda en en <strong>x</strong> varia con los años, y la de <strong>y</strong> la dejamos fija. Si se usa <strong>view_follow(fixed_x = TRUE)</strong>, la leyenda en <strong>y</strong> variaría con el cambio en GDP per capita y la de <strong>x</strong> seria fija. Si queremos que los dos ejes varían con los datos se usa <strong>view_follow()</strong>, sin poner nada dentro de los paréntesis.</p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;) +
   view_follow(fixed_y = TRUE)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-9-1.gif" /><!-- --></p>
 </div>
 <div id="observar-transiciones-entre-valores" class="section level2">
 <h2>Observar transiciones entre valores</h2>
-<p>La función <strong>shadow_wake</strong> es para representar un efecto de sobre o direccón por donde ocurre los cambios. Se puede selecionar el tamaño de la disminución y la opacidad de la sombra. El largo de la cola no es</p>
-<p><span style="color: red;">Julián can you translate this?</span></p>
+<p>La función <strong>shadow_wake</strong> es para representar un efecto de sobre o dirreccón por donde ocurre los cambios. Se puede seleccionar el tamaño de la disminución y la opacidad de la sombra. El largo de la cola no es</p>
+<p><span style="color: red;">Julián check this translation?</span></p>
+<p>La duración de la estela no se da en cuadros absolutos, ya que eso haría que la animación sea susceptible a cambios en la velocidad de fotogramas. En cambio, se da por proporción de la longitud total de la animación. Por consecuencia el <strong>wake_length</strong> varia entre 0 a 1 en relación con el total de numero de periodo de tiempo (frames). En otra palabra más cerca el valor se acerca a 1, más largo sera la cola.</p>
 <p>The length of the wake is not given in absolute frames as that would make the animation susceptible to changes in the framerate. Instead it is given as a proportion of the total length of the animation.</p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Year: {frame_time}&quot;) +
-  shadow_wake(wake_length = 0.1, alpha = FALSE)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-11-1.gif" /><!-- --></p>
+  shadow_wake(wake_length = 0.2, alpha = FALSE)</code></pre>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
 </div>
 <div id="visualizar-los-datos-originales-en-el-fondo" class="section level2">
 <h2>Visualizar los datos originales en el fondo</h2>
-<p>Con la función <strong>shadow_mark</strong> se puede ver los datos originals. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script <strong>shadow_mark(past = FALSE, future = TRUE)</strong> se observaría los datos futuros y no del pasado.</p>
+<p>Con la función <strong>shadow_mark</strong> se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script <strong>shadow_mark(past = FALSE, future = TRUE)</strong> se observaría los datos futuros y no del pasado. El alternativa basica <strong>shadow_mark()</strong> es igual a <strong>shadow_mark(past = TRUE, future = FALSE)</strong></p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Year: {frame_time}&quot;) +
   shadow_mark(alpha = 0.3, size = 0.5)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-12-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-11-1.gif" /><!-- --></p>
 </div>
 <div id="transiciones-graduales" class="section level2">
 <h2>Transiciones graduales</h2>
 <p>Con la función <strong>transition_reveal</strong> los datos aparece gradualmente en el gráfico</p>
-<p>Usamos otro conjunto de datos del archivo <strong>airquality</strong> que se encuentra en el paquete <strong>datasets</strong> Primero creamos un gráfico éstatico (sin animación), el dia del mes (day), la tempetaura del dia (Temp) y una linea para cada mes (mayo a septiembre) con la función <strong>group</strong>.</p>
+<p>Usamos otro conjunto de datos del archivo <strong>airquality</strong> que se encuentra en el paquete <strong>datasets</strong> Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función <strong>group</strong>.</p>
 <pre class="r"><code>p &lt;- ggplot(
   airquality,
   aes(Day, Temp, group = Month, color = factor(Month))
@@ -995,33 +994,37 @@ p</code></pre>
   labs(x = &quot;Day of Month&quot;, y = &quot;Temperature&quot;) +
   theme(legend.position = &quot;top&quot;)
 p</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Ahora animamos el gráfico en el eje de <strong>x</strong></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Ahora animamos el gráfico en el eje de <strong>x</strong> con la variable de <strong>Day</strong>, añadiendo <strong>transition_reveal(Day)</strong></p>
 <pre class="r"><code>p + transition_reveal(Day)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-14-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-13-1.gif" /><!-- --></p>
+</div>
+<div id="anadiendo-un-punto-a-la-linea" class="section level2">
+<h2>Anadiendo un punto a la linea</h2>
 <p>Se puede añadir un punto al principio de las lineas</p>
 <pre class="r"><code>cambio_m=p + 
   geom_point() +
   transition_reveal(Day)</code></pre>
 <pre class="r"><code>animate(cambio_m, height = 800, width =800)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-16-1.gif" /><!-- --></p>
-<pre class="r"><code>anim_save(&quot;cambio_m.gif&quot;)</code></pre>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-15-1.gif" /><!-- --></p>
+<pre class="r"><code># anim_save(&quot;cambio_m.gif&quot;)</code></pre>
 </div>
-<div id="los-puntos-se-pueden-quedar-en-el-gráfico-con-añadiendo-group-seq_alongday." class="section level1">
-<h1>Los puntos se pueden quedar en el gráfico con añadiendo <strong>(group = seq_along(Day)</strong>.</h1>
+<div id="poniendo-un-punto-para-valor" class="section level2">
+<h2>Poniendo un punto para valor</h2>
+<p>Los puntos se pueden quedar en el gráfico añadiendo <strong>(group = seq_along(Day)</strong>.</p>
 <pre class="r"><code>p + 
   geom_point(aes(group = seq_along(Day))) +
   transition_reveal(Day)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-17-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-16-1.gif" /><!-- --></p>
 </div>
-<div id="transition-between-several-distinct-stages-of-the-data" class="section level1">
-<h1>Transition between several distinct stages of the data</h1>
-<p>Data preparation:</p>
-<pre class="r"><code>library(dplyr)
-mean.temp &lt;- airquality %&gt;%
+<div id="animación-con-gráficos-de-barras" class="section level1">
+<h1>Animación con gráficos de barras</h1>
+<p>La transiciones también pueden ser producida con otros geoms por ejemplo con <strong>geom_col</strong>. El primer paso es tener un data frame que representa los valores de cada columna/barra. Entonces el primer paso aquí fue de calcular el promedio de temperatura por mes en un nuevo data frame que llamamos <strong>temp.promedio</strong>.</p>
+<p>Preparación de los datos</p>
+<pre class="r"><code>temp.promedio &lt;- airquality %&gt;%
   group_by(Month) %&gt;%
   summarise(Temp = mean(Temp))
-mean.temp</code></pre>
+temp.promedio</code></pre>
 <pre><code>## # A tibble: 5 x 2
 ##   Month  Temp
 ##   &lt;int&gt; &lt;dbl&gt;
@@ -1030,8 +1033,10 @@ mean.temp</code></pre>
 ## 3     7  83.9
 ## 4     8  84.0
 ## 5     9  76.9</code></pre>
-<p>Create a bar plot of mean temperature:</p>
-<pre class="r"><code>p &lt;- ggplot(mean.temp, aes(Month, Temp, fill = Temp)) +
+<div id="gráfico-de-barra-estático" class="section level2">
+<h2>Gráfico de barra estático</h2>
+<p>Ahora creamos un gráfico estático de los datos con <strong>geom_col</strong>.</p>
+<pre class="r"><code>p &lt;- ggplot(temp.promedio, aes(Month, Temp, fill = Temp)) +
   geom_col() +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1) +
   theme_minimal() +
@@ -1041,24 +1046,21 @@ mean.temp</code></pre>
     panel.ontop = TRUE
   )
 p</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>transition_states():</p>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="añadiendo-efecto-de-transición-en-las-columnas" class="section level2">
+<h2>Añadiendo efecto de transición en las columnas</h2>
+<p>El efecto de transición de un mes al otro se añade con la función <strong>transition_states()</strong>. Si uno añade solamente esta función aparece solamente una barra a la vez.</p>
+<pre class="r"><code>p + transition_states(Month, wrap = FALSE) </code></pre>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-19-1.gif" /><!-- --></p>
+</div>
+<div id="añadiendo-efecto-de-transición-y-shadow" class="section level2">
+<h2>Añadiendo efecto de transición y shadow</h2>
 <pre class="r"><code>p + transition_states(Month, wrap = FALSE) +
   shadow_mark()</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-20-1.gif" /><!-- --> enter_grow() + enter_fade()</p>
-<pre class="r"><code>Month_trans= p + transition_states(Month, wrap = FALSE) +
-  shadow_mark() +
-  enter_grow() +
-  enter_fade()
-
-Month_trans</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-21-1.gif" /><!-- --> Save animation</p>
-<p>If you need to save the animation for later use you can use the anim_save() function.</p>
-<p>It works much like ggsave() from ggplot2 and automatically grabs the last rendered animation if you do not specify one directly.</p>
-<pre class="r"><code>animate(Month_trans, height = 800, width =800)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-22-1.gif" /><!-- --></p>
-<pre class="r"><code>anim_save(&quot;Month_trans.gif&quot;)</code></pre>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-20-1.gif" /><!-- --></p>
 <p>Para más ejemplos de como usar gganimate ves este enlace <a href="https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/" class="uri">https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/</a></p>
+</div>
 </div>
 
 

@@ -44,21 +44,19 @@ library(animation)
 library(gt)
 ```
 
+El paquete **gganimate** extiende el paquete de **ggplot2** y implementa unas funciones para animar gráficos que típicamente estuviese estática. El paquete fue desarrollado por Pedersen y Robinson (2017).Siempre puede ir al siguiente enlace para tener más información y otros ejemplos.  <https://gganimate.com/articles/gganimate.html>.  Note que antes de utilizar este modulo se asume que se conozca la estructura de la creación de gráficos con ggplot2.    
 
 
 
-```{r}
-# Load required package
+Los datos provienen del paquete **gapminder** y el archivo **gapminder**. Estos datos representa la expectativa de supervivencia en diferentes 142 países entre 1952 y 2007.  Aquí observamos las primeras 6 filas del archivo. 
 
-```
 
-Los datos provienen del paquete **gapminder** y el archivo **gapminder**. Estos datos representa la expectativa de supervivencia en diferentes 142 paises entre 1952 y 2007.  Aquí observamos las primeras 6 filas del archivo.  
 ```{r}
 gt(head(gapminder))
 ```
 
 
-Primero creamos un gráfico de puntos sin animación.  En el eje de **X** representa el GDP per capita en cada pais, y en el eje de **Y** la supervivencia.  El tamaño del unto es relativo el tamaño del pais. La escala en el eje de **X** fue cambiado a una logarítmica usando  **scale_x_log10()**.   
+Primero creamos un gráfico de puntos sin animación o sea estático.  En el eje de **X** representa el GDP per capita en cada país, y en el eje de **Y** la supervivencia.  El tamaño del punto es relativo el tamaño del país. La escala en el eje de **X** fue cambiado a una logarítmica usando  **scale_x_log10()**.  Aunque es difícil percibir la diferencia cada país tiene su proprio color.  
 
 
 
@@ -67,8 +65,7 @@ Primero creamos un gráfico de puntos sin animación.  En el eje de **X** repres
 p <- ggplot(
   gapminder, 
   aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)) +
-  geom_point(show.legend = FALSE, alpha = 0.7) +
-  scale_color_viridis_d() +
+  geom_point(show.legend = FALSE, alpha = 0.8) +
   scale_size(range = c(2, 12)) +
   scale_x_log10() +
   labs(x = "GDP per capita", y = "Expectativa de Vida")
@@ -77,12 +74,9 @@ p
 
 ## Gráficos con animación:
 
-Para incluir las transiciones en tiempo se usa la función **transition_time**.  El largo de transición sera corespondiente as la diferencia entre la variable de tiemo (en este casa "Time")
+Para incluir las transiciones en tiempo se usa la función **transition_time**.  El largo de transición sera corresponde as la diferencia entre la variable de tiempo (en este casa "Time"). 
 
-
-
-
-La variable **frame_time** añade arriba una leyenda del tiempo de transición. Note que se usa la función **labs** y se añade el titulo, lo que hay en los corchetes es el cambio en tiempo.   
+La variable **frame_time** añade arriba una leyenda del tiempo de transición. Note que se usa la función **labs** y se añade el titulo y lo que hay entre los corchetes es la variable del cambio en tiempo.   
 
 
 ```{r}
@@ -96,11 +90,10 @@ GDP_time=p + transition_time(year) +
 animate(GDP_time, height = 600, width =600)
 anim_save("GDP_time.gif")
 ```
-![](GDP_time.gif)
 
 
 ## Crear facet animados.
-Para crear un gráfico por grupo y observar el de patrones de cambio en tiempo por continente se añade **facet_wrap**.  Se añade esta función al  
+Igual que para los gráficos de ggplot2 se puede crear una gráica por cada variable discreta.  Para crear un gráfico por grupo y observar el de patrones de cambio en tiempo por continente se añade **facet_wrap**.  En este próximo gráfico se produce un por cada continente.  
 
 
 ```{r}
@@ -110,9 +103,9 @@ p + facet_wrap(~continent) +
 ```
 
 
-## Animación de los ejes
+## Animación de los ejes: ejes variables
 
-En este caso lo que observamos es que la leyenda en en **x** varia con los años, y la de **y** la dejamos fija.  Si se usa **view_follow(fixed_x = TRUE)**, la leyenda en y variaria con el cambio en GDP per capita y la de **x** seria fija.  Si queremos que los dos ejes varian con los datos se usa **view_follow()**, sin poner nada dentro de los paréntesis.
+En este caso lo que observamos es que la leyenda en en **x** varia con los años, y la de **y** la dejamos fija.  Si se usa **view_follow(fixed_x = TRUE)**, la leyenda en **y** variaría con el cambio en GDP per capita y la de **x** seria fija.  Si queremos que los dos ejes varían con los datos se usa **view_follow()**, sin poner nada dentro de los paréntesis.
 
 
 ```{r}
@@ -123,25 +116,28 @@ p + transition_time(year) +
 
 ## Observar transiciones entre valores
 
-La función **shadow_wake** es para representar un efecto de sobre o direccón por donde ocurre los cambios. Se puede selecionar el tamaño de la disminución y la opacidad de la sombra.  El largo de la cola no es 
+La función **shadow_wake** es para representar un efecto de sobre o dirreccón por donde ocurre los cambios. Se puede seleccionar el tamaño de la disminución y la opacidad de la sombra.  El largo de la cola no es 
 
-`r colorize("Julián can you  translate this?", "red")`
+`r colorize("Julián check this translation?", "red")`
 
-The length of the wake is not given in absolute frames as that would make the animation susceptible to changes in the framerate. Instead it is given as a proportion of the total length of the animation.
+
+La duración de la estela no se da en cuadros absolutos, ya que eso haría que la animación sea susceptible a cambios en la velocidad de fotogramas. En cambio, se da por proporción de la longitud total de la animación. Por consecuencia el **wake_length** varia entre 0 a 1 en relación con el total de numero de periodo de tiempo (frames).  En otra palabra más cerca el valor se acerca a 1, más largo sera la cola.  
+
+The length of the wake is not given in absolute frames as that would make the animation susceptible to changes in the framerate. Instead it is given as a proportion of the total length of the animation. 
 
 
 
 ```{r}
 p + transition_time(year) +
   labs(title = "Year: {frame_time}") +
-  shadow_wake(wake_length = 0.1, alpha = FALSE)
+  shadow_wake(wake_length = 0.2, alpha = FALSE)
 ```
 
 
 ## Visualizar los datos originales en el fondo 
 
 
-Con la función **shadow_mark** se puede ver los datos originals. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script **shadow_mark(past = FALSE, future = TRUE)** se observaría los datos futuros y no del pasado.  
+Con la función **shadow_mark** se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script **shadow_mark(past = FALSE, future = TRUE)** se observaría los datos futuros y no del pasado.  El alternativa basica **shadow_mark()** es igual a **shadow_mark(past = TRUE, future = FALSE)**
 
 
 ```{r}
@@ -156,7 +152,7 @@ p + transition_time(year) +
 Con la función **transition_reveal** los datos aparece gradualmente en el gráfico
 
 Usamos otro conjunto de datos del archivo **airquality** que se encuentra en el paquete **datasets**
-Primero creamos un gráfico éstatico (sin animación), el dia del mes (day), la tempetaura del dia (Temp) y una linea para cada mes (mayo a septiembre) con la función **group**.  
+Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función **group**.  
 
 ```{r}
 p <- ggplot(
@@ -171,12 +167,14 @@ p
 ```
 
 
-Ahora animamos el gráfico en el eje de **x**
+Ahora animamos el gráfico en el eje de **x** con la variable de **Day**, añadiendo **transition_reveal(Day)**
 
 
 ```{r}
 p + transition_reveal(Day)
 ```
+
+## Anadiendo un punto a la linea
 
 Se puede añadir un punto al principio de las lineas 
 
@@ -188,13 +186,13 @@ cambio_m=p +
 
 ```{r}
 animate(cambio_m, height = 800, width =800)
-anim_save("cambio_m.gif")
+# anim_save("cambio_m.gif")
 ```
 
 
+## Poniendo un punto para valor
 
-
-# Los puntos se pueden quedar en el gráfico con añadiendo **(group = seq_along(Day)**. 
+Los puntos se pueden quedar en el gráfico añadiendo **(group = seq_along(Day)**. 
 
 ```{r}
 p + 
@@ -203,23 +201,27 @@ p +
 ```
 
 
-# Transition between several distinct stages of the data
+# Animación con gráficos de barras
 
-Data preparation:
+La transiciones también pueden ser producida con otros geoms por ejemplo con **geom_col**. El primer paso es tener un data frame que representa los valores de cada columna/barra.  Entonces el primer paso aquí fue de calcular el promedio de temperatura por mes en un nuevo data frame que llamamos **temp.promedio**.   
+
+Preparación de los datos
 
 ```{r}
-library(dplyr)
-mean.temp <- airquality %>%
+
+temp.promedio <- airquality %>%
   group_by(Month) %>%
   summarise(Temp = mean(Temp))
-mean.temp
+temp.promedio
 ```
 
+## Gráfico de barra estático
 
-Create a bar plot of mean temperature:
+Ahora creamos un gráfico estático de los datos con **geom_col**.  
+
 
 ```{r}
-p <- ggplot(mean.temp, aes(Month, Temp, fill = Temp)) +
+p <- ggplot(temp.promedio, aes(Month, Temp, fill = Temp)) +
   geom_col() +
   scale_fill_distiller(palette = "Reds", direction = 1) +
   theme_minimal() +
@@ -231,33 +233,19 @@ p <- ggplot(mean.temp, aes(Month, Temp, fill = Temp)) +
 p
 ```
 
-transition_states():
+## Añadiendo efecto de transición en las columnas
+
+El efecto de transición de un mes al otro se añade con la función **transition_states()**. Si uno añade solamente esta función aparece solamente una barra a la vez.  
+
+```{r}
+p + transition_states(Month, wrap = FALSE) 
+```
+
+## Añadiendo efecto de transición y shadow
 
 ```{r}
 p + transition_states(Month, wrap = FALSE) +
   shadow_mark()
-```
-enter_grow() + enter_fade()
-
-```{r}
-Month_trans= p + transition_states(Month, wrap = FALSE) +
-  shadow_mark() +
-  enter_grow() +
-  enter_fade()
-
-Month_trans
-```
-Save animation
-
-If you need to save the animation for later use you can use the anim_save() function.
-
-It works much like ggsave() from ggplot2 and automatically grabs the last rendered animation if you do not specify one directly.
-
-
-
-```{r}
-animate(Month_trans, height = 800, width =800)
-anim_save("Month_trans.gif")
 ```
 
 
