@@ -1,0 +1,118 @@
+---
+title: "gganimate2"
+author: "RLT"
+header-includes:
+   - \usepackage{animate}
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
+
+```{r}
+#if(!require(devtools)) install.packages("devtools")
+#devtools::install_github("dgrtwo/gganimate")
+#devtools::install_github("yihui/animation")
+```
+
+
+
+```{r}
+library(ggversa)
+library(tidyverse)
+library(gganimate)
+library(rgl)
+library(gapminder)
+library(ggplot2)
+library(animation)
+library(gt)
+```
+
+
+***
+
+## Patrones de temperatura en tiempo con **geom_bar**
+
+Este tipo de representación puede ser efectiva para mostrar patrones en donde los valores son negativos y positivos; por ejemplo, la temperatura. Para demostrarlo, ahora daremos un ejemplo que proviene del pueblo de Asbestos, Quebec, Canadá.  Los datos fueron extraídos de la base de datos de http://climate.weather.gc.ca/historical_data/search_historic_data_e.html (identifier 7020360).  El archivo de datos contiene la temperatura promedio (por mes) de la máxima y la mínima del 1948 al 1987.  Seleccionaremos solamente un conjunto limitado de los datos del año 1963 al 1968. Además, tendremos que voltear la información alrededor del eje de **X** para que se pueda leer, tal como se demuestra en la Figura. El primer paso es identificar que la variable Fecha es de tipo dato secuencial fecha y tiempo.  El segundo paso es identificar si los valores de temperatura máxima están por debajo o por encima del punto de congelación, < 0C°, o > 0C°, creando una nueva columna que aquí llamamos **NegPos**.  El tercer paso es usar solamente un subgrupo de información del archivo para mejorar la representación, ya que este tiene datos del 1948 al 1987.  Se seleccionan los años 1963 al 1966.
+
+### Primero miramos los datos
+```{r geom-Temperatura,  echo=TRUE}
+names(ASBESTOS_QUEBEC)
+head(ASBESTOS_QUEBEC)
+is.data.frame(ASBESTOS_QUEBEC) # para determinar si el archivo es un data frame?
+attach(ASBESTOS_QUEBEC)
+
+```
+
+### Identificar que la variable "Fecha" es una variable de tiempo. En modulo habrá una sección que discute solamente de fechas y horas. 
+```{r}
+# Identificar que la variable "Fecha" es una variable de tiempo.
+names(ASBESTOS_QUEBEC)[names(ASBESTOS_QUEBEC) == 'Date.Time'] <- 'Fecha'
+```
+
+### Crear la nueva variable Temp_Prom_Max; 
+
+Aquí se crea una nueva columna con para identificar si los datos son positivos o negativos, si es positiva = "TRUE", si es negativa = "FALSE". 
+
+
+```{r}
+
+ASBESTOS_QUEBEC$NegPos=ASBESTOS_QUEBEC$Temp_Prom_Max>=0
+```
+### Selecionar solamente un subgrupo de los datos  
+```{r}
+
+ASBESTOSsub=subset(ASBESTOS_QUEBEC, Year>1962 & Year<1967)
+
+#library(lubridate)
+library(anytime)
+
+ASBESTOSsub$Fecha2=anydate(ASBESTOSsub$Fecha)
+head(ASBESTOSsub)
+```
+
+### Uniendo las partes para crear el gráfico
+
+
+```{r}
+
+q=ggplot(data=ASBESTOSsub,
+  aes(x=Fecha2, y=Temp_Prom_Max, fill=NegPos)) +
+  geom_col()+
+  theme(axis.text.x=element_text(angle=90))+
+  guides(fill=FALSE)+
+  xlab("Fecha")+
+  ylab("Temperatura promedio máxima por mes en Celsius")+
+  theme(axis.title=element_text(size=10,face="bold"))
+
+q
+
+
+
+```
+
+
+
+
+```{r}
+q + transition_states(Fecha2, wrap = FALSE) +
+  shadow_mark()
+```
+
