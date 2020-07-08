@@ -70,15 +70,15 @@ Edad_Salón_2=as.list(Edad_Salón_2)
 Edad_Salón_2
 ```
 
-Probablemente notes que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos.  
+Probablemente notes que no es evidente a primera vista cuál es la diferencia entre las dos listas de datos.  Necesitamos ayuda para visualizar la diferencia.  A continuación se explican un par de maneras de ver esa misma información.
 
 
 ***
 ## Resumir la información en tablas
 
-Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la tabla "Edad de los Estudiantes" podemos apreciar que hay muy poca diferencia entre los promedios de las edade, pero también podemos ver que la edad máxima de los estudiantes es diferente.
+Una alternativa razonable para discernir la diferencia entre las edades de los dos grupos de estudiantes listadas arriba es resumir los datos en una tabla; o sea, por grupos, Salón 1 y Salón 2. Al mirar la tabla "Edad de los Estudiantes" podemos apreciar que hay muy poca diferencia entre los promedios de las edades, pero también podemos ver que la edad máxima de los estudiantes es diferente.
 
-En conclusión, con este simple ejercicio podemos afirmar que las dos listas de edades tienen valores muy similares, pero el valor máximo en cada lista es diferente. También podemos reconocer que si hay muchos valores en una lista, típicamente los humanos no podemos entender esos patrones a simple vista. Por lo tanto, es importante recurrir a diversos métodos para resumir los datos de forma más concisa, efectiva y eficiente.
+En conclusión, con este simple ejercicio podemos afirmar que las dos listas de edades tienen valores muy similares, pero que hay otras características (por ejemplo, el valor máximo) que los hace diferentes. También podemos reconocer que si hay muchos valores en una lista, típicamente los humanos no podemos entender esos patrones a simple vista. Por lo tanto, es importante recurrir a diversos métodos para resumir los datos de forma más concisa, efectiva y eficiente, tal como lo demostraremos próximamente.
 
 ```{r include=FALSE}
 Edad_Salón_1$Seq=seq(1:100)
@@ -96,6 +96,7 @@ as_tibble(df)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
+# para disparar tabla:
 df%>%
   select(V1, Salón)%>%
   group_by(Salón)%>%
@@ -107,6 +108,7 @@ df%>%
     title = "Edad de los Estudiantes")
   
 ```
+
 
 
 ## Visualizar muchos datos
