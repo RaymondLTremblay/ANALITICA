@@ -1,8 +1,10 @@
 ---
-title: "Erorres_Tipicos_en_la_visualizacion"
+title: "Errores Típicos en la visualización"
 author: "RLT"
 date: "6/30/2020"
-output: 
+output:
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
     toc_float: yes
@@ -21,10 +23,10 @@ library(random)
 library(ggplot2)
 ```
 
-# Ejemplos de Gráficos problemáticos
+# Gráficos problemáticos
 
 
-## Errores típicos en la producción de gráficos. 
+## Errores típicos en la producción de gráficos
 
 ## Gráficos en 3D
 
