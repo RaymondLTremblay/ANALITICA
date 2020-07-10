@@ -12,7 +12,7 @@
 <meta name="author" content="RLT" />
 
 
-<title>Errores Típicos en la visualización</title>
+<title>Errores típicos en la visualización</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -507,55 +507,70 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Errores Típicos en la visualización</h1>
+<h1 class="title toc-ignore">Errores típicos en la visualización</h1>
 <h4 class="author">RLT</h4>
 <h4 class="date">6/30/2020</h4>
 
 </div>
 
 
-<div id="gráficos-problemáticos" class="section level1">
-<h1>Gráficos problemáticos</h1>
+<div id="representaciones-problemáticas" class="section level1">
+<h1>Representaciones problemáticas</h1>
 <div id="errores-típicos-en-la-producción-de-gráficos" class="section level2">
 <h2>Errores típicos en la producción de gráficos</h2>
+<p>Uno de los errores más comunes cuando se producen gráficos es dedicar demasiado tiempo a la decoración para dar una impresión grandiosa en vez de concentrarse en diseñarlos para comunicar efectivamente el mensaje a la audiencia. Por ejemplo, el uso de múltiples dimensiones, una definición confusa de las escalas en los ejes, una cantidad exagerada o insuficiente de “ticks” en los ejes, o el utilizar valores inadecuados en las escalas. Ejemplos de esos errores típicos se presentan a continuación.</p>
+<div id="embellecimiento-innecesario" class="section level3">
+<h3>Embellecimiento innecesario</h3>
+<p>Un ejemplo de embellecimiento innecesario en un gráfico es el uso de tres dimensiones en una representación 3D para comunicar el conteo de una medida. Frecuentemente lo vemos en muchos sitios de la Internet, en artículos científicos, revistas y periódicos y trabajos de estudiantes. En el caso de un conteo (y en muchos otros casos), <strong>NO</strong> hay razón para añadir otra dimensión en el gráfico pues eso no ayuda a entender los datos y hasta podría causar dificultad para percibir rápidamente los valores reales que representan las barras. Infortunadamente, la facilidad de crear gráficos en 3D, por ejempolo, en MS-Excel, con cualquier tipo de valores ha amplificado el mal uso de este tipo de representación de datos.</p>
+<p>En la <strong>Figura: Gráfico con dimensiones innecesarias</strong> demostramos que la tercera dimensión (3D) no aporta al entendimiento de los resultados. Vemos que el valor de las barras en el eje de “y” que representa la magnitud de ese valor en la barra en 3D se muestra en el frente o detrás de la caja 3D. Añadir 3D en este caso es complicar la apreciación de esos valores.</p>
+<div class="figure" style="text-align: center">
+<img src="Graficos/A3D.png" alt="Figura: Gráfico con dimensiones innecesarias" width="50%" />
+<p class="caption">
+Figura: Gráfico con dimensiones innecesarias
+</p>
 </div>
-<div id="gráficos-en-3d" class="section level2">
-<h2>Gráficos en 3D</h2>
-<p>Uno de los error principal cuando se hace gráficos es concentrarse en la decoración del gráfico para dar una impresión grandiosa y no en pasar un mensaje facil a la audiencia. Algunos de los errores incluye.</p>
-<ul>
-<li>Dimensiones innecesarias como los gráficos 3D para enseñar el conteo. Este es un caso que uno ve regularmente en muchos sitios, artículos científicos, revistas y periódicos y trabajos de estudiantes. <strong>NO</strong> hay ninguna razón de añadir una otra dimensión en la siguiente gráfica ya que no nos ayuda a entender los datos y hasta puede causar dificultad de entender cual son los valores reales que representa las barras. Desafortunademente la facilidad de aplicar un gráfico en 3D en MS Excel por cualquier tipo de datos ha amplificado el mal uso de este tipo representación de datos.</li>
-</ul>
-<p>En el gráfico abajo la tercera dimensión (3D) no aporta al entendimiento de los resultados. Añadiendo al problema visualizando las barras el valor en el eje de “y” que representa la barra en 3D, es representado por el frente o detrás de la caja 3D. Por consecuencia a añadir 3D en este caso es complicar el apreciación de los valores.</p>
-<p><img src="Graficos/A3D.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="errores-de-escala-en-los-ejes" class="section level2">
-<h2>Errores de escala en los ejes</h2>
-<p>Muchas veces la variable en “X” tiene intervalos que no corresponde a la escala de la variable. En el siguiente ejemplo tenemos una linea que representa la cantidad de casos de una enfermedad, y el eje de “x” el año de recolección de los datos. Nota que la escala no es consistente, hay 15 años entre 1930 y 1945, y 45 años entre los dos últimos intervalos.</p>
-<p>En el siguiente gráfico se resuelve el problema dejando que la escala se ajuste a los intervalos correctos de años.</p>
-<p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-4-1.png" width="50%" /></p>
+<div id="errores-de-escala-en-los-ejes" class="section level3">
+<h3>Errores de escala en los ejes</h3>
+<p>Muchas veces la variable en “X” tiene intervalos que no corresponden a la escala de la variable. En el gráfico en la <strong>Figura a. Gráfico con escala incorrecta en el eje de X</strong> se muestra una línea que representa la cantidad de casos de una enfermedad. El eje de “x” representa el año de recolección de los datos. Note que la escala no es consistente. Primero comienza el intervalo de 10 en 10, luego pasa a un intervalo de 15 y luego termina con un intervalo de 45. Eso afecta el comportamiento de la línea en cuanto la rapidez de la progresión de casos.</p>
+<p>Por otro lado, veamos que el gráfico en la <strong>Figura b. Mismo gráfico con la escala corregida en el eje de X</strong> resuelve el problema al dejar que la escala se ajuste al intervalo correcto de años. Podemos notar que ahora los mismos datos quedan representados en la línea de forma más a tono con el comportamiento real de los datos.</p>
+<p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
-<div id="la-cantidad-de-ticks." class="section level2">
-<h2>La cantidad de “ticks”.</h2>
-<p>La cantidad de grupos en las escalas es frecuentemente un problema donde hay demasiado o no suficiente información para aclarar la escalas. Vemos aquí dos ejemplos de estos problemas. En el primero no se puede leer con facilidad la secuencia de los datos en la variable “x”. En el segundo gráfico no se enseña suficiente información. La escala y la información debería ser fácil de entender y representando las ideas que el científico quiere discutir.</p>
+<div id="cantidad-incorrecta-de-ticks" class="section level3">
+<h3>Cantidad incorrecta de “ticks”</h3>
+<p>La cantidad de “ticks” en los ejes de “X” o “Y” es frecuentemente un problema porque o hay demasiada o no hay suficiente información para visualizar la escala. Vemos aquí dos ejemplos de esos problemas. En el gráfico <strong>Figura a: Demasiados “ticks” en el eje de “X”</strong> no se puede leer con facilidad la secuencia de los datos en la variable “x”. En el segundo gráfico, <strong>Figura b. Insuficientes “ticks” en el eje de “X”</strong>, no se enseña suficiente información. La escala y los valores que se desean representar deberían ser fáciles de entender y que claramente reflejen las ideas que el científico u otro profesional desea comunicar.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
-<div id="problema-de-escala-incluir-el-cero-o-no" class="section level2">
-<h2>Problema de escala, incluir el cero o no?</h2>
-<p>En muchas ocasiones la falta de incluir una escala adecuada en la variable dependiente (Y) resulta en que es difícil interpretar los resultados. Aquí van a observar dos gráficos, donde en la primera da impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeños, pero cuando se cambia de escala y se incluye el cero (en la segunda figura) con los mismo datos no se aprecia esta diferencia tan marcada. El único componente que se cambio fue la escala con los mismos datos. ¿Cúal es la escala correcta? Depende de los tipos de valores, y el mensaje que el investigador quiere transmitir. Por ejemplo si en realidad NUNCA es posible (o improbable) llegar al cero no seria correcto enseñar la escala de cero. Un ejemplo exagerado, si el grupo se mide la temperatura en la escala de Kelvin, y Ud demuestra en una figura la temperatura típica de un lugar, por ejemplo si el grupo “D” representa la ciudad de Paris, no seria lógico tener el eje de “y” que se extiende a 0° Kelvin ya que la temperatura de este lugar no puede llegar a esta temperatura, lo lógico seria de tener una escala que representa los valores mínimo y máximo en el periodo del estudio.</p>
+<div id="problemas-de-escala" class="section level3">
+<h3>Problemas de escala</h3>
+<p>En muchas ocasiones, el no incluir una escala adecuada en la variable dependiente (“y”) resulta en resultados muy difíciles de interpretar. A continuación podremos observar dos gráficos que ilustran tal condición. En el primero, <strong>Figura a: NO comienza con valor cero en eje de Y </strong>, da la impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeños por estar mucho más abajo en la escala del eje de “Y”). Pero cuando se cambia de escala de manera que incluya al cero, ver <strong>Figura b: SÍ comienza con valor cero en eje de Y </strong>, a pesar de estar representados los mismos datos, no se aprecia esa diferencia tan marcada. El único componente que se cambió fue la escala, pero aún se utilizaron los mismos datos.</p>
+<p>En general, ¿cúal debe ser la escala correcta? ¿Se debe siempre comenzar con el cero? Depende de los tipos de valores y el mensaje que el investigador quiere transmitir. Por ejemplo, si en realidad NUNCA es posible (o improbable) que los valores en “y” lleguen al valor cero, no sería correcto mostrar la escala comenzando con el cero. Un ejemplo exagerado sería que si se mide la temperatura en la escala de Kelvin y Ud representa en un gráfico la temperatura típica de un lugar, por ejemplo, si el grupo “D” representa la temperatura en la ciudad de Madrid, no sería lógico mostrar en el eje de “y” temperaturas que comiencen con 0° Kelvin ya que la temperatura de esa ciudad no puede llegar a esa medida. Al contrario, lo lógico sería tener una escala que represente los valores mínimo y máximo típicos en el período del estudio.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
-<div id="construcción-de-tablas" class="section level2">
-<h2>Construcción de Tablas:</h2>
-<p>Aquí demuestro algunos errores comunes cuando se prepara tablas.</p>
-<ol style="list-style-type: decimal">
-<li>Errores comunes en tablas es incluir un exceso de valores significativos y en diferentes formato en la misma columna.</li>
-<li>Los valores numéricos no están justificado a la derecha. Es importante que los valores numéricos sean justificado a la derecha ya que nuestra apreciación de la diferencias numéricas van de derecho a izquierdo, y automáticamente un valor de 112 y más grande que un valor de tiene dos dígitos.<br />
-</li>
-<li>Las escala de los valores no están mencionados.</li>
-</ol>
-<p>Aquí presento dos tablas una con los errores y la segunda son estos errores corregidos. ¿Encuentra los errores?</p>
-<div id="tabla-con-errores" class="section level3">
-<h3>Tabla con errores</h3>
+</div>
+<div id="errores-típicos-en-la-construcción-de-tablas" class="section level2">
+<h2>Errores típicos en la construcción de tablas</h2>
+<p>Hasta ahora hemos visto errores de representación al producir gráficos. El mismo problema de representación visual frecuentemente se da al presentar datos en forma tabular. A continuación se muestran algunos errores comunes cuando se presentan datos en tablas.</p>
+<div id="cifras-significativas-excesivas" class="section level3">
+<h3>Cifras significativas excesivas</h3>
+<p>No se deben incluir valores significativos excesivamente.</p>
+</div>
+<div id="formato-inconsistente" class="section level3">
+<h3>Formato inconsistente</h3>
+<p>No se deben incluir diferentes formatos en la misma columna.</p>
+</div>
+<div id="justificaciones-incorrectas" class="section level3">
+<h3>Justificaciones incorrectas</h3>
+<p>Es importante que los valores numéricos estén justificados a la derecha. Recordemos que nuestra apreciación de las diferencias numéricas van de derecha a izquierda. Por ejemplo, el valor 112 se aprecia automáticamente como más grande que un valor que tiene dos dígitos (digamos el 12).</p>
+</div>
+<div id="falta-de-unidades" class="section level3">
+<h3>Falta de unidades</h3>
+<p>No se mencionan las unidades de los valores.</p>
+<div id="ejemplo" class="section level4">
+<h4>Ejemplo</h4>
+<p>Ahora veamos un ejemplo de esos problemas.</p>
+<p>A ver, mire la <strong>Tabla a</strong> y la <strong>Tabla b</strong>. ¿Encuentra los errores? Vea que la <strong>Tabla a</strong> muestra los valores con demasiadas cifras significativas, justificaciones ilógicas, formato inconsistente y no especifica las unidades de los valores. Vemos en la <strong>Tabla b</strong> que ahora las cifras significativas aparecen de forma consistente y en el mismo formato (2da y 3ra columnas), todos los números están justificados a la derecha y las unidades de cm se especifican (3ra columna). No solo la <strong>Tabla b</strong> se ve más presentable, si no que también corrige los problemas, de ahí la importancia de presentar datos tabulados de forma que facilite su comunicación a la audiencia.</p>
+<p><strong>Tabla a. Errores de formato, justificación y escala</strong></p>
 <table>
 <thead>
 <tr class="header">
@@ -567,13 +582,13 @@ div.tocify {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Especie 1</td>
+<td>Mujeres</td>
 <td align="left">27273</td>
 <td align="center">11.03</td>
 <td align="left">0.000000001</td>
 </tr>
 <tr class="even">
-<td>Especie 2</td>
+<td>Hombres</td>
 <td align="left">169019</td>
 <td align="center">13.5</td>
 <td align="left">0.098979676</td>
@@ -587,9 +602,7 @@ div.tocify {
 </tbody>
 </table>
 <hr />
-</div>
-<div id="tabla-con-errores-solucionados" class="section level3">
-<h3>Tabla con errores solucionados</h3>
+<p><strong>Tabla b. Errores anteriores corregidos</strong></p>
 <table>
 <thead>
 <tr class="header">
@@ -620,6 +633,7 @@ div.tocify {
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>

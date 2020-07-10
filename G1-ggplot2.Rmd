@@ -111,7 +111,6 @@ df%>%
 ```
 
 
-
 ## Cómo visualizar muchos datos
 
 Llegar a conclusiones prematuras sobre las edades de los estudiantes simplemente con echarle un vistazo rápido nos podría conducir a un error. Una mejor alternativa es visualizar las listas de datos con un gráfico.   En ese caso, podemos visualizar esos datos con un gráfico llamado **Diagrama de caja** o *Boxplot*, tal como se muestra en **Figura: Diagrama de Caja**. Se observa que el promedio es aproximadamente igual, que ambos muestran valores mínimos idénticos, y que entonces la única diferencia es el valor máximo en los datos.  Esa conclusión se pudo alcanzar simplemente produciendo un gráfico. Esa es la importancia de visualizar los datos antes de llegar a conclusiones.
@@ -164,13 +163,9 @@ knitr::include_graphics("Graficos/coxcombchart.png")
 ```
 
 
-
-
-
 ```{r eval=FALSE, include=FALSE}
 
 #Aquí se reconstruye el gráfico con herramientas modernas.  Los datos provienen de la página de Wikipedia **Crimean War**.
-
 
 País=c("Imperio Otamano", "Imperio Otamano","Francia","Francia", "Reino Unido","Reino Unido", "Cerdeña","Cerdeña", "Rusia y aliados","Rusia y aliados")
 Fatalidad=c("En acción", "Otras enfermedades", "En acción", "Otras enfermedades" ,"En acción", "Otras enfermedades", "En acción", "Otras enfermedades", "En acción", "Otras enfermedades")
