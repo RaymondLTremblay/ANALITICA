@@ -179,7 +179,9 @@ No se mencionan las unidades de los valores.
 
 Ahora veamos un ejemplo de esos problemas.
 
-A ver, mire la **Tabla a** y la **Tabla b**. ¿Encuentra los errores?  Vea que la **Tabla a** muestra los valores con demasiadas cifras significativas, justificaciones ilógicas, formato inconsistente y no especifica las unidades de los valores.  Vemos en la **Tabla b** que ahora las cifras significativas aparecen de forma consistente y en el mismo formato (2da y 3ra columnas), todos los números están justificados a la derecha y las unidades de cm se especifican (3ra columna).  No solo la **Tabla b** se ve más presentable, si no que también corrige los problemas, de ahí la importancia de presentar datos tabulados de forma que facilite su comunicación a la audiencia.
+A ver, mire la **Tabla a** y la **Tabla b**. ¿Encuentra los errores?  Vea que la **Tabla a** muestra los valores con demasiadas cifras significativas, justificaciones ilógicas, formato inconsistente y no especifica las unidades de los valores.  Vemos en la **Tabla b** que ahora las cifras significativas aparecen de forma consistente y en el mismo formato (2da y 3ra columnas), todos los números están justificados a la derecha y las unidades de cm se especifican (3ra columna).  
+
+En conclusión, no solo la **Tabla b** se ve más presentable, si no que también corrige los problemas, de ahí la importancia de presentar datos tabulados de forma que facilite su comunicación a la audiencia.
   
 **Tabla a.  Errores de formato, justificación y escala**
   
