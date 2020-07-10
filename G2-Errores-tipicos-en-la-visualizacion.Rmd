@@ -43,7 +43,7 @@ knitr::include_graphics("Graficos/A3D.png")
 
 ### Errores de escala en los ejes
 
-Muchas veces la variable en "X" tiene intervalos que no corresponden a la escala de la variable. En el gráfico en la **Figura a. Gráfico con escala incorrecta en el eje de X** se muestra una línea que representa la cantidad de casos de una enfermedad. El eje de "x" representa el año de recolección de los datos.  Note que la escala no es consistente.  Primero comienza el intervalo de 10 en 10, luego pasa a un intervalo de 15 y luego termina con un intervalo de 45.  Eso afecta el comportamiento de la línea en cuanto la rapidez de la progresión de casos.
+Muchas veces la variable en "x" tiene intervalos que no corresponden a la escala de la variable. En el gráfico en la **Figura a. Gráfico con escala incorrecta en el eje de X** se muestra una línea que representa la cantidad de casos de una enfermedad. El eje de "X" representa el año de recolección de los datos.  Note que la escala no es consistente.  Primero comienza el intervalo de 10 en 10, luego pasa a un intervalo de 15 y luego termina con un intervalo de 45.  Eso afecta el comportamiento de la línea en cuanto la rapidez de la progresión de casos.
 
 ```{r echo=FALSE, out.width = '50%'}
 
