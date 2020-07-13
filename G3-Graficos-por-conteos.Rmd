@@ -302,10 +302,10 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 ```
 
 
-## Opciones y Parametros de **geom_point** y **geom_count**
+## Opciones y parámetros
 
 
-A continuación se resumen las opciones y parámetros más importantes de geom_point y geom_count:
+A continuación se resumen las opciones y parámetros más importantes de **geom_point** y **geom_count**:
 
 
 * ggplot(el archivo de datos, aes(x= la variable secuencial, y = la variable secuencial más de un grupo, color= si hay necesidad))
