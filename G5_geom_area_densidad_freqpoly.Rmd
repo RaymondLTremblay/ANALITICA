@@ -12,6 +12,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
 ```
 
+
+Fecha de la ultima revisión
+```{r echo=FALSE}
+
+Sys.Date()
+```
+
+
 # Gráficos de área, densidad y histograma de linea con **geom_dotplot**, **geom_density** y **geom-freqpoly**
 
 ***

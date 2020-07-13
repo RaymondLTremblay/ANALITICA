@@ -13,6 +13,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Fecha de la ultima revisión
+```{r echo=FALSE}
+
+Sys.Date()
+```
 
 # Gráficos con **geom_point** y **geom_count**
 

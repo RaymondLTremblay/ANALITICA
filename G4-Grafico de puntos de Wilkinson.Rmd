@@ -12,7 +12,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE,  message=FALSE, warning=FALSE)
 ```
 
+Fecha de la ultima revisión
+```{r echo=FALSE}
 
+Sys.Date()
+```
 
 
 # Gráficos de Puntos con **geom_dotplot**
