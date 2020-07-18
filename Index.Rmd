@@ -170,11 +170,10 @@ Para más información sobre Analítica, favor comunicarse con los oficiales com
   * Conceptualización, diseño, implementación, diseño y administración de un plan de evaluación interna o externa de programas o proyectos que puede incluir:
     - Creación o modificación de instrumentos de evaluación (encuestas, depósitos de bases de datos, etc.)
     - Dirigir grupos focales y llevar a cabo el análisis (hallazgos y recomendaciones)
-    - Analisis de documentos o bases de datos existentes
+    - Análisis de documentos o bases de datos existentes
     - Creación de pre/postpruebas para evaluación de efectividad de intervenciones educativas
     - Entrevistas estructuradas, semiestructuradas o informales a participantes
     - Diseño de procesos de rastreo de participantes
-
 
   
 # Contactos
@@ -238,15 +237,4 @@ ANALITICA se compromete a promover un espacio positivo y libre de descrimen.
 Recuerda que que se usara computadoras portatiles en cada sesión.
 
 
-```{r echo=FALSE, eval=FALSE}
-rmarkdown::render('index.Rmd', 'word_document')
-rmarkdown::render('schedule.Rmd', 'word_document')
-rmarkdown::render('LAB1.Rmd', 'word_document')
-rmarkdown::render('LAB2.Rmd', 'word_document')
-rmarkdown::render('LAB3.Rmd', 'word_document')
-rmarkdown::render('LAB4.Rmd', 'word_document')
-rmarkdown::render('LAB5.Rmd', 'word_document')
-rmarkdown::render('LAB6.Rmd', 'word_document')
-rmarkdown::render('LAB7.Rmd', 'word_document')
 
-```
