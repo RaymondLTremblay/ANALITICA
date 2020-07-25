@@ -12,7 +12,7 @@
 <meta name="author" content="RLT" />
 
 
-<title>Grafico de puntos de Wilkinson</title>
+<title>Gráfico de puntos de Wilkinson</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -507,29 +507,32 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Grafico de puntos de Wilkinson</h1>
+<h1 class="title toc-ignore">Gráfico de puntos de Wilkinson</h1>
 <h4 class="author">RLT</h4>
 <h4 class="date">6/30/2020</h4>
 
 </div>
 
 
+<p>Fecha de la última revisión</p>
+<pre><code>## [1] &quot;2020-07-16&quot;</code></pre>
 <div id="gráficos-de-puntos-con-geom_dotplot" class="section level1">
-<h1>Gráficos de Puntos con <strong>geom_dotplot</strong></h1>
-<div id="los-paquetes-a-instalar" class="section level2">
-<h2>Los paquetes a instalar</h2>
-<pre class="r"><code>library(ggversa) # la función &quot;library&quot; activa el paquete de **ggversa** donde se encuentra los archivos de datos
+<h1>Gráficos de puntos con <strong>geom_dotplot</strong></h1>
+<pre class="r"><code># Es necesario instalar los siguienntes paquetes:
+
+library(ggversa) # la función &quot;library&quot; activa el paquete de **ggversa** donde se encuentra los archivos de datos
 library(ggplot2) # ggplot2 es la librería que se usará para visualizar los datos
 library(tidyverse) # una serie de paquetes para organizar y visualizar los datos
 library(gt) # Un paquete para que las tablas se vean más organizada. 
 library(gridExtra) # Un paquete para organizar las figuras de ggplot2
 
-gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas</code></pre>
+# Mostrar las primeros 6 filas con la función *head*
+gt(head(dipodium)) </code></pre>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#wjgdbnbhmx .gt_table {
+#fyjxyyhfru .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -552,7 +555,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-left-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_heading {
+#fyjxyyhfru .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -564,7 +567,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-right-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_title {
+#fyjxyyhfru .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -574,7 +577,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-bottom-width: 0;
 }
 
-#wjgdbnbhmx .gt_subtitle {
+#fyjxyyhfru .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -584,13 +587,13 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-top-width: 0;
 }
 
-#wjgdbnbhmx .gt_bottom_border {
+#fyjxyyhfru .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_col_headings {
+#fyjxyyhfru .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -605,7 +608,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-right-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_col_heading {
+#fyjxyyhfru .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -625,7 +628,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   overflow-x: hidden;
 }
 
-#wjgdbnbhmx .gt_column_spanner_outer {
+#fyjxyyhfru .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -637,15 +640,15 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   padding-right: 4px;
 }
 
-#wjgdbnbhmx .gt_column_spanner_outer:first-child {
+#fyjxyyhfru .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wjgdbnbhmx .gt_column_spanner_outer:last-child {
+#fyjxyyhfru .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wjgdbnbhmx .gt_column_spanner {
+#fyjxyyhfru .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -657,7 +660,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   width: 100%;
 }
 
-#wjgdbnbhmx .gt_group_heading {
+#fyjxyyhfru .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -679,7 +682,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   vertical-align: middle;
 }
 
-#wjgdbnbhmx .gt_empty_group_heading {
+#fyjxyyhfru .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -694,19 +697,19 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   vertical-align: middle;
 }
 
-#wjgdbnbhmx .gt_striped {
+#fyjxyyhfru .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wjgdbnbhmx .gt_from_md > :first-child {
+#fyjxyyhfru .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wjgdbnbhmx .gt_from_md > :last-child {
+#fyjxyyhfru .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wjgdbnbhmx .gt_row {
+#fyjxyyhfru .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -725,7 +728,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   overflow-x: hidden;
 }
 
-#wjgdbnbhmx .gt_stub {
+#fyjxyyhfru .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -737,7 +740,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   padding-left: 12px;
 }
 
-#wjgdbnbhmx .gt_summary_row {
+#fyjxyyhfru .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -747,7 +750,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   padding-right: 5px;
 }
 
-#wjgdbnbhmx .gt_first_summary_row {
+#fyjxyyhfru .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -757,7 +760,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-top-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_grand_summary_row {
+#fyjxyyhfru .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -767,7 +770,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   padding-right: 5px;
 }
 
-#wjgdbnbhmx .gt_first_grand_summary_row {
+#fyjxyyhfru .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -777,7 +780,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-top-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_table_body {
+#fyjxyyhfru .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -786,7 +789,7 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-bottom-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_footnotes {
+#fyjxyyhfru .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -800,13 +803,13 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-right-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_footnote {
+#fyjxyyhfru .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#wjgdbnbhmx .gt_sourcenotes {
+#fyjxyyhfru .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -820,46 +823,46 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   border-right-color: #D3D3D3;
 }
 
-#wjgdbnbhmx .gt_sourcenote {
+#fyjxyyhfru .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#wjgdbnbhmx .gt_left {
+#fyjxyyhfru .gt_left {
   text-align: left;
 }
 
-#wjgdbnbhmx .gt_center {
+#fyjxyyhfru .gt_center {
   text-align: center;
 }
 
-#wjgdbnbhmx .gt_right {
+#fyjxyyhfru .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wjgdbnbhmx .gt_font_normal {
+#fyjxyyhfru .gt_font_normal {
   font-weight: normal;
 }
 
-#wjgdbnbhmx .gt_font_bold {
+#fyjxyyhfru .gt_font_bold {
   font-weight: bold;
 }
 
-#wjgdbnbhmx .gt_font_italic {
+#fyjxyyhfru .gt_font_italic {
   font-style: italic;
 }
 
-#wjgdbnbhmx .gt_super {
+#fyjxyyhfru .gt_super {
   font-size: 65%;
 }
 
-#wjgdbnbhmx .gt_footnote_marks {
+#fyjxyyhfru .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="wjgdbnbhmx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="fyjxyyhfru" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1030,73 +1033,88 @@ gt(head(dipodium)) # la función *head* es para visualizar las primeros 6 filas<
   
 </table></div>
 <hr />
-</div>
-<div id="gráficos-de-una-variable-continua-o-discreta" class="section level2">
-<h2>Gráficos de una variable continua o discreta</h2>
-<p>Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría). A continuación se demuestra la producción de gráficos cuando la variable es discreta y después para datos continuos.</p>
-</div>
-<div id="gráficos-de-puntos-dotplot-de-wilkinson-con-geom_dotplot" class="section level2">
-<h2>Gráficos de puntos: Dotplot de Wilkinson con geom_dotplot</h2>
-<p>En el gráfico de puntos, conocido como <em>Wilkinson dotplot</em>, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de <em>Y</em>. Esto se demuestra en la siguiente figura utilizando los datos de la orquídea <em>dipodium</em> en el archivo de <strong>ggversa</strong>. Note que se podría haber usado <strong>geom_dotplot</strong> sin parámetros adicional y los puntos quedarían representados de color negro. El parámetro <strong>fill</strong> cambia el color de los puntos y el parámetro <strong>colour o color</strong> cambia el color de la línea que rodea el círculo.</p>
+<div id="gráfico-para-una-variable-discreta" class="section level2">
+<h2>Gráfico para una variable discreta</h2>
+<p>Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría). A continuación se demuestra la producción de gráficos cuando la variable es discreta al representar el número de frutos. (Los casos en que la variable es continua se explica en detalle como un tópico aparte de visualización.)</p>
+<div id="gráficos-de-puntos-wilkinson" class="section level3">
+<h3>Gráficos de puntos Wilkinson</h3>
+<p>En el gráfico de puntos, conocido como <em>Wilkinson dotplot</em>, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de <em>Y</em>. Ese gráfico se hace con la función con <strong>geom_dotplot</strong>. Esto se demuestra en el gráfico <strong>Figura: Gráfico básico de puntos Wilkinson</strong> que utiliza los datos de la orquídea <em>dipodium</em> del archivo de <strong>ggversa</strong>. Note que se podría haber usado <strong>geom_dotplot</strong> sin parámetros adicionales y los puntos quedarían representados de color negro. El parámetro <strong>fill</strong> cambia el color de los puntos y el parámetro <strong>colour</strong> o <strong>color</strong> cambia el color de la línea que rodea los puntos.</p>
 <hr />
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))
 
 a+geom_dotplot(fill=&quot;blue&quot;, colour=&quot;yellow&quot;,
                 stackratio=.5) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title=&quot;Figura: Gráfico básico de puntos Wilkinson&quot;)</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="la-posición-de-los-datos-con-stackdir" class="section level2">
-<h2>La posición de los datos con <strong>stackdir</strong></h2>
-<p>Con la opción <strong>stackdir</strong> uno puede ubicar los puntos de forma diferente; por ejemplo, centrados al eje de Y como se muestra en la siguiente figura. Para especificar la dirección en que se quieren ubicar los datos, se indica que los puntos comienzan al centro con el parámetro <strong>center</strong>; si comienzan arriba, con <strong>down</strong>; si abajo, con <strong>up</strong>; y si al centro con los puntos alineados, con <strong>centerwhole</strong> (centralizados, pero con los daos aliñados).</p>
-<pre class="r"><code># Practica cambiando stackdir por las otras alternativas: centerwhole, up, down, center, 
+<div id="definir-la-posición-de-los-puntos" class="section level3">
+<h3>Definir la posición de los puntos</h3>
+<p>Podemos definir la posición de los puntos en el eje de <em>Y</em> con la opción <strong>stackdir</strong> y los parámetros. Por ejemplo, se pueden centrar los puntos al eje de <em>Y</em> como se muestra en la <strong>Figura.a: Con puntos centrados al eje de Y</strong> (en rojo). Como se puede apreciar, para especificar la dirección en que se quieren ubicar los puntos, se indica que los puntos comiencen al centro con el parámetro <strong>center</strong>. Si se desea que se desplieguen alineados justo al centro, con <strong>centerwhole</strong> (<strong>Figura.b: Alineas justo al centro</strong>, en azul); si desde abajo, con <strong>up</strong> (<strong>Figura.c: Puntos desplegados desde arriba</strong>, en anaranjado); y desde arriba, con <strong>down</strong> (<strong>Figura.d: Puntos desplegados desde arriba</strong>, en negro). <span style="color: red;"><strong>OJO: No se ve claramente la diferencia entre parámetro center y parámetro centerwhole o algo no está bien explicado.</strong></span></p>
+<pre class="r"><code># práctica cambiando stackdir con los parámetros center, centerwhole, up, down:
+
 a=ggplot(dipodium, aes(Number_of_fruits))
 a=a+geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
                 stackdir=&quot;center&quot;, stackratio = 0.5) + 
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title=&quot;Figura.a: Con puntos centrados al eje de Y&quot;)+
+  theme(title=element_text(size=8))
 
 b=ggplot(dipodium, aes(Number_of_fruits))
 b=b+geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
                 stackdir=&quot;centerwhole&quot;, stackratio = 0.5) + 
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title=&quot;Figura.b: Alineados justo al centro&quot;)+
+  theme(title=element_text(size=8))
 
 c=ggplot(dipodium, aes(Number_of_fruits))
 c=c+geom_dotplot(fill=&quot;orange&quot;, colour=&quot;black&quot;,
                 stackdir=&quot;up&quot;, stackratio = 0.5) + 
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title=&quot;Figura.c: Puntos desplegados desde abajo&quot;)+
+  theme(title=element_text(size=8))
 
 d=ggplot(dipodium, aes(Number_of_fruits))
 d=d+geom_dotplot(fill=&quot;black&quot;, colour=&quot;white&quot;,
                 stackdir=&quot;down&quot;, stackratio = 0.5) + 
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title=&quot;Figura.d: Puntos desplegados desde arriba&quot;)+
+  theme(title=element_text(size=8))</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/grid%20dotplot-1.png" width="672" /></p>
 </div>
-<div id="modificación-estética-del-gráfico-tamaño-del-punto-color-del-punto-y-la-intensidad" class="section level2">
-<h2>Modificación estética del gráfico, tamaño del punto, color del punto y la intensidad</h2>
-<p>A continuación se demostrará cómo modificar algunas variables utilizando <strong>geom_dotplot</strong>. Cuando se utilicen otras funciones tipo <strong>geom_</strong>, muchas de las opciones explicadas a continuación pueden ser viables y aplicables. Se cambia el tamaño de los puntos con <strong>dotsize</strong>, a la vez que se cambia la orientación de los datos como se muestra en la misma figura. También se cambia la intensidad del color usando <strong>alpha</strong>, que tiene un rango de 0 (color pálido) a 1 (color intenso); cuando se usan valores altos, resulta en mayor intensidad el color en la opción <strong>fill</strong> (del color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue. Nota que en los dos gráficos se cambia el <strong>stackratio</strong> que es la proporción de solapamiento de puntos. En adición se cambia el tamaño de los puntos con <strong>dotsize</strong>.</p>
+<div id="modificar-la-estética-del-gráfico" class="section level3">
+<h3>Modificar la estética del gráfico</h3>
+<p>A continuación se demostrará cómo modificar algunas características del gráfico <strong>geom_dotplot</strong>; por ejemplo, el tamaño y color de los puntos, y la intensidad del color. (NOTE: Cuando se utilicen otras funciones tipo <strong>geom_</strong>, muchas de las opciones explicadas a continuación pueden ser viables y aplicables.)</p>
+<p>Se cambia el tamaño de los puntos con <strong>dotsize</strong>, a la vez que se cambia la orientación de los datos como se muestra en la <strong>Figura.a: Dotplot con puntos más grandes</strong>. Por otro lado, en la <strong>Figura.b: Dotplot con puntos más pequeños y menos intensos</strong> se cambia la intensidad del color usando <strong>alpha</strong> (0.5 en este caso). Esa opción tiene un rango de 0 (color pálido) a 1 (color intenso); en otras palabras, cuando se usan valores altos, resulta en mayor intensidad el color en la opción <strong>fill</strong> (color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue. Note que en los dos gráficos se cambia el <strong>stackratio</strong>, que es la proporción de solapamiento de puntos.</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))+
   geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
                dotsize=3, stackdir=&quot;center&quot;,  stackratio = 0.2) +
   labs(x=&quot;Especie de orquídea&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title= &quot;Figura.a: Dotplot con puntos más grandes
+       &quot;)+
+  theme(title=element_text(size=8))
 
 
 b=ggplot(dipodium, aes(Number_of_fruits))+
-  geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
-               dotsize=1, stackdir=&quot;center&quot;,  stackratio = 0.7) +
+  geom_dotplot(fill=&quot;red&quot;, colour=&quot;black&quot;,
+               dotsize=1, stackdir=&quot;center&quot;,  alpha=.5, stackratio = 0.7) +
   labs(x=&quot;Especie de orquídea&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title= &quot;Figura.b: Dotplot con puntos más pequeños
+               y menos intensos&quot;)+
+  theme(title=element_text(size=8))</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/grid%20dotplot2-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="el-solapamiento-de-los-puntos-con-stackratio" class="section level2">
-<h2>El solapamiento de los puntos con <strong>stackratio</strong></h2>
+<div id="controlar-solapamiento-de-puntos" class="section level3">
+<h3>Controlar solapamiento de puntos</h3>
 <p>La opción de <strong>stackratio</strong> es para especificar el grado de solapamiento de los puntos uno sobre el otro, o el espacio que separa cada punto. A la figura anteriormente, ahora se le añade un solapamiento diferente. Además, para que los puntos no se solapen unos con otros se usa la función <strong>position=dodge</strong>. Si quiere modificar el solapamiento tiene que usar <strong>position=position_dodge(width = 0.1)</strong> para identificar la cantidad de solapamiento de los grupos, más pequeño el número más solapamiento entre los grupos</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))+
   geom_dotplot(binwidth = .3, stackratio = .7, position = &quot;dodge&quot;) +
@@ -1113,8 +1131,8 @@ geom_dotplot(binwidth = .3, stackratio = .7, position=position_dodge(width = 0.7
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/solapamiento-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="la-función-stackgroups" class="section level2">
-<h2>La función <strong>stackgroups</strong></h2>
+<div id="cómo-apilar-los-puntos" class="section level3">
+<h3>Cómo apilar los puntos</h3>
 <p>Ahora veremos cómo ubicar los puntos uno encima de los otros o sea apilar los puntos pero que a la misma vez la cantidad de puntos cambie de acuerdo al grupo. Continuaremos con el ejemplo anterior de las orquídeas <em>Dipodium</em>. En la Figura se usa la opción <strong>stackgroups</strong> en combinación con <strong>binwidth</strong> y <strong>method</strong> para lograr ese efecto, tal como se muestra a continuación:</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
 a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = &quot;histodot&quot;, stackratio = 0.5) +
@@ -1122,6 +1140,34 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = &quot;histodot&quot;,
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos6-1.png" width="672" /></p>
 <hr />
+</div>
+<div id="definir-ancho-de-compartimentos" class="section level3">
+<h3>Definir ancho de compartimentos</h3>
+<p>El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos. Eso se puede cambiar utilizando la opción <strong>binwidth</strong> (binwidth o sea el ancho del compartimento). Cuando el método (o sea, si se especifica la opción <strong>method</strong>) para representar los puntos es la densidad de puntos (opción <strong>dotdensity</strong>), entonces <strong>binwidth</strong> es el máximo del ancho de compartimiento. Alternativamente, cuando el método se específica como <strong>histodot</strong>, el <strong>binwidth</strong> organizará los puntos a una distancia fija de los compartimiento. A continuación, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2 y de 1 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente. Además, se cambió el tamaño de los puntos con <strong>dotsize</strong> a 0.1.</p>
+<pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(binwidth = 2, dotsize=0.1) +
+  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
+
+
+b=ggplot(dipodium, aes(Number_of_fruits))+
+  geom_dotplot(binwidth = 1, dotsize=0.1) +
+  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
+<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/grid%20dotplot4-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="alternativa-para-apilar-los-puntos" class="section level3">
+<h3>Alternativa para apilar los puntos</h3>
+<p>Otra alternativa para lograr la misma representación de poner los puntos uno encima de los otros por grupo es utilizar la opción <strong>binpositions</strong> con el parámetro <strong>all</strong>, como se muestra en la <strong>Figura: Con los puntos apilados</strong>.</p>
+<pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
+a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = &quot;all&quot;, dotsize = .5) +
+  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
+  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
+  labs(title=&quot;Figura: Con los puntos apilados&quot;)</code></pre>
+<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos7-1.png" width="672" /></p>
+<hr />
+</div>
 </div>
 <div id="remover-los-na-con-drop_na" class="section level2">
 <h2>Remover los <strong>NA</strong> con <strong>drop_na</strong></h2>
@@ -1147,34 +1193,8 @@ geom_dotplot(dotsize=.5, stackdir=&quot;center&quot;, alpha=.9, binaxis = &quot;
 <hr />
 </div>
 </div>
-<div id="la-función-binwidth" class="section level1">
-<h1>La función <strong>binwidth</strong></h1>
-<p>El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos. Eso se puede cambiar utilizando la opción <strong>binwidth</strong> (binwidth o sea el ancho del compartimento). Cuando el método (o sea, si se especifica la opción <strong>method</strong>) para representar los puntos es la densidad de puntos (opción <strong>dotdensity</strong>), entonces <strong>binwidth</strong> es el máximo del ancho de compartimiento. Alternativamente, cuando el método se específica como <strong>histodot</strong>, el <strong>binwidth</strong> organizará los puntos a una distancia fija de los compartimiento. A continuación, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2 y de 1 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente. Además, se cambió el tamaño de los puntos con <strong>dotsize</strong> a 0.1.</p>
-<pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))+
-  geom_dotplot(binwidth = 2, dotsize=0.1) +
-  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))
-
-
-b=ggplot(dipodium, aes(Number_of_fruits))+
-  geom_dotplot(binwidth = 1, dotsize=0.1) +
-  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/grid%20dotplot4-1.png" width="672" /></p>
-<hr />
-<div id="la-función-binpositions" class="section level2">
-<h2>La función <strong>binpositions</strong></h2>
-<p>Otra alternativa para lograr la misma representación de poner los puntos uno encima de los otros por grupo es utilizando la opción <strong>binpositions= all</strong>.</p>
-<pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
-a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = &quot;all&quot;, dotsize = .5) +
-  labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
-  theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G4-Grafico-de-puntos-de-Wilkinson_files/figure-html/dipodium-puntos7-1.png" width="672" /></p>
-<hr />
-</div>
-</div>
-<div id="opciones-y-parametros-de-geom_dotplot" class="section level1">
-<h1>Opciones y Parametros de <strong>geom_dotplot</strong></h1>
+<div id="opciones-y-parámetros-de-geom_dotplot" class="section level1">
+<h1>Opciones y parámetros de <strong>geom_dotplot</strong></h1>
 <p>A continuación se resumen las opciones y parámetros más importantes de geom_dotplot:</p>
 <ul>
 <li>ggplot(el archivo de datos, aes(la variable continua))</li>

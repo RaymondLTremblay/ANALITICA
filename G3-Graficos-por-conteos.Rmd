@@ -13,7 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 
 Sys.Date()
