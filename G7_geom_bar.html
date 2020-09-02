@@ -470,13 +470,13 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Talleres
+    Taller para Facultad
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+      <a href="TF_1_Descripción.html"> TF Descripción</a>
     </li>
   </ul>
 </li>
@@ -514,6 +514,8 @@ div.tocify {
 </div>
 
 
+<p>Fecha de la ultima revisión</p>
+<pre><code>## [1] &quot;2020-09-02&quot;</code></pre>
 <pre class="r"><code>library(tidyverse)
 library(ggversa)
 DW=dipodium</code></pre>
@@ -761,7 +763,7 @@ names(ASBESTOS_QUEBEC)[names(ASBESTOS_QUEBEC) == &#39;Date.Time&#39;] &lt;- &#39
   ylab(&quot;Temperatura promedio máxima por mes en Celsius&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<p><img src="G7_geom_bar_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="G7_geom_bar_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>
 <div id="gráfico-de-barras-ajuste-de-posiciones-con-geom_bar" class="section level2">
@@ -788,7 +790,7 @@ barraA+geom_bar(fill=grey(.3))+
 barraA+geom_bar(width=.3, fill=grey(.5))+
   labs(y=&quot;Frecuencia&quot;, x=&quot;Género y edad&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G7_geom_bar_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="G7_geom_bar_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>En el tercer grafico las barras fueron rotadas usando la opción <strong>coord_flip()</strong> y puestas sobre lo que antes era el eje de <strong>Y</strong>. En el cuarto, se añadió una variable discreta como color; en este caso, fue usada la escala de color gris para distinguir entre la temporada seca <strong>dry</strong> la lluviosa <strong>wet</strong>. Si no se añade la opción scale_fill_grey(), las categorías tendrían color.</p>
 <pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE))
 barraA+geom_bar(fill=grey(.5))+coord_flip()+

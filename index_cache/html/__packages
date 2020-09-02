@@ -44,3 +44,7 @@ GGally
 kableExtra
 reshape2
 ggcorrplot
+gganimate
+rgl
+gapminder
+animation

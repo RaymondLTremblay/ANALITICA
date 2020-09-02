@@ -470,13 +470,13 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Talleres
+    Taller para Facultad
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Descipción_de_Talleres.html">Tabla de Talleres Futuros</a>
+      <a href="TF_1_Descripción.html"> TF Descripción</a>
     </li>
   </ul>
 </li>
@@ -512,6 +512,8 @@ div.tocify {
 </div>
 
 
+<p>Fecha de la ultima revisión</p>
+<pre><code>## [1] &quot;2020-09-02&quot;</code></pre>
 <div id="la-lista-de-packetes-para-analisis-de-los-mapas-de-calor" class="section level2">
 <h2>La lista de packetes para analisis de los Mapas de calor</h2>
 <pre class="r"><code>library(ggversa)
@@ -719,13 +721,13 @@ head(DWMelt)</code></pre>
 <h2>La función <strong>ggcorr</strong></h2>
 <p>La función <strong>ggcor</strong> tiene la ventaja de producir un gráfico de calor que representa solamente un espejo de los resultados. En los gráficos anteriores las misma información estaba ariba y abajo de la diagonal. Este represente solamente uno de los dos.</p>
 <pre class="r"><code>ggcorr(DWCor, low = &quot;steelblue&quot;, mid = &quot;white&quot;, high = &quot;darkred&quot;, nbreaks=5)</code></pre>
-<p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Para un segundo ejemplo de <strong>ggcorr</strong></p>
 <pre class="r"><code>ggcorr(DWCor, geom = &quot;blank&quot;, label = TRUE, hjust = 0.75) +
   geom_point(size = 10, aes(color = coefficient &gt; 0, alpha = abs(coefficient) &gt; 0.5)) +
   scale_alpha_manual(values = c(&quot;TRUE&quot; = 0.25, &quot;FALSE&quot; = 0)) +
   guides(color = FALSE, alpha = FALSE)</code></pre>
-<p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Para muchos ejemplos vea este enlace. <a href="https://briatte.github.io/ggcorr/" class="uri">https://briatte.github.io/ggcorr/</a></p>
 </div>
 <div id="opciones-y-parametros-de-geom_tile" class="section level2">
