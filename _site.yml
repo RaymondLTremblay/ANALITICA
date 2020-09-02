@@ -107,9 +107,9 @@ navbar:
     - 
       menu: 
         - 
-          href: Descipción_de_Talleres.html
-          text: "Tabla de Talleres Futuros"
-      text: Talleres
+          href: TF_1_Descripción.html
+          text: " TF Descripción"
+      text: Taller para Facultad
     - 
       menu: 
         - 
