@@ -125,7 +125,7 @@ navbar:
           href: TF7_Regresion_beta.html
           text: "Regresion Beta"
         - 
-          href: TF8_Akiake_Information_Criterion.html
+          href: TF8_Akaike_Information_Criterion.html
           text: "Akaike Information Criterion"
       text: "Taller para Facultad"
     - 
