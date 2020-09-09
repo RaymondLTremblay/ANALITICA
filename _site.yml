@@ -109,7 +109,6 @@ navbar:
         - 
           href: TF_1_Descripción.html
           text: "Descripción del taller"
-          
         - 
           href: TF1_Regresion_Lineal.html
           text: "Regresion_Lineal" 
