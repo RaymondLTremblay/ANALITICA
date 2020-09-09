@@ -1,5 +1,5 @@
 ---
-title: "TF_1_Descripcion"
+title: "Taller para Facultad"
 output:
   html_document:
     css: tutorial.css
@@ -19,11 +19,20 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
+```
+
+***
+
+
 # Taller de Analisis Cuantitativo para especialista
 
 
 
 Limitado a 10 personas: 2:30 horas por día y luego reuniones individuales con los participantes para consulta personal.
+
+***
 
 ## Taller virtual (plataforma MSTeam)
 
@@ -55,8 +64,17 @@ Temas a cubrir:
             - BIC (criterio de información bayesiano)
         - Trabajando en el análisis de datos de su investigación.
 
+
+***
+
 # Horario: 
 
 7, 14, 21 de noviembre de 2020. De 10 a 12:15 h.
 
 Además, todos los participantes tendrán acceso a al menos una consulta privada individual para su propia investigación para evaluar el método estadístico utilizado y los enfoques de visualización. Hora y fecha a coordinar con el R. L. Tremblay (preferiblemente tardes y fines de semana). 
+
+***
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/UPR_logos.png"))
+```
