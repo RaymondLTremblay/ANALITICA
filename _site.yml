@@ -1,10 +1,7 @@
-
-
 --- 
 name: "ANALITICA Fundación"
-navbar:
-  left:
-
+navbar: 
+  left: 
     - 
       menu: 
         - 
@@ -13,7 +10,7 @@ navbar:
         - 
           href: E2-Historia.html
           text: "Historia breve de la estadística cuantitativa"
-        -   
+        - 
           href: E3-TallerRFE_I.html
           text: "Introducción a R, Rstudio y RMarkdown"
         - 
@@ -22,17 +19,15 @@ navbar:
         - 
           href: E5-supuestos.html
           text: "Los Supuestos de las pruebas paramétricas"
-        -   
+        - 
           href: E6-TallerRFE_II.html
           text: "Regresión simple y ANOVA"
         - 
           href: E7-TRAvanzado.html
-          text: "Modelos Lineales" 
+          text: "Modelos Lineales"
         - 
           href: E8-Tipos_de_Datos.html
-          text: "Tipos de Datos"   
-          
-          
+          text: "Tipos de Datos"
       text: "Estadística básica"
     - 
       menu: 
@@ -53,42 +48,41 @@ navbar:
           text: "Gráficos de area y densidad"
         - 
           href: G6_geom_histogram.html
-          text: "Histogramas"
-        -
+          text: Histogramas
+        - 
           href: G7_geom_bar.html
           text: "Gráficos de barras"
-        -
+        - 
           href: G8_geom_boxplot_geom_violin.html
           text: "Gráficos de caja y de violín"
-        -
+        - 
           href: G9_Facet_Grid.html
           text: "Facet Grid"
-        -
+        - 
           href: G10_Facet_wrap.html
           text: "Facet Wrap"
-        -
+        - 
           href: G11_EVALUANDO_SUPUESTOS.html
           text: "Evaluando Supuestos"
-        -   
+        - 
           href: G12_Mapas_Calor.html
           text: "Mapas de Calor"
-        -   
+        - 
           href: G13_geom_line.html
           text: "Gráficos con lineas"
-        -   
+        - 
           href: G14_geom_point_geom_jitter.html
           text: "Geom_point y geom_jitter"
-        -   
+        - 
           href: G15_gganimate.html
           text: "Gráficos animados en movimiento"
-      text: "Visualización"
+      text: Visualización
     - 
       menu: 
         - 
           href: screencast_t_test.html
           text: "t-test Screencast"
-      text: "Sreencasts"
-      
+      text: Sreencasts
     - 
       menu: 
         - 
@@ -111,33 +105,26 @@ navbar:
           text: "Descripción del taller"
         - 
           href: TF1_Regresion_Lineal.html
-          text: "Regresion_Lineal" 
-          
+          text: Regresion_Lineal
         - 
           href: TF2_Regresion_Cuadratica_otro.html
           text: "Regresion no lineal"
-          
         - 
           href: TF3_Regresion_Multiples.html
           text: "Regresion Multiples"
-        
         - 
           href: TF4_GLM.html
-          text: "Modelos Lineales Generalizados" 
-          
+          text: "Modelos Lineales Generalizados"
         - 
           href: TF5_Regresion_logistica.html
-          text: "Regresion Logística" 
-          
+          text: "Regresion Logística"
         - 
           href: TF6_Regresion_Poisson.html
           text: "Regresion Poisson"
-          
         - 
           href: TF7_Regresion_beta.html
           text: "Regresion Beta"
-          
-      text: Taller para Facultad
+      text: "Taller para Facultad"
     - 
       menu: 
         - 
@@ -148,6 +135,4 @@ navbar:
           text: COVID-19
       text: "Los Datos"
   title: ANALITICA
-  
-
 output_dir: "."
