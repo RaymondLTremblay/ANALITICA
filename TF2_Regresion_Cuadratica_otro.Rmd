@@ -1,0 +1,31 @@
+---
+title: "Regresion cuadratica"
+output:
+  html_document:
+    css: tutorial.css
+    fig_caption: yes
+    highlight: pygments
+   # theme: simplex
+    toc: yes
+    toc_float: yes
+    
+---
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #437d66;
+}
+</style>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
+```
+
+
+***
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/UPR_logos.png"))
+```
