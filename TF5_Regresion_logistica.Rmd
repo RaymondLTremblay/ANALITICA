@@ -1,5 +1,5 @@
 ---
-title: "TF5_Regresion_logistica"
+title: "TF5 Regresión logística"
 output:
   html_document:
     css: tutorial.css
