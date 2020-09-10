@@ -278,7 +278,7 @@ En cada una de las tres poblaciones, etiquetamos todas las plantas de *B. cucull
 
 
 
-```{r echo=FALSE, fig.cap="**La especie** *Brasavolla cucullata* **en la isla de San Eustaquio**",fig.show="hold", out.width = "50%"}
+```{r echo=FALSE, fig.cap="**La especie** *Brasavolla cucullata* **en la isla de San Eustaquio**",fig.show="hold", out.width = "40%"}
 knitr::include_graphics("Graficos/Brass_cucu1.png")
 knitr::include_graphics("Graficos/Brass_cucu2.png")
 ```
