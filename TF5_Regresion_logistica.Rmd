@@ -22,9 +22,488 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+```
 
 ***
+
+
+Los paquetes
+
+```{r, message=FALSE}
+library(ggplot2)
+library(tidyverse)
+```
+
+***
+
+## Regessión Logística
+
+La regresión logística se el procedimiento de evaluar el efecto de las repuestas de una variable continua sobre una variable discreta limitado a solamente dos alternativas.  Por ejemplo: si o no, vivo o muerto, presente o ausente, tiene flores o no tiene flores, estar infectado o no estar infectado con el COVID-19.  Tipicamente se codifica con valores numéricos. En uno de los estados se la asigna un "0" y la otra se la asigna un "1". 
+
+Para entender un set de datos ficticio, por ejemplo, la variable continua podría representar el tamaño de 20 bacteria (en µm), y la variable discreta binomial pudiese representar si esta bacteria hizo fisión (1) o no (0).  
+
+***
+
+## Ejemplo de un patrón casi perfecto
+
+Evaluando el gráfico se observa que cuando las bacterias son muy pequeña no ocurre fision y cuando son tamaño de 9 µm o más hay una probabilidad fisión binaria. Si una bacteria tiene un tamaño de 10 µm tiene una probabilidad de 50%.    
+
+```{r perfect logistic regression, echo=TRUE, warning=FALSE}
+continuous=c(rep(1:20,2))
+binomial=c(0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1)
+df=data.frame(continuous,binomial)
+df
+
+# producción del gráfico
+ggplot( df, aes(x=continuous, y=binomial)) +
+  geom_point() +
+  stat_smooth(method="glm", method.args = list(family = "binomial"), se=F) 
+```
+
+***
+
+### Preparando el modelo
+
+```{r}
+model<-glm(binomial~continuous, data= df, family = binomial())
+```
+
+
+### Evaluando el modelo
+ Igual como en una regresión lineal se evalúa el intercepto y las variable continuas. En este caso tenemos solamente una variable continua.  El **Estimate** son los coeficientes en la escala $logit(p)=\log\frac{p}{1-p}$, donde las $p's$ representa las probabilidades de estar una de los estados (por ejemplo vivo).   El valor de p = Pr(>|z|) es la probabilidad de que el intercepto o las pendientes sean diferentes de cero.  
+ 
+ 
+Los valores de **Null Deviance** y **Residual Deviance** son indices del "goodness of fit" del modelo. Valores grande siempre sugiere que el modelo no es bueno.   
+
+La desviación nula (Null Deviance) muestra qué tan bien la variable de respuesta es predicha por un modelo que incluye solamente el intercepto (gran media).  La desviación de los residuales donde incluye las de variables independientes. 
+
+En nuestro modelo ficticio, el Null Deviance es bien alto (55.35) y cuando se incluye la variable independiente el deviance (residual deviance) baja mucho (7.83).  Esto suguiere que el modelo no es muy bueno a predecir si las células van tener una fisión, al contrario el tamaño es una variable que explica gran parte de las variación para predecir la probabilidad de fisión binaria.  
+
+
+```{r}
+summary(model)
+```
+
+
+***
+
+# Modelo Lineal Generalizado
+
+En este modulo se hace una primera introducción a un otro tipo de herramienta para el análisis de datos, denominado **Modelo Lineal Generalizado, GLM**. Lo interesante de esta acercamiento es que aun que uno tiene una variable de respuesta que no cumple con distribución normal hay múltiples opciones para los análisis.  En este modulo solamente se estará presentando el tipo de datos donde la variable de respuesta (Y) es binomial. 
+
+## Hay tres componentes en cualquier GLM:
+
+`r colorize("Componente aleatorio:", "deepskyblue4")` se refiere a la distribución de probabilidad de la variable de respuesta (Y); por ejemplo, distribución binomial (0, 1,: Si o NO: Vivo o Muerto). Nota que la variable Y puede tener muchas otras tipo de distribución incluyendo la distribución normal, lognormal, proporción y m,uchos otros.  
+
+`r colorize("Variable predictivas:", "blue")` especifica las variables explicativas $X_1,\ X_2,\ X_3,...X_k$ en el modelo, la combinación lineal se puede expresar con la siguiente forma; por ejemplo, $\beta_0+\beta_1\cdot x_1+\beta_2\cdot x_2,\ ...+\beta_k\cdot x_k2$ como hemos visto en una regresión lineal.
+
+`r colorize("Función de enlace:", "blue")` η o g (μ): especifica el enlace entre componentes aleatorios y sistemáticos. Dice cómo el valor esperado de la respuesta se relaciona con las variables de la ecuación lineal explicativa.
+
+***
+
+## Los supuestos de la regresión logistica.  
+
+  > +  El resultado es la variable es binaria o también conocida como dicótoma (sí o no: presente o ausente, 1 o 0).
+  > +   Existe una relación lineal entre el logit (p) de la variable de repuesta y las variables predictora.
+  > +   No hay valores extremos o valores atípicos en los predictores continuos.
+  > +   No hay correlaciones altas (es decir, multicolinealidad) entre los variables predictores.
+
+
+***
+
+## Evaluando si el modelo es aceptable
+
+ > Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación.  El método típico de $R^2$ no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente **mejor**, cada una tiene sus ventajas.  Una de las desventaja es que la escala no es como $r^2$ que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.   
+
+
+https://www.r-bloggers.com/evaluating-logistic-regression-models/
+
+***
+
+## Comparar modelos lineal y logístico
+
+l primer paso es entender cual es la diferencia entre una regresión lineal y una regresión logística.   Podemos visualizar ambas formula y ver como difieren.  
+
+La regresión lineal: 
+
+$$Y_i=\beta_0+\beta_1X_i+\beta_2X_i$$
+Regresión logística:
+
+p=P(Y=1) o sea la probabilidad que p tenga el valor de **1** o  1-p= 1-P(Y=1) que seria el valor de **0** en su conjunto de datos.  
+
+$$\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
+Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de predictora tenga una valor de 1 o 0.  Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%.  El vocabulario correcto es que las respuesta son binarias también dicho de la distribución de Bernoulli.  
+
+Van a ver en la literatura que la formula se representa tambien de la siguiente forma, donde se escribe como $logit(p)$.  
+
+$$logit\left(p\right)=\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
+
+En el siguiente enlace se puede encontrar más información <https://en.wikipedia.org/wiki/Logistic_regression>
+
+***
+
+# Primer ejemplo
+# Karn and Penrose data Set
+
+
+## Los Datos
+
+Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en "Annals of Eugenics", titulado "Birth Weight and gestation time in relation to maternal age, parity and infant survival" publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia.  Para faciltar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
+
+En el archivo "Karn_Penrose_student" tienen datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas:
+Line_number = la secuencia de los datos
+Gestation_Index
+Weight_Index
+Surv_Index
+
+Los datos de "Gestation Index" y "Weight Index" estan organizado en las desviacion del promedio.  En otra palabra el "0" equivale al peso promedio de todos los bebés, un valor negativo son valores más pequeño que el promedio y una valor positivo es un valor más grande que el promedio.   Un ejemplo si para el "Gestation_Index" el valor del bebe es cero, entonces ese bebe tenia el valor promedio de aproximadamente 40 semanas de gestación, si para otro bebé tiene -1, tiene 40 semanas menos una desviación estandar por debajo el promedio.  
+
+
+
+
+```{r}
+library(readr)
+Karn_Penrose_infant_survivorship <- read_csv("Data/Karn_Penrose_infant_survivorship.csv")
+KPdata=Karn_Penrose_infant_survivorship
+head(KPdata)
+tail(KPdata)
+summary(KPdata)
+```
+
+##Pregunta #1: Explique en su propia palabra cual es una de las hipotesis que se puede probar. Aclarando especificamente si esta es una hipotesis nula o alterna.
+
+  - Hipoteis Nula: El peso de los varones y el periodo de gestacion no afectan el indice de supervivencia. 
+  
+  - Hipotesis alterna #1: Los varones con un periodo de  mayor gestacion tienen mayor probabilidad de supervivencia que los varones con un mayor peso.
+
+  - Hipotesis alterna #2: Los varones con mayor peso al nacer tienen mayor probabilidad de supervivencia que los varones con un mayor periodo de gestacion.
+
+##Pregunta #2: Haga una grafica de la variable de respuesta
+
+```{r variable de respuesta}
+names(KPdata)
+str(KPdata)
+library(ggplot2)
+ggplot(KPdata, aes(Weigth_lb))+
+  geom_histogram(colour="white", fill="red")+
+  labs(X = "Weigth_lb")+
+  ggtitle("Count vs Weigth_lb")
+
+```
+
+##Pregunta #3: Haga una grafica de las variables explicativas
+##a. Periodo de gestacion
+##b. Peso de los varones al nacer
+
+```{r periodo de gestacion}
+ggplot(KPdata, aes(Gestation_Time_days))+
+  geom_histogram(fill="white", colour="red")+
+  labs(x= "Gestation Period")+
+  ggtitle("Count vs Gestation Period")
+ 
+```
+
+```{r weight-index}
+ggplot(KPdata,aes(Survival))+
+  geom_histogram(fill="white", colour="red")+
+  labs(x="Survival")+
+  ggtitle("Count vs Survival")
+
+```
+
+
+##Pregunta #4: Usando la prueba correcta evalua la relacion entre la supervivencia y:
+##a. periodo de gestacion
+##b. peso de los varones al nacer
+
+```{r Periodo de Gestacion y supervivencia}
+library(car)
+names(KPdata)
+modelgest<-glm(Survival~Weigth_lb, data= KPdata, family = binomial())
+
+summary(modelgest)
+
+
+
+ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
+  geom_point() +
+  stat_smooth( method="glm", method.args = list(family = "binomial"), se=F) 
+```
+
+
+
+
+```{r}
+
+
+ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
+  geom_jitter(height=0.10) +
+  stat_smooth( method="glm", method.args = list(family = "binomial")) +
+  geom_smooth(color="red")+
+  geom_smooth(method = lm, color="yellow")+
+  labs(x= "Weight Index", y= "Surv Probability")+
+  ggtitle("Models of Male Survival Probabilities at Birth based on Weight")
+```
+
+```{r Weight-index y supervivencia}
+modelweight<- glm(Survival~Gestation_Time_days+Weigth_lb, data = KPdata, family = binomial())
+
+summary(modelweight)
+
+```
+
+¿Cual es el mejor modelo?  
+
+La supervivencia de los bebes es mejor explicado con el peso de los bebes o el periodo de gestación. 
+
+
+
+## *Brassavola cucullata*
+Los datos fueron recolectado de dos pequeñas islas del Caribe, San Eustaquio y Saba.  
+
+*Brassavola cucullata* pertenece a la subtribu Laeliinae y es una especie epífita y rupícola que puede formar grandes racimos de brotes. Cada brote está compuesto por un solo tallo de 3.5-12.5 cm de largo y 1-3.5 mm de diámetro y tiene una sola hoja semi-tereta de 16-35 cm de largo y solo un poco más gruesa que el tallo. Las inflorescencias terminales miden 3-30 mm de largo y suelen tener una sola flor. Las flores son en gran parte blancas con las partes delgadas del perianto que a menudo se vuelven de color amarillo pálido hacia sus ápices. El labelo es ovado-acuminado y fimbriado alrededor de la columna. El cunículo se extiende hacia el ovario inferior y no tiene néctar. Las flores engañosas tienen una fragancia nocturna dulce y espesa, que puede perdurar hasta el día. La producción de frutos depende de los polinizadores. Las cápsulas tardan varios meses en desarrollarse y son pediceladas y picudas (restos de la columna); el cuerpo de la cápsula mide entre 2 y 5 cm de largo y produce muchos miles de semillas polvorientas (Ackerman y Collaborators 2014).
+
+En cada una de las tres poblaciones, etiquetamos todas las plantas de *B. cucullata* que pudimos encontrar. Observamos si cada planta era epífita o epilítica, medimos la altura sobre el suelo, buscamos evidencia de herbivoría foliar, medimos la longitud de la hoja más larga y contamos el número de brotes de hojas, flores y frutos. Si las flores estaban presentes, registramos si habían sido visitadas con éxito o no mediante una inspección visual para la eliminación de polinarios o polinias en el estigma. Estos datos se obtuvieron una vez al año durante la época de floración. Nuestras observaciones en la población de Quill abarcaron 2009-2013, en Boven 2010-2013 y en Saba 2011-2014.
+
+
+
+```{r echo=FALSE, fig.cap="**La especie** *Brasavolla cucullata* **en la isla de San Eustaquio**",fig.show="hold", out.width = "50%"}
+knitr::include_graphics("Graficos/Brass_cucu1.png")
+knitr::include_graphics("Graficos/Brass_cucu2.png")
+```
+***
+
+
+Puede encontrar el manuscrito en este enlace, que evalúa la biología de la orquídea y la posibilidad de extinción y como las cabras impacta su supervivencias.     
+
+<https://www.journals.uchicago.edu/doi/pdf/10.1086/709399> 
+
+
+```{r data}
+library(readr)
+Student_Brassavola <- read_csv("Data/Student_Brassavola.csv")
+completeBrass=na.omit(Student_Brassavola)  # remove NA
+head(completeBrass)
+```
+
+Evaluar la tendencias centrales y la dispersión de las variables y cambio de nombre de las variables al español.
+
+
+```{r, cambio de nombres}
+
+Brass=completeBrass%>%
+  dplyr::rename(Isla=Island, Ano=Year, Numero_planta=Pl_Num, 
+         Cant_hojas=Leaf_Num, Largo_Hoja_cm=LLL, 
+         Cant_capullo=Bud_Num, Cant_Flores=Fl_Num, 
+         Cant_Frutos=Fr_Num, BQS=BQS, Flor_si_no=Flowers_Y_N)
+```
+
+
+```{r, resumir}
+summary(Brass)
+```
+
+## La variable de respuesta, **Y**. 
+
+You can also embed plots, for example:
+
+```{r head, echo=FALSE}
+
+library(ggplot2)
+
+ggplot(Brass, aes(Flor_si_no))+
+geom_histogram()
+```
+
+
+
+
+
+
+Se evalúa tres modelos:
+  1. la probabilidad de tener flores es relacionado a la cantidad de hojas (el tamaño de la planta).
+  2. la probabilidad de tener flores es relacionado a la hoja más larga de la planta (el tamaño de la planta).
+  3. la probabilidad de tener flores es relacionado a la hoja más larga de la planta y a la cantidad de hojas.
+  
+# Generalized Linear Model = glm
+
+```{r model}
+BrassModel.1 <- glm(Flor_si_no ~ Cant_hojas,
+                    data = Brass, family = binomial())
+
+summary(BrassModel.1)
+
+BrassModel.2 <- glm(Flor_si_no ~ Largo_Hoja_cm,
+                    data = Brass, family = binomial())
+
+summary(BrassModel.2)
+
+BrassModel.3 <- glm(Flor_si_no ~ Cant_hojas+Largo_Hoja_cm,
+                    data = Brass, family = binomial())
+summary(BrassModel.3)
+
+
+```
+
+Si no le interesa el intercepto se añade un "-1" después de la 
+#Los valores de interes en nuestro caso son el intercepto y la pendiente (valor que se encuentra debajo del intercepto).
+
+```{r model bby site surveyed}
+
+names(Brass)
+BrassModel.1.1 <- glm(Flor_si_no ~ Cant_hojas+BQS+Largo_Hoja_cm-1,
+                    data = Brass, family = binomial())
+summary(BrassModel.1.1)
+```
+
+# Predecir el número de frutas usando la ecuación, utilizando los resultados del modelo anterior
+
+$$P(Y)\quad =\quad \frac { 1 }{ 1+{ e }^{ -(b+m*{ x }_{ i }) } }$$
+$$P(Y)\quad =\quad \frac { 1 }{ 1+{ e }^{ -((intercepto)+pendiente*variable.predictora) } }$$
+# Se usa esta ecuacion para predecir un valor de 'Y' especifico para un valor de una variable 'X' de interes.
+
+```{r predicting num fruits}
+
+summary(BrassModel.1)
+
+exp(1) #= e
+e=exp(1)
+e
+
+
+P_10=1/(1+2.7182818284^-(-3.065 +0.0297*150))
+P_10
+
+P_10=1/(1+exp(1)^-(-3.065 +0.0297*100))
+P_10
+P_25=1/(1+exp(-(-3.065 +0.0297*25)))
+P_25
+
+P_50=1/(1+e^-(-3.065 +0.0297*50))
+P_50
+
+
+P_70=1/(1+e^-(-3.065 +0.0297*70))
+P_70
+
+P_150=1/(1+e^-(-3.065 +0.0297*150))
+P_150
+```
+
+
+## Visualizando una regresión logistica
+
+```{r ggplot binomial}
+names(Brass)
+library(ggplot2)
+ ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
+  geom_point()
+
+```
+
+## Reducir solapamiento de los puntos 
+
+Usar geom_jitter
+
+ggplot(el archivo de datos, aes(las variables continuas))  
+  • geom jitter(alpha, color, fill, shape, size)  
+    ◦ alpha: la intensidad del color 
+    ◦ color: el color de la línea alrededor de las barras
+    ◦ fill: el color de las barras 
+    ◦ linetype: representa el estilo de línea; ver sección “Especificación Estética” 
+    ◦ size: representa el grosor de la línea 
+    ◦ weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado) 
+
+
+```{r jitter}
+
+ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
+  geom_jitter(height = 0.10)
+```
+
+
+
+# Graphic with binomial fit
+
+```{r binomial fit}
+names(Brass)
+
+ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
+  geom_point(alpha=.5) +
+  stat_smooth(method="glm", se=TRUE, method.args = list(family=binomial))
+```
+
+El modelo de regre
+
+```{r}
+
+summary(BrassModel.1)
+```
+
+En este grafico se osberva el valor de la pendiente, el mismo aumenta cuando el numero de hojas se aproxima a 100 (por ende al acercarnos a este valor el valor de nuestra variable de respuesta es mayor aumenta o es mayor).
+## add a figure for each site
+
+```{r facet}
+names(Brass)
+ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
+  geom_point(alpha=.5) +
+  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))+
+  facet_wrap(~Isla)
+
+```
+
+
+## Solapamiento 
+
+```{r overlap by site}
+
+names(Brass)
+ggplot(Brass, aes(Cant_hojas,Flor_si_no, colour=BQS))+
+  geom_point(alpha=.5) +
+  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))
+
+```
+
+
+# Evaluate using the Length of the longest leaf
+
+```{r LLL}
+names(Brass)
+ggplot(Brass, aes(Largo_Hoja_cm,Flor_si_no))+
+  geom_jitter(height = 0.25)
+
+```
+
+
+### Remove the outlier (probably a mistake in data entry)
+
+#### Nota que se hace un subgrupo (subset) de los datos, usando la función subset(el data frame, la condición)
+
+
+```{r LLL90}
+names(Brass)
+ggplot(subset(Brass,Largo_Hoja_cm<90), aes(Largo_Hoja_cm,Flor_si_no, colour=BQS))+
+  geom_jitter(height = 0.10)+
+  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))
+```
+
+## Selecionar el mejor modelo
+
+Vea modulo **T16 Criterio de Información**
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
 ```
+
+
