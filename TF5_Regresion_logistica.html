@@ -726,13 +726,13 @@ div.tocify {
 <p>En este modulo se hace una primera introducción a un otro tipo de herramienta para el análisis de datos, denominado <strong>Modelo Lineal Generalizado, GLM</strong>. Lo interesante de esta acercamiento es que aun que uno tiene una variable de respuesta que no cumple con distribución normal hay múltiples opciones para los análisis. En este modulo solamente se estará presentando el tipo de datos donde la variable de respuesta (Y) es binomial.</p>
 <div id="hay-tres-componentes-en-cualquier-glm" class="section level2">
 <h2>Hay tres componentes en cualquier GLM:</h2>
-<p><span style="color: deepskyblue4;">Componente aleatorio:</span> se refiere a la distribución de probabilidad de la variable de respuesta (Y); por ejemplo, distribución binomial (0, 1,: Si o NO: Vivo o Muerto). Nota que la variable Y puede tener muchas otras tipo de distribución incluyendo la distribución normal, lognormal, proporción y m,uchos otros.</p>
+<p><span style="color: deepskyblue4;">Componente aleatorio:</span> se refiere a la distribución de probabilidad de la variable de respuesta (Y); por ejemplo, distribución binomial (0, 1,: Si o No: Vivo o Muerto). Nota que la variable Y puede tener muchas otras tipo de distribución incluyendo la distribución normal, lognormal, proporción, Poisson y otros.</p>
 <p><span style="color: blue;">Variable predictivas:</span> especifica las variables explicativas <span class="math inline">\(X_1,\ X_2,\ X_3,...X_k\)</span> en el modelo, la combinación lineal se puede expresar con la siguiente forma; por ejemplo, <span class="math inline">\(\beta_0+\beta_1\cdot x_1+\beta_2\cdot x_2,\ ...+\beta_k\cdot x_k2\)</span> como hemos visto en una regresión lineal.</p>
 <p><span style="color: blue;">Función de enlace:</span> η o g (μ): especifica el enlace entre componentes aleatorios y sistemáticos. Dice cómo el valor esperado de la respuesta se relaciona con las variables de la ecuación lineal explicativa.</p>
 <hr />
 </div>
-<div id="los-supuestos-de-la-regresión-logistica." class="section level2">
-<h2>Los supuestos de la regresión logistica.</h2>
+<div id="los-supuestos-de-la-regresión-logística." class="section level2">
+<h2>Los supuestos de la regresión logística.</h2>
 <blockquote>
 <ul>
 <li>El resultado es la variable es binaria o también conocida como dicótoma (sí o no: presente o ausente, 1 o 0).</li>
@@ -746,19 +746,19 @@ div.tocify {
 <div id="evaluando-si-el-modelo-es-aceptable" class="section level2">
 <h2>Evaluando si el modelo es aceptable</h2>
 <blockquote>
-<p>Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación. El método típico de <span class="math inline">\(R^2\)</span> no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente <strong>mejor</strong>, cada una tiene sus ventajas. Una de las desventaja es que la escala no es como <span class="math inline">\(r^2\)</span> que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.</p>
+<p>Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación. El método típico de <span class="math inline">\(R^2\)</span> no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente <strong>mejor</strong>, cada una de estas alternativas tiene sus ventajas. Una de las desventaja es que la escala no es como <span class="math inline">\(r^2\)</span> que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.</p>
 </blockquote>
 <p><a href="https://www.r-bloggers.com/evaluating-logistic-regression-models/" class="uri">https://www.r-bloggers.com/evaluating-logistic-regression-models/</a></p>
 <hr />
 </div>
 <div id="comparar-modelos-lineal-y-logístico" class="section level2">
 <h2>Comparar modelos lineal y logístico</h2>
-<p>l primer paso es entender cual es la diferencia entre una regresión lineal y una regresión logística. Podemos visualizar ambas formula y ver como difieren.</p>
+<p>El primer paso es entender cual es la diferencia entre una regresión lineal y una regresión logística. Podemos visualizar ambas formula y ver como difieren.</p>
 <p>La regresión lineal:</p>
 <p><span class="math display">\[Y_i=\beta_0+\beta_1X_i+\beta_2X_i\]</span> Regresión logística:</p>
 <p>p=P(Y=1) o sea la probabilidad que p tenga el valor de <strong>1</strong> o 1-p= 1-P(Y=1) que seria el valor de <strong>0</strong> en su conjunto de datos.</p>
-<p><span class="math display">\[\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i\]</span> Nota que la primera ecuación es un modelo que trata de predecir el valor de <strong>Y</strong> en la segunda se estima la probabilidad de que el valor de predictora tenga una valor de 1 o 0. Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%. El vocabulario correcto es que las respuesta son binarias también dicho de la distribución de Bernoulli.</p>
-<p>Van a ver en la literatura que la formula se representa tambien de la siguiente forma, donde se escribe como <span class="math inline">\(logit(p)\)</span>.</p>
+<p><span class="math display">\[\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i\]</span> Nota que la primera ecuación es un modelo que trata de predecir el valor de <strong>Y</strong> en la segunda se estima la probabilidad de que el valor de predictora tenga una probabilidad entre 1 o 0. Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%. El vocabulario correcto es que las respuesta son binarias también dicho de la distribución de Bernoulli.</p>
+<p>Van a ver en la literatura que la formula se representa también de la siguiente forma, donde se escribe como <span class="math inline">\(logit(p)\)</span>.</p>
 <p><span class="math display">\[logit\left(p\right)=\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i\]</span></p>
 <p>En el siguiente enlace se puede encontrar más información <a href="https://en.wikipedia.org/wiki/Logistic_regression" class="uri">https://en.wikipedia.org/wiki/Logistic_regression</a></p>
 <hr />
@@ -766,12 +766,12 @@ div.tocify {
 </div>
 <div id="primer-ejemplo" class="section level1">
 <h1>Primer ejemplo</h1>
+<div id="karn-and-penrose-data-set" class="section level2">
+<h2>Karn and Penrose data Set</h2>
 </div>
-<div id="karn-and-penrose-data-set" class="section level1">
-<h1>Karn and Penrose data Set</h1>
 <div id="los-datos" class="section level2">
 <h2>Los Datos</h2>
-<p>Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en “Annals of Eugenics”, titulado “Birth Weight and gestation time in relation to maternal age, parity and infant survival” publicado en 1951. Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia. Para faciltar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.</p>
+<p>Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en <strong>Annals of Eugenics</strong>, titulado <strong>Birth Weight and gestation time in relation to maternal age, parity and infant survival</strong> publicado en 1951. Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia. Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.</p>
 <p>En el archivo “Karn_Penrose_student” tienen datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas: Line_number = la secuencia de los datos Gestation_Index Weight_Index Surv_Index</p>
 <p>Los datos de “Gestation Index” y “Weight Index” estan organizado en las desviacion del promedio. En otra palabra el “0” equivale al peso promedio de todos los bebés, un valor negativo son valores más pequeño que el promedio y una valor positivo es un valor más grande que el promedio. Un ejemplo si para el “Gestation_Index” el valor del bebe es cero, entonces ese bebe tenia el valor promedio de aproximadamente 40 semanas de gestación, si para otro bebé tiene -1, tiene 40 semanas menos una desviación estandar por debajo el promedio.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(readr)</span>
@@ -837,26 +837,25 @@ div.tocify {
 ##   .. )</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">library</span>(ggplot2)</span>
 <span id="cb21-2"><a href="#cb21-2"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(Weigth_lb))<span class="op">+</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">colour=</span><span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">X =</span> <span class="st">&quot;Weigth_lb&quot;</span>)<span class="op">+</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Count vs Weigth_lb&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span> <span class="fl">.25</span>, <span class="dt">colour=</span><span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Peso de los bebe, lbs&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)<span class="op">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Frecuencia vs Peso de los bebe, lbs&quot;</span>)</span></code></pre></div>
 <p><img src="TF5_Regresion_logistica_files/figure-html/variable%20de%20respuesta-1.png" width="672" /></p>
 <p>##Pregunta #3: Haga una grafica de las variables explicativas ##a. Periodo de gestacion ##b. Peso de los varones al nacer</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(Gestation_Time_days))<span class="op">+</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill=</span><span class="st">&quot;white&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">&quot;Gestation Period&quot;</span>)<span class="op">+</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Count vs Gestation Period&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(Gestation_Time_days))<span class="op">+</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span> <span class="dv">4</span>, <span class="dt">fill=</span><span class="st">&quot;white&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">&quot;Duración de Gestacion&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Frecuancia&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="st">  </span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Frecuencia vs Duración de Gestación&quot;)</span></span></code></pre></div>
 <p><img src="TF5_Regresion_logistica_files/figure-html/periodo%20de%20gestacion-1.png" width="672" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">ggplot</span>(KPdata,<span class="kw">aes</span>(Survival))<span class="op">+</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill=</span><span class="st">&quot;white&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Survival&quot;</span>)<span class="op">+</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Count vs Survival&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">ggplot</span>(KPdata,<span class="kw">aes</span>(Survival))<span class="op">+</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill=</span><span class="st">&quot;white&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Survival&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Count vs Survival&quot;</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="TF5_Regresion_logistica_files/figure-html/weight-index-1.png" width="672" /></p>
 <p>##Pregunta #4: Usando la prueba correcta evalua la relacion entre la supervivencia y: ##a. periodo de gestacion ##b. peso de los varones al nacer</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">library</span>(car)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">library</span>(car)</span></code></pre></div>
 <pre><code>## Loading required package: carData</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;car&#39;</code></pre>
@@ -866,12 +865,12 @@ div.tocify {
 <pre><code>## The following object is masked from &#39;package:purrr&#39;:
 ## 
 ##     some</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">names</span>(KPdata)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">names</span>(KPdata)</span></code></pre></div>
 <pre><code>## [1] &quot;row_num&quot;             &quot;Survival&quot;            &quot;Weigth_lb&quot;          
 ## [4] &quot;Gestation_Time_days&quot;</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>modelgest&lt;-<span class="kw">glm</span>(Survival<span class="op">~</span>Weigth_lb, <span class="dt">data=</span> KPdata, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
-<span id="cb34-2"><a href="#cb34-2"></a></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="kw">summary</span>(modelgest)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>modelgest&lt;-<span class="kw">glm</span>(Survival<span class="op">~</span>Weigth_lb, <span class="dt">data=</span> KPdata, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="kw">summary</span>(modelgest)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Survival ~ Weigth_lb, family = binomial(), data = KPdata)
@@ -894,25 +893,25 @@ div.tocify {
 ## AIC: 1837.2
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(<span class="dt">x=</span>Weigth_lb, <span class="dt">y=</span>Survival)) <span class="op">+</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>( <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>), <span class="dt">se=</span>F) </span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(<span class="dt">x=</span>Weigth_lb, <span class="dt">y=</span>Survival)) <span class="op">+</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>( <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>), <span class="dt">se=</span>F) </span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF5_Regresion_logistica_files/figure-html/Periodo%20de%20Gestacion%20y%20supervivencia-1.png" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(<span class="dt">x=</span>Weigth_lb, <span class="dt">y=</span>Survival)) <span class="op">+</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height=</span><span class="fl">0.10</span>) <span class="op">+</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>( <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)) <span class="op">+</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color=</span><span class="st">&quot;yellow&quot;</span>)<span class="op">+</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">&quot;Weight Index&quot;</span>, <span class="dt">y=</span> <span class="st">&quot;Surv Probability&quot;</span>)<span class="op">+</span></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Models of Male Survival Probabilities at Birth based on Weight&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">ggplot</span>(KPdata, <span class="kw">aes</span>(<span class="dt">x=</span>Weigth_lb, <span class="dt">y=</span>Survival)) <span class="op">+</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height=</span><span class="fl">0.10</span>) <span class="op">+</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>( <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)) <span class="op">+</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color=</span><span class="st">&quot;yellow&quot;</span>)<span class="op">+</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">&quot;Weight Index&quot;</span>, <span class="dt">y=</span> <span class="st">&quot;Surv Probability&quot;</span>)<span class="op">+</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Models of Male Survival Probabilities at Birth based on Weight&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF5_Regresion_logistica_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>modelweight&lt;-<span class="st"> </span><span class="kw">glm</span>(Survival<span class="op">~</span>Gestation_Time_days<span class="op">+</span>Weigth_lb, <span class="dt">data =</span> KPdata, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
-<span id="cb42-2"><a href="#cb42-2"></a></span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="kw">summary</span>(modelweight)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>modelweight&lt;-<span class="st"> </span><span class="kw">glm</span>(Survival<span class="op">~</span>Gestation_Time_days<span class="op">+</span>Weigth_lb, <span class="dt">data =</span> KPdata, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
+<span id="cb40-2"><a href="#cb40-2"></a></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="kw">summary</span>(modelweight)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Survival ~ Gestation_Time_days + Weigth_lb, family = binomial(), 
@@ -954,8 +953,8 @@ div.tocify {
 <hr />
 <p>Puede encontrar el manuscrito en este enlace, que evalúa la biología de la orquídea y la posibilidad de extinción y como las cabras impacta su supervivencias.</p>
 <p><a href="https://www.journals.uchicago.edu/doi/pdf/10.1086/709399" class="uri">https://www.journals.uchicago.edu/doi/pdf/10.1086/709399</a></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb44-2"><a href="#cb44-2"></a>Student_Brassavola &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Student_Brassavola.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb42-2"><a href="#cb42-2"></a>Student_Brassavola &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Student_Brassavola.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   Island = col_character(),
@@ -969,8 +968,8 @@ div.tocify {
 ##   BQS = col_character(),
 ##   Flowers_Y_N = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>completeBrass=<span class="kw">na.omit</span>(Student_Brassavola)  <span class="co"># remove NA</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="kw">head</span>(completeBrass)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>completeBrass=<span class="kw">na.omit</span>(Student_Brassavola)  <span class="co"># remove NA</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="kw">head</span>(completeBrass)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 10
 ##   Island  Year Pl_Num Leaf_Num   LLL Bud_Num Fl_Num Fr_Num BQS   Flowers_Y_N
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
@@ -981,12 +980,12 @@ div.tocify {
 ## 5 Statia  2011 102          40    34       0      0      0 Boven           0
 ## 6 Statia  2012 102          10    23       0      1      0 Boven           1</code></pre>
 <p>Evaluar la tendencias centrales y la dispersión de las variables y cambio de nombre de las variables al español.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>Brass=completeBrass<span class="op">%&gt;%</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Isla=</span>Island, <span class="dt">Ano=</span>Year, <span class="dt">Numero_planta=</span>Pl_Num, </span>
-<span id="cb48-3"><a href="#cb48-3"></a>         <span class="dt">Cant_hojas=</span>Leaf_Num, <span class="dt">Largo_Hoja_cm=</span>LLL, </span>
-<span id="cb48-4"><a href="#cb48-4"></a>         <span class="dt">Cant_capullo=</span>Bud_Num, <span class="dt">Cant_Flores=</span>Fl_Num, </span>
-<span id="cb48-5"><a href="#cb48-5"></a>         <span class="dt">Cant_Frutos=</span>Fr_Num, <span class="dt">BQS=</span>BQS, <span class="dt">Flor_si_no=</span>Flowers_Y_N)</span></code></pre></div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="kw">summary</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>Brass=completeBrass<span class="op">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Isla=</span>Island, <span class="dt">Ano=</span>Year, <span class="dt">Numero_planta=</span>Pl_Num, </span>
+<span id="cb46-3"><a href="#cb46-3"></a>         <span class="dt">Cant_hojas=</span>Leaf_Num, <span class="dt">Largo_Hoja_cm=</span>LLL, </span>
+<span id="cb46-4"><a href="#cb46-4"></a>         <span class="dt">Cant_capullo=</span>Bud_Num, <span class="dt">Cant_Flores=</span>Fl_Num, </span>
+<span id="cb46-5"><a href="#cb46-5"></a>         <span class="dt">Cant_Frutos=</span>Fr_Num, <span class="dt">BQS=</span>BQS, <span class="dt">Flor_si_no=</span>Flowers_Y_N)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">summary</span>(Brass)</span></code></pre></div>
 <pre><code>##      Isla                Ano       Numero_planta        Cant_hojas    
 ##  Length:1436        Min.   :2009   Length:1436        Min.   :  0.00  
 ##  Class :character   1st Qu.:2011   Class :character   1st Qu.:  3.00  
@@ -1019,10 +1018,10 @@ div.tocify {
 </div>
 <div id="generalized-linear-model-glm" class="section level1">
 <h1>Generalized Linear Model = glm</h1>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>BrassModel<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Cant_hojas,</span>
-<span id="cb52-2"><a href="#cb52-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
-<span id="cb52-3"><a href="#cb52-3"></a></span>
-<span id="cb52-4"><a href="#cb52-4"></a><span class="kw">summary</span>(BrassModel<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>BrassModel<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Cant_hojas,</span>
+<span id="cb50-2"><a href="#cb50-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
+<span id="cb50-3"><a href="#cb50-3"></a></span>
+<span id="cb50-4"><a href="#cb50-4"></a><span class="kw">summary</span>(BrassModel<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Flor_si_no ~ Cant_hojas, family = binomial(), data = Brass)
@@ -1045,10 +1044,10 @@ div.tocify {
 ## AIC: 726.57
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>BrassModel<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Largo_Hoja_cm,</span>
-<span id="cb54-2"><a href="#cb54-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
-<span id="cb54-3"><a href="#cb54-3"></a></span>
-<span id="cb54-4"><a href="#cb54-4"></a><span class="kw">summary</span>(BrassModel<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>BrassModel<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Largo_Hoja_cm,</span>
+<span id="cb52-2"><a href="#cb52-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
+<span id="cb52-3"><a href="#cb52-3"></a></span>
+<span id="cb52-4"><a href="#cb52-4"></a><span class="kw">summary</span>(BrassModel<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Flor_si_no ~ Largo_Hoja_cm, family = binomial(), 
@@ -1072,9 +1071,9 @@ div.tocify {
 ## AIC: 726.3
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>BrassModel<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Cant_hojas<span class="op">+</span>Largo_Hoja_cm,</span>
-<span id="cb56-2"><a href="#cb56-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
-<span id="cb56-3"><a href="#cb56-3"></a><span class="kw">summary</span>(BrassModel<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>BrassModel<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Cant_hojas<span class="op">+</span>Largo_Hoja_cm,</span>
+<span id="cb54-2"><a href="#cb54-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="kw">summary</span>(BrassModel<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Flor_si_no ~ Cant_hojas + Largo_Hoja_cm, family = binomial(), 
@@ -1100,13 +1099,13 @@ div.tocify {
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <p>Si no le interesa el intercepto se añade un “-1” después de la #Los valores de interes en nuestro caso son el intercepto y la pendiente (valor que se encuentra debajo del intercepto).</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>BrassModel.<span class="fl">1.1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Cant_hojas<span class="op">+</span>BQS<span class="op">+</span>Largo_Hoja_cm<span class="dv">-1</span>,</span>
-<span id="cb60-2"><a href="#cb60-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
-<span id="cb60-3"><a href="#cb60-3"></a><span class="kw">summary</span>(BrassModel.<span class="fl">1.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>BrassModel.<span class="fl">1.1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Flor_si_no <span class="op">~</span><span class="st"> </span>Cant_hojas<span class="op">+</span>BQS<span class="op">+</span>Largo_Hoja_cm<span class="dv">-1</span>,</span>
+<span id="cb58-2"><a href="#cb58-2"></a>                    <span class="dt">data =</span> Brass, <span class="dt">family =</span> <span class="kw">binomial</span>())</span>
+<span id="cb58-3"><a href="#cb58-3"></a><span class="kw">summary</span>(BrassModel.<span class="fl">1.1</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Flor_si_no ~ Cant_hojas + BQS + Largo_Hoja_cm - 
@@ -1137,7 +1136,7 @@ div.tocify {
 <div id="predecir-el-número-de-frutas-usando-la-ecuación-utilizando-los-resultados-del-modelo-anterior" class="section level1">
 <h1>Predecir el número de frutas usando la ecuación, utilizando los resultados del modelo anterior</h1>
 <p><span class="math display">\[P(Y)\quad =\quad \frac { 1 }{ 1+{ e }^{ -(b+m*{ x }_{ i }) } }\]</span> <span class="math display">\[P(Y)\quad =\quad \frac { 1 }{ 1+{ e }^{ -((intercepto)+pendiente*variable.predictora) } }\]</span> # Se usa esta ecuacion para predecir un valor de ‘Y’ especifico para un valor de una variable ‘X’ de interes.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="kw">summary</span>(BrassModel<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="kw">summary</span>(BrassModel<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Flor_si_no ~ Cant_hojas, family = binomial(), data = Brass)
@@ -1160,38 +1159,38 @@ div.tocify {
 ## AIC: 726.57
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="kw">exp</span>(<span class="dv">1</span>) <span class="co">#= e</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="kw">exp</span>(<span class="dv">1</span>) <span class="co">#= e</span></span></code></pre></div>
 <pre><code>## [1] 2.718282</code></pre>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>e=<span class="kw">exp</span>(<span class="dv">1</span>)</span>
-<span id="cb66-2"><a href="#cb66-2"></a>e</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>e=<span class="kw">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb64-2"><a href="#cb64-2"></a>e</span></code></pre></div>
 <pre><code>## [1] 2.718282</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>P_<span class="dv">10</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="fl">+2.7182818284</span><span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">150</span>))</span>
-<span id="cb68-2"><a href="#cb68-2"></a>P_<span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>P_<span class="dv">10</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="fl">+2.7182818284</span><span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">150</span>))</span>
+<span id="cb66-2"><a href="#cb66-2"></a>P_<span class="dv">10</span></span></code></pre></div>
 <pre><code>## [1] 0.8005922</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>P_<span class="dv">10</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="dv">1</span>)<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">100</span>))</span>
-<span id="cb70-2"><a href="#cb70-2"></a>P_<span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>P_<span class="dv">10</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="dv">1</span>)<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">100</span>))</span>
+<span id="cb68-2"><a href="#cb68-2"></a>P_<span class="dv">10</span></span></code></pre></div>
 <pre><code>## [1] 0.4762678</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>P_<span class="dv">25</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">25</span>)))</span>
-<span id="cb72-2"><a href="#cb72-2"></a>P_<span class="dv">25</span></span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>P_<span class="dv">25</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">25</span>)))</span>
+<span id="cb70-2"><a href="#cb70-2"></a>P_<span class="dv">25</span></span></code></pre></div>
 <pre><code>## [1] 0.08927658</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>P_<span class="dv">50</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>e<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">50</span>))</span>
-<span id="cb74-2"><a href="#cb74-2"></a>P_<span class="dv">50</span></span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>P_<span class="dv">50</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>e<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">50</span>))</span>
+<span id="cb72-2"><a href="#cb72-2"></a>P_<span class="dv">50</span></span></code></pre></div>
 <pre><code>## [1] 0.1707955</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>P_<span class="dv">70</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>e<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">70</span>))</span>
-<span id="cb76-2"><a href="#cb76-2"></a>P_<span class="dv">70</span></span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>P_<span class="dv">70</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>e<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">70</span>))</span>
+<span id="cb74-2"><a href="#cb74-2"></a>P_<span class="dv">70</span></span></code></pre></div>
 <pre><code>## [1] 0.2717029</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>P_<span class="dv">150</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>e<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">150</span>))</span>
-<span id="cb78-2"><a href="#cb78-2"></a>P_<span class="dv">150</span></span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>P_<span class="dv">150</span>=<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>e<span class="op">^-</span>(<span class="op">-</span><span class="fl">3.065</span> <span class="fl">+0.0297</span><span class="op">*</span><span class="dv">150</span>))</span>
+<span id="cb76-2"><a href="#cb76-2"></a>P_<span class="dv">150</span></span></code></pre></div>
 <pre><code>## [1] 0.8005922</code></pre>
 <div id="visualizando-una-regresión-logistica" class="section level2">
 <h2>Visualizando una regresión logistica</h2>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb82-2"><a href="#cb82-2"></a> <span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
-<span id="cb82-3"><a href="#cb82-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb80-2"><a href="#cb80-2"></a> <span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
+<span id="cb80-3"><a href="#cb80-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="TF5_Regresion_logistica_files/figure-html/ggplot%20binomial-1.png" width="672" /></p>
 </div>
 <div id="reducir-solapamiento-de-los-puntos" class="section level2">
@@ -1200,26 +1199,26 @@ div.tocify {
 <p>ggplot(el archivo de datos, aes(las variables continuas))<br />
 • geom jitter(alpha, color, fill, shape, size)<br />
 ◦ alpha: la intensidad del color ◦ color: el color de la línea alrededor de las barras ◦ fill: el color de las barras ◦ linetype: representa el estilo de línea; ver sección “Especificación Estética” ◦ size: representa el grosor de la línea ◦ weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado)</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
-<span id="cb83-2"><a href="#cb83-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">0.10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
+<span id="cb81-2"><a href="#cb81-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">0.10</span>)</span></code></pre></div>
 <p><img src="TF5_Regresion_logistica_files/figure-html/jitter-1.png" width="672" /></p>
 </div>
 </div>
 <div id="graphic-with-binomial-fit" class="section level1">
 <h1>Graphic with binomial fit</h1>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
-<span id="cb86-2"><a href="#cb86-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
-<span id="cb86-3"><a href="#cb86-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb84-3"><a href="#cb84-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Computation failed in `stat_smooth()`:
 ## $ operator is invalid for atomic vectors</code></pre>
 <p><img src="TF5_Regresion_logistica_files/figure-html/binomial%20fit-1.png" width="672" /></p>
 <p>El modelo de regre</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a><span class="kw">summary</span>(BrassModel<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="kw">summary</span>(BrassModel<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Flor_si_no ~ Cant_hojas, family = binomial(), data = Brass)
@@ -1243,14 +1242,14 @@ div.tocify {
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>En este grafico se osberva el valor de la pendiente, el mismo aumenta cuando el numero de hojas se aproxima a 100 (por ende al acercarnos a este valor el valor de nuestra variable de respuesta es mayor aumenta o es mayor). ## add a figure for each site</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
-<span id="cb93-2"><a href="#cb93-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
-<span id="cb93-3"><a href="#cb93-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))<span class="op">+</span></span>
-<span id="cb93-4"><a href="#cb93-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Isla)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no))<span class="op">+</span></span>
+<span id="cb91-2"><a href="#cb91-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb91-3"><a href="#cb91-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))<span class="op">+</span></span>
+<span id="cb91-4"><a href="#cb91-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Isla)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Computation failed in `stat_smooth()`:
 ## $ operator is invalid for atomic vectors
@@ -1260,13 +1259,13 @@ div.tocify {
 <p><img src="TF5_Regresion_logistica_files/figure-html/facet-1.png" width="672" /></p>
 <div id="solapamiento" class="section level2">
 <h2>Solapamiento</h2>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no, <span class="dt">colour=</span>BQS))<span class="op">+</span></span>
-<span id="cb98-2"><a href="#cb98-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
-<span id="cb98-3"><a href="#cb98-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Cant_hojas,Flor_si_no, <span class="dt">colour=</span>BQS))<span class="op">+</span></span>
+<span id="cb96-2"><a href="#cb96-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb96-3"><a href="#cb96-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Computation failed in `stat_smooth()`:
 ## $ operator is invalid for atomic vectors</code></pre>
@@ -1275,24 +1274,24 @@ div.tocify {
 </div>
 <div id="evaluate-using-the-length-of-the-longest-leaf" class="section level1">
 <h1>Evaluate using the Length of the longest leaf</h1>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Largo_Hoja_cm,Flor_si_no))<span class="op">+</span></span>
-<span id="cb103-2"><a href="#cb103-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a><span class="kw">ggplot</span>(Brass, <span class="kw">aes</span>(Largo_Hoja_cm,Flor_si_no))<span class="op">+</span></span>
+<span id="cb101-2"><a href="#cb101-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">0.25</span>)</span></code></pre></div>
 <p><img src="TF5_Regresion_logistica_files/figure-html/LLL-1.png" width="672" /></p>
 <div id="remove-the-outlier-probably-a-mistake-in-data-entry" class="section level3">
 <h3>Remove the outlier (probably a mistake in data entry)</h3>
 <div id="nota-que-se-hace-un-subgrupo-subset-de-los-datos-usando-la-función-subsetel-data-frame-la-condición" class="section level4">
 <h4>Nota que se hace un subgrupo (subset) de los datos, usando la función subset(el data frame, la condición)</h4>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a><span class="kw">names</span>(Brass)</span></code></pre></div>
 <pre><code>##  [1] &quot;Isla&quot;          &quot;Ano&quot;           &quot;Numero_planta&quot; &quot;Cant_hojas&quot;   
 ##  [5] &quot;Largo_Hoja_cm&quot; &quot;Cant_capullo&quot;  &quot;Cant_Flores&quot;   &quot;Cant_Frutos&quot;  
 ##  [9] &quot;BQS&quot;           &quot;Flor_si_no&quot;</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1"></a><span class="kw">ggplot</span>(<span class="kw">subset</span>(Brass,Largo_Hoja_cm<span class="op">&lt;</span><span class="dv">90</span>), <span class="kw">aes</span>(Largo_Hoja_cm,Flor_si_no, <span class="dt">colour=</span>BQS))<span class="op">+</span></span>
-<span id="cb106-2"><a href="#cb106-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">0.10</span>)<span class="op">+</span></span>
-<span id="cb106-3"><a href="#cb106-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a><span class="kw">ggplot</span>(<span class="kw">subset</span>(Brass,Largo_Hoja_cm<span class="op">&lt;</span><span class="dv">90</span>), <span class="kw">aes</span>(Largo_Hoja_cm,Flor_si_no, <span class="dt">colour=</span>BQS))<span class="op">+</span></span>
+<span id="cb104-2"><a href="#cb104-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="fl">0.10</span>)<span class="op">+</span></span>
+<span id="cb104-3"><a href="#cb104-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span>binomial))</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Computation failed in `stat_smooth()`:
 ## $ operator is invalid for atomic vectors</code></pre>

@@ -104,7 +104,7 @@ En este modulo se hace una primera introducción a un otro tipo de herramienta p
 
 ## Hay tres componentes en cualquier GLM:
 
-`r colorize("Componente aleatorio:", "deepskyblue4")` se refiere a la distribución de probabilidad de la variable de respuesta (Y); por ejemplo, distribución binomial (0, 1,: Si o NO: Vivo o Muerto). Nota que la variable Y puede tener muchas otras tipo de distribución incluyendo la distribución normal, lognormal, proporción y m,uchos otros.  
+`r colorize("Componente aleatorio:", "deepskyblue4")` se refiere a la distribución de probabilidad de la variable de respuesta (Y); por ejemplo, distribución binomial (0, 1,: Si o No: Vivo o Muerto). Nota que la variable Y puede tener muchas otras tipo de distribución incluyendo la distribución normal, lognormal, proporción, Poisson y otros.  
 
 `r colorize("Variable predictivas:", "blue")` especifica las variables explicativas $X_1,\ X_2,\ X_3,...X_k$ en el modelo, la combinación lineal se puede expresar con la siguiente forma; por ejemplo, $\beta_0+\beta_1\cdot x_1+\beta_2\cdot x_2,\ ...+\beta_k\cdot x_k2$ como hemos visto en una regresión lineal.
 
@@ -112,7 +112,7 @@ En este modulo se hace una primera introducción a un otro tipo de herramienta p
 
 ***
 
-## Los supuestos de la regresión logistica.  
+## Los supuestos de la regresión logística.  
 
   > +  El resultado es la variable es binaria o también conocida como dicótoma (sí o no: presente o ausente, 1 o 0).
   > +   Existe una relación lineal entre el logit (p) de la variable de repuesta y las variables predictora.
@@ -124,7 +124,7 @@ En este modulo se hace una primera introducción a un otro tipo de herramienta p
 
 ## Evaluando si el modelo es aceptable
 
- > Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación.  El método típico de $R^2$ no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente **mejor**, cada una tiene sus ventajas.  Una de las desventaja es que la escala no es como $r^2$ que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.   
+ > Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación.  El método típico de $R^2$ no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente **mejor**, cada una de estas alternativas tiene sus ventajas.  Una de las desventaja es que la escala no es como $r^2$ que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.   
 
 
 https://www.r-bloggers.com/evaluating-logistic-regression-models/
@@ -133,7 +133,7 @@ https://www.r-bloggers.com/evaluating-logistic-regression-models/
 
 ## Comparar modelos lineal y logístico
 
-l primer paso es entender cual es la diferencia entre una regresión lineal y una regresión logística.   Podemos visualizar ambas formula y ver como difieren.  
+El primer paso es entender cual es la diferencia entre una regresión lineal y una regresión logística.   Podemos visualizar ambas formula y ver como difieren.  
 
 La regresión lineal: 
 
@@ -143,9 +143,9 @@ Regresión logística:
 p=P(Y=1) o sea la probabilidad que p tenga el valor de **1** o  1-p= 1-P(Y=1) que seria el valor de **0** en su conjunto de datos.  
 
 $$\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
-Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de predictora tenga una valor de 1 o 0.  Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%.  El vocabulario correcto es que las respuesta son binarias también dicho de la distribución de Bernoulli.  
+Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de predictora tenga una probabilidad entre 1 o 0.  Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%.  El vocabulario correcto es que las respuesta son binarias también dicho de la distribución de Bernoulli.  
 
-Van a ver en la literatura que la formula se representa tambien de la siguiente forma, donde se escribe como $logit(p)$.  
+Van a ver en la literatura que la formula se representa también de la siguiente forma, donde se escribe como $logit(p)$.  
 
 $$logit\left(p\right)=\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
 
@@ -154,7 +154,7 @@ En el siguiente enlace se puede encontrar más información <https://en.wikipedi
 ***
 
 # Primer ejemplo
-# Karn and Penrose data Set
+## Karn and Penrose data Set
 
 
 ## Los Datos
