@@ -159,16 +159,14 @@ En el siguiente enlace se puede encontrar más información <https://en.wikipedi
 
 ## Los Datos
 
-Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia.  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
+Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varón al nacer y su supervivencia (fallecio= 0 y sobrevivio= 1).  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
 
-En el archivo "Karn_Penrose_student" tienen datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas:
-Line_number = la secuencia de los datos
-Gestation_Index
-Weight_Index
-Surv_Index
+En el archivo "Karn_Penrose_infant_survivorship.csv" tiene datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas:
 
-Los datos de "Gestation Index" y "Weight Index" estan organizado en las desviacion del promedio.  En otra palabra el "0" equivale al peso promedio de todos los bebés, un valor negativo son valores más pequeño que el promedio y una valor positivo es un valor más grande que el promedio.   Un ejemplo si para el "Gestation_Index" el valor del bebe es cero, entonces ese bebe tenia el valor promedio de aproximadamente 40 semanas de gestación, si para otro bebé tiene -1, tiene 40 semanas menos una desviación estandar por debajo el promedio.  
-
+  - Line_number = la secuencia de los datos
+  - Gestation_Time_days  = El periodo de gestación en días
+  - Weigth_lb = El peso del bebe en libras
+  - Surv_Index = "0" o "1"
 
 
 

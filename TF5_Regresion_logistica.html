@@ -771,9 +771,14 @@ div.tocify {
 </div>
 <div id="los-datos" class="section level2">
 <h2>Los Datos</h2>
-<p>Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en <strong>Annals of Eugenics</strong>, titulado <strong>Birth Weight and gestation time in relation to maternal age, parity and infant survival</strong> publicado en 1951. Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia. Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.</p>
-<p>En el archivo “Karn_Penrose_student” tienen datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas: Line_number = la secuencia de los datos Gestation_Index Weight_Index Surv_Index</p>
-<p>Los datos de “Gestation Index” y “Weight Index” estan organizado en las desviacion del promedio. En otra palabra el “0” equivale al peso promedio de todos los bebés, un valor negativo son valores más pequeño que el promedio y una valor positivo es un valor más grande que el promedio. Un ejemplo si para el “Gestation_Index” el valor del bebe es cero, entonces ese bebe tenia el valor promedio de aproximadamente 40 semanas de gestación, si para otro bebé tiene -1, tiene 40 semanas menos una desviación estandar por debajo el promedio.</p>
+<p>Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en <strong>Annals of Eugenics</strong>, titulado <strong>Birth Weight and gestation time in relation to maternal age, parity and infant survival</strong> publicado en 1951. Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varón al nacer y su supervivencia (fallecio= 0 y sobrevivio= 1). Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.</p>
+<p>En el archivo “Karn_Penrose_infant_survivorship.csv” tiene datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas:</p>
+<ul>
+<li>Line_number = la secuencia de los datos</li>
+<li>Gestation_Time_days = El periodo de gestación en días</li>
+<li>Weigth_lb = El peso del bebe en libras</li>
+<li>Surv_Index = “0” o “1”</li>
+</ul>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb9-2"><a href="#cb9-2"></a>Karn_Penrose_infant_survivorship &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Karn_Penrose_infant_survivorship.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
