@@ -15,7 +15,7 @@ output:
 }
 </style>
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
 ```
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
@@ -80,6 +80,7 @@ model<-glm(binomial~continuous, data= df, family = binomial())
 ```
 
 
+
 ### Evaluando el modelo
  Igual como en una regresión lineal se evalúa el intercepto y las variable continuas. En este caso tenemos solamente una variable continua.  El **Estimate** son los coeficientes en la escala $logit(p)=\log\frac{p}{1-p}$, donde las $p's$ representa las probabilidades de estar una de los estados (por ejemplo vivo).   El valor de p = Pr(>|z|) es la probabilidad de que el intercepto o las pendientes sean diferentes de cero.  
  
@@ -101,6 +102,9 @@ summary(model)
 # Modelo Lineal Generalizado
 
 En este modulo se hace una primera introducción a un otro tipo de herramienta para el análisis de datos, denominado **Modelo Lineal Generalizado, GLM**. Lo interesante de esta acercamiento es que aun que uno tiene una variable de respuesta que no cumple con distribución normal hay múltiples opciones para los análisis.  En este modulo solamente se estará presentando el tipo de datos donde la variable de respuesta (Y) es binomial. 
+
+***
+
 
 ## Hay tres componentes en cualquier GLM:
 
@@ -179,19 +183,23 @@ tail(KPdata)
 summary(KPdata)
 ```
 
-##Pregunta #1: Explique en su propia palabra cual es una de las hipotesis que se puede probar. Aclarando especificamente si esta es una hipotesis nula o alterna.
+***
 
-  - Hipoteis Nula: El peso de los varones y el periodo de gestacion no afectan el indice de supervivencia. 
+1. Pregunta: Explique en su propia palabra cual es una de las hipotesis que se puede probar. Aclarando especificamente si esta es una hipotesis nula o alterna.
+
+  - Hipotesis Nula: El peso de los varones y el periodo de gestacion no afectan el indice de supervivencia. 
   
-  - Hipotesis alterna #1: Los varones con un periodo de  mayor gestacion tienen mayor probabilidad de supervivencia que los varones con un mayor peso.
+  - Hipotesis Alterna #1: Los varones con un periodo de  mayor gestacion tienen mayor probabilidad de supervivencia que los varones con un mayor peso.
 
-  - Hipotesis alterna #2: Los varones con mayor peso al nacer tienen mayor probabilidad de supervivencia que los varones con un mayor periodo de gestacion.
+  - Hipotesis Alterna #2: Los varones con mayor peso al nacer tienen mayor probabilidad de supervivencia que los varones con un mayor periodo de gestacion.
 
-##Pregunta #2: Haga una grafica de la variable de respuesta
+
+***
+
+2. Pregunta: Haga una gráfica de la variable de respuesta
 
 ```{r variable de respuesta}
 names(KPdata)
-str(KPdata)
 library(ggplot2)
 ggplot(KPdata, aes(Weigth_lb))+
   geom_histogram(binwidth= .25, colour="white", fill="red")+
@@ -200,18 +208,25 @@ ggplot(KPdata, aes(Weigth_lb))+
 
 ```
 
-##Pregunta #3: Haga una grafica de las variables explicativas
-##a. Periodo de gestacion
-##b. Peso de los varones al nacer
+
+***
+
+3. Pregunta: Haga una gráfica de las variables explicativas
+    - Periodo de gestación
+    - Peso de los varones al nacer
 
 ```{r periodo de gestacion}
 ggplot(KPdata, aes(Gestation_Time_days))+
   geom_histogram(binwidth= 4, fill="white", colour="red")+
-  labs(x= "Duración de Gestacion", y="Frecuancia")+
+  labs(x= "Duración de Gestación", y="Frecuancia")+
   
   ggtitle("Frecuencia vs Duración de Gestación")
  
 ```
+
+***
+
+Evaluando la distribución de la variable de respuesta
 
 ```{r weight-index}
 ggplot(KPdata,aes(Survival))+
@@ -221,12 +236,16 @@ ggplot(KPdata,aes(Survival))+
 
 ```
 
+***
 
-##Pregunta #4: Usando la prueba correcta evalua la relacion entre la supervivencia y:
-##a. periodo de gestacion
-##b. peso de los varones al nacer
 
-```{r Periodo de Gestacion y supervivencia}
+4. Pregunta: Usando la prueba correcta evalúa la relación entre la supervivencia y:
+  - periodo de gestación
+  - peso de los varones al nacer
+  
+  
+
+```{r, Periodo de Gestacion y supervivencia, message=FALSE}
 library(car)
 names(KPdata)
 modelgest<-glm(Survival~Weigth_lb, data= KPdata, family = binomial())
@@ -241,16 +260,20 @@ ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
 ```
 
 
+## Comparando modelos
+
+En el siguiente gráfico se observa tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biologicamente imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebes que nacer con un peso muy grande muchas veces tiene una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesária para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
+
+El punto importante es reconocer que la regresión logística este limitado a valores de probabilidades entre 0 y 1, incluyendo el intervalo de confianza (el intervalo no puede tener valores menos de cero ni mayor de 1).  Por consecuencia las probabilidades y el intervalo de confianza se limita entre 0 y 1. 
 
 
 ```{r}
-
 
 ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
   geom_jitter(height=0.10) +
   stat_smooth( method="glm", method.args = list(family = "binomial")) +
   geom_smooth(color="red")+
-  geom_smooth(method = lm, color="yellow")+
+  geom_smooth(method = lm, color="orange")+
   labs(x= "Weight Index", y= "Surv Probability")+
   ggtitle("Models of Male Survival Probabilities at Birth based on Weight")
 ```
@@ -262,9 +285,9 @@ summary(modelweight)
 
 ```
 
-¿Cual es el mejor modelo?  
 
-La supervivencia de los bebes es mejor explicado con el peso de los bebes o el periodo de gestación. 
+
+***
 
 
 
@@ -281,6 +304,7 @@ En cada una de las tres poblaciones, etiquetamos todas las plantas de *B. cucull
 knitr::include_graphics("Graficos/Brass_cucu1.png")
 knitr::include_graphics("Graficos/Brass_cucu2.png")
 ```
+
 ***
 
 
@@ -302,7 +326,7 @@ Evaluar la tendencias centrales y la dispersión de las variables y cambio de no
 ```{r, cambio de nombres}
 
 Brass=completeBrass%>%
-  dplyr::rename(Isla=Island, Ano=Year, Numero_planta=Pl_Num, 
+  dplyr::rename(Isla=Island, Año=Year, Numero_planta=Pl_Num, 
          Cant_hojas=Leaf_Num, Largo_Hoja_cm=LLL, 
          Cant_capullo=Bud_Num, Cant_Flores=Fl_Num, 
          Cant_Frutos=Fr_Num, BQS=BQS, Flor_si_no=Flowers_Y_N)
@@ -310,14 +334,27 @@ Brass=completeBrass%>%
 
 
 ```{r, resumir}
-summary(Brass)
+Brass %>% 
+  summary()
 ```
+
+
+5. Preguntas:
+
+  - ¿Cual fue el primer año de muestreo?
+  - ¿Cual es promedio, mediana de plantas con flores?
+  - ¿Cual es promedio, mediana de plantas con frutos?
+  - ¿Cual es la plantas más grande considerando la cantidad de hojas?
+  - ¿Cual es la hoja más grande, cm? 
+  
+
+***
 
 ## La variable de respuesta, **Y**. 
 
 You can also embed plots, for example:
 
-```{r head, echo=FALSE}
+```{r head, echo=FALSE, message=FALSE}
 
 library(ggplot2)
 
@@ -325,15 +362,16 @@ ggplot(Brass, aes(Flor_si_no))+
 geom_histogram()
 ```
 
+***
 
 
+## Tres modelos:
 
-
-
-Se evalúa tres modelos:
-  1. la probabilidad de tener flores es relacionado a la cantidad de hojas (el tamaño de la planta).
-  2. la probabilidad de tener flores es relacionado a la hoja más larga de la planta (el tamaño de la planta).
-  3. la probabilidad de tener flores es relacionado a la hoja más larga de la planta y a la cantidad de hojas.
+  > la probabilidad de tener flores es relacionado a la cantidad de hojas (el tamaño de la planta).
+  >
+   la probabilidad de tener flores es relacionado a la hoja más larga de la planta (el tamaño de la planta).
+  >
+   la probabilidad de tener flores es relacionado a la hoja más larga de la planta y a la cantidad de hojas.
   
 # Generalized Linear Model = glm
 
@@ -355,8 +393,11 @@ summary(BrassModel.3)
 
 ```
 
-Si no le interesa el intercepto se añade un "-1" después de la 
-#Los valores de interes en nuestro caso son el intercepto y la pendiente (valor que se encuentra debajo del intercepto).
+***
+
+# Remover el intercepto
+
+Si no le interesa el intercepto se añade un "-1" después de la ultima variable predictora. Los valores de interés en nuestro caso son el intercepto y la pendiente (valor que se encuentra debajo del intercepto).
 
 ```{r model bby site surveyed}
 
@@ -366,26 +407,44 @@ BrassModel.1.1 <- glm(Flor_si_no ~ Cant_hojas+BQS+Largo_Hoja_cm-1,
 summary(BrassModel.1.1)
 ```
 
-# Predecir el número de frutas usando la ecuación, utilizando los resultados del modelo anterior
+***
+
+# Predecir el número de frutos:
+
+Usando la ecuación que sigue, utilizando los resultados del modelo anterior
 
 $$P(Y)\quad =\quad \frac { 1 }{ 1+{ e }^{ -(b+m*{ x }_{ i }) } }$$
 $$P(Y)\quad =\quad \frac { 1 }{ 1+{ e }^{ -((intercepto)+pendiente*variable.predictora) } }$$
-# Se usa esta ecuacion para predecir un valor de 'Y' especifico para un valor de una variable 'X' de interes.
+
+# Se usa esta ecuacion para predecir un valor de 'Y' especifico para un valor de en la variable 'x'. 
+
+Por ejemplo para el primer modelo, donde se evalúa la cantidad de hojas y la probabilidad de tener una flor, e; resultado es lo siguiente. Aplicando la formula anterior para plantas que tiene 10, 25, 50, 70 y 150 hojas. Se puede observar las probabilidades de tener un fruto. 
+
+ - P_10 = 0.05907809
+ - P_25 = 0.08927658
+ - P_50 = 0.1707955
+ - P_70 = 0.2717029
+ - P_150 = 0.8005922
+
+  > summary(BrassModel.1)
+  > Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -3.088221   0.134013  -23.04   <2e-16 ***
+Cant_hojas   0.029925   0.002987   10.02   <2e-16 ***
 
 ```{r predicting num fruits}
 
-summary(BrassModel.1)
-
-exp(1) #= e
-e=exp(1)
-e
+# exp(1) #=e
+e= exp(1)
 
 
-P_10=1/(1+2.7182818284^-(-3.065 +0.0297*150))
+# P_10=1/(1+2.7182818284^-(-3.065 +0.0297*150)) Una opción
+# P_10
+
+P_10=1/(1+exp(1)^-(-3.065 +0.0297*10)) 
 P_10
 
-P_10=1/(1+exp(1)^-(-3.065 +0.0297*100))
-P_10
+
 P_25=1/(1+exp(-(-3.065 +0.0297*25)))
 P_25
 
@@ -413,7 +472,7 @@ library(ggplot2)
 
 ## Reducir solapamiento de los puntos 
 
-Usar geom_jitter
+Usar geom_jitter, y las opciones son las siguientes
 
 ggplot(el archivo de datos, aes(las variables continuas))  
   • geom jitter(alpha, color, fill, shape, size)  
@@ -423,6 +482,7 @@ ggplot(el archivo de datos, aes(las variables continuas))
     ◦ linetype: representa el estilo de línea; ver sección “Especificación Estética” 
     ◦ size: representa el grosor de la línea 
     ◦ weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado) 
+    ◦ height: para definir el rango del jitter, más grande más espacio hay entre los valores en el eje de **y**. 
 
 
 ```{r jitter}
@@ -440,37 +500,39 @@ names(Brass)
 
 ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
   geom_point(alpha=.5) +
-  stat_smooth(method="glm", se=TRUE, method.args = list(family=binomial))
+  geom_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))
 ```
 
-El modelo de regre
+El modelo de regresión logística
 
 ```{r}
 
 summary(BrassModel.1)
 ```
 
-En este grafico se osberva el valor de la pendiente, el mismo aumenta cuando el numero de hojas se aproxima a 100 (por ende al acercarnos a este valor el valor de nuestra variable de respuesta es mayor aumenta o es mayor).
-## add a figure for each site
+En este gráfico se observa el valor de la pendiente, el mismo aumenta cuando el numero de hojas se aproxima a 100 (por ende al acercarnos a este valor el valor de nuestra variable de respuesta es mayor aumenta o es mayor).
+
+
+## Crear una figura por cada sitio de muestreo
 
 ```{r facet}
 names(Brass)
 ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
   geom_point(alpha=.5) +
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))+
+  stat_smooth(method="glm", se=FALSE, method.args = list(family="binomial"))+
   facet_wrap(~Isla)
 
 ```
 
 
-## Solapamiento 
+## Solapamiento de gráficos
 
 ```{r overlap by site}
 
 names(Brass)
-ggplot(Brass, aes(Cant_hojas,Flor_si_no, colour=BQS))+
+ggplot(Brass, aes(Cant_hojas,Flor_si_no, colour=Isla))+
   geom_point(alpha=.5) +
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))
+  stat_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))
 
 ```
 
@@ -484,25 +546,35 @@ ggplot(Brass, aes(Largo_Hoja_cm,Flor_si_no))+
 
 ```
 
+***
 
-### Remove the outlier (probably a mistake in data entry)
+### Rmover datos sesgados (probablemente un valor entrado equivocadamente)
 
-#### Nota que se hace un subgrupo (subset) de los datos, usando la función subset(el data frame, la condición)
+#### Nota que se hacer un subgrupo (subset) de los datos, usando la función subset(el data frame, la condición)
 
 
 ```{r LLL90}
 names(Brass)
-ggplot(subset(Brass,Largo_Hoja_cm<90), aes(Largo_Hoja_cm,Flor_si_no, colour=BQS))+
+ggplot(subset(Brass,Largo_Hoja_cm<90), aes(Largo_Hoja_cm,Flor_si_no, colour=Isla))+
   geom_jitter(height = 0.10)+
-  stat_smooth(method="glm", se=FALSE, method.args = list(family=binomial))
+  stat_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))
 ```
+
+***
+
 
 ## Selecionar el mejor modelo
 
-Vea modulo **T16 Criterio de Información**
+Vea modulo **Criterio de Información**
+
+***
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
 ```
+> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
+responsibility of the authors and does not necessarily represent the official views of the National
+Institutes of Health.”
+
 
 
