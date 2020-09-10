@@ -159,7 +159,7 @@ En el siguiente enlace se puede encontrar más información <https://en.wikipedi
 
 ## Los Datos
 
-Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en "Annals of Eugenics", titulado "Birth Weight and gestation time in relation to maternal age, parity and infant survival" publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia.  Para faciltar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
+Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varon al nacer y su supervivencia.  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
 
 En el archivo "Karn_Penrose_student" tienen datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas:
 Line_number = la secuencia de los datos
@@ -196,9 +196,9 @@ names(KPdata)
 str(KPdata)
 library(ggplot2)
 ggplot(KPdata, aes(Weigth_lb))+
-  geom_histogram(colour="white", fill="red")+
-  labs(X = "Weigth_lb")+
-  ggtitle("Count vs Weigth_lb")
+  geom_histogram(binwidth= .25, colour="white", fill="red")+
+  labs(x = "Peso de los bebe, lbs", y = "Frecuencia")+
+  ggtitle("Frecuencia vs Peso de los bebe, lbs")
 
 ```
 
@@ -208,9 +208,10 @@ ggplot(KPdata, aes(Weigth_lb))+
 
 ```{r periodo de gestacion}
 ggplot(KPdata, aes(Gestation_Time_days))+
-  geom_histogram(fill="white", colour="red")+
-  labs(x= "Gestation Period")+
-  ggtitle("Count vs Gestation Period")
+  geom_histogram(binwidth= 4, fill="white", colour="red")+
+  labs(x= "Duración de Gestacion", y="Frecuancia")+
+  
+  ggtitle("Frecuencia vs Duración de Gestación")
  
 ```
 
