@@ -15,13 +15,357 @@ output:
     background-color: #437d66;
 }
 </style>
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+
+
+```
+
+Fecha de la ultima revisión
+```{r echo=FALSE}
+
+Sys.Date()
+```
+***
+Activar las librerias, averiguar que TIENE instalado estos paquetes
+
+```{r libraries, message=FALSE}
+library(QuantPsyc)
+library(car)
+library(boot)
+library(ggplot2)
+library(tidyverse)
+library(sjPlot)
+
+```
+
+***
+# Regresión Lineal
+
+La regresión lineal es el modelo básico de evaluar si hay una relación *lineal* o sea una linea *recta* entre dos variable. Esta relación entre las variables puedes ser positiva o negativa.  Hay otro tipos de regresión, que incluye regresión no lineal tal como cuadrática $x^2$ o cúbica $x^3$, logarítmica $log(x)$ entre muchas otras alternativas. Estas alternativas se verán en el modulo de regresión no lineal.  
+
+
+***
+
+Aquí estaremos evaluando solamente la regresión lineal
+
+Vemos un ejemplo ficticio
+
+Los datos son de unos barrios un país ficticio donde se observa el números de barres en un bario y la cantidad de asesinados en este barrio. 
+
+```{r data}
+library(readr)
+pubs <- read_csv("Data/pubs.csv")
+
+
+# Cambiamos los nombres de las columnas
+
+pubs=pubs%>%
+  dplyr::rename(barres=pubs, mortalidad=mortality) # cambiamos los nombres de las columnas al español. 
+
+pubs
+```
+***
+
+# la función lm() 
+
+Como hacer un regresión lineal (Linear Regression) simple, usando la función **lm()**, para "linear model"= modelo lineal. Una regresión necesita dos variable continuas (vea el módulo de correlación).   Es importante que estas variable tenga una distribución normales. La diferencia entre una correlación y una regresión es que la primera es un análisis que describe el patrón y en la segunda es que no solamente describe el patrón pero hace predicción sobre la relación entre las variables.  Usando la regresión uno calcula tambien una linea que describe la relación entre las variables. Esta variable se puede describe como $y=m_x+b$ donde la **m** representa la pendiente y la *b* representa el intercepto.   También lo pueden ver en libros de la siguiente forma $y=\alpha+\beta_x$ donde la $\beta$ *beta* representa la pendiente y la $\alpha$ el intercepto.   
+
+La formula de lm() se compone de lm(y~x, data= "df"). Nota la tilde **~**.  Hay dos pruebas la priemra para determinar si $\alpha$ es distinto de cero.  La hipótesis nula es 
+
+Ho: el intercepto $\alpha$ es igual a cero
+Ha: el intercepto, $\alpha$ no es igual a cero.  Entonces el punto donde la linea intercepta el cero puede estar mayor de o menor de cero. 
+
+
+La segunda hipótesis nula es que la pendiente es diferente de cero, esto quiere decir que la pendiente no sugiere un patrón de aumentar y disminuir entre las dos variables. 
+
+Ho: la pendiente $\beta$ es igual a cero
+Ha: la pendiente, $\alpha$ no es igual a cero. Entonces la relación entre las dos variables es o positiva o negativa. 
+
+
+Ahora evaluamos los resultados de la regresión entre el número de barres en un vecindarios y la mortalidad en este mismo sector.  Se observa que los coeficientes de la linea son $y=3352+14.3*x$.  Entonce el intercepto en cero comienza en 3352 fatalidades y por cada bar suplementario hay 14.3 más fatalidad. 
+
+Ahora para determinar si estos valores son significativo hay que evaluar el valor de **p** en cada linea.  La hipótesis nula del intercepto tiene un valor de p =0.005, que sugiere que se debería rechazar la hipótesis nula, y por consecuencia aceptamos la hipótesis alterna. La pendiente tiene un valor de p=0.015 y también se rechaza la hipotesis nula.
+
+
+
+```{r linear model, fig.align='center'}
+pubReg <- lm(mortalidad~barres, data = pubs) 
+
+#summary(pubReg) # Si no se acuerda de la funcíon que sigue
+
+tab_model(
+  pubReg,show.df = TRUE,
+  CSS = list(
+    css.depvarhead = 'color: red;',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;', 
+    css.summary = 'color: blue;'
+  )
+)
+```
+
+
+***
+
+# Visualización de la regresión
+
+Se observa que hay un aumento en fatalidades con aumento en el número de barres.  Pero nota el valor a la derecha que parece ser muy atípico comparado a los otros.  
+
+```{r}
+ggplot(pubs, aes(x=barres, y=mortalidad))+
+  geom_smooth(method = lm)+ # modelo lineal
+  geom_point()
+
+```
+
+***
+
+# El impacto de valores atípico
+ En cierta ocasiones valores fuera de lo normal pueden hacer grandes cambios en el resultado, en este caso la regresión. ¿Cual es el efecto del valor grande? Removemos ese valor del archivo de datos y revaluamos el modelo (la regresión lineal). Nota que ahora el modelo es sumamente diferente $y=-163.7+103.2*x$.  ¿Ahora se rechaza las dos hipótesis?
+
+```{r remover valores}
+
+pubsnew <- pubs[ which(pubs$barres<80), ]  # remover el valor grande
+
+pubsnew=pubsnew %>% 
+  add_row(barres = 4, mortalidad = 0) # Añadiendo un par de valores
+
+
+pubRegNew <- lm(mortalidad~barres, data = pubsnew)
+#summary(pubRegNew)
+
+tab_model(
+  pubRegNew,show.df = TRUE,
+  CSS = list(
+    css.depvarhead = 'color: red;',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;', 
+    css.summary = 'color: blue;'
+  )
+)
+
+ggplot(pubsnew,aes(x=barres, y=mortalidad))+
+  geom_smooth(method=lm)+
+  geom_point()
+
+
+```
+***
+
+# La venta de discos de música
+
+Ahora un set de datos más complejo y más realista a los que uno encontraría en un estudio de en medicina, sociología o ecológica. 
+
+Los datos representa la cantidad de dinero dedicado a la promoción de diferentes CD's de una compañia de música y la cantidad de CD (CD/downloads) vendido.  El la primera linea se observa la cantidad de libras esterlina, **£** (UK) dedicado a la promoción del album de música, en la primera linea vemos que se gasto £10,256, y después la cantidad de CD vendido fue 330.  
+
+
+```{r advertizing and sales}
+library(readr)
+Album_Sales_1_new <- read_csv("~/Google Drive/Biometry/Biometria 2017/Data_FILES/Album_Sales_1_new.csv")
+head(Album_Sales_1_new)
+
+
+length(Album_Sales_1_new$adverts)  # cuantas files de datos hay en el data frame
+```
+
+Comenzamos con hacer un gráfico entre las dos variables.  Nota que en la parte de **geom_smooth()**, tiene que incluir **method=lm**, esto significa que el método de construir la linea usara la regresión lineal.  Se añade a la función lineal $\epsilon$ que representa los errores de los valores al comparar con la linea que representa el mejor modelo.   
+
+$$Y_{ i }=\beta _{ 0 }+\beta _{ 1 }X_{ i }+\epsilon _{ i }$$
+Recuerda que $\beta _{ 0 }$ es el intercepto y el $\beta _{ 1 }X_{ i }$ es la pendiente. El área sombreada es el área de 95 de intervalo de confianza.  Esto quiere decir que la mejor linea, intercepto y pendiente podría variar en este rango si repetimos el experimento.  Nota aquí todas las alternativas, añadí los dos extremos, con una pendiente mayor (roja) y una menor (violeta). Cada punto representa la venta de CD con su correspondiente cantidad dedicada a la promoción.  Los $epsilon$ seria la diferencia entre la mejor linea y el valor original, esto se llama tambien los residuales. 
+
+
+
+
+```{r avertizing graph}
+library(ggplot2)
+ggplot(Album_Sales_1_new,aes(x=adverts, y=sales))+
+  geom_smooth(method=lm, se = TRUE)+
+  geom_point()+
+  geom_segment(aes(x=0, y=120, xend=2250, yend=380), colour="red")+
+  geom_segment(aes(x=0, y=150, xend=2250, yend=320), colour="purple")
+```
+
+El modelo lineal con la función **lm()**.  ¿Como interpretas los coeficientes y si estos son significativos, si se rechaza la hipótesis nula?
+
+```{r, sales model, }
+library(sjPlot)
+model1=lm(sales~adverts, Album_Sales_1_new)
+
+#summary(model1)
+
+tab_model(
+  model1,show.df = TRUE,
+  CSS = list(
+    css.depvarhead = 'color: red;',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;', 
+    css.summary = 'color: blue;'
+  )
+)
+```
+
+***
+
+# Supuestos de la regresión lineal
+
+1. Igualdad de varianza: En el primer gráfico evaluar si los datos están distribuido más o menos igual. y que no un más variación un un área del gráfico que otro.
+  
+2. Normalidad de los datos: En el segundo gráfico evaluar la figura de qqplot.
+
+3. Evaluar si hay datos sesgados (atípicos) que influencia los resultados 
+
+4. En el cuarto gráfico evaluar si hay valores que tienen mucho peso si se incluyen o no en el análisis. Estos van a ser identificado 
+
+En el presente gráfico hay tres valores que hay que evaluar (1,42,169), estos valores se tiene que asegurar que son correctos.  Siempre es bueno remover los valores sesgados y rehacer el análisis para observar cuan diferente son los resultas.  
+
+
+
+```{r}
+plot(model1)  # Evaluar los supuestos, 1. Igualdad de varianza, 2. Normalidad, 4. Datos sesgados (Cook's Distance)
+```
+
+***
+
+# Cook's Distance
+
+Evaluar si hay unos valores que sesgan los resultados.  
+
+FROM WIKIPEDIA
+Definition. Data points with large residuals (outliers) and/or high leverage may distort the outcome and accuracy of a regression. Cook's distance measures the effect of deleting a given observation. Points with a large Cook's distance are considered to merit closer examination in the analysis.
+
+Detecting highly influential observations
+There are different opinions regarding what cut-off values to use for spotting highly influential points. A simple operational guideline of 
+D_i>1 has been suggested. 
+
+Others have indicated that 
+D_i>4/n, where n is the number of observations, might be used.
+
+Aqui enseño como añadir 
+1. los valores de "cook.distance" a su archivo
+2. Añadir una columna de "secuencia" de los datos
+3. Crear una gráfica de las distancia de Cook.  
+4. Which values have Di larger than 1,  which values have Cook's distances larger 4/n? 
+
+
+
+```{r Cook distance}
+4/length(Album_Sales_1_new$adverts)
+
+
+
+Album_Sales_1_new$cooks.distance<-cooks.distance(model1)
+head(Album_Sales_1_new)
+
+Album_Sales_1_new$sequence=c(1:200)
+head(Album_Sales_1_new)
+tail(Album_Sales_1_new)
+
+ggplot(Album_Sales_1_new, aes(sequence, cooks.distance))+
+  geom_point()+
+  geom_hline(aes(yintercept=4/length(Album_Sales_1_new$adverts), colour="red"))
+```
+
+
+
+***
+
+# Repaso de los PASOS
+
+
+## Paso 1
+
+Primer paso, mirar los coeficientes.
+
+El resultado:  El coeficiente (intercepto) y la pendiente del *model1*
+
+## Paso 2
+2. Evaluar si los coeficientes son diferentes de cero.
+
+  a. La primera hipótesis, 
+     Determinar si el intercepto es igual a cero. Mira el valor de p, Pr(>|t|), determinar si el valor es menor de 0.05, si lo es se rechaza la Ho y por consecuencia tenemos confianza que el intercepto no incluye cero.
+        
+  b. La segunda hipótesis nula
+      Deteminar si la pendiente es igual a cero. Mira el valor de p, Pr(>|t|), como el valor es menor de p=0.05, se rechaza la Ho y por consecuencia tenemos confianza que la pendiente no incluye cero.
+ 
+## Paso 3  
+3. Evaluar si los datos cumple con los supuestos.
+
+  1. Igualdad de varianza, usa la gráfica de residuales
+  2. Normalidad, qqplot
+  3. Valores sesgados, la prueba de Cook's
+
+
+```{r linear model2}
+advertizingReg <- lm(sales~adverts, data = Album_Sales_1_new)
+summary(advertizingReg)
+
+tab_model(
+  advertizingReg,show.df = TRUE,
+  CSS = list(
+    css.depvarhead = 'color: red;',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;', 
+    css.summary = 'color: blue;'
+  )
+)
+```
+
+
+
+***
+# Alternativa para Gráficar los residuales
+## Plot the residuals and the fitted values
+### Evaluating residuals:
+If we observe that the residuals are randomly distributed (no pattern, a straigth line), then we can assume that there is equality of variance along the "x" axis. 
+
+#### Definition of Residuals
+A quantity remaining after other things have been subtracted or allowed for.
+**FROM Wikipedia**
+
+A residual (or fitting deviation), on the other hand, is an observable estimate of the unobservable statistical error.
+
+
+```{r evaluate the residuals}
+# "advertizingReg", nota que este no es un data frame pero un modelo
+# The main figure
+ggplot(Album_Sales_1_new,aes(x=adverts, y=sales))+
+  geom_smooth(method=lm, se = TRUE)+
+  geom_point()
+
+# Graficando los residuales, metodo 1
+ggplot(model1, aes(x=.fitted, y=.resid))+
+  geom_point()+
+  geom_smooth(method=lm)
+
+```
+
+
+
+
+
+
+
+
+
+
 
 
 ***
