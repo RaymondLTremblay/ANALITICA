@@ -1,5 +1,5 @@
 ---
-title: "Seleccion_Modelos_AIC"
+title: "Selección de Modelos"
 output:
   html_document:
     css: tutorial.css
@@ -22,6 +22,34 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
+
+***
+# Datos, hipótesis y modelos
+
+La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo.  El concepto de modelos en la ciencia es que explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsable para el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.    
+
+Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p < 0.05.  Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA.  Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que no hay apoyo para la hipótesis nula.   
+
+El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados.  La selección de modelos es basado en la teoría de verosimilitud (likelihood).  Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo).  Los modelos pueden ser comparado uno con el otro y organizado por su peso (weight), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio. 
+
+
+
+Métodos comunes para selección de modelos.
+
+
+
+
+** Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.  
+
+
+
+
+
+
+***
+Referencias:
+
+Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and ecolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013. 
 
 
 ***
