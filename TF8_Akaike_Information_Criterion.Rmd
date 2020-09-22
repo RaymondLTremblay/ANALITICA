@@ -17,6 +17,7 @@ output:
 </style>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
@@ -33,8 +34,69 @@ Hay dos acercamiento principales para inferir. El método tradicional es determi
 El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados.  La selección de modelos es basado en la teoría de verosimilitud (likelihood).  Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo).  Los modelos pueden ser comparado uno con el otro y organizado por su peso (weight), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio. 
 
 
+# Como funciona la selección de modelos?
 
-Métodos comunes para selección de modelos.
+El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipotesis rasonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados. 
+
+# $R^2$
+
+El acercamiento tradicional en la literatura es el $R^2$ o el coeficiente de determinación. Que es un acercamiento sencisllo de selección de modelo. Donde mayor es el valor de $R^2$ mayor es el ajuste (Fit) del modelo.  Este acercamiento no toma en cuenta la complejidad de los modelos y siempre selecciona modelos más complejos. Por concecuencia no toma en cuenta el concepto de parsimonia. Un metodo de selección de modelos deberia tomar en cuenta la complejidad de los modelos y penalizar por modelos escesivamente complejos.    
+
+# Pruebas de modelos nulos
+
+La prueba de virosimilitud (PV) es el metodo más utilizado de las pruebas de hipotesis nula. La PV compara pares de modelos, cuando el la virosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vice versa. Tipicamente se usa como indice el chi cuadrado $\chi^2$.  En este caso al contrario del $R^2$, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el $\alpha$.   Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia  
+
+
+
+***
+
+Tabla de métodos comunes para selección de modelos.
+
+```{r, include=FALSE}
+library(gt)
+library(knitr)
+library(kableExtra)
+df2 <- data.frame("Model Selection method" = c("$$Verosimilitud$$","$$AIC$$", "$$AIC_c$$", "$$Schwartz$$", "$$R_{ }^2$$"),
+                 Calculations = c("$$\\mu$$", "$$\\theta$$", "$$\\sigma_{ }^2$$","$$\\sigma$$", "$$\\hat{p}$$"),
+                 Elements = c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"),
+                 Ref. =c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"))
+
+```
+
+
+```{r}
+kable(df2, escape=FALSE)
+
+
+
+```
+
+Some text
+
+\begin{center}
+\captionof{table}{Transformations Associated with the Johnson System}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Johnson Family & Transformation & Parameter Conditions & X Condition \\ \hline
+$S_B$ & $Z=\gamma + \eta ln(\frac {X - \epsilon} {\lambda + \epsilon - X})$ & $\eta, \lambda >0, -\infty < \gamma, \epsilon < \infty$ & $\epsilon < X < \epsilon + \lambda$ \\ \hline
+$S_L$ & $Z=\gamma + \eta ln(X - \epsilon)$ & $\eta >0, -\infty < \gamma, \epsilon < \infty$ & $X > \epsilon$ \\ \hline
+$S_U$ & $Z=\gamma + \eta \sinh^{-1}(\frac {X - \epsilon} {\lambda})$ & $\eta, \lambda >0, -\infty < \gamma, \epsilon < \infty$ & $-\infty < X < \infty$ \\ \hline
+\end{tabular}
+\end{center}
+
+
+|Model Selection method| Calculations | Elements | Ref |
+|:-----------------------|:-------------:|:----------:|:---------:|
+|$Verosimilitud$|$$\\mu$$|Ajuste  .....| 
+|$AIC$ | $$\\theta$$|Ajuste y Complejidad
+|$AIC_c$| $$\\sigma_{ }^2$$|Ajuste y Complejidad
+|$Schwartz$|$$\\sigma$$|
+|$R_{adj}^2$|$$R_{adj}^2=\frac{RSS-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$|Ajuste| 
+
+
+                 Calculations = c("$$\\mu$$", , ", ),
+                 Elements = c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"),
+                 Ref. =c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"))
 
 
 
