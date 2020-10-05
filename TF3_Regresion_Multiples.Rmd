@@ -25,6 +25,225 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 
 ***
+# Taller R Avanzado: Regresión Múltiple, ANOVA, GLM
+
+#### Lista de paquetes a instalar
+
+* readxl
+* car
+* EnvStats
+* tidyverse
+* coefplot
+* leaps
+* rmarkdown
+* ggplot2
+* MASS
+* multcomp
+* effects
+* gplots
+* agricolae
+* plyr
+* caret
+
+
+#### Lista de archivos a usar
+Los siguientes archivos deben estar disponible en su directorio de trabajo de R:
+
+* [mod_empiricos.xlsx](https://drive.google.com/open?id=1kKD0vOoQCBjgoecqvdcdwFiJuiEyaz-U)  
+* [strain_sex_chol.xlsx](https://drive.google.com/open?id=1ATmAlI0I6K9m2GG0uukhH_72zQkTJQps)
+* [Titanic.xlsx](https://drive.google.com/open?id=1scOVpqtb6c9EbM90m0pZm3zg98Khde_o)
+
+### Objetivos Generales
+
+* Conocer y aplicar los métodos disponibles en R para obtener los parámetros de __modelos de regresión múltiple__, evaluar su idoneidad para describir los datos, e interpretar su significado.
+
+* Aplicar funciones de R para diseños de investigación apropiados para el __análisis de varianza__.
+
+* Conocer y aplicar funciones de R para extender los modelos lineales a situaciones en las que la variable dependiente no tiene distribución normal __(GLM)__.
+
+__DIA 1__
+
+# Regresión Lineal Múltiple
+Cuando tenemos más de una variable predictora ("independiente"), la regresión lineal simple viene a ser una __regresión múltiple__.
+
+$$Y_j=\alpha+\beta_1X_{1j}+\beta_2X_{2j}+...+\beta_nX_{nj}$$
+
+
+#### Ejemplo 1 y Datos
+
+Usaremos como ejemplo los datos _bmi_ en el archivo _mod_empiricos.xlsx_.  Estos son datos de individuos adultos entre 21 y 79 años, con las siguientes variables: _BMI_, índice de masa corporal ($kg/m^{2}$); _Age_, edad (_años_); _Cholesterol_, niveles de colesterol en sangre, ($mg/dL$); _Glucose_, niveles de glucosa en la sangre, ($mg/dL$).
+
+Para leer los datos emplearemos el siguiente código (obtenido del menú _Import Dataset/From Excel_):
+
+```{r}
+library(readxl)
+reg.multiple <- read_excel("Data/mod_empiricos.xlsx", sheet = "bmi")
+# para ver las primeras seis filas de datos
+head(reg.multiple)
+```
+
+### Pruebas de supuestos para regresión paramétrica usando el método de mínimos cuadrados (_OLS, ordinary least square_)
+
+* __Normalidad__: Gráficamente: Q-Q plot; Estadísticamente: prueba de Shapiro & Wilk
+* __Independencia__: los valores de $Y_j$ son independientes entre si, lo asumimos (no hay autocorrelación).
+* __Linealidad__: relación lineal entre variable dependiente y cada una de las independientes; gráficas individuales.  Puede arreglarse con transformación; prueba de Box Tidwell.
+* __Homocedasticidad__: varianza de la variable dependiente (residuales) no varía con los valores de las variables independientes; gráfica de los residuales.
+* __Multicolinealidad__: las variables independientes no deben estar correlacionadas entre si.
+
+#### Normalidad
+
+* Evaluación gráfica de normalidad de la variable dependiente. 
+```{r qqplot, message=FALSE}
+library(EnvStats)
+EnvStats::qqPlot(reg.multiple$BMI, add.line = TRUE, points.col = "blue", line.col = "red")
+```
+
+* Prueba estadística de normalidad Shapiro & Wilk ($H_0:distribución\enspace normal$)
+```{r shapiroW}
+shapiro.test(reg.multiple$BMI)
+```
+
+#### Autocorrelación
+La prueba de Durbin-Watson nos permite evaluar si ocurre autocorrelación entre los valores residuales de la variable dependiente.  Por ejemplo, una variable que depende del tiempo, presenta autocorrelación.  La $H_0$ es que la autocorrelación en los residuales del modelo es 0.
+
+* Prueba de Durbin-Watson para autocorrelación
+```{r message=FALSE}
+library(car)
+model <- lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+dbt <- durbinWatsonTest(model, simulate = TRUE)
+dbt
+```
+
+#### Linealidad
+
+* Prueba de Box Tidwell para linealidad
+```{r}
+library(car)
+boxTidwell(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+```
+
+
+#### Multicolinealidad
+
+* Matriz de correlación y gráficas de puntos con líneas de regresión
+
+```{r}
+library(car)
+#matriz de correlación
+cor(reg.multiple)
+#gráfica de regresiones en parejas, con línea de regresión
+scatterplotMatrix(reg.multiple, ~ BMI + Age + Cholesterol + Glucose,
+                  smooth = list(lty = 2), id = TRUE,
+                  regLine = list(lty = 1, col = "red"),
+                  col = "blue")
+```
+
+### Modelos de regresión lineal múltiple
+A continuación se calculan los parámetros de diversos modelos de regresión, y se incluye una prueba de homocedasticidad (homogeneidad de la varianza) para cada modelo.
+
+#### Modelo completo (todas las variables)
+
+```{r}
+modRM <- lm(BMI ~ Age + Cholesterol + Glucose, 
+              data = reg.multiple)
+summary(modRM)
+aic <- AIC(modRM)
+sprintf("AIC = %.2f", aic)
+# prueba de homocedasticidad (Non-constant Variance Score Test)
+# Ho:la varianza es constante en el ámbito de la predicción de Y
+ncvTest(modRM)
+spreadLevelPlot(modRM)
+```
+
+#### Modelo eliminando la variable Age, por ser la menos correlaciona con BMI, y tener la mayor correlación con Glucose
+
+```{r}
+modRM <- lm(BMI ~ Cholesterol + Glucose, 
+              data = reg.multiple)
+summary(modRM)
+aic <- AIC(modRM)
+sprintf("AIC = %.2f", aic)
+# prueba de homocedasticidad
+ncvTest(modRM)
+spreadLevelPlot(modRM)
+```
+
+#### Modelo con interacción entre Age y Glucose
+Para denotar interacción entre variables se usa el símbolo __( : )__   Para incluir las variables solas y su interacción se utiliza el símbolo __( * )__
+
+```{r}
+modRM <- lm(BMI ~ Cholesterol + Glucose:Age, 
+              data = reg.multiple)
+summary(modRM)
+aic <- AIC(modRM)
+sprintf("AIC = %.2f", aic)
+# prueba de homocedasticidad
+ncvTest(modRM)
+spreadLevelPlot(modRM)
+```
+
+### Selección automática de modelo - método "stepwise"
+Existen métodos para seleccionar automáticamente el mejor modelo, a base de estadísticos indicadores, y que conlleva un procedimiento iterativo.  Uno de estos procedimientos es conocido como 'stepwise' (por pasos), y aunque no es el más aceptado en la actualidad, ha sido muy usado y es una buena manera de ilustrar el procedimiento, usando nuestros datos.
+
+En este procedimiento el proceso de selección se basa en mantener el modelo con el menor valor del estadístico __AIC__ (Akaike Information Criterion), que indica el modelo con la menor pérdida de información y mayor simplicidad.  En el proceso se parte de un modelo nulo (no efecto de predictores) y hasta un modelo muy complejo, incluyendo interacciones.  Las variables se incluyen y se quitan, y cada vez se recalcula AIC, hasta obtener el modelo que mantiene el mínimo valor de AIC.
+
+```{r}
+#formulación de un modelo nulo y un modelo completo
+modNulo <- lm(BMI ~ 1, data = reg.multiple)
+modFull <- lm(BMI ~ Cholesterol*Glucose + Age*Cholesterol + Age*Glucose, 
+              data = reg.multiple)
+#procedimiento stepwise
+bmistep <- step(modNulo,
+                scope = list(lower=modNulo, upper=modFull,
+                             direction="both"))
+
+summary(bmistep)
+```
+
+### Comparación de modelos   
+
+#### Gráfica de coeficientes
+Una manera de comparar visualmente modelos (en realidad sus coeficientes) es usar el paquete __coefplot__, en conjunto con __ggplot2__, para crear una gráfica de los coeficientes estimados de cada variable (sola o de interacción), en cada modelo y detectar los que son diferentes de 0, y los modelos que los contienen.
+
+```{r}
+library(ggplot2)
+library(coefplot)
+#cálculo para todos los modelos
+modbmi1 <- lm(BMI ~ Age + Cholesterol + Glucose, data=reg.multiple)
+modbmi2 <- lm(BMI ~ Age*Glucose + Cholesterol*Glucose + Age*Cholesterol, data=reg.multiple)
+modbmi3 <- lm(BMI ~ Cholesterol + Age:Glucose, data=reg.multiple)
+modbmi4 <- lm(BMI ~ Cholesterol + Glucose, data=reg.multiple)
+modbmi5 <- lm(BMI ~ Cholesterol, data = reg.multiple)
+#comparando coeficientes de todos los modelos
+multiplot(modbmi1, modbmi2, modbmi3, modbmi4, modbmi5, pointSize = 2, intercept=FALSE)
+```
+
+#### Selección de modelo usando R-cuadrado ajustado y Mallow's Cp para mejores modelos
+
+El estadístico $R^2$ es la cantidad de varianza en la respuesta (variable dependiente) producido por las variables predictoras, mediante el modelo, por lo tanto constituye una buena manera de medir la capacidad del modelo para "explicar" los datos.  Sin embargo, en un modelo de regresión múltiple, el $R^2$ aumenta al aumentar el número de predictores, lo cual conlleva a sobrestimar la "calidad" del modelo, con un número excesivo de variables.  Usando el $R^2ajustado$ se toma en cuenta el número de parámetros en el modelo, por lo tanto es una medida más realista del ajuste al modelo.
+
+El estadístico de Mallow, $C_p$, es otro indicador para seleccionar el mejor modelo en una regresión múltiple; funciona de manera similar al AIC, y sirve para evitar incluir parámetros en exceso en el modelo.  La regla general es escoger el modelo con el número de parámetros, en el cual el valor de $C_p$ sea cercano (pero menor) al número de parámetros más 1.
+
+```{r, fig.width=7, fig.height=7}
+library(leaps)
+modSS <- regsubsets(BMI ~ Age*Cholesterol + Cholesterol*Glucose + Age*Glucose, data = reg.multiple, nbest = 3, intercept = TRUE)
+# gráfica para R^2 ajustado
+plot(modSS, scale="adjr2")
+# gráfica para Cp
+plot(modSS, scale="Cp")
+# otra forma de visualizar Cp
+library(car)
+## Mallow Cp
+mallowCp <-
+    subsets(modSS, statistic="cp", legend = FALSE, min.size = 1, main = "Mallow Cp")
+abline(a = 1, b = 1, lty = 2)
+```
+
+### EJERCICIO 
+
+Usar los datos [deathsmall_cities.xlsx](https://drive.google.com/open?id=1Q5rkNpatiTDg90ieVbwAw_fziIQNA4eJ) para buscar un modelo de regresión múltiple entre la variable dependiente _death1K_ (muertes anuales por cada 1000 habitantes) y las otras variables del archivo.
+
+
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))

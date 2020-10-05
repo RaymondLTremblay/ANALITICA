@@ -11,8 +11,9 @@
 
 
 
-<title>Selección de Modelos</title>
+<title>Seleción de Modelos</title>
 
+<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -25,22 +26,92 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,7 +131,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -608,7 +679,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Selección de Modelos</h1>
+<h1 class="title toc-ignore">Seleción de Modelos</h1>
 
 </div>
 
@@ -623,172 +694,469 @@ div.tocify {
 <div id="datos-hipótesis-y-modelos" class="section level1">
 <h1>Datos, hipótesis y modelos</h1>
 <p>La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo. El concepto de modelos en la ciencia es que explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsable para el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.</p>
-<p>Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p &lt; 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que no hay apoyo para la hipótesis nula.</p>
-<p>El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados. La selección de modelos es basado en la teoría de verosimilitud (likelihood). Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo). Los modelos pueden ser comparado uno con el otro y organizado por su peso (weight), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio.</p>
+<p>Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p &lt; 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que <span style="color: red;">no hay apoyo para la hipótesis nula</span>. La razón es que no estamos probando si la hipótesis alterna es <span style="color: red;">veridica</span>. Es importante recordar que la descripción de la hipótesis alterna (la descripción de esa) puede ser equivocada.</p>
+<p>El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados. La selección de modelos es basado en la teoría de verosimilitud (likelihood). Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo con un valor de p &lt;0.05). Los modelos pueden ser comparado uno con el otro y organizado por su peso (<strong>weight</strong> o sea el apoyo estadístico), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio.</p>
 </div>
 <div id="como-funciona-la-selección-de-modelos" class="section level1">
 <h1>Como funciona la selección de modelos?</h1>
-<p>El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipotesis rasonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.</p>
+<p>El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipótesis razonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.</p>
+<div id="r2" class="section level2">
+<h2><span class="math inline">\(R^2\)</span></h2>
+<p>El acercamiento tradicional en la literatura es el <span class="math inline">\(R^2\)</span> o el coeficiente de determinación. Que es un acercamiento sencillo de selección de modelo. Donde mayor es el valor de <span class="math inline">\(R^2\)</span> mayor es el ajuste (Fit) del modelo. Este acercamiento no toma en cuenta la complejidad de los modelos y siempre selecciona modelos más complejos. La razón es que selecciona modelos más complejos es que a añadir más variables a un modelo (por ejemplo regresión lineal múltiples), añadir otra variable explica en parte la variación aunque esta nueva variable explica muy poco, pero ya que explica un componente aumenta el <span class="math inline">\(R^2\)</span> . Por consecuencia no toma en cuenta el concepto de parsimonia, donde deberíamos seleccionar el modelos más sencillo tomando encenta el ajuste y la complejidad del modelo. Un método de selección de modelos debería tomar en cuenta la complejidad de los modelos y penalizar por modelos excesivamente complejos.</p>
+<div id="ejemplo-de-construcción-de-selección-por-r2" class="section level3">
+<h3>Ejemplo de Construcción de selección por <span class="math inline">\(R^2\)</span></h3>
+<p>Seleccionamos los datos de modulo regresión multiples (TF5). Sobre el <strong>Biomass Index</strong> y comoo esta corelacionado con la edad, el nivel de colesterol y glucosa en la sangre.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>reg.multiple &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;Data/mod_empiricos.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;bmi&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># para ver las primeras seis filas de datos</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">head</span>(reg.multiple)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##     BMI   Age Cholesterol Glucose
+##   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+## 1  19.3    21         178      95
+## 2  24.5    57         250      98
+## 3  24.7    46         176     102
+## 4  47.9    47         171     105
+## 5  44.2    61         222     101
+## 6  29.9    74         156      72</code></pre>
+<p>Se construye un modelo con todos los parametros. Vemos que el <span class="math inline">\(R^2= 0.0785\)</span>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(car)</span></code></pre></div>
+<pre><code>## Loading required package: carData</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.6255  -4.5473  -0.8179   3.7439  18.8116 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 16.81510    5.07180   3.315  0.00164 **
+## Age          0.04103    0.05631   0.729  0.46939   
+## Cholesterol  0.04819    0.02487   1.938  0.05791 . 
+## Glucose      0.01974    0.01493   1.322  0.19188   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.34 on 54 degrees of freedom
+## Multiple R-squared:  0.127,  Adjusted R-squared:  0.07855 
+## F-statistic:  2.62 on 3 and 54 DF,  p-value: 0.06008</code></pre>
+<p>Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de <span class="math inline">\(R^2\)</span> y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un <span class="math inline">\(R^2\)</span> más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un <span class="math inline">\(R^2=.127\)</span> es significativamente mejor que un modelo de 2 variables con un <span class="math inline">\(R^2=.1185\)</span>. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: <strong><em>NA</em></strong> en la tabla quiere decir que esta variable no esta incluida en el modelo.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">library</span>(MuMIn)</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#model2</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#summary(model2)</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>)</span></code></pre></div>
+<pre><code>## Fixed term is &quot;(Intercept)&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(formattable)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;formattable&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     area</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">library</span>(gt)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;gt&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:formattable&#39;:
+## 
+##     currency</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+(Intercept)
+</th>
+<th style="text-align:right;">
+Age
+</th>
+<th style="text-align:right;">
+Cholesterol
+</th>
+<th style="text-align:right;">
+Glucose
+</th>
+<th style="text-align:right;">
+R^2
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+logLik
+</th>
+<th style="text-align:right;">
+AICc
+</th>
+<th style="text-align:right;">
+delta
+</th>
+<th style="text-align:right;">
+weight
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:right;">
+18.0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0510
+</td>
+<td style="text-align:right;">
+0.0225
+</td>
+<td style="text-align:right;">
+0.1185
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+-188
+</td>
+<td style="text-align:right;">
+384
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.2606
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0541
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0790
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+-189
+</td>
+<td style="text-align:right;">
+384
+</td>
+<td style="text-align:right;">
+0.228
+</td>
+<td style="text-align:right;">
+0.2324
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+18.0
+</td>
+<td style="text-align:right;">
+0.0602
+</td>
+<td style="text-align:right;">
+0.0495
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0988
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+-188
+</td>
+<td style="text-align:right;">
+385
+</td>
+<td style="text-align:right;">
+1.279
+</td>
+<td style="text-align:right;">
+0.1375
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:right;">
+16.8
+</td>
+<td style="text-align:right;">
+0.0410
+</td>
+<td style="text-align:right;">
+0.0482
+</td>
+<td style="text-align:right;">
+0.0197
+</td>
+<td style="text-align:right;">
+0.1270
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+-187
+</td>
+<td style="text-align:right;">
+386
+</td>
+<td style="text-align:right;">
+1.832
+</td>
+<td style="text-align:right;">
+0.1043
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+27.2
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0250
+</td>
+<td style="text-align:right;">
+0.0489
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+-190
+</td>
+<td style="text-align:right;">
+386
+</td>
+<td style="text-align:right;">
+2.094
+</td>
+<td style="text-align:right;">
+0.0914
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+30.1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+-191
+</td>
+<td style="text-align:right;">
+387
+</td>
+<td style="text-align:right;">
+2.777
+</td>
+<td style="text-align:right;">
+0.0650
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+26.3
+</td>
+<td style="text-align:right;">
+0.0786
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0347
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+-190
+</td>
+<td style="text-align:right;">
+387
+</td>
+<td style="text-align:right;">
+2.953
+</td>
+<td style="text-align:right;">
+0.0595
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:right;">
+24.9
+</td>
+<td style="text-align:right;">
+0.0578
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0209
+</td>
+<td style="text-align:right;">
+0.0664
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+-189
+</td>
+<td style="text-align:right;">
+387
+</td>
+<td style="text-align:right;">
+3.331
+</td>
+<td style="text-align:right;">
+0.0493
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="r2" class="section level1">
-<h1><span class="math inline">\(R^2\)</span></h1>
-<p>El acercamiento tradicional en la literatura es el <span class="math inline">\(R^2\)</span> o el coeficiente de determinación. Que es un acercamiento sencisllo de selección de modelo. Donde mayor es el valor de <span class="math inline">\(R^2\)</span> mayor es el ajuste (Fit) del modelo. Este acercamiento no toma en cuenta la complejidad de los modelos y siempre selecciona modelos más complejos. Por concecuencia no toma en cuenta el concepto de parsimonia. Un metodo de selección de modelos deberia tomar en cuenta la complejidad de los modelos y penalizar por modelos escesivamente complejos.</p>
+</div>
 </div>
 <div id="pruebas-de-modelos-nulos" class="section level1">
 <h1>Pruebas de modelos nulos</h1>
-<p>La prueba de virosimilitud (PV) es el metodo más utilizado de las pruebas de hipotesis nula. La PV compara pares de modelos, cuando el la virosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vice versa. Tipicamente se usa como indice el chi cuadrado <span class="math inline">\(\chi^2\)</span>. En este caso al contrario del <span class="math inline">\(R^2\)</span>, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el <span class="math inline">\(\alpha\)</span>. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia</p>
+<p>La prueba de verosimilitud (PV) es el método más utilizado de las pruebas de hipótesis nula. La PV compara pares de modelos, cuando el la verosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vise versa. Tipicamente se usa como indice el chi cuadrado <span class="math inline">\(\chi^2\)</span>. En este caso al contrario del <span class="math inline">\(R^2\)</span>, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el <span class="math inline">\(\alpha\)</span>. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia</p>
 <hr />
-<p>Tabla de métodos comunes para selección de modelos.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">kable</span>(df2, <span class="dt">escape=</span><span class="ot">FALSE</span>)</span></code></pre></div>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-Model.Selection.method
-</th>
-<th style="text-align:left;">
-Calculations
-</th>
-<th style="text-align:left;">
-Elements
-</th>
-<th style="text-align:left;">
-Ref.
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<span class="math display">\[Verosimilitud\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\mu\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\bar{x}\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\bar{x}\]</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<span class="math display">\[AIC\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\theta\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[M\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[M\]</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<span class="math display">\[AIC_c\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\sigma_{ }^2\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[s_{ }^2\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[s_{ }^2\]</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<span class="math display">\[Schwartz\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\sigma\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[s\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[s\]</span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<span class="math display">\[R_{ }^2\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\hat{p}\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\hat{p}\]</span>
-</td>
-<td style="text-align:left;">
-<span class="math display">\[\hat{p}\]</span>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Some text</p>
-
+<p>Tabla de métodos comunes para selección de modelos</p>
+<p>En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos. El primero que fue desarrollado fue el de <strong>Akaike Information criterion</strong> ( ref), por consecuencia es el más utilizado por ser el más conocido. Pero hay múltiples otros que no están mencionado aquí como el Bayes Factor y el Mallow’s <span class="math inline">\(C_p\)</span>. Puede encontrar más información en el siguiente enlace.</p>
+<p><a href="https://en.wikipedia.org/wiki/Model_selection#Criteria" class="uri">https://en.wikipedia.org/wiki/Model_selection#Criteria</a></p>
 <table>
 <colgroup>
-<col width="38%" />
-<col width="24%" />
-<col width="19%" />
-<col width="17%" />
+<col width="11%" />
+<col width="55%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Model Selection method</th>
-<th align="center">Calculations</th>
-<th align="center">Elements</th>
-<th align="center">Ref</th>
+<th>Selección de modelos</th>
+<th>Formula</th>
+<th>Formula</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><span class="math inline">\(Verosimilitud\)</span></td>
-<td align="center"><span class="math display">\[\\mu\]</span></td>
-<td align="center">Ajuste …..</td>
-<td align="center"></td>
+<td><span class="math inline">\(Verosimilitud\)</span></td>
+<td>$<span class="math inline">\(\\Vero=-2\left\{\ln\left[L\left(\theta_p\right\| y\right)]+\ln\left[L\left(\theta_{p+q}\right\|y\right)]\right\}\)</span></td>
+<td>$ | Ajuste</td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(AIC\)</span></td>
-<td align="center"><span class="math display">\[\\theta\]</span></td>
-<td align="center">Ajuste y Complejidad</td>
-<td align="center"></td>
+<td><span class="math inline">\(AIC\)</span></td>
+<td><span class="math display">\[\\AIC=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p\]</span></td>
+<td><div class="line-block">Ajuste y complejidad</div></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(AIC_c\)</span></td>
-<td align="center"><span class="math display">\[\\sigma_{ }^2\]</span></td>
-<td align="center">Ajuste y Complejidad</td>
-<td align="center"></td>
+<td><span class="math inline">\(AIC_c\)</span></td>
+<td><span class="math display">\[\\AIC_c=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p\left(\frac{n}{n-p-1}\right)\]</span></td>
+<td><div class="line-block">Ajuste y complejidad, con corrección para tamaño de muestra pequeña</div></td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(Schwartz\)</span></td>
-<td align="center"><span class="math display">\[\\sigma\]</span></td>
-<td align="center"></td>
-<td align="center"></td>
+<td><span class="math inline">\(Schwartz\)</span></td>
+<td><span class="math display">\[\\SC=-2\ln\left[L\left(\theta_p\right\|y\right)]+p\cdot\ln\left(n\right)\]</span></td>
+<td><div class="line-block">Ajuste y complejidad, tamaño de muestra</div></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(R_{adj}^2\)</span></td>
-<td align="center"><span class="math display">\[R_{adj}^2=\frac{RSS-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}\]</span></td>
-<td align="center">Ajuste</td>
-<td align="center"></td>
+<td><span class="math inline">\(R_{adj}^2\)</span></td>
+<td><span class="math display">\[R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}\]</span></td>
+<td>Ajuste</td>
 </tr>
 </tbody>
 </table>
-<pre><code>          Calculations = c(&quot;$$\\mu$$&quot;, , &quot;, ),
-             Elements = c(&quot;$$\\bar{x}$$&quot;,&quot;$$M$$&quot;,&quot;$$s_{ }^2$$&quot;,&quot;$$s$$&quot; ,&quot;$$\\hat{p}$$&quot;),
-             Ref. =c(&quot;$$\\bar{x}$$&quot;,&quot;$$M$$&quot;,&quot;$$s_{ }^2$$&quot;,&quot;$$s$$&quot; ,&quot;$$\\hat{p}$$&quot;))</code></pre>
 <p>** Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.</p>
 <hr />
+<div id="cual-método-es-más-apropriado" class="section level2">
+<h2>Cual método es más apropriado?</h2>
+<p>Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples área de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general la gente usa mucho el AIC en parte porque esta fundado en el Criterio de información de <strong>Kullback-Leibler</strong>, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido tambien como el <strong>Bayesian Information Criterion</strong>, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.</p>
+</div>
+<div id="estimación-de-parámetros-y-múltiples-modelos" class="section level2">
+<h2>Estimación de parámetros y múltiples modelos</h2>
+<p>En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo cual el dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra en apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo como <strong>mejor</strong> que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.</p>
+</div>
+<div id="model-averaging" class="section level2">
+<h2>Model Averaging:</h2>
+<p>Cuando no hay un modelo unico apoyado por los datos, por ejemplo</p>
 <p>Referencias:</p>
-<p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and ecolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
+<p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
 <hr />
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
+</div>
 </div>
 
 

@@ -23,9 +23,36 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
+***
+```{r}
+library(tidyverse)
+```
+
 
 ***
+#### Polynomial regression
+The residuals plot from the linear regression, indicates a non-random distribution of the prediction error of the linear model.  You might be able to improve your prediction using a regression with a quadratic term (that is, X2), so we have now a __polynomial regression__
 
+```{r regr_polyn}
+fit2 <- lm(weight ~ height + I(height^2), data=women)
+summary(fit2)
+
+ggplot(women, aes(x = women$height, y = women$weight)) +
+  geom_point(aes(x = women$height, y = women$weight), color ="blue") +
+  stat_smooth(aes(), method = "lm", formula = y ~ poly(x,2), color ="red", linetype=2, se =TRUE, size = 1) +
+  labs(x="Height, inches", y="Weight, lb.")
+plot(women$height,residuals(fit2),
+     xlab="Height (in inches)",
+     ylab="residuals")
+```
+
+The new polynomial equation is:
+
+>![](eqpoly.jpg){#id .class width=320px}\
+
+The amount of variance accounted for has increased to 99.9%. The significance of the squared term (t = 13.89, p < .001) suggests that inclusion of the quadratic term improves the model fit.  The prediction error (residuals) is smaller, and their distribution looks more random.
+
+***
 
 > “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
 responsibility of the authors and does not necessarily represent the official views of the National

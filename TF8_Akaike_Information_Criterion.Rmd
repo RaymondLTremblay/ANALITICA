@@ -1,5 +1,5 @@
 ---
-title: "Selección de Modelos"
+title: "Seleción de Modelos"
 output:
   html_document:
     css: tutorial.css
@@ -8,15 +8,32 @@ output:
    # theme: simplex
     toc: yes
     toc_float: yes
-    
 ---
+
+```{=html}
 <style>
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     background-color: #437d66;
 }
 </style>
+```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+
 
 ```
 
@@ -24,97 +41,117 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
-***
+------------------------------------------------------------------------
+
 # Datos, hipótesis y modelos
 
-La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo.  El concepto de modelos en la ciencia es que explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsable para el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.    
+La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo. El concepto de modelos en la ciencia es que explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsable para el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.
 
-Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p < 0.05.  Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA.  Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que no hay apoyo para la hipótesis nula.   
+Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p \< 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que `r colorize("no hay apoyo para la hipótesis nula", "red")`. La razón es que no estamos probando si la hipótesis alterna es `r colorize("veridica", "red")`. Es importante recordar que la descripción de la hipótesis alterna (la descripción de esa) puede ser equivocada.
 
-El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados.  La selección de modelos es basado en la teoría de verosimilitud (likelihood).  Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo).  Los modelos pueden ser comparado uno con el otro y organizado por su peso (weight), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio. 
-
+El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados. La selección de modelos es basado en la teoría de verosimilitud (likelihood). Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo con un valor de p \<0.05). Los modelos pueden ser comparado uno con el otro y organizado por su peso (**weight** o sea el apoyo estadístico), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio.
 
 # Como funciona la selección de modelos?
 
-El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipotesis rasonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados. 
+El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipótesis razonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.
 
-# $R^2$
+## $R^2$
 
-El acercamiento tradicional en la literatura es el $R^2$ o el coeficiente de determinación. Que es un acercamiento sencisllo de selección de modelo. Donde mayor es el valor de $R^2$ mayor es el ajuste (Fit) del modelo.  Este acercamiento no toma en cuenta la complejidad de los modelos y siempre selecciona modelos más complejos. Por concecuencia no toma en cuenta el concepto de parsimonia. Un metodo de selección de modelos deberia tomar en cuenta la complejidad de los modelos y penalizar por modelos escesivamente complejos.    
+El acercamiento tradicional en la literatura es el $R^2$ o el coeficiente de determinación. Que es un acercamiento sencillo de selección de modelo. Donde mayor es el valor de $R^2$ mayor es el ajuste (Fit) del modelo. Este acercamiento no toma en cuenta la complejidad de los modelos y siempre selecciona modelos más complejos. La razón es que selecciona modelos más complejos es que a añadir más variables a un modelo (por ejemplo regresión lineal múltiples), añadir otra variable explica en parte la variación aunque esta nueva variable explica muy poco, pero ya que explica un componente aumenta el $R^2$ . Por consecuencia no toma en cuenta el concepto de parsimonia, donde deberíamos seleccionar el modelos más sencillo tomando encenta el ajuste y la complejidad del modelo. Un método de selección de modelos debería tomar en cuenta la complejidad de los modelos y penalizar por modelos excesivamente complejos.
+
+### Ejemplo de Construcción de selección por $R^2$
+
+Seleccionamos los datos de modulo regresión multiples (TF5). Sobre el **Biomass Index** y comoo esta corelacionado con la edad, el nivel de colesterol y glucosa en la sangre.
+
+```{r,modelo}
+
+library(readxl)
+reg.multiple <- read_excel("Data/mod_empiricos.xlsx", sheet = "bmi")
+# para ver las primeras seis filas de datos
+head(reg.multiple)
+
+
+```
+
+Se construye un modelo con todos los parametros. Vemos que el $R^2= 0.0785$.
+
+```{r, modelo basico}
+library(car)
+model <- lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+summary(model)
+
+```
+
+Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de $R^2$ y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un $R^2$ más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un $R^2=.127$ es significativamente mejor que un modelo de 2 variables con un $R^2=.1185$. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: ***NA*** en la tabla quiere decir que esta variable no esta incluida en el modelo.
+
+```{r, dredge}
+library(MASS)
+library(MuMIn)
+
+options(na.action = "na.fail")
+model2=lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+#model2
+#summary(model2)
+
+ALL_models=dredge(model2, extra="R^2")
+```
+
+```{r, tabla R2}
+library(formattable)
+library(gt)
+formattable(ALL_models, digits=3, format="html")
+
+```
 
 # Pruebas de modelos nulos
 
-La prueba de virosimilitud (PV) es el metodo más utilizado de las pruebas de hipotesis nula. La PV compara pares de modelos, cuando el la virosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vice versa. Tipicamente se usa como indice el chi cuadrado $\chi^2$.  En este caso al contrario del $R^2$, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el $\alpha$.   Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia  
+La prueba de verosimilitud (PV) es el método más utilizado de las pruebas de hipótesis nula. La PV compara pares de modelos, cuando el la verosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vise versa. Tipicamente se usa como indice el chi cuadrado $\chi^2$. En este caso al contrario del $R^2$, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el $\alpha$. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia
+
+------------------------------------------------------------------------
+
+Tabla de métodos comunes para selección de modelos
+
+En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos. El primero que fue desarrollado fue el de **Akaike Information criterion** ( ref), por consecuencia es el más utilizado por ser el más conocido. Pero hay múltiples otros que no están mencionado aquí como el Bayes Factor y el Mallow's $C_p$. Puede encontrar más información en el siguiente enlace.
+
+<https://en.wikipedia.org/wiki/Model_selection#Criteria>
+
++----------------------+-------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| Selección de modelos | Formula                                                                                                           | Formula                                                             |
++======================+===================================================================================================================+=====================================================================+
+| $Verosimilitud$      | $$\\Vero=-2\left\{\ln\left[L\left(\theta_p\right\| y\right)]+\ln\left[L\left(\theta_{p+q}\right\|y\right)]\right\}$$ | Ajuste                                                              |
++----------------------+-------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $AIC$                | $$\\AIC=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p$$                                                           | Ajuste y complejidad                                                |
++----------------------+-------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $AIC_c$              | $$\\AIC_c=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p\left(\frac{n}{n-p-1}\right)$$                             | Ajuste y complejidad, con corrección para tamaño de muestra pequeña |
++----------------------+-------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $Schwartz$           | $$\\SC=-2\ln\left[L\left(\theta_p\right\|y\right)]+p\cdot\ln\left(n\right)$$                                       | Ajuste y complejidad, tamaño de muestra                             |
++----------------------+-------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $R_{adj}^2$          | $$R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$                         | Ajuste                                                              |
++----------------------+-------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+
+\*\* Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.
+
+------------------------------------------------------------------------
+
+## Cual método es más apropriado?
 
 
-
-***
-
-Tabla de métodos comunes para selección de modelos.
-
-```{r, include=FALSE}
-library(gt)
-library(knitr)
-library(kableExtra)
-df2 <- data.frame("Model Selection method" = c("$$Verosimilitud$$","$$AIC$$", "$$AIC_c$$", "$$Schwartz$$", "$$R_{ }^2$$"),
-                 Calculations = c("$$\\mu$$", "$$\\theta$$", "$$\\sigma_{ }^2$$","$$\\sigma$$", "$$\\hat{p}$$"),
-                 Elements = c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"),
-                 Ref. =c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"))
-
-```
+Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo.  En múltiples área de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general la gente usa mucho el AIC en parte porque esta fundado en el Criterio de información de **Kullback-Leibler**, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia.  Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra.  El Schwarz es conocido tambien como el **Bayesian Information Criterion**, BIC, aunque no tiene nada de Bayesiano en el método de análisis.  Para aclarar el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano. 
 
 
-```{r}
-kable(df2, escape=FALSE)
+## Estimación de parámetros y múltiples modelos
 
+En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo cual el dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento.  Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra en apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo como **mejor** que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos.  Los estimados de los parámetros son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.   
 
+## Model Averaging: 
 
-```
+Cuando no hay un modelo unico apoyado por los datos, por ejemplo   
 
-Some text
-
-\begin{center}
-\captionof{table}{Transformations Associated with the Johnson System}
-\begin{tabular}{|l|l|l|l|}
-\hline
-Johnson Family & Transformation & Parameter Conditions & X Condition \\ \hline
-$S_B$ & $Z=\gamma + \eta ln(\frac {X - \epsilon} {\lambda + \epsilon - X})$ & $\eta, \lambda >0, -\infty < \gamma, \epsilon < \infty$ & $\epsilon < X < \epsilon + \lambda$ \\ \hline
-$S_L$ & $Z=\gamma + \eta ln(X - \epsilon)$ & $\eta >0, -\infty < \gamma, \epsilon < \infty$ & $X > \epsilon$ \\ \hline
-$S_U$ & $Z=\gamma + \eta \sinh^{-1}(\frac {X - \epsilon} {\lambda})$ & $\eta, \lambda >0, -\infty < \gamma, \epsilon < \infty$ & $-\infty < X < \infty$ \\ \hline
-\end{tabular}
-\end{center}
-
-
-|Model Selection method| Calculations | Elements | Ref |
-|:-----------------------|:-------------:|:----------:|:---------:|
-|$Verosimilitud$|$$\\mu$$|Ajuste  .....| 
-|$AIC$ | $$\\theta$$|Ajuste y Complejidad
-|$AIC_c$| $$\\sigma_{ }^2$$|Ajuste y Complejidad
-|$Schwartz$|$$\\sigma$$|
-|$R_{adj}^2$|$$R_{adj}^2=\frac{RSS-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$|Ajuste| 
-
-
-                 Calculations = c("$$\\mu$$", , ", ),
-                 Elements = c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"),
-                 Ref. =c("$$\\bar{x}$$","$$M$$","$$s_{ }^2$$","$$s$$" ,"$$\\hat{p}$$"))
-
-
-
-
-** Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.  
-
-
-
-
-
-
-***
 Referencias:
 
-Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and ecolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013. 
+Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.
 
-
-***
+------------------------------------------------------------------------
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))

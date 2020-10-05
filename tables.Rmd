@@ -1,0 +1,27 @@
+---
+title: "Untitled"
+author: "RLT"
+date: "10/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(kableExtra)
+```
+
+```{r}
+Equation <- c("$N_{i1,y} = R_{i,y} = R_{0,i }e^{\\tau_{i,y}}$",
+              "$C_{y,a}=
+              \\begin{cases}
+              0 &   a=0 \\\\
+              \\frac{C_y N_{y,a}}{N_y^{1+}} & a>0 \\\\
+              \\end{cases}$")
+Equation
+```
+
