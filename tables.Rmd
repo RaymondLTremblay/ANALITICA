@@ -16,12 +16,25 @@ library(kableExtra)
 ```
 
 ```{r}
+Equation_number <- c(1,2)
+
 Equation <- c("$N_{i1,y} = R_{i,y} = R_{0,i }e^{\\tau_{i,y}}$",
-              "$C_{y,a}=
-              \\begin{cases}
-              0 &   a=0 \\\\
-              \\frac{C_y N_{y,a}}{N_y^{1+}} & a>0 \\\\
-              \\end{cases}$")
-Equation
+              "$C_{y,a}$",
+              "$C_{y,b}$",
+              "$C_{y,c}$",
+              "$C_{y,d}$")
+
+Description <- c("Initial numbers at age","Catches at age")
+
+Population_Equations <- data.frame(cbind(Equation_number,
+                                         Equation,
+                                         Description))
+colnames(Population_Equations) = c("Eq.",
+                                   "Equation", 
+                                   "Description")
+knitr::kable(format="html",
+             Population_Equations, 
+             escape = FALSE) %>% 
+            kable_styling()
 ```
 

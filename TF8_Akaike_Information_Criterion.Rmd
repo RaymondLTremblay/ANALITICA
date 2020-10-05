@@ -115,19 +115,19 @@ En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos
 
 <https://en.wikipedia.org/wiki/Model_selection#Criteria>
 
-+----------------------+-----------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
-| Selección de modelos | Formula                                                                                                         | Formula                                                               |
-+======================+=================================================================================================================+=======================================================================+
-| $Verosimilitud$      | $$\\-2\left\{\ln\left[L\left(\theta_p\right\| y\right)]+\ln\left[L\left(\theta_{p+q}\right\|y\right)]\right\}$$ | Ajuste                                                                |
-+----------------------+-----------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
-| $AIC$                | $$\\AIC=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p$$                                                        | | Ajuste y complejidad                                                |
-+----------------------+-----------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
-| $AIC_c$              | $$\\AIC_c=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p\left(\frac{n}{n-p-1}\right)$$                          | | Ajuste y complejidad, con corrección para tamaño de muestra pequeña |
-+----------------------+-----------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
-| $Schwartz$           | $$\\SC=-2\ln\left[L\left(\theta_p\right\|y\right)]+p\cdot\ln\left(n\right)$$                                    | | Ajuste y complejidad, tamaño de muestra                             |
-+----------------------+-----------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
-| $R_{adj}^2$          | $$R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$                       | Ajuste                                                                |
-+----------------------+-----------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
++----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| Selección de modelos | Formula                                                                                                        | Formula                                                             |
++======================+================================================================================================================+=====================================================================+
+| $Verosimilitud$      | $$\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}$$ | Ajuste                                                              |
++----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $AIC$                | $$\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p$$                                                       | Ajuste y complejidad                                                |
++----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $AIC_c$              | $$\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)$$                         | Ajuste y complejidad, con corrección para tamaño de muestra pequeña |
++----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $Schwartz$           | $$\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)$$                                   | Ajuste y complejidad, tamaño de muestra                             |
++----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| $R_{adj}^2$          | $$R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$                      | Ajuste                                                              |
++----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
 
 \*\* Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.
 
@@ -135,15 +135,25 @@ En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos
 
 ## Cual método es más apropriado?
 
-Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples área de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general la gente usa mucho el AIC en parte porque esta fundado en el Criterio de información de **Kullback-Leibler**, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido tambien como el **Bayesian Information Criterion**, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.
+Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el meetodo que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de **Kullback-Leibler**, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el **Bayesian Information Criterion**, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.
 
 ## Estimación de parámetros y múltiples modelos
 
-En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo cual el dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra en apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo como **mejor** que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.
+En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo, ¿*cual es la dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento?*. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra hay apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo que sea **mejor** que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros de un modelo promedio son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.
 
 ## Model Averaging:
 
-Cuando no hay un modelo unico apoyado por los datos, por ejemplo
+Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiese incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande $w_{best}<0.09$ o si la diferencia entre los modelos tienen un $\Delta AIC$ de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, $\tilde{\theta}$.
+
+$\tilde{\theta}=\sum_{n=1}^Rw_i\tilde{\theta}_i$
+
+donde el $\tilde{\theta}_i$ es el estimado de $\tilde{\theta}$ del modelo $i_{th}$ de los \*mejores\* modelos. De esta forma los parámetros del modelo están ponderado por su apoyo $w_{best}$. En adición se puede calcular la varianza de los parámetros con la siguiente formula.
+
+$\hat{var}(\tilde{\theta})=\sum_{n=1}^Rw_i[\hat{var}\left(\tilde{\theta}\ |g_i\right)+\ (\tilde{\theta}-\hat{\theta})^2 ]$
+
+donde
+
+`r colorize("hacer una lista de las condiciones para selección de modelos con su referencias", "red")`
 
 Referencias:
 

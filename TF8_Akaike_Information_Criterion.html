@@ -1102,7 +1102,7 @@ NA
 <colgroup>
 <col width="11%" />
 <col width="54%" />
-<col width="34%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1114,23 +1114,23 @@ NA
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(Verosimilitud\)</span></td>
-<td><span class="math display">\[\\-2\left\{\ln\left[L\left(\theta_p\right\| y\right)]+\ln\left[L\left(\theta_{p+q}\right\|y\right)]\right\}\]</span></td>
-<td>Ajuste</td>
+<td><span class="math display">\[\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}\]</span> | Ajuste</td>
+<td></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(AIC\)</span></td>
-<td><span class="math display">\[\\AIC=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p\]</span></td>
-<td><div class="line-block">Ajuste y complejidad</div></td>
+<td><span class="math display">\[\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p\]</span> | Ajuste y</td>
+<td>complejidad</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(AIC_c\)</span></td>
-<td><span class="math display">\[\\AIC_c=-2\ln\left[L\left(\theta_p\right\|y\right)]+2p\left(\frac{n}{n-p-1}\right)\]</span></td>
-<td><div class="line-block">Ajuste y complejidad, con corrección para tamaño de muestra pequeña</div></td>
+<td><span class="math display">\[\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)\]</span> | Ajuste y</td>
+<td>complejidad, con corrección para tamaño de muestra pequeña</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(Schwartz\)</span></td>
-<td><span class="math display">\[\\SC=-2\ln\left[L\left(\theta_p\right\|y\right)]+p\cdot\ln\left(n\right)\]</span></td>
-<td><div class="line-block">Ajuste y complejidad, tamaño de muestra</div></td>
+<td><span class="math display">\[\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)\]</span> | Ajuste y</td>
+<td>complejidad, tamaño de muestra</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(R_{adj}^2\)</span></td>
@@ -1143,15 +1143,20 @@ NA
 <hr />
 <div id="cual-método-es-más-apropriado" class="section level2">
 <h2>Cual método es más apropriado?</h2>
-<p>Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples área de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general la gente usa mucho el AIC en parte porque esta fundado en el Criterio de información de <strong>Kullback-Leibler</strong>, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido tambien como el <strong>Bayesian Information Criterion</strong>, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.</p>
+<p>Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el meetodo que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de <strong>Kullback-Leibler</strong>, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el <strong>Bayesian Information Criterion</strong>, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.</p>
 </div>
 <div id="estimación-de-parámetros-y-múltiples-modelos" class="section level2">
 <h2>Estimación de parámetros y múltiples modelos</h2>
-<p>En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo cual el dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra en apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo como <strong>mejor</strong> que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.</p>
+<p>En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo, ¿<em>cual es la dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento?</em>. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra hay apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo que sea <strong>mejor</strong> que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros de un modelo promedio son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.</p>
 </div>
 <div id="model-averaging" class="section level2">
 <h2>Model Averaging:</h2>
-<p>Cuando no hay un modelo unico apoyado por los datos, por ejemplo</p>
+<p>Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiese incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande <span class="math inline">\(w_{best}&lt;0.09\)</span> o si la diferencia entre los modelos tienen un <span class="math inline">\(\Delta AIC\)</span> de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, <span class="math inline">\(\tilde{\theta}\)</span>.</p>
+<p><span class="math inline">\(\tilde{\theta}=\sum_{n=1}^Rw_i\tilde{\theta}_i\)</span></p>
+<p>donde el <span class="math inline">\(\tilde{\theta}_i\)</span> es el estimado de <span class="math inline">\(\tilde{\theta}\)</span> del modelo <span class="math inline">\(i_{th}\)</span> de los *mejores* modelos. De esta forma los parámetros del modelo están ponderado por su apoyo <span class="math inline">\(w_{best}\)</span>. En adición se puede calcular la varianza de los parámetros con la siguiente formula.</p>
+<p><span class="math inline">\(\hat{var}(\tilde{\theta})=\sum_{n=1}^Rw_i[\hat{var}\left(\tilde{\theta}\ |g_i\right)+\ (\tilde{\theta}-\hat{\theta})^2 ]\)</span></p>
+<p>donde</p>
+<p><span style="color: red;">hacer una lista de las condiciones para selección de modelos con su referencias</span></p>
 <p>Referencias:</p>
 <p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
 <hr />
