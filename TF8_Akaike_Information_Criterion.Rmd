@@ -77,26 +77,29 @@ Se construye un modelo con todos los parametros. Vemos que el $R^2= 0.0785$.
 
 ```{r, modelo basico}
 library(car)
+library(sjPlot)
 model <- lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
-summary(model)
+tab_model(model)
 
 ```
 
+------------------------------------------------------------------------
+
 Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de $R^2$ y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un $R^2$ más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un $R^2=.127$ es significativamente mejor que un modelo de 2 variables con un $R^2=.1185$. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: ***NA*** en la tabla quiere decir que esta variable no esta incluida en el modelo.
 
-```{r, dredge}
+```{r, dredge, message=FALSE}
 library(MASS)
 library(MuMIn)
 
 options(na.action = "na.fail")
-model2=lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+model2=lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple) # El Modelo más completo
 #model2
 #summary(model2)
 
-ALL_models=dredge(model2, extra="R^2")
+ALL_models=dredge(model2, extra="R^2") # Evaluación de todas las compbinaciones/alternativas (modelos)
 ```
 
-```{r, tabla R2}
+```{r, tabla R2, message=FALSE}
 library(formattable)
 library(gt)
 formattable(ALL_models, digits=3, format="html")
@@ -115,19 +118,19 @@ En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos
 
 <https://en.wikipedia.org/wiki/Model_selection#Criteria>
 
-+----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| Selección de modelos | Formula                                                                                                        | Formula                                                             |
-+======================+================================================================================================================+=====================================================================+
-| $Verosimilitud$      | $$\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}$$ | Ajuste                                                              |
-+----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| $AIC$                | $$\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p$$                                                       | Ajuste y complejidad                                                |
-+----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| $AIC_c$              | $$\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)$$                         | Ajuste y complejidad, con corrección para tamaño de muestra pequeña |
-+----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| $Schwartz$           | $$\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)$$                                   | Ajuste y complejidad, tamaño de muestra                             |
-+----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| $R_{adj}^2$          | $$R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$                      | Ajuste                                                              |
-+----------------------+----------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
++----------------------+-------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| Selección de modelos | Formula                                                                                               | Formula                                                    |
++======================+=======================================================================================================+============================================================+
+| $Verosimilitud$      | $$\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}$$ \| Ajuste |                                                            |
++----------------------+-------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| $AIC$                | $$\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p$$ \| Ajuste y                                            | complejidad                                                |
++----------------------+-------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| $AIC_c$              | $$\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)$$ \| Ajuste y              | complejidad, con corrección para tamaño de muestra pequeña |
++----------------------+-------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| $Schwartz$           | $$\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)$$ \| Ajuste y                        | complejidad, tamaño de muestra                             |
++----------------------+-------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| $R_{adj}^2$          | $$R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$             | Ajuste                                                     |
++----------------------+-------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 
 \*\* Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.
 
@@ -141,6 +144,26 @@ Métodos que maximizan la verosimilitud solamente tiene una limitaciones en resp
 
 En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo, ¿*cual es la dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento?*. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra hay apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo que sea **mejor** que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros de un modelo promedio son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.
 
+## Selección de Modelos entre muchos
+
+¿Como seleccionar el **mejor** modelo entre muchos? Si por ejemplo usamos el indice de Akaike (AIC), cada modelo fue ajustado a los datos y el indice de $AIC_i$ fue calculado, la diferencia entre los valores de AIC, $\Delta_i$ y el mejor modelo, $AIC_{\min}$ es calculado. El **mejor** modelo en el conjunto evaluado es el modelo con un AIC más pequeño, $AIC_{\min}$.
+
+$\Delta _i=AIC_i-AIC_{\min }$
+
+La verosimilitud (likelihood) de un modelo, $g_i$, dado los datos, $y$, es calculado de la siguiente forma.
+
+$L(g_i\ |y)=\exp\left(\frac{-1}{2\cdot\Delta_i}\right)$,
+
+Comparar pares de modelos, particularmente el **mejor** modelo y los otros, tiene un indice que se llama **evidence ratio, ER** y traducido aquí como **la razón de evidencia.**
+
+$ER=\frac{L(g_{mejor}\ |y)}{L(g_i\ |y)}$,
+
+Los valores de verosimilitud se pueden normalizar para que la suma de los modelos sea 1.
+
+$W_i=\frac{\exp\left(-\frac{1}{2\cdot\Delta_i}\right)}{\sum_{j=i}^R\exp\left(-\frac{1}{2\cdot\Delta j}\right)}$,
+
+Este valor conocido como el **weight de Akaike**, o el peso de los modelos puede ser interpretado como una probabilidad que el modelo $i$ es el mejor modelo de los modelos evaluados.
+
 ## Model Averaging:
 
 Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiese incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande $w_{best}<0.09$ o si la diferencia entre los modelos tienen un $\Delta AIC$ de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, $\tilde{\theta}$.
@@ -151,9 +174,13 @@ donde el $\tilde{\theta}_i$ es el estimado de $\tilde{\theta}$ del modelo $i_{th
 
 $\hat{var}(\tilde{\theta})=\sum_{n=1}^Rw_i[\hat{var}\left(\tilde{\theta}\ |g_i\right)+\ (\tilde{\theta}-\hat{\theta})^2 ]$
 
-donde
+donde $\hat{var}\left(\tilde{\theta}\ |g_i\right)$ es el estimado de la varianza de $\theta$ del modelo $i_{th}$. El estimador de varianza puede ser utilizado para evaluar la precisión de los estimados del conjunto de modelos considerados. Esto permite generar intervalos de confianza de los parámetros para tomar en consideración la incertidumbre de los modelos de selección.
 
 `r colorize("hacer una lista de las condiciones para selección de modelos con su referencias", "red")`
+
+## Inferencias de los modelos de selección
+
+La selección de modelos es una herramienta para inferir procesos no observados basado en datos que demuestra un patrón. Datos que claramente apoya una hipótesis entre muchas evaluadas puede inferir procesos que pudiese haber generado los datos observados.
 
 Referencias:
 

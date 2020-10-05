@@ -131,11 +131,9 @@ navbar:
     - 
       menu: 
         - 
-          href: HIV.html
-          text: "Datos sobre HIV"
-        - 
-          href: COVID-19.html
-          text: COVID-19
+          href: Datos.html
+          text: Datos  
+          
       text: "Los Datos"
   title: ANALITICA
 output_dir: "."

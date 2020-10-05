@@ -1,0 +1,59 @@
+---
+title: "Hojas de Datos"
+author: "Tremblay"
+output:
+  html_document:
+    css: tutorial.css
+    fig_caption: yes
+    highlight: pygments
+   # theme: simplex
+    toc: yes
+    toc_float: yes
+    
+---
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #437d66;
+}
+</style>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
+```
+
+
+# Datos de Tremblay et al.
+
+Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para publicaciones excepto con permiso escrito del autor. 
+
+
+1. [Huracan_Maria_Depression.csv](Data/DFMaria_student.csv) 
+
+   Estos datos fueron recolectado despues del huracan Maria.
+   
+     Metadata:
+     
+      + Sexo, 1= Mujer; 2 = Hombres
+      + Escolaridad, major el número más escolaridad tiene
+      + Num_Pers_Hogar, Cantidad de persona que comparte el hogar familiar
+      + Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor el número mayor el salario
+      + Sala_Mens_Des, El salario mensual después del Huracán María, mayor el número mayor el salario
+      + Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán. 
+  
+  
+
+
+
+
+
+
+
+
+***
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/UPR_logos.png"))
+```
