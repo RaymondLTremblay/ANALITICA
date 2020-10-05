@@ -126,7 +126,7 @@ navbar:
           text: "Regresion Beta"
         - 
           href: TF8_Akaike_Information_Criterion.html
-          text: "Akaike Information Criterion"
+          text: "Criterio de Selección"
       text: "Taller para Facultad"
     - 
       menu: 
