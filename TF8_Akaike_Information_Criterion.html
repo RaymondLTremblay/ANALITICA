@@ -660,12 +660,6 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="HIV.html">Datos sobre HIV</a>
-    </li>
-    <li>
-      <a href="COVID-19.html">COVID-19</a>
-    </li>
-    <li>
       <a href="Datos.html">Datos</a>
     </li>
   </ul>
@@ -732,9 +726,8 @@ div.tocify {
 ##   influence.merMod                car 
 ##   dfbeta.influence.merMod         car 
 ##   dfbetas.influence.merMod        car</code></pre>
-<pre><code>## #refugeeswelcome</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">tab_model</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">tab_model</span>(model)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -833,18 +826,18 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </table>
 <hr />
 <p>Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de <span class="math inline">\(R^2\)</span> y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un <span class="math inline">\(R^2\)</span> más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un <span class="math inline">\(R^2=.127\)</span> es significativamente mejor que un modelo de 2 variables con un <span class="math inline">\(R^2=.1185\)</span>. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: <strong><em>NA</em></strong> en la tabla quiere decir que esta variable no esta incluida en el modelo.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(MASS)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(MuMIn)</span>
-<span id="cb9-3"><a href="#cb9-3"></a></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple) <span class="co"># El Modelo más completo</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#model2</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#summary(model2)</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a></span>
-<span id="cb9-9"><a href="#cb9-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">library</span>(formattable)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">library</span>(gt)</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">library</span>(MuMIn)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple) <span class="co"># El Modelo más completo</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#model2</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#summary(model2)</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(formattable)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(gt)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table class="table table-condensed">
 <thead>
 <tr>
@@ -1250,10 +1243,40 @@ NA
 <div id="inferencias-de-los-modelos-de-selección" class="section level2">
 <h2>Inferencias de los modelos de selección</h2>
 <p>La selección de modelos es una herramienta para inferir procesos no observados basado en datos que demuestra un patrón. Datos que claramente apoya una hipótesis entre muchas evaluadas puede inferir procesos que pudiese haber generado los datos observados.</p>
+</div>
+<div id="paso-a-paso" class="section level2">
+<h2>Paso a Paso</h2>
+<div id="primer-paso-construcción-de-los-modelos" class="section level3">
+<h3>Primer paso: Construcción de los modelos</h3>
+<p>El primer paso es construir los modelos que queremos comparar, para facilitar el ejemplo usamos un modelos complejo y comparamos todas las diferentes alternativas. NOTA: que este no es necesariamente el mejor acercamiento, ya que uno debería tener a priori una serie de modelos candidatos.</p>
+<p>Los datos son para evaluar sin hay efecto de cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentado son solamente parcial y incluye solamente un de los indices el del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>DFMaria_student &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/DFMaria_student.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   Sexo = col_double(),
+##   Escolaridad = col_double(),
+##   Num_Pers_Hogar = col_double(),
+##   Sala_Mens_Antes = col_double(),
+##   Sala_Mens_Desp = col_double(),
+##   Index_Dep5T = col_double()
+## )</code></pre>
+<p>Metadata:</p>
+<ul>
+<li><p>Sexo, 1= Mujer; 2 = Hombres</p></li>
+<li><p>Escolaridad, major el número más escolaridad tiene</p></li>
+<li><p>Num_Pers_Hogar, Cantidad de persona que comparte el hogar familiar</p></li>
+<li><p>Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor el número mayor el salario</p></li>
+<li><p>Sala_Mens_Des, El salario mensual después del Huracán María, mayor el número mayor el salario</p></li>
+<li><p>Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán.</p></li>
+</ul>
 <p>Referencias:</p>
 <p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
 <hr />
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
+</div>
 </div>
 </div>
 

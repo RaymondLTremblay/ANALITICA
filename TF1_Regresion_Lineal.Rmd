@@ -282,7 +282,7 @@ ggplot(Album_Sales_1_new, aes(sequence, cooks.distance))+
 
 ***
 
-# Repaso de los pasos para hacer un analisis de regresión lineal
+# Pasos para hacer un análisis de regresión lineal
 
 
 ## Paso 1
@@ -302,7 +302,6 @@ El resultado:  El coeficiente (intercepto) y la pendiente del *modelo*
  
 ## Paso 3  
   -- Evaluar si los datos cumple con los supuestos.
-
   - Igualdad de varianza, usa la gráfica de residuales
   - Normalidad, qqplot
   - Valores sesgados, la prueba de Cook's
