@@ -8,13 +8,15 @@ output:
    # theme: simplex
     toc: yes
     toc_float: yes
-    
 ---
+
+```{=html}
 <style>
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     background-color: #437d66;
 }
 </style>
+```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -23,40 +25,191 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
-***
 ```{r}
-library(tidyverse)
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
 ```
 
+------------------------------------------------------------------------
 
-***
-#### Polynomial regression
-The residuals plot from the linear regression, indicates a non-random distribution of the prediction error of the linear model.  You might be able to improve your prediction using a regression with a quadratic term (that is, X2), so we have now a __polynomial regression__
+```{r, message=FALSE}
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(QuantPsyc, car, tidyverse, sjPlot)
+
+
+library(QuantPsyc)
+library(car)
+library(ggplot2)
+library(tidyverse)
+library(sjPlot)
+```
+
+------------------------------------------------------------------------
+
+# Regresión Polinomial
+
+El gráfico de residuos de la regresión lineal indica una distribución no aleatoria del error de predicción del modelo lineal. Es posible que pueda mejorar su predicción utilizando una regresión con un término cuadrático (es decir, X2), por lo que ahora tenemos una **regresión con un polinomio.**
+
+Construcción de un modelo con polinomio. Usamos los datos de 15 observaciones de mujeres en el archivo **women** en el paquete **datasets**. Los datos representa la altura (en pulgadas) y el peso (en libras) de 15 mujeres entre las edades de 30 a 39.
+
+Nota aquí que se usa **I(x\^2)** para añadir el polinomio al cuadrado $x^2$ . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. El resumen del modelo se observa que el modelo incluye tanto el intercepto, la ecuación lineal y el polinomio, y cada uno es significativo. Esto quiere decir que tanto el modelo lineal y el polinomio explica parte de la varianza.
 
 ```{r regr_polyn}
 fit2 <- lm(weight ~ height + I(height^2), data=women)
 summary(fit2)
+```
 
-ggplot(women, aes(x = women$height, y = women$weight)) +
-  geom_point(aes(x = women$height, y = women$weight), color ="blue") +
-  stat_smooth(aes(), method = "lm", formula = y ~ poly(x,2), color ="red", linetype=2, se =TRUE, size = 1) +
+------------------------------------------------------------------------
+
+## Visualizando el gráfico.
+
+Nota que la linea azul representa el modelo de regresión lineal y la linea roja representa el modelo $x^2$. Es claro que el modelo $x^2$ es un mejor modelo ya que los datos se acerca más a la linea.
+
+```{r}
+ggplot(women, aes(height, weight)) +
+  geom_point(color ="blue", size=2) +
+  geom_smooth(method=lm)+
+  stat_smooth(aes(), method = "lm", formula = y ~ poly(x,2), 
+              color ="red", se =TRUE, size = 1) +
   labs(x="Height, inches", y="Weight, lb.")
+
+```
+
+------------------------------------------------------------------------
+
+## Visualizando los residuales
+
+Recuerda que los residuales tienen que ser normalmente distribuido a través de la variables de **x**. En este caso vemos que lo tamaño de residuales no están concentrado en un área de la gráfico. Por ejemplo los residuales no son más grande en los valores de **x** más grande.
+
+```{r}
+
 plot(women$height,residuals(fit2),
      xlab="Height (in inches)",
      ylab="residuals")
 ```
 
-The new polynomial equation is:
+------------------------------------------------------------------------
 
->![](eqpoly.jpg){#id .class width=320px}\
+La nueva ecuación polinomial es la siguiente:
 
-The amount of variance accounted for has increased to 99.9%. The significance of the squared term (t = 13.89, p < .001) suggests that inclusion of the quadratic term improves the model fit.  The prediction error (residuals) is smaller, and their distribution looks more random.
+$$y=\alpha+b_1x_i+b_2x_i^2+\epsilon$$
 
-***
+donde el intercepto $\alpha$ más los dos coeficientes, $b_1$ para el componente lineal y el component cuadratico $b_2$, el $\epsilon$ son los errores.
 
-> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
-responsibility of the authors and does not necessarily represent the official views of the National
-Institutes of Health.”
+$$y=261.9-7.35*x_i+0.08*x_i^2$$
+
+```{r}
+
+
+tab_model(
+  fit2,show.df = TRUE,show.stat = TRUE,
+  CSS = list(
+    css.depvarhead = 'color: red;',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;', 
+    css.summary = 'color: blue;'
+  )
+)
+```
+
+------------------------------------------------------------------------
+
+## Interpretación de la tabla de resultados
+
+La cantidad de variación contabilizada ha aumentado al 99,9%. La significación del término cuadrático (t = 13.89, p \<0.001) sugiere que la inclusión del término cuadrático mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.
+
+------------------------------------------------------------------------
+
+# Modelo cúbico
+
+Aquí un ejemplo para evaluar si los datos tienen una distribución cubica. Primero creamos un conjunto de datos.
+
+Los valores en la variable **x**
+
+```{r}
+d<-seq(from=0, to=20, by=0.1)
+
+```
+
+Los valores en predicho en la variable **y**
+
+```{r}
+y<-500+0.5*(d-10)^3
+```
+
+Crear un conjunto de datos que tiene variación. Donde los datos tienen una variación con distribución normal con un promedio de 10 y una desviación estandar de 80.
+
+```{r}
+variación <- rnorm(length(d), mean=10, sd=80)
+var.y <- y + variación
+```
+
+Unir los datos un un **tibble**
+
+```{r}
+df=tibble(y,var.y, d)
+```
+
+Visualizar los datos con el polinomio al $x^3$.
+
+```{r}
+ggplot(df, aes(d, var.y)) +
+  geom_point(color ="blue", size=2) +
+  stat_smooth(method = "lm", formula = y ~ poly(x,3), 
+              color ="red", se =TRUE, size = 1)
+
+
+
+```
+
+Ahora vemos como se ve los modelos de `r colorize("regresión lineal", "blue")` y `r colorize("cuadratico", "orange")`. nota que el cubico los datos siguen mucho mejor los datos.
+
+```{r}
+ggplot(df, aes(d, var.y)) +
+  geom_point(color ="blue", size=2) +
+  geom_smooth(method=lm, color="blue")+
+  stat_smooth(method = "lm", formula = y ~ poly(x,2), 
+              color ="orange", se =TRUE, size = 1)+
+  stat_smooth(method = "lm", formula = y ~ poly(x,3), 
+              color ="red", se =TRUE, size = 1)
+
+```
+
+------------------------------------------------------------------------
+
+\#Construir el modelo cubico
+
+```{r regr_polyn3}
+fit3 <- lm(var.y ~ d + I(d^2)+ I(d^3), data=df)
+
+
+tab_model(
+  fit3,show.df = TRUE,show.stat = TRUE,
+  CSS = list(
+    css.depvarhead = 'color: red;',
+    css.centeralign = 'text-align: left;', 
+    css.firsttablecol = 'font-weight: bold;', 
+    css.summary = 'color: blue;'
+  )
+)
+```
+
+## Interpretación de la tabla de resultados
+
+La cantidad de variación contabilizada toma en cuenta 84.8%. La significación del término cuadrático (t = 13.31, p \<0.001) sugiere que la inclusión del término cubica mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.
+
+------------------------------------------------------------------------
+
+> "Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health."
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
