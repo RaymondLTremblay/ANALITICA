@@ -660,7 +660,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Datos.html">Datos</a>
+      <a href="Datos.html">Los Datos</a>
     </li>
   </ul>
 </li>
@@ -688,27 +688,30 @@ div.tocify {
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <hr />
-<div id="taller-r-avanzado-regresión-múltiple-anova-glm" class="section level1">
-<h1>Taller R Avanzado: Regresión Múltiple, ANOVA, GLM</h1>
+<div id="taller-r-avanzado-regresión-múltiple" class="section level1">
+<h1>Taller R Avanzado: Regresión Múltiple</h1>
 <div id="lista-de-paquetes-a-instalar" class="section level4">
 <h4>Lista de paquetes a instalar</h4>
-<ul>
-<li>readxl</li>
-<li>car</li>
-<li>EnvStats</li>
-<li>tidyverse</li>
-<li>coefplot</li>
-<li>leaps</li>
-<li>rmarkdown</li>
-<li>ggplot2</li>
-<li>MASS</li>
-<li>multcomp</li>
-<li>effects</li>
-<li>gplots</li>
-<li>agricolae</li>
-<li>plyr</li>
-<li>caret</li>
-</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: pacman</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(car, EnvStats,tidyverse, coefplot, leaps,</span>
+<span id="cb3-2"><a href="#cb3-2"></a>              rmarkdown, ggplot2, MASS, multcomp, effects, </span>
+<span id="cb3-3"><a href="#cb3-3"></a>              gplots,agricolae, caret )</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># Activar los paquetes</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="kw">library</span>(ggversa)</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="kw">library</span>(coefplot)</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="kw">library</span>(leaps)</span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="kw">library</span>(EnvStats)</span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="kw">library</span>(car) <span class="co"># Companion to applied regression</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">library</span>(ggplot2)  <span class="co"># Data Visualization</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="kw">library</span>(effects)</span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="kw">library</span>(gplots) </span></code></pre></div>
+<hr />
 </div>
 <div id="lista-de-archivos-a-usar" class="section level4">
 <h4>Lista de archivos a usar</h4>
@@ -719,15 +722,14 @@ div.tocify {
 <li><a href="https://drive.google.com/open?id=1ATmAlI0I6K9m2GG0uukhH_72zQkTJQps">strain_sex_chol.xlsx</a></li>
 <li><a href="https://drive.google.com/open?id=1scOVpqtb6c9EbM90m0pZm3zg98Khde_o">Titanic.xlsx</a></li>
 </ul>
+<hr />
 </div>
 <div id="objetivos-generales" class="section level3">
 <h3>Objetivos Generales</h3>
 <ul>
-<li><p>Conocer y aplicar los métodos disponibles en R para obtener los parámetros de <strong>modelos de regresión múltiple</strong>, evaluar su idoneidad para describir los datos, e interpretar su significado.</p></li>
-<li><p>Aplicar funciones de R para diseños de investigación apropiados para el <strong>análisis de varianza</strong>.</p></li>
-<li><p>Conocer y aplicar funciones de R para extender los modelos lineales a situaciones en las que la variable dependiente no tiene distribución normal <strong>(GLM)</strong>.</p></li>
+<li>Conocer y aplicar los métodos disponibles en R para obtener los parámetros de <strong>modelos de regresión múltiple</strong>, evaluar su idoneidad para describir los datos, e interpretar su significado.</li>
 </ul>
-<p><strong>DIA 1</strong></p>
+<hr />
 </div>
 </div>
 <div id="regresión-lineal-múltiple" class="section level1">
@@ -738,10 +740,10 @@ div.tocify {
 <h4>Ejemplo 1 y Datos</h4>
 <p>Usaremos como ejemplo los datos <em>bmi</em> en el archivo <em>mod_empiricos.xlsx</em>. Estos son datos de individuos adultos entre 21 y 79 años, con las siguientes variables: <em>BMI</em>, índice de masa corporal (<span class="math inline">\(kg/m^{2}\)</span>); <em>Age</em>, edad (<em>años</em>); <em>Cholesterol</em>, niveles de colesterol en sangre, (<span class="math inline">\(mg/dL\)</span>); <em>Glucose</em>, niveles de glucosa en la sangre, (<span class="math inline">\(mg/dL\)</span>).</p>
 <p>Para leer los datos emplearemos el siguiente código (obtenido del menú <em>Import Dataset/From Excel</em>):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>reg.multiple &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;Data/mod_empiricos.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;bmi&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># para ver las primeras seis filas de datos</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">head</span>(reg.multiple)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>reg.multiple &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;Data/mod_empiricos.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;bmi&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># para ver las primeras seis filas de datos</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">head</span>(reg.multiple)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##     BMI   Age Cholesterol Glucose
 ##   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -766,13 +768,13 @@ div.tocify {
 <ul>
 <li>Evaluación gráfica de normalidad de la variable dependiente.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(EnvStats)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>EnvStats<span class="op">::</span><span class="kw">qqPlot</span>(reg.multiple<span class="op">$</span>BMI, <span class="dt">add.line =</span> <span class="ot">TRUE</span>, <span class="dt">points.col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">line.col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(EnvStats)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>EnvStats<span class="op">::</span><span class="kw">qqPlot</span>(reg.multiple<span class="op">$</span>BMI, <span class="dt">add.line =</span> <span class="ot">TRUE</span>, <span class="dt">points.col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">line.col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/qqplot-1.png" width="672" /></p>
 <ul>
 <li>Prueba estadística de normalidad Shapiro &amp; Wilk (<span class="math inline">\(H_0:distribución\enspace normal\)</span>)</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">shapiro.test</span>(reg.multiple<span class="op">$</span>BMI)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">shapiro.test</span>(reg.multiple<span class="op">$</span>BMI)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -785,12 +787,12 @@ div.tocify {
 <ul>
 <li>Prueba de Durbin-Watson para autocorrelación</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(car)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>dbt &lt;-<span class="st"> </span><span class="kw">durbinWatsonTest</span>(model, <span class="dt">simulate =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>dbt</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>dbt &lt;-<span class="st"> </span><span class="kw">durbinWatsonTest</span>(model, <span class="dt">simulate =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>dbt</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.06609505      1.823275   0.536
+##    1      0.06609505      1.823275   0.518
 ##  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <div id="linealidad" class="section level4">
@@ -798,8 +800,8 @@ div.tocify {
 <ul>
 <li>Prueba de Box Tidwell para linealidad</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(car)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">boxTidwell</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">boxTidwell</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span></code></pre></div>
 <pre><code>##             MLE of lambda Score Statistic (z) Pr(&gt;|z|)
 ## Age              -19.8117             -0.8984   0.3690
 ## Cholesterol       20.2797              0.1879   0.8509
@@ -812,19 +814,19 @@ div.tocify {
 <ul>
 <li>Matriz de correlación y gráficas de puntos con líneas de regresión</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">library</span>(car)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#matriz de correlación</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">cor</span>(reg.multiple)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#matriz de correlación</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">cor</span>(reg.multiple)</span></code></pre></div>
 <pre><code>##                   BMI       Age Cholesterol    Glucose
 ## BMI         1.0000000 0.1863333  0.28110580 0.22115998
 ## Age         0.1863333 1.0000000  0.16966704 0.26705577
 ## Cholesterol 0.2811058 0.1696670  1.00000000 0.08266412
 ## Glucose     0.2211600 0.2670558  0.08266412 1.00000000</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#gráfica de regresiones en parejas, con línea de regresión</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">scatterplotMatrix</span>(reg.multiple, <span class="op">~</span><span class="st"> </span>BMI <span class="op">+</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose,</span>
-<span id="cb12-3"><a href="#cb12-3"></a>                  <span class="dt">smooth =</span> <span class="kw">list</span>(<span class="dt">lty =</span> <span class="dv">2</span>), <span class="dt">id =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb12-4"><a href="#cb12-4"></a>                  <span class="dt">regLine =</span> <span class="kw">list</span>(<span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>),</span>
-<span id="cb12-5"><a href="#cb12-5"></a>                  <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#gráfica de regresiones en parejas, con línea de regresión</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">scatterplotMatrix</span>(reg.multiple, <span class="op">~</span><span class="st"> </span>BMI <span class="op">+</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>                  <span class="dt">smooth =</span> <span class="kw">list</span>(<span class="dt">lty =</span> <span class="dv">2</span>), <span class="dt">id =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb15-4"><a href="#cb15-4"></a>                  <span class="dt">regLine =</span> <span class="kw">list</span>(<span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb15-5"><a href="#cb15-5"></a>                  <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in applyDefaults(legend, defaults = list(coords = NULL), type =
 ## &quot;legend&quot;): unnamed legend arguments, will be ignored</code></pre>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
@@ -835,9 +837,9 @@ div.tocify {
 <p>A continuación se calculan los parámetros de diversos modelos de regresión, y se incluye una prueba de homocedasticidad (homogeneidad de la varianza) para cada modelo.</p>
 <div id="modelo-completo-todas-las-variables" class="section level4">
 <h4>Modelo completo (todas las variables)</h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>modRM &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, </span>
-<span id="cb14-2"><a href="#cb14-2"></a>              <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="kw">summary</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>modRM &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>              <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="kw">summary</span>(modRM)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
@@ -858,25 +860,25 @@ div.tocify {
 ## Residual standard error: 6.34 on 54 degrees of freedom
 ## Multiple R-squared:  0.127,  Adjusted R-squared:  0.07855 
 ## F-statistic:  2.62 on 3 and 54 DF,  p-value: 0.06008</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(modRM)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">sprintf</span>(<span class="st">&quot;AIC = %.2f&quot;</span>, aic)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(modRM)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">sprintf</span>(<span class="st">&quot;AIC = %.2f&quot;</span>, aic)</span></code></pre></div>
 <pre><code>## [1] &quot;AIC = 384.68&quot;</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># prueba de homocedasticidad (Non-constant Variance Score Test)</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="co"># Ho:la varianza es constante en el ámbito de la predicción de Y</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="kw">ncvTest</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># prueba de homocedasticidad (Non-constant Variance Score Test)</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="co"># Ho:la varianza es constante en el ámbito de la predicción de Y</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="kw">ncvTest</span>(modRM)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 0.02932531, Df = 1, p = 0.86403</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">spreadLevelPlot</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">spreadLevelPlot</span>(modRM)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre><code>## 
 ## Suggested power transformation:  0.757141</code></pre>
 </div>
 <div id="modelo-eliminando-la-variable-age-por-ser-la-menos-correlaciona-con-bmi-y-tener-la-mayor-correlación-con-glucose" class="section level4">
 <h4>Modelo eliminando la variable Age, por ser la menos correlaciona con BMI, y tener la mayor correlación con Glucose</h4>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>modRM &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, </span>
-<span id="cb22-2"><a href="#cb22-2"></a>              <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="kw">summary</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>modRM &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, </span>
+<span id="cb25-2"><a href="#cb25-2"></a>              <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">summary</span>(modRM)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = BMI ~ Cholesterol + Glucose, data = reg.multiple)
@@ -896,15 +898,15 @@ div.tocify {
 ## Residual standard error: 6.313 on 55 degrees of freedom
 ## Multiple R-squared:  0.1185, Adjusted R-squared:  0.08641 
 ## F-statistic: 3.696 on 2 and 55 DF,  p-value: 0.0312</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(modRM)</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">sprintf</span>(<span class="st">&quot;AIC = %.2f&quot;</span>, aic)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(modRM)</span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="kw">sprintf</span>(<span class="st">&quot;AIC = %.2f&quot;</span>, aic)</span></code></pre></div>
 <pre><code>## [1] &quot;AIC = 383.25&quot;</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># prueba de homocedasticidad</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">ncvTest</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># prueba de homocedasticidad</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="kw">ncvTest</span>(modRM)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 0.2490362, Df = 1, p = 0.61775</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">spreadLevelPlot</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">spreadLevelPlot</span>(modRM)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre><code>## 
 ## Suggested power transformation:  1.818741</code></pre>
@@ -912,9 +914,9 @@ div.tocify {
 <div id="modelo-con-interacción-entre-age-y-glucose" class="section level4">
 <h4>Modelo con interacción entre Age y Glucose</h4>
 <p>Para denotar interacción entre variables se usa el símbolo <strong>( : )</strong> Para incluir las variables solas y su interacción se utiliza el símbolo <strong>( * )</strong></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>modRM &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose<span class="op">:</span>Age, </span>
-<span id="cb30-2"><a href="#cb30-2"></a>              <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="kw">summary</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>modRM &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose<span class="op">:</span>Age, </span>
+<span id="cb33-2"><a href="#cb33-2"></a>              <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="kw">summary</span>(modRM)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = BMI ~ Cholesterol + Glucose:Age, data = reg.multiple)
@@ -934,15 +936,15 @@ div.tocify {
 ## Residual standard error: 6.274 on 55 degrees of freedom
 ## Multiple R-squared:  0.1292, Adjusted R-squared:  0.09751 
 ## F-statistic: 4.079 on 2 and 55 DF,  p-value: 0.02229</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(modRM)</span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">sprintf</span>(<span class="st">&quot;AIC = %.2f&quot;</span>, aic)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(modRM)</span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="kw">sprintf</span>(<span class="st">&quot;AIC = %.2f&quot;</span>, aic)</span></code></pre></div>
 <pre><code>## [1] &quot;AIC = 382.54&quot;</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># prueba de homocedasticidad</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">ncvTest</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># prueba de homocedasticidad</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="kw">ncvTest</span>(modRM)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 0.07666205, Df = 1, p = 0.78187</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">spreadLevelPlot</span>(modRM)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">spreadLevelPlot</span>(modRM)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre><code>## 
 ## Suggested power transformation:  0.9950719</code></pre>
@@ -952,14 +954,14 @@ div.tocify {
 <h3>Selección automática de modelo - método “stepwise”</h3>
 <p>Existen métodos para seleccionar automáticamente el mejor modelo, a base de estadísticos indicadores, y que conlleva un procedimiento iterativo. Uno de estos procedimientos es conocido como ‘stepwise’ (por pasos), y aunque no es el más aceptado en la actualidad, ha sido muy usado y es una buena manera de ilustrar el procedimiento, usando nuestros datos.</p>
 <p>En este procedimiento el proceso de selección se basa en mantener el modelo con el menor valor del estadístico <strong>AIC</strong> (Akaike Information Criterion), que indica el modelo con la menor pérdida de información y mayor simplicidad. En el proceso se parte de un modelo nulo (no efecto de predictores) y hasta un modelo muy complejo, incluyendo interacciones. Las variables se incluyen y se quitan, y cada vez se recalcula AIC, hasta obtener el modelo que mantiene el mínimo valor de AIC.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">#formulación de un modelo nulo y un modelo completo</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>modNulo &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb38-3"><a href="#cb38-3"></a>modFull &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Cholesterol <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Glucose, </span>
-<span id="cb38-4"><a href="#cb38-4"></a>              <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="co">#procedimiento stepwise</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a>bmistep &lt;-<span class="st"> </span><span class="kw">step</span>(modNulo,</span>
-<span id="cb38-7"><a href="#cb38-7"></a>                <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower=</span>modNulo, <span class="dt">upper=</span>modFull,</span>
-<span id="cb38-8"><a href="#cb38-8"></a>                             <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="co">#formulación de un modelo nulo y un modelo completo</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>modNulo &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb41-3"><a href="#cb41-3"></a>modFull &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Cholesterol <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Glucose, </span>
+<span id="cb41-4"><a href="#cb41-4"></a>              <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="co">#procedimiento stepwise</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>bmistep &lt;-<span class="st"> </span><span class="kw">step</span>(modNulo,</span>
+<span id="cb41-7"><a href="#cb41-7"></a>                <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower=</span>modNulo, <span class="dt">upper=</span>modFull,</span>
+<span id="cb41-8"><a href="#cb41-8"></a>                             <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>))</span></code></pre></div>
 <pre><code>## Start:  AIC=219.97
 ## BMI ~ 1
 ## 
@@ -987,7 +989,7 @@ div.tocify {
 ## - Glucose              1    98.063 2289.8 217.19
 ## + Age                  1    21.337 2170.3 218.09
 ## - Cholesterol          1   172.920 2364.6 219.06</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">summary</span>(bmistep)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">summary</span>(bmistep)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = BMI ~ Cholesterol + Glucose, data = reg.multiple)
@@ -1013,36 +1015,36 @@ div.tocify {
 <div id="gráfica-de-coeficientes" class="section level4">
 <h4>Gráfica de coeficientes</h4>
 <p>Una manera de comparar visualmente modelos (en realidad sus coeficientes) es usar el paquete <strong>coefplot</strong>, en conjunto con <strong>ggplot2</strong>, para crear una gráfica de los coeficientes estimados de cada variable (sola o de interacción), en cada modelo y detectar los que son diferentes de 0, y los modelos que los contienen.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="kw">library</span>(coefplot)</span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="co">#cálculo para todos los modelos</span></span>
-<span id="cb42-4"><a href="#cb42-4"></a>modbmi1 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data=</span>reg.multiple)</span>
-<span id="cb42-5"><a href="#cb42-5"></a>modbmi2 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Cholesterol<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Cholesterol, <span class="dt">data=</span>reg.multiple)</span>
-<span id="cb42-6"><a href="#cb42-6"></a>modbmi3 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Age<span class="op">:</span>Glucose, <span class="dt">data=</span>reg.multiple)</span>
-<span id="cb42-7"><a href="#cb42-7"></a>modbmi4 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data=</span>reg.multiple)</span>
-<span id="cb42-8"><a href="#cb42-8"></a>modbmi5 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol, <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb42-9"><a href="#cb42-9"></a><span class="co">#comparando coeficientes de todos los modelos</span></span>
-<span id="cb42-10"><a href="#cb42-10"></a><span class="kw">multiplot</span>(modbmi1, modbmi2, modbmi3, modbmi4, modbmi5, <span class="dt">pointSize =</span> <span class="dv">2</span>, <span class="dt">intercept=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb45-2"><a href="#cb45-2"></a><span class="kw">library</span>(coefplot)</span>
+<span id="cb45-3"><a href="#cb45-3"></a><span class="co">#cálculo para todos los modelos</span></span>
+<span id="cb45-4"><a href="#cb45-4"></a>modbmi1 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data=</span>reg.multiple)</span>
+<span id="cb45-5"><a href="#cb45-5"></a>modbmi2 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Cholesterol<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Cholesterol, <span class="dt">data=</span>reg.multiple)</span>
+<span id="cb45-6"><a href="#cb45-6"></a>modbmi3 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Age<span class="op">:</span>Glucose, <span class="dt">data=</span>reg.multiple)</span>
+<span id="cb45-7"><a href="#cb45-7"></a>modbmi4 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data=</span>reg.multiple)</span>
+<span id="cb45-8"><a href="#cb45-8"></a>modbmi5 &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Cholesterol, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb45-9"><a href="#cb45-9"></a><span class="co">#comparando coeficientes de todos los modelos</span></span>
+<span id="cb45-10"><a href="#cb45-10"></a><span class="kw">multiplot</span>(modbmi1, modbmi2, modbmi3, modbmi4, modbmi5, <span class="dt">pointSize =</span> <span class="dv">2</span>, <span class="dt">intercept=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="selección-de-modelo-usando-r-cuadrado-ajustado-y-mallows-cp-para-mejores-modelos" class="section level4">
 <h4>Selección de modelo usando R-cuadrado ajustado y Mallow’s Cp para mejores modelos</h4>
 <p>El estadístico <span class="math inline">\(R^2\)</span> es la cantidad de varianza en la respuesta (variable dependiente) producido por las variables predictoras, mediante el modelo, por lo tanto constituye una buena manera de medir la capacidad del modelo para “explicar” los datos. Sin embargo, en un modelo de regresión múltiple, el <span class="math inline">\(R^2\)</span> aumenta al aumentar el número de predictores, lo cual conlleva a sobrestimar la “calidad” del modelo, con un número excesivo de variables. Usando el <span class="math inline">\(R^2ajustado\)</span> se toma en cuenta el número de parámetros en el modelo, por lo tanto es una medida más realista del ajuste al modelo.</p>
 <p>El estadístico de Mallow, <span class="math inline">\(C_p\)</span>, es otro indicador para seleccionar el mejor modelo en una regresión múltiple; funciona de manera similar al AIC, y sirve para evitar incluir parámetros en exceso en el modelo. La regla general es escoger el modelo con el número de parámetros, en el cual el valor de <span class="math inline">\(C_p\)</span> sea cercano (pero menor) al número de parámetros más 1.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">library</span>(leaps)</span>
-<span id="cb43-2"><a href="#cb43-2"></a>modSS &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(BMI <span class="op">~</span><span class="st"> </span>Age<span class="op">*</span>Cholesterol <span class="op">+</span><span class="st"> </span>Cholesterol<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Glucose, <span class="dt">data =</span> reg.multiple, <span class="dt">nbest =</span> <span class="dv">3</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb43-3"><a href="#cb43-3"></a><span class="co"># gráfica para R^2 ajustado</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a><span class="kw">plot</span>(modSS, <span class="dt">scale=</span><span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">library</span>(leaps)</span>
+<span id="cb46-2"><a href="#cb46-2"></a>modSS &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(BMI <span class="op">~</span><span class="st"> </span>Age<span class="op">*</span>Cholesterol <span class="op">+</span><span class="st"> </span>Cholesterol<span class="op">*</span>Glucose <span class="op">+</span><span class="st"> </span>Age<span class="op">*</span>Glucose, <span class="dt">data =</span> reg.multiple, <span class="dt">nbest =</span> <span class="dv">3</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="co"># gráfica para R^2 ajustado</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="kw">plot</span>(modSS, <span class="dt">scale=</span><span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># gráfica para Cp</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a><span class="kw">plot</span>(modSS, <span class="dt">scale=</span><span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="co"># gráfica para Cp</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="kw">plot</span>(modSS, <span class="dt">scale=</span><span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># otra forma de visualizar Cp</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a><span class="kw">library</span>(car)</span>
-<span id="cb45-3"><a href="#cb45-3"></a><span class="co">## Mallow Cp</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>mallowCp &lt;-</span>
-<span id="cb45-5"><a href="#cb45-5"></a><span class="st">    </span><span class="kw">subsets</span>(modSS, <span class="dt">statistic=</span><span class="st">&quot;cp&quot;</span>, <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">min.size =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Mallow Cp&quot;</span>)</span>
-<span id="cb45-6"><a href="#cb45-6"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># otra forma de visualizar Cp</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a><span class="kw">library</span>(car)</span>
+<span id="cb48-3"><a href="#cb48-3"></a><span class="co">## Mallow Cp</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>mallowCp &lt;-</span>
+<span id="cb48-5"><a href="#cb48-5"></a><span class="st">    </span><span class="kw">subsets</span>(modSS, <span class="dt">statistic=</span><span class="st">&quot;cp&quot;</span>, <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">min.size =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Mallow Cp&quot;</span>)</span>
+<span id="cb48-6"><a href="#cb48-6"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
 </div>
 </div>

@@ -25,26 +25,36 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 
 ***
-# Taller R Avanzado: Regresión Múltiple, ANOVA, GLM
+# Taller R Avanzado: Regresión Múltiple
 
 #### Lista de paquetes a instalar
 
-* readxl
-* car
-* EnvStats
-* tidyverse
-* coefplot
-* leaps
-* rmarkdown
-* ggplot2
-* MASS
-* multcomp
-* effects
-* gplots
-* agricolae
-* plyr
-* caret
 
+```{r packages}
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(car, EnvStats,tidyverse, coefplot, leaps,
+              rmarkdown, ggplot2, MASS, multcomp, effects, 
+              gplots,agricolae, caret )
+
+
+# Activar los paquetes
+library(ggversa)
+library(knitr)
+library(tidyverse)
+library(coefplot)
+library(leaps)
+library(EnvStats)
+library(MASS)
+library(car) # Companion to applied regression
+library(ggplot2)  # Data Visualization
+library(effects)
+library(gplots) 
+
+```
+
+
+***
 
 #### Lista de archivos a usar
 Los siguientes archivos deben estar disponible en su directorio de trabajo de R:
@@ -53,15 +63,15 @@ Los siguientes archivos deben estar disponible en su directorio de trabajo de R:
 * [strain_sex_chol.xlsx](https://drive.google.com/open?id=1ATmAlI0I6K9m2GG0uukhH_72zQkTJQps)
 * [Titanic.xlsx](https://drive.google.com/open?id=1scOVpqtb6c9EbM90m0pZm3zg98Khde_o)
 
+
+***
+
 ### Objetivos Generales
 
 * Conocer y aplicar los métodos disponibles en R para obtener los parámetros de __modelos de regresión múltiple__, evaluar su idoneidad para describir los datos, e interpretar su significado.
 
-* Aplicar funciones de R para diseños de investigación apropiados para el __análisis de varianza__.
 
-* Conocer y aplicar funciones de R para extender los modelos lineales a situaciones en las que la variable dependiente no tiene distribución normal __(GLM)__.
-
-__DIA 1__
+***
 
 # Regresión Lineal Múltiple
 Cuando tenemos más de una variable predictora ("independiente"), la regresión lineal simple viene a ser una __regresión múltiple__.
