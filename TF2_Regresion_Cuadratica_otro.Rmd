@@ -220,11 +220,11 @@ La cantidad de variación contabilizada toma en cuenta 84.8%. La significación 
 
 ------------------------------------------------------------------------
 
-## Residuales y patrones  
+## Residuales y patrones
 
 Evidencia de Residuales que no cumple con **Igualdad de varianza.**
 
-Aquí se demuestra algunos de los patrones que pudiese sugerir que los datos no cumple con los supuestos de la prueba. El grafico es de Field, Miles and Field del libro Discovering Statistics Using R. La figure 7.15.
+Aquí se demuestra algunos de los patrones que pudiese sugerir que los datos no cumple con los supuestos de la prueba. El grafico es de Field, Miles and Field del libro Discovering Statistics Using R, 2012. La figure 7.15 (Con permiso del autor A. Field, email, 2020-10-08) .
 
 -   En el gráfico arriba a la izquierda es una distribución de los datos que sugiere igualdad de varianza o **homogeneidad de varianza**.
 

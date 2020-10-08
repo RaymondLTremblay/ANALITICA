@@ -44,9 +44,11 @@ Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para p
       + Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán. 
   
   
+# Datos ofrecidos por Denny Fernandez del Viso
 
-
-
+2.  [mod_empiricos.xlsx](Data/mod_empiricos.xlsx)  
+3.  [strain_sex_chol.xlsx](Data/strain_sex_chol.xlxs)
+4.  [Titanic.xlsx](Data/Titanic.xlxs)
 
 
 
