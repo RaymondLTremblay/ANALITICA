@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
-```{r}
+```{r, echo=FALSE}
 colorize <- function(x, color) {
   if (knitr::is_latex_output()) {
     sprintf("\\textcolor{%s}{%s}", color, x)
@@ -186,7 +186,7 @@ ggplot(df, aes(d, var.y)) +
 
 ------------------------------------------------------------------------
 
-\#Construir el modelo cubico
+## Construir el modelo cubico
 
 ```{r regr_polyn3}
 fit3 <- lm(var.y ~ d + I(d^2)+ I(d^3), data=df)
@@ -203,9 +203,40 @@ tab_model(
 )
 ```
 
+------------------------------------------------------------------------
+
+## Los residuales del modelo
+
+Se observa que los residuales están distribuido uniformemente entre todos los valores de la variable en **x**. Por consecuencia cumple con el supuesto de **Igualdad de varianza**.
+
+```{r}
+plot(df$d,residuals(fit3))
+
+```
+
 ## Interpretación de la tabla de resultados
 
 La cantidad de variación contabilizada toma en cuenta 84.8%. La significación del término cuadrático (t = 13.31, p \<0.001) sugiere que la inclusión del término cubica mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.
+
+------------------------------------------------------------------------
+
+## Residuales y patrones  
+
+Evidencia de Residuales que no cumple con **Igualdad de varianza.**
+
+Aquí se demuestra algunos de los patrones que pudiese sugerir que los datos no cumple con los supuestos de la prueba. El grafico es de Field, Miles and Field del libro Discovering Statistics Using R. La figure 7.15.
+
+-   En el gráfico arriba a la izquierda es una distribución de los datos que sugiere igualdad de varianza o **homogeneidad de varianza**.
+
+-   En el gráfico arriba a la derecha demuestra un patrón de residuales donde los residuales no son distribuido equitativamente, y sugiere heteroescadisticidad de varianza.
+
+-   En el gráfico abajo a la izquierda un patrón donde sugiere que la relación entre una variable y otra no es lineal.
+
+-   En el gráfico abajo a la derecha se observa un patrón de residuales donde tanto los datos son heteroescadisticidad y no-lineal.
+
+```{r, echo=TRUE, fig.show = "hold", out.width = "50%", fig.align = "default"}
+knitr::include_graphics("Graficos/Residuals_heteroscadasticity.png")
+```
 
 ------------------------------------------------------------------------
 
