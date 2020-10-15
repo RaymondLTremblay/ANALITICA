@@ -25,7 +25,7 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 ```
 
 
-# Datos de Tremblay et al.
+## Datos de Tremblay *et al*.
 
 Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para publicaciones excepto con permiso escrito del autor. 
 
@@ -44,14 +44,16 @@ Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para p
       + Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán. 
   
   
-# Datos ofrecidos por Denny Fernandez del Viso
+## Datos ofrecidos por Denny Fernandez del Viso
 
 2.  [mod_empiricos.xlsx](Data/mod_empiricos.xlsx)  
 3.  [strain_sex_chol.xlsx](Data/strain_sex_chol.xlxs)
 4.  [Titanic.xlsx](Data/Titanic.xlxs)
 
 
+## Datos del Libro **Discovering Stattistics Using R** por Andy Field *et al.* 2012. 
 
+5. [Album_Sales](Data/Album_Sales_1_new.csv)
 
 
 ***
