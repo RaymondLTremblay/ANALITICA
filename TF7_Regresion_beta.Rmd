@@ -182,13 +182,13 @@ boot.ci(x.boot, type="bca")
 
 ```{r}
 ggplot(Smokers, aes(Y2000P))+
-  geom_histogram(aes(y=..density..), colour="white", fill="grey50")+
+  geom_histogram(aes(y=..density..), bins=20, colour="white", fill="grey50")+
   stat_function(aes(x = Smokers$Y2000P, y = ..y..), fun = dbeta, colour="red", n = 100,
                       args = list(shape1 = 3.593, shape2 = 9.185))+
   geom_vline(xintercept =0.2320, colour="blue")+ # El intervalo de confianza del promedio
   geom_vline(xintercept =0.2768, colour="blue")+
   rlt_theme+
-  xlab("Proportción de fumadores por Pais")
+  xlab("Proporción de fumadores por Pais")
 ```
 
 
@@ -228,7 +228,7 @@ Los datos provienen de una especie de orquidea de Autralia, *Dipodium roseum*, r
 ```{r beta regression}
 head(dipodium)
 library(tidyverse)
-#dipodium$PropFR=dipodium$Perc_FR_set+0.0001 # solucionar para remover los cero
+dipodium$PropFR=dipodium$Perc_FR_set+0.0001 # solucionar para remover los cero
 #dipodium$PropFR
 dipodium2=dipodium %>% 
   select(PropFR, Number_of_Flowers,Height_Inflo, Distance) %>% 
@@ -262,15 +262,15 @@ summary(modelpropFr)
 predict(modelpropFr, type = "response") # calcular los valores estimados (predichos)
 
 dp2$response=predict(modelpropFr, type = "response")
-# dp2$link=predict(modelpropFr, type = "link")
-# dp2$precision=predict(modelpropFr, type = "precision")
-# dp2$variance=predict(modelpropFr, type = "variance")
+#dp2$link=predict(modelpropFr, type = "link")
+dp2$precision=predict(modelpropFr, type = "precision")
+dp2$variance=predict(modelpropFr, type = "variance")
 dp2$quantile_.25=predict(modelpropFr, type = "quantile", at = c(0.25))
 dp2$quantile_.50=predict(modelpropFr, type = "quantile", at = c(0.50))
 dp2$quantile_.75=predict(modelpropFr, type = "quantile", at = c(0.75))
 dp2$quantile_.05=predict(modelpropFr, type = "quantile", at = c(0.05))
 dp2$quantile_.95=predict(modelpropFr, type = "quantile", at = c(0.95))
-head(dp2)
+dp2
 
 
 ```
@@ -306,7 +306,7 @@ theme(axis.title.y = element_text(colour="grey20",size=20,face="bold"),
 
 ```
 
-Aquí es una representación de las distribuciones beta en las x, número de flores. En rojo es para simular la distribución la proporción espereada de frutos en plantas que tienen 15 flores y la linea azul es para simular la distribución esperada de la proporción de frutos en plantas con 30 flores.   
+Aquí es una representación de las distribuciones beta en las x, número de flores. En rojo es para simular la distribución la proporción esperada de frutos en plantas que tienen 15 flores y la linea azul es para simular la distribución esperada de la proporción de frutos en plantas con 30 flores.   
 
 
 
