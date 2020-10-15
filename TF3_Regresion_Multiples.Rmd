@@ -25,7 +25,7 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 
 ***
-# Taller R Avanzado: Regresión Múltiple
+# Regresión Múltiple
 
 #### Lista de paquetes a instalar
 

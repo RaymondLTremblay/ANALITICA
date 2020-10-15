@@ -1,0 +1,188 @@
+﻿Country_Name,Country_Code,Indicator_Name,Indicator_Code,Y2000,Y2005,Y2010,Y2011,Y2012,Y2013,Y2014,Y2015,Y2016
+Honduras,HND,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,3.9,3.1,2.5,2.4,2.4,2.3,2.2,2.1,2
+Ethiopia,ETH,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,4.8,4.6,4.5,4.4,4.5,4.4,4.4,4.4,4.4
+"Congo, Rep.",COG,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,5.7,9.1,14.7,16.1,17.9,19.8,22,24.2,26.9
+Ghana,GHA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,5.9,5,4.4,4.3,4.3,4.1,4.1,4,3.9
+Niger,NER,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,6.4,6.7,7.1,7.2,7.3,7.4,7.5,7.6,7.7
+Nigeria,NGA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,7.7,7,6.3,6.2,6.1,6.1,5.9,5.8,5.8
+Oman,OMN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,8.2,8.5,9.4,9.8,10.2,10.6,10.8,11.1,11.1
+Barbados,BRB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,8.3,8,7.9,7.9,7.9,7.9,7.8,7.8,7.8
+Eritrea,ERI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,8.7,7.6,6.7,6.5,6.4,6.3,6.1,5.9,5.7
+Benin,BEN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,9.1,8.1,7.2,7.1,6.9,6.8,6.7,6.5,6.4
+Eswatini,SWZ,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,9.3,9.1,9,9,9,9,9,9,9
+Togo,TGO,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,10,8.9,8.1,8,7.8,7.7,7.6,7.4,7.4
+"Bahamas, The",BHS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,10.6,10.7,10.9,11,11.1,11.2,11.2,11.4,11.5
+Senegal,SEN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,10.9,9.9,9,8.8,8.7,8.5,8.4,8.3,8.2
+Haiti,HTI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,12.1,12,12.3,12.3,12.4,12.5,12.6,12.7,12.7
+Peru,PER,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,12.1,9,6.7,6.3,6,5.7,5.4,5,4.8
+Cabo Verde,CPV,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13,11.4,10.2,10,9.8,9.6,9.5,9.3,9.1
+Mali,MLI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13,12.6,12.5,12.4,12.3,12.3,12.4,12.3,12.3
+Sub-Saharan Africa (excluding high income),SSA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13.39028468,12.16616672,11.09039386,10.9035962,10.7425845,10.58123713,10.41057329,10.27110352,10.14927482
+Sub-Saharan Africa,SSF,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13.42953069,12.20209955,11.12296236,10.93586186,10.77399008,10.61173885,10.44014035,10.29971044,10.17691373
+Sub-Saharan Africa (IDA & IBRD countries),TSS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13.42953069,12.20209955,11.12296236,10.93586186,10.77399008,10.61173885,10.44014035,10.29971044,10.17691373
+Liberia,LBR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13.8,12.1,10.8,10.7,10.5,10.3,10.1,9.9,9.8
+Ecuador,ECU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,13.9,11.2,9,8.7,8.4,8,7.7,7.4,7.1
+Saudi Arabia,SAU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,14.5,14.6,15.1,15.3,15.2,15.3,15.5,15.6,15.6
+Panama,PAN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,15,11.2,8.5,8.1,7.6,7.2,6.8,6.5,6.1
+Uzbekistan,UZB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,15.8,14.6,13.7,13.5,13.3,13.2,13,12.8,12.6
+El Salvador,SLV,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,16,13.5,11.6,11.3,11,10.7,10.3,10.1,9.9
+Singapore,SGP,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,16.3,16.3,16.4,16.4,16.3,16.5,16.5,16.5,16.5
+Sri Lanka,LKA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,16.5,15.2,14,13.8,13.6,13.5,13.2,13.2,13
+Qatar,QAT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,16.5,17.4,20.1,20.3,20.2,20.3,20.4,20.4,20.6
+Algeria,DZA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,16.6,15.5,15.2,15.2,15.3,15.3,15.4,15.5,15.6
+Kenya,KEN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,16.6,14.4,12.5,12.3,11.9,11.6,11.3,11,10.7
+Brunei Darussalam,BRN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17,16.8,16.9,17,16.9,16.9,16.9,16.9,16.9
+Uganda,UGA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.1,14.4,12.2,11.8,11.4,11,10.7,10.3,10
+Burkina Faso,BFA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.2,15,13.6,13.3,13.2,13,12.8,12.7,12.5
+"Iran, Islamic Rep.",IRN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.5,14.9,12.8,12.5,12.1,11.8,11.5,11.3,11
+IDA blend,IDB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.54501808,16.1357007,14.99128264,14.82436047,14.63870911,14.50452845,14.30097971,14.12025375,13.98534928
+Djibouti,DJI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.6,16,14.5,14.3,14,13.7,13.6,13.3,13.1
+"Egypt, Arab Rep.",EGY,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.6,19.3,21.8,22.2,22.6,23.3,24,24.6,25.2
+Lesotho,LSO,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.6,20,22.7,23.3,24,24.4,25.3,26,26.7
+Rwanda,RWA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,17.8,15.7,13.9,13.7,13.3,13.1,12.8,12.5,12.3
+Costa Rica,CRI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18,15.7,13.7,13.4,13.1,12.7,12.4,12.1,11.9
+Zambia,ZMB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18,16.6,15.2,14.9,14.7,14.4,14.3,14,13.8
+Zimbabwe,ZWE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18,17.1,16.4,16.4,16.2,16.1,16,15.9,15.8
+Jamaica,JAM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18.4,17.7,17.1,17.1,17,17,16.9,16.8,16.8
+Dominican Republic,DOM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18.7,16.8,15.2,14.9,14.6,14.4,14.1,13.9,13.7
+Morocco,MAR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18.7,19.2,20.6,21,21.4,21.9,22.3,22.9,23.4
+Middle East & North Africa (excluding high income),MNA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18.93994631,18.37339057,18.53687308,18.60756695,18.69033413,18.85178899,19.06364825,19.28033265,19.43729831
+Middle East & North Africa (IDA & IBRD countries),TMN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18.93994631,18.37339057,18.53687308,18.60756695,18.69033413,18.85178899,19.06364825,19.28033265,19.43729831
+Middle East & North Africa,MEA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,18.9995621,18.48392424,18.7788855,18.84364847,18.89314779,19.01548836,19.18498877,19.35310403,19.4754278
+Arab World,ARB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,19.05958501,19.39652196,,20.68981658,20.87618734,21.12637445,21.43410981,21.70507828,21.95585753
+Botswana,BWA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,19.5,19.5,19.7,19.7,19.7,19.7,19.7,19.7,20
+"Gambia, The",GMB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,19.9,18.2,16.9,16.6,16.4,16.1,16,15.8,15.5
+Colombia,COL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,20.1,15.4,12,11.5,10.9,10.4,9.9,9.5,9
+IDA total,IDA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,20.58360759,18.34115914,16.4369163,16.10457569,15.81691544,15.52551911,15.23255951,14.96963618,14.7565975
+Malawi,MWI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,21,18.6,16.5,16.1,15.7,15.3,15.2,14.7,14.5
+Comoros,COM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,21.1,18.3,16.1,15.7,15.3,15,14.7,14.4,14
+India,IND,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,21.2,17.3,14.3,13.7,13.3,12.8,12.3,11.9,11.5
+Namibia,NAM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.3,21.8,21.5,21.5,21.4,21.4,21.4,21.5,21.4
+Tanzania,TZA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.3,19.5,17.1,16.6,16.2,15.9,15.4,15.2,14.8
+Bahrain,BHR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.4,23.7,25,25.2,25.4,25.6,25.8,26,26.4
+Lower middle income,LMC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.40464042,19.39679201,17.09937396,16.65313006,16.34023976,15.97331578,15.60200238,15.30531382,15.01472884
+IDA only,IDX,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.59904687,19.81459586,17.41697815,16.97410404,16.61781874,16.22002631,15.86652823,15.54773607,15.28092532
+South Asia,SAS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.66238189,19.04449793,16.22341731,15.67914423,15.29929336,14.84653589,14.38528388,14.02435513,13.67474559
+South Asia (IDA & IBRD),TSA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.66238189,19.04449793,16.22341731,15.67914423,15.29929336,14.84653589,14.38528388,14.02435513,13.67474559
+South Africa,ZAF,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,22.7,21.8,21,20.9,20.8,20.6,20.5,20.5,20.3
+Moldova,MDA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,23.3,23.5,23.9,24,24,24.2,24.2,24.2,24.2
+"Yemen, Rep.",YEM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,23.3,21.4,19.9,19.6,19.5,19,18.9,18.7,18.4
+Mozambique,MOZ,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,23.4,20.9,18.7,18.3,17.9,17.5,17.1,16.9,16.6
+Least developed countries: UN classification,LDC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,23.49368531,20.60302385,18.11679156,17.65334876,17.27454044,16.86413628,16.48929878,16.15662554,15.8781784
+Early-demographic dividend,EAR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,23.90465926,21.03967013,18.92984505,18.5115662,18.20341992,17.86654596,17.55133399,17.28559017,17.02605393
+Mexico,MEX,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,24,20.3,17.1,16.6,16,15.5,15,14.5,14
+Australia,AUS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,24.5,20.9,17.8,17.2,16.7,16.2,15.7,15.2,14.7
+Pakistan,PAK,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,24.5,22.7,21.3,21.1,20.9,20.7,20.5,20.3,20.1
+Latin America & Caribbean (excluding high income),LAC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,24.56819154,20.27098895,16.78621101,16.24393761,15.62866774,15.10976324,14.56805977,14.02916989,13.57759964
+Kuwait,KWT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,24.8,24.4,22.8,22.6,22.5,22.5,22.5,22.5,22.5
+Thailand,THA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,24.9,23.2,21.7,21.3,21,20.8,20.6,20.1,19.9
+Mauritius,MUS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25,23.8,22.6,22.6,22.4,22.2,22,21.8,21.6
+Seychelles,SYC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.1,23.9,22.9,22.7,22.5,22.3,21.9,21.7,21.5
+Vietnam,VNM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.1,24.3,23.7,23.4,23.5,23.2,23.1,23.1,22.8
+United Arab Emirates,ARE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.2,26.3,28.2,28.2,28.5,28.6,28.6,28.6,28.9
+Brazil,BRA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.2,20.8,17.2,16.7,16,15.5,14.9,14.3,13.9
+Latin America & the Caribbean (IDA & IBRD countries),TLA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.27057292,20.80224256,17.21411264,16.65644158,16.01943851,15.4888433,14.92643692,14.36948473,13.90988703
+Latin America & Caribbean,LCN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.78671174,21.30282575,17.68478688,17.11762229,16.47820881,15.93878356,15.37471194,14.82009053,14.34907467
+Portugal,PRT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,25.9,24.8,23.7,23.5,23.3,23.1,23,22.9,22.7
+Small states,SST,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.03942419,24.53477809,23.33102983,23.14153705,22.92598412,22.73591209,22.60956483,22.44530333,22.35150735
+Other small states,OSS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.19806002,24.94943791,23.96414282,23.81606097,23.63330221,23.47475982,23.3976675,23.26975394,23.21205989
+Low & middle income,LMY,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.28320421,23.78654734,21.75613532,21.32395358,21.05944973,20.69597251,20.34187566,20.01402618,19.71975326
+Italy,ITA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.5,25.6,24.6,24.6,24.3,24.1,24.1,23.8,23.7
+IDA & IBRD total,IBT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.54789126,23.99351909,21.917512,21.48029476,21.20628353,20.83702565,20.47494926,20.14037505,19.84056438
+Azerbaijan,AZE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.7,24.7,22.9,22.4,22.2,21.8,21.5,21.3,20.8
+Middle income,MIC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.74112573,24.22558132,22.19223261,21.75998014,21.49921615,21.13913978,20.7846146,20.45950942,20.16837073
+Slovenia,SVN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,26.8,25.3,24,23.9,23.5,23.3,23,22.8,22.5
+Kyrgyz Republic,KGZ,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,27.3,27.2,26.6,26.6,26.7,26.5,26.6,26.5,26.5
+IBRD only,IBD,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,27.65984262,25.09608399,23.05434081,22.61179569,22.35753795,21.98928489,21.63097017,21.30055614,21.00170361
+World,WLD,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,27.7170593,24.97294237,22.72816463,22.27014313,21.95802124,21.55755087,21.17248819,20.81316746,20.48507121
+Canada,CAN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,28.2,22.8,18.4,17.6,16.9,16.3,15.6,15,14.3
+Malaysia,MYS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,28.2,25.8,23.7,23.3,22.9,22.5,22,21.8,21.5
+New Zealand,NZL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,29.4,24.2,20,19.2,18.5,17.8,17.2,16.5,16
+Palau,PLW,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,29.6,24,19.7,19,18.2,17.5,16.8,16.1,15.6
+Finland,FIN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,29.7,26.3,23.5,22.9,22.4,21.9,21.3,20.9,20.4
+China,CHN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.1,28.5,27.1,26.7,26.7,26.4,26.1,25.8,25.6
+Iceland,ISL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.1,24,19.1,18.4,17.6,16.8,16.1,15.4,14.7
+Cambodia,KHM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.1,25.1,21,20.3,19.7,18.9,18.3,17.7,17.2
+Upper middle income,UMC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.14360131,28.13070826,26.51843754,26.14626494,25.9806896,25.67964592,25.39525996,25.10271204,24.87154102
+East Asia & Pacific (excluding high income),EAP,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.35353242,28.93311169,27.85732827,27.51940752,27.50554138,27.27088429,27.06443191,26.85645875,26.71343177
+East Asia & Pacific (IDA & IBRD countries),TEA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.35353242,28.93311169,27.85732827,27.51940752,27.50554138,27.27088429,27.06443191,26.85645875,26.71343177
+Late-demographic dividend,LTE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.4112078,28.32871069,26.56826263,26.16869137,26.01963734,25.67798003,25.34309485,25.00962871,24.7481862
+East Asia & Pacific,EAS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.53318012,28.85212863,27.56706371,27.20027208,27.14210097,26.87961072,26.64520621,26.40691089,26.23297316
+Paraguay,PRY,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,30.8,23.6,18.3,17.3,16.5,15.6,14.9,14.1,13.4
+North America,NAC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.07625687,27.38209328,24.14444315,23.61329584,23.18136802,22.58016779,22.05920004,21.5505075,21.02824538
+Switzerland,CHE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.2,29.2,27.7,27.2,27,26.7,26.3,26.1,25.7
+Bangladesh,BGD,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.4,28.2,25.3,24.8,24.4,24,23.5,23.2,23
+United States,USA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.4,27.9,24.8,24.3,23.9,23.3,22.8,22.3,21.8
+Armenia,ARM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.8,30.3,29.3,28.7,27.5,26.5,25.5,24.5,24.1
+Tunisia,TUN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.8,31.1,31.7,31.8,31.9,32.1,32.4,32.6,32.7
+Israel,ISR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.9,29.4,27.4,27,26.6,26.2,25.9,25.6,25.2
+Kazakhstan,KAZ,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.9,29.3,26.8,26.4,25.8,25.4,25,24.5,24
+Vanuatu,VUT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,31.9,26.9,22.4,21.7,21.1,20.4,19.8,19.2,18.6
+Slovak Republic,SVK,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,32.1,31.2,30.4,30.4,30.3,30.1,30.1,30.1,30.1
+Georgia,GEO,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,32.2,30.8,29.8,29.5,29.4,29.2,28.9,28.8,28.8
+Mongolia,MNG,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,32.2,29.8,27.8,27.4,27,26.6,26.3,26.2,25.6
+Sweden,SWE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,32.3,27.4,23.1,22.3,21.6,20.9,20.1,19.5,18.8
+Myanmar,MMR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,32.5,27.7,23.9,23.2,22.6,21.9,21.4,20.8,20.3
+Indonesia,IDN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,32.9,34.6,37.1,37.3,37.6,38,38.5,39,39.4
+Japan,JPN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,33,29,25.6,24.9,24.4,23.8,23.2,22.6,22.1
+OECD members,OED,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,33.0429428,29.43633522,26.27567678,25.72047048,25.18993765,24.63725374,24.110229,23.59595886,23.09748113
+Croatia,HRV,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,33.1,34.3,35.3,35.6,35.7,36.1,36.4,36.7,37
+High income,HIC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,33.58912996,30.13615085,27.14790479,26.62293382,26.13631754,25.60731582,25.1175758,24.64766882,24.19159271
+Post-demographic dividend,PST,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,33.78043013,30.42714505,27.4880477,26.95917459,26.48438498,25.95009363,25.46194891,24.98775905,24.51248267
+Czech Republic,CZE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.1,34.3,34.3,34.2,34.3,34.3,34.2,34.3,34.3
+"Korea, Rep.",KOR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.3,30.2,26.9,26.2,25.6,25,24.5,23.9,23.3
+Philippines,PHL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.4,30.6,27.6,27,26.5,25.9,25.3,24.7,24.3
+Luxembourg,LUX,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.7,30.7,27,26.4,25.8,25.2,24.6,24.1,23.5
+Albania,ALB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.8,32.7,31.2,30.7,30.2,29.8,29.5,29.1,28.7
+France,FRA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.9,34.1,33.4,33.3,33.1,33,32.9,32.8,32.7
+Euro area,EMU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,34.95858645,32.9272976,31.0749701,30.77883496,30.39580514,30.0402113,29.74445847,29.41071699,29.13178379
+Fiji,FJI,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,35.1,30.6,26.7,25.8,25.2,24.4,23.8,23.2,22.6
+Germany,DEU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,35.3,33.7,32.2,32,31.7,31.4,31.1,30.9,30.6
+Malta,MLT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,35.3,31.7,28.7,28.1,27.7,27,26.5,26,25.5
+Lithuania,LTU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,35.9,33.4,31.1,30.7,30.3,29.9,29.6,29.2,28.8
+Ukraine,UKR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,36,33.6,31.4,31,30.6,30.2,29.8,29.4,28.9
+European Union,EUU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,36.14353289,33.6175362,31.36410377,30.9974541,30.5591676,30.15945573,29.77983972,29.4007806,29.06642047
+Tonga,TON,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,36.3,33,30.3,29.9,29.4,29.1,28.6,28.3,27.9
+Belarus,BLR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,36.7,33.1,29.9,29.4,28.8,28.2,27.7,27.2,26.7
+Europe & Central Asia,ECS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,36.99963945,34.28754486,31.83734063,31.42667108,30.98094704,30.53280015,30.11852819,29.69887657,29.29420774
+Maldives,MDV,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,37.1,33.4,30.8,30.2,29.9,29.5,29.1,28.7,28.3
+Andorra,AND,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,37.4,36,34.8,34.5,34.2,34.1,33.9,33.7,33.5
+Belgium,BEL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,37.4,34.1,31.1,30.6,30.1,29.6,29.1,28.6,28.2
+Lebanon,LBN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,37.5,36.1,35.1,34.7,34.8,34.2,34.2,33.9,33.8
+Netherlands,NLD,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,37.7,33.2,29.7,28.9,28.4,27.7,27,26.4,25.8
+Ireland,IRL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,37.8,32.8,28.7,27.9,27.1,26.4,25.7,25,24.3
+United Kingdom,GBR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.2,32.3,27.2,26.3,25.5,24.6,23.7,23.1,22.3
+Europe & Central Asia (excluding high income),ECA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.25077962,35.80171134,33.51677083,33.13146589,32.72276001,32.29114742,31.91674156,31.47619601,31.06274221
+Pacific island small states,PSS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.26299508,33.31707374,28.94176011,28.07955398,27.37297644,,,,
+Denmark,DNK,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.3,30.7,24.7,23.6,22.5,21.7,20.7,19.9,19.1
+Turkey,TUR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.4,34.4,30.8,30.2,29.5,29,28.4,27.7,27.2
+Europe & Central Asia (IDA & IBRD countries),TEC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.49711431,35.81529615,33.35187213,32.94929841,32.51134322,32.06628769,31.65623512,31.20797244,30.78719187
+Latvia,LVA,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.8,38.2,37.5,37.5,37.3,37.3,37.3,37,37
+Nepal,NPL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,38.9,32.2,27.1,26.2,25.3,24.6,24,23.3,22.8
+Spain,ESP,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,39.5,35.8,32.7,32.1,31.5,30.9,30.4,29.7,29.3
+Central Europe and the Baltics,CEB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,39.51142452,36.15559708,33.22302182,32.74942511,32.2313639,31.77217315,31.24361852,30.80367879,30.39404394
+Estonia,EST,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,39.6,36.8,34.2,33.6,33.2,32.7,32.3,31.8,31.3
+Romania,ROU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,39.6,36,32.8,32.3,31.7,31.1,30.6,30.1,29.7
+Poland,POL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,40.7,36,31.9,31.3,30.6,30,29.2,28.6,28
+Hungary,HUN,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,41.1,37.3,34.1,33.4,32.9,32.3,31.7,31.1,30.6
+Argentina,ARG,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,41.4,33.7,27.5,26.3,25.4,24.4,23.5,22.5,21.8
+Sierra Leone,SLE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,42.2,34.9,29.4,28.6,27.6,26.9,26.3,25.4,24.8
+Cyprus,CYP,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,42.4,40.3,38.3,38,37.5,37.3,36.9,36.7,36.4
+Lao PDR,LAO,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,42.7,37.3,33.1,32.3,31.5,31.1,30.2,29.5,28.9
+Russian Federation,RUS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,42.8,41.5,40.3,40.2,40.1,39.8,39.7,39.5,39.3
+Norway,NOR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,43.1,34.1,26.9,25.5,24.4,23.3,22.2,21.2,20.2
+Samoa,WSM,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,45.1,38.5,33,32,31,30.2,29.4,28.5,27.7
+Cuba,CUB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,45.7,41.6,38.4,37.7,37.2,36.5,36.1,35.9,35.2
+Bosnia and Herzegovina,BIH,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,47.7,44.3,41.7,41.2,40.7,40.2,39.7,39.4,38.9
+Serbia,SRB,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,48.7,45.3,42.1,41.7,40.9,40.4,40,39.4,38.9
+Austria,AUT,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,49.1,41.9,35.7,34.6,33.6,32.4,31.4,30.6,29.6
+Suriname,SUR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,50,41.3,33.1,31.5,30.1,28.7,27.5,26.2,25
+Timor-Leste,TLS,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,51.8,49.7,46.8,46,45.2,44.6,44.1,43.2,42.6
+Bulgaria,BGR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,52,46.4,41.8,40.9,39.9,39.3,38.5,37.7,37
+Montenegro,MNE,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,52.7,50.2,48.3,47.8,47.4,47,46.7,46.1,45.9
+Uruguay,URY,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,52.7,36.7,25.7,23.9,22.3,20.8,19.3,18.1,16.8
+Greece,GRC,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,53.5,49.7,46.6,46.1,45.3,44.9,44.4,43.8,43.4
+Chile,CHL,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,56.6,49.6,43.6,42.6,41.5,40.6,39.6,38.7,37.8
+Papua New Guinea,PNG,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,60.9,52.1,44.2,42.6,41.2,39.8,38.8,37.4,36.3
+Nauru,NRU,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,63.8,54.7,47.2,45.9,44.6,43.3,42.2,41,40
+Kiribati,KIR,"Smoking prevalence, total (ages 15+)",SH.PRV.SMOK,73.4,64.7,55.7,54.5,52.7,51.2,49.8,48.3,47

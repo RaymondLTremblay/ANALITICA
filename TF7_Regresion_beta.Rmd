@@ -19,17 +19,313 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(ggplot2)
+
+rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bold"),
+        axis.text.x = element_text(colour="grey20",size=15, face="bold"),
+        axis.text.y = element_text(colour="grey20",size=15,face="bold"),  
+        axis.title.x = element_text(colour="grey20",size=15,face="bold"))+
+        theme_bw()
+```
+
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
 
 ***
+## Beta regression
+
+La regresión beta es una acercamiento GLM. La regresión beta es para modelar variables dependientes distribuidas con la distribución beta. Datos que tienen distribución beta incluye proporciones y razones, donde los valores se encuentra entre 0 y 1. Además de la producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
+
+Los valores de la variable de respuesta deben estar entre 0 y 1, Si por consecuencia tiene valores que son 0 o 1, es necesario cambiarlo a 1= .999 y 0= 0.001. los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1.
 
 
-> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
-responsibility of the authors and does not necessarily represent the official views of the National
-Institutes of Health.”
+La paquete "betareg" y sus datos. Tenga en cuenta que este es el enfoque del modelo GLM con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal,
+existen numerosas funciones de enlace, que pueden ser util como "logit", "probit", "cloglog", "cauchit", "log", "loglog".
+
+Casi toda la información que se estará presentando aqui proviene de Vribari-Neto y Zeileis (Beta Regression in R).  
+
+Consulte el pdf, https://cran.r-project.org/web/packages/betareg/betareg.pdf para obtener una descripción del paquete y más detalles.   
+
+
+Estaré usando datos diferentes a lo que se presenta en el paquete para demostrar el valor de los analisis.  
+
+# Primer paso, que es una distribución beta?
+
+Lo más importante de la distribución beta es que los valores NUNCA son menores de 0 ni mayores de 1. En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+
+```{r, echo=FALSE}
+b1 <- seq(0, 1, by = 0.01)    
+
+by2_5 <- dbeta(b1, shape1 = 2, shape2 = 5) 
+#by2_5
+
+by8_1_5 <- dbeta(b1, shape1 = 8, shape2 = 1.5) 
+#by5_1
+
+by_5 <- dbeta(b1, shape1 = .5, shape2 = .5) 
+#by_5
+
+by_2_2 <- dbeta(b1, shape1 = 2, shape2 = 2) 
+#by_2_2
+
+
+
+betad=cbind(b1, by8_1_5, by2_5, by_5, by_2_2)
+betad=as_tibble(betad)
+#betad
+
+
+
+betadj=gather(betad, "by2_5", "by8_1_5", "by_5", "by_2_2" ,key="beta_shapes", value="cases")
+#betadj
+#plot(by_5)
+```
+
+
+Aqui una serie de distribuciones beta. La distribución beta se calcula con dos parametros, **shape 1** y **shape 2**.  No vamos a entrar en estos parámetros, aunque pueden ir a la pagina de Wikipedia para tener más información. Lo que deberian fijarse es que aparte de cuando hay un shape que es igual como  Shape 1 = 0.5, y shape 2 =  0.5, (tambien shape 2 y 2) todas las otras distribuciones no son simétrica.  Siempre hay una cola que se extiende en los valores pequeños o grandes. 
+
+
+
+
+
+```{r, warning=FALSE}
+library(ggplot2)
+
+ggplot(betadj, aes(b1, cases, colour=beta_shapes))+
+  geom_line()+
+  ylim(0, 5)+
+  scale_colour_discrete(name = "Beta_Shapes", labels = c("Shape 2 y 2", "Shape .5 y .5", "Shape 2 y 5", "Shape 8 y 1.5"))
+```
+
+# Propoción de fumadores por diferentes paises. Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman
+
+
+
+```{r}
+library(readr)
+Proportion_smokers_world <- read_csv("Data/Proportion_smokers_world.csv")
+
+Smokers=Proportion_smokers_world 
+
+```
+
+Primero vamos a convertir los datos en proporción ya que el programa tiene que utilizar datos mayor de 0 y menor de 1.  Seleccionamos el año 2000 y creamos un histograma de la distribución.
+
+```{r}
+Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
+```
+
+## Convertir el promedio y varianza en shape
+
+Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$  y $\beta$. Se usa la siguiente para calcular los shapes. El $\alpha$ referiere al promedio y $\beta$ a la varianza. Usamos la siguiente función. 
+
+```{r}
+
+estBetaParams <- function(mu, var) {
+  alpha <- ((1 - mu) / var - 1 / mu) * mu ^ 2
+  beta <- alpha * (1 / mu - 1)
+  return(params = list(alpha = alpha, beta = beta))
+}
+#mean(Smokers$Y2000P)
+#var(Smokers$Y2000P)
+estBetaParams((mean(Smokers$Y2000P)), (var(Smokers$Y2000P)))
+```
+
+```{r}
+Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
+x <- seq(0, 1, len = 100)
+
+mean(Smokers$Y2000P)
+var(Smokers$Y2000P)
+
+ggplot(Smokers, aes(Y2000P))+
+  geom_histogram(aes(y=..density..), colour="white", fill="grey50")+
+  stat_function(aes(x = Smokers$Y2000P, y = ..y..), fun = dbeta, colour="red", n = 100,
+                      args = list(shape1 = 3.593, shape2 = 9.185))+
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(Smokers$Y2000P, na.rm = TRUE), 
+                sd = sd(Smokers$Y2000P, na.rm = TRUE)), 
+                colour = "green", size = 1)+
+  xlab("Proportción de fumadores por Pais")+
+  annotate("text", x = .5, y = 4.2, label = "Verde: dist Normal", color="darkgreen")+
+  annotate("text", x = .5, y = 3.7, label = "Verde: dist Beta", color="red")
+  
+```
+
+Calculando el intervalo de confianza del promedio de una distribución beta. Se necesita los siguientes paquetes **simpleboot , boot**.   
+
+
+
+```{r}
+library(simpleboot)
+library(boot) # paquete para calcular el intervalo de confianza de una distribución beta
+n=187 # El tamaño de muestra de los datos
+alpha = 3.593 # estimado de la función arriba 
+beta = 9.185
+x = rbeta(n, alpha, beta)
+
+
+x.boot = one.boot(x, median, R=10^4) # Aquí se usa la mediana, pq el promedio *mean* sera sesgado a la derecha.  
+boot.ci(x.boot, type="bca")
+```
+# Sobreponemos el intervalo de confianza de la mediana sobre la distribución beta
+
+```{r}
+ggplot(Smokers, aes(Y2000P))+
+  geom_histogram(aes(y=..density..), colour="white", fill="grey50")+
+  stat_function(aes(x = Smokers$Y2000P, y = ..y..), fun = dbeta, colour="red", n = 100,
+                      args = list(shape1 = 3.593, shape2 = 9.185))+
+  geom_vline(xintercept =0.2320, colour="blue")+ # El intervalo de confianza del promedio
+  geom_vline(xintercept =0.2768, colour="blue")+
+  rlt_theme+
+  xlab("Proportción de fumadores por Pais")
+```
+
+
+
+Ahora vamos es hacer el primer análisis de regresión donde nuestra respuesta es una proporción.
+
+
+```{r}
+library(ggversa) # paquete para los datos
+attach(dipodium)
+dipodium
+```
+
+```{r}
+library(betareg) # El paquete para hacer regresión beta
+```
+
+
+***
+
+## Regresión beta
+
+```{r, out.width="300",   fig.cap ="from this webpage: https://binalongbungalows.wordpress.com/tasmanian-orchids/dipodium-roseum-rosy-hyacinth-orchid-0615-web/",echo=FALSE, out.extra='style="float:right; padding:10px"', fig}
+knitr::include_graphics("Graficos/dipodium_roseum.jpg")
+```
+
+
+
+Los datos provienen de una especie de orquidea de Autralia, *Dipodium roseum*, recolectado por RLT en 2004-2005.  Vamos a evaluar la relación entre el número de flores y la proporción de frutos por planta.  El primer paso es asegarar que no haya valores de 0 y 1.   En este caso no hay ni una planta que tiene 100% de frutos, pero si hay individuos que tienen cero frutos. 
+
+  + RECUERDA x >0 y <1. NO se acepta 0 o 1.   Entonces a los valores de 0 se le puede añadir un valor mínimo como 0.001 y a los 1 restar 0.001.  En realidad esta modificación no impacta la interpretación de los resultados. 
+  + se remueva también del archivo los NA.
+  
+  + Nota que el modelo se construye como un modelo lineal **betareg(y~x, data =na.omit(df))**.  Las variables del archivo son **PropFR**, el proporción de frutos (número de frutos/números de flores) por cada individuo y el número de flores, **Number_of_Flowers**.  
+
+
+```{r beta regression}
+head(dipodium)
+library(tidyverse)
+#dipodium$PropFR=dipodium$Perc_FR_set+0.0001 # solucionar para remover los cero
+#dipodium$PropFR
+dipodium2=dipodium %>% 
+  select(PropFR, Number_of_Flowers,Height_Inflo, Distance) %>% 
+  filter(complete.cases(PropFR, Number_of_Flowers,Height_Inflo, Distance))
+#dipodium2
+write.csv(x=dipodium2, file="dipodium2.csv")
+
+
+library(readr)
+dipodium2 <- read_csv("Data/dipodium2.csv")
+
+modelpropFr=betareg(PropFR~Number_of_Flowers+Height_Inflo+Distance, data =na.omit(dipodium2))
+summary(modelpropFr)
+
+```
+
+## Visualizar un grafico de regresión beta 
+
+
+
+
+```{r beta regression plot preparation}
+dipodiumbeta=dipodium2[,c("Number_of_Flowers","PropFR")] # crear un df con solamente las columnas de interes 
+
+ dp2=dipodiumbeta[complete.cases(dipodiumbeta),] # remover los "NA" 
+ 
+modelpropFr=betareg(PropFR~Number_of_Flowers, data=dp2) # El modelo con solamente la explicativa
+summary(modelpropFr)
+ #head(dp2)
+#dp2$PropFR
+predict(modelpropFr, type = "response") # calcular los valores estimados (predichos)
+
+dp2$response=predict(modelpropFr, type = "response")
+# dp2$link=predict(modelpropFr, type = "link")
+# dp2$precision=predict(modelpropFr, type = "precision")
+# dp2$variance=predict(modelpropFr, type = "variance")
+dp2$quantile_.25=predict(modelpropFr, type = "quantile", at = c(0.25))
+dp2$quantile_.50=predict(modelpropFr, type = "quantile", at = c(0.50))
+dp2$quantile_.75=predict(modelpropFr, type = "quantile", at = c(0.75))
+dp2$quantile_.05=predict(modelpropFr, type = "quantile", at = c(0.05))
+dp2$quantile_.95=predict(modelpropFr, type = "quantile", at = c(0.95))
+head(dp2)
+
+
+```
+
+
+Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1. 
+
+Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa ma mediana, las lineas verdes los cuartiles 25 y 75 y las lineas azules los cuartiles 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
+
+```{r beta reg graph}
+library(ggplot2)
+ggplot(dp2, aes(x=Number_of_Flowers, y=PropFR))+
+  geom_point(width = 0.05, height = 0.01)+
+  geom_line(aes(y=quantile_.05), linetype="twodash", colour="blue")+
+  geom_line(aes(y=quantile_.25),linetype=2, colour="green")+
+  geom_line(aes(y=quantile_.50), colour="red")+
+  geom_line(aes(y=quantile_.75), linetype=2, colour="green")+
+  geom_line(aes(y=quantile_.95), linetype="twodash", colour="blue")+
+  ylab("Predicción de la proporción de frutos")+
+  xlab("Números de Flores")+
+  annotate("text", x=25, y=0.50, label="95th quartile", fontface="italic")+
+  annotate("text", x=32, y=0.39, label="75th quartile", fontface="italic")+
+  annotate("text", x=33, y=0.14, label="25th quartile", fontface="italic")+
+  annotate("text", x=33, y=0.27, label="Median", fontface="italic")+
+  annotate("text", x=35, y=-0.02, label="5th quartile", fontface="italic")+
+theme(axis.title.y = element_text(colour="grey20",size=20,face="bold"),
+        axis.text.x = element_text(colour="grey20",size=20,face="bold"),
+        axis.text.y = element_text(colour="grey20",size=20,face="bold"), 
+        axis.title.x = element_text(colour="grey20",size=20,face="bold"))+
+  theme(legend.position="none")+
+  rlt_theme
+
+
+```
+
+Aquí es una representación de las distribuciones beta en las x, número de flores. En rojo es para simular la distribución la proporción espereada de frutos en plantas que tienen 15 flores y la linea azul es para simular la distribución esperada de la proporción de frutos en plantas con 30 flores.   
+
+
+
+
+```{r}
+ggplot(dipodium2, aes(PropFR))+
+  geom_histogram(aes(y=..density..), colour="white", fill="grey50")+
+  stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="red", n = 62,
+                      args = list(shape1 = 1.1, shape2 =20))+
+stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="blue", n = 62,
+                      args = list(shape1 = 20, shape2 =110))
+```
+
+
+
+
+
+
+> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
