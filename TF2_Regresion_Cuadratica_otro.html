@@ -13,7 +13,6 @@
 
 <title>Regresion cuadratica</title>
 
-<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,85 +32,87 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
-        }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #7d9029; } /* Attribute */
-      code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
-      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4070a0; } /* Char */
-      code span.cn { color: #880000; } /* Constant */
-      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-      code span.dt { color: #902000; } /* DataType */
-      code span.dv { color: #40a070; } /* DecVal */
-      code span.er { color: #ff0000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #40a070; } /* Float */
-      code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
-      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-      code span.op { color: #666666; } /* Operator */
-      code span.ot { color: #007020; } /* Other */
-      code span.pp { color: #bc7a00; } /* Preprocessor */
-      code span.sc { color: #4070a0; } /* SpecialChar */
-      code span.ss { color: #bb6688; } /* SpecialString */
-      code span.st { color: #4070a0; } /* String */
-      code span.va { color: #19177c; } /* Variable */
-      code span.vs { color: #4070a0; } /* VerbatimString */
-      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {   }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+  code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #7d9029; } /* Attribute */
+  code span.bn { color: #40a070; } /* BaseN */
+  code span.bu { } /* BuiltIn */
+  code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4070a0; } /* Char */
+  code span.cn { color: #880000; } /* Constant */
+  code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+  code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+  code span.dt { color: #902000; } /* DataType */
+  code span.dv { color: #40a070; } /* DecVal */
+  code span.er { color: #ff0000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #40a070; } /* Float */
+  code span.fu { color: #06287e; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+  code span.op { color: #666666; } /* Operator */
+  code span.ot { color: #007020; } /* Other */
+  code span.pp { color: #bc7a00; } /* Preprocessor */
+  code span.sc { color: #4070a0; } /* SpecialChar */
+  code span.ss { color: #bb6688; } /* SpecialString */
+  code span.st { color: #4070a0; } /* String */
+  code span.va { color: #19177c; } /* Variable */
+  code span.vs { color: #4070a0; } /* VerbatimString */
+  code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -131,7 +132,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -700,9 +701,9 @@ div.tocify {
 <hr />
 <div id="regresión-polinomial" class="section level1">
 <h1>Regresión Polinomial</h1>
-<p>El gráfico de residuos de la regresión lineal indica una distribución no aleatoria del error de predicción del modelo lineal. Es posible que pueda mejorar su predicción utilizando una regresión con un término cuadrático (es decir, X2), por lo que ahora tenemos una <strong>regresión con un polinomio.</strong></p>
-<p>Construcción de un modelo con polinomio. Usamos los datos de 15 observaciones de mujeres en el archivo <strong>women</strong> en el paquete <strong>datasets</strong>. Los datos representa la altura (en pulgadas) y el peso (en libras) de 15 mujeres entre las edades de 30 a 39.</p>
-<p>Nota aquí que se usa <strong>I(x^2)</strong> para añadir el polinomio al cuadrado <span class="math inline">\(x^2\)</span> . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. El resumen del modelo se observa que el modelo incluye tanto el intercepto, la ecuación lineal y el polinomio, y cada uno es significativo. Esto quiere decir que tanto el modelo lineal y el polinomio explica parte de la varianza.</p>
+<p>La gráfica de residuos de la regresión lineal indica una distribución no aleatoria del error de predicción del modelo lineal. Es posible que se pueda mejorar su predicción utilizando una regresión con un término cuadrático (es decir, <span class="math inline">\(x^2\)</span>), por lo que ahora tenemos una <strong>regresión con un polinomio.</strong></p>
+<p>Construcción de un modelo con polinomio. Usamos los datos de 15 observaciones de mujeres en el archivo <strong>women</strong> en el paquete <strong>datasets</strong>. Los datos representan la altura (en pulgadas) y el peso (en libras) de 15 mujeres entre las edades de 30 a 39 años.</p>
+<p>Note aquí que se usa <strong>I(x^2)</strong> para añadir el monomio <span class="math inline">\(x^2\)</span> . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. En el resumen del modelo se observa que el modelo incluye tanto el intercepto, el término lineal y el término cuadrático, y cada uno es significativo. Esto quiere decir que tanto el término lineal y el término cuadrático explican parte de la varianza.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>fit2 &lt;-<span class="st"> </span><span class="kw">lm</span>(weight <span class="op">~</span><span class="st"> </span>height <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(height<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>women)</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw">summary</span>(fit2)</span></code></pre></div>
 <pre><code>## 
@@ -727,7 +728,7 @@ div.tocify {
 <hr />
 <div id="visualizando-el-gráfico." class="section level2">
 <h2>Visualizando el gráfico.</h2>
-<p>Nota que la linea azul representa el modelo de regresión lineal y la linea roja representa el modelo <span class="math inline">\(x^2\)</span>. Es claro que el modelo <span class="math inline">\(x^2\)</span> es un mejor modelo ya que los datos se acerca más a la linea.</p>
+<p>Nota que la linea azul representa el modelo de regresión lineal <span class="math inline">\(y = mx+b\)</span> y la linea roja representa el modelo cuadrático <span class="math inline">\(y = ax^2+bx+c\)</span>. Claramente el modelo <span class="math inline">\(ax^2+bx+c\)</span> es mejor ya que los datos se acercan más a la linea.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">ggplot</span>(women, <span class="kw">aes</span>(height, weight)) <span class="op">+</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
@@ -740,7 +741,7 @@ div.tocify {
 </div>
 <div id="visualizando-los-residuales" class="section level2">
 <h2>Visualizando los residuales</h2>
-<p>Recuerda que los residuales tienen que ser normalmente distribuido a través de la variables de <strong>x</strong>. En este caso vemos que lo tamaño de residuales no están concentrado en un área de la gráfico. Por ejemplo los residuales no son más grande en los valores de <strong>x</strong> más grande.</p>
+<p>Recuerde que los residuales tienen que ser normalmente distribuidos respecto a los valores de <strong>x</strong>. En este caso vemos que los tamaños de los residuales no están concentrados en un área del gráfico. Por ejemplo los residuales no son más grande en los valores de <strong>x</strong> más grande.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">plot</span>(women<span class="op">$</span>height,<span class="kw">residuals</span>(fit2),</span>
 <span id="cb6-2"><a href="#cb6-2"></a>     <span class="dt">xlab=</span><span class="st">&quot;Height (in inches)&quot;</span>,</span>
 <span id="cb6-3"><a href="#cb6-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
@@ -748,8 +749,8 @@ div.tocify {
 <hr />
 <p>La nueva ecuación polinomial es la siguiente:</p>
 <p><span class="math display">\[y=\alpha+b_1x_i+b_2x_i^2+\epsilon\]</span></p>
-<p>donde el intercepto <span class="math inline">\(\alpha\)</span> más los dos coeficientes, <span class="math inline">\(b_1\)</span> para el componente lineal y el component cuadratico <span class="math inline">\(b_2\)</span>, el <span class="math inline">\(\epsilon\)</span> son los errores.</p>
-<p><span class="math display">\[y=261.9-7.35*x_i+0.08*x_i^2\]</span></p>
+<p>donde el intercepto <span class="math inline">\(\alpha\)</span> más los dos coeficientes, <span class="math inline">\(b_1\)</span> para el componente lineal y el componente cuadratico <span class="math inline">\(b_2\)</span>, el <span class="math inline">\(\epsilon\)</span> son los errores.</p>
+<p><span class="math display">\[y=261.9-7.35x_i+0.08x_i^2\]</span></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">tab_model</span>(</span>
 <span id="cb7-2"><a href="#cb7-2"></a>  fit2,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,<span class="dt">show.stat =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
@@ -875,23 +876,23 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </div>
 <div id="modelo-cúbico" class="section level1">
 <h1>Modelo cúbico</h1>
-<p>Aquí un ejemplo para evaluar si los datos tienen una distribución cubica. Primero creamos un conjunto de datos.</p>
+<p>Aquí un ejemplo para evaluar si los datos tienen una distribución cúbica. Primero creamos un conjunto de datos.</p>
 <p>Los valores en la variable <strong>x</strong></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>d&lt;-<span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">20</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</span></code></pre></div>
-<p>Los valores en predicho en la variable <strong>y</strong></p>
+<p>Los valores predichos en la variable <strong>y</strong></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>y&lt;-<span class="dv">500</span><span class="fl">+0.5</span><span class="op">*</span>(d<span class="dv">-10</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <p>Crear un conjunto de datos que tiene variación. Donde los datos tienen una variación con distribución normal con un promedio de 10 y una desviación estandar de 80.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>variación &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(d), <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">80</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a>var.y &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>variación</span></code></pre></div>
 <p>Unir los datos un un <strong>tibble</strong></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>df=<span class="kw">tibble</span>(y,var.y, d)</span></code></pre></div>
-<p>Visualizar los datos con el polinomio al <span class="math inline">\(x^3\)</span>.</p>
+<p>Visualizar los datos con el polinomio cúbico.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(d, var.y)) <span class="op">+</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dv">3</span>), </span>
 <span id="cb12-4"><a href="#cb12-4"></a>              <span class="dt">color =</span><span class="st">&quot;red&quot;</span>, <span class="dt">se =</span><span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Ahora vemos como se ve los modelos de <span style="color: blue;">regresión lineal</span> y <span style="color: orange;">cuadratico</span>. nota que el cubico los datos siguen mucho mejor los datos.</p>
+<p>Ahora vemos como se ve los modelos de <span style="color: blue;">regresión lineal</span> y <span style="color: orange;">cuadratico</span>. nota que en el modelo cúbico los datos siguen mucho mejor el modelo.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(d, var.y)) <span class="op">+</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
@@ -922,7 +923,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
  
 </th>
 <th colspan="5" style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black;">
-var y
+var.y
 </th>
 </tr>
 <tr>
@@ -950,16 +951,16 @@ df
 (Intercept)
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-19.18
+-16.32
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
--18.55 – 56.91
+-57.32 – 24.68
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-1.00
+-0.78
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-0.317
+0.433
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
 197.00
@@ -970,13 +971,13 @@ df
 d
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-151.42
+171.29
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-135.04 – 167.80
+153.49 – 189.09
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-18.23
+18.98
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
 <strong>&lt;0.001
@@ -990,13 +991,13 @@ d
 d^2
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
--15.66
+-17.90
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
--17.56 – -13.75
+-19.97 – -15.82
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
--16.21
+-17.04
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
 <strong>&lt;0.001
@@ -1010,13 +1011,13 @@ d^2
 d^3
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-0.53
+0.60
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-0.47 – 0.59
+0.53 – 0.67
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
-16.72
+17.36
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align: left;  ">
 <strong>&lt;0.001
@@ -1038,7 +1039,7 @@ Observations
 R<sup>2</sup> / R<sup>2</sup> adjusted
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; color: blue; text-align:center;" colspan="5">
-0.886 / 0.884
+0.872 / 0.870
 </td>
 </tr>
 </table>
@@ -1052,18 +1053,18 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </div>
 <div id="interpretación-de-la-tabla-de-resultados-1" class="section level2">
 <h2>Interpretación de la tabla de resultados</h2>
-<p>La cantidad de variación contabilizada toma en cuenta 84.8%. La significación del término cuadrático (t = 13.31, p &lt;0.001) sugiere que la inclusión del término cubica mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.</p>
+<p>Con nuestro modelo cúbico hemos contabilizado 84.8% de la varianza observada. La significación del término cuadrático (t = 13.31, p &lt;0.001) sugiere que la inclusión del término cubica mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.</p>
 <hr />
 </div>
 <div id="residuales-y-patrones" class="section level2">
 <h2>Residuales y patrones</h2>
 <p>Evidencia de Residuales que no cumple con <strong>Igualdad de varianza.</strong></p>
-<p>Aquí se demuestra algunos de los patrones que pudiese sugerir que los datos no cumple con los supuestos de la prueba. El grafico es de Field, Miles and Field del libro Discovering Statistics Using R, 2012. La figure 7.15 (Con permiso del autor A. Field, email, 2020-10-08) .</p>
+<p>Aquí mostramos algunos patrones que pueden sugerir que los datos no cumplen con los supuestos de la prueba. El grafico es de Field, Miles and Field del libro Discovering Statistics Using R, 2012. La figure 7.15 (Con permiso del autor A. Field, email, 2020-10-08) .</p>
 <ul>
-<li><p>En el gráfico arriba a la izquierda es una distribución de los datos que sugiere igualdad de varianza o <strong>homogeneidad de varianza</strong>.</p></li>
-<li><p>En el gráfico arriba a la derecha demuestra un patrón de residuales donde los residuales no son distribuido equitativamente, y sugiere heteroescadisticidad de varianza.</p></li>
-<li><p>En el gráfico abajo a la izquierda un patrón donde sugiere que la relación entre una variable y otra no es lineal.</p></li>
-<li><p>En el gráfico abajo a la derecha se observa un patrón de residuales donde tanto los datos son heteroescadisticidad y no-lineal.</p></li>
+<li><p>En el gráfico arriba a la izquierda es una distribución de los datos que sugiere igualdad de varianza u <strong>homogeneidad de varianza</strong>.</p></li>
+<li><p>En el gráfico arriba a la derecha demuestra un patrón de residuales donde los residuales no son distribuidos equitativamente, y sugiere heteroescadisticidad de varianza.</p></li>
+<li><p>En el gráfico abajo a la izquierda se demuestra un patrón que sugiere que la relación entre una variable y otra no es lineal.</p></li>
+<li><p>En el gráfico abajo a la derecha se observa un patrón de residuales donde tanto los datos son heteroescadisticos y no-lineales.</p></li>
 </ul>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;Graficos/Residuals_heteroscadasticity.png&quot;</span>)</span></code></pre></div>
 <p><img src="Graficos/Residuals_heteroscadasticity.png" width="50%" /></p>
