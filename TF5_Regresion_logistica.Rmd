@@ -1,5 +1,5 @@
 ---
-title: "TF5 Regresión logística"
+title: "Regresión logística"
 output:
   html_document:
     css: tutorial.css
@@ -572,7 +572,7 @@ Vea modulo **Criterio de Información**
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
 ```
-> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
+> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
 responsibility of the authors and does not necessarily represent the official views of the National
 Institutes of Health.”
 

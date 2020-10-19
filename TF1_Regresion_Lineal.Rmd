@@ -1,5 +1,5 @@
 ---
-title: "TF Regresión Lineal"
+title: "Regresión Lineal"
 output:
   html_document:
     css: tutorial.css

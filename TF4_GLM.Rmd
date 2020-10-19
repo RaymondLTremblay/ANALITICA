@@ -25,11 +25,109 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 
 ***
+# Introdución
+
+## Modelos lineales
+
+Los modelos lineal generalizado, GLM, es una extensión de los modelos lineales donde la distribución de la variable de dependiente tiene una distribución normal. Recordamos que una regresión lineal tiene la siguiente organización, por ejemplo ara una regresión de una variable independiente el modelo, donde $\beta_0$ es el intercepto y la $\beta_1$ es el coeficiente, o sea la pendiente y la $x_i$ son los valores de x's.  Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
+
+$$\mu_i=\beta_0+\beta_1x_i$$ 
+Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
+
+$$y_i\sim N\left(\mu_i,\ \epsilon\right)$$
+Una manera de visualizar lo es con la siguiente figura, donde los valores de y's tienen una distribución normal y que esta distribución es homogenia a travez de los valores de x's. 
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap="Del siguiente website; https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab"}
+knitr::include_graphics(c("Graficos/Reg_Normal.png"))
+```
+
+El problema mayor por mucho tiempo ha sido que la variable independiente no tenían distribución normal por consecuencia no cumplia con los supuestos de la regresión lineal. El método de linearizar la variable  de respuesta antes de hacer el análisis fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente website,  <https://encyclopediaofmath.org/wiki/Generalized_linear_models>. Con el avance de uso de las computadoras en los años 80 termino en ser uno de los métodos estadísticos más utilizados.  
+
+El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta $y_i$ se asume que sigue una distribución dentro de la familia de distribuciones exponencial con un promedio $\mu_i$, donde se asume una función $\mu_i^T\beta$ que frecuentemente no es lineal. Para poder linearizar la variable es necesario usar un "link" para convertir la variable $y_i$.  
+
+## Link disponible
+
+Aquí una lista parcial de los diferentes tipos de "link" para diferentes tipos de datos de la variable independiente, $y_i$. La decisión de cual transformación o link es necesaria dependerá de los tipos de datos y sus distribución.   
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(huxtable)
+
+LinkFunctions<-tribble(
+  ~Modelo, ~Variable_Dep, ~Link, ~Variables_Independiente,
+  "Regresión Lineal", "Normal", "Identity", "Continuos",
+  "ANOVA", "Normal", "Identity", "Categórico",
+  "Regresión logistica", "Binomial", "Logit","Mixto",
+  "Regresión Poisson", "Poisson", "Log", "Mixto",
+)
+
+huxtable(LinkFunctions) %>% 
+  set_bold(1, 1:4) %>% 
+  set_text_color(1, 1:4, "red") %>% 
+  set_bottom_border(row = 1, col = everywhere, value = 1) %>%
+set_bottom_border(row = 5, col = everywhere, value = 1) %>%
+set_caption("Links comun utilizado con GLM.")
+```
+
+Aunque los anteriores son bien común no son los únicos links disponible para transformar los datos.  Aqui esta información suplementaria sobre algunos otros links que en R en ciertos paquetes.  
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(huxtable)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+Familia<-tribble(
+  ~Familia, ~Links, 
+  "Gaussian/Normal", "identity, log, inversa", 
+  "Binomial", "logit, probit, cauchit, log, cloglog", 
+  "Gamma", "inversa, identity, log",
+  "Poisson", "log, identity, raiz cuadrada",
+  "Gausian inversa", "1/µ^2, inversa, identity, log"
+)
+
+huxtable(Familia) %>% 
+  set_bold(1, 1:2) %>% 
+  set_text_color(1, 1:2, "red") %>% 
+  set_bottom_border(row = 1, col = everywhere, value = 1) %>%
+set_bottom_border(row = 6, col = everywhere, value = 1) %>%
+set_caption("Links comun utilizado con GLM.")
+```
+
+***
+
+## Los supuestos
+
+ + La ventaja es que ahora la variable dependiente no tiene que tener una distribucion normal, pero que proviene de una distribución de la familia exponencial, por ejemplo binomial, Poisson, multinomial, normal, normal inversa, etc.  
+ + GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despues de usar la transformación con el link, $\log it\left(\pi\right)=\beta_0+\beta_1\cdot x_i$. 
+ + No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)
+ + Los errores tienen que ser independiente pero no importa si cumple la distribución normal
+ + Los parámetros se estiman usando la verosimilitud (MLE = Maximum Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary least square).
+
+
+***
+## Las ventajas de GLM
+
+  +  No hay que transformar los datos de la variable dependiente para normalizarlos. 
+  + La selección del "link" es independiente la variable dependiente, que hace más fácil crear modelos.
+  + Los modelos se estiman vía la verosimilitud, entonces optimiza los estimadores, $\beta$. 
+  + Las herramientas para evaluar las inferencias y los modelos están disponible tal como evaluar los residuales, los intervalos de confianza, deviance, likelihood ratio test entre otros. 
 
 
 ***
 
-> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
+## Modelos binomial o Bernoulli
+
+Si la variable es binomial, solamente dos alternativas, 0 y 1, o si o no, se usa la distribución binomial. Se utiliza la función **logit** como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina regresión logística.
+
+$$\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i$$
+
+donde la distribución es una binomial con $y_i\sim Binomial\left(q_i\right)$. 
+
+***
+
+> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
 responsibility of the authors and does not necessarily represent the official views of the National
 Institutes of Health.”
 

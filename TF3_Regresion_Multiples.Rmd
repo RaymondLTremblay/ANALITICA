@@ -1,5 +1,5 @@
 ---
-title: "Regresion_Multiples"
+title: "Regresion Multiple"
 output:
   html_document:
     css: tutorial.css
@@ -305,6 +305,6 @@ knitr::include_graphics(c("Graficos/UPR_logos.png"))
 
 ***
 
-> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
+> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
 responsibility of the authors and does not necessarily represent the official views of the National
 Institutes of Health.”

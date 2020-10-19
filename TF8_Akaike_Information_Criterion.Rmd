@@ -1,5 +1,5 @@
 ---
-title: "Seleción de Modelos"
+title: "Selección de Modelos"
 output:
   html_document:
     css: tutorial.css
@@ -33,7 +33,7 @@ colorize <- function(x, color) {
 }
 
 #`r colorize("some words in red", "red")`
-
+library(ggplot2)
 rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bold"),
         axis.text.x = element_text(colour="grey20",size=15, face="bold"),
         axis.text.y = element_text(colour="grey20",size=15,face="bold"),  
@@ -122,13 +122,13 @@ En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos
 
 <https://en.wikipedia.org/wiki/Model_selection#Criteria>
 
-| Selección de modelos | Formula                                                                                               | Formula                                                    |
-|----------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| $Verosimilitud$      | $$\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}$$ \| Ajuste |                                                            |
-| $AIC$                | $$\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p$$ \| Ajuste y                                            | complejidad                                                |
-| $AIC_c$              | $$\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)$$ \| Ajuste y              | complejidad, con corrección para tamaño de muestra pequeña |
-| $Schwartz$           | $$\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)$$ \| Ajuste y                        | complejidad, tamaño de muestra                             |
-| $R_{adj}^2$          | $$R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$$             | Ajuste                                                     |
+| Selección de modelos | Formula                                                                                               | Criterio de selección                                                    |
+|----------------------|----------------------------------------|------------------------------------------------------------|
+| $Verosimilitud$      | $\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}$ | Ajuste |                                                            |
+| $AIC$                | $\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p$ | Ajuste y complejidad                                                |
+| $AIC_c$              | $\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)$ | Ajuste y complejidad, con corrección para tamaño de muestra pequeña |
+| $Schwartz$           | $\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)$ | Ajuste y complejidad, tamaño de muestra                             |
+| $R_{adj}^2$          | $R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}$             | Ajuste                                                     |
 
 \*\* Las ideas y conceptos mencionado siguen en parte Johnson and Omland 2004.
 
@@ -325,3 +325,8 @@ Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TR
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
 ```
+
+***
+> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
+responsibility of the authors and does not necessarily represent the official views of the National
+Institutes of Health.”

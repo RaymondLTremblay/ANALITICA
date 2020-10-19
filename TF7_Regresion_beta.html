@@ -11,7 +11,7 @@
 
 
 
-<title>TF7_Regression_beta</title>
+<title>Regression beta</title>
 
 <script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -676,7 +676,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">TF7_Regression_beta</h1>
+<h1 class="title toc-ignore">Regression beta</h1>
 
 </div>
 
@@ -811,7 +811,7 @@ div.tocify {
 ## 
 ## Intervals : 
 ## Level       BCa          
-## 95%   ( 0.2502,  0.2954 )  
+## 95%   ( 0.2494,  0.2995 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 </div>
 </div>
@@ -1060,30 +1060,39 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 <span id="cb42-21"><a href="#cb42-21"></a><span class="st">  </span>rlt_theme</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: width, height</code></pre>
 <p><img src="TF7_Regresion_beta_files/figure-html/beta%20reg%20graph-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Graficos/Beta_number_flowers.png&quot;</span>)</span></code></pre></div>
+<pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Aquí es una representación de las distribuciones beta en las x, número de flores. En rojo es para simular la distribución la proporción esperada de frutos en plantas que tienen 15 flores y la linea azul es para simular la distribución esperada de la proporción de frutos en plantas con 30 flores.<br />
 ***</p>
 <p>Evaluando la distribución de beta para valores específicos de x= Proporción de frutos por plantas basado en la cantidad de flores en la planta.</p>
-<p>Select different values of x, and calculate the mean and variance, and then convert these in <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. With these construct the beta distribution.</p>
+<p>Seleccionar los diferentes valores de <strong>x</strong> y calcular el promedio y la varianza y convertir estos en <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>. Con estos parámetros se puede construir la densidad de la distribución por cada valor de x.</p>
 <p>Se selecciona valores específicos para la visualizar la distribución, las plantas que tienen 25, 30 y 35 flores. Se tiene que reorganizar los datos para calcular el promedio y la varianza.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>dpQ=dp2 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb44-2"><a href="#cb44-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">26</span>)) </span>
-<span id="cb44-3"><a href="#cb44-3"></a>dpQ2=dpQ<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb44-4"><a href="#cb44-4"></a><span class="st">  </span><span class="kw">filter</span>(Number_of_Flowers<span class="op">==</span><span class="st"> </span><span class="dv">35</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">22</span>))<span class="op">%&gt;%</span><span class="st"> </span>t <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</span>
-<span id="cb44-5"><a href="#cb44-5"></a>dpQ2<span class="op">$</span>Quartiles=<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">21</span>)</span>
-<span id="cb44-6"><a href="#cb44-6"></a></span>
-<span id="cb44-7"><a href="#cb44-7"></a><span class="kw">mean</span>(dpQ2<span class="op">$</span>V1, <span class="dt">na.rm=</span><span class="ot">FALSE</span>)</span></code></pre></div>
-<pre><code>## [1] 0.2757771</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">var</span>(dpQ2<span class="op">$</span>V1, <span class="dt">na.rm=</span><span class="ot">FALSE</span>)</span></code></pre></div>
-<pre><code>## [1] 0.04226223</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>dpQ=dp2 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">26</span>))</span>
+<span id="cb46-3"><a href="#cb46-3"></a></span>
+<span id="cb46-4"><a href="#cb46-4"></a>dpQ2=dpQ<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="st">  </span><span class="kw">filter</span>(Number_of_Flowers<span class="op">==</span><span class="st"> </span><span class="dv">13</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">22</span>))<span class="op">%&gt;%</span><span class="st"> </span>t <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</span>
+<span id="cb46-6"><a href="#cb46-6"></a>dpQ2<span class="op">$</span>Quartiles=<span class="kw">c</span>(.<span class="dv">01</span>, <span class="fl">0.05</span>, <span class="fl">.1</span>, <span class="fl">.15</span>, <span class="fl">.2</span>, <span class="fl">.25</span>, <span class="fl">.30</span>, <span class="fl">.35</span>, <span class="fl">.4</span>, <span class="fl">.45</span>, <span class="fl">.5</span>, <span class="fl">.55</span>, <span class="fl">.6</span>, <span class="fl">.65</span>,  <span class="fl">.7</span>,.<span class="dv">75</span>, <span class="fl">.8</span>, <span class="fl">.85</span>, <span class="fl">.9</span>, <span class="fl">.95</span>, <span class="fl">.99</span> )</span>
+<span id="cb46-7"><a href="#cb46-7"></a></span>
+<span id="cb46-8"><a href="#cb46-8"></a><span class="kw">mean</span>(dpQ2<span class="op">$</span>V1, <span class="dt">na.rm=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.06453931</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">var</span>(dpQ2<span class="op">$</span>V1, <span class="dt">na.rm=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.01296751</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="co">#dpQ2</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a></span>
+<span id="cb50-3"><a href="#cb50-3"></a></span>
+<span id="cb50-4"><a href="#cb50-4"></a><span class="kw">ggplot</span>(dpQ2, <span class="kw">aes</span>(Quartiles, V1))<span class="op">+</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a><span class="st"> </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<p><img src="TF7_Regresion_beta_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Usando la varianza calculada en el chunk anterior, se puede calcular el <span class="math inline">\(\alpha\)</span> y el <span class="math inline">\(\beta\)</span>.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>estBetaParams &lt;-<span class="st"> </span><span class="cf">function</span>(mu, var) {</span>
-<span id="cb48-2"><a href="#cb48-2"></a>  alpha &lt;-<span class="st"> </span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>mu) <span class="op">/</span><span class="st"> </span>var <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>mu) <span class="op">*</span><span class="st"> </span>mu <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb48-3"><a href="#cb48-3"></a>  beta &lt;-<span class="st"> </span>alpha <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>mu <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb48-4"><a href="#cb48-4"></a>  <span class="kw">return</span>(<span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> alpha, <span class="dt">beta =</span> beta))</span>
-<span id="cb48-5"><a href="#cb48-5"></a>}</span>
-<span id="cb48-6"><a href="#cb48-6"></a><span class="co">#mean(Smokers$Y2000P)</span></span>
-<span id="cb48-7"><a href="#cb48-7"></a><span class="co">#var(Smokers$Y2000P)</span></span>
-<span id="cb48-8"><a href="#cb48-8"></a><span class="kw">estBetaParams</span>(<span class="fl">0.2757771</span>,<span class="fl">0.04226223</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>estBetaParams &lt;-<span class="st"> </span><span class="cf">function</span>(mu, var) {</span>
+<span id="cb51-2"><a href="#cb51-2"></a>  alpha &lt;-<span class="st"> </span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>mu) <span class="op">/</span><span class="st"> </span>var <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>mu) <span class="op">*</span><span class="st"> </span>mu <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a>  beta &lt;-<span class="st"> </span>alpha <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>mu <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb51-4"><a href="#cb51-4"></a>  <span class="kw">return</span>(<span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> alpha, <span class="dt">beta =</span> beta))</span>
+<span id="cb51-5"><a href="#cb51-5"></a>}</span>
+<span id="cb51-6"><a href="#cb51-6"></a><span class="co">#mean(Smokers$Y2000P)</span></span>
+<span id="cb51-7"><a href="#cb51-7"></a><span class="co">#var(Smokers$Y2000P)</span></span>
+<span id="cb51-8"><a href="#cb51-8"></a><span class="kw">estBetaParams</span>(<span class="fl">0.2757771</span>,<span class="fl">0.04226223</span>)</span></code></pre></div>
 <pre><code>## $alpha
 ## [1] 1.027498
 ## 
@@ -1091,34 +1100,42 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 ## [1] 2.698331</code></pre>
 <hr />
 <p>Producción de los gráficos. Se observa que para las plantas que tienen 25 y 30 flores la densidad esta sesgada a la izquierda, en otra palabra la probabilidad de tener pocas frutos domina la distribuciones.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="kw">library</span>(gridExtra)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="kw">library</span>(gridExtra)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;gridExtra&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     combine</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>a=<span class="kw">ggplot</span>(dipodium2, <span class="kw">aes</span>(PropFR))<span class="op">+</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dipodium2<span class="op">$</span>PropFR, <span class="dt">y =</span> ..y..), <span class="dt">fun =</span> dbeta, <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">n =</span> <span class="dv">62</span>,</span>
-<span id="cb53-3"><a href="#cb53-3"></a>                      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span><span class="fl">0.5418068</span>, <span class="dt">shape2 =</span><span class="fl">3.135593</span>))<span class="op">+</span></span>
-<span id="cb53-4"><a href="#cb53-4"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="st">&quot;x=25 flores&quot;</span>, <span class="dt">x=</span><span class="fl">0.1</span>, <span class="dt">y=</span><span class="dv">10</span>)<span class="op">+</span></span>
-<span id="cb53-5"><a href="#cb53-5"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Beta </span><span class="ch">\n</span><span class="st">Density&quot;</span>)<span class="op">+</span></span>
-<span id="cb53-6"><a href="#cb53-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)</span>
-<span id="cb53-7"><a href="#cb53-7"></a></span>
-<span id="cb53-8"><a href="#cb53-8"></a>b=<span class="kw">ggplot</span>(dipodium2, <span class="kw">aes</span>(PropFR))<span class="op">+</span></span>
-<span id="cb53-9"><a href="#cb53-9"></a><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dipodium2<span class="op">$</span>PropFR, <span class="dt">y =</span> ..y..), <span class="dt">fun =</span> dbeta, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">n =</span> <span class="dv">62</span>,</span>
-<span id="cb53-10"><a href="#cb53-10"></a>                      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">0.7549048</span>, <span class="dt">shape2 =</span><span class="fl">2.949404</span>))<span class="op">+</span></span>
-<span id="cb53-11"><a href="#cb53-11"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="st">&quot;x=30 flores&quot;</span>, <span class="dt">x=</span><span class="fl">0.1</span>, <span class="dt">y=</span><span class="dv">5</span>)<span class="op">+</span></span>
-<span id="cb53-12"><a href="#cb53-12"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Beta </span><span class="ch">\n</span><span class="st">Density&quot;</span>)<span class="op">+</span></span>
-<span id="cb53-13"><a href="#cb53-13"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)</span>
-<span id="cb53-14"><a href="#cb53-14"></a></span>
-<span id="cb53-15"><a href="#cb53-15"></a>c=<span class="kw">ggplot</span>(dipodium2, <span class="kw">aes</span>(PropFR))<span class="op">+</span></span>
-<span id="cb53-16"><a href="#cb53-16"></a><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dipodium2<span class="op">$</span>PropFR, <span class="dt">y =</span> ..y..), <span class="dt">fun =</span> dbeta, <span class="dt">colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">n =</span> <span class="dv">62</span>,</span>
-<span id="cb53-17"><a href="#cb53-17"></a>                      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">1.027498</span>, <span class="dt">shape2 =</span><span class="fl">2.698331</span>))<span class="op">+</span></span>
-<span id="cb53-18"><a href="#cb53-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="st">&quot;x=35 flores&quot;</span>, <span class="dt">x=</span><span class="fl">0.1</span>, <span class="dt">y=</span><span class="dv">2</span>)<span class="op">+</span></span>
-<span id="cb53-19"><a href="#cb53-19"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Beta </span><span class="ch">\n</span><span class="st">Density&quot;</span>)<span class="op">+</span></span>
-<span id="cb53-20"><a href="#cb53-20"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)</span>
-<span id="cb53-21"><a href="#cb53-21"></a><span class="kw">grid.arrange</span>(a,b,c, <span class="dt">ncol=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>a=<span class="kw">ggplot</span>(dipodium2, <span class="kw">aes</span>(PropFR))<span class="op">+</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dipodium2<span class="op">$</span>PropFR, <span class="dt">y =</span> ..y..), <span class="dt">fun =</span> dbeta, <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">n =</span> <span class="dv">62</span>,</span>
+<span id="cb56-3"><a href="#cb56-3"></a>                      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span><span class="fl">0.5418068</span>, <span class="dt">shape2 =</span><span class="fl">3.135593</span>))<span class="op">+</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="st">&quot;x=25 flores&quot;</span>, <span class="dt">x=</span><span class="fl">0.1</span>, <span class="dt">y=</span><span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb56-5"><a href="#cb56-5"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Beta </span><span class="ch">\n</span><span class="st">Density&quot;</span>)<span class="op">+</span></span>
+<span id="cb56-6"><a href="#cb56-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)</span>
+<span id="cb56-7"><a href="#cb56-7"></a></span>
+<span id="cb56-8"><a href="#cb56-8"></a>b=<span class="kw">ggplot</span>(dipodium2, <span class="kw">aes</span>(PropFR))<span class="op">+</span></span>
+<span id="cb56-9"><a href="#cb56-9"></a><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dipodium2<span class="op">$</span>PropFR, <span class="dt">y =</span> ..y..), <span class="dt">fun =</span> dbeta, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">n =</span> <span class="dv">62</span>,</span>
+<span id="cb56-10"><a href="#cb56-10"></a>                      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">0.7549048</span>, <span class="dt">shape2 =</span><span class="fl">2.949404</span>))<span class="op">+</span></span>
+<span id="cb56-11"><a href="#cb56-11"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="st">&quot;x=30 flores&quot;</span>, <span class="dt">x=</span><span class="fl">0.1</span>, <span class="dt">y=</span><span class="dv">5</span>)<span class="op">+</span></span>
+<span id="cb56-12"><a href="#cb56-12"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Beta </span><span class="ch">\n</span><span class="st">Density&quot;</span>)<span class="op">+</span></span>
+<span id="cb56-13"><a href="#cb56-13"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)</span>
+<span id="cb56-14"><a href="#cb56-14"></a></span>
+<span id="cb56-15"><a href="#cb56-15"></a>c=<span class="kw">ggplot</span>(dipodium2, <span class="kw">aes</span>(PropFR))<span class="op">+</span></span>
+<span id="cb56-16"><a href="#cb56-16"></a><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dipodium2<span class="op">$</span>PropFR, <span class="dt">y =</span> ..y..), <span class="dt">fun =</span> dbeta, <span class="dt">colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">n =</span> <span class="dv">62</span>,</span>
+<span id="cb56-17"><a href="#cb56-17"></a>                      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">1.027498</span>, <span class="dt">shape2 =</span><span class="fl">2.698331</span>))<span class="op">+</span></span>
+<span id="cb56-18"><a href="#cb56-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="st">&quot;x=35 flores&quot;</span>, <span class="dt">x=</span><span class="fl">0.1</span>, <span class="dt">y=</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb56-19"><a href="#cb56-19"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Beta </span><span class="ch">\n</span><span class="st">Density&quot;</span>)<span class="op">+</span></span>
+<span id="cb56-20"><a href="#cb56-20"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)</span>
+<span id="cb56-21"><a href="#cb56-21"></a>tresDensidad=<span class="kw">grid.arrange</span>(a,b,c, <span class="dt">ncol=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="TF7_Regresion_beta_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>tresDensidad</span></code></pre></div>
+<pre><code>## TableGrob (3 x 1) &quot;arrange&quot;: 3 grobs
+##   z     cells    name           grob
+## 1 1 (1-1,1-1) arrange gtable[layout]
+## 2 2 (2-2,1-1) arrange gtable[layout]
+## 3 3 (3-3,1-1) arrange gtable[layout]</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Graficos/tresDensidad.png&quot;</span>)</span></code></pre></div>
+<pre><code>## Saving 7 x 5 in image</code></pre>
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
 </blockquote>

@@ -11,7 +11,7 @@
 
 
 
-<title>Seleción de Modelos</title>
+<title>Selección de Modelos</title>
 
 <script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -660,7 +660,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Datos.html">Datos</a>
+      <a href="Datos.html">Los Datos</a>
     </li>
   </ul>
 </li>
@@ -676,7 +676,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Seleción de Modelos</h1>
+<h1 class="title toc-ignore">Selección de Modelos</h1>
 
 </div>
 
@@ -726,8 +726,9 @@ div.tocify {
 ##   influence.merMod                car 
 ##   dfbeta.influence.merMod         car 
 ##   dfbetas.influence.merMod        car</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">tab_model</span>(model)</span></code></pre></div>
+<pre><code>## Install package &quot;strengejacke&quot; from GitHub (`devtools::install_github(&quot;strengejacke/strengejacke&quot;)`) to load all sj-packages at once!</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">tab_model</span>(model)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -826,18 +827,18 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </table>
 <hr />
 <p>Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de <span class="math inline">\(R^2\)</span> y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un <span class="math inline">\(R^2\)</span> más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un <span class="math inline">\(R^2=.127\)</span> es significativamente mejor que un modelo de 2 variables con un <span class="math inline">\(R^2=.1185\)</span>. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: <strong><em>NA</em></strong> en la tabla quiere decir que esta variable no esta incluida en el modelo.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(MASS)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">library</span>(MuMIn)</span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple) <span class="co"># El Modelo más completo</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#model2</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#summary(model2)</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a></span>
-<span id="cb8-9"><a href="#cb8-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(formattable)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(gt)</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(MuMIn)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple) <span class="co"># El Modelo más completo</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#model2</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#summary(model2)</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">library</span>(formattable)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">library</span>(gt)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table class="table table-condensed">
 <thead>
 <tr>
@@ -1170,41 +1171,41 @@ NA
 <p><a href="https://en.wikipedia.org/wiki/Model_selection#Criteria" class="uri">https://en.wikipedia.org/wiki/Model_selection#Criteria</a></p>
 <table>
 <colgroup>
-<col width="12%" />
-<col width="55%" />
+<col width="18%" />
 <col width="32%" />
+<col width="49%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Selección de modelos</th>
 <th>Formula</th>
-<th>Formula</th>
+<th>Criterio de selección</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(Verosimilitud\)</span></td>
-<td><span class="math display">\[\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}\]</span> | Ajuste</td>
-<td></td>
+<td><span class="math inline">\(\\-2\left\{\ln\left[L(\theta_p\ |y\right)]+\ln\left[L(\theta_{p+q}\ | y\right)]\right\}\)</span></td>
+<td>Ajuste</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(AIC\)</span></td>
-<td><span class="math display">\[\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p\]</span> | Ajuste y</td>
-<td>complejidad</td>
+<td><span class="math inline">\(\\AIC=-2\ln\left[L(\theta_p\ |y\right)]+2p\)</span></td>
+<td>Ajuste y complejidad</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(AIC_c\)</span></td>
-<td><span class="math display">\[\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)\]</span> | Ajuste y</td>
-<td>complejidad, con corrección para tamaño de muestra pequeña</td>
+<td><span class="math inline">\(\\AIC_c=-2\ln\left[L(\theta_p\ |y\right)]+2p\left(\frac{n}{n-p-1}\right)\)</span></td>
+<td>Ajuste y complejidad, con corrección para tamaño de muestra pequeña</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(Schwartz\)</span></td>
-<td><span class="math display">\[\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)\]</span> | Ajuste y</td>
-<td>complejidad, tamaño de muestra</td>
+<td><span class="math inline">\(\\SC=-2\ln\left[L(\theta_p\ |y\right)]+p\cdot\ln\left(n\right)\)</span></td>
+<td>Ajuste y complejidad, tamaño de muestra</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(R_{adj}^2\)</span></td>
-<td><span class="math display">\[R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}\]</span></td>
+<td><span class="math inline">\(R_{adj}^2=1-\frac{RSS/n-p-1}{\frac{\sum_{n=i}^n\left(y_i-\overline{y}\right)^2}{n-1}}\)</span></td>
 <td>Ajuste</td>
 </tr>
 </tbody>
@@ -1249,11 +1250,12 @@ NA
 <div id="primer-paso-construcción-de-los-modelos" class="section level3">
 <h3>Primer paso: Construcción de los modelos</h3>
 <p>El primer paso es construir los modelos que queremos comparar, para facilitar el ejemplo usamos un modelos complejo y comparamos todas las diferentes alternativas. NOTA: que este no es necesariamente el mejor acercamiento, ya que uno debería tener a priori una serie de modelos candidatos.</p>
-<p>Los datos son para evaluar sin hay efecto de cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentado son solamente parcial y incluye solamente un de los indices el del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>DFMaria_student &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/DFMaria_student.csv&quot;</span>)</span></code></pre></div>
+<p>Los datos son para evaluar sin hay efecto de cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentado son solamente parcial y incluye solamente un de los indices el del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar). La hipótesis es que algunos factores sociales y/o económico influencia el nivel de depresión en la gente.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>DFMaria_student &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/DFMaria_student.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   X1 = col_double(),
 ##   Sexo = col_double(),
@@ -1269,13 +1271,197 @@ NA
 <li><p>Escolaridad, major el número más escolaridad tiene</p></li>
 <li><p>Num_Pers_Hogar, Cantidad de persona que comparte el hogar familiar</p></li>
 <li><p>Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor el número mayor el salario</p></li>
-<li><p>Sala_Mens_Des, El salario mensual después del Huracán María, mayor el número mayor el salario</p></li>
-<li><p>Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán.</p></li>
+<li><p>Sala_Mens_Desp, El salario mensual después del Huracán María, mayor el número mayor el salario</p></li>
+<li><p>Index_Dep5T, Un indice de depresión 5 o más semanas después del Huracán.</p></li>
 </ul>
+</div>
+<div id="limpiar-los-datos" class="section level3">
+<h3>Limpiar los datos</h3>
+<p>El primer paso es remover todos los participantes donde le falta algún información.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>DFMaria_student=<span class="kw">na.omit</span>(DFMaria_student)</span></code></pre></div>
+</div>
+<div id="construcción-del-modelo" class="section level3">
+<h3>Construcción del modelo</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">head</span>(DFMaria_student)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##      X1  Sexo Escolaridad Num_Pers_Hogar Sala_Mens_Antes Sala_Mens_Desp
+##   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;
+## 1     1     1           4              3               4              4
+## 2     2     1           4              3               2              2
+## 3     3     1           7              4               2              2
+## 4     4     1           4              2               5              3
+## 5     5     2           4              5               6              6
+## 6     6     2           5              2               2              7
+## # … with 1 more variable: Index_Dep5T &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span><span class="kw">factor</span>(Sexo)<span class="op">+</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student)</span></code></pre></div>
+<div id="observar-el-resultado-del-modelo-lineal-completo." class="section level4">
+<h4>Observar el resultado del modelo lineal completo.</h4>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">summary</span>(Huracan_Dep)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Index_Dep5T ~ factor(Sexo) + Escolaridad + Num_Pers_Hogar + 
+##     Sala_Mens_Antes + Sala_Mens_Desp, data = DFMaria_student)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.1426  -3.8984  -0.3931   4.0240  20.6993 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     13.37228    0.86017  15.546   &lt;2e-16 ***
+## factor(Sexo)2   -0.71014    0.45979  -1.544   0.1228    
+## Escolaridad     -0.34298    0.18922  -1.813   0.0702 .  
+## Num_Pers_Hogar   0.03879    0.17797   0.218   0.8275    
+## Sala_Mens_Antes  0.47255    0.27245   1.734   0.0831 .  
+## Sala_Mens_Desp  -0.58913    0.27367  -2.153   0.0316 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.872 on 995 degrees of freedom
+## Multiple R-squared:  0.01324,    Adjusted R-squared:  0.008285 
+## F-statistic: 2.671 on 5 and 995 DF,  p-value: 0.02084</code></pre>
+</div>
+<div id="evaluar-todas-los-modelos" class="section level4">
+<h4>Evaluar todas los modelos</h4>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">library</span>(MuMIn)</span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student) <span class="co"># El Modelo más completo</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co">#model2</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="co">#summary(model2)</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a></span>
+<span id="cb20-10"><a href="#cb20-10"></a>ALL_models=<span class="kw">dredge</span>(Huracan_Dep) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
+<pre><code>## Fixed term is &quot;(Intercept)&quot;</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>ALL_models</span></code></pre></div>
+<pre><code>## Global model call: lm(formula = Index_Dep5T ~ Escolaridad + Num_Pers_Hogar + Sala_Mens_Antes + 
+##     Sala_Mens_Desp, data = DFMaria_student)
+## ---
+## Model selection table 
+##    (Int)     Esc Num_Prs_Hgr Sal_Mns_Ant Sal_Mns_Dsp df    logLik   AICc delta
+## 14 13.19 -0.3027                 0.45990     -0.6005  5 -3347.886 6705.8  0.00
+## 13 12.40                         0.43760     -0.6402  4 -3349.196 6706.4  0.60
+## 10 13.30 -0.2866                             -0.1716  4 -3349.321 6706.7  0.85
+## 9  12.55                                     -0.2290  3 -3350.495 6707.0  1.18
+## 2  13.03 -0.3999                                      3 -3350.709 6707.4  1.61
+## 16 13.07 -0.3014     0.04136     0.45630     -0.6000  6 -3347.859 6707.8  1.97
+## 15 12.26             0.05008     0.43340     -0.6393  5 -3349.156 6708.4  2.54
+## 12 13.13 -0.2849     0.05848                 -0.1757  5 -3349.266 6708.6  2.76
+## 6  13.19 -0.3395                -0.09285              4 -3350.298 6708.6  2.80
+## 11 12.36             0.06593                 -0.2332  4 -3350.426 6708.9  3.06
+## 4  12.96 -0.4003     0.02282                          4 -3350.701 6709.4  3.61
+## 5  12.30                        -0.15930              3 -3351.951 6709.9  4.09
+## 8  13.06 -0.3381     0.04460    -0.09625              5 -3350.267 6710.6  4.76
+## 1  11.66                                              2 -3353.333 6710.7  4.85
+## 7  12.14             0.05470    -0.16310              4 -3351.904 6711.8  6.02
+## 3  11.61             0.01597                          3 -3353.329 6712.7  6.85
+##    weight
+## 14  0.188
+## 13  0.139
+## 10  0.123
+## 9   0.104
+## 2   0.084
+## 16  0.070
+## 15  0.053
+## 12  0.047
+## 6   0.046
+## 11  0.041
+## 4   0.031
+## 5   0.024
+## 8   0.017
+## 1   0.017
+## 7   0.009
+## 3   0.006
+## Models ranked by AICc(x)</code></pre>
+</div>
+<div id="calcular-el-coeficientes-ponderados" class="section level4">
+<h4>Calcular el coeficientes ponderados</h4>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>allmodels=<span class="kw">format</span>(<span class="kw">round</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>), <span class="dt">scientific=</span><span class="ot">FALSE</span>)</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">library</span>(data.table)</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="kw">write.csv</span>(allmodels, <span class="st">&quot;allmodelsdata.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># calculate the model average </span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">model.avg</span>(ALL_models, <span class="dt">subset =</span> delta <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## model.avg(object = ALL_models, subset = delta &lt; 2)
+## 
+## Component models: 
+## &#39;134&#39;  &#39;34&#39;   &#39;14&#39;   &#39;4&#39;    &#39;1&#39;    &#39;1234&#39;
+## 
+## Coefficients: 
+##        (Intercept) Escolaridad Sala_Mens_Antes Sala_Mens_Desp Num_Pers_Hogar
+## full      12.93021  -0.2073248       0.2532552     -0.4080371    0.004098314
+## subset    12.93021  -0.3158011       0.4514584     -0.4629325    0.041363512</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># get the subset of the best models into a data frame</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a> bestModels &lt;-<span class="st"> </span><span class="kw">get.models</span>(ALL_models, <span class="dt">subset=</span>delta<span class="op">&lt;</span><span class="dv">2</span>)</span>
+<span id="cb27-3"><a href="#cb27-3"></a>    bestModels &lt;-<span class="st"> </span><span class="kw">model.avg</span>(bestModels)</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    </span>
+<span id="cb27-5"><a href="#cb27-5"></a>    </span>
+<span id="cb27-6"><a href="#cb27-6"></a> bestModels=<span class="kw">summary</span>(bestModels)</span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="co"># bestModels$coefficients</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>bestModelsResults=<span class="kw">data.frame</span>(bestModels<span class="op">$</span>coefmat.subset)</span>
+<span id="cb28-2"><a href="#cb28-2"></a> <span class="kw">names</span>(bestModelsResults)</span></code></pre></div>
+<pre><code>## [1] &quot;Estimate&quot;    &quot;Std..Error&quot;  &quot;Adjusted.SE&quot; &quot;z.value&quot;     &quot;Pr...z..&quot;</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a> bestModelsResults</span></code></pre></div>
+<pre><code>##                    Estimate Std..Error Adjusted.SE    z.value  Pr...z..
+## (Intercept)     12.93021439  0.7027874   0.7034307 18.3816455 0.0000000
+## Escolaridad     -0.31580113  0.1893137   0.1895335  1.6662026 0.0956731
+## Sala_Mens_Antes  0.45145840  0.2721029   0.2724331  1.6571347 0.0974922
+## Sala_Mens_Desp  -0.46293254  0.3030251   0.3032304  1.5266694 0.1268433
+## Num_Pers_Hogar   0.04136351  0.1780856   0.1783023  0.2319853 0.8165494</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>BMR=<span class="kw">setNames</span>(<span class="kw">cbind</span>(<span class="kw">rownames</span>(bestModelsResults), bestModelsResults, <span class="dt">row.names =</span> <span class="ot">NULL</span>), </span>
+<span id="cb32-2"><a href="#cb32-2"></a>         <span class="kw">c</span>(<span class="st">&quot;Variables&quot;</span>, <span class="st">&quot;Coef_Estimate&quot;</span>, <span class="st">&quot;Std_Error&quot;</span>, <span class="st">&quot;AdjustedSE&quot;</span>, <span class="st">&quot;z_value&quot;</span>, <span class="st">&quot;p_value&quot;</span>))</span>
+<span id="cb32-3"><a href="#cb32-3"></a>BMR=<span class="kw">as.data.frame</span>(BMR)</span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#BMR</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="kw">is.data.frame</span>(BMR)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">library</span>(coefplot)</span>
+<span id="cb34-3"><a href="#cb34-3"></a></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="co"># Calculate the lower and upper bound of the coeffcients</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a>BMR<span class="op">$</span>LowerBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">-</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>BMR<span class="op">$</span>UpperBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">+</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>BMR</span></code></pre></div>
+<pre><code>##         Variables Coef_Estimate Std_Error AdjustedSE    z_value   p_value
+## 1     (Intercept)   12.93021439 0.7027874  0.7034307 18.3816455 0.0000000
+## 2     Escolaridad   -0.31580113 0.1893137  0.1895335  1.6662026 0.0956731
+## 3 Sala_Mens_Antes    0.45145840 0.2721029  0.2724331  1.6571347 0.0974922
+## 4  Sala_Mens_Desp   -0.46293254 0.3030251  0.3032304  1.5266694 0.1268433
+## 5  Num_Pers_Hogar    0.04136351 0.1780856  0.1783023  0.2319853 0.8165494
+##    LowerBound  UpperBound
+## 1 11.52335293 14.33707586
+## 2 -0.69486803  0.06326577
+## 3 -0.09340787  0.99632467
+## 4 -1.06939332  0.14352824
+## 5 -0.31524109  0.39796812</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">names</span>(BMR)</span></code></pre></div>
+<pre><code>## [1] &quot;Variables&quot;     &quot;Coef_Estimate&quot; &quot;Std_Error&quot;     &quot;AdjustedSE&quot;   
+## [5] &quot;z_value&quot;       &quot;p_value&quot;       &quot;LowerBound&quot;    &quot;UpperBound&quot;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">ggplot</span>(BMR, <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Variables, <span class="dt">y =</span> Coef_Estimate,</span>
+<span id="cb38-2"><a href="#cb38-2"></a>       <span class="dt">ymin =</span> LowerBound, <span class="dt">ymax =</span> UpperBound, <span class="dt">colour=</span>Variables))<span class="op">+</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">0.0</span>, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="st">  </span><span class="kw">geom_pointrange</span>()<span class="op">+</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Variables&quot;</span>)<span class="op">+</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Coefficients: Alien Species&quot;</span>)<span class="op">+</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="st">  </span>rlt_theme<span class="op">+</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="TF8_Akaike_Information_Criterion_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Alien Species Coefficients.png&quot;</span>)</span></code></pre></div>
+<pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Referencias:</p>
 <p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
 <hr />
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
+<hr />
+<blockquote>
+<p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
+</blockquote>
+</div>
 </div>
 </div>
 </div>

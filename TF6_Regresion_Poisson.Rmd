@@ -1,5 +1,5 @@
 ---
-title: "TF6_Regresion_Poisson"
+title: "Regresion Poisson"
 output:
   html_document:
     css: tutorial.css
@@ -28,7 +28,7 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 
 
-> “Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
+> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
 responsibility of the authors and does not necessarily represent the official views of the National
 Institutes of Health.”
 
