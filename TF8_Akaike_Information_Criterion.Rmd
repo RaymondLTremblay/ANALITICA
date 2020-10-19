@@ -34,7 +34,11 @@ colorize <- function(x, color) {
 
 #`r colorize("some words in red", "red")`
 
-
+rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bold"),
+        axis.text.x = element_text(colour="grey20",size=15, face="bold"),
+        axis.text.y = element_text(colour="grey20",size=15,face="bold"),  
+        axis.title.x = element_text(colour="grey20",size=15,face="bold"))+
+        theme_bw()
 ```
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}

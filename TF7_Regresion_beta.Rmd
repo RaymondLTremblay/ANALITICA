@@ -37,28 +37,38 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 ***
 ## Beta regression
 
-La regresión beta es una acercamiento GLM. La regresión beta es para modelar variables dependientes distribuidas con la distribución beta. Datos que tienen distribución beta incluye proporciones y razones, donde los valores se encuentra entre 0 y 1. Además de la producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
-
-Los valores de la variable de respuesta deben estar entre 0 y 1, Si por consecuencia tiene valores que son 0 o 1, es necesario cambiarlo a 1= .999 y 0= 0.001. los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1.
+El método presentado aquí es bastante innovador (2010 en adelante) y no van a encontrar mucha información en la literatura o el web sobre el método.  Puede encontrar información suplementaria en el Vignette del paquete **betareg**.  
 
 
-La paquete "betareg" y sus datos. Tenga en cuenta que este es el enfoque del modelo GLM con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal,
-existen numerosas funciones de enlace, que pueden ser util como "logit", "probit", "cloglog", "cauchit", "log", "loglog".
+Referencias:
 
-Casi toda la información que se estará presentando aqui proviene de Vribari-Neto y Zeileis (Beta Regression in R).  
+Cribari-Neto, F., and Zeileis, A. (2010). Beta Regression in R. Journal of Statistical Software, 34(2), 1–24. http://www.jstatsoft.org/v34/i02/.
+
+Grün, B., Kosmidis, I., and Zeileis, A. (2012). Extended Beta Regression in R: Shaken, Stirred, Mixed, and Partitioned. Journal of Statistical Software, 48(11), 1–25. http://www.jstatsoft. org/v48/i11/.
+
+
+La regresión beta es una acercamiento GLM. La regresión beta es para modelar variables dependientes distribuidas con la distribución beta. Datos que tienen distribución beta incluye proporciones y razones, donde los valores se encuentra entre 0 y 1. Además de producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
+
+Los valores de la variable de respuesta deben estar entre 0 y 1, Si por consecuencia tiene valores que son 0 o 1, es necesario cambiarlo a 1= .999 y 0= 0.001. **Los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1**.
+
+
+La paquete "betareg" y sus datos. Tenga en cuenta que este es el enfoque del modelo GLM con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal, existen numerosas funciones de enlace, que pueden ser útil como "logit", "probit", "cloglog", "cauchit", "log", "loglog".
+
+Casi toda la información que se estará presentando aquí proviene de Cribari-Neto y Zeileis (Beta Regression in R).  
 
 Consulte el pdf, https://cran.r-project.org/web/packages/betareg/betareg.pdf para obtener una descripción del paquete y más detalles.   
 
 
-Estaré usando datos diferentes a lo que se presenta en el paquete para demostrar el valor de los analisis.  
+Estaré usando datos diferentes a lo que se presenta en el paquete para demostrar el valor de los análisis.  
 
-# Primer paso, que es una distribución beta?
+## Primer paso, que es una distribución beta?
 
-Lo más importante de la distribución beta es que los valores NUNCA son menores de 0 ni mayores de 1. En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
+Lo más importante de la distribución beta es que los valores **NUNCA** son menores de 0 ni mayores de 1. En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
 
 ```{r}
 library(tidyverse)
 library(ggplot2)
+library(betareg)
 ```
 
 
@@ -92,7 +102,7 @@ betadj=gather(betad, "by2_5", "by8_1_5", "by_5", "by_2_2" ,key="beta_shapes", va
 ```
 
 
-Aqui una serie de distribuciones beta. La distribución beta se calcula con dos parametros, **shape 1** y **shape 2**.  No vamos a entrar en estos parámetros, aunque pueden ir a la pagina de Wikipedia para tener más información. Lo que deberian fijarse es que aparte de cuando hay un shape que es igual como  Shape 1 = 0.5, y shape 2 =  0.5, (tambien shape 2 y 2) todas las otras distribuciones no son simétrica.  Siempre hay una cola que se extiende en los valores pequeños o grandes. 
+Aquí una serie de distribuciones beta. La distribución beta se calcula con dos parametros, **shape 1 o $\alpha$** y **shape 2 o $\beta$**.  No vamos a entrar en estos parámetros, aunque pueden ir a la pagina de Wikipedia para tener más información. Lo que deberian fijarse es que aparte de cuando hay un shape que es igual como  Shape 1 = 0.5, y shape 2 =  0.5, (tambien shape 2 y 2) todas las otras distribuciones no son simétrica.  Siempre hay una cola que se extiende en los valores pequeños o grandes. 
 
 
 
@@ -265,14 +275,32 @@ dp2$response=predict(modelpropFr, type = "response")
 #dp2$link=predict(modelpropFr, type = "link")
 dp2$precision=predict(modelpropFr, type = "precision")
 dp2$variance=predict(modelpropFr, type = "variance")
-dp2$quantile_.25=predict(modelpropFr, type = "quantile", at = c(0.25))
-dp2$quantile_.50=predict(modelpropFr, type = "quantile", at = c(0.50))
-dp2$quantile_.75=predict(modelpropFr, type = "quantile", at = c(0.75))
+dp2$quantile_.01=predict(modelpropFr, type = "quantile", at = c(0.01))
 dp2$quantile_.05=predict(modelpropFr, type = "quantile", at = c(0.05))
+dp2$quantile_.10=predict(modelpropFr, type = "quantile", at = c(0.10))
+dp2$quantile_.15=predict(modelpropFr, type = "quantile", at = c(0.15))
+dp2$quantile_.20=predict(modelpropFr, type = "quantile", at = c(0.20))
+dp2$quantile_.25=predict(modelpropFr, type = "quantile", at = c(0.25))
+dp2$quantile_.30=predict(modelpropFr, type = "quantile", at = c(0.30))
+dp2$quantile_.35=predict(modelpropFr, type = "quantile", at = c(0.35))
+dp2$quantile_.40=predict(modelpropFr, type = "quantile", at = c(0.40))
+dp2$quantile_.45=predict(modelpropFr, type = "quantile", at = c(0.45))
+dp2$quantile_.50=predict(modelpropFr, type = "quantile", at = c(0.50))
+dp2$quantile_.55=predict(modelpropFr, type = "quantile", at = c(0.55))
+dp2$quantile_.60=predict(modelpropFr, type = "quantile", at = c(0.60))
+dp2$quantile_.65=predict(modelpropFr, type = "quantile", at = c(0.65))
+dp2$quantile_.70=predict(modelpropFr, type = "quantile", at = c(0.70))
+dp2$quantile_.75=predict(modelpropFr, type = "quantile", at = c(0.75))
+dp2$quantile_.80=predict(modelpropFr, type = "quantile", at = c(0.80))
+dp2$quantile_.85=predict(modelpropFr, type = "quantile", at = c(0.85))
+dp2$quantile_.90=predict(modelpropFr, type = "quantile", at = c(0.90))
 dp2$quantile_.95=predict(modelpropFr, type = "quantile", at = c(0.95))
+dp2$quantile_.99=predict(modelpropFr, type = "quantile", at = c(0.99))
 dp2
+#modelpropFr$precision
 
-
+#quantile_many=predict(modelpropFr, type = "quantile", at=c(.99))
+#quantile_many
 ```
 
 
@@ -307,17 +335,71 @@ theme(axis.title.y = element_text(colour="grey20",size=20,face="bold"),
 ```
 
 Aquí es una representación de las distribuciones beta en las x, número de flores. En rojo es para simular la distribución la proporción esperada de frutos en plantas que tienen 15 flores y la linea azul es para simular la distribución esperada de la proporción de frutos en plantas con 30 flores.   
+***
+
+Evaluando la distribución de beta para valores específicos de x= Proporción de frutos por plantas basado en la cantidad de flores en la planta. 
+
+
+
+Select different values of x, and calculate the mean and variance, and then convert these in $\alpha$ and $\beta$.  With these construct the beta distribution. 
+
+Se selecciona valores específicos para la visualizar la distribución, las plantas que tienen 25, 30 y 35 flores. Se tiene que reorganizar los datos para calcular el promedio y la varianza.   
+```{r}
+dpQ=dp2 %>% 
+  select(c(1, 6:26)) 
+dpQ2=dpQ%>% 
+  filter(Number_of_Flowers== 35) %>% select(c(2:22))%>% t %>% as.data.frame
+dpQ2$Quartiles=c(1:21)
+
+mean(dpQ2$V1, na.rm=FALSE)
+var(dpQ2$V1, na.rm=FALSE)
+
+```
+
+Usando la varianza calculada en el chunk anterior, se puede calcular el $\alpha$ y el $\beta$. 
+
+```{r}
+
+estBetaParams <- function(mu, var) {
+  alpha <- ((1 - mu) / var - 1 / mu) * mu ^ 2
+  beta <- alpha * (1 / mu - 1)
+  return(params = list(alpha = alpha, beta = beta))
+}
+#mean(Smokers$Y2000P)
+#var(Smokers$Y2000P)
+estBetaParams(0.2757771,0.04226223)
+```
+***
+
+
+Producción de los gráficos. Se observa que para las plantas que tienen 25 y 30 flores la densidad esta sesgada a la izquierda, en otra palabra la probabilidad de tener pocas frutos domina la distribuciones.  
 
 
 
 
 ```{r}
-ggplot(dipodium2, aes(PropFR))+
-  geom_histogram(aes(y=..density..), colour="white", fill="grey50")+
-  stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="red", n = 62,
-                      args = list(shape1 = 1.1, shape2 =20))+
+library(gridExtra)
+a=ggplot(dipodium2, aes(PropFR))+
+stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="red", n = 62,
+                      args = list(shape1 =0.5418068, shape2 =3.135593))+
+  annotate("text", label="x=25 flores", x=0.1, y=10)+
+  ylab("Beta \nDensity")+
+  xlab("Probabilidad de tener frutos")
+
+b=ggplot(dipodium2, aes(PropFR))+
 stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="blue", n = 62,
-                      args = list(shape1 = 20, shape2 =110))
+                      args = list(shape1 = 0.7549048, shape2 =2.949404))+
+  annotate("text", label="x=30 flores", x=0.1, y=5)+
+  ylab("Beta \nDensity")+
+  xlab("Probabilidad de tener frutos")
+
+c=ggplot(dipodium2, aes(PropFR))+
+stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="black", n = 62,
+                      args = list(shape1 = 1.027498, shape2 =2.698331))+
+  annotate("text", label="x=35 flores", x=0.1, y=2)+
+  ylab("Beta \nDensity")+
+  xlab("Probabilidad de tener frutos")
+grid.arrange(a,b,c, ncol=1)
 ```
 
 
