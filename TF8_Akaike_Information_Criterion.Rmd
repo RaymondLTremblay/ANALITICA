@@ -138,9 +138,13 @@ En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos
 
 Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el meetodo que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de **Kullback-Leibler**, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el **Bayesian Information Criterion**, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.
 
+***
+
 ## Estimación de parámetros y múltiples modelos
 
 En muchos estudios el objetivo principal es estimar los parámetros para poder inferir algún proceso biológico o comportamiento humano. Por ejemplo, ¿*cual es la dosis apropiada de algún antibiótico para reducir el crecimiento de bacteria y el tiempo del tratamiento?*. Cuando hay un buen apoyo para un modelo especifico, los estimados de los parámetros de la verosimilitud pueden ser utilizados. Pero de vez en cuando hay apoyo para múltiples modelos, en otra palabra hay apoyo iguales para múltiples modelos, lo que resulta un problema seleccionar un modelo que sea **mejor** que otro. En este caso si hay más de un modelo se utiliza el promedio de los modelos. Los estimados de los parámetros de un modelo promedio son robustos en dos aspectos, 1) reduce el sesgo de seleccionar modelos y 2) toma en cuenta la incertidumbre en los modelos.
+
+***
 
 ## Selección de Modelos entre muchos
 
@@ -162,6 +166,8 @@ $W_i=\frac{\exp\left(-\frac{1}{2\cdot\Delta_i}\right)}{\sum_{j=i}^R\exp\left(-\f
 
 Este valor conocido como el **weight de Akaike**, o el peso de los modelos puede ser interpretado como una probabilidad que el modelo $i$ es el mejor modelo de los modelos evaluados.
 
+***
+
 ## Model Averaging:
 
 Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiese incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande $w_{best}<0.09$ o si la diferencia entre los modelos tienen un $\Delta AIC$ de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, $\tilde{\theta}$.
@@ -176,10 +182,13 @@ donde $\hat{var}\left(\tilde{\theta}\ |g_i\right)$ es el estimado de la varianza
 
 `r colorize("hacer una lista de las condiciones para selección de modelos con su referencias", "red")`
 
+***
 ## Inferencias de los modelos de selección
 
 La selección de modelos es una herramienta para inferir procesos no observados basado en datos que demuestra un patrón. Datos que claramente apoya una hipótesis entre muchas evaluadas puede inferir procesos que pudiese haber generado los datos observados.
 
+
+***
 ## Paso a Paso
 
 ### Primer paso: Construcción de los modelos
@@ -233,7 +242,30 @@ summary(Huracan_Dep)
 
 ```
 
-#### Evaluar todas los modelos
+#### Evaluar todas los modelos. 
+Se ordena los modelos comenzando con el mejor, y si resta el valor de AICc con el mejor modelo, menor es el AICc mejor es el modelo. Los modelos que se estará aceptando son los que tienen un delta de menos <-2.00 (comparando con el mejor modelo), $\Delta_i=AIC_i-AIC_{\min}$.  En otra palabra los modelos que difieren más de un AICc de 2.0 no se aceptan como buenos modelos. En este caso los seis primeros modelos son igual de bueno, y no hay evidencia que uno es mejor que el otro. Cuando hay más de un modelo se tiene que calcular los promedios ponderados de los parámetros $\beta_i$ .  
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(huxtable)
+
+
+Model_Selection<-tribble(
+  ~AIC_BIC_delta, ~Interpretación, 
+  "0-2", "Poca evidencia que los modelos son diferentes", 
+  "2-4", "Evidencia que los modelos son diferentes", 
+  ">4", "Mucha evidencia que los modelos son diferentes",
+)
+
+huxtable(Model_Selection) %>% 
+  set_bold(1, 1:2) %>% 
+  set_text_color(1, 1:2, "red") %>% 
+  set_bottom_border(row = 1, col = everywhere, value = 1) %>%
+set_bottom_border(row = 4, col = everywhere, value = 1) %>%
+set_caption("Criterios de Selección de Modelos")
+```
+
+Con la función **dredge** del paquete **MuMIn** podemos evaluar todas las combinaciones de modelos
 
 ```{r}
 library(MASS)
@@ -245,20 +277,21 @@ Huracan_Dep=lm(Index_Dep5T~Escolaridad+Num_Pers_Hogar+
 #model2
 #summary(model2)
 
-ALL_models=dredge(Huracan_Dep) # Evaluación de todas las compbinaciones/alternativas (modelos)
-
+ALL_models=dredge(Huracan_Dep, rank="AIC", extra = c(BIC, "R^2")) # Evaluación de todas las combinaciones/alternativas (modelos)
 ALL_models
 ```
 
+***
 #### Calcular el coeficientes ponderados
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 allmodels=format(round(ALL_models, digits=3), scientific=FALSE)
 library(data.table)
 write.csv(allmodels, "allmodelsdata.csv")
 
 ```
 
+### Seleccionar los modelos que tienen un delta AICc menor de 2 y calcular el promedio de los coeficientes de los modelos. Nota el conjunto de coeficientes debajo **subset**, esto son los coeficientes de las variables del conjunto de modelos que tienen un delta AICc menor de 2. 
 ```{r}
 
 # calculate the model average 
@@ -275,6 +308,8 @@ model.avg(ALL_models, subset = delta < 2)
  
 ```
 
+*** 
+### Extraer los parametros del modelo, usando las sigueientes funciones
 ```{r}
 bestModelsResults=data.frame(bestModels$coefmat.subset)
  names(bestModelsResults)
@@ -287,11 +322,14 @@ is.data.frame(BMR)
 
 ```
 
+
+### Intervalos de Confianza 
+Los Intervalos de confianza de los parámetros se extraje del modelo usando la siguiente funciones. 
 ```{r}
 library(ggplot2)
 library(coefplot)
 
-# Calculate the lower and upper bound of the coeffcients
+# Calcular el intervalo de confianza de 2.5% y de 97.5% 
 
 BMR$LowerBound=BMR$Coef_Estimate-BMR$AdjustedSE*2
 BMR$UpperBound=BMR$Coef_Estimate+BMR$AdjustedSE*2
@@ -300,6 +338,8 @@ names(BMR)
 
 ```
 
+
+### Visualizar los coeficientes con los intervalos de confianza
 ```{r}
 ggplot(BMR, mapping=aes(x=Variables, y = Coef_Estimate,
        ymin = LowerBound, ymax = UpperBound, colour=Variables))+
@@ -308,11 +348,11 @@ ggplot(BMR, mapping=aes(x=Variables, y = Coef_Estimate,
   coord_flip()+
   geom_pointrange()+
   xlab("Variables")+
-  ylab("Mean Coefficients: Alien Species")+
+  ylab("Mean Coefficients: Indice de depresión")+
   rlt_theme+
   theme(legend.position="none")
 
-ggsave("Alien Species Coefficients.png")
+ggsave("Indice_depresión.png")
 
 ```
 
