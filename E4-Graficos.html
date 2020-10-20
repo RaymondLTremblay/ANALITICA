@@ -14,6 +14,7 @@
 
 <title>Tema_3_Graficos</title>
 
+<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -26,6 +27,15 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -499,6 +509,9 @@ div.tocify {
     <li>
       <a href="TF7_Regresion_beta.html">Regresion Beta</a>
     </li>
+    <li>
+      <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -509,10 +522,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="HIV.html">Datos sobre HIV</a>
-    </li>
-    <li>
-      <a href="COVID-19.html">COVID-19</a>
+      <a href="Datos.html">Los Datos</a>
     </li>
   </ul>
 </li>
@@ -558,7 +568,8 @@ library(Hmisc)</code></pre>
 <p>DATA FILE = Exam Anxiety</p>
 <pre class="r"><code>library(readr)
 Exam_Anxiety &lt;- read_csv(&quot;Data/Exam Anxiety.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Code = col_double(),
 ##   Revise = col_double(),
@@ -637,10 +648,10 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1]  1.8980768 -1.1998058  0.6454882  0.3386418 -0.8147206  0.2329775</code></pre>
+<pre><code>## [1]  0.1318848  1.1245446  0.4347262 -0.1510170 -0.3578638  0.2561562</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
 <pre><code>##          0%         25%         50%         75%        100% 
-## -3.02450012 -0.69540899 -0.01329704  0.69298476  3.29653384</code></pre>
+## -3.49090746 -0.67661291  0.03047673  0.69088429  3.72821530</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
 <p>How to do a simple linear point graph and add text to graph, change the axis name</p>
 <pre class="r"><code>library(ggplot2)
@@ -711,7 +722,8 @@ scatter + geom_point() +
 <p>The hypothesis is that the personal hygiene of the concert goers would go down dramatically over the 3 days of the festival.</p>
 <pre class="r"><code>library(readr)
 DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   ticknumb = col_double(),
 ##   gender = col_character(),
@@ -885,7 +897,8 @@ ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 
 library(readr)
 Hiccups &lt;- read_csv(&quot;Data/Hiccups.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   Baseline = col_double(),
 ##   Tongue = col_double(),

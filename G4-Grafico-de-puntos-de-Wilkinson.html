@@ -14,6 +14,7 @@
 
 <title>Gráfico de puntos de Wilkinson</title>
 
+<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -26,6 +27,15 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -499,6 +509,9 @@ div.tocify {
     <li>
       <a href="TF7_Regresion_beta.html">Regresion Beta</a>
     </li>
+    <li>
+      <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -509,10 +522,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="HIV.html">Datos sobre HIV</a>
-    </li>
-    <li>
-      <a href="COVID-19.html">COVID-19</a>
+      <a href="Datos.html">Los Datos</a>
     </li>
   </ul>
 </li>
@@ -536,7 +546,7 @@ div.tocify {
 
 
 <p>Fecha de la última revisión</p>
-<pre><code>## [1] &quot;2020-09-08&quot;</code></pre>
+<pre><code>## [1] &quot;2020-10-19&quot;</code></pre>
 <div id="gráficos-de-puntos-con-geom_dotplot" class="section level1">
 <h1>Gráficos de puntos con <strong>geom_dotplot</strong></h1>
 <pre class="r"><code># Es necesario instalar los siguienntes paquetes:
@@ -910,6 +920,7 @@ gt(head(dipodium)) </code></pre>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Num of fruits</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Species_Name</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Cardinal orientation</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">PropFR</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
@@ -935,6 +946,7 @@ gt(head(dipodium)) </code></pre>
       <td class="gt_row gt_center">0</td>
       <td class="gt_row gt_left">r</td>
       <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_right">0.0001</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">1</td>
@@ -958,6 +970,7 @@ gt(head(dipodium)) </code></pre>
       <td class="gt_row gt_center">0</td>
       <td class="gt_row gt_left">r</td>
       <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_right">0.0001</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">2</td>
@@ -981,6 +994,7 @@ gt(head(dipodium)) </code></pre>
       <td class="gt_row gt_center">1</td>
       <td class="gt_row gt_left">r</td>
       <td class="gt_row gt_center">8</td>
+      <td class="gt_row gt_right">0.0401</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">3</td>
@@ -1004,6 +1018,7 @@ gt(head(dipodium)) </code></pre>
       <td class="gt_row gt_center">5</td>
       <td class="gt_row gt_left">r</td>
       <td class="gt_row gt_center">5</td>
+      <td class="gt_row gt_right">0.2501</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">4</td>
@@ -1027,6 +1042,7 @@ gt(head(dipodium)) </code></pre>
       <td class="gt_row gt_center">0</td>
       <td class="gt_row gt_left">r</td>
       <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_right">0.0001</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">5</td>
@@ -1050,6 +1066,7 @@ gt(head(dipodium)) </code></pre>
       <td class="gt_row gt_center">2</td>
       <td class="gt_row gt_left">p</td>
       <td class="gt_row gt_center">4</td>
+      <td class="gt_row gt_right">0.0801</td>
     </tr>
   </tbody>
   

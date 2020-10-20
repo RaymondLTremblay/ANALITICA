@@ -278,7 +278,11 @@ Huracan_Dep=lm(Index_Dep5T~Escolaridad+Num_Pers_Hogar+
 #summary(model2)
 
 ALL_models=dredge(Huracan_Dep, rank="AIC", extra = c(BIC, "R^2")) # Evaluación de todas las combinaciones/alternativas (modelos)
-ALL_models
+
+library(formattable)
+library(gt)
+formattable(ALL_models, digits=4, format="html")
+
 ```
 
 ***
@@ -291,7 +295,10 @@ write.csv(allmodels, "allmodelsdata.csv")
 
 ```
 
-### Seleccionar los modelos que tienen un delta AICc menor de 2 y calcular el promedio de los coeficientes de los modelos. Nota el conjunto de coeficientes debajo **subset**, esto son los coeficientes de las variables del conjunto de modelos que tienen un delta AICc menor de 2. 
+***
+### Seleccionar los modelos 
+
+Seleccionar los modelos que tienen un delta AICc menor de 2 y calcular el promedio de los coeficientes de los modelos. Nota el conjunto de coeficientes debajo **subset**, esto son los coeficientes de las variables del conjunto de modelos que tienen un delta AICc menor de 2. 
 ```{r}
 
 # calculate the model average 
@@ -309,6 +316,7 @@ model.avg(ALL_models, subset = delta < 2)
 ```
 
 *** 
+
 ### Extraer los parametros del modelo, usando las sigueientes funciones
 ```{r}
 bestModelsResults=data.frame(bestModels$coefmat.subset)
@@ -322,6 +330,7 @@ is.data.frame(BMR)
 
 ```
 
+***
 
 ### Intervalos de Confianza 
 Los Intervalos de confianza de los parámetros se extraje del modelo usando la siguiente funciones. 
@@ -337,7 +346,7 @@ BMR
 names(BMR)
 
 ```
-
+***
 
 ### Visualizar los coeficientes con los intervalos de confianza
 ```{r}

@@ -24,6 +24,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -434,7 +436,7 @@ $(document).ready(function () {
       <a href="TF7_Regresion_beta.html">Regresion Beta</a>
     </li>
     <li>
-      <a href="TF8_Akaike_Information_Criterion.html">Akaike Information Criterion</a>
+      <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
     </li>
   </ul>
 </li>
@@ -446,10 +448,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="HIV.html">Datos sobre HIV</a>
-    </li>
-    <li>
-      <a href="COVID-19.html">COVID-19</a>
+      <a href="Datos.html">Los Datos</a>
     </li>
   </ul>
 </li>
@@ -473,15 +472,100 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>library(kableExtra)</code></pre>
-<pre class="r"><code>Equation &lt;- c(&quot;$N_{i1,y} = R_{i,y} = R_{0,i }e^{\\tau_{i,y}}$&quot;,
-              &quot;$C_{y,a}=
-              \\begin{cases}
-              0 &amp;   a=0 \\\\
-              \\frac{C_y N_{y,a}}{N_y^{1+}} &amp; a&gt;0 \\\\
-              \\end{cases}$&quot;)
-Equation</code></pre>
-<pre><code>## [1] &quot;$N_{i1,y} = R_{i,y} = R_{0,i }e^{\\tau_{i,y}}$&quot;                                                                                                            
-## [2] &quot;$C_{y,a}=\n              \\begin{cases}\n              0 &amp;   a=0 \\\\\n              \\frac{C_y N_{y,a}}{N_y^{1+}} &amp; a&gt;0 \\\\\n              \\end{cases}$&quot;</code></pre>
+<pre class="r"><code>Equation_number &lt;- c(1,2)
+
+Equation &lt;- c(&quot;$N_{i1,y} = R_{i,y} = R_{0,i }e^{\\tau_{i,y}}$&quot;,
+              &quot;$C_{y,a}$&quot;,
+              &quot;$C_{y,b}$&quot;,
+              &quot;$C_{y,c}$&quot;,
+              &quot;$C_{y,d}$&quot;)
+
+Description &lt;- c(&quot;Initial numbers at age&quot;,&quot;Catches at age&quot;)
+
+Population_Equations &lt;- data.frame(cbind(Equation_number,
+                                         Equation,
+                                         Description))</code></pre>
+<pre><code>## Warning in cbind(Equation_number, Equation, Description): number of rows of
+## result is not a multiple of vector length (arg 1)</code></pre>
+<pre class="r"><code>colnames(Population_Equations) = c(&quot;Eq.&quot;,
+                                   &quot;Equation&quot;, 
+                                   &quot;Description&quot;)
+knitr::kable(format=&quot;html&quot;,
+             Population_Equations, 
+             escape = FALSE) %&gt;% 
+            kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Eq.
+</th>
+<th style="text-align:left;">
+Equation
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(N_{i1,y} = R_{i,y} = R_{0,i }e^{\tau_{i,y}}\)</span>
+</td>
+<td style="text-align:left;">
+Initial numbers at age
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(C_{y,a}\)</span>
+</td>
+<td style="text-align:left;">
+Catches at age
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(C_{y,b}\)</span>
+</td>
+<td style="text-align:left;">
+Initial numbers at age
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(C_{y,c}\)</span>
+</td>
+<td style="text-align:left;">
+Catches at age
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(C_{y,d}\)</span>
+</td>
+<td style="text-align:left;">
+Initial numbers at age
+</td>
+</tr>
+</tbody>
+</table>
 
 
 
