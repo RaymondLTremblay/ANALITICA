@@ -54,6 +54,7 @@ Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para p
 ## Datos del Libro **Discovering Stattistics Using R** por Andy Field *et al.* 2012. 
 
 5. [Album_Sales](Data/Album_Sales_1_new.csv)
+6. [pubs](Data/pubs.csv)
 
 
 ***

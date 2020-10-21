@@ -87,7 +87,7 @@ Vemos un ejemplo ficticio
 
 Los datos son de unos barrios un país ficticio donde se observa el
 números de barres en un bario y la cantidad de asesinados en este
-barrio.
+barrio. Los datos se encuentran en sección de datos debajo 
 
 ```{r data}
 library(readr)

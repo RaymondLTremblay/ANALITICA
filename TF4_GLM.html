@@ -692,17 +692,22 @@ div.tocify {
 <h1>Introdución</h1>
 <div id="modelos-lineales" class="section level2">
 <h2>Modelos lineales</h2>
-<p>Los modelos lineal generalizado, GLM, es una extensión de los modelos lineales donde la distribución de la variable de dependiente tiene una distribución normal. Recordamos que una regresión lineal tiene la siguiente organización, por ejemplo ara una regresión de una variable independiente el modelo, donde <span class="math inline">\(\beta_0\)</span> es el intercepto y la <span class="math inline">\(\beta_1\)</span> es el coeficiente, o sea la pendiente y la <span class="math inline">\(x_i\)</span> son los valores de x’s. Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
+<p>Los modelos lineal generalizado, GLM, es una extensión de los modelos lineales donde la distribución de la variable de dependiente tiene una distribución normal. Recordamos que una regresión lineal tiene la siguiente organización, por ejemplo la una regresión de una variable independiente el modelo, donde <span class="math inline">\(\beta_0\)</span> es el intercepto y la <span class="math inline">\(\beta_1\)</span> es el coeficiente, o sea la pendiente y la <span class="math inline">\(x_i\)</span> son los valores de x’s. Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
 <p><span class="math display">\[\mu_i=\beta_0+\beta_1x_i\]</span> Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
-<p><span class="math display">\[y_i\sim N\left(\mu_i,\ \epsilon\right)\]</span> Una manera de visualizar lo es con la siguiente figura, donde los valores de y’s tienen una distribución normal y que esta distribución es homogenia a travez de los valores de x’s.</p>
+<p><span class="math display">\[y_i\sim N\left(\mu_i,\ \epsilon\right)\]</span> Una manera de visualizar lo es con la siguiente figura, donde los valores de y’s tienen una distribución normal y que esta distribución es homogeneidad a través de los valores de x’s.</p>
 <div class="figure">
 <img src="Graficos/Reg_Normal.png" alt="Del siguiente website; https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab" width="50%" />
 <p class="caption">
 Del siguiente website; <a href="https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab" class="uri">https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab</a>
 </p>
 </div>
-<p>El problema mayor por mucho tiempo ha sido que la variable independiente no tenían distribución normal por consecuencia no cumplia con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta antes de hacer el análisis fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente website, <a href="https://encyclopediaofmath.org/wiki/Generalized_linear_models" class="uri">https://encyclopediaofmath.org/wiki/Generalized_linear_models</a>. Con el avance de uso de las computadoras en los años 80 termino en ser uno de los métodos estadísticos más utilizados.</p>
-<p>El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta <span class="math inline">\(y_i\)</span> se asume que sigue una distribución dentro de la familia de distribuciones exponencial con un promedio <span class="math inline">\(\mu_i\)</span>, donde se asume una función <span class="math inline">\(\mu_i^T\beta\)</span> que frecuentemente no es lineal. Para poder linearizar la variable es necesario usar un “link” para convertir la variable <span class="math inline">\(y_i\)</span>.</p>
+<hr />
+</div>
+<div id="cuando-la-variable-dependiente-no-es-lineal" class="section level2">
+<h2>Cuando la variable dependiente no es lineal</h2>
+<p>El problema mayor por mucho tiempo ha sido que la variable dependiente no tenían distribución normal por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente enlace, <a href="https://encyclopediaofmath.org/wiki/Generalized_linear_models" class="uri">https://encyclopediaofmath.org/wiki/Generalized_linear_models</a>. Con el avance del uso de las computadoras en los años 80 termino en ser uno de los métodos estadísticos más utilizados.</p>
+<p>El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta <span class="math inline">\(y_i\)</span> se asume que sigue una distribución dentro de la familia de distribuciones exponencial con un promedio <span class="math inline">\(\mu_i\)</span>, donde se asume una función <span class="math inline">\(\mu_i^T\beta\)</span> que frecuentemente no es lineal. Para poder linearizar la variable es necesario usar un “link” para convertir la variable dependiente, <span class="math inline">\(y_i\)</span>.</p>
+<hr />
 </div>
 <div id="link-disponible" class="section level2">
 <h2>Link disponible</h2>
@@ -720,7 +725,7 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Regresión Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Log</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Mixto</td></tr>
 </table>
 
-<p>Aunque los anteriores son bien común no son los únicos links disponible para transformar los datos. Aqui esta información suplementaria sobre algunos otros links que en R en ciertos paquetes.</p>
+<p>Aunque los anteriores son bien común no son los únicos links disponible para transformar los datos. Aquí esta información suplementaria sobre algunos otros links que están disponible R en ciertos paquetes.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(huxtable)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-5">
@@ -743,9 +748,9 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <div id="los-supuestos" class="section level2">
 <h2>Los supuestos</h2>
 <ul>
-<li>La ventaja es que ahora la variable dependiente no tiene que tener una distribucion normal, pero que proviene de una distribución de la familia exponencial, por ejemplo binomial, Poisson, multinomial, normal, normal inversa, etc.<br />
+<li>La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal, tampoco los datos sin transformar tienen que tener una relación lineal, pero estos tienen que provinir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.<br />
 </li>
-<li>GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despues de usar la transformación con el link, <span class="math inline">\(\log it\left(\pi\right)=\beta_0+\beta_1\cdot x_i\)</span>.</li>
+<li>GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, <span class="math inline">\(logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i\)</span>.</li>
 <li>No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)</li>
 <li>Los errores tienen que ser independiente pero no importa si cumple la distribución normal</li>
 <li>Los parámetros se estiman usando la verosimilitud (MLE = Maximum Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary least square).</li>

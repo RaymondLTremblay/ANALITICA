@@ -117,7 +117,8 @@ ggplot(betadj, aes(b1, cases, colour=beta_shapes))+
   scale_colour_discrete(name = "Beta_Shapes", labels = c("Shape 2 y 2", "Shape .5 y .5", "Shape 2 y 5", "Shape 8 y 1.5"))
 ```
 
-# Propoción de fumadores por diferentes paises. Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman
+## Propoción de fumadores por diferentes paises. 
+Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman
 
 
 
@@ -172,6 +173,8 @@ ggplot(Smokers, aes(Y2000P))+
   
 ```
 
+
+***
 Calculando el intervalo de confianza del promedio de una distribución beta. Se necesita los siguientes paquetes **simpleboot , boot**.   
 
 
@@ -188,7 +191,11 @@ x = rbeta(n, alpha, beta)
 x.boot = one.boot(x, median, R=10^4) # Aquí se usa la mediana, pq el promedio *mean* sera sesgado a la derecha.  
 boot.ci(x.boot, type="bca")
 ```
-# Sobreponemos el intervalo de confianza de la mediana sobre la distribución beta
+
+***
+# Visualización de la distribución
+
+Sobreponemos el intervalo de confianza de la mediana sobre la distribución beta
 
 ```{r}
 ggplot(Smokers, aes(Y2000P))+
@@ -203,28 +210,28 @@ ggplot(Smokers, aes(Y2000P))+
 
 
 
-Ahora vamos es hacer el primer análisis de regresión donde nuestra respuesta es una proporción.
 
 
-```{r}
-library(ggversa) # paquete para los datos
-attach(dipodium)
-dipodium
-```
 
 ```{r}
 library(betareg) # El paquete para hacer regresión beta
+library(ggversa) # paquete para los datos
+attach(dipodium)
+head(dipodium, n=4)
 ```
 
 
 ***
 
-## Regresión beta
+## Regresión beta, proporción de frutos por cantidad de flores
 
 ```{r, out.width="300",   fig.cap ="from this webpage: https://binalongbungalows.wordpress.com/tasmanian-orchids/dipodium-roseum-rosy-hyacinth-orchid-0615-web/",echo=FALSE, out.extra='style="float:right; padding:10px"', fig}
 knitr::include_graphics("Graficos/dipodium_roseum.jpg")
 ```
 
+
+
+Ahora vamos es hacer el primer análisis de regresión donde nuestra respuesta es una proporción.
 
 
 Los datos provienen de una especie de orquidea de Autralia, *Dipodium roseum*, recolectado por RLT en 2004-2005.  Vamos a evaluar la relación entre el número de flores y la proporción de frutos por planta.  El primer paso es asegarar que no haya valores de 0 y 1.   En este caso no hay ni una planta que tiene 100% de frutos, pero si hay individuos que tienen cero frutos. 
