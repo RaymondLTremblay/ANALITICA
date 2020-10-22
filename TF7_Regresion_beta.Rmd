@@ -1,5 +1,5 @@
 ---
-title: "Regression beta"
+title: "Regressión beta"
 output:
   html_document:
     css: tutorial.css
@@ -19,7 +19,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
+```
+Un cambio para modificar los gráficos
+```{r, echo=TRUE}
 library(ggplot2)
 
 rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bold"),
@@ -28,14 +34,8 @@ rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bol
         axis.title.x = element_text(colour="grey20",size=15,face="bold"))+
         theme_bw()
 ```
-
-```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
-knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
-```
-
-
 ***
-## Beta regression
+## Regressión beta
 
 El método presentado aquí es bastante innovador (2010 en adelante) y no van a encontrar mucha información en la literatura o el web sobre el método.  Puede encontrar información suplementaria en el Vignette del paquete **betareg**.  
 
@@ -108,7 +108,7 @@ Aquí una serie de distribuciones beta. La distribución beta se calcula con dos
 
 
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, echo=FALSE}
 library(ggplot2)
 
 ggplot(betadj, aes(b1, cases, colour=beta_shapes))+
@@ -118,9 +118,9 @@ ggplot(betadj, aes(b1, cases, colour=beta_shapes))+
 ```
 
 ## Propoción de fumadores por diferentes paises. 
-Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman
+Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman. 
 
-
+Los datos están debajo pestaña de "Los Datos" 
 
 ```{r}
 library(readr)

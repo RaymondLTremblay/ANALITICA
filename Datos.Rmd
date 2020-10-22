@@ -25,14 +25,14 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 ```
 
 
-## Datos de Tremblay *et al*.
+### Datos de Tremblay *et al*.
 
 Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para publicaciones excepto con permiso escrito del autor. 
 
 
 1. [Huracan_Maria_Depression.csv](Data/DFMaria_student.csv) 
 
-   Estos datos fueron recolectado despues del huracan Maria.
+   Estos datos fueron recolectado despúes del huracán María.
    
      Metadata:
      
@@ -41,21 +41,33 @@ Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para p
       + Num_Pers_Hogar, Cantidad de persona que comparte el hogar familiar
       + Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor el número mayor el salario
       + Sala_Mens_Des, El salario mensual después del Huracán María, mayor el número mayor el salario
-      + Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán. 
+      + Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán.
+      
+2. [Brassavola](Data/Student_Brassavola.csv)
   
-  
-## Datos ofrecidos por Denny Fernandez del Viso
+### Datos ofrecidos por Denny Fernandez del Viso
 
-2.  [mod_empiricos.xlsx](Data/mod_empiricos.xlsx)  
-3.  [strain_sex_chol.xlsx](Data/strain_sex_chol.xlxs)
-4.  [Titanic.xlsx](Data/Titanic.xlxs)
+3.  [mod_empiricos.xlsx](Data/mod_empiricos.xlsx)  
+4.  [strain_sex_chol.xlsx](Data/strain_sex_chol.xlxs)
+5.  [Titanic.xlsx](Data/Titanic.xlxs)
 
 
-## Datos del Libro **Discovering Stattistics Using R** por Andy Field *et al.* 2012. 
+### Datos del Libro **Discovering Statistics Using R** 
+  por Andy Field *et al.* 2012. 
 
-5. [Album_Sales](Data/Album_Sales_1_new.csv)
-6. [pubs](Data/pubs.csv)
+6. [Album_Sales](Data/Album_Sales_1_new.csv)
+7. [pubs](Data/pubs.csv)
 
+
+
+### Datos de Karn and Penrose publicado en 1951.
+
+8. [Karn_Penrose](Data/Karn_Penrose_infant_survivorship.csv)
+
+### Datos del *World Bank*
+
+9. [Proporcion_Fumadores](Data/Proportion_smokers_world.csv")
+  + Proporción de la población que fuma en diferentes países en diferentes años.
 
 ***
 

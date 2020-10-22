@@ -77,6 +77,14 @@ head(reg.multiple)
 
 ```
 
+#### Installar los siguientes paquetes si no lo tienen instalado 
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load("MuMIn", "formattable")
+
+```
+
+
 Se construye un modelo con todos los parametros. Vemos que el $R^2= 0.0785$.
 
 ```{r, modelo basico}
@@ -105,7 +113,7 @@ ALL_models=dredge(model2, extra="R^2") # Evaluación de todas las compbinaciones
 
 ```{r, tabla R2, message=FALSE}
 library(formattable)
-library(gt)
+
 formattable(ALL_models, digits=3, format="html")
 
 ```
@@ -280,7 +288,7 @@ Huracan_Dep=lm(Index_Dep5T~Escolaridad+Num_Pers_Hogar+
 ALL_models=dredge(Huracan_Dep, rank="AIC", extra = c(BIC, "R^2")) # Evaluación de todas las combinaciones/alternativas (modelos)
 
 library(formattable)
-library(gt)
+
 formattable(ALL_models, digits=4, format="html")
 
 ```
