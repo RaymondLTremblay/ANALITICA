@@ -57,11 +57,11 @@ library(sjPlot)
 
 # Regresión Polinomial
 
-El gráfico de residuos de la regresión lineal indica una distribución no aleatoria del error de predicción del modelo lineal. Es posible que pueda mejorar su predicción utilizando una regresión con un término cuadrático (es decir, X2), por lo que ahora tenemos una **regresión con un polinomio.**
+Si el gráfico de residuos de la regresión lineal indica una distribución no aleatoria del error de predicción del modelo lineal. Es posible que pueda mejorar su predicción utilizando una regresión con un término cuadrático (es decir, X2), por lo que ahora tenemos una **regresión con un polinomio.**
 
 Construcción de un modelo con polinomio. Usamos los datos de 15 observaciones de mujeres en el archivo **women** en el paquete **datasets**. Los datos representa la altura (en pulgadas) y el peso (en libras) de 15 mujeres entre las edades de 30 a 39.
 
-Nota aquí que se usa **I(x\^2)** para añadir el polinomio al cuadrado $x^2$ . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. El resumen del modelo se observa que el modelo incluye tanto el intercepto, la ecuación lineal y el polinomio, y cada uno es significativo. Esto quiere decir que tanto el modelo lineal y el polinomio explica parte de la varianza.
+Nota aquí que se usa **I(x\^2)** para añadir el polinomio al cuadrado $x^2$ . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. El resumen del modelo se observa que el modelo incluye tanto el intercepto, la ecuación lineal y el polinomio, y cada uno es significativo. Esto quiere decir que tanto el modelo lineal y el polinomio explica parte de la varianza. NOTA como se indica que un valor
 
 ```{r regr_polyn}
 fit2 <- lm(weight ~ height + I(height^2), data=women)
@@ -72,7 +72,7 @@ summary(fit2)
 
 ## Visualizando el gráfico.
 
-Nota que la linea azul representa el modelo de regresión lineal y la linea roja representa el modelo $x^2$. Es claro que el modelo $x^2$ es un mejor modelo ya que los datos se acerca más a la linea.
+Nota que la linea `r colorize("azul", "blue")` representa el modelo de regresión lineal y la linea `r colorize("roja", "red")` representa el modelo $x^2$. Es claro que el modelo $x^2$ es un mejor modelo ya que los datos se acerca más a la linea.
 
 ```{r}
 ggplot(women, aes(height, weight)) +
@@ -88,7 +88,7 @@ ggplot(women, aes(height, weight)) +
 
 ## Visualizando los residuales
 
-Recuerda que los residuales tienen que ser normalmente distribuido a través de la variables de **x**. En este caso vemos que lo tamaño de residuales no están concentrado en un área de la gráfico. Por ejemplo los residuales no son más grande en los valores de **x** más grande.
+Recuerda que los residuales tienen que ser normalmente distribuido a través de la variables de **x**. En este caso vemos que los residuales no están concentrado en un área de la gráfico. Por ejemplo los residuales no son más grande en los valores de **x** más grande.
 
 ```{r}
 
@@ -216,7 +216,7 @@ plot(df$d,residuals(fit3))
 
 ## Interpretación de la tabla de resultados
 
-La cantidad de variación contabilizada toma en cuenta 84.8%. La significación del término cuadrático (t = 13.31, p \<0.001) sugiere que la inclusión del término cubica mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.
+La cantidad de variación contabilizada toma en cuenta 84.6%. La significación del término cuadrático (t = 13.31, p \<0.001) sugiere que la inclusión del término cubica mejora el ajuste del modelo. El error de predicción (residuales) es menor y su distribución parece más aleatoria.
 
 ------------------------------------------------------------------------
 
