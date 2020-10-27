@@ -421,9 +421,9 @@ El resultado: El coeficiente (intercepto) y la pendiente del *modelo*
 
 -- Evaluar si los datos cumple con los supuestos:
 
-+ Igualdad de varianza, usa la gráfica de residuales
+-   Igualdad de varianza, usa la gráfica de residuales
 
-+ Normalidad, qqplot
+-   Normalidad, qqplot
 
 \+ Valores sesgados, la prueba de Cook's
 

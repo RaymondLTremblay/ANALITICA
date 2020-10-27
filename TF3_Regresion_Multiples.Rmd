@@ -1,5 +1,5 @@
 ---
-title: "Regresion_Multiples"
+title: "Regresion_Multiple"
 output:
   html_document:
     css: tutorial.css
@@ -304,8 +304,21 @@ abline(a = 1, b = 1, lty = 2)
 
 1. Usar los datos [deathsmall_cities.xlsx](https://drive.google.com/open?id=1Q5rkNpatiTDg90ieVbwAw_fziIQNA4eJ) para buscar un modelo de regresión múltiple entre la variable dependiente _death1K_ (muertes anuales por cada 1000 habitantes) y las otras variables del archivo.
 
+```{r}
+library(readxl)
+death_small_cities <- read_excel("Data/death_small_cities.xlsx", sheet=2)
+dsc=death_small_cities
+head(dsc)
+```
 
+Normalidad
 
+```{r qqplot, message=FALSE}
+
+ggplot(reg.multiple, aes(sample=BMI))+
+  geom_qq()+
+  geom_qq_line(colour="red")
+```
 
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
