@@ -311,14 +311,85 @@ dsc=death_small_cities
 head(dsc)
 ```
 
-Normalidad
+## Normalidad
 
-```{r qqplot, message=FALSE}
+### Visualización
+```{r qqplot2, message=FALSE, echo=FALSE}
 
-ggplot(reg.multiple, aes(sample=BMI))+
+ggplot(dsc, aes(sample=death1K))+
   geom_qq()+
   geom_qq_line(colour="red")
 ```
+
+### Pruebas 
+```{r shapiroW2, message=FALSE, echo=FALSE}
+shapiro.test(dsc$death1K)
+
+library(nortest)
+ad.test(dsc$death1K)
+```
+### Prueb a de autocorelación
+
+```{r, message=FALSE, echo=FALSE}
+names(dsc)
+library(car)
+model1 <- lm(death1K ~ doctor100K+hosp100K+income1K+density, data = dsc)
+dbt1 <- durbinWatsonTest(model1, simulate = TRUE)
+dbt1
+```
+
+
+
+###  Multicolienarity
+
+```{r multicol, message=FALSE, echo=FALSE}
+signif(cor(dsc),3) 
+```
+
+
+### Visualizando colinearidad
+
+```{r, message=FALSE, echo=FALSE}
+# Alternativas para evaluar correlación entre variables
+library(GGally)
+
+ggcorr(dsc)
+# la siguiente función
+ggpairs(dsc)
+# la siguiente función
+ggduo(dsc)
+```
+
+### El MOdelo
+
+```{r, message=FALSE, echo=FALSE}
+mod1 <- lm(death1K ~ doctor100K+hosp100K+income1K+density, data = dsc)
+
+summary(mod1)
+aic <- AIC(mod1)
+sprintf("AIC = %.2f", aic)
+# prueba de homocedasticidad (Non-constant Variance Score Test)
+# Ho:la varianza es constante en el ámbito de la predicción de Y
+ncvTest(mod1)  # para determinar si la varianza es constante. "Igualdad de varianza" 
+spreadLevelPlot(mod1)
+```
+
+### Step wise Regresión multiple
+
+```{r}
+#formulación de un modelo nulo y un modelo completo
+modNulo1 <- lm(death1K ~ 1, data = dsc)
+modFull1 <- lm(death1K ~ doctor100K+hosp100K+income1K+density, 
+              data = dsc)
+#procedimiento stepwise
+bmistep1 <- step(modNulo,
+                scope = list(lower=modNulo, upper=modFull,
+                             direction="both"))
+
+summary(bmistep1)
+```
+
+
 
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}

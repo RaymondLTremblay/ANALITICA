@@ -813,7 +813,7 @@ div.tocify {
 <span id="cb11-3"><a href="#cb11-3"></a>dbt &lt;-<span class="st"> </span><span class="kw">durbinWatsonTest</span>(model, <span class="dt">simulate =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb11-4"><a href="#cb11-4"></a>dbt</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.06609505      1.823275   0.546
+##    1      0.06609505      1.823275    0.57
 ##  Alternative hypothesis: rho != 0</code></pre>
 <hr />
 </div>
@@ -1083,11 +1083,154 @@ div.tocify {
 <ol style="list-style-type: decimal">
 <li>Usar los datos <a href="https://drive.google.com/open?id=1Q5rkNpatiTDg90ieVbwAw_fziIQNA4eJ">deathsmall_cities.xlsx</a> para buscar un modelo de regresión múltiple entre la variable dependiente <em>death1K</em> (muertes anuales por cada 1000 habitantes) y las otras variables del archivo.</li>
 </ol>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb51-2"><a href="#cb51-2"></a>death_small_cities &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;Data/death_small_cities.xlsx&quot;</span>, <span class="dt">sheet=</span><span class="dv">2</span>)</span>
+<span id="cb51-3"><a href="#cb51-3"></a>dsc=death_small_cities</span>
+<span id="cb51-4"><a href="#cb51-4"></a><span class="kw">head</span>(dsc)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 5
+##   death1K doctor100K hosp100K income1K density
+##     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1    8            78      284     9.10     109
+## 2    9.30         68      433     8.70     144
+## 3    7.5          70      739     7.20     113
+## 4    8.90         96     1792     8.90      97
+## 5   10.2          74      477     8.30     206
+## 6    8.30        111      362    10.9      124</code></pre>
+</div>
+<div id="normalidad-1" class="section level2">
+<h2>Normalidad</h2>
+<div id="visualización" class="section level3">
+<h3>Visualización</h3>
+<p><img src="TF3_Regresion_Multiples_files/figure-html/qqplot2-1.png" width="672" /></p>
+</div>
+<div id="pruebas" class="section level3">
+<h3>Pruebas</h3>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  dsc$death1K
+## W = 0.95746, p-value = 0.05679</code></pre>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  dsc$death1K
+## A = 0.44143, p-value = 0.279</code></pre>
+</div>
+<div id="prueb-a-de-autocorelación" class="section level3">
+<h3>Prueb a de autocorelación</h3>
+<pre><code>## [1] &quot;death1K&quot;    &quot;doctor100K&quot; &quot;hosp100K&quot;   &quot;income1K&quot;   &quot;density&quot;</code></pre>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1        0.170017      1.589951    0.13
+##  Alternative hypothesis: rho != 0</code></pre>
+</div>
+<div id="multicolienarity" class="section level3">
+<h3>Multicolienarity</h3>
+<pre><code>##            death1K doctor100K hosp100K income1K density
+## death1K      1.000     0.1160   0.1110  -0.1720 -0.2780
+## doctor100K   0.116     1.0000   0.2960   0.4330 -0.0199
+## hosp100K     0.111     0.2960   1.0000   0.0275  0.1870
+## income1K    -0.172     0.4330   0.0275   1.0000  0.1290
+## density     -0.278    -0.0199   0.1870   0.1290  1.0000</code></pre>
+</div>
+<div id="visualizando-colinearidad" class="section level3">
+<h3>Visualizando colinearidad</h3>
+<p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-15-1.png" width="672" /><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-15-2.png" width="672" /><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+</div>
+<div id="el-modelo" class="section level3">
+<h3>El MOdelo</h3>
+<pre><code>## 
+## Call:
+## lm(formula = death1K ~ doctor100K + hosp100K + income1K + density, 
+##     data = dsc)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.6404 -0.7904  0.3053  0.9164  2.7906 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 12.2662552  2.0201467   6.072 1.95e-07 ***
+## doctor100K   0.0073916  0.0069336   1.066   0.2917    
+## hosp100K     0.0005837  0.0007219   0.809   0.4228    
+## income1K    -0.3302302  0.2345518  -1.408   0.1656    
+## density     -0.0094629  0.0048868  -1.936   0.0587 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.601 on 48 degrees of freedom
+## Multiple R-squared:  0.1437, Adjusted R-squared:  0.07235 
+## F-statistic: 2.014 on 4 and 48 DF,  p-value: 0.1075</code></pre>
+<pre><code>## [1] &quot;AIC = 207.06&quot;</code></pre>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.04184651, Df = 1, p = 0.83791</code></pre>
+<p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre><code>## 
+## Suggested power transformation:  0.0094611</code></pre>
+</div>
+<div id="step-wise-regresión-multiple" class="section level3">
+<h3>Step wise Regresión multiple</h3>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="co">#formulación de un modelo nulo y un modelo completo</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>modNulo1 &lt;-<span class="st"> </span><span class="kw">lm</span>(death1K <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> dsc)</span>
+<span id="cb62-3"><a href="#cb62-3"></a>modFull1 &lt;-<span class="st"> </span><span class="kw">lm</span>(death1K <span class="op">~</span><span class="st"> </span>doctor100K<span class="op">+</span>hosp100K<span class="op">+</span>income1K<span class="op">+</span>density, </span>
+<span id="cb62-4"><a href="#cb62-4"></a>              <span class="dt">data =</span> dsc)</span>
+<span id="cb62-5"><a href="#cb62-5"></a><span class="co">#procedimiento stepwise</span></span>
+<span id="cb62-6"><a href="#cb62-6"></a>bmistep1 &lt;-<span class="st"> </span><span class="kw">step</span>(modNulo,</span>
+<span id="cb62-7"><a href="#cb62-7"></a>                <span class="dt">scope =</span> <span class="kw">list</span>(<span class="dt">lower=</span>modNulo, <span class="dt">upper=</span>modFull,</span>
+<span id="cb62-8"><a href="#cb62-8"></a>                             <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>))</span></code></pre></div>
+<pre><code>## Start:  AIC=219.97
+## BMI ~ 1
+## 
+##               Df Sum of Sq    RSS    AIC
+## + Cholesterol  1   196.462 2289.8 217.19
+## + Glucose      1   121.605 2364.6 219.06
+## + Age          1    86.322 2399.9 219.92
+## &lt;none&gt;                     2486.2 219.97
+## 
+## Step:  AIC=217.19
+## BMI ~ Cholesterol
+## 
+##               Df Sum of Sq    RSS    AIC
+## + Glucose      1    98.063 2191.7 216.66
+## &lt;none&gt;                     2289.8 217.19
+## + Age          1    49.203 2240.6 217.93
+## - Cholesterol  1   196.462 2486.2 219.97
+## 
+## Step:  AIC=216.66
+## BMI ~ Cholesterol + Glucose
+## 
+##                       Df Sum of Sq    RSS    AIC
+## &lt;none&gt;                             2191.7 216.66
+## + Cholesterol:Glucose  1    55.387 2136.3 217.17
+## - Glucose              1    98.063 2289.8 217.19
+## + Age                  1    21.337 2170.3 218.09
+## - Cholesterol          1   172.920 2364.6 219.06</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="kw">summary</span>(bmistep1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BMI ~ Cholesterol + Glucose, data = reg.multiple)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -10.125  -4.748  -1.134   3.321  18.832 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 17.95236    4.80502   3.736 0.000446 ***
+## Cholesterol  0.05098    0.02447   2.083 0.041902 *  
+## Glucose      0.02254    0.01437   1.569 0.122449    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.313 on 55 degrees of freedom
+## Multiple R-squared:  0.1185, Adjusted R-squared:  0.08641 
+## F-statistic: 3.696 on 2 and 55 DF,  p-value: 0.0312</code></pre>
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
 <hr />
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
 </blockquote>
+</div>
 </div>
 </div>
 
