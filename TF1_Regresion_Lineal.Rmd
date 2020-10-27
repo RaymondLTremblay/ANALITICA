@@ -52,9 +52,8 @@ Sys.Date()
 
 ------------------------------------------------------------------------
 
-Activar los paquetes, averiguar que TIENE instalado estos paquetes. El
-paquete **pacman** evalua si los tiene instalado, si no esta instalado
-lo va a instalar.
+El siguiente comando verifica que tenga las librerias necesarias instaladas y las activa de estar disponible en su sistema. El
+paquete **pacman** evalúa si los tiene instalado y los instala de ser necesario.
 
 ```{r libraries, message=FALSE}
 
@@ -75,11 +74,11 @@ library(janitor)
 
 # Regresión Lineal
 
-La regresión lineal es el modelo básico de evaluar si hay una relación
-*lineal* o sea una linea *recta* entre dos variable. Esta relación entre
-las variables puedes ser positiva o negativa. Hay otro tipos de
-regresión, que incluye regresión no lineal tal como cuadrática $x^2$ o
-cúbica $x^3$, logarítmica $log(x)$ entre muchas otras alternativas.
+La regresión lineal es el modelo básico para evaluar si hay una relación
+*lineal* o sea una linea *recta* entre dos variables. Esta relación entre
+las variables puede ser positiva o negativa. Hay otros tipos de
+regresión, que incluye regresión no lineal tal como cuadrática $y ~ ax^2+bx+c$ o
+cúbica $y ~ ax^3 +bx^2+cx+d$, logarítmica $y ~ a + blog(x)$ entre muchas otras alternativas.
 Estas alternativas se verán en el modulo de regresión no lineal.
 
 ------------------------------------------------------------------------
@@ -88,9 +87,9 @@ Aquí estaremos evaluando solamente la regresión lineal
 
 Vemos un ejemplo ficticio
 
-Los datos son de unos barrios de un país ficticio donde se observa el
-números de barres en un bario y la cantidad de asesinados en este
-barrio. Los datos se encuentran en sección de datos debajo
+Los datos son de unos barrios de Macondo donde se observa el
+números de barras en un bario y la cantidad de homicidios en ese
+barrio. Los datos se encuentran la sección de datos abajo
 
 ```{r data}
 library(readr)
@@ -100,7 +99,7 @@ pubs <- read_csv("Data/pubs.csv")
 # Cambiamos los nombres de las columnas al español
 
 pubs=pubs%>%
-  dplyr::rename(barres=pubs, mortalidad=mortality) # cambiamos los nombres de las columnas al español. 
+  dplyr::rename(barras=pubs, mortalidad=mortality) # cambiamos los nombres de las columnas al español. 
 
 pubs
 ```
@@ -109,12 +108,12 @@ pubs
 
 # la función lm()
 
-Como hacer un regresión lineal (Linear Regression) simple, usando la
+Hacer un regresión lineal (Linear Regression) simple, usando la
 función **lm()**, para "linear model"= modelo lineal. Una regresión
-necesita dos variable continuas. Es importante que estas variable tenga
-una distribución normales. La diferencia entre una correlación y una
-regresión es que la primera es un análisis que describe el patrón y en
-la segunda es que no solamente describe el patrón pero hace predicción
+necesita dos variable continuas. Es importante que estas variables tengan
+una distribución normal. La diferencia entre una correlación y una
+regresión es que la primera es un análisis que describe el patrón general entre las variables y en
+la segunda es que no solamente se describe el patrón pero se hace una predicción
 sobre la relación entre las variables. Usando la regresión uno calcula
 también una linea que describe la relación entre las variables. Esta
 variable se puede describe como $y=m_x+b$ donde la **m** representa la
@@ -140,11 +139,11 @@ disminuir entre las dos variables.
 -   Ha: la pendiente, $\alpha$ no es igual a cero. Entonces la relación
     entre las dos variables es o positiva o negativa.
 
-Ahora evaluamos los resultados de la regresión entre el número de barres
-en un vecindarios y la mortalidad en este mismo sector. Se observa que
+Ahora evaluamos los resultados de la regresión entre el número de barras
+en un vecindarios (los barrios) y la mortalidad en este mismo sector. Se observa que
 los coeficientes de la linea son $y=3352+14.3*x$. Entonce el intercepto
-en cero comienza en 3352 fatalidades y por cada bar suplementario hay
-14.3 más fatalidad. Esto significa que si no hay barres la **x=0**, la
+en cero comienza en 3352 fatalidades y por cada barra adicional hay
+14.3 más fatalidades. Esto significa que si no hay barras la **x=0**, la
 cantidad de fatalidades esperada es de 3352.
 
 Ahora para determinar si estos valores son significativo hay que evaluar
@@ -153,11 +152,11 @@ un valor de p =0.005, que sugiere que se debería rechazar la hipótesis
 nula, y por consecuencia aceptamos la hipótesis alterna, que el
 intercepto no es igual a cero. La pendiente tiene un valor de p=0.015 y
 también se rechaza la hipótesis nula, esto sugiere que a medida que
-aumenta la cantidad de barres aumenta la cantidad de fatalidades, por
-cada bar extra esperamos 14.3 fatalidades suplementaria.
+aumenta la cantidad de barras aumenta la cantidad de fatalidades, por
+cada barra adicional esperamos 14.3 fatalidades adicionales.
 
 ```{r linear model, fig.align='center'}
-pubReg <- lm(mortalidad~barres, data = pubs) 
+pubReg <- lm(mortalidad~barras, data = pubs) 
 
 # summary(pubReg) # Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)
 
@@ -177,11 +176,11 @@ tab_model(
 # Visualización de la regresión
 
 Se observa que hay un aumento en fatalidades con aumento en el número de
-barres. Pero nota el valor a la derecha que parece ser muy atípico
+barras. Pero nota el valor a la derecha que parece ser muy atípico
 comparado a los otros.
 
 ```{r}
-ggplot(pubs, aes(x=barres, y=mortalidad))+
+ggplot(pubs, aes(x=barras, y=mortalidad))+
   geom_smooth(method = lm)+ # modelo lineal
   geom_point()
 
@@ -189,24 +188,24 @@ ggplot(pubs, aes(x=barres, y=mortalidad))+
 
 ------------------------------------------------------------------------
 
-# El impacto de valores atípico
+# El impacto de valores atípicos
 
 En cierta ocasiones valores fuera de lo normal pueden hacer grandes
 cambios en el resultado, en este caso el resultado de la regresión.
 ¿Cual es el efecto del valor grande? Removemos ese valor del archivo de
 datos y re-evaluamos el modelo (la regresión lineal). Nota que ahora el
-modelo es sumamente diferente $y=-163.7+103.2*x$. ¿Ahora se rechaza las
+modelo es sumamente diferente $y=-163.7+103.2*x$. ¿Ahora se rechazan las
 dos hipótesis?
 
 ```{r remover valores}
 
-pubsnew <- pubs[ which(pubs$barres<80), ]  # remover el valor grande
+pubsnew <- pubs[ which(pubs$barras<80), ]  # remover el valor grande
 
 pubsnew=pubsnew %>% 
-  add_row(barres = 4, mortalidad = 0) # Añadiendo un par de valores
+  add_row(barras = 4, mortalidad = 0) # Añadiendo un par de valores
 
 
-pubRegNew <- lm(mortalidad~barres, data = pubsnew)
+pubRegNew <- lm(mortalidad~barras, data = pubsnew)
 #summary(pubRegNew)
 
 tab_model(
@@ -219,7 +218,7 @@ tab_model(
   )
 )
 
-ggplot(pubsnew,aes(x=barres, y=mortalidad))+
+ggplot(pubsnew,aes(x=barras, y=mortalidad))+
   geom_smooth(method=lm)+
   geom_point()
 
@@ -234,32 +233,32 @@ Ahora evaluamos un conjunto de datos más complejo y más realista similar
 a los que uno encontraría en un estudio en medicina, sociología o
 ecológica.
 
-Los datos representa la cantidad de dinero dedicado a la promoción de
-diferentes CD's de una compañía de música y la cantidad de CD
-(CD/downloads) vendido. El la primera linea se observa la cantidad de
-libras esterlina, **£** (UK) dedicado a la promoción del álbum de
-música, en la primera linea vemos que se gasto £10,256, y después la
-cantidad de CD vendido fue 330. Tenemos información sobre 200 album
+Los datos representan la cantidad de dinero dedicado a la promoción de
+diferentes CD's de una compañía de música y la cantidad de CD's
+(CD/downloads) vendidos. En la primera linea se observa la cantidad de
+libras esterlina, **£** (UK) dedicada a la promoción del álbum de
+música, en la primera linea vemos que se gastó £10,256, y después la
+cantidad de CD vendidos fue 330. Tenemos información sobre 200 albumes
 diferentes.
 
 ```{r advertizing and sales}
 library(readr)
-Album_Sales_1_new <- read_csv("~/Google Drive/Biometry/Biometria 2017/Data_FILES/Album_Sales_1_new.csv")
+Album_Sales_1_new <- read_csv("Data/Album_Sales_1_new.csv")
 head(Album_Sales_1_new)
 
 
 length(Album_Sales_1_new$adverts)  # cuantas filas de datos hay en el archivo. 
 ```
 
-Comenzamos con hacer un gráfico entre las dos variables. Nota que en la
+Comenzamos graficando la relcacion entre las dos variables. Nota que en la
 parte de **geom\_smooth()**, tiene que incluir **method=lm**, esto
-significa que el método de construir la linea usara la regresión lineal.
+significa que el método de construir la linea usará la regresión lineal.
 Se añade a la función lineal $\epsilon$ que representa los errores de
 los valores al comparar con la linea que representa el mejor modelo.
 
 $$Y_{ i }=\beta _{ 0 }+\beta _{ 1 }X_{ i }+\epsilon _{ i }$$ Recuerda
 que $\beta _{ 0 }$ es el intercepto y el $\beta _{ 1 }x_{ i }$ es la
-pendiente. El área sombreada es el área de 95 de intervalo de confianza.
+pendiente. El área sombreada es el área de 95% de intervalo de confianza.
 Esto quiere decir que la mejor linea, intercepto y pendiente podría
 variar en este rango si repetimos el experimento. Nota aquí todas las
 alternativas, añadí las dos pendientes extremas, con una pendiente mayor
@@ -302,9 +301,9 @@ tab_model(
 
 # Supuestos de la regresión lineal
 
-1.  Igualdad de varianza: En el primer gráfico evaluar si los datos
-    están distribuido más o menos igual. Determinar que no un más
-    variación un área del gráfico comparando a otra área. Se observa que
+1.  Igualdad de varianza: En el primer gráfico debe evaluar si los datos
+    están distribuidos más o menos igual. Osea debe determinar que no hay más
+    variación en un área del gráfico comparando a otra área. Se observa que
     los datos están más o menos distribuido igualmente por encima y
     debajo de la linea cero atreves de la distribución de los valores
     "Fitted", que son los valores predicho.
@@ -312,17 +311,17 @@ tab_model(
 2.  Normalidad de los datos, evaluar el gráfico \#2. Con el gráfico de
     qqplot vemos que los datos siguen el modelo nulo (la linea
     entrecortada) casi perfectamente, Entonces uno puede asumir que los
-    datos cumple con una distribución normal. Pero nota que los datos en
+    datos cumplen con una distribución normal. Pero nota que los datos en
     el cuartil superior no están sobre la linea.
 
-3.  Evaluar si hay datos sesgados (atípicos) que influencia los
+3.  Evaluar si hay datos sesgados (atípicos) que influencian los
     resultados, evaluar el gráfico \#3. Si los valores estandarizados de
     "Student" son mayor de 3, esto sugiere que hay datos atípicos.
 
 4.  En el cuarto gráfico evaluar si hay valores que tienen mucho peso si
     se incluyen o no en el análisis, evaluar el gráfico \#4. Estos van a
-    ser identificado. Los valores que hay preocuparse son los que están
-    por encima o debajo la linea entrecortada. En el presente gráfico
+    ser identificados. Los valores con los que hay que preocuparse son los que están
+    por encima o por debajo de la linea entrecortada. En el presente gráfico
     hay tres valores que hay que evaluar (1, 42, 169), estos valores se
     tiene que asegurar que son correctos. Siempre es bueno remover los
     valores sesgados y rehacer el análisis para observar cuan diferente
@@ -336,7 +335,7 @@ plot(model1)  # Evaluar los supuestos, 1. Igualdad de varianza, 2. Normalidad, 4
 
 ------------------------------------------------------------------------
 
-# Cook's Distance
+# Cook's Distance (La distancia de Cook)
 
 Continuando con el tema de evaluar si hay valores que podrían
 influenciar mucho el análisis, podemos utilizar una de las herramientas
@@ -348,7 +347,7 @@ sobre el resultado (cuando esté este incluido o no en el análisis).
 Produce un índice para cada uno de los valores sobre el resultado
 basándose en los valores residuales que se llama la Distancia de Cook.
 Por lo tanto, ese análisis evalúa el impacto relativo de cada valor
-sobre el índice. Infortunadamente no está claro cuál es el valor
+sobre el índice. Desafortunadamente no está claro cuál es el valor
 crítico; o sea, qué valor nos puede indicar que se tiene exceso de peso
 sobre los resultados. Las dos principales sugerencias son: **Distancia
 de Cook**, Di, es mayor a 1 (sugerido por R. Dennis Cook Cook mismo en
@@ -419,13 +418,13 @@ El resultado: El coeficiente (intercepto) y la pendiente del *modelo*
 
 ## Paso 3
 
--- Evaluar si los datos cumple con los supuestos:
+-- Evaluar si los datos cumplen con los supuestos:
 
--   Igualdad de varianza, usa la gráfica de residuales
++ Igualdad de varianza, usa la gráfica de residuales
 
--   Normalidad, qqplot
++ Normalidad, qqplot
 
-\+ Valores sesgados, la prueba de Cook's
+\+ Valores sesgados, la prueba de Cook
 
 ```{r linear model2}
 advertizingReg <- lm(sales~adverts, data = Album_Sales_1_new)
@@ -479,7 +478,7 @@ ggplot(model1, aes(x=.fitted, y=.resid))+
 ## EJercicio 1
 
 Los datos provienen del paquete **datasets** donde representa
-información sobre los estados americanos, su nivel poblacional, income,
+información sobre los estados americanos, su nivel poblacional, ingreso,
 nivel de analfabetismo, expectativa de vida, y otras variables.
 Selecciona la variables de analfabetismo y "life expectancy", y evalua
 si hay una relación entre las dos variables.
@@ -488,7 +487,7 @@ si hay una relación entre las dos variables.
     tiene espacios. Se usa el paquete **janitor** y la función
     **clean\_names().**
 
--   Usando los siguiente datos haga un análisis completo de regresión
+-   Usando los siguientes datos haga un análisis completo de regresión
     lineal.
 
 -   Determina si los supuestos de la regresión lineal se cumple.
