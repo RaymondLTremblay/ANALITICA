@@ -48,6 +48,9 @@ library(gridExtra)
 
 ```
 
+
+***
+
 La ética en estadística basado en comprobar y cumplir con los supuestos de las pruebas estadística que se usan.  La gran mayoría de las pruebas tradicional asume que los datos cumple con algunos supuestos, algunos típicos son. 
 
 1. distribución normal
