@@ -79,6 +79,16 @@ Además, todos los participantes tendrán acceso a al menos una consulta privada
 
 ***
 
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "center"}
+knitr::include_graphics("Graficos/PROMOCION_TALLER_AVANZADO_DE_R.png")
+```
+
+
+
+
+
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
 ```
+
