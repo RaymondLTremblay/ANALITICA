@@ -40,7 +40,7 @@ Limitado a 10 personas: 2:30 horas por día y luego reuniones individuales con l
 
 ## Taller virtual (plataforma MSTeam)
 
-El plan es ofrecer el taller en febrero (3 sábados: 2:30 horas).
+El plan es ofrecer el taller en noviembre (3 sábados: 2:30 horas).
 
 ## Tema: 
 Objetivo del taller: Evaluar diferentes enfoques de modelos lineales que incluyen información sobre la construcción del modelo en R, supuestos de los modelos, comparación de modelos. TODOS los participantes ya deben estar familiarizados con Rstudio, RMarkdown y el paquete tidyverse. Este es un taller intermedio / avanzado sobre la aplicabilidad de los siguientes enfoques de modelos lineales. Se espera que todos los participantes tengan R, RStudio, RMarkdown y los paquetes actualizados. 
