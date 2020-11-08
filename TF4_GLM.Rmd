@@ -29,10 +29,10 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 ## Modelos lineales
 
-Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde ls variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable independiente sigue el modelo $y_i = \beta_0 + \beta_1 x_i$, donde $\beta_0$ es el intercepto y la $\beta_1$ es el coeficiente, o sea la pendiente y la $x_i$ son los valores de x's.  Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
+Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde la variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable dependiente sigue el modelo $y_i = \beta_0 + \beta_1 x_i$, donde $\beta_0$ es el intercepto y la $\beta_1$ es el coeficiente, o sea la pendiente y la $x_i$ son los valores de x's.  Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza (homoestadicidad).  
 
 $$\mu_i=\beta_0+\beta_1x_i$$ 
-Otro de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
+#ro de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
 
 $$y_i\sim N\left(\mu_i,\ \epsilon\right)$$
 Lo podemos visualizar con con la siguiente figura, donde los valores de y's tienen una distribución normal y que esta distribución es homogenea a través de los valores de x's. 
@@ -45,15 +45,15 @@ knitr::include_graphics(c("Graficos/Reg_Normal.png"))
 ***
 ## Cuando la variable dependiente no es lineal
 
-El problema princial por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y  por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente enlace,  <https://encyclopediaofmath.org/wiki/Generalized_linear_models>. Con el avance del uso de las computadoras en los años 80 terminó en ser uno de los métodos estadísticos más utilizados.  
+El problema princial por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y  por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente enlace,  <https://encyclopediaofmath.org/wiki/Generalized_linear_models>. Con el avance del uso de las computadoras en los años 80 GLM terminó en ser uno de los métodos estadísticos más utilizados.  
 
-El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta $y_i$ se asume que sigue una distribución dentro de la familia de distribuciones exponencial con un promedio $\mu_i$, donde se asume una función $\mu_i^T\beta$ que frecuentemente no es lineal. Para linearizar la variable es necesario usar un "link" para convertir la variable dependiente, $y_i$.  
+El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta $y_i$ sigue una distribución dentro de la familia de distribuciones exponencial con promedio $\mu_i$, donde se asume una función $\mu_i^T\beta$ que frecuentemente no es lineal. Para linearizar la variable es necesario usar un "link" para convertir la variable dependiente, $y_i$.  
 
 ***
 
 ## Link disponible
 
-He aquí una lista parcial de los diferentes tipos de "links" para diferentes tipos de datos (o distribuciones) de la variable independiente, $y_i$. La decisión de cual transformación o link utilizar es necesaria dependerá de los tipos de datos y sus distribución.   
+He aquí una lista parcial de los diferentes tipos de "links" para diferentes tipos de datos (o distribuciones) de la variable dependiente, $y_i$. La decisión de cual transformación o link utilizar dependerá de los tipos de datos y sus distribución.   
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -106,7 +106,7 @@ set_caption("Links comun utilizado con GLM.")
 ## Los supuestos
 
  + La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal, tampoco los datos sin transformar tienen que tener una relación lineal, pero estos tienen que provenir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.  
- + GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, $logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i$. 
+ + GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado (el link) y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, $logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i$. 
  + No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)
  + Los errores tienen que ser independientes pero no importa si cumple con una la distribución normal.
  
