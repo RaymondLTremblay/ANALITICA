@@ -74,7 +74,7 @@ Los siguientes archivos deben estar disponible en su directorio de trabajo de R:
 ***
 
 # Regresión Lineal Múltiple
-Cuando tenemos más de una variable predictora ("independiente"), la regresión lineal simple es una **regresión múltiple**. El objetivo es simultaneamente evaluar múltiples variables independientes. La idea es de determinar cual impacto que cada variable independiente tiene sobre la variable dependiente considerando que hay otras variables independientes. 
+Cuando tenemos más de una variable predictora ("independiente"), la regresión lineal simple es una **regresión múltiple**. El objetivo es simultaneamente evaluar múltiples variables independientes. La idea es de determinar cual impacto cada variable independiente tiene sobre la variable dependiente considerando que hay otras variables independientes. 
 
 La $\alpha$ es el intercepto, las $B_i$ son los coeficientes para cada variable independientes y el $\epsilon$ es el error.  
 
@@ -84,9 +84,9 @@ $$Y=\alpha+\beta_1X_{1}+\beta_2X_{2}+...+\beta_nX_{n}+\epsilon$$
 
 #### Ejemplo 1 y Datos
 
-Usaremos como ejemplo los datos **bmi** en el archivo **mod_empiricos.xlsx**.  Estos son datos de individuos adultos entre 21 y 79 años, con las siguientes variables: **BMI**, índice de masa corporal ($kg/m^{2}$); **Age**, edad (*años*); **Cholesterol**, niveles de colesterol en sangre, ($mg/dL$); **Glucose**, niveles de glucosa en la sangre, ($mg/dL$).
+Usaremos como ejemplo los datos **bmi** en el archivo **mod_empiricos.xlsx**.  Estos son datos de individuos adultos entre 21 y 79 años, con las siguientes variables: **BMI**, un índice de masa corporal ($kg/m^{2}$); **Age**, edad (*años*); **Cholesterol**, niveles de colesterol en sangre, ($mg/dL$); **Glucose**, niveles de glucosa en la sangre, ($mg/dL$).
 
-Para leer los datos emplearemos el siguiente código (obtenido del menú **Import Dataset/From Excel**): Nota que en este archivo de Excel hay más de una hoja de calculo, hay que indicar cual es la hoja que uno quiere importar usando **sheet=  **. 
+Para leer los datos emplearemos el siguiente código (obtenido del menú **Import Dataset/From Excel**): Nota que en este archivo de Excel hay más de una hoja de calculo, hay que indicar cual es la hoja que uno quiere importar usando **sheet="..."**. 
 
 ```{r}
 library(readxl)
@@ -97,7 +97,12 @@ head(reg.multiple)
 
 ### Pruebas de supuestos para regresión paramétrica usando el método de mínimos cuadrados (_OLS, ordinary least square_)
 
-* **Normalidad**: Gráficamente: Q-Q plot; Estadísticamente: prueba de Shapiro & Wilk (**shapito.test**) o Anderson-Darling (en el paquete **nortest** y la función **ad_test**). 
+* **Normalidad**: 
+    + Gráficamente: 
+      + Q-Q plot; 
+    + Estadísticamente: 
+      + prueba de Shapiro & Wilk (**shapito.test**)
+      + Anderson-Darling (en el paquete **nortest** y la función **ad_test**). 
 * **Independencia**: los valores de $Y$ son independientes entre si, lo asumimos (no hay autocorrelación).
 * **Linealidad**: relación lineal entre variable dependiente y cada una de las independientes; gráficas individuales.  Puede arreglarse con transformación; prueba de Box-Tidwell.
 * **Homocedasticidad**: varianza de la variable dependiente (residuales) no varía con los valores de las variables independientes; gráfica de los residuales.
@@ -134,7 +139,7 @@ ad.test(reg.multiple$BMI)
 ***
 #### Prueba de Autocorrelación
 
-La prueba de **Durbin-Watson** nos permite evaluar si ocurre autocorrelación entre los valores residuales de la variable dependiente.  Por ejemplo, una variable que depende del tiempo, presenta autocorrelación.  La $H_0$ es que la autocorrelación en los residuales del modelo es 0.
+La prueba de **Durbin-Watson** nos permite evaluar si ocurre autocorrelación entre los residuales de la variable dependiente.  Por ejemplo, una variable que depende del tiempo, presenta autocorrelación.  La $H_0$ es que la autocorrelación en los residuales del modelo es 0.
 
 * Prueba de **Durbin-Watson** para autocorrelación. 
 
@@ -143,7 +148,7 @@ Pasos:
   + Construir el modelo
   + Aplicar la prueba de autocorrelación sobre el modelo
 
-La prueba de Durbin-Watson tiene un valor de p > 0.05, por consecuencia no hay evidencia que hay correlación en los datos.  
+La prueba de Durbin-Watson tiene un valor de p > 0.05, por consecuencia no hay evidencia que hay autocorrelación en los datos.  
 
 ```{r message=FALSE}
 library(car)
@@ -170,6 +175,8 @@ boxTidwell(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
 
 * Matriz de correlación con la correlaciones de Pearson (asume distribución normal) y gráficas de puntos con líneas de regresión. En este gráfico se observa que el patrón entre cada una de las variables independientes. Con esta se determina si hay alta colinearidad entre las variables.  
 
+La multicolinealidad se refiere a una situación en la que dos o más variables explicativas en un modelo de regresión múltiple están altamente relacionadas linealmente. Tenemos multicolinealidad perfecta si, por ejemplo, como en la ecuación anterior, la correlación entre dos variables independientes es igual a 1 o −1
+
 Para dar un ejemplo sencillo si hubiesen dos variables con una correlación bien alta entre ambas, las dos variables incluyen un componente de variación compartido. Añadir las dos variables a un modelo de regresión múltiple no seria correcto, porque las dos variables explican la misma variación.  En este caso lo que se observa es que BMI y el colesterol tiene una correlación de 28%.  
 
 ```{r}
@@ -180,13 +187,47 @@ signif(cor(reg.multiple),3)
 
 
 
-#gráfica de regresiones en parejas, con línea de regresión
+# Gráfica de regresiones en parejas, con línea de regresión
 ```{r}
 scatterplotMatrix(reg.multiple, ~ Age + Cholesterol + Glucose,
                   smooth = list(lty = 2), id = TRUE,
                   regLine = list(lty = 1, col = "red"),
                   col = "blue")
 ```
+
+# Prueba de Glauber para multicolinealidad
+
+
+El paquete "mctest" en R proporciona la prueba de Farrar-Glauber y otras pruebas relevantes para la multicolinealidad. Hay dos funciones a saber. "Omcdiag" e "imcdiag" en el paquete "mctest" en R que proporcionarán la verificación de diagnóstico general e individual para la multicolinealidad, respectivamente.
+
+
+
+```{r}
+library(mctest) # paquete para evaluar multicolinealidad
+head(reg.multiple)
+model=lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
+
+omcdiag(model)
+```
+
+Determinar cual de las variables son correlacionados usar la función **imcdiag**.  Encontrarán múltiples indices.  Vemos el indice de VIF. Si ese valor es mayor de 10, se dice hay un alto nivel de correlación con esta variable.  
+
+Para detalles sobre los cálculos vea el siguiente enlace.
+
+<https://datascienceplus.com/multicollinearity-in-r/>
+
+```{r}
+imcdiag(model)
+```
+
+
+
+
+
+
+
+
+
 
 ***
 
