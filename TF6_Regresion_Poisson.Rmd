@@ -8,40 +8,41 @@ output:
    # theme: simplex
     toc: yes
     toc_float: yes
-    
 ---
+
+```{=html}
 <style>
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     background-color: #437d66;
 }
 </style>
+```
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, 
+                      message=FALSE)
 ```
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 
-
-***
-
+------------------------------------------------------------------------
 
 ```{r, message=FALSE}
 library(ggplot2)
 library(arm)
 library(coefplot)
 library(tidyverse)
+
 ```
 
+***
 
+## Regresión Poisson
 
-## Regressión Poisson
+La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidas discretas positiva.
 
-Cuando la variable de respuesta son conteos, unidas discretas positiva
-
-
-Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data & Analitics Series, 2017. 
+Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data & Analitics Series, 2017.
 
 ```{r}
 acs=read.table("https://jaredlander.com/data/acs_ny.csv", sep=",", header=TRUE, stringsAsFactors = FALSE)
@@ -54,90 +55,129 @@ library(readr)
 head(acs)
 ```
 
- 
+***
+
+## Qué es una distribución Poisson
+
 La distribución de Poisson se usa cuando tenemos valores numéricos discretos, 0, 1, 2, 3, 4...k, pero no puede tener valores parciales como 1.4
 
-La formulación de la regresión de Poisson es ${ y }_{ i }~ pois({ \theta  }_{ i })$
-donde ${ y }_{ i }$ es la i-ésima respuesta y ${ \theta  }_{ i }=\quad { e }^{ { X }_{ i }\beta}$
-es la media de la distribución para la i-ésima observación.
+La formulación de la regresión de Poisson es ${ y }_{ i }~ pois({ \theta }_{ i })$ donde ${ y }_{ i }$ es la i-ésima respuesta y ${ \theta }_{ i }=\quad { e }^{ { X }_{ i }\beta}$ es la media de la distribución para la i-ésima observación.
 
-Para el primer ejercicio nota aquí que los datos es la cantidad de hijos por familia.  El primer punto que hay que apreciar es que los valores son unidades, y que estos no puede haber 1.1, medio hijo o -1 hijo. En otra palabra es que los datos están en intervalos y positivo. Entonces la distribución Poisson es una variable **x** de datos al azar y discreta y tiene una distribución Poisson si los parámetros $\lambda$ > 0, para k = 0,1,2,....k, y la función de probabilidad es igual a 
+Para el primer ejercicio nota aquí que los datos es la cantidad de hijos por familia. El primer punto que hay que apreciar es que los valores son unidades, y que estos no puede haber 1.1, medio hijo o -1 hijo. En otra palabra es que los datos están en intervalos y positivo. Entonces la distribución Poisson es una variable **x** de datos al azar y discreta y tiene una distribución Poisson si los parámetros $\lambda$ \> 0, para k = 0,1,2,....k, y la función de probabilidad es igual a
 
 $$Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}$$
 
+donde
 
-donde 
+-   e es igual al valor de Euler, e=2.71828...
+-   k es el número de ocurrencias.
+-   k! es el factorial de k.
 
-  + e es igual al valor de Euler, e=2.71828...
-  + k es el numero de ocurrencias.
-  + k!  es el factorial de k. 
-  
-Cuando se describe una distribución Poisson el promedio es $\lambda$ y la varianza es tambien $\lambda$.  Es el mismo valor.  Para calcular los otros parámetros vea el website de Wikipedia (https://en.wikipedia.org/wiki/Poisson_distribution) que tiene la descripción de los otras medidas de tendencia centrales y de dispersión. 
+Cuando se describe una distribución Poisson el promedio es $\lambda$ y la varianza es tambien $\lambda$. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<https://en.wikipedia.org/wiki/Poisson_distribution>).
 
 ```{r}
-
+set.seed(23454)
 foo <- list(
-        df1 = data.frame(x=rep('lambda1', 100), y = rpois(100, 1)), 
-        df5 = data.frame(x=rep('lambda5', 100), y = rpois(100, 5)),
-        df15 = data.frame(x=rep('lambda15', 100), y = rpois(100, 15)),
-        df25 = data.frame(x=rep('lambda25', 100), y = rpois(100, 25))
+        df1 = data.frame(x=rep('lambda_1', 500), y = rpois(500, 1)), 
+        df5 = data.frame(x=rep('lambda_5', 500), y = rpois(500, 5)),
+        df15 = data.frame(x=rep('lambda_15', 500), y = rpois(500, 15)),
+        df25 = data.frame(x=rep('lambda_50', 500), y = rpois(500, 50))
 )
 #foo
 
 lambda=rbind(foo$df1, foo$df5,foo$df15,foo$df25 )
 head(lambda)
 
-lambda$x = factor(lambda$x, levels=c('lambda1','lambda5','lambda15','lambda25'))
+lambda$x = factor(lambda$x, levels=c('lambda_1','lambda_5','lambda_15','lambda_50'))
+head(lambda)
+
 ```
 
+***
+
+### Distribución de frecuencia de distribución Poisson
+
+Las figuras de la frecuencia demuestra , nota que se tiene 500 valores seleccionado al azar en cada simulación donde el promedio, $\lambda$ varia, los $\lambda$ son 1, 5, 15 y 25. Nota que un $\lambda$ de uno es que tiene un promedio de uno y una varianza de 1. A medida que el promedio se aleja de 0 y que la muestra es grande la distribución se acerca a una distribución normal.
 
 
-Figura de la frecuencia de los valores, nota que se tiene 100 valores en cada simulación, donde el promedio, $\lambda$ varia, los $\lambda$ son 1, 5, 15 y 25.  Nota
-
-### Distribución de frecuencia
 
 ```{r}
 ggplot(lambda, aes(y, fill=x))+
 geom_histogram(color="#e9ecef")+
-  facet_wrap(~x, scales="free_y")
+  facet_wrap(~x, scales="free_y")+
+  ylab("Frecuencia")+
+  xlab("k")
 ```
 
+***
 
 ### Función de Probabilidad
 
-Se puede convertir estos gráfico en "probability mass distribution".  En esta ocasión la distribución sigue la siguiente ecuación,
+Se puede convertir estos gráfico en "probability mass distribution". En esta ocasión la distribución sigue la siguiente ecuación,
 
 $$Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}$$
 
+La suma de $Pr\left(x=k\right)$ es igual a uno.  
 
 ```{r}
 ggplot(lambda, aes(y, fill=x))+
 geom_histogram(aes(y=..density..), color="#e9ecef")+
-  facet_wrap(~x)
+  facet_wrap(~x)+
+  ylab("P(X=k)")+
+  xlab("k")
 ```
 
+***
 
-Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat_ecdf {ggplot2}** para más detalles.  Lo que se observa es la probabilidad de incluir los valores cumulativamente.  Los más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x.   Si fuese una distribución normal, la linea seria suavizada. 
+## Probabilidades cumulativas
+
+Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativamente. Los más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
 
 
 ```{r}
 
 ggplot(lambda, aes(y, colour=x))+
-stat_ecdf(geom = "step")
+stat_ecdf(geom = "step")+
+  ylab("P(X=k)")+
+  xlab("k")
 ```
 
+***
+
+## Ejemplos de Datos Poisson 
+
+Muchas veces los datos que uno recolecta tienen esta características de ser discreto y positivos. En este ejemplo es el número de hijos que tiene familias. Los datos son discretos y positivos. 
+
+Ejemplos:
+
+ + El número de hijos por mujer.
+ + El número de errores ortográficos en una frase de 100 palabras
+ + El número de animales muertos en la carretera por una distancia especifica
+ + El número de mutaciones en una cadena de ADN
+ + El número de estudiantes por salón
+ + El número de frutos por planta
+
+***
 
 
+## Regresión Poisson
 
+El primer paso es evaluar la variable de dependiente.  Miramos las variables del archivo. 
 
-Muchas veces los datos que uno recolecta tienen esta características de ser discreto y positivos. En este ejemplo es el número de hijos que tiene familias.  Los datos son discretos y positivos. No hay familia que tiene 1.4 hijos.   
+```{r}
+head(acs)
+```
+La variable dependiente en nuestro análisis es número de hijos **NumChildren**. Se observa que la mayoria de las familias no tienen hijos, 
 
 ```{r PR}
-ggplot(acs, aes(x=NumChildren))+ geom_histogram(bindwidth=1)
+ggplot(acs, aes(x=NumChildren))+ 
+  geom_histogram(bindwidth=1, fill="#376889")+
+  scale_x_continuous(breaks = round(seq(min(acs$NumChildren), max(acs$NumChildren), by = 1),1))
 ```
 
+## Modelo Poisson
 
-
+El modelo de regresión Poisson usa la función **glm()** y una transformación **log** con la siguiente función **family=poisson(link="log")**.  
 
 ```{r PR1}
 children1<-glm(NumChildren~FamilyIncome+FamilyType+OwnRent,
@@ -151,33 +191,53 @@ coefplot(children1)
 ```
 
 
-Overdispersion is defined as 
 
-$OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }$
-
-
-where 
-
-${ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma  }  }_{ i } }{ sd({ \hat { \gamma  }  }_{ i }) } =\frac { \gamma _{ i }-{ \mu  }_{ i }{ \hat { \theta  }  }_{ i } }{ \sqrt { { \mu  }_{ i }{ \hat { \theta  }  }_{ i } }  }$
+## ¿Qué es la sobre dispersión?
 
 
-standardized residuals
+En estadística, la sobredispersión es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a 
+
+La sobre es definida como
+
+$$OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }$$
+
+
+donde
+
+$${ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma } }_{ i } }{ sd({ \hat { \gamma } }_{ i }) } =\frac { \gamma _{ i }-{ \mu }_{ i }{ \hat { \theta } }_{ i } }{ \sqrt { { \mu }_{ i }{ \hat { \theta } }_{ i } } }$$
+
+Se puede evaluar los residuales estandarizados en R con el siguiente script. El modelo se llama **children1** y se aplica la formula arriba de la siguiente forma. 
+
+
 ```{r PR3}
 z<-(acs$NumChildren-children1$fitted.values)/sqrt(children1$fitted.values)
 head(z)
 ```
 
-Overdispersion Factor
+### El factor de sobredispersión
+
 ```{r PR4}
 sum(z^2)/children1$df.residual
 ```
 
-Overdisperion p-value
 
-Gnerally an overdispersion ratio of 2 or greater indicates overdispersion.  While this overdispersion ratio is less than 2, the p value is 1, meaning that there is statistically significant overdispersion.  So we refit the model to account for the overdispersion using quasipoisson family, which actually uses the negative binomial distribution.  
+## Probando si hay sobredisperión
+
+Generalmente, una relación de sobredispersión de 2 o más indica sobredispersión. Si bien esta relación de sobredispersión es menor que 2, el valor p es 1, lo que significa que hay una sobredispersión estadísticamente significativa. Así que reajustamos el modelo para tener en cuenta la sobredispersión usando la familia de quasipoisson, que en realidad usa la distribución binomial negativa.
+
+
+
 ```{r PR5}
-pchisq(sum(z^2), children1$df.residual)
+library(AER)
+dispersiontest(children1, trafo=1)
+
 ```
+
+Pueden encontrar otras alternativas de como evaluar si hay sobredispersión de los datos en este enlace. <https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant>
+
+
+
+
 
 
 ```{r PR6}
@@ -189,11 +249,7 @@ children2<-glm(NumChildren~FamilyIncome+FamilyType+OwnRent,
 multiplot(children1, children2)
 ```
 
-> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
-responsibility of the authors and does not necessarily represent the official views of the National
-Institutes of Health.”
-
-
+> "Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health."
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))

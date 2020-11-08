@@ -632,9 +632,10 @@ div.tocify {
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(arm)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(coefplot)</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<div id="regressión-poisson" class="section level2">
-<h2>Regressión Poisson</h2>
-<p>Cuando la variable de respuesta son conteos, unidas discretas positiva</p>
+<hr />
+<div id="regresión-poisson" class="section level2">
+<h2>Regresión Poisson</h2>
+<p>La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidas discretas positiva.</p>
 <p>Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data &amp; Analitics Series, 2017.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>acs=<span class="kw">read.table</span>(<span class="st">&quot;https://jaredlander.com/data/acs_ny.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
@@ -665,6 +666,10 @@ div.tocify {
 ## 4          140        No         Oil         0        English
 ## 5          150        No         Gas       660        Spanish
 ## 6          140        No         Gas         0        English</code></pre>
+<hr />
+</div>
+<div id="qué-es-una-distribución-poisson" class="section level2">
+<h2>Qué es una distribución Poisson</h2>
 <p>La distribución de Poisson se usa cuando tenemos valores numéricos discretos, 0, 1, 2, 3, 4…k, pero no puede tener valores parciales como 1.4</p>
 <p>La formulación de la regresión de Poisson es <span class="math inline">\({ y }_{ i }~ pois({ \theta }_{ i })\)</span> donde <span class="math inline">\({ y }_{ i }\)</span> es la i-ésima respuesta y <span class="math inline">\({ \theta }_{ i }=\quad { e }^{ { X }_{ i }\beta}\)</span> es la media de la distribución para la i-ésima observación.</p>
 <p>Para el primer ejercicio nota aquí que los datos es la cantidad de hijos por familia. El primer punto que hay que apreciar es que los valores son unidades, y que estos no puede haber 1.1, medio hijo o -1 hijo. En otra palabra es que los datos están en intervalos y positivo. Entonces la distribución Poisson es una variable <strong>x</strong> de datos al azar y discreta y tiene una distribución Poisson si los parámetros <span class="math inline">\(\lambda\)</span> &gt; 0, para k = 0,1,2,….k, y la función de probabilidad es igual a</p>
@@ -672,55 +677,122 @@ div.tocify {
 <p>donde</p>
 <ul>
 <li>e es igual al valor de Euler, e=2.71828…</li>
-<li>k es el numero de ocurrencias.</li>
+<li>k es el número de ocurrencias.</li>
 <li>k! es el factorial de k.</li>
 </ul>
-<p>Cuando se describe una distribución Poisson el promedio es <span class="math inline">\(\lambda\)</span> y la varianza es tambien <span class="math inline">\(\lambda\)</span>. Es el mismo valor. Para calcular los otros parámetros vea el website de Wikipedia (<a href="https://en.wikipedia.org/wiki/Poisson_distribution" class="uri">https://en.wikipedia.org/wiki/Poisson_distribution</a>) que tiene la descripción de los otras medidas de tendencia centrales y de dispersión.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>foo &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb4-2"><a href="#cb4-2"></a>        <span class="dt">df1 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda1&#39;</span>, <span class="dv">100</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">1</span>)), </span>
-<span id="cb4-3"><a href="#cb4-3"></a>        <span class="dt">df5 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda5&#39;</span>, <span class="dv">100</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">5</span>)),</span>
-<span id="cb4-4"><a href="#cb4-4"></a>        <span class="dt">df15 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda15&#39;</span>, <span class="dv">100</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">15</span>)),</span>
-<span id="cb4-5"><a href="#cb4-5"></a>        <span class="dt">df25 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda25&#39;</span>, <span class="dv">100</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">25</span>))</span>
-<span id="cb4-6"><a href="#cb4-6"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#foo</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a>lambda=<span class="kw">rbind</span>(foo<span class="op">$</span>df1, foo<span class="op">$</span>df5,foo<span class="op">$</span>df15,foo<span class="op">$</span>df25 )</span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
-<pre><code>##         x y
-## 1 lambda1 1
-## 2 lambda1 0
-## 3 lambda1 1
-## 4 lambda1 1
-## 5 lambda1 2
-## 6 lambda1 2</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>lambda<span class="op">$</span>x =<span class="st"> </span><span class="kw">factor</span>(lambda<span class="op">$</span>x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;lambda1&#39;</span>,<span class="st">&#39;lambda5&#39;</span>,<span class="st">&#39;lambda15&#39;</span>,<span class="st">&#39;lambda25&#39;</span>))</span></code></pre></div>
-<p>Figura de la frecuencia de los valores, nota que se tiene 100 valores en cada simulación, donde el promedio, <span class="math inline">\(\lambda\)</span> varia, los <span class="math inline">\(\lambda\)</span> son 1, 5, 15 y 25. Nota</p>
-<div id="distribución-de-frecuencia" class="section level3">
-<h3>Distribución de frecuencia</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p>Cuando se describe una distribución Poisson el promedio es <span class="math inline">\(\lambda\)</span> y la varianza es tambien <span class="math inline">\(\lambda\)</span>. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<a href="https://en.wikipedia.org/wiki/Poisson_distribution" class="uri">https://en.wikipedia.org/wiki/Poisson_distribution</a>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">set.seed</span>(<span class="dv">23454</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>foo &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        <span class="dt">df1 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_1&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">1</span>)), </span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="dt">df5 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_5&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">5</span>)),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="dt">df15 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_15&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">15</span>)),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="dt">df25 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_50&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">50</span>))</span>
+<span id="cb4-7"><a href="#cb4-7"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#foo</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>lambda=<span class="kw">rbind</span>(foo<span class="op">$</span>df1, foo<span class="op">$</span>df5,foo<span class="op">$</span>df15,foo<span class="op">$</span>df25 )</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
+<pre><code>##          x y
+## 1 lambda_1 1
+## 2 lambda_1 1
+## 3 lambda_1 1
+## 4 lambda_1 0
+## 5 lambda_1 3
+## 6 lambda_1 1</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>lambda<span class="op">$</span>x =<span class="st"> </span><span class="kw">factor</span>(lambda<span class="op">$</span>x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;lambda_1&#39;</span>,<span class="st">&#39;lambda_5&#39;</span>,<span class="st">&#39;lambda_15&#39;</span>,<span class="st">&#39;lambda_50&#39;</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
+<pre><code>##          x y
+## 1 lambda_1 1
+## 2 lambda_1 1
+## 3 lambda_1 1
+## 4 lambda_1 0
+## 5 lambda_1 3
+## 6 lambda_1 1</code></pre>
+<hr />
+<div id="distribución-de-frecuencia-de-distribución-poisson" class="section level3">
+<h3>Distribución de frecuencia de distribución Poisson</h3>
+<p>Las figuras de la frecuencia demuestra , nota que se tiene 500 valores seleccionado al azar en cada simulación donde el promedio, <span class="math inline">\(\lambda\)</span> varia, los <span class="math inline">\(\lambda\)</span> son 1, 5, 15 y 25. Nota que un <span class="math inline">\(\lambda\)</span> de uno es que tiene un promedio de uno y una varianza de 1. A medida que el promedio se aleja de 0 y que la muestra es grande la distribución se acerca a una distribución normal.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span>)<span class="op">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>)<span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<hr />
 </div>
 <div id="función-de-probabilidad" class="section level3">
 <h3>Función de Probabilidad</h3>
 <p>Se puede convertir estos gráfico en “probability mass distribution”. En esta ocasión la distribución sigue la siguiente ecuación,</p>
 <p><span class="math display">\[Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}\]</span></p>
+<p>La suma de <span class="math inline">\(Pr\left(x=k\right)\)</span> es igual a uno.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span>..density..), <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x)<span class="op">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Aqui se aplica la función para visualizar la probabilidades cumulativas, vea <strong>stat_ecdf {ggplot2}</strong> para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativamente. Los más importante es reconocer que la adición de las probabilidades no es continua, pero “salta” de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">colour=</span>x))<span class="op">+</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>)</span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="probabilidades-cumulativas" class="section level2">
+<h2>Probabilidades cumulativas</h2>
+<p>Aqui se aplica la función para visualizar la probabilidades cumulativas, vea <strong>stat_ecdf {ggplot2}</strong> para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativamente. Los más importante es reconocer que la adición de las probabilidades no es continua, pero “salta” de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de <span class="math inline">\(\lambda\)</span> es más grande los saltos son más pequeños (es más suave el cambio).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">colour=</span>x))<span class="op">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>)<span class="op">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Muchas veces los datos que uno recolecta tienen esta características de ser discreto y positivos. En este ejemplo es el número de hijos que tiene familias. Los datos son discretos y positivos. No hay familia que tiene 1.4 hijos.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ggplot</span>(acs, <span class="kw">aes</span>(<span class="dt">x=</span>NumChildren))<span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">bindwidth=</span><span class="dv">1</span>)</span></code></pre></div>
+<hr />
+</div>
+<div id="ejemplos-de-datos-poisson" class="section level2">
+<h2>Ejemplos de Datos Poisson</h2>
+<p>Muchas veces los datos que uno recolecta tienen esta características de ser discreto y positivos. En este ejemplo es el número de hijos que tiene familias. Los datos son discretos y positivos.</p>
+<p>Ejemplos:</p>
+<ul>
+<li>El número de hijos por mujer.</li>
+<li>El número de errores ortográficos en una frase de 100 palabras</li>
+<li>El número de animales muertos en la carretera por una distancia especifica</li>
+<li>El número de mutaciones en una cadena de ADN</li>
+<li>El número de estudiantes por salón</li>
+<li>El número de frutos por planta</li>
+</ul>
+<hr />
+</div>
+<div id="regresión-poisson-1" class="section level2">
+<h2>Regresión Poisson</h2>
+<p>El primer paso es evaluar la variable de dependiente. Miramos las variables del archivo.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">head</span>(acs)</span></code></pre></div>
+<pre><code>##   Acres FamilyIncome  FamilyType NumBedrooms NumChildren NumPeople NumRooms
+## 1  1-10          150     Married           4           1         3        9
+## 2  1-10          180 Female Head           3           2         4        6
+## 3  1-10          280 Female Head           4           0         2        8
+## 4  1-10          330 Female Head           2           1         2        4
+## 5  1-10          330   Male Head           3           1         2        5
+## 6  1-10          480   Male Head           0           3         4        1
+##          NumUnits NumVehicles NumWorkers  OwnRent   YearBuilt HouseCosts
+## 1 Single detached           1          0 Mortgage   1950-1959       1800
+## 2 Single detached           2          0   Rented Before 1939        850
+## 3 Single detached           3          1 Mortgage   2000-2004       2600
+## 4 Single detached           1          0   Rented   1950-1959       1800
+## 5 Single attached           1          0 Mortgage Before 1939        860
+## 6 Single detached           0          0   Rented Before 1939        700
+##   ElectricBill FoodStamp HeatingFuel Insurance       Language
+## 1           90        No         Gas      2500        English
+## 2           90        No         Oil         0        English
+## 3          260        No         Oil      6600 Other European
+## 4          140        No         Oil         0        English
+## 5          150        No         Gas       660        Spanish
+## 6          140        No         Gas         0        English</code></pre>
+<p>La variable dependiente en nuestro análisis es número de hijos <strong>NumChildren</strong>. Se observa que la mayoria de las familias no tienen hijos,</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">ggplot</span>(acs, <span class="kw">aes</span>(<span class="dt">x=</span>NumChildren))<span class="op">+</span><span class="st"> </span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bindwidth=</span><span class="dv">1</span>, <span class="dt">fill=</span><span class="st">&quot;#376889&quot;</span>)<span class="op">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">round</span>(<span class="kw">seq</span>(<span class="kw">min</span>(acs<span class="op">$</span>NumChildren), <span class="kw">max</span>(acs<span class="op">$</span>NumChildren), <span class="dt">by =</span> <span class="dv">1</span>),<span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: bindwidth</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR-1.png" width="672" /></p>
+</div>
+<div id="modelo-poisson" class="section level2">
+<h2>Modelo Poisson</h2>
+<p>El modelo de regresión Poisson usa la función <strong>glm()</strong> y una transformación <strong>log</strong> con la siguiente función <strong>family=poisson(link=“log”)</strong>.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>children1&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
 <span id="cb15-2"><a href="#cb15-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
 <span id="cb15-3"><a href="#cb15-3"></a></span>
@@ -754,22 +826,42 @@ div.tocify {
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">coefplot</span>(children1)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR2-1.png" width="672" /></p>
-<p>Overdispersion is defined as</p>
-<p><span class="math inline">\(OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }\)</span></p>
-<p>where</p>
-<p><span class="math inline">\({ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma } }_{ i } }{ sd({ \hat { \gamma } }_{ i }) } =\frac { \gamma _{ i }-{ \mu }_{ i }{ \hat { \theta } }_{ i } }{ \sqrt { { \mu }_{ i }{ \hat { \theta } }_{ i } } }\)</span></p>
-<p>standardized residuals</p>
+</div>
+<div id="qué-es-la-sobre-dispersión" class="section level2">
+<h2>¿Qué es la sobre dispersión?</h2>
+<p>En estadística, la sobredispersión es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.</p>
+<p>La sobre es definida como</p>
+<p><span class="math display">\[OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }\]</span></p>
+<p>donde</p>
+<p><span class="math display">\[{ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma } }_{ i } }{ sd({ \hat { \gamma } }_{ i }) } =\frac { \gamma _{ i }-{ \mu }_{ i }{ \hat { \theta } }_{ i } }{ \sqrt { { \mu }_{ i }{ \hat { \theta } }_{ i } } }\]</span></p>
+<p>Se puede evaluar los residuales estandarizados en R con el siguiente script. El modelo se llama <strong>children1</strong> y se aplica la formula arriba de la siguiente forma.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>z&lt;-(acs<span class="op">$</span>NumChildren<span class="op">-</span>children1<span class="op">$</span>fitted.values)<span class="op">/</span><span class="kw">sqrt</span>(children1<span class="op">$</span>fitted.values)</span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="kw">head</span>(z)</span></code></pre></div>
 <pre><code>##           1           2           3           4           5           6 
 ##  0.18186518  0.87627176 -0.84977889 -0.08314153  0.39096022  1.95966583</code></pre>
-<p>Overdispersion Factor</p>
+<div id="el-factor-de-sobredispersión" class="section level3">
+<h3>El factor de sobredispersión</h3>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>children1<span class="op">$</span>df.residual</span></code></pre></div>
 <pre><code>## [1] 1.469747</code></pre>
+</div>
+</div>
+<div id="probando-si-hay-sobredisperión" class="section level1">
+<h1>Probando si hay sobredisperión</h1>
+<p>Generalmente, una relación de sobredispersión de 2 o más indica sobredispersión. Si bien esta relación de sobredispersión es menor que 2, el valor p es 1, lo que significa que hay una sobredispersión estadísticamente significativa. Así que reajustamos el modelo para tener en cuenta la sobredispersión usando la familia de quasipoisson, que en realidad usa la distribución binomial negativa.</p>
 <p>Overdisperion p-value</p>
-<p>Gnerally an overdispersion ratio of 2 or greater indicates overdispersion. While this overdispersion ratio is less than 2, the p value is 1, meaning that there is statistically significant overdispersion. So we refit the model to account for the overdispersion using quasipoisson family, which actually uses the negative binomial distribution.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">pchisq</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>), children1<span class="op">$</span>df.residual)</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<p>Generally an overdispersion ratio of 2 or greater indicates overdispersion. While this overdispersion ratio is less than 2, the p value is 1, meaning that there is statistically significant overdispersion. So we refit the model to account for the overdispersion using quasipoisson family, which actually uses the negative binomial distribution.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">library</span>(AER)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">dispersiontest</span>(children1, <span class="dt">trafo=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 
+##  Overdispersion test
+## 
+## data:  children1
+## z = 27.518, p-value &lt; 2.2e-16
+## alternative hypothesis: true alpha is greater than 0
+## sample estimates:
+##     alpha 
+## 0.4696118</code></pre>
+<p>Pueden encontrar otras alternativas de como evaluar si hay sobredispersión de los datos en este enlace. <a href="https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant" class="uri">https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant</a></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>children2&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
 <span id="cb24-2"><a href="#cb24-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">quasipoisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
 <span id="cb24-3"><a href="#cb24-3"></a></span>
@@ -781,7 +873,6 @@ div.tocify {
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
 </blockquote>
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
-</div>
 </div>
 
 

@@ -59,7 +59,7 @@ instaladas y las activa de estar disponible en su sistema. El paquete
 ```{r libraries, message=FALSE}
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(QuantPsyc, car, tidyverse, sjPlot, janitor)
+pacman::p_load(QuantPsyc, car, ggplot2, tidyverse, sjPlot, janitor)
 
 
 library(QuantPsyc)
@@ -161,8 +161,11 @@ cada barra adicional esperamos 14.3 fatalidades adicionales.
 ```{r linear model, fig.align='center'}
 pubReg <- lm(mortalidad~barras, data = pubs) 
 
-# summary(pubReg) # Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)
+ summary(pubReg) # Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)
 
+ pubReg$residuals  # Para ver los residuales
+ cooks.distance(pubReg)# Pata calcular los indices de Cooks
+ 
 tab_model(
   pubReg,show.df = TRUE,
   CSS = list(
@@ -209,7 +212,7 @@ pubsnew=pubsnew %>%
 
 
 pubRegNew <- lm(mortalidad~barras, data = pubsnew)
-#summary(pubRegNew)
+summary(pubRegNew)
 
 tab_model(
   pubRegNew,show.df = TRUE,
@@ -251,6 +254,13 @@ head(Album_Sales_1_new)
 
 
 length(Album_Sales_1_new$adverts)  # cuantas filas de datos hay en el archivo. 
+
+shapiro.test(Album_Sales_1_new$adverts)
+
+library(nortest)
+#Anderson-Darling 
+ad.test(Album_Sales_1_new$adverts)
+
 ```
 
 Comenzamos graficando la relcacion entre las dos variables. Nota que en
@@ -298,6 +308,11 @@ tab_model(
     css.summary = 'color: blue;'
   )
 )
+
+
+ggplot(Album_Sales_1_new, aes(x=adverts, y=sales))+
+  geom_smooth(method=lm)+
+  geom_point()
 ```
 
 ------------------------------------------------------------------------
@@ -481,16 +496,19 @@ ggplot(model1, aes(x=.fitted, y=.resid))+
 
 ## Ejercicio 1
 
-Los datos **state.x77** provienen del paquete **datasets** donde representa
-información sobre los estados americanos, su nivel poblacional, ingreso,
-nivel de analfabetismo, expectativa de vida, y otras variables.
-Selecciona la variables de analfabetismo y "life expectancy", y evalua
-si hay una relación entre las dos variables.
+Los datos **state.x77** provienen del paquete **datasets** donde
+representa información sobre los estados americanos, su nivel
+poblacional, ingreso, nivel de analfabetismo, expectativa de vida, y
+otras variables. Selecciona la variables de analfabetismo y "life
+expectancy", y evalua si hay una relación entre las dos variables.
 
 -   Nota se tiene que limpiar los nombres de las variables, pq algunos
     tiene espacios. Se usa el paquete **janitor** y la función
     **clean\_names().**
--   Usa los datos de analfabetismo (illiteracy) y evalua es un predictor de la expectativa de vida (life_exp).
+
+-   Usa los datos de analfabetismo (illiteracy) y evalua es un predictor
+    de la expectativa de vida (life\_exp).
+
 -   Usando los siguientes datos haga un análisis completo de regresión
     lineal.
 
@@ -512,7 +530,7 @@ plot(Illitmodel)
 
 ------------------------------------------------------------------------
 
-## EJercicio 2
+## Ejercicio 2
 
 El conjunto de datos **ToothGrowth** del paquete **datasets** contiene
 el resultado de un experimento que estudia el efecto de la vitamina C en

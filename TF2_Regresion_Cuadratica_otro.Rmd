@@ -66,7 +66,17 @@ Nota aquí que se usa **I(x\^2)** para añadir el monomio $x^2$ . Ahora nuestro 
 ```{r regr_polyn}
 fit2 <- lm(weight ~ height + I(height^2), data=women)
 summary(fit2)
+plot(fit2)
 ```
+
+### Comparar el modelo anterior con el siguiente modelo. En el presente modelo se removio el polinimio. Evaluando los residuales es claro que estos no son distribuido de forma al azar.  Note la curva. Esto es un indicador que no cumple con el supuesto de igualdad de varianza.    
+
+```{r regr_polyn}
+fit2 <- lm(weight ~ height, data=women)
+summary(fit2)
+plot(fit2$residuals)
+```
+
 
 ------------------------------------------------------------------------
 
