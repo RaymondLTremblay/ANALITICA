@@ -124,12 +124,28 @@ set_caption("Links comun utilizado con GLM.")
 
 ## Modelos binomial o Bernoulli
 
-Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la función **logit** como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina regresión logística.
+Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la función **logit** como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina **Regresión logística**.
 
 $$\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i$$
 
 donde la distribución es una binomial con $y_i\sim Binomial\left(q_i\right)$. 
 
+
+```{r}
+library(wakefield)
+x=r_sample_binary(100, x = 0:1, prob =NULL, name = "Binary")
+#x
+df=as.data.frame(as.factor(x))
+#df
+ggplot(df, aes(x))+
+  geom_histogram(fill="blue")+
+  scale_x_continuous(breaks = c(0, 1))+
+  xlab("Binary Values")
+```
+
+***
+
+### Distribución Gamma
 
 
 

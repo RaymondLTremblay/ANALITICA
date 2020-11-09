@@ -195,7 +195,7 @@ scatterplotMatrix(reg.multiple, ~ Age + Cholesterol + Glucose,
                   col = "blue")
 ```
 
-# Prueba de Glauber para multicolinealidad
+### Prueba de Glauber para multicolinealidad
 
 
 El paquete "mctest" en R proporciona la prueba de Farrar-Glauber y otras pruebas relevantes para la multicolinealidad. Hay dos funciones a saber. "Omcdiag" e "imcdiag" en el paquete "mctest" en R que proporcionarán la verificación de diagnóstico general e individual para la multicolinealidad, respectivamente.
