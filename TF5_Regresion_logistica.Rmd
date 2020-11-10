@@ -38,7 +38,7 @@ colorize <- function(x, color) {
 ***
 
 
-Los paquetes
+Cargamos los paquetes requeridos:
 
 ```{r, message=FALSE}
 library(ggplot2)
@@ -49,15 +49,15 @@ library(tidyverse)
 
 ## Regessión Logística
 
-La regresión logística se el procedimiento de evaluar el efecto de las repuestas de una variable continua sobre una variable discreta limitado a solamente dos alternativas.  Por ejemplo: si o no, vivo o muerto, presente o ausente, tiene flores o no tiene flores, estar infectado o no estar infectado con el COVID-19.  Tipicamente se codifica con valores numéricos. En uno de los estados se la asigna un "0" y la otra se la asigna un "1". 
+La regresión logística es el procedimiento de evaluar el efecto de una variable continua sobre una variable discreta, donde la variable discreta está limitada a solamente dos alternativas.  Por ejemplo: si o no, vivo o muerto, presente o ausente, tiene flores o no tiene flores, estar infectado o no estar infectado con el COVID-19, o Trump o Biden.  Tipicamente se codifica con valores numéricos. En uno de los estados se la asigna un "0" y la otra se la asigna un "1". 
 
-Para entender un set de datos ficticio, por ejemplo, la variable continua podría representar el tamaño de 20 bacteria (en µm), y la variable discreta binomial pudiese representar si esta bacteria hizo fisión (1) o no (0).  
+Para entender un set de datos ficticio, por ejemplo, la variable continua podría representar el tamaño de 20 bacterias (en µm), y la variable discreta binomial pudiese representar si esta bacteria hizo fisión (1) o no (0).  
 
 ***
 
 ## Ejemplo de un patrón casi perfecto
 
-Evaluando el gráfico se observa que cuando las bacterias son muy pequeña no ocurre fision y cuando son tamaño de 9 µm o más hay una probabilidad fisión binaria. Si una bacteria tiene un tamaño de 10 µm tiene una probabilidad de 50%.    
+Con el siguiente gráfico se observa que cuando las bacterias son muy pequeña no ocurre fision y cuando son tamaño de 9 µm o más hay una  fisión binaria. Si una bacteria tiene un tamaño de 10 µm tiene una probabilidad de 50%.    
 
 ```{r perfect logistic regression, echo=TRUE, warning=FALSE}
 continuous=c(rep(1:20,2))
@@ -101,7 +101,7 @@ summary(model)
 
 # Modelo Lineal Generalizado
 
-En este modulo se hace una primera introducción a un otro tipo de herramienta para el análisis de datos, denominado **Modelo Lineal Generalizado, GLM**. Lo interesante de esta acercamiento es que aun que uno tiene una variable de respuesta que no cumple con distribución normal hay múltiples opciones para los análisis.  En este modulo solamente se estará presentando el tipo de datos donde la variable de respuesta (Y) es binomial. 
+En este modulo se hace una primera introducción a un otro tipo de herramienta para el análisis de datos, denominado **Modelo Lineal Generalizado, GLM**. Lo interesante de este método hay múltiples opciones para los análisis a pesar de que la variable de respuesta no tenga una distribución normal.  En este módulo solamente se estará presentando el tipo de datos donde la variable de respuesta (Y) es binomial. 
 
 ***
 
@@ -128,7 +128,7 @@ En este modulo se hace una primera introducción a un otro tipo de herramienta p
 
 ## Evaluando si el modelo es aceptable
 
- > Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación.  El método típico de $R^2$ no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente **mejor**, cada una de estas alternativas tiene sus ventajas.  Una de las desventaja es que la escala no es como $r^2$ que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.   
+ > Hay muchas alternativas para evaluar si el modelo logístico es aceptable o sea que explica parte de la variación.  El método típico de $R^2$ no es viable para la regresión logística, pero hay múltiples alternativas. En el siguiente documento pueden observar algunas de estas. Pero nota que no hay uno que es necesariamente **mejor**, cada una de estas alternativas tiene sus ventajas.  Una de las desventaja es que la escala no es como $R^2$ que varia de 0 a 1, por consecuencia sus interpretaciones son siempre más complejas.   
 
 
 https://www.r-bloggers.com/evaluating-logistic-regression-models/
@@ -141,7 +141,7 @@ El primer paso es entender cual es la diferencia entre una regresión lineal y u
 
 La regresión lineal: 
 
-$$Y_i=\beta_0+\beta_1X_i+\beta_2X_i$$
+$$Y_i=\beta_0+\beta_1X_{1i}\beta_2X_{2i}$$
 Regresión logística:
 
 p=P(Y=1) o sea la probabilidad que p tenga el valor de **1** o  1-p= 1-P(Y=1) que seria el valor de **0** en su conjunto de datos.  
@@ -262,7 +262,7 @@ ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
 
 ## Comparando modelos
 
-En el siguiente gráfico se observa tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biologicamente imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebes que nacer con un peso muy grande muchas veces tiene una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesária para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
+En el siguiente gráfico se observa tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biologicamente imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebés que nacen con un peso muy grande muchas veces tiene una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesárea para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
 
 El punto importante es reconocer que la regresión logística este limitado a valores de probabilidades entre 0 y 1, incluyendo el intervalo de confianza (el intervalo no puede tener valores menos de cero ni mayor de 1).  Por consecuencia las probabilidades y el intervalo de confianza se limita entre 0 y 1. 
 
@@ -292,7 +292,7 @@ summary(modelweight)
 
 
 ## *Brassavola cucullata*
-Los datos fueron recolectado de dos pequeñas islas del Caribe, San Eustaquio y Saba.  
+Los datos fueron recolectados de dos pequeñas islas del Caribe, San Eustaquio y Saba.  
 
 *Brassavola cucullata* pertenece a la subtribu Laeliinae y es una especie epífita y rupícola que puede formar grandes racimos de brotes. Cada brote está compuesto por un solo tallo de 3.5-12.5 cm de largo y 1-3.5 mm de diámetro y tiene una sola hoja semi-tereta de 16-35 cm de largo y solo un poco más gruesa que el tallo. Las inflorescencias terminales miden 3-30 mm de largo y suelen tener una sola flor. Las flores son en gran parte blancas con las partes delgadas del perianto que a menudo se vuelven de color amarillo pálido hacia sus ápices. El labelo es ovado-acuminado y fimbriado alrededor de la columna. El cunículo se extiende hacia el ovario inferior y no tiene néctar. Las flores engañosas tienen una fragancia nocturna dulce y espesa, que puede perdurar hasta el día. La producción de frutos depende de los polinizadores. Las cápsulas tardan varios meses en desarrollarse y son pediceladas y picudas (restos de la columna); el cuerpo de la cápsula mide entre 2 y 5 cm de largo y produce muchos miles de semillas polvorientas (Ackerman y Collaborators 2014).
 
