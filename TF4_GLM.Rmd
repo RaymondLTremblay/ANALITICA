@@ -192,6 +192,25 @@ Se puede encontrar las formulas para calular otros parametros en la pagina de wi
 <https://en.wikipedia.org/wiki/Gamma_distribution>
 
 
+***
+
+### La distribución Gaussiana Inversa
+
+
+En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞). es el parámetro de forma. Como λ tiende al infinito, la distribución gaussiana inversa se parece más a una distribución normal (gaussiana). Se conoce también esta distribución como la Wald. 
+
+La distribución se usa cuando la distribución de población donde la distribución lognormal tiene una cola derecha demasiado pesada. 
+
+La distribución es utiliza para modelar datos no negativo que son sesgados positivamente.  En otra palabra todos los valores son positivos y la cola tiende a disminiur más lentamente que en una distribución normal.  
+
+
+
+Información sobre la distribución gaussiana inversa.
+
+<https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution> 
+
+
+
 
 ***
 
