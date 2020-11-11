@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: "Modelo Lineal Generalizado"
 output:
@@ -148,6 +147,49 @@ ggplot(df, aes(x))+
 
 ### Distribución Gamma
 
+La distribución gamma se utiliza frecuentemente para tomar en cuenta variables que tienen colas muy largas y positivas. Los valores son positivos. La distribución se usa mucho en el área de econometría y estimados de supervivencia.
+
+
+En otra palabra la distribución gamma es para modelar variables continuas que siempre son positivas y tienen distribuciones sesgadas
+
+Ejemplos donde se usa la distribución gamma
+
+  + el tiempo hasta el momento de fracaso de un equipo
+  + el tiempo hasta el momento la muerte de individuos
+  + la cantidad de agua acumulada en un lago
+  + el tamaño de los préstamos impagos
+  
+Veamos algunas distribuciones gamma
+
+```{r}
+#dgamma(x,shape=k, scale=theta)
+x = 0:20
+curve(dgamma(x, shape=1, scale=2), xlab = "x", ylab = "f(x;k,theta)", 0.4, 20, col = 3, lwd = 3, 
+    main = "Gráfico distribución Gamma")
+curve(dgamma(x, shape=2, scale=2), xlab = "x", ylab = "f(x;k,theta)", 0.4, 20, col = 5, lwd = 3, 
+    add = TRUE)
+curve(dgamma(x, shape=2, scale=4), xlab = "x", ylab = "f(x;k,theta)", 0.4, 20, col = 6, lwd = 3, 
+    add = TRUE)
+curve(dgamma(x,shape =5, scale=1), xlab = "x", ylab = "f(x;k,theta)", 0.4, 20, col = 7, lwd = 3, 
+    add = TRUE)
+curve(dgamma(x, shape=9, scale=0.5), xlab = "x", ylab = "f(x;k,theta)", 0.4, 20, col = 1, lwd = 3, 
+    add = TRUE)
+curve(dgamma(x, shape=7.5, scale=1), xlab = "x", ylab = "f(x;k,theta)", 0.4, 20, col = 2, lwd = 3, 
+    add = TRUE)
+legend("topright", c("k=1,theta=2", "k=2,theta=2", "k=2,theta=4","k=5,theta=1","k=9,theta=0.5", "k=7.5,theta=1.0"), col = c(3, 5,6, 7,1,2), lwd = 3, inset = 0.05)
+```
+# Los parámetros básicos de la gamma.
+
+
+Note: El **scale** es un indice de dispersión, y a mayor el número más larga es la cola.
+
+
+El promedio es igual a la multiplicación del shape=k por el scale = theta, $$k\cdot\theta$$.  
+
+La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, $$k\cdot\theta^2$$
+
+Se puede encontrar las formulas para calular otros parametros en la pagina de wikipedia.  
+<https://en.wikipedia.org/wiki/Gamma_distribution>
 
 
 
@@ -159,150 +201,5 @@ Institutes of Health.”
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
-=======
----
-title: "Modelo Lineal Generalizado"
-output:
-  html_document:
-    css: tutorial.css
-    fig_caption: yes
-    highlight: pygments
-   # theme: simplex
-    toc: yes
-    toc_float: yes
-    
----
-<style>
-.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
-    background-color: #437d66;
-}
-</style>
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
-knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
-```
-
-
-***
-# Introdución
-
-## Modelos lineales
-
-Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde la variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable dependiente sigue el modelo $y_i = \beta_0 + \beta_1 x_i$, donde $\beta_0$ es el intercepto y la $\beta_1$ es el coeficiente, o sea la pendiente y la $x_i$ son los valores de x's.  Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza (homoestadicidad).  
-
-$$\mu_i=\beta_0+\beta_1x_i$$ 
-#ro de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
-
-$$y_i\sim N\left(\mu_i,\ \epsilon\right)$$
-Lo podemos visualizar con con la siguiente figura, donde los valores de y's tienen una distribución normal y que esta distribución es homogenea a través de los valores de x's. 
-
-```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap="Del siguiente website; https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab"}
-knitr::include_graphics(c("Graficos/Reg_Normal.png"))
-```
-
-
-***
-## Cuando la variable dependiente no es lineal
-
-El problema princial por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y  por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente enlace,  <https://encyclopediaofmath.org/wiki/Generalized_linear_models>. Con el avance del uso de las computadoras en los años 80 GLM terminó en ser uno de los métodos estadísticos más utilizados.  
-
-El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta $y_i$ sigue una distribución dentro de la familia de distribuciones exponencial con promedio $\mu_i$, donde se asume una función $\mu_i^T\beta$ que frecuentemente no es lineal. Para linearizar la variable es necesario usar un "link" para convertir la variable dependiente, $y_i$.  
-
-***
-
-## Link disponible
-
-He aquí una lista parcial de los diferentes tipos de "links" para diferentes tipos de datos (o distribuciones) de la variable dependiente, $y_i$. La decisión de cual transformación o link utilizar dependerá de los tipos de datos y sus distribución.   
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(huxtable)
-
-LinkFunctions<-tribble(
-  ~Modelo, ~Variable_Dep, ~Link, ~Variables_Independiente,
-  "Regresión Lineal", "Normal", "Identity", "Continuos",
-  "ANOVA", "Normal", "Identity", "Categórico",
-  "Regresión logistica", "Binomial", "Logit","Mixto",
-  "Regresión Poisson", "Poisson", "Log", "Mixto",
-)
-
-huxtable(LinkFunctions) %>% 
-  set_bold(1, 1:4) %>% 
-  set_text_color(1, 1:4, "red") %>% 
-  set_bottom_border(row = 1, col = everywhere, value = 1) %>%
-set_bottom_border(row = 5, col = everywhere, value = 1) %>%
-set_caption("Links comun utilizado con GLM.")
-```
-
-Aunque las distribuciones anteriores son bien comunes no son los únicos links disponible para transformar los datos.  Aquí hay información suplementaria sobre algunos otros links que están disponible R en ciertos paquetes.  
-
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(huxtable)
-```
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-Familia<-tribble(
-  ~Familia, ~Links, 
-  "Gaussian/Normal", "identity, log, inversa", 
-  "Binomial", "logit, probit, cauchit, log, cloglog", 
-  "Gamma", "inversa, identity, log",
-  "Poisson", "log, identity, raiz cuadrada",
-  "Gausian inversa", "1/µ^2, inversa, identity, log"
-)
-
-huxtable(Familia) %>% 
-  set_bold(1, 1:2) %>% 
-  set_text_color(1, 1:2, "red") %>% 
-  set_bottom_border(row = 1, col = everywhere, value = 1) %>%
-set_bottom_border(row = 6, col = everywhere, value = 1) %>%
-set_caption("Links comun utilizado con GLM.")
-```
-
-***
-
-## Los supuestos
-
- + La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal, tampoco los datos sin transformar tienen que tener una relación lineal, pero estos tienen que provenir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.  
- + GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado (el link) y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, $logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i$. 
- + No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)
- + Los errores tienen que ser independientes pero no importa si cumple con una la distribución normal.
- 
-
-
-***
-## Las ventajas de GLM
-  + Los parámetros se estiman usando la verosimilitud (MLE = Maximum Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary least square). Los modelos se estiman vía la verosimilitud, entonces optimizan los estimadores, $\beta$. 
-  +  No hay que transformar los datos de la variable dependiente para normalizarlos. 
-  +  La selección del "link" es independiente de la variable(s) dependiente(s), que hace más fácil crear modelos.
-  + Las herramientas para evaluar las inferencias y los modelos están disponible tal como evaluar los residuales, los intervalos de confianza, deviance, likelihood ratio test entre otros. 
-
-
-***
-
-## Modelos binomial o Bernoulli
-
-Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la función **logit** como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina regresión logística.
-
-$$\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i$$
-
-donde la distribución es una binomial con $y_i\sim Binomial\left(q_i\right)$. 
-
-
-
-
-
-***
-
-> “Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the
-responsibility of the authors and does not necessarily represent the official views of the National
-Institutes of Health.”
-
-```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
-knitr::include_graphics(c("Graficos/UPR_logos.png"))
->>>>>>> 6a3bb061ca92c8c4498e530fb5435c7093940b77
-```

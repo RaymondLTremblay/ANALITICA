@@ -632,9 +632,9 @@ div.tocify {
 <h1>Introdución</h1>
 <div id="modelos-lineales" class="section level2">
 <h2>Modelos lineales</h2>
-<p>Los modelos lineal generalizado, GLM, es una extensión de los modelos lineales donde la distribución de la variable de dependiente tiene una distribución normal. Recordamos que una regresión lineal tiene la siguiente organización, por ejemplo la una regresión de una variable independiente el modelo, donde <span class="math inline">\(\beta_0\)</span> es el intercepto y la <span class="math inline">\(\beta_1\)</span> es el coeficiente, o sea la pendiente y la <span class="math inline">\(x_i\)</span> son los valores de x’s. Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
-<p><span class="math display">\[\mu_i=\beta_0+\beta_1x_i\]</span> Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
-<p><span class="math display">\[y_i\sim N\left(\mu_i,\ \epsilon\right)\]</span> Una manera de visualizar lo es con la siguiente figura, donde los valores de y’s tienen una distribución normal y que esta distribución es homogeneidad a través de los valores de x’s.</p>
+<p>Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde ls variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable independiente sigue el modelo <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i\)</span>, donde <span class="math inline">\(\beta_0\)</span> es el intercepto y la <span class="math inline">\(\beta_1\)</span> es el coeficiente, o sea la pendiente y la <span class="math inline">\(x_i\)</span> son los valores de x’s. Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
+<p><span class="math display">\[\mu_i=\beta_0+\beta_1x_i\]</span> Otro de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
+<p><span class="math display">\[y_i\sim N\left(\mu_i,\ \epsilon\right)\]</span> Lo podemos visualizar con con la siguiente figura, donde los valores de y’s tienen una distribución normal y que esta distribución es homogenea a través de los valores de x’s.</p>
 <div class="figure">
 <img src="Graficos/Reg_Normal.png" alt="Del siguiente website; https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab" width="50%" />
 <p class="caption">
@@ -645,13 +645,13 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 </div>
 <div id="cuando-la-variable-dependiente-no-es-lineal" class="section level2">
 <h2>Cuando la variable dependiente no es lineal</h2>
-<p>El problema mayor por mucho tiempo ha sido que la variable dependiente no tenían distribución normal por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente enlace, <a href="https://encyclopediaofmath.org/wiki/Generalized_linear_models" class="uri">https://encyclopediaofmath.org/wiki/Generalized_linear_models</a>. Con el avance del uso de las computadoras en los años 80 termino en ser uno de los métodos estadísticos más utilizados.</p>
-<p>El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta <span class="math inline">\(y_i\)</span> se asume que sigue una distribución dentro de la familia de distribuciones exponencial con un promedio <span class="math inline">\(\mu_i\)</span>, donde se asume una función <span class="math inline">\(\mu_i^T\beta\)</span> que frecuentemente no es lineal. Para poder linearizar la variable es necesario usar un “link” para convertir la variable dependiente, <span class="math inline">\(y_i\)</span>.</p>
+<p>El problema princial por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en el siguiente enlace, <a href="https://encyclopediaofmath.org/wiki/Generalized_linear_models" class="uri">https://encyclopediaofmath.org/wiki/Generalized_linear_models</a>. Con el avance del uso de las computadoras en los años 80 terminó en ser uno de los métodos estadísticos más utilizados.</p>
+<p>El termino GLM se refiere a un gran números de modelos. En estos modelos la variable de respuesta <span class="math inline">\(y_i\)</span> se asume que sigue una distribución dentro de la familia de distribuciones exponencial con un promedio <span class="math inline">\(\mu_i\)</span>, donde se asume una función <span class="math inline">\(\mu_i^T\beta\)</span> que frecuentemente no es lineal. Para linearizar la variable es necesario usar un “link” para convertir la variable dependiente, <span class="math inline">\(y_i\)</span>.</p>
 <hr />
 </div>
 <div id="link-disponible" class="section level2">
 <h2>Link disponible</h2>
-<p>Aquí una lista parcial de los diferentes tipos de “link” para diferentes tipos de datos de la variable independiente, <span class="math inline">\(y_i\)</span>. La decisión de cual transformación o link es necesaria dependerá de los tipos de datos y sus distribución.</p>
+<p>He aquí una lista parcial de los diferentes tipos de “links” para diferentes tipos de datos (o distribuciones) de la variable independiente, <span class="math inline">\(y_i\)</span>. La decisión de cual transformación o link utilizar es necesaria dependerá de los tipos de datos y sus distribución.</p>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-3">
 <caption style="caption-side: top; text-align: center;">Links comun utilizado con GLM.</caption><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Modelo</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Variable_Dep</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Link</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Variables_Independiente</span></th></tr>
@@ -665,7 +665,7 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Regresión Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Log</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Mixto</td></tr>
 </table>
 
-<p>Aunque los anteriores son bien común no son los únicos links disponible para transformar los datos. Aquí esta información suplementaria sobre algunos otros links que están disponible R en ciertos paquetes.</p>
+<p>Aunque las distribuciones anteriores son bien comunes no son los únicos links disponible para transformar los datos. Aquí hay información suplementaria sobre algunos otros links que están disponible R en ciertos paquetes.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(huxtable)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-5">
@@ -688,18 +688,18 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <div id="los-supuestos" class="section level2">
 <h2>Los supuestos</h2>
 <ul>
-<li>La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal, tampoco los datos sin transformar tienen que tener una relación lineal, pero estos tienen que provinir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.<br />
+<li>La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal, tampoco los datos sin transformar tienen que tener una relación lineal, pero estos tienen que provenir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.<br />
 </li>
 <li>GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y las variables independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, <span class="math inline">\(logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i\)</span>.</li>
 <li>No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)</li>
-<li>Los errores tienen que ser independiente pero no importa si cumple con una la distribución normal.</li>
+<li>Los errores tienen que ser independientes pero no importa si cumple con una la distribución normal.</li>
 </ul>
 <hr />
 </div>
 <div id="las-ventajas-de-glm" class="section level2">
 <h2>Las ventajas de GLM</h2>
 <ul>
-<li>Los parámetros se estiman usando la verosimilitud (MLE = Maximum Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary least square). Los modelos se estiman vía la verosimilitud, entonces optimiza los estimadores, <span class="math inline">\(\beta\)</span>.</li>
+<li>Los parámetros se estiman usando la verosimilitud (MLE = Maximum Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary least square). Los modelos se estiman vía la verosimilitud, entonces optimizan los estimadores, <span class="math inline">\(\beta\)</span>.</li>
 <li>No hay que transformar los datos de la variable dependiente para normalizarlos.</li>
 <li>La selección del “link” es independiente de la variable(s) dependiente(s), que hace más fácil crear modelos.</li>
 <li>Las herramientas para evaluar las inferencias y los modelos están disponible tal como evaluar los residuales, los intervalos de confianza, deviance, likelihood ratio test entre otros.</li>
@@ -708,14 +708,68 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 </div>
 <div id="modelos-binomial-o-bernoulli" class="section level2">
 <h2>Modelos binomial o Bernoulli</h2>
-<p>Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la función <strong>logit</strong> como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina regresión logística.</p>
+<p>Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la función <strong>logit</strong> como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina <strong>Regresión logística</strong>.</p>
 <p><span class="math display">\[\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i\]</span></p>
 <p>donde la distribución es una binomial con <span class="math inline">\(y_i\sim Binomial\left(q_i\right)\)</span>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(wakefield)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;wakefield&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:huxtable&#39;:
+## 
+##     height</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     id</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>x=<span class="kw">r_sample_binary</span>(<span class="dv">100</span>, <span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">prob =</span><span class="ot">NULL</span>, <span class="dt">name =</span> <span class="st">&quot;Binary&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#x</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>df=<span class="kw">as.data.frame</span>(<span class="kw">as.factor</span>(x))</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#df</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x))<span class="op">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))<span class="op">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Binary Values&quot;</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<hr />
+<div id="distribución-gamma" class="section level3">
+<h3>Distribución Gamma</h3>
+<p>La distribución gamma se utiliza frecuentemente para tomar en cuenta variables que tienen colas muy largas y positivas. Los valores son positivos. La distribución se usa mucho en el área de econometría y estimados de supervivencia.</p>
+<p>En otra palabra la distribución gamma es para modelar variables continuas que siempre son positivas y tienen distribuciones sesgadas</p>
+<p>Ejemplos donde se usa la distribución gamma</p>
+<ul>
+<li>el tiempo hasta el momento de fracaso de un equipo</li>
+<li>el tiempo hasta el momento la muerte de individuos</li>
+<li>la cantidad de agua acumulada en un lago</li>
+<li>el tamaño de los préstamos impagos</li>
+</ul>
+<p>Veamos algunas distribuciones gamma</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#dgamma(x,shape=k, scale=theta)</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>x =<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">20</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">curve</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">scale=</span><span class="dv">2</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="dt">col =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="dt">main =</span> <span class="st">&quot;Gráfico distribución Gamma&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">curve</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span><span class="dv">2</span>, <span class="dt">scale=</span><span class="dv">2</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="dt">col =</span> <span class="dv">5</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="kw">curve</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span><span class="dv">2</span>, <span class="dt">scale=</span><span class="dv">4</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="dt">col =</span> <span class="dv">6</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="kw">curve</span>(<span class="kw">dgamma</span>(x,<span class="dt">shape =</span><span class="dv">5</span>, <span class="dt">scale=</span><span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="dt">col =</span> <span class="dv">7</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="kw">curve</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span><span class="dv">9</span>, <span class="dt">scale=</span><span class="fl">0.5</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="dt">col =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb8-12"><a href="#cb8-12"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="kw">curve</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span><span class="fl">7.5</span>, <span class="dt">scale=</span><span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb8-14"><a href="#cb8-14"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;k=1,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=4&quot;</span>,<span class="st">&quot;k=5,theta=1&quot;</span>,<span class="st">&quot;k=9,theta=0.5&quot;</span>, <span class="st">&quot;k=7.5,theta=1.0&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-7-1.png" width="672" /> # Los parámetros básicos de la gamma.</p>
+<p>Note: El <strong>scale</strong> es un indice de dispersión, y a mayor el número más larga es la cola.</p>
+<p>El promedio es igual a la multiplicación del shape=k por el scale = theta, <span class="math display">\[k\cdot\theta\]</span>.</p>
+<p>La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, <span class="math display">\[k\cdot\theta^2\]</span></p>
+<p>Se puede encontrar las formulas para calular otros parametros en la pagina de wikipedia.<br />
+<a href="https://en.wikipedia.org/wiki/Gamma_distribution" class="uri">https://en.wikipedia.org/wiki/Gamma_distribution</a></p>
 <hr />
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
 </blockquote>
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
+</div>
 </div>
 </div>
 
