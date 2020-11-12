@@ -131,9 +131,9 @@ $$\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i$$
 donde la distribución es una binomial con $y_i\sim Binomial\left(q_i\right)$. 
 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(wakefield)
-x=r_sample_binary(100, x = 0:1, prob =NULL, name = "Binary")
+x=r_sample_binary(50, x = 0:1, prob =c(0.3, 0.7), name = "Binary")
 #x
 df=as.data.frame(as.factor(x))
 #df
