@@ -24,18 +24,32 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 ```
 
 
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse,  huxtable, wakefield, SuppDists,univariateML)
+
+library(tidyverse)
+library(huxtable)
+library(wakefield)
+library(SuppDists)
+library(univariateML)
+```
+
+
 ***
 # Introdución
 
 ## Modelos lineales
 
-Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde la variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable dependiente sigue el modelo $y_i = \beta_0 + \beta_1 x_i$, donde $\beta_0$ es el intercepto y la $\beta_1$ es el coeficiente, o sea la pendiente y la $x_i$ son los valores de x's.  Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
+Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde la variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable dependiente sigue el modelo $y_i = \beta_0 + \beta_1 x_i$, donde $\beta_0$ es el intercepto y la $\beta_1$ es el coeficiente, o sea la pendiente y la $x_i$ son los valores de x's.  Uno de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal en cada x's y que haya homogeneidad de varianza.  
 
 $$\mu_i=\beta_0+\beta_1x_i$$ 
-Otro de los supuestos es que la variación en los valores de $\mu_i$, que son los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
+Un supuesto importante es el supuesto que la variación en los $y_i$ tienen una distribución normal y que hay homogeneidad de varianza.  
 
 $$y_i\sim N\left(\mu_i,\ \epsilon\right)$$
 Lo podemos visualizar con con la siguiente figura, donde los valores de y's tienen una distribución normal y que esta distribución es homogenea a través de los valores de x's. 
+
+# Necesito cambiar este gráfico, ya que viene del web  (del siguiente website "https://towardsdatascience.com"). 
 
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default", fig.cap="Del siguiente website; https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab"}
 knitr::include_graphics(c("Graficos/Reg_Normal.png"))
@@ -45,7 +59,7 @@ knitr::include_graphics(c("Graficos/Reg_Normal.png"))
 ***
 ## Cuando la variable dependiente no es lineal
 
-El problema princial por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y  por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en  <https://encyclopediaofmath.org/wiki/Generalized_linear_models>. Con el avance del uso de las computadoras en los años 80 terminó en ser uno de los métodos estadísticos más utilizados.  
+El problema principal por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en  <https://encyclopediaofmath.org/wiki/Generalized_linear_models>. Con el avance del uso de las computadoras en los años 80 terminó en ser uno de los métodos estadísticos más utilizados.  
 
 El termino GLM se refiere a un gran variedad de modelos de regresión. El supuesto en estos modelos es que la variable de respuesta $y_i$ sigue una distribución dentro de la familia de distribuciones exponencial con un promedio $\mu_i$, donde se asume una función $\mu_i^T\beta$ que frecuentemente no es lineal. Para linearizar la variable es necesario usar un "link" para convertir la variable dependiente, $y_i$.  
 
@@ -53,7 +67,7 @@ El termino GLM se refiere a un gran variedad de modelos de regresión. El supues
 
 ## Link disponible
 
-He aquí una lista parcial de los diferentes tipos de "links" para diferentes tipos de datos (o distribuciones) de la variable independiente, $y_i$. La decisión de cual transformación o link utilizar es necesaria dependerá de los tipos de datos y sus distribución.   
+Aquí enseño una lista parcial de los diferentes tipos de "links" para diferentes tipos de datos (o distribuciones) de la variable independiente, $y_i$. La decisión de cual transformación o **link** utilizar es necesaria dependerá de los tipos de datos y sus distribución.   
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -78,10 +92,7 @@ set_caption("Links comun utilizado con GLM.")
 Aunque las distribuciones anteriores son bien comunes no son los únicos links disponibles para transformar los datos.  Aquí hay información suplementaria sobre algunos otros links que están disponible R en ciertos paquetes.  
 
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(huxtable)
-```
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 Familia<-tribble(
@@ -105,7 +116,8 @@ set_caption("Links comun utilizado con GLM.")
 
 ## Los supuestos
 
- + La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal. Además los datos sin transformar no tienen que tener una relación lineal. Sin embargo los datos tienen que provenir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.  
+ + La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal. 
+ + Además los datos sin transformar no tienen que tener una relación lineal. Sin embargo los datos tienen que provenir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.  
  + GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y la variable independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, $logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i$. 
  + No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)
  + Los errores tienen que ser independientes pero no importa si cumple con una la distribución normal.
@@ -132,7 +144,7 @@ donde la distribución es una binomial con $y_i\sim Binomial\left(q_i\right)$.
 
 
 ```{r, warning=FALSE, message=FALSE}
-library(wakefield)
+#library(wakefield)
 x=r_sample_binary(50, x = 0:1, prob =c(0.3, 0.7), name = "Binary")
 #x
 df=as.data.frame(as.factor(x))
@@ -194,7 +206,7 @@ Se puede encontrar las formulas para calcular otros parámetros en la página de
 
 ***
 
-### La distribución gaussiana Inversa
+### La distribución gaussiana inversa
 
 
 En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞). 
@@ -203,15 +215,15 @@ La distribución sigue la siguiente forma $$f\left(x;µ,\lambda\right)=\sqrt{\fr
 
 donde $x>0$, $µ>0$, y $\lambda$ es la forma de distribución y siempre es mayor de cero.  Mayor es el $\lambda$ (el shape parameter) más simétrica es la distribución.   
 
-Cuando λ tiende al infinito, la distribución gaussiana inversa se parece a una distribución normal (gaussiana). La distribución gausiana inversa se conoce también como la distribución Wald. 
+Cuando λ tiende al infinito, la distribución gaussiana inversa se parece a una distribución normal (gaussiana). La distribución gaussiana inversa se conoce también como la distribución Wald. 
 
-#La distribución se usa cuando la distribución de población donde la distribución lognormal tiene una cola derecha demasiado pesada. 
+#La distribución se usa cuando la distribución de población donde la distribución lognormal tiene una cola derecha demasiado pesada. Cuando se refiere a cola pesadas en estadistica, se refiere a que hay más probabilidades en esta region que una distribución normal. Por consecuencia las probabilidades en esta region es mayor.   
 
 La distribución es utiliza para modelar datos no negativos que son sesgados positivamente.  En otra palabra todos los valores son positivos y la cola tiende a disminiur más lentamente que en una distribución normal.  
 
+#### Historia gausiana inversa
 
-
-Información sobre la distribución gaussiana inversa. La distribución fue aparentemente derivada por la primera vez por Louis Bachelier en 1900, cuando el trataba de estimar el precio de la bolsa de valores para diferentes companias.  Pero el nombre de "inverse Gaussian" fue sugerido por Maurice Tweedie en 1945.  
+Información historica sobre la distribución gaussiana inversa es poco limitado. La distribución fue aparentemente derivada por la primera vez por Louis Bachelier en 1900, cuando el trataba de estimar el precio de la bolsa de valores para diferentes companias.  Pero el nombre de "Inverse Gaussian" fue sugerido por Maurice Tweedie en 1945.  Vea este enlace para más detalles. 
 
 <https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution> 
 
@@ -249,6 +261,7 @@ legend("topright", c("nu=.7,lambda=0.2", "nu=.7,lambda=1", "nu=.7,lambda=3","nu=
 ```
 
 ***
+
 ## Evaluando distribuciones
 
 
@@ -297,7 +310,7 @@ Ejemplo de los precios de diamantes del paquete ggplot2
 
 
 ```{r}
-library(univariateML)
+#library(univariateML)
 ggplot(data = diamonds) +
   geom_histogram(aes(x = price, y =  after_stat(density)),
                  bins = 40,
