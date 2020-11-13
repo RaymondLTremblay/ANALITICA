@@ -736,6 +736,9 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <div id="distribución-gamma" class="section level3">
 <h3>Distribución Gamma</h3>
 <p>La distribución gamma se utiliza frecuentemente para tomar en cuenta variables que tienen colas muy largas y grandes (Heavy-Tailed distributions). La distribución se usa mucho en el área de econometría y estimados de supervivencia.</p>
+<p>La distribución gamma puede ser parametizado con un termino de "<strong>shape</strong> <span class="math inline">\(\alpha = k\)</span> y el inverso de un parámetro de escala (scale) <span class="math inline">\(\beta=1/\theta\)</span> que se conoce como un parametro de <strong>rate</strong>.</p>
+<p><span class="math display">\[f\left(x\right)=\frac{\left(\beta^{\alpha}\cdot x^{\alpha-1}e^{-\beta x}\right)}{\Gamma\left(\alpha\right)}\ para\ x&gt;0,\ \ \alpha,\ \beta&gt;0\]</span></p>
+<p>donde <span class="math inline">\(\Gamma\left(\alpha\right)\)</span> is la función gamma. Para cada valor entero <span class="math inline">\(\Gamma\left(\alpha\right)=\left(\alpha-1\right)!\)</span></p>
 <p>En otra palabra la distribución gamma es para modelar variables continuas que siempre son positivas y tienen distribuciones sesgadas</p>
 <p>Ejemplos donde se usa la distribución gamma</p>
 <ul>
@@ -762,8 +765,8 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <span id="cb5-15"><a href="#cb5-15"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;k=1,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=4&quot;</span>,<span class="st">&quot;k=5,theta=1&quot;</span>,<span class="st">&quot;k=9,theta=0.5&quot;</span>, <span class="st">&quot;k=7.5,theta=1.0&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <p><img src="TF4_GLM_files/figure-html/unnamed-chunk-7-1.png" width="672" /> # Los parámetros básicos de la gamma.</p>
 <p>Note: El <strong>scale</strong> es un indice de dispersión, y a mayor el número más larga es la cola.</p>
-<p>El promedio es igual a la multiplicación del shape=k por el scale = theta, <span class="math display">\[k\cdot\theta\]</span>.</p>
-<p>La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, <span class="math display">\[k\cdot\theta^2\]</span></p>
+<p>El promedio es igual a la multiplicación del shape=k por el scale = theta, <span class="math display">\[promedio=k\cdot\theta\]</span>.</p>
+<p>La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, <span class="math display">\[varianza=k\cdot\theta^2\]</span></p>
 <p>Se puede encontrar las formulas para calcular otros parámetros en la página de wikipedia.<br />
 <a href="https://en.wikipedia.org/wiki/Gamma_distribution" class="uri">https://en.wikipedia.org/wiki/Gamma_distribution</a></p>
 <hr />
@@ -811,6 +814,15 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <span id="cb6-20"><a href="#cb6-20"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;nu=.7,lambda=0.2&quot;</span>, <span class="st">&quot;nu=.7,lambda=1&quot;</span>, <span class="st">&quot;nu=.7,lambda=3&quot;</span>,<span class="st">&quot;nu=2,lambda=0.2&quot;</span>,<span class="st">&quot;nu=2,lambda=1&quot;</span>, <span class="st">&quot;nu=2,lambda=4&quot;</span>,<span class="st">&quot;nu=1,lambda=40&quot;</span>), </span>
 <span id="cb6-21"><a href="#cb6-21"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <p><img src="TF4_GLM_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="los-parámetros-de-la-distribución-inversa-de-gauss" class="section level4">
+<h4>Los parámetros de la distribución inversa de Gauss</h4>
+<p>El promedio se calcula de la siguiente forma</p>
+<p><span class="math display">\[E\left[X\right]=\frac{1}{\mu}+\frac{1}{\lambda}\]</span></p>
+<p>La varianza se calcula de la siguiente forma</p>
+<p><span class="math display">\[Var\left[X\right]=\frac{1}{\mu\lambda}+\frac{2}{\lambda^2}\]</span></p>
+<p>Para otros parámetros vean este enlace</p>
+<p><a href="https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution" class="uri">https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution</a></p>
 <hr />
 </div>
 </div>

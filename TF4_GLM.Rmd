@@ -161,8 +161,15 @@ ggplot(df, aes(x))+
 
 La distribución gamma se utiliza frecuentemente para tomar en cuenta variables que tienen colas muy largas y grandes (Heavy-Tailed distributions). La distribución se usa mucho en el área de econometría y estimados de supervivencia.
 
+La distribución gamma puede ser parametizado con un termino de "**shape** $\alpha = k$ y el inverso de un parámetro de escala (scale) $\beta=1/\theta$ que se conoce como un parametro de **rate**. 
 
-En otra palabra la distribución gamma es para modelar variables continuas que siempre son positivas y tienen distribuciones sesgadas
+
+$$f\left(x\right)=\frac{\left(\beta^{\alpha}\cdot x^{\alpha-1}e^{-\beta x}\right)}{\Gamma\left(\alpha\right)}\ para\ x>0,\ \ \alpha,\ \beta>0$$
+
+donde $\Gamma\left(\alpha\right)$ is la función gamma.  Para cada valor entero  $\Gamma\left(\alpha\right)=\left(\alpha-1\right)!$
+
+
+En otra palabra la distribución gamma es para modelar variables continuas que siempre son positivas y tienen distribuciones sesgadas 
 
 Ejemplos donde se usa la distribución gamma
 
@@ -196,9 +203,9 @@ legend("topright", c("k=1,theta=2", "k=2,theta=2", "k=2,theta=4","k=5,theta=1","
 Note: El **scale** es un indice de dispersión, y a mayor el número más larga es la cola.
 
 
-El promedio es igual a la multiplicación del shape=k por el scale = theta, $$k\cdot\theta$$.  
+El promedio es igual a la multiplicación del shape=k por el scale = theta, $$promedio=k\cdot\theta$$.  
 
-La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, $$k\cdot\theta^2$$
+La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, $$varianza=k\cdot\theta^2$$
 
 Se puede encontrar las formulas para calcular otros parámetros en la página de wikipedia.  
 <https://en.wikipedia.org/wiki/Gamma_distribution>
@@ -259,6 +266,23 @@ curve(dinvGauss(x, nu=1, lambda=40), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3,
 legend("topright", c("nu=.7,lambda=0.2", "nu=.7,lambda=1", "nu=.7,lambda=3","nu=2,lambda=0.2","nu=2,lambda=1", "nu=2,lambda=4","nu=1,lambda=40"), 
        col = c(3, 5,6, 7,1,2,4), lwd = 3, inset = 0.05)
 ```
+
+
+#### Los parámetros de la distribución inversa de Gauss
+
+El promedio se calcula de la siguiente forma
+
+$$E\left[X\right]=\frac{1}{\mu}+\frac{1}{\lambda}$$
+
+La varianza se calcula de la siguiente forma
+
+
+$$Var\left[X\right]=\frac{1}{\mu\lambda}+\frac{2}{\lambda^2}$$
+
+Para otros parámetros vean este enlace
+
+<https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution>
+
 
 ***
 
