@@ -197,7 +197,13 @@ Se puede encontrar las formulas para calular otros parametros en la pagina de wi
 ### La distribución Gaussiana Inversa
 
 
-En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞). es el parámetro de forma. Como λ tiende al infinito, la distribución gaussiana inversa se parece más a una distribución normal (gaussiana). Se conoce también esta distribución como la Wald. 
+En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞). 
+
+La distribución sigue la siguiente forma $$f\left(x;µ,\lambda\right)=\sqrt{\frac{\lambda}{2\pi x^3}}\exp\left(-\frac{\lambda\left(x-µ\right)^2}{2µ^2x}\right)$$
+
+donde x>0, µ>0, y $\lambda$ es la forma de distribución y siempre es mayor de cero.  Mayor es el $\lambda$ (el shape parameter) más simétrica es la distribución.   
+
+Cuando λ tiende al infinito, la distribución gaussiana inversa se parece a una distribución normal (gaussiana). La distribución gausiana inversa se conoce también esta distribución como la Wald. 
 
 La distribución se usa cuando la distribución de población donde la distribución lognormal tiene una cola derecha demasiado pesada. 
 
@@ -205,11 +211,112 @@ La distribución es utiliza para modelar datos no negativo que son sesgados posi
 
 
 
-Información sobre la distribución gaussiana inversa.
+Información sobre la distribución gaussiana inversa. La distribución fue aparentemente derivada por la primera vez por Louis Bachelier en 1900, cuando el trataba de estimar el precio de la bolsa de valores para diferentes companias.  Pero el nombre de "inverse Gaussian" fue sugerido por Maurice Tweedie en 1945.  
 
 <https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution> 
 
+Ejemplos que pudiese ser de este tipo de distribución
 
+ + el tiempo que toma llegar a un sitio.  
+ + la distribución de precios de casa
+ + la distribución de precio de casa
+ + la cantidad de hijos en una familia
+ + la supervivencia de organismos (survival data)
+
+Nota 
+
+```{r}
+library(SuppDists) 
+#dinvGauss(x, nu, lambda, log=FALSE)
+
+x = -1:3
+curve(dinvGauss(x, nu=.7, lambda=0.2, log=FALSE), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 3, lwd = 2, 
+    main = "Gráfico distribución Gausiana Inversa")
+curve(dinvGauss(x, nu=.7, lambda=1), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 5, lwd = 2, 
+    add = TRUE)
+curve(dinvGauss(x, nu=.7, lambda=3), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 6, lwd = 2, 
+    add = TRUE)
+curve(dinvGauss(x, nu=2, lambda=0.2), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 7, lwd = 2, 
+    add = TRUE)
+curve(dinvGauss(x, nu=2, lambda=1), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 1, lwd = 2, 
+    add = TRUE)
+curve(dinvGauss(x, nu=2, lambda=4), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 2, lwd = 2, 
+    add = TRUE)
+curve(dinvGauss(x, nu=1, lambda=40), xlab = "x", ylab = "f(x;k,theta)", -0.3, 3, col = 4, lwd = 2, 
+    add = TRUE)
+
+legend("topright", c("nu=.7,lambda=0.2", "nu=.7,lambda=1", "nu=.7,lambda=3","nu=2,lambda=0.2","nu=2,lambda=1", "nu=2,lambda=4","nu=1,lambda=40"), 
+       col = c(3, 5,6, 7,1,2,4), lwd = 3, inset = 0.05)
+```
+
+***
+## Evaluando distribuciones
+
+
+Evaluar un conjunto de datos para visualizar la distribución.
+
+Si necesita hacer análisis de regresión con datos que tienen una distribución Gaussiana inversa el siguiente paquete esta disponible **invGauss** y si quiere determinar cual es la mejor distribución para sus datos con el paquete **univariateML** hay unas funciones para ayudar a determinar.   
+
+Entre tanto que desarollo este tema más profundo le suguiero este enlace.  
+
+https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html
+
+
+
+```{r}
+library(invGauss)
+library(univariateML)
+data(d.oropha.rec)
+#d.oropha.rec
+
+ggplot(data = d.oropha.rec) +
+  geom_histogram(aes(x = time, y =  after_stat(density)),
+                 bins = 40,
+                 alpha = 0.3, color = "black") +
+  geom_rug(aes(x = time)) +
+  stat_function(fun = function(.x){dml(x = .x, obj = mlnorm(d.oropha.rec$time))},
+                aes(color = "normal"),
+                size = 1) +
+  stat_function(fun = function(.x){dml(x = .x, obj = mlinvgauss(d.oropha.rec$time))},
+                aes(color = "inverse-normal"),
+                size = 1) +
+  scale_color_manual(breaks = c("normal", "inverse-normal"),
+                     values = c("normal" = "red", "inverse-normal" = "blue")) +
+  labs(title = "Distribución de tiempo de dessarrolo",
+       color = "Distribución") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+
+# Nota que la cola de tiempo es larga un no tiene una distribución normal
+```
+
+
+
+Ejemplo de los precios de diamantes del paquete ggplot2
+
+
+
+```{r}
+library(univariateML)
+ggplot(data = diamonds) +
+  geom_histogram(aes(x = price, y =  after_stat(density)),
+                 bins = 40,
+                 alpha = 0.3, color = "black") +
+  geom_rug(aes(x = price)) +
+  stat_function(fun = function(.x){dml(x = .x, obj = mllnorm(diamonds$price))},
+                aes(color = "log-normal"),
+                size = 1) +
+  stat_function(fun = function(.x){dml(x = .x, obj = mlinvgauss(diamonds$price))},
+                aes(color = "inverse-normal"),
+                size = 1) +
+  scale_color_manual(breaks = c("log-normal", "inverse-normal"),
+                     values = c("log-normal" = "red", "inverse-normal" = "blue")) +
+  labs(title = "Distribución precio diamantes",
+       color = "Distribución") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
 
 
 ***

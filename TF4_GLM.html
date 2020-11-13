@@ -759,17 +759,105 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 </div>
 <div id="la-distribución-gaussiana-inversa" class="section level3">
 <h3>La distribución Gaussiana Inversa</h3>
-<p>En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞). es el parámetro de forma. Como λ tiende al infinito, la distribución gaussiana inversa se parece más a una distribución normal (gaussiana). Se conoce también esta distribución como la Wald.</p>
+<p>En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞).</p>
+<p>La distribución sigue la siguiente forma <span class="math display">\[f\left(x;µ,\lambda\right)=\sqrt{\frac{\lambda}{2\pi x^3}}\exp\left(-\frac{\lambda\left(x-µ\right)^2}{2µ^2x}\right)\]</span></p>
+<p>donde x&gt;0, µ&gt;0, y <span class="math inline">\(\lambda\)</span> es la forma de distribución y siempre es mayor de cero. Mayor es el <span class="math inline">\(\lambda\)</span> (el shape parameter) más simétrica es la distribución.</p>
+<p>Cuando λ tiende al infinito, la distribución gaussiana inversa se parece a una distribución normal (gaussiana). La distribución gausiana inversa se conoce también esta distribución como la Wald.</p>
 <p>La distribución se usa cuando la distribución de población donde la distribución lognormal tiene una cola derecha demasiado pesada.</p>
 <p>La distribución es utiliza para modelar datos no negativo que son sesgados positivamente. En otra palabra todos los valores son positivos y la cola tiende a disminiur más lentamente que en una distribución normal.</p>
-<p>Información sobre la distribución gaussiana inversa.</p>
+<p>Información sobre la distribución gaussiana inversa. La distribución fue aparentemente derivada por la primera vez por Louis Bachelier en 1900, cuando el trataba de estimar el precio de la bolsa de valores para diferentes companias. Pero el nombre de “inverse Gaussian” fue sugerido por Maurice Tweedie en 1945.</p>
 <p><a href="https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution" class="uri">https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution</a></p>
+<p>Ejemplos que pudiese ser de este tipo de distribución</p>
+<ul>
+<li>el tiempo que toma llegar a un sitio.<br />
+</li>
+<li>la distribución de precios de casa</li>
+<li>la distribución de precio de casa</li>
+<li>la cantidad de hijos en una familia</li>
+<li>la supervivencia de organismos (survival data)</li>
+</ul>
+<p>Nota</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(SuppDists) </span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#dinvGauss(x, nu, lambda, log=FALSE)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>x =<span class="st"> </span><span class="dv">-1</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span>.<span class="dv">7</span>, <span class="dt">lambda=</span><span class="fl">0.2</span>, <span class="dt">log=</span><span class="ot">FALSE</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="dt">main =</span> <span class="st">&quot;Gráfico distribución Gausiana Inversa&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span>.<span class="dv">7</span>, <span class="dt">lambda=</span><span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">5</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span>.<span class="dv">7</span>, <span class="dt">lambda=</span><span class="dv">3</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">6</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span><span class="dv">2</span>, <span class="dt">lambda=</span><span class="fl">0.2</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">7</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span><span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span><span class="dv">2</span>, <span class="dt">lambda=</span><span class="dv">4</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="kw">curve</span>(<span class="kw">dinvGauss</span>(x, <span class="dt">nu=</span><span class="dv">1</span>, <span class="dt">lambda=</span><span class="dv">40</span>), <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">-0.3</span>, <span class="dv">3</span>, <span class="dt">col =</span> <span class="dv">4</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;nu=.7,lambda=0.2&quot;</span>, <span class="st">&quot;nu=.7,lambda=1&quot;</span>, <span class="st">&quot;nu=.7,lambda=3&quot;</span>,<span class="st">&quot;nu=2,lambda=0.2&quot;</span>,<span class="st">&quot;nu=2,lambda=1&quot;</span>, <span class="st">&quot;nu=2,lambda=4&quot;</span>,<span class="st">&quot;nu=1,lambda=40&quot;</span>), </span>
+<span id="cb4-21"><a href="#cb4-21"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="evaluando-distribuciones" class="section level2">
+<h2>Evaluando distribuciones</h2>
+<p>Evaluar un conjunto de datos para visualizar la distribución.</p>
+<p>Si necesita hacer análisis de regresión con datos que tienen una distribución Gaussiana inversa el siguiente paquete esta disponible <strong>invGauss</strong> y si quiere determinar cual es la mejor distribución para sus datos con el paquete <strong>univariateML</strong> hay unas funciones para ayudar a determinar.</p>
+<p>Entre tanto que desarollo este tema más profundo le suguiero este enlace.</p>
+<p><a href="https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html" class="uri">https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html</a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(invGauss)</span></code></pre></div>
+<pre><code>## Loading required package: survival</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">library</span>(univariateML)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">data</span>(d.oropha.rec)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#d.oropha.rec</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> d.oropha.rec) <span class="op">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span>  <span class="kw">after_stat</span>(density)),</span>
+<span id="cb7-7"><a href="#cb7-7"></a>                 <span class="dt">bins =</span> <span class="dv">40</span>,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>                 <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="st">  </span><span class="kw">geom_rug</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(.x){<span class="kw">dml</span>(<span class="dt">x =</span> .x, <span class="dt">obj =</span> <span class="kw">mlnorm</span>(d.oropha.rec<span class="op">$</span>time))},</span>
+<span id="cb7-11"><a href="#cb7-11"></a>                <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>),</span>
+<span id="cb7-12"><a href="#cb7-12"></a>                <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(.x){<span class="kw">dml</span>(<span class="dt">x =</span> .x, <span class="dt">obj =</span> <span class="kw">mlinvgauss</span>(d.oropha.rec<span class="op">$</span>time))},</span>
+<span id="cb7-14"><a href="#cb7-14"></a>                <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb7-15"><a href="#cb7-15"></a>                <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb7-17"><a href="#cb7-17"></a>                     <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;normal&quot;</span> =<span class="st"> &quot;red&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span> =<span class="st"> &quot;blue&quot;</span>)) <span class="op">+</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Distribución de tiempo de dessarrolo&quot;</span>,</span>
+<span id="cb7-19"><a href="#cb7-19"></a>       <span class="dt">color =</span> <span class="st">&quot;Distribución&quot;</span>) <span class="op">+</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Nota que la cola de tiempo es larga un no tiene una distribución normal</span></span></code></pre></div>
+<p>Ejemplo de los precios de diamantes del paquete ggplot2</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(univariateML)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> price, <span class="dt">y =</span>  <span class="kw">after_stat</span>(density)),</span>
+<span id="cb9-4"><a href="#cb9-4"></a>                 <span class="dt">bins =</span> <span class="dv">40</span>,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>                 <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">geom_rug</span>(<span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(.x){<span class="kw">dml</span>(<span class="dt">x =</span> .x, <span class="dt">obj =</span> <span class="kw">mllnorm</span>(diamonds<span class="op">$</span>price))},</span>
+<span id="cb9-8"><a href="#cb9-8"></a>                <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;log-normal&quot;</span>),</span>
+<span id="cb9-9"><a href="#cb9-9"></a>                <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(.x){<span class="kw">dml</span>(<span class="dt">x =</span> .x, <span class="dt">obj =</span> <span class="kw">mlinvgauss</span>(diamonds<span class="op">$</span>price))},</span>
+<span id="cb9-11"><a href="#cb9-11"></a>                <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb9-12"><a href="#cb9-12"></a>                <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="st">&quot;log-normal&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb9-14"><a href="#cb9-14"></a>                     <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;log-normal&quot;</span> =<span class="st"> &quot;red&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span> =<span class="st"> &quot;blue&quot;</span>)) <span class="op">+</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Distribución precio diamantes&quot;</span>,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>       <span class="dt">color =</span> <span class="st">&quot;Distribución&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <hr />
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
 </blockquote>
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
-</div>
 </div>
 </div>
 
