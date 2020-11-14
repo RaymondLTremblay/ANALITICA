@@ -189,7 +189,7 @@ library(car)
 signif(cor(reg.multiple),3) 
 ```
 
-
+***
 
 # Gráfica de regresiones en parejas, con línea de regresión
 ```{r}
@@ -198,6 +198,7 @@ scatterplotMatrix(reg.multiple, ~ Age + Cholesterol + Glucose,
                   regLine = list(lty = 1, col = "red"),
                   col = "blue")
 ```
+***
 
 ### Prueba de Glauber para multicolinealidad
 
@@ -228,11 +229,6 @@ imcdiag(model)
 
 
 
-
-
-
-
-
 ***
 
 ### Modelos de regresión lineal múltiple
@@ -252,6 +248,7 @@ sprintf("AIC = %.2f", aic)
 ncvTest(modRM)  # para determinar si la varianza es constante. "Igualdad de varianza" 
 spreadLevelPlot(modRM)
 ```
+
 
 #### Modelo eliminando la variable Age, por ser la menos correlaciona con BMI, y tener la mayor correlación con Glucose
 
@@ -282,10 +279,14 @@ ncvTest(modRM)
 spreadLevelPlot(modRM)
 ```
 
+*** 
+
+
+
 ### Selección automática de modelo - método "stepwise"
 Existen métodos para seleccionar automáticamente el mejor modelo, a base de estadísticas indicadoras, y que conlleva un procedimiento iterativo.  Uno de estos procedimientos es conocido como 'stepwise' (por pasos), y aunque no es el más aceptado en la actualidad, ha sido muy usado y es una buena manera de ilustrar el procedimiento.
 
-En este procedimiento el proceso de selección se basa en seleccionar el modelo que minimiza el valor de la estadística __AIC__ (Akaike Information Criterion), que indica el modelo con la menor pérdida de información y mayor simplicidad.  En el proceso se parte de un modelo nulo (no efecto de predictores) y hasta un modelo muy complejo, incluyendo interacciones.  Las variables se incluyen y se quitan, y cada vez se recalcula AIC, hasta obtener el modelo que mantiene el mínimo valor de AIC.
+En este procedimiento el proceso de selección se basa en seleccionar el modelo que minimiza el valor de la estadística **AIC** (Akaike Information Criterion), que indica el modelo con la menor pérdida de información y mayor simplicidad.  En el proceso se parte de un modelo nulo (no efecto de predictores) y hasta un modelo muy complejo, incluyendo interacciones.  Las variables se incluyen y se quitan, y cada vez se recalcula AIC, hasta obtener el modelo que mantiene el mínimo valor de AIC.
 
 ```{r}
 #formulación de un modelo nulo y un modelo completo
