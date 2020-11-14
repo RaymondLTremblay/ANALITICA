@@ -110,7 +110,7 @@ En este modulo se hace una primera introducción a un otro tipo de herramienta p
 
 `r colorize("Componente aleatorio:", "deepskyblue4")` se refiere a la distribución de probabilidad de la variable de respuesta (Y); por ejemplo, distribución binomial (0, 1,: Si o No: Vivo o Muerto). Nota que la variable Y puede tener muchas otras tipo de distribución incluyendo la distribución normal, lognormal, proporción, Poisson y otros.  
 
-`r colorize("Variable predictivas:", "blue")` especifica las variables explicativas $X_1,\ X_2,\ X_3,...X_k$ en el modelo, la combinación lineal se puede expresar con la siguiente forma; por ejemplo, $\beta_0+\beta_1\cdot x_1+\beta_2\cdot x_2,\ ...+\beta_k\cdot x_k2$ como hemos visto en una regresión lineal.
+`r colorize("Variable predictivas:", "blue")` especifica las variables explicativas $X_1,\ X_2,\ X_3,...X_k$ en el modelo, la combinación lineal se puede expresar con la siguiente forma; por ejemplo, $\beta_0+\beta_1\cdot x_1+\beta_2\cdot x_2,\ ...+\beta_k\cdot x_k$ como hemos visto en una regresión lineal.
 
 `r colorize("Función de enlace:", "blue")` η o g (μ): especifica el enlace entre componentes aleatorios y sistemáticos. Dice cómo el valor esperado de la respuesta se relaciona con las variables de la ecuación lineal explicativa.
 
@@ -147,9 +147,9 @@ Regresión logística:
 p=P(Y=1) o sea la probabilidad que p tenga el valor de **1** o  1-p= 1-P(Y=1) que seria el valor de **0** en su conjunto de datos.  
 
 $$\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
-Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de predictora tenga una probabilidad entre 1 o 0.  Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%.  El vocabulario correcto es que las respuesta son binarias también dicho de la distribución de Bernoulli.  
+Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de predictora tenga una probabilidad entre 1 o 0.  Las probabilidades van a variar de 0 a 1 o sea de 0% a 100%.  El vocabulario formal es que las respuesta son binarias o que siguen la distribución de Bernoulli.  
 
-Van a ver en la literatura que la formula se representa también de la siguiente forma, donde se escribe como $logit(p)$.  
+En la literatura la formula también se representa como $logit(p)$.  
 
 $$logit\left(p\right)=\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
 
@@ -163,9 +163,9 @@ En el siguiente enlace se puede encontrar más información <https://en.wikipedi
 
 ## Los Datos
 
-Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varón al nacer y su supervivencia (fallecio= 0 y sobrevivio= 1).  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
+Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varones al nacer y su supervivencia (fallecio= 0 y sobrevivio= 1).  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
 
-En el archivo "Karn_Penrose_infant_survivorship.csv" tiene datos sobre 7036 nacimiento entre los años 1935 y 1946. El archivo tiene 4 columnas:
+En el archivo "Karn_Penrose_infant_survivorship.csv" tiene datos sobre 7036 nacimientos entre los años 1935 y 1946. El archivo tiene 4 columnas:
 
   - Line_number = la secuencia de los datos
   - Gestation_Time_days  = El periodo de gestación en días
@@ -185,7 +185,7 @@ summary(KPdata)
 
 ***
 
-1. Pregunta: Explique en su propia palabra cual es una de las hipotesis que se puede probar. Aclarando especificamente si esta es una hipotesis nula o alterna.
+1. Pregunta: Explique en sus propias palabras cuales son las hipotesis que se pueden probar. Especificamente mencione si la hipótesis es una hipótesis nula o alterna.
 
   - Hipotesis Nula: El peso de los varones y el periodo de gestacion no afectan el indice de supervivencia. 
   
@@ -196,7 +196,7 @@ summary(KPdata)
 
 ***
 
-2. Pregunta: Haga una gráfica de la variable de respuesta
+2. Pregunta: Grafique la variable de respuesta
 
 ```{r variable de respuesta}
 names(KPdata)
@@ -211,7 +211,7 @@ ggplot(KPdata, aes(Weigth_lb))+
 
 ***
 
-3. Pregunta: Haga una gráfica de las variables explicativas
+3. Pregunta: Grafique las variables explicativas
     - Periodo de gestación
     - Peso de los varones al nacer
 
@@ -262,9 +262,9 @@ ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
 
 ## Comparando modelos
 
-En el siguiente gráfico se observa tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biologicamente imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebés que nacen con un peso muy grande muchas veces tiene una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesárea para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
+En el siguiente gráfico se observa tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biológicamente imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebés que nacen con un peso muy grande tambien pueden tener complicaciones y por ende una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesárea para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
 
-El punto importante es reconocer que la regresión logística este limitado a valores de probabilidades entre 0 y 1, incluyendo el intervalo de confianza (el intervalo no puede tener valores menos de cero ni mayor de 1).  Por consecuencia las probabilidades y el intervalo de confianza se limita entre 0 y 1. 
+El punto importante es que como la regresión logística representa una probabilidad, la regresión está limitada a valores  entre 0 y 1, incluyendo el intervalo de confianza (el intervalo no puede tener valores menos de cero ni mayor de 1).  Por consecuencia las probabilidades y el intervalo de confianza se limita entre 0 y 1. 
 
 
 ```{r}
