@@ -190,12 +190,14 @@ summary(children1)
 coefplot(children1)
 ```
 
+***
+
+## ¿Qué es la sobredisperción?
 
 
-## ¿Qué es la sobre dispersión?
+En estadística, la sobredispeción es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a 
 
-
-En estadística, la sobredispersión es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a 
+OD = Overdispersion, **Sobredisperción**
 
 La sobre es definida como
 
@@ -220,6 +222,7 @@ head(z)
 sum(z^2)/children1$df.residual
 ```
 
+***
 
 ## Probando si hay sobredisperión
 
