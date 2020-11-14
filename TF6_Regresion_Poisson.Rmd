@@ -175,6 +175,9 @@ ggplot(acs, aes(x=NumChildren))+
   scale_x_continuous(breaks = round(seq(min(acs$NumChildren), max(acs$NumChildren), by = 1),1))
 ```
 
+
+***
+
 ## Modelo Poisson
 
 El modelo de regresión Poisson usa la función **glm()** y una transformación **log** con la siguiente función **family=poisson(link="log")**.  
@@ -195,7 +198,7 @@ coefplot(children1)
 ## ¿Qué es la sobredisperción?
 
 
-En estadística, la sobredispeción es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a 
+En estadística, la sobredispeción es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a ......
 
 OD = Overdispersion, **Sobredisperción**
 
