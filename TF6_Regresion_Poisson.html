@@ -829,7 +829,7 @@ div.tocify {
 </div>
 <div id="qué-es-la-sobre-dispersión" class="section level2">
 <h2>¿Qué es la sobre dispersión?</h2>
-<p>En estadística, la sobredispersión es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.</p>
+<p>En estadística, la sobredispersión es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado. En el modelo Poisson, el promedio es igual a <span class="math inline">\(\lambda\)</span> y la varianza es igual a <span class="math inline">\(\lambda\)</span>, entonces son iguales. Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a</p>
 <p>La sobre es definida como</p>
 <p><span class="math display">\[OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }\]</span></p>
 <p>donde</p>
@@ -845,11 +845,9 @@ div.tocify {
 <pre><code>## [1] 1.469747</code></pre>
 </div>
 </div>
-<div id="probando-si-hay-sobredisperión" class="section level1">
-<h1>Probando si hay sobredisperión</h1>
+<div id="probando-si-hay-sobredisperión" class="section level2">
+<h2>Probando si hay sobredisperión</h2>
 <p>Generalmente, una relación de sobredispersión de 2 o más indica sobredispersión. Si bien esta relación de sobredispersión es menor que 2, el valor p es 1, lo que significa que hay una sobredispersión estadísticamente significativa. Así que reajustamos el modelo para tener en cuenta la sobredispersión usando la familia de quasipoisson, que en realidad usa la distribución binomial negativa.</p>
-<p>Overdisperion p-value</p>
-<p>Generally an overdispersion ratio of 2 or greater indicates overdispersion. While this overdispersion ratio is less than 2, the p value is 1, meaning that there is statistically significant overdispersion. So we refit the model to account for the overdispersion using quasipoisson family, which actually uses the negative binomial distribution.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">library</span>(AER)</span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="kw">dispersiontest</span>(children1, <span class="dt">trafo=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 
