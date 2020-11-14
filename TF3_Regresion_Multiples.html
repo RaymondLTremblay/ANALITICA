@@ -694,9 +694,11 @@ div.tocify {
 ## 4  47.9    47         171     105
 ## 5  44.2    61         222     101
 ## 6  29.9    74         156      72</code></pre>
+<hr />
 </div>
-<div id="pruebas-de-supuestos-para-regresión-paramétrica-usando-el-método-de-mínimos-cuadrados-ols-ordinary-least-square" class="section level3">
-<h3>Pruebas de supuestos para regresión paramétrica usando el método de mínimos cuadrados (<em>OLS, ordinary least square</em>)</h3>
+<div id="pruebas-de-supuestos-para-regresión-múltiples" class="section level3">
+<h3>Pruebas de supuestos para regresión múltiples</h3>
+<p>Cuando se utiliza regresión múltiples basado usando el método de mínimos cuadrados (<strong>OLS</strong>, ordinary least square), se asume que que cumple con los siguientes supuestos.</p>
 <ul>
 <li><strong>Normalidad</strong>:
 <ul>
@@ -764,7 +766,7 @@ div.tocify {
 <span id="cb11-3"><a href="#cb11-3"></a>dbt &lt;-<span class="st"> </span><span class="kw">durbinWatsonTest</span>(model, <span class="dt">simulate =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb11-4"><a href="#cb11-4"></a>dbt</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.06609505      1.823275   0.522
+##    1      0.06609505      1.823275   0.516
 ##  Alternative hypothesis: rho != 0</code></pre>
 <hr />
 </div>
@@ -811,9 +813,8 @@ div.tocify {
 <pre><code>## Warning in applyDefaults(legend, defaults = list(coords = NULL), type =
 ## &quot;legend&quot;): unnamed legend arguments, will be ignored</code></pre>
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-</div>
-<div id="prueba-de-glauber-para-multicolinealidad" class="section level1">
-<h1>Prueba de Glauber para multicolinealidad</h1>
+<div id="prueba-de-glauber-para-multicolinealidad" class="section level3">
+<h3>Prueba de Glauber para multicolinealidad</h3>
 <p>El paquete “mctest” en R proporciona la prueba de Farrar-Glauber y otras pruebas relevantes para la multicolinealidad. Hay dos funciones a saber. “Omcdiag” e “imcdiag” en el paquete “mctest” en R que proporcionarán la verificación de diagnóstico general e individual para la multicolinealidad, respectivamente.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">library</span>(mctest) <span class="co"># paquete para evaluar multicolinealidad</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="kw">head</span>(reg.multiple)</span></code></pre></div>
@@ -872,6 +873,7 @@ div.tocify {
 ## * use method argument to check which regressors may be the reason of collinearity
 ## ===================================</code></pre>
 <hr />
+</div>
 <div id="modelos-de-regresión-lineal-múltiple" class="section level3">
 <h3>Modelos de regresión lineal múltiple</h3>
 <p>A continuación se calculan los parámetros de diversos modelos de regresión, y se incluye una prueba de homocedasticidad (homogeneidad de la varianza) para cada modelo.</p>
@@ -1134,7 +1136,7 @@ div.tocify {
 <h3>Prueb a de autocorelación</h3>
 <pre><code>## [1] &quot;death1K&quot;    &quot;doctor100K&quot; &quot;hosp100K&quot;   &quot;income1K&quot;   &quot;density&quot;</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1        0.170017      1.589951   0.132
+##    1        0.170017      1.589951     0.1
 ##  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <div id="multicolienarity" class="section level3">

@@ -95,7 +95,11 @@ reg.multiple <- read_excel("Data/mod_empiricos.xlsx", sheet = "bmi")
 head(reg.multiple)
 ```
 
-### Pruebas de supuestos para regresión paramétrica usando el método de mínimos cuadrados (_OLS, ordinary least square_)
+***
+
+### Pruebas de supuestos para regresión múltiples
+
+Cuando se utiliza regresión múltiples basado usando el método de mínimos cuadrados (**OLS**, ordinary least square), se asume que que cumple con los siguientes supuestos.  
 
 * **Normalidad**: 
     + Gráficamente: 

@@ -97,7 +97,7 @@ se encuentran la sección de datos abajo
 library(readr)
 pubs <- read_csv("Data/pubs.csv")
 
-
+pubs
 # Cambiamos los nombres de las columnas al español
 
 pubs=pubs%>%
