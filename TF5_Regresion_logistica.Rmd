@@ -496,11 +496,12 @@ ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
 # Graphic with binomial fit
 
 ```{r binomial fit}
-names(Brass)
+head(Brass)
 
-ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
-  geom_point(alpha=.5) +
+ggplot(Brass, aes(Cant_hojas,Flor_si_no,colour=BQS))+
+  geom_jitter(height = 0.10, alpha=.1)+
   geom_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))
+
 ```
 
 El modelo de regresión logística
@@ -528,9 +529,9 @@ ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
 ## Solapamiento de gráficos
 
 ```{r overlap by site}
-
+library(ggplot2)
 names(Brass)
-ggplot(Brass, aes(Cant_hojas,Flor_si_no, colour=Isla))+
+ggplot(Brass, aes(Cant_hojas,Flor_si_no))+
   geom_point(alpha=.5) +
   stat_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))
 
