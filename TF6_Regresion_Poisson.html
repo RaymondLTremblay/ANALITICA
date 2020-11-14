@@ -826,10 +826,12 @@ div.tocify {
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">coefplot</span>(children1)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR2-1.png" width="672" /></p>
+<hr />
 </div>
-<div id="qué-es-la-sobre-dispersión" class="section level2">
-<h2>¿Qué es la sobre dispersión?</h2>
-<p>En estadística, la sobredispersión es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado. En el modelo Poisson, el promedio es igual a <span class="math inline">\(\lambda\)</span> y la varianza es igual a <span class="math inline">\(\lambda\)</span>, entonces son iguales. Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a</p>
+<div id="qué-es-la-sobredisperción" class="section level2">
+<h2>¿Qué es la sobredisperción?</h2>
+<p>En estadística, la sobredispeción es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado. En el modelo Poisson, el promedio es igual a <span class="math inline">\(\lambda\)</span> y la varianza es igual a <span class="math inline">\(\lambda\)</span>, entonces son iguales. Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a</p>
+<p>OD = Overdispersion, <strong>Sobredisperción</strong></p>
 <p>La sobre es definida como</p>
 <p><span class="math display">\[OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }\]</span></p>
 <p>donde</p>
@@ -843,6 +845,7 @@ div.tocify {
 <h3>El factor de sobredispersión</h3>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>children1<span class="op">$</span>df.residual</span></code></pre></div>
 <pre><code>## [1] 1.469747</code></pre>
+<hr />
 </div>
 </div>
 <div id="probando-si-hay-sobredisperión" class="section level2">
