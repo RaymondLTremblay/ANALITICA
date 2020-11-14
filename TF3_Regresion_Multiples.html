@@ -766,7 +766,7 @@ div.tocify {
 <span id="cb11-3"><a href="#cb11-3"></a>dbt &lt;-<span class="st"> </span><span class="kw">durbinWatsonTest</span>(model, <span class="dt">simulate =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb11-4"><a href="#cb11-4"></a>dbt</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.06609505      1.823275   0.516
+##    1      0.06609505      1.823275    0.49
 ##  Alternative hypothesis: rho != 0</code></pre>
 <hr />
 </div>
@@ -801,18 +801,19 @@ div.tocify {
 ## Age         0.186 1.000      0.1700  0.2670
 ## Cholesterol 0.281 0.170      1.0000  0.0827
 ## Glucose     0.221 0.267      0.0827  1.0000</code></pre>
+<hr />
 </div>
 </div>
-</div>
-<div id="gráfica-de-regresiones-en-parejas-con-línea-de-regresión" class="section level1">
-<h1>Gráfica de regresiones en parejas, con línea de regresión</h1>
+<div id="gráfica-de-regresiones-en-parejas-con-línea-de-regresión" class="section level3">
+<h3>Gráfica de regresiones en parejas, con línea de regresión</h3>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">scatterplotMatrix</span>(reg.multiple, <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose,</span>
 <span id="cb17-2"><a href="#cb17-2"></a>                  <span class="dt">smooth =</span> <span class="kw">list</span>(<span class="dt">lty =</span> <span class="dv">2</span>), <span class="dt">id =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb17-3"><a href="#cb17-3"></a>                  <span class="dt">regLine =</span> <span class="kw">list</span>(<span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>),</span>
 <span id="cb17-4"><a href="#cb17-4"></a>                  <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in applyDefaults(legend, defaults = list(coords = NULL), type =
 ## &quot;legend&quot;): unnamed legend arguments, will be ignored</code></pre>
-<p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-6-1.png" width="672" /> ***</p>
+</div>
 <div id="prueba-de-glauber-para-multicolinealidad" class="section level3">
 <h3>Prueba de Glauber para multicolinealidad</h3>
 <p>El paquete “mctest” en R proporciona la prueba de Farrar-Glauber y otras pruebas relevantes para la multicolinealidad. Hay dos funciones a saber. “Omcdiag” e “imcdiag” en el paquete “mctest” en R que proporcionarán la verificación de diagnóstico general e individual para la multicolinealidad, respectivamente.</p>
@@ -991,6 +992,7 @@ div.tocify {
 <p><img src="TF3_Regresion_Multiples_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre><code>## 
 ## Suggested power transformation:  0.9950719</code></pre>
+<hr />
 </div>
 </div>
 <div id="selección-automática-de-modelo---método-stepwise" class="section level3">
@@ -1136,7 +1138,7 @@ div.tocify {
 <h3>Prueb a de autocorelación</h3>
 <pre><code>## [1] &quot;death1K&quot;    &quot;doctor100K&quot; &quot;hosp100K&quot;   &quot;income1K&quot;   &quot;density&quot;</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1        0.170017      1.589951     0.1
+##    1        0.170017      1.589951    0.12
 ##  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <div id="multicolienarity" class="section level3">

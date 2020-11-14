@@ -191,7 +191,8 @@ signif(cor(reg.multiple),3)
 
 ***
 
-# Gráfica de regresiones en parejas, con línea de regresión
+### Gráfica de regresiones en parejas, con línea de regresión
+
 ```{r}
 scatterplotMatrix(reg.multiple, ~ Age + Cholesterol + Glucose,
                   smooth = list(lty = 2), id = TRUE,
