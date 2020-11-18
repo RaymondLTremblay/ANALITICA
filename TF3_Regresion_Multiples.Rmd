@@ -76,7 +76,7 @@ Los siguientes archivos deben estar disponible en su directorio de trabajo de R:
 # Regresión Lineal Múltiple
 Cuando tenemos más de una variable predictora ("independiente"), la regresión lineal simple es una **regresión múltiple**. El objetivo es simultaneamente evaluar múltiples variables independientes. La idea es de determinar cual impacto cada variable independiente tiene sobre la variable dependiente considerando que hay otras variables independientes. 
 
-La $\alpha$ es el intercepto, las $B_i$ son los coeficientes para cada variable independientes y el $\epsilon$ es el error.  
+La $\alpha$ es el intercepto, las $B_i$ son los coeficientes para cada variable independiente y el $\epsilon$ es el error.  
 
 $$Y=\alpha+\beta_1X_{1}+\beta_2X_{2}+...+\beta_nX_{n}+\epsilon$$
 
@@ -99,7 +99,7 @@ head(reg.multiple)
 
 ### Pruebas de supuestos para regresión múltiples
 
-Cuando se utiliza regresión múltiples basado usando el método de mínimos cuadrados (**OLS**, ordinary least square), se asume que que cumple con los siguientes supuestos.  
+Cuando se utiliza regresión múltiple usando el método de mínimos cuadrados (**OLS**, ordinary least square), se asume que que cumple con los siguientes supuestos.  
 
 * **Normalidad**: 
     + Gráficamente: 
@@ -129,7 +129,7 @@ ggplot(reg.multiple, aes(sample=BMI))+
 ### Pruebas de Normalidad
 
 
-* Prueba estadística de normalidad **Shapiro & Wilk** ($H_0:distribución\enspace normal$) . En este caso tanto la prueba de Shapiro_Wilk (p > 0.07) como la **Anderson-Darling** (p > 0.12) tienen el mismo resultado, que uno acepta la hipótesis nula, que no hay evidencia que los datos difiere de una distribución normal.
+* Prueba estadística de normalidad **Shapiro & Wilk** ($H_0:distribución\enspace normal$) . En este caso tanto la prueba de Shapiro_Wilk (p > 0.07) como la **Anderson-Darling** (p > 0.12) tienen el mismo resultado, que uno acepta la hipótesis nula, que no hay evidencia que los datos no provienen de una distribución normal.
 
 
 ```{r shapiroW}
@@ -326,7 +326,7 @@ multiplot(modbmi1, modbmi2, modbmi3, modbmi4, modbmi5, pointSize = 2, intercept=
 
 #### Selección de modelo usando R-cuadrado ajustado y Mallow's Cp para mejores modelos
 
-La estadística $R^2$ es la cantidad de varianza en la respuesta (variable dependiente) producida por las variables predictoras, mediante el modelo, por lo tanto constituye una buena manera de medir la capacidad del modelo para "explicar" los datos.  Sin embargo, en un modelo de regresión múltiple, el $R^2$ aumenta al aumentar el número de predictores, lo cual conlleva a sobrestimar la "calidad" del modelo, con un número excesivo de variables.  Usando el $R^2ajustado$ se toma en cuenta el número de parámetros en el modelo, por lo tanto es una medida más realista del ajuste al modelo.
+La estadística $R^2$ es la cantidad de varianza en la respuesta (variable dependiente) producida por las variables predictoras, mediante el modelo, por lo tanto constituye una buena manera de medir la capacidad del modelo para "explicar" los datos.  Sin embargo, en un modelo de regresión múltiple, el $R^2$ aumenta al aumentar el número de predictores, lo cual conlleva a sobrestimar la "calidad" del modelo, con un número excesivo de variables.  Usando el $R^2$ ajustado se toma en cuenta el número de parámetros en el modelo, por lo tanto es una medida más realista del ajuste al modelo.
 
 La estadística de Mallow, $C_p$, es otro indicador para seleccionar el mejor modelo en una regresión múltiple; funciona de manera similar al AIC, y sirve para evitar incluir parámetros en exceso.  La regla general es escoger el modelo con el número de parámetros, en el cual el valor de $C_p$ sea cercano (pero menor) al número de parámetros más 1.
 
