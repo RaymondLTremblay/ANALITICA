@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
-Un cambio para modificar los gráficos
+#Un cambio para modificar los gráficos
 ```{r, echo=TRUE}
 library(ggplot2)
 
@@ -37,7 +37,7 @@ rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bol
 ***
 ## Regressión beta
 
-El método presentado aquí es bastante innovador (2010 en adelante) y no van a encontrar mucha información en la literatura o el web sobre el método.  Puede encontrar información suplementaria en el Vignette del paquete **betareg**.  
+El método presentado aquí es bastante innovador (2010 en adelante). Desafortunadamente no hay mucha información en la literatura o el web sobre el método.  Puede encontrar información suplementaria en el Vignette del paquete **betareg**.  
 
 
 Referencias:
@@ -47,12 +47,12 @@ Cribari-Neto, F., and Zeileis, A. (2010). Beta Regression in R. Journal of Stati
 Grün, B., Kosmidis, I., and Zeileis, A. (2012). Extended Beta Regression in R: Shaken, Stirred, Mixed, and Partitioned. Journal of Statistical Software, 48(11), 1–25. http://www.jstatsoft. org/v48/i11/.
 
 
-La regresión beta es una acercamiento GLM. La regresión beta es para modelar variables dependientes distribuidas con la distribución beta. Datos que tienen distribución beta incluye proporciones y razones, donde los valores se encuentra entre 0 y 1. Además de producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
+La regresión beta es una aproximación bajo GLM. La regresión beta modela variables dependientes distribuidas con la distribución beta. Datos con la distribución beta incluyen proporciones y razones, donde los valores $x$ se encuentran entre 0 y 1 pero no inclusivo (i.e. $0< x< 1$). Además de producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
 
-Los valores de la variable de respuesta deben estar entre 0 y 1, Si por consecuencia tiene valores que son 0 o 1, es necesario cambiarlo a 1= .999 y 0= 0.001. **Los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1**.
+Los valores de la variable de respuesta satisfacen $0 < x< 1$. Por consecuencia tiene valores que son 0 o 1, es necesario cambiarlos a 0= 0.001 y 1 = 0.999. **Los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1**.
 
 
-La paquete "betareg" y sus datos. Tenga en cuenta que este es el enfoque del modelo GLM con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal, existen numerosas funciones de enlace, que pueden ser útil como "logit", "probit", "cloglog", "cauchit", "log", "loglog".
+El paquete "betareg" y sus datos. Tenga en cuenta que el enfoque del modelo GLM es desarrollar una regresión con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal, existen numerosas funciones de enlace, que pueden ser útil como "logit", "probit", "cloglog", "cauchit", "log", "loglog".
 
 Casi toda la información que se estará presentando aquí proviene de Cribari-Neto y Zeileis (Beta Regression in R).  
 
@@ -63,7 +63,7 @@ Estaré usando datos diferentes a lo que se presenta en el paquete para demostra
 
 ## Primer paso, que es una distribución beta?
 
-Lo más importante de la distribución beta es que los valores **NUNCA** son menores de 0 ni mayores de 1. En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
+Lo más importante de la distribución beta es que los valores **NUNCA** son menores de 0 ni mayores de 1 (i.e. $0 <x < 1$).  En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
 
 ```{r}
 library(tidyverse)
@@ -102,7 +102,7 @@ betadj=gather(betad, "by2_5", "by8_1_5", "by_5", "by_2_2" ,key="beta_shapes", va
 ```
 
 
-Aquí una serie de distribuciones beta. La distribución beta se calcula con dos parametros, **shape 1 o $\alpha$** y **shape 2 o $\beta$**.  No vamos a entrar en estos parámetros, aunque pueden ir a la pagina de Wikipedia para tener más información. Lo que deberian fijarse es que aparte de cuando hay un shape que es igual como  Shape 1 = 0.5, y shape 2 =  0.5, (tambien shape 2 y 2) todas las otras distribuciones no son simétrica.  Siempre hay una cola que se extiende en los valores pequeños o grandes. 
+Aquí una serie de distribuciones beta. La distribución beta se calcula con dos parametros, **shape 1 o $\alpha$** y **shape 2 o $\beta$**.  No vamos a entrar en estos parámetros, aunque pueden ir a la pagina de Wikipedia para tener más información. Deben fijarse en que si los parámetros no sin iguales ($\alpha \neq \beta$) la distribución no es simétrica.  Siempre hay una cola que se extiende en los valores pequeños o grandes. 
 
 
 
@@ -138,7 +138,11 @@ Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
 
 ## Convertir el promedio y varianza en shape
 
-Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$  y $\beta$. Se usa la siguiente para calcular los shapes. El $\alpha$ referiere al promedio y $\beta$ a la varianza. Usamos la siguiente función. 
+Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$  y $\beta$. Se usa la siguiente para calcular los shapes. Raymond, el valor esperado y la varianza se comportan de forma distinta.
+
+$E(X) = \frac{\alpha}{\alpha+\beta}$, $V(X) = \frac{\alpha\beta}{(\alpha+\beta+1)(\alpha+\beta)^2}$
+
+El $\alpha$ referiere al promedio y $\beta$ a la varianza. Usamos la siguiente función. 
 
 ```{r}
 
@@ -231,10 +235,10 @@ knitr::include_graphics("Graficos/dipodium_roseum.jpg")
 
 
 
-Ahora vamos es hacer el primer análisis de regresión donde nuestra respuesta es una proporción.
+Ahora haremos el primer análisis de regresión donde nuestra respuesta es una proporción.
 
 
-Los datos provienen de una especie de orquidea de Autralia, *Dipodium roseum*, recolectado por RLT en 2004-2005.  Vamos a evaluar la relación entre el número de flores y la proporción de frutos por planta.  El primer paso es asegarar que no haya valores de 0 y 1.   En este caso no hay ni una planta que tiene 100% de frutos, pero si hay individuos que tienen cero frutos. 
+Los datos provienen de una especie de orquidea de Australia, *Dipodium roseum*, recolectado por RLT en 2004-2005.  Vamos a evaluar la relación entre el número de flores y la proporción de frutos por planta.  El primer paso es asegarar que no haya valores de 0 y 1.   En este caso no hay ni una planta que tiene 100% de frutos, pero si hay individuos que tienen cero frutos. 
 
   + RECUERDA x >0 y <1. NO se acepta 0 o 1.   Entonces a los valores de 0 se le puede añadir un valor mínimo como 0.001 y a los 1 restar 0.001.  En realidad esta modificación no impacta la interpretación de los resultados. 
   + se remueva también del archivo los NA.
@@ -313,7 +317,7 @@ dp2
 
 Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1. 
 
-Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa ma mediana, las lineas verdes los cuartiles 25 y 75 y las lineas azules los cuartiles 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
+Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
 
 ```{r beta reg graph}
 library(ggplot2)
@@ -341,7 +345,7 @@ theme(axis.title.y = element_text(colour="grey20",size=20,face="bold"),
 ggsave("Graficos/Beta_number_flowers.png")
 ```
 
-Aquí es una representación de las distribuciones beta en las x, número de flores. En rojo es para simular la distribución la proporción esperada de frutos en plantas que tienen 15 flores y la linea azul es para simular la distribución esperada de la proporción de frutos en plantas con 30 flores.   
+Esto es una representación de las distribuciones beta en las x, número de flores. En rojo simulamos la distribución de la proporción esperada de frutos en plantas que tienen 15 flores y en la linea azul simulamos la distribución esperada de la proporción de frutos en plantas con 30 flores.   
 ***
 
 Evaluando la distribución de beta para valores específicos de x= Proporción de frutos por plantas basado en la cantidad de flores en la planta. 
@@ -350,7 +354,7 @@ Evaluando la distribución de beta para valores específicos de x= Proporción d
 
 Seleccionar los diferentes valores de **x** y calcular el promedio y la varianza y convertir estos en $\alpha$ y $\beta$.  Con estos parámetros se puede construir la densidad de la distribución por cada valor de x.  
 
-Se selecciona valores específicos para la visualizar la distribución, las plantas que tienen 25, 30 y 35 flores. Se tiene que reorganizar los datos para calcular el promedio y la varianza.   
+Se seleccionan valores específicos para la visualizar la distribución, las plantas que tienen 25, 30 y 35 flores. Se tiene que reorganizar los datos para calcular el promedio y la varianza.   
 ```{r}
 
 dpQ=dp2 %>% 

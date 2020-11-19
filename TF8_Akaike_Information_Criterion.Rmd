@@ -49,15 +49,15 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 
 # Datos, hipótesis y modelos
 
-La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo. El concepto de modelos en la ciencia es que explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsable para el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.
+La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo. El concepto de modelos en la ciencia es que un modelo explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsables por el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.
 
-Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p \< 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que `r colorize("no hay apoyo para la hipótesis nula", "red")`. La razón es que no estamos probando si la hipótesis alterna es `r colorize("veridica", "red")`. Es importante recordar que la descripción de la hipótesis alterna (la descripción de esa) puede ser equivocada.
+Hay dos acercamientos principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazada basado en un conjunto de datos. La hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p \< 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que `r colorize("no hay apoyo para la hipótesis nula", "red")`. La razón es que no estamos probando si la hipótesis alterna es `r colorize("veridica", "red")`. Es importante recordar que la descripción de la hipótesis alterna (la descripción de esa) puede ser equivocada.
 
 El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados. La selección de modelos es basado en la teoría de verosimilitud (likelihood). Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo con un valor de p \<0.05). Los modelos pueden ser comparado uno con el otro y organizado por su peso (**weight** o sea el apoyo estadístico), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio.
 
 # Como funciona la selección de modelos?
 
-El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipótesis razonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.
+El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y la evidencia que apoya cada una. Por consecuencia el primer paso es articular un grupo de hipótesis razonables. El segundo paso es adaptar cada hipótesis a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.
 
 ## $R^2$
 
@@ -97,7 +97,7 @@ tab_model(model)
 
 ------------------------------------------------------------------------
 
-Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de $R^2$ y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un $R^2$ más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un $R^2=.127$ es significativamente mejor que un modelo de 2 variables con un $R^2=.1185$. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: ***NA*** en la tabla quiere decir que esta variable no esta incluida en el modelo.
+Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de $R^2$ y los valores para cada modelo. Los que se observa es que el modelo con las tres variables tiene un $R^2$ más alto seguido por los modelos con dos variables. La pregunta principal, un modelo con tres variables con un $R^2=.127$ es significativamente mejor que un modelo de 2 variables con un $R^2=.1185$. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: ***NA*** en la tabla quiere decir que esta variable no esta incluida en el modelo.
 
 ```{r, dredge, message=FALSE}
 library(MASS)
@@ -120,7 +120,7 @@ formattable(ALL_models, digits=3, format="html")
 
 # Pruebas de modelos nulos
 
-La prueba de verosimilitud (PV) es el método más utilizado de las pruebas de hipótesis nula. La PV compara pares de modelos, cuando el la verosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vise versa. Tipicamente se usa como indice el chi cuadrado $\chi^2$. En este caso al contrario del $R^2$, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el $\alpha$. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia
+La prueba de verosimilitud (PV) es el método más utilizado de las pruebas de hipótesis nula. La PV compara pares de modelos, cuando el la verosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vise versa. Tipicamente se usa como indice el ji cuadrado $\chi^2$. En este caso al contrario del $R^2$, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el $\alpha$. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia
 
 ------------------------------------------------------------------------
 
@@ -144,7 +144,7 @@ En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos
 
 ## Cual método es más apropriado?
 
-Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el meetodo que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de **Kullback-Leibler**, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el **Bayesian Information Criterion**, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.
+Métodos que maximizan la verosimilitud solamente tiene una limitación respecto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el método que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de **Kullback-Leibler**, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el **Bayesian Information Criterion**, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.
 
 ***
 
@@ -164,7 +164,7 @@ La verosimilitud (likelihood) de un modelo, $g_i$, dado los datos, $y$, es calcu
 
 $L(g_i\ |y)=\exp\left(\frac{-1}{2\cdot\Delta_i}\right)$,
 
-Comparar pares de modelos, particularmente el **mejor** modelo y los otros, tiene un indice que se llama **evidence ratio, ER** y traducido aquí como **la razón de evidencia.**
+Comparar pares de modelos, particularmente el **mejor** modelo y los otros, tiene un índice que se llama **evidence ratio, ER** y traducido aquí como **la razón de evidencia.**
 
 $ER=\frac{L(g_{mejor}\ |y)}{L(g_i\ |y)}$,
 
@@ -178,7 +178,7 @@ Este valor conocido como el **weight de Akaike**, o el peso de los modelos puede
 
 ## Model Averaging:
 
-Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiese incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande $w_{best}<0.09$ o si la diferencia entre los modelos tienen un $\Delta AIC$ de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, $\tilde{\theta}$.
+Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiesen incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande $w_{best}<0.09$ o si la diferencia entre los modelos tienen un $\Delta AIC$ de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, $\tilde{\theta}$.
 
 $\tilde{\theta}=\sum_{n=1}^Rw_i\tilde{\theta}_i$
 
@@ -203,7 +203,7 @@ La selección de modelos es una herramienta para inferir procesos no observados 
 
 El primer paso es construir los modelos que queremos comparar, para facilitar el ejemplo usamos un modelos complejo y comparamos todas las diferentes alternativas. NOTA: que este no es necesariamente el mejor acercamiento, ya que uno debería tener a priori una serie de modelos candidatos.
 
-Los datos son para evaluar sin hay efecto de cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentado son solamente parcial y incluye solamente un de los indices el del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar). La hipótesis es que algunos factores sociales y/o económico influencia el nivel de depresión en la gente.
+Los datos son para evaluar el cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentados son parciales e incluyen solamente uno de los indices del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar). La hipótesis es que algunos factores sociales y/o económicos influencian el nivel de depresión en la gente.
 
 ```{r}
 library(readr)
@@ -214,7 +214,7 @@ Metadata:
 
 -   Sexo, 1= Mujer; 2 = Hombres
 
--   Escolaridad, major el número más escolaridad tiene
+-   Escolaridad, mayor el número más escolaridad tiene
 
 -   Num\_Pers\_Hogar, Cantidad de persona que comparte el hogar familiar
 
@@ -251,7 +251,7 @@ summary(Huracan_Dep)
 ```
 
 #### Evaluar todas los modelos. 
-Se ordena los modelos comenzando con el mejor, y si resta el valor de AICc con el mejor modelo, menor es el AICc mejor es el modelo. Los modelos que se estará aceptando son los que tienen un delta de menos <-2.00 (comparando con el mejor modelo), $\Delta_i=AIC_i-AIC_{\min}$.  En otra palabra los modelos que difieren más de un AICc de 2.0 no se aceptan como buenos modelos. En este caso los seis primeros modelos son igual de bueno, y no hay evidencia que uno es mejor que el otro. Cuando hay más de un modelo se tiene que calcular los promedios ponderados de los parámetros $\beta_i$ .  
+Se ordena los modelos comenzando con el mejor, y si resta el valor de AICc con el mejor modelo, menor es el AICc mejor es el modelo. Los modelos que se estarán aceptando son aquellos que tienen un delta de menos <-2.00 (comparando con el mejor modelo), $\Delta_i=AIC_i-AIC_{\min}$.  En otra palabra los modelos que difieren más de un AICc de 2.0 no se aceptan como buenos modelos. En este caso los seis primeros modelos son igual de bueno, y no hay evidencia que uno es mejor que el otro. Cuando hay más de un modelo se tiene que calcular los promedios ponderados de los parámetros $\beta_i$ .  
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)

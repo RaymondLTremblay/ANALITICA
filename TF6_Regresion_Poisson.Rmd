@@ -259,3 +259,4 @@ multiplot(children1, children2)
 ```{r, echo=FALSE, fig.show = "hold", out.width = "100%", fig.align = "default"}
 knitr::include_graphics(c("Graficos/UPR_logos.png"))
 ```
+`

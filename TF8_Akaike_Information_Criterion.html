@@ -13,7 +13,6 @@
 
 <title>Selección de Modelos</title>
 
-<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,85 +32,87 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
-        }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #7d9029; } /* Attribute */
-      code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
-      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4070a0; } /* Char */
-      code span.cn { color: #880000; } /* Constant */
-      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-      code span.dt { color: #902000; } /* DataType */
-      code span.dv { color: #40a070; } /* DecVal */
-      code span.er { color: #ff0000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #40a070; } /* Float */
-      code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
-      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-      code span.op { color: #666666; } /* Operator */
-      code span.ot { color: #007020; } /* Other */
-      code span.pp { color: #bc7a00; } /* Preprocessor */
-      code span.sc { color: #4070a0; } /* SpecialChar */
-      code span.ss { color: #bb6688; } /* SpecialString */
-      code span.st { color: #4070a0; } /* String */
-      code span.va { color: #19177c; } /* Variable */
-      code span.vs { color: #4070a0; } /* VerbatimString */
-      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {   }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+  code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #7d9029; } /* Attribute */
+  code span.bn { color: #40a070; } /* BaseN */
+  code span.bu { } /* BuiltIn */
+  code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4070a0; } /* Char */
+  code span.cn { color: #880000; } /* Constant */
+  code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+  code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+  code span.dt { color: #902000; } /* DataType */
+  code span.dv { color: #40a070; } /* DecVal */
+  code span.er { color: #ff0000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #40a070; } /* Float */
+  code span.fu { color: #06287e; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+  code span.op { color: #666666; } /* Operator */
+  code span.ot { color: #007020; } /* Other */
+  code span.pp { color: #bc7a00; } /* Preprocessor */
+  code span.sc { color: #4070a0; } /* SpecialChar */
+  code span.ss { color: #bb6688; } /* SpecialString */
+  code span.st { color: #4070a0; } /* String */
+  code span.va { color: #19177c; } /* Variable */
+  code span.vs { color: #4070a0; } /* VerbatimString */
+  code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -131,7 +132,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -690,13 +691,13 @@ div.tocify {
 <hr />
 <div id="datos-hipótesis-y-modelos" class="section level1">
 <h1>Datos, hipótesis y modelos</h1>
-<p>La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo. El concepto de modelos en la ciencia es que explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsable para el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.</p>
-<p>Hay dos acercamiento principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazado basado un conjunto de datos. Rechazar la hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p &lt; 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que <span style="color: red;">no hay apoyo para la hipótesis nula</span>. La razón es que no estamos probando si la hipótesis alterna es <span style="color: red;">veridica</span>. Es importante recordar que la descripción de la hipótesis alterna (la descripción de esa) puede ser equivocada.</p>
+<p>La ciencia es un proceso para aprender sobre nuestro entorno en donde múltiples ideas, de vez en cuando contradictorias, trata de explicar como el mundo funciona. Típicamente uno comienza con una idea, una expresión verbal, que se desarrolla como una hipótesis. Luego es necesario expresar esa hipótesis con una ecuación matemática o sea un modelo. El concepto de modelos en la ciencia es que un modelo explica un proceso simplificado (por ejemplo biológico) que da una apreciación sobre los factores que son responsables por el patrón observado. Por consecuencia cuan bien los datos reflejan el modelo también refleja un apoyo sobre la hipótesis.</p>
+<p>Hay dos acercamientos principales para inferir. El método tradicional es determinar si la hipótesis nula puede ser rechazada basado en un conjunto de datos. La hipótesis es rechazada cuando una prueba estadística resulta en un valor por encima de un umbral, típicamente p &lt; 0.05. Rechazar la hipótesis nula es evidencia para muchos que la hipótesis alterna es CORRECTA. Aunque parece ser un juego de palabra, es que realmente estamos solamente diciendo que <span style="color: red;">no hay apoyo para la hipótesis nula</span>. La razón es que no estamos probando si la hipótesis alterna es <span style="color: red;">veridica</span>. Es importante recordar que la descripción de la hipótesis alterna (la descripción de esa) puede ser equivocada.</p>
 <p>El acercamiento alterno, la selección de modelo ofrece una alternativa en donde uno compara múltiples hipótesis y produce su inferencia de estos resultados. La selección de modelos es basado en la teoría de verosimilitud (likelihood). Las ventajas es que el investigador no esta limitado a evaluar un solo modelo donde el umbral es uno que es arbitrario (el modelo nulo con un valor de p &lt;0.05). Los modelos pueden ser comparado uno con el otro y organizado por su peso (<strong>weight</strong> o sea el apoyo estadístico), ofreciendo una medida relativa de apoyo contra las otras hipótesis. En caso que hay modelos que tienen el mismo apoyo uno puede seleccionar los mejores modelos y calcular un modelo promedio.</p>
 </div>
 <div id="como-funciona-la-selección-de-modelos" class="section level1">
 <h1>Como funciona la selección de modelos?</h1>
-<p>El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y evaluar la evidencia que apoya estas. Por consecuencia el primer paso es articular un grupo de hipótesis razonables. Segundo es que cada hipótesis tiene que ser adaptado a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.</p>
+<p>El acercamiento filosófico de selección de modelos es evaluar múltiples hipótesis y la evidencia que apoya cada una. Por consecuencia el primer paso es articular un grupo de hipótesis razonables. El segundo paso es adaptar cada hipótesis a los datos observados con una función matemática. El tercer paso es seleccionar un método de selección de modelos y comparar los resultados.</p>
 <div id="r2" class="section level2">
 <h2><span class="math inline">\(R^2\)</span></h2>
 <p>El acercamiento tradicional en la literatura es el <span class="math inline">\(R^2\)</span> o el coeficiente de determinación. Que es un acercamiento sencillo de selección de modelo. Donde mayor es el valor de <span class="math inline">\(R^2\)</span> mayor es el ajuste (Fit) del modelo. Este acercamiento no toma en cuenta la complejidad de los modelos y siempre selecciona modelos más complejos. La razón es que selecciona modelos más complejos es que a añadir más variables a un modelo (por ejemplo regresión lineal múltiples), añadir otra variable explica en parte la variación aunque esta nueva variable explica muy poco, pero ya que explica un componente aumenta el <span class="math inline">\(R^2\)</span> . Por consecuencia no toma en cuenta el concepto de parsimonia, donde deberíamos seleccionar el modelos más sencillo tomando encenta el ajuste y la complejidad del modelo. Un método de selección de modelos debería tomar en cuenta la complejidad de los modelos y penalizar por modelos excesivamente complejos.</p>
@@ -830,7 +831,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </tr>
 </table>
 <hr />
-<p>Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de <span class="math inline">\(R^2\)</span> y los valores para cada modelo. Los que se observa es que el modelos con más variables tiene un <span class="math inline">\(R^2\)</span> más alto seguido con modelos con dos variables. La pregunta principal, un modelo con cuatro variables con un <span class="math inline">\(R^2=.127\)</span> es significativamente mejor que un modelo de 2 variables con un <span class="math inline">\(R^2=.1185\)</span>. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: <strong><em>NA</em></strong> en la tabla quiere decir que esta variable no esta incluida en el modelo.</p>
+<p>Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de <span class="math inline">\(R^2\)</span> y los valores para cada modelo. Los que se observa es que el modelo con las tres variables tiene un <span class="math inline">\(R^2\)</span> más alto seguido por los modelos con dos variables. La pregunta principal, un modelo con tres variables con un <span class="math inline">\(R^2=.127\)</span> es significativamente mejor que un modelo de 2 variables con un <span class="math inline">\(R^2=.1185\)</span>. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: <strong><em>NA</em></strong> en la tabla quiere decir que esta variable no esta incluida en el modelo.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">library</span>(MASS)</span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="kw">library</span>(MuMIn)</span>
 <span id="cb11-3"><a href="#cb11-3"></a></span>
@@ -1169,7 +1170,7 @@ NA
 </div>
 <div id="pruebas-de-modelos-nulos" class="section level1">
 <h1>Pruebas de modelos nulos</h1>
-<p>La prueba de verosimilitud (PV) es el método más utilizado de las pruebas de hipótesis nula. La PV compara pares de modelos, cuando el la verosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vise versa. Tipicamente se usa como indice el chi cuadrado <span class="math inline">\(\chi^2\)</span>. En este caso al contrario del <span class="math inline">\(R^2\)</span>, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el <span class="math inline">\(\alpha\)</span>. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia</p>
+<p>La prueba de verosimilitud (PV) es el método más utilizado de las pruebas de hipótesis nula. La PV compara pares de modelos, cuando el la verosimilitud de un modelos más complejo es significativamente más grande que el modelo sencillo, el modelo complejo es aceptado y vise versa. Tipicamente se usa como indice el ji cuadrado <span class="math inline">\(\chi^2\)</span>. En este caso al contrario del <span class="math inline">\(R^2\)</span>, la selección de un modelo más complejo cuando tiene un PV más grande tiene beneficio aunque sea más complejo el modelo. La desventaja es que prueba no es independiente por consecuencia infla el error de tipo I o sea el <span class="math inline">\(\alpha\)</span>. Otro punto importante es que la complejidad se añade de forma sucesiva a los modelos, por consecuencia</p>
 <hr />
 <p>Tabla de métodos comunes para selección de modelos</p>
 <p>En la siguiente tabla tenemos mencionado cinco métodos de selección de modelos. El primero que fue desarrollado fue el de <strong>Akaike Information criterion</strong> ( ref), por consecuencia es el más utilizado por ser el más conocido. Pero hay múltiples otros que no están mencionado aquí como el Bayes Factor y el Mallow’s <span class="math inline">\(C_p\)</span>. Puede encontrar más información en el siguiente enlace.</p>
@@ -1219,7 +1220,7 @@ NA
 <hr />
 <div id="cual-método-es-más-apropriado" class="section level2">
 <h2>Cual método es más apropriado?</h2>
-<p>Métodos que maximizan la verosimilitud solamente tiene una limitaciones en respeto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el meetodo que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de <strong>Kullback-Leibler</strong>, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el <strong>Bayesian Information Criterion</strong>, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.</p>
+<p>Métodos que maximizan la verosimilitud solamente tiene una limitación respecto a la parsimonia del modelo. En múltiples áreas de estudio se esta moviendo a métodos que no incluye solamente la verosimilitud pero la complejidad de los modelos. En general el método que más se usa es el AIC en parte porque esta fundado en el Criterio de Información de <strong>Kullback-Leibler</strong>, pero hay otros que prefieren por ejemplo el criterio de información de Schwarz debido que este selecciona modelos más parsimonia. Nota que en este último toma en cuenta no solamente el ajuste, la complejidad pero el tamaño de muestra. El Schwarz es conocido también como el <strong>Bayesian Information Criterion</strong>, BIC, aunque no tiene nada de Bayesiano en el método de análisis. Para aclarar, el BIC no usa información previa para hacer los cálculos, y se puede usar tanto con análisis tradicional como Bayesiano.</p>
 <hr />
 </div>
 <div id="estimación-de-parámetros-y-múltiples-modelos" class="section level2">
@@ -1233,7 +1234,7 @@ NA
 <p><span class="math inline">\(\Delta _i=AIC_i-AIC_{\min }\)</span></p>
 <p>La verosimilitud (likelihood) de un modelo, <span class="math inline">\(g_i\)</span>, dado los datos, <span class="math inline">\(y\)</span>, es calculado de la siguiente forma.</p>
 <p><span class="math inline">\(L(g_i\ |y)=\exp\left(\frac{-1}{2\cdot\Delta_i}\right)\)</span>,</p>
-<p>Comparar pares de modelos, particularmente el <strong>mejor</strong> modelo y los otros, tiene un indice que se llama <strong>evidence ratio, ER</strong> y traducido aquí como <strong>la razón de evidencia.</strong></p>
+<p>Comparar pares de modelos, particularmente el <strong>mejor</strong> modelo y los otros, tiene un índice que se llama <strong>evidence ratio, ER</strong> y traducido aquí como <strong>la razón de evidencia.</strong></p>
 <p><span class="math inline">\(ER=\frac{L(g_{mejor}\ |y)}{L(g_i\ |y)}\)</span>,</p>
 <p>Los valores de verosimilitud se pueden normalizar para que la suma de los modelos sea 1.</p>
 <p><span class="math inline">\(W_i=\frac{\exp\left(-\frac{1}{2\cdot\Delta_i}\right)}{\sum_{j=i}^R\exp\left(-\frac{1}{2\cdot\Delta j}\right)}\)</span>,</p>
@@ -1242,7 +1243,7 @@ NA
 </div>
 <div id="model-averaging" class="section level2">
 <h2>Model Averaging:</h2>
-<p>Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiese incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande <span class="math inline">\(w_{best}&lt;0.09\)</span> o si la diferencia entre los modelos tienen un <span class="math inline">\(\Delta AIC\)</span> de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, <span class="math inline">\(\tilde{\theta}\)</span>.</p>
+<p>Cuando no hay un modelo único apoyado por los datos, no hay apoyo sustancial para un modelo único. Modelos que no tienen mucho apoyo pudiesen incluir ciertas condiciones, por ejemplo si se usa el peso de los modelos y este no es muy grande <span class="math inline">\(w_{best}&lt;0.09\)</span> o si la diferencia entre los modelos tienen un <span class="math inline">\(\Delta AIC\)</span> de menor 2. En este caso se necesita calcular los promedios ponderado de los parámetros, <span class="math inline">\(\tilde{\theta}\)</span>.</p>
 <p><span class="math inline">\(\tilde{\theta}=\sum_{n=1}^Rw_i\tilde{\theta}_i\)</span></p>
 <p>donde el <span class="math inline">\(\tilde{\theta}_i\)</span> es el estimado de <span class="math inline">\(\tilde{\theta}\)</span> del modelo <span class="math inline">\(i_{th}\)</span> de los *mejores* modelos. De esta forma los parámetros del modelo están ponderado por su apoyo <span class="math inline">\(w_{best}\)</span>. En adición se puede calcular la varianza de los parámetros con la siguiente formula.</p>
 <p><span class="math inline">\(\hat{var}(\tilde{\theta})=\sum_{n=1}^Rw_i[\hat{var}\left(\tilde{\theta}\ |g_i\right)+\ (\tilde{\theta}-\hat{\theta})^2 ]\)</span></p>
@@ -1260,12 +1261,12 @@ NA
 <div id="primer-paso-construcción-de-los-modelos" class="section level3">
 <h3>Primer paso: Construcción de los modelos</h3>
 <p>El primer paso es construir los modelos que queremos comparar, para facilitar el ejemplo usamos un modelos complejo y comparamos todas las diferentes alternativas. NOTA: que este no es necesariamente el mejor acercamiento, ya que uno debería tener a priori una serie de modelos candidatos.</p>
-<p>Los datos son para evaluar sin hay efecto de cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentado son solamente parcial y incluye solamente un de los indices el del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar). La hipótesis es que algunos factores sociales y/o económico influencia el nivel de depresión en la gente.</p>
+<p>Los datos son para evaluar el cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentados son parciales e incluyen solamente uno de los indices del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar). La hipótesis es que algunos factores sociales y/o económicos influencian el nivel de depresión en la gente.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb13-2"><a href="#cb13-2"></a>DFMaria_student &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/DFMaria_student.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## cols(
 ##   X1 = col_double(),
 ##   Sexo = col_double(),
@@ -1278,7 +1279,7 @@ NA
 <p>Metadata:</p>
 <ul>
 <li><p>Sexo, 1= Mujer; 2 = Hombres</p></li>
-<li><p>Escolaridad, major el número más escolaridad tiene</p></li>
+<li><p>Escolaridad, mayor el número más escolaridad tiene</p></li>
 <li><p>Num_Pers_Hogar, Cantidad de persona que comparte el hogar familiar</p></li>
 <li><p>Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor el número mayor el salario</p></li>
 <li><p>Sala_Mens_Desp, El salario mensual después del Huracán María, mayor el número mayor el salario</p></li>
@@ -1302,7 +1303,7 @@ NA
 ## 4     4     1           4              2               5              3
 ## 5     5     2           4              5               6              6
 ## 6     6     2           5              2               2              7
-## # … with 1 more variable: Index_Dep5T &lt;dbl&gt;</code></pre>
+## # ... with 1 more variable: Index_Dep5T &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span><span class="kw">factor</span>(Sexo)<span class="op">+</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student)</span></code></pre></div>
 <div id="observar-el-resultado-del-modelo-lineal-completo." class="section level4">
@@ -1334,7 +1335,7 @@ NA
 </div>
 <div id="evaluar-todas-los-modelos." class="section level4">
 <h4>Evaluar todas los modelos.</h4>
-<p>Se ordena los modelos comenzando con el mejor, y si resta el valor de AICc con el mejor modelo, menor es el AICc mejor es el modelo. Los modelos que se estará aceptando son los que tienen un delta de menos &lt;-2.00 (comparando con el mejor modelo), <span class="math inline">\(\Delta_i=AIC_i-AIC_{\min}\)</span>. En otra palabra los modelos que difieren más de un AICc de 2.0 no se aceptan como buenos modelos. En este caso los seis primeros modelos son igual de bueno, y no hay evidencia que uno es mejor que el otro. Cuando hay más de un modelo se tiene que calcular los promedios ponderados de los parámetros <span class="math inline">\(\beta_i\)</span> .</p>
+<p>Se ordena los modelos comenzando con el mejor, y si resta el valor de AICc con el mejor modelo, menor es el AICc mejor es el modelo. Los modelos que se estarán aceptando son aquellos que tienen un delta de menos &lt;-2.00 (comparando con el mejor modelo), <span class="math inline">\(\Delta_i=AIC_i-AIC_{\min}\)</span>. En otra palabra los modelos que difieren más de un AICc de 2.0 no se aceptan como buenos modelos. En este caso los seis primeros modelos son igual de bueno, y no hay evidencia que uno es mejor que el otro. Cuando hay más de un modelo se tiene que calcular los promedios ponderados de los parámetros <span class="math inline">\(\beta_i\)</span> .</p>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-8">
 <caption style="caption-side: top; text-align: center;">Criterios de Selección de Modelos</caption><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">AIC_BIC_delta</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Interpretación</span></th></tr>
@@ -2131,13 +2132,13 @@ NA
 <h3>Intervalos de Confianza</h3>
 <p>Los Intervalos de confianza de los parámetros se extraje del modelo usando la siguiente funciones.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">library</span>(coefplot)</span>
-<span id="cb34-3"><a href="#cb34-3"></a></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="co"># Calcular el intervalo de confianza de 2.5% y de 97.5% </span></span>
-<span id="cb34-5"><a href="#cb34-5"></a></span>
-<span id="cb34-6"><a href="#cb34-6"></a>BMR<span class="op">$</span>LowerBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">-</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a>BMR<span class="op">$</span>UpperBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">+</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a>BMR</span></code></pre></div>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">library</span>(coefplot)</span></code></pre></div>
+<pre><code>## Warning: package &#39;coefplot&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Calcular el intervalo de confianza de 2.5% y de 97.5% </span></span>
+<span id="cb36-2"><a href="#cb36-2"></a></span>
+<span id="cb36-3"><a href="#cb36-3"></a>BMR<span class="op">$</span>LowerBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">-</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>BMR<span class="op">$</span>UpperBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">+</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>BMR</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-13">
 <col><col><col><col><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Variables</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Coef_Estimate</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Std_Error</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">AdjustedSE</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">z_value</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">p_value</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">LowerBound</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">UpperBound</th></tr>
@@ -2153,25 +2154,25 @@ NA
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">Num_Pers_Hogar</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0414</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.232</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.817&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">-0.315&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.398&nbsp;</td></tr>
 </table>
 
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">names</span>(BMR)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">names</span>(BMR)</span></code></pre></div>
 <pre><code>## [1] &quot;Variables&quot;     &quot;Coef_Estimate&quot; &quot;Std_Error&quot;     &quot;AdjustedSE&quot;   
 ## [5] &quot;z_value&quot;       &quot;p_value&quot;       &quot;LowerBound&quot;    &quot;UpperBound&quot;</code></pre>
 <hr />
 </div>
 <div id="visualizar-los-coeficientes-con-los-intervalos-de-confianza" class="section level3">
 <h3>Visualizar los coeficientes con los intervalos de confianza</h3>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">ggplot</span>(BMR, <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Variables, <span class="dt">y =</span> Coef_Estimate,</span>
-<span id="cb37-2"><a href="#cb37-2"></a>       <span class="dt">ymin =</span> LowerBound, <span class="dt">ymax =</span> UpperBound, <span class="dt">colour=</span>Variables))<span class="op">+</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb37-4"><a href="#cb37-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">0.0</span>, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="st">  </span><span class="kw">geom_pointrange</span>()<span class="op">+</span></span>
-<span id="cb37-7"><a href="#cb37-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Variables&quot;</span>)<span class="op">+</span></span>
-<span id="cb37-8"><a href="#cb37-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Coefficients: Indice de depresión&quot;</span>)<span class="op">+</span></span>
-<span id="cb37-9"><a href="#cb37-9"></a><span class="st">  </span>rlt_theme<span class="op">+</span></span>
-<span id="cb37-10"><a href="#cb37-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">ggplot</span>(BMR, <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Variables, <span class="dt">y =</span> Coef_Estimate,</span>
+<span id="cb39-2"><a href="#cb39-2"></a>       <span class="dt">ymin =</span> LowerBound, <span class="dt">ymax =</span> UpperBound, <span class="dt">colour=</span>Variables))<span class="op">+</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">0.0</span>, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a><span class="st">  </span><span class="kw">geom_pointrange</span>()<span class="op">+</span></span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Variables&quot;</span>)<span class="op">+</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Coefficients: Indice de depresión&quot;)+</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="st">  rlt_theme+</span></span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="st">  theme(legend.position=&quot;</span>none<span class="st">&quot;)</span></span></code></pre></div>
 <p><img src="TF8_Akaike_Information_Criterion_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Indice_depresión.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Indice_depresión.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Referencias:</p>
 <p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
