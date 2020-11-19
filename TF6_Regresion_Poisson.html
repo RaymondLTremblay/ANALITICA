@@ -13,7 +13,6 @@
 
 <title>Regresion Poisson</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -40,18 +39,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -628,23 +628,35 @@ div.tocify {
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <hr />
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(arm)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(coefplot)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(ggplot2)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(arm)</span></code></pre></div>
+<pre><code>## Warning: package &#39;arm&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;lme4&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(coefplot)</span></code></pre></div>
+<pre><code>## Warning: package &#39;coefplot&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.0.3</code></pre>
 <hr />
 <div id="regresión-poisson" class="section level2">
 <h2>Regresión Poisson</h2>
 <p>La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidas discretas positiva.</p>
 <p>Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data &amp; Analitics Series, 2017.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>acs=<span class="kw">read.table</span>(<span class="st">&quot;https://jaredlander.com/data/acs_ny.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(readr)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#acs_ny &lt;- read_csv(&quot;acs_ny.csv&quot;)</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#acs=acs_ny</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">head</span>(acs)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>acs=<span class="kw">read.table</span>(<span class="st">&quot;https://jaredlander.com/data/acs_ny.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="kw">library</span>(readr)</span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="co">#acs_ny &lt;- read_csv(&quot;acs_ny.csv&quot;)</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#acs=acs_ny</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="kw">head</span>(acs)</span></code></pre></div>
 <pre><code>##   Acres FamilyIncome  FamilyType NumBedrooms NumChildren NumPeople NumRooms
 ## 1  1-10          150     Married           4           1         3        9
 ## 2  1-10          180 Female Head           3           2         4        6
@@ -681,17 +693,17 @@ div.tocify {
 <li>k! es el factorial de k.</li>
 </ul>
 <p>Cuando se describe una distribución Poisson el promedio es <span class="math inline">\(\lambda\)</span> y la varianza es tambien <span class="math inline">\(\lambda\)</span>. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<a href="https://en.wikipedia.org/wiki/Poisson_distribution" class="uri">https://en.wikipedia.org/wiki/Poisson_distribution</a>).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">set.seed</span>(<span class="dv">23454</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>foo &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb4-3"><a href="#cb4-3"></a>        <span class="dt">df1 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_1&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">1</span>)), </span>
-<span id="cb4-4"><a href="#cb4-4"></a>        <span class="dt">df5 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_5&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">5</span>)),</span>
-<span id="cb4-5"><a href="#cb4-5"></a>        <span class="dt">df15 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_15&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">15</span>)),</span>
-<span id="cb4-6"><a href="#cb4-6"></a>        <span class="dt">df25 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_50&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">50</span>))</span>
-<span id="cb4-7"><a href="#cb4-7"></a>)</span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#foo</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a>lambda=<span class="kw">rbind</span>(foo<span class="op">$</span>df1, foo<span class="op">$</span>df5,foo<span class="op">$</span>df15,foo<span class="op">$</span>df25 )</span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">set.seed</span>(<span class="dv">23454</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>foo &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb19-3"><a href="#cb19-3"></a>        <span class="dt">df1 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_1&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">1</span>)), </span>
+<span id="cb19-4"><a href="#cb19-4"></a>        <span class="dt">df5 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_5&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">5</span>)),</span>
+<span id="cb19-5"><a href="#cb19-5"></a>        <span class="dt">df15 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_15&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">15</span>)),</span>
+<span id="cb19-6"><a href="#cb19-6"></a>        <span class="dt">df25 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_50&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">50</span>))</span>
+<span id="cb19-7"><a href="#cb19-7"></a>)</span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co">#foo</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a></span>
+<span id="cb19-10"><a href="#cb19-10"></a>lambda=<span class="kw">rbind</span>(foo<span class="op">$</span>df1, foo<span class="op">$</span>df5,foo<span class="op">$</span>df15,foo<span class="op">$</span>df25 )</span>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
 <pre><code>##          x y
 ## 1 lambda_1 1
 ## 2 lambda_1 1
@@ -699,8 +711,8 @@ div.tocify {
 ## 4 lambda_1 0
 ## 5 lambda_1 3
 ## 6 lambda_1 1</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>lambda<span class="op">$</span>x =<span class="st"> </span><span class="kw">factor</span>(lambda<span class="op">$</span>x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;lambda_1&#39;</span>,<span class="st">&#39;lambda_5&#39;</span>,<span class="st">&#39;lambda_15&#39;</span>,<span class="st">&#39;lambda_50&#39;</span>))</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>lambda<span class="op">$</span>x =<span class="st"> </span><span class="kw">factor</span>(lambda<span class="op">$</span>x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;lambda_1&#39;</span>,<span class="st">&#39;lambda_5&#39;</span>,<span class="st">&#39;lambda_15&#39;</span>,<span class="st">&#39;lambda_50&#39;</span>))</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
 <pre><code>##          x y
 ## 1 lambda_1 1
 ## 2 lambda_1 1
@@ -712,11 +724,11 @@ div.tocify {
 <div id="distribución-de-frecuencia-de-distribución-poisson" class="section level3">
 <h3>Distribución de frecuencia de distribución Poisson</h3>
 <p>Las figuras de la frecuencia demuestra , nota que se tiene 500 valores seleccionado al azar en cada simulación donde el promedio, <span class="math inline">\(\lambda\)</span> varia, los <span class="math inline">\(\lambda\)</span> son 1, 5, 15 y 25. Nota que un <span class="math inline">\(\lambda\)</span> de uno es que tiene un promedio de uno y una varianza de 1. A medida que el promedio se aleja de 0 y que la muestra es grande la distribución se acerca a una distribución normal.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span>)<span class="op">+</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>)<span class="op">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <hr />
 </div>
@@ -725,11 +737,11 @@ div.tocify {
 <p>Se puede convertir estos gráfico en “probability mass distribution”. En esta ocasión la distribución sigue la siguiente ecuación,</p>
 <p><span class="math display">\[Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}\]</span></p>
 <p>La suma de <span class="math inline">\(Pr\left(x=k\right)\)</span> es igual a uno.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span>..density..), <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x)<span class="op">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span>..density..), <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x)<span class="op">+</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <hr />
 </div>
@@ -737,10 +749,10 @@ div.tocify {
 <div id="probabilidades-cumulativas" class="section level2">
 <h2>Probabilidades cumulativas</h2>
 <p>Aqui se aplica la función para visualizar la probabilidades cumulativas, vea <strong>stat_ecdf {ggplot2}</strong> para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativamente. Los más importante es reconocer que la adición de las probabilidades no es continua, pero “salta” de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de <span class="math inline">\(\lambda\)</span> es más grande los saltos son más pequeños (es más suave el cambio).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">colour=</span>x))<span class="op">+</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>)<span class="op">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">colour=</span>x))<span class="op">+</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>)<span class="op">+</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <hr />
 </div>
@@ -761,7 +773,7 @@ div.tocify {
 <div id="regresión-poisson-1" class="section level2">
 <h2>Regresión Poisson</h2>
 <p>El primer paso es evaluar la variable de dependiente. Miramos las variables del archivo.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">head</span>(acs)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">head</span>(acs)</span></code></pre></div>
 <pre><code>##   Acres FamilyIncome  FamilyType NumBedrooms NumChildren NumPeople NumRooms
 ## 1  1-10          150     Married           4           1         3        9
 ## 2  1-10          180 Female Head           3           2         4        6
@@ -784,9 +796,9 @@ div.tocify {
 ## 5          150        No         Gas       660        Spanish
 ## 6          140        No         Gas         0        English</code></pre>
 <p>La variable dependiente en nuestro análisis es número de hijos <strong>NumChildren</strong>. Se observa que la mayoria de las familias no tienen hijos,</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">ggplot</span>(acs, <span class="kw">aes</span>(<span class="dt">x=</span>NumChildren))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bindwidth=</span><span class="dv">1</span>, <span class="dt">fill=</span><span class="st">&quot;#376889&quot;</span>)<span class="op">+</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">round</span>(<span class="kw">seq</span>(<span class="kw">min</span>(acs<span class="op">$</span>NumChildren), <span class="kw">max</span>(acs<span class="op">$</span>NumChildren), <span class="dt">by =</span> <span class="dv">1</span>),<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">ggplot</span>(acs, <span class="kw">aes</span>(<span class="dt">x=</span>NumChildren))<span class="op">+</span><span class="st"> </span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bindwidth=</span><span class="dv">1</span>, <span class="dt">fill=</span><span class="st">&quot;#376889&quot;</span>)<span class="op">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">round</span>(<span class="kw">seq</span>(<span class="kw">min</span>(acs<span class="op">$</span>NumChildren), <span class="kw">max</span>(acs<span class="op">$</span>NumChildren), <span class="dt">by =</span> <span class="dv">1</span>),<span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: bindwidth</code></pre>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR-1.png" width="672" /></p>
 <hr />
@@ -794,10 +806,10 @@ div.tocify {
 <div id="modelo-poisson" class="section level2">
 <h2>Modelo Poisson</h2>
 <p>El modelo de regresión Poisson usa la función <strong>glm()</strong> y una transformación <strong>log</strong> con la siguiente función <strong>family=poisson(link=“log”)</strong>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>children1&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
-<span id="cb15-2"><a href="#cb15-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb15-3"><a href="#cb15-3"></a></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="kw">summary</span>(children1)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>children1&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
+<span id="cb30-2"><a href="#cb30-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb30-3"><a href="#cb30-3"></a></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="kw">summary</span>(children1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = NumChildren ~ FamilyIncome + FamilyType + OwnRent, 
@@ -825,7 +837,7 @@ div.tocify {
 ## AIC: 61370
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">coefplot</span>(children1)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">coefplot</span>(children1)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR2-1.png" width="672" /></p>
 <hr />
 </div>
@@ -838,13 +850,13 @@ div.tocify {
 <p>donde</p>
 <p><span class="math display">\[{ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma } }_{ i } }{ sd({ \hat { \gamma } }_{ i }) } =\frac { \gamma _{ i }-{ \mu }_{ i }{ \hat { \theta } }_{ i } }{ \sqrt { { \mu }_{ i }{ \hat { \theta } }_{ i } } }\]</span></p>
 <p>Se puede evaluar los residuales estandarizados en R con el siguiente script. El modelo se llama <strong>children1</strong> y se aplica la formula arriba de la siguiente forma.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>z&lt;-(acs<span class="op">$</span>NumChildren<span class="op">-</span>children1<span class="op">$</span>fitted.values)<span class="op">/</span><span class="kw">sqrt</span>(children1<span class="op">$</span>fitted.values)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">head</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>z&lt;-(acs<span class="op">$</span>NumChildren<span class="op">-</span>children1<span class="op">$</span>fitted.values)<span class="op">/</span><span class="kw">sqrt</span>(children1<span class="op">$</span>fitted.values)</span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="kw">head</span>(z)</span></code></pre></div>
 <pre><code>##           1           2           3           4           5           6 
 ##  0.18186518  0.87627176 -0.84977889 -0.08314153  0.39096022  1.95966583</code></pre>
 <div id="el-factor-de-sobredispersión" class="section level3">
 <h3>El factor de sobredispersión</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>children1<span class="op">$</span>df.residual</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>children1<span class="op">$</span>df.residual</span></code></pre></div>
 <pre><code>## [1] 1.469747</code></pre>
 <hr />
 </div>
@@ -852,8 +864,14 @@ div.tocify {
 <div id="probando-si-hay-sobredisperión" class="section level2">
 <h2>Probando si hay sobredisperión</h2>
 <p>Generalmente, una relación de sobredispersión de 2 o más indica sobredispersión. Si bien esta relación de sobredispersión es menor que 2, el valor p es 1, lo que significa que hay una sobredispersión estadísticamente significativa. Así que reajustamos el modelo para tener en cuenta la sobredispersión usando la familia de quasipoisson, que en realidad usa la distribución binomial negativa.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">library</span>(AER)</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">dispersiontest</span>(children1, <span class="dt">trafo=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">library</span>(AER)</span></code></pre></div>
+<pre><code>## Warning: package &#39;AER&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;car&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;carData&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;lmtest&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;zoo&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;sandwich&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">dispersiontest</span>(children1, <span class="dt">trafo=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Overdispersion test
 ## 
@@ -864,12 +882,12 @@ div.tocify {
 ##     alpha 
 ## 0.4696118</code></pre>
 <p>Pueden encontrar otras alternativas de como evaluar si hay sobredispersión de los datos en este enlace. <a href="https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant" class="uri">https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant</a></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>children2&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
-<span id="cb24-2"><a href="#cb24-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">quasipoisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb24-3"><a href="#cb24-3"></a></span>
-<span id="cb24-4"><a href="#cb24-4"></a></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="co"># Me will now compare the dispersion pattern visually for both models.  </span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="kw">multiplot</span>(children1, children2)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>children2&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
+<span id="cb46-2"><a href="#cb46-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">quasipoisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb46-3"><a href="#cb46-3"></a></span>
+<span id="cb46-4"><a href="#cb46-4"></a></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="co"># Me will now compare the dispersion pattern visually for both models.  </span></span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="kw">multiplot</span>(children1, children2)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR6-1.png" width="672" /></p>
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>

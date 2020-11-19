@@ -40,7 +40,7 @@ library(tidyverse)
 
 ## Regresión Poisson
 
-La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidas discretas positiva.
+La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidades discretas positivas.
 
 Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data & Analitics Series, 2017.
 
@@ -59,11 +59,11 @@ head(acs)
 
 ## Qué es una distribución Poisson
 
-La distribución de Poisson se usa cuando tenemos valores numéricos discretos, 0, 1, 2, 3, 4...k, pero no puede tener valores parciales como 1.4
+La distribución de Poisson se usa cuando tenemos valores numéricos discretos, $0, 1, 2, 3, 4, \ldots, k, \ldots$ pero no puede tener valores parciales como $1.4$
 
 La formulación de la regresión de Poisson es ${ y }_{ i }~ pois({ \theta }_{ i })$ donde ${ y }_{ i }$ es la i-ésima respuesta y ${ \theta }_{ i }=\quad { e }^{ { X }_{ i }\beta}$ es la media de la distribución para la i-ésima observación.
 
-Para el primer ejercicio nota aquí que los datos es la cantidad de hijos por familia. El primer punto que hay que apreciar es que los valores son unidades, y que estos no puede haber 1.1, medio hijo o -1 hijo. En otra palabra es que los datos están en intervalos y positivo. Entonces la distribución Poisson es una variable **x** de datos al azar y discreta y tiene una distribución Poisson si los parámetros $\lambda$ \> 0, para k = 0,1,2,....k, y la función de probabilidad es igual a
+Para el primer ejercicio nota aquí que los datos son la cantidad de hijos por familia. El primer punto que hay que apreciar es que los valores son unidades, y que estos no puede haber 1.1, medio hijo o -1 hijo. En otras palabras es que los datos son discretos y no negativos. Entonces la distribución Poisson es una variable **x** de datos al azar y discreta y tiene una distribución Poisson si los parámetros $\lambda$ \> 0, para k = 0,1,2,....k, y la función de probabilidad es igual a
 
 $$Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}$$
 
@@ -97,7 +97,7 @@ head(lambda)
 
 ### Distribución de frecuencia de distribución Poisson
 
-Las figuras de la frecuencia demuestra , nota que se tiene 500 valores seleccionado al azar en cada simulación donde el promedio, $\lambda$ varia, los $\lambda$ son 1, 5, 15 y 25. Nota que un $\lambda$ de uno es que tiene un promedio de uno y una varianza de 1. A medida que el promedio se aleja de 0 y que la muestra es grande la distribución se acerca a una distribución normal.
+Las figuras de la frecuencia demuestran el comportamiento de la distribución de Poisson cuando $\lambda$ aumenta. Se han generado  500 valores al azar en cada simulación donde $\lambda$ es 1, 5, 15 y 25. Nota que si $\lambda = 1$ entonces el promedio es uno y la varianza es 1. A medida $\lambda \rightarrow \infty$  (y la muestra es grande la distribución se acerca a una distribución normal.
 
 
 
@@ -113,7 +113,7 @@ geom_histogram(color="#e9ecef")+
 
 ### Función de Probabilidad
 
-Se puede convertir estos gráfico en "probability mass distribution". En esta ocasión la distribución sigue la siguiente ecuación,
+Se puede convertir estos gráficos en una "probability mass distribution". En esta ocasión la distribución sigue la siguiente ecuación,
 
 $$Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}$$
 
@@ -131,7 +131,7 @@ geom_histogram(aes(y=..density..), color="#e9ecef")+
 
 ## Probabilidades cumulativas
 
-Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativamente. Los más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
+Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativos. Lo más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
 
 
 ```{r}
@@ -146,7 +146,7 @@ stat_ecdf(geom = "step")+
 
 ## Ejemplos de Datos Poisson 
 
-Muchas veces los datos que uno recolecta tienen esta características de ser discreto y positivos. En este ejemplo es el número de hijos que tiene familias. Los datos son discretos y positivos. 
+Muchas veces los datos que uno recolecta tienen esta características de ser discretos y positivos. En este ejemplo es el número de hijos de una pareja. Los datos son discretos y positivos. 
 
 Ejemplos:
 
@@ -162,12 +162,12 @@ Ejemplos:
 
 ## Regresión Poisson
 
-El primer paso es evaluar la variable de dependiente.  Miramos las variables del archivo. 
+El primer paso es evaluar la variable dependiente.  Miramos las variables del archivo. 
 
 ```{r}
 head(acs)
 ```
-La variable dependiente en nuestro análisis es número de hijos **NumChildren**. Se observa que la mayoria de las familias no tienen hijos, 
+La variable dependiente en nuestro análisis es el número de hijos **NumChildren**. Se observa que la mayoria de las familias no tienen hijos, 
 
 ```{r PR}
 ggplot(acs, aes(x=NumChildren))+ 
