@@ -40,7 +40,7 @@ library(tidyverse)
 
 ## Regresión Poisson
 
-La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidades discretas positivas.
+La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidades discretas no negativas.
 
 Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data & Analitics Series, 2017.
 
@@ -131,7 +131,7 @@ geom_histogram(aes(y=..density..), color="#e9ecef")+
 
 ## Probabilidades cumulativas
 
-Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativos. Lo más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
+Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativos (i.e. $f(k) = P(X \leq k)$ . Lo más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
 
 
 ```{r}
@@ -146,8 +146,7 @@ stat_ecdf(geom = "step")+
 
 ## Ejemplos de Datos Poisson 
 
-Muchas veces los datos que uno recolecta tienen esta características de ser discretos y positivos. En este ejemplo es el número de hijos de una pareja. Los datos son discretos y positivos. 
-
+Muchas veces los datos recolectados tienen la característica de ser discretos y nonegativos. 
 Ejemplos:
 
  + El número de hijos por mujer.
