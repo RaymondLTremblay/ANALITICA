@@ -1,0 +1,19 @@
+---
+title: "Packages needed"
+date: "11/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r }
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(QuantPsyc, car, EnvStats,tidyverse, coefplot, leaps, sjPlot, janitor, readr, datasets, rmarkdown, ggplot2, MASS, multcomp, effects,  gplots, caret, readxl, ggversa, knitr, nortest, huxtable, betareg, simpleboot, boot, gridExtra, MuMIn)
+
+
+```

@@ -375,7 +375,7 @@ shapiro.test(dsc$death1K)
 library(nortest)
 ad.test(dsc$death1K)
 ```
-### Prueb a de autocorelación
+### Prueb a de autocorelación de Durbin Watson
 
 ```{r, message=FALSE, echo=FALSE}
 names(dsc)
@@ -407,7 +407,7 @@ ggpairs(dsc)
 ggduo(dsc)
 ```
 
-### El MOdelo
+### El Modelo
 
 ```{r, message=FALSE, echo=FALSE}
 mod1 <- lm(death1K ~ doctor100K+hosp100K+income1K+density, data = dsc)
