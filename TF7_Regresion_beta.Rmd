@@ -138,11 +138,11 @@ Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
 
 ## Convertir el promedio y varianza en shape
 
-Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$  y $\beta$. Se usa la siguiente para calcular los shapes. Raymond, el valor esperado y la varianza se comportan de forma distinta.
+Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$  y $\beta$. Se usa la siguiente para calcular los shapes. Los valores esperado y la varianza se comportan de forma distinta.
 
 $E(X) = \frac{\alpha}{\alpha+\beta}$, $V(X) = \frac{\alpha\beta}{(\alpha+\beta+1)(\alpha+\beta)^2}$
 
-El $\alpha$ referiere al promedio y $\beta$ a la varianza. Usamos la siguiente función. 
+El $\alpha$ refiere al promedio y $\beta$ a la varianza. Usamos la siguiente función. 
 
 ```{r}
 

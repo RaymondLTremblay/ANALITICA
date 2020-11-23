@@ -285,7 +285,7 @@ Huracan_Dep=lm(Index_Dep5T~Escolaridad+Num_Pers_Hogar+
 #model2
 #summary(model2)
 
-ALL_models=dredge(Huracan_Dep, rank="AIC", extra = c(BIC, "R^2")) # Evaluación de todas las combinaciones/alternativas (modelos)
+ALL_models=dredge(Huracan_Dep, rank="AICc", extra = c(BIC, "R^2")) # Evaluación de todas las combinaciones/alternativas (modelos)
 
 library(formattable)
 

@@ -400,7 +400,7 @@ signif(cor(dsc),3)
 # Alternativas para evaluar correlación entre variables
 library(GGally)
 
-ggcorr(dsc)
+ggcorr(dsc)  # GGally
 # la siguiente función
 ggpairs(dsc)
 # la siguiente función
@@ -429,11 +429,11 @@ modNulo1 <- lm(death1K ~ 1, data = dsc)
 modFull1 <- lm(death1K ~ doctor100K+hosp100K+income1K+density, 
               data = dsc)
 #procedimiento stepwise
-bmistep1 <- step(modNulo,
-                scope = list(lower=modNulo, upper=modFull,
+bmistep2 <- step(modNulo1,
+                scope = list(lower=modNulo1, upper=modFull1,
                              direction="both"))
 
-summary(bmistep1)
+summary(bmistep2)
 ```
 
 

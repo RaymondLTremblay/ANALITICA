@@ -1,0 +1,110 @@
+---
+title: "Ejercicio de Practica TF"
+output:
+  html_document:
+    css: tutorial.css
+    fig_caption: yes
+    highlight: pygments
+   # theme: simplex
+    toc: yes
+    toc_float: yes
+---
+
+```{=html}
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #437d66;
+}
+</style>
+```
+
+
+```{r, eval=TRUE, echo=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+#`r colorize("some words in red", "red")`
+library(ggplot2)
+rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bold"),
+        axis.text.x = element_text(colour="grey20",size=15, face="bold"),
+        axis.text.y = element_text(colour="grey20",size=15,face="bold"),  
+        axis.title.x = element_text(colour="grey20",size=15,face="bold"))+
+        theme_bw()
+```
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%", fig.align = "default"}
+knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+1. Ejercicio de regresión lineal
+
+
+
+
+
+2. Ejercicio de regresión no lineal
+
+
+
+3. Ejercicio de regresión múltiples
+
+
+
+4. Ejercicio de regresión logística
+
+Datos del Titanic: Estos son datos reales 
+
+```{r}
+library(readr)
+X_Titanic <- read_csv("Data/ Titanic.csv")
+
+Titanic=X_Titanic 
+head(Titanic)
+```
+
+
+ + Hacer grafico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?
+ 
+ 
+```{r, eval=FALSE, echo=FALSE}
+library(ggplot2)
+ggplot(Titanic, aes(x = Survived)) +
+  geom_bar(width=0.5, fill = "coral") +
+  geom_text(stat='count', aes(label=stat(count)), vjust=-0.5) +
+  theme_classic()
+```
+ 
+ 
+  + Seleccionar por lo menos tres variables explicativas de la lista, dos de estas tienen que ser el “Pclass” y “Age”, la otra uds la selecciona de la lista. 
+  + Hacer gráficos de la frecuencia de las variables explicativas
+  
+  
+```{r}
+ggplot(Titanic, aes(Age,Survived, colour= factor(Pclass)))+
+  geom_point()+
+  geom_smooth()
+```
+  
+  + Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de: 
+      + Edad 
+      + Categoría de Camarote 
+      + Edad y Categoría de Camarote
+  
+
+5. Ejercicio de regresión Poisson
+
+
+
+6. Ejercicio de regresión de Beta
