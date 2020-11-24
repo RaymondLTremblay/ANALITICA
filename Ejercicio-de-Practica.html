@@ -634,6 +634,15 @@ div.tocify {
 <li><p>Ejercicio de regresión logística</p></li>
 </ol>
 <p>Datos del Titanic: Estos son datos reales</p>
+<ul>
+<li>Survived, if the passenger survived or not</li>
+<li>Pclass, the type of cabin, first, second and third class</li>
+<li>Name: the name of the passenger</li>
+<li>Sex of the passenger</li>
+<li>Age of the passenger</li>
+<li>Fare, how much they paid for the trip</li>
+<li>Embarked port, where they embarked on the ship, Southhampton, England, Queenstown, Ireland and Cherbourg in France.</li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a>X_Titanic &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/ Titanic.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
@@ -669,13 +678,18 @@ div.tocify {
 <li><p>Seleccionar por lo menos tres variables explicativas de la lista, dos de estas tienen que ser el “Pclass” y “Age”, la otra uds la selecciona de la lista.</p></li>
 <li><p>Hacer gráficos de la frecuencia de las variables explicativas</p></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(Age,Survived, <span class="dt">colour=</span> <span class="kw">factor</span>(Pclass)))<span class="op">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>## Warning: Removed 263 rows containing missing values (geom_point).</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(Fare, <span class="dt">fill=</span> <span class="kw">factor</span>(Pclass)))<span class="op">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>)<span class="op">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="kw">factor</span>(Pclass))</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
 <p><img src="Ejercicio-de-Practica_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>  <span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(Age, <span class="dt">fill=</span> <span class="kw">factor</span>(Pclass)))<span class="op">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>)<span class="op">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="kw">factor</span>(Pclass))</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="Ejercicio-de-Practica_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <ul>
 <li>Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de:
 <ul>
@@ -683,6 +697,7 @@ div.tocify {
 <li>Categoría de Camarote</li>
 <li>Edad y Categoría de Camarote</li>
 </ul></li>
+<li>Evalúa múltiples modelos para determinar si explica mejor los resultados</li>
 </ul>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Ejercicio de regresión Poisson</p></li>

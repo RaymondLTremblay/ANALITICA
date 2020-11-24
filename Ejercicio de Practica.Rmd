@@ -64,7 +64,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 4. Ejercicio de regresión logística
 
-Datos del Titanic: Estos son datos reales 
+Datos del Titanic: Estos son datos reales
+
+ + Survived, if the passenger survived or not
+ + Pclass, the type of cabin, first, second and third class
+ + Name: the name of the passenger
+ + Sex of the passenger
+ + Age of the passenger
+ + Fare, how much they paid for the trip
+ + Embarked port, where they embarked on the ship, Southhampton, England; Queenstown, Ireland and Cherbourg in France.  
 
 ```{r}
 library(readr)
@@ -92,19 +100,177 @@ ggplot(Titanic, aes(x = Survived)) +
   
   
 ```{r}
-ggplot(Titanic, aes(Age,Survived, colour= factor(Pclass)))+
-  geom_point()+
-  geom_smooth()
+ggplot(Titanic, aes(Fare, fill= factor(Pclass)))+
+  geom_histogram(color="white")+
+  facet_grid(~factor(Pclass))
 ```
+
+```{r} 
+  ggplot(Titanic, aes(Age, fill= factor(Pclass)))+
+  geom_histogram(color="white")+
+  facet_grid(~factor(Pclass))
+```  
   
   + Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de: 
       + Edad 
       + Categoría de Camarote 
       + Edad y Categoría de Camarote
-  
+ 
+ 
+ 
+```{r}
+model=glm(Survived~Pclass+Age+Fare+Embarked, data=Titanic, family = binomial())
+summary(model)
+```
+ 
++  Cual es la probabilidad de un pasajero de Irlanda morir si era de la tercera clase  
+
+```{r predicting death}
+
+# Predicting the probability of death (not surviving) of passenger from Dublin from third class
+e= exp(1)
+
+
+P=1/(1+exp(1)^-(0.992835-0.721635*1+0.274906*1)) 
+P
+```
+
+```{r}
+ggplot(Titanic, aes(Age,Survived,colour=factor(Pclass)))+
+  geom_jitter(height = 0.10, alpha=.1)+
+  geom_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))+
+  facet_grid(~Sex)
+```
 
 5. Ejercicio de regresión Poisson
 
+```{r}
+
+
+```
 
 
 6. Ejercicio de regresión de Beta
+
+Evaluate if the propotion of invasive plants is correlated with the island size, population, pdensity or gdp.  
+
+```{r}
+library(readr)
+GXM_Data <- read_csv("Data/GXM_Data.csv")
+
+
+
+head(GXM_Data)
+
+GXM_Data$Prop_inv_plants=GXM_Data$alien/(GXM_Data$alien+GXM_Data$native)
+
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(betareg)
+```
+
+
+```{r}
+
+library(readr)
+Philippine_Family_Income_Expenditure <- read_csv("Data/Philippine_Family_Income_Expenditure.csv")
+Phili=Philippine_Family_Income_Expenditure
+head(Phili)
+
+library(janitor)
+Phili=clean_names(Phili)
+head(Phili)
+```
+
+Calculate the proportion of cost of food per family
+
+```{r}
+Phili$PropFood=Phili$total_food_expenditure/Phili$total_household_income
+
+Phili=Phili %>% 
+  filter(PropFood<1)
+```
+
+
+
+## Visualizar un grafico de regresión beta 
+
+```{r}
+ggplot(Phili, aes(PropFood))+
+         geom_histogram(color="white")
+
+
+```
+
+
+
+```{r beta regression plot preparation}
+
+# modelpropALien=betareg(Prop_inv_plants~area+population+ pdensity+gdp, data =na.omit(GXM_Data))
+Phili2=Phili[,c("PropFood","total_household_income")] # crear un df con solamente las columnas de interes 
+
+ dp2=Phili2[complete.cases(Phili2),] # remover los "NA" 
+ 
+modelpropFr=betareg(PropFood~total_household_income, data=na.omit(Phili2)) 
+
+
+
+summary(modelpropFr)
+ #head(dp2)
+#dp2$PropFR
+predict(modelpropFr, type = "response") # calcular los valores estimados (predichos)
+
+dp2$response=predict(modelpropFr, type = "response")
+#dp2$link=predict(modelpropFr, type = "link")
+dp2$precision=predict(modelpropFr, type = "precision")
+dp2$variance=predict(modelpropFr, type = "variance")
+dp2$quantile_.01=predict(modelpropFr, type = "quantile", at = c(0.01))
+dp2$quantile_.05=predict(modelpropFr, type = "quantile", at = c(0.05))
+dp2$quantile_.10=predict(modelpropFr, type = "quantile", at = c(0.10))
+dp2$quantile_.15=predict(modelpropFr, type = "quantile", at = c(0.15))
+dp2$quantile_.20=predict(modelpropFr, type = "quantile", at = c(0.20))
+dp2$quantile_.25=predict(modelpropFr, type = "quantile", at = c(0.25))
+dp2$quantile_.30=predict(modelpropFr, type = "quantile", at = c(0.30))
+dp2$quantile_.35=predict(modelpropFr, type = "quantile", at = c(0.35))
+dp2$quantile_.40=predict(modelpropFr, type = "quantile", at = c(0.40))
+dp2$quantile_.45=predict(modelpropFr, type = "quantile", at = c(0.45))
+dp2$quantile_.50=predict(modelpropFr, type = "quantile", at = c(0.50))
+dp2$quantile_.55=predict(modelpropFr, type = "quantile", at = c(0.55))
+dp2$quantile_.60=predict(modelpropFr, type = "quantile", at = c(0.60))
+dp2$quantile_.65=predict(modelpropFr, type = "quantile", at = c(0.65))
+dp2$quantile_.70=predict(modelpropFr, type = "quantile", at = c(0.70))
+dp2$quantile_.75=predict(modelpropFr, type = "quantile", at = c(0.75))
+dp2$quantile_.80=predict(modelpropFr, type = "quantile", at = c(0.80))
+dp2$quantile_.85=predict(modelpropFr, type = "quantile", at = c(0.85))
+dp2$quantile_.90=predict(modelpropFr, type = "quantile", at = c(0.90))
+dp2$quantile_.95=predict(modelpropFr, type = "quantile", at = c(0.95))
+dp2$quantile_.99=predict(modelpropFr, type = "quantile", at = c(0.99))
+dp2
+#modelpropFr$precision
+
+#quantile_many=predict(modelpropFr, type = "quantile", at=c(.99))
+#quantile_many
+```
+
+
+Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1. 
+
+Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
+
+```{r beta reg graph}
+library(ggplot2)
+ggplot(dp2, aes(x=total_household_income, y=PropFood))+
+  geom_point(width = 0.05, height = 0.01)+
+  geom_line(aes(y=quantile_.05), linetype="twodash", colour="blue")+
+  geom_line(aes(y=quantile_.25),linetype=2, colour="green")+
+  geom_line(aes(y=quantile_.50), colour="red")+
+  geom_line(aes(y=quantile_.75), linetype=2, colour="green")+
+  geom_line(aes(y=quantile_.95), linetype="twodash", colour="blue")+
+  ylab("The proportion of income spent of food")+
+  xlab("House hold income")+
+  theme(legend.position="none")
+
+```
