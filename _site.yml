@@ -127,6 +127,11 @@ navbar:
         - 
           href: TF8_Akaike_Information_Criterion.html
           text: "Criterio de Selección"
+        - 
+          href: TF9_Ejercicio_Practica.html
+          text: "Ejercicios de Practica" 
+          
+          
       text: "Taller para Facultad"
     - 
       menu: 

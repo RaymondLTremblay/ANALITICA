@@ -590,6 +590,9 @@ div.tocify {
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
     </li>
+    <li>
+      <a href="TF9_Ejercicio_Practica.html">Ejercicios de Practica</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -627,11 +630,32 @@ div.tocify {
 }
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
+<hr />
+<div id="regresión-lineal" class="section level2">
+<h2>Regresión Lineal</h2>
 <ol style="list-style-type: decimal">
-<li><p>Ejercicio de regresión lineal</p></li>
-<li><p>Ejercicio de regresión no lineal</p></li>
-<li><p>Ejercicio de regresión múltiples</p></li>
-<li><p>Ejercicio de regresión logística</p></li>
+<li>Ejercicio de regresión lineal</li>
+</ol>
+<hr />
+</div>
+<div id="regresión-no-lineal" class="section level2">
+<h2>Regresión No Lineal</h2>
+<ol start="2" style="list-style-type: decimal">
+<li>Ejercicio de regresión no lineal</li>
+</ol>
+<hr />
+</div>
+<div id="regresión-múltiple" class="section level2">
+<h2>Regresión Múltiple</h2>
+<ol start="3" style="list-style-type: decimal">
+<li>Ejercicio de regresión múltiple</li>
+</ol>
+<hr />
+</div>
+<div id="regresión-logística" class="section level2">
+<h2>Regresión Logística</h2>
+<ol start="4" style="list-style-type: decimal">
+<li>Ejercicio de regresión logística</li>
 </ol>
 <p>Datos del Titanic: Estos son datos reales</p>
 <ul>
@@ -641,8 +665,9 @@ div.tocify {
 <li>Sex of the passenger</li>
 <li>Age of the passenger</li>
 <li>Fare, how much they paid for the trip</li>
-<li>Embarked port, where they embarked on the ship, Southhampton, England, Queenstown, Ireland and Cherbourg in France.</li>
+<li>Embarked port, where they embarked on the ship, Southhampton, England; Queenstown, Ireland and Cherbourg in France.</li>
 </ul>
+<p>Subir los datos</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a>X_Titanic &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/ Titanic.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
@@ -674,35 +699,240 @@ div.tocify {
 ## 6           6        0      3 Mora… male     NA     0     0 330877  8.46 &lt;NA&gt; 
 ## # … with 1 more variable: Embarked &lt;chr&gt;</code></pre>
 <ul>
-<li><p>Hacer grafico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?</p></li>
+<li><p>Hacer gráfico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?</p></li>
 <li><p>Seleccionar por lo menos tres variables explicativas de la lista, dos de estas tienen que ser el “Pclass” y “Age”, la otra uds la selecciona de la lista.</p></li>
 <li><p>Hacer gráficos de la frecuencia de las variables explicativas</p></li>
-</ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(Fare, <span class="dt">fill=</span> <span class="kw">factor</span>(Pclass)))<span class="op">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>)<span class="op">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="kw">factor</span>(Pclass))</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="Ejercicio-de-Practica_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>  <span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(Age, <span class="dt">fill=</span> <span class="kw">factor</span>(Pclass)))<span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>)<span class="op">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="kw">factor</span>(Pclass))</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 263 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="Ejercicio-de-Practica_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<ul>
-<li>Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de:
+<li><p>Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de:</p>
 <ul>
 <li>Edad</li>
 <li>Categoría de Camarote</li>
 <li>Edad y Categoría de Camarote</li>
 </ul></li>
-<li>Evalúa múltiples modelos para determinar si explica mejor los resultados</li>
+<li><p>Cual es la probabilidad de un pasajero de Irlanda morir si era de la tercera clase</p></li>
+<li><p>Hacer un gráfico de demuestra la relación entre edad y supervivencia separado por sexo</p></li>
 </ul>
+<hr />
+</div>
+<div id="regresión-poisson" class="section level2">
+<h2>Regresión Poisson</h2>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Ejercicio de regresión Poisson</p></li>
-<li><p>Ejercicio de regresión de Beta</p></li>
+<li>Ejercicio de regresión Poisson</li>
 </ol>
+<p>Los datos provienen del siguiente website. <a href="https://towardsdatascience.com/generalized-poisson-regression-for-real-world-datasets-d1ff32607d79" class="uri">https://towardsdatascience.com/generalized-poisson-regression-for-real-world-datasets-d1ff32607d79</a></p>
+<p>Los datos son el numero de ciclista que pasan por diferentes puentes en Nueva York. Incluye las siguientes variables + DATE + DAY + HIGH TEMPERATURE + LOW TEMPERATURE + PRECIPITATION + BROOKLYN BRIDGE + MANHATTAN BRIDGE + WILLIAMSBURG BRIDGE + QUEENBORO BRIDGE + TOTAL NUMBER OF CYCLIST</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>NY_CITY_CYCLIST &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/NY_CITY_CYCLIST.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   Date = col_character(),
+##   Day = col_character(),
+##   High_Tem_F = col_double(),
+##   Low_Temp_F = col_double(),
+##   Precipitation = col_double(),
+##   Brooklyn_Bridge = col_number(),
+##   Manhattan_Bridge = col_number(),
+##   Williamsburg_Bridge = col_number(),
+##   Queensboro_Bridge = col_number(),
+##   Total = col_number()
+## )</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>Bici=NY_CITY_CYCLIST</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">head</span>(Bici)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 10
+##   Date  Day   High_Tem_F Low_Temp_F Precipitation Brooklyn_Bridge
+##   &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+## 1 1-Apr Frid…       78.1       66            0.01            1704
+## 2 2-Apr Satu…       55         48.9          0.15             827
+## 3 3-Apr Sund…       39.9       34            0.09             526
+## 4 4-Apr Mond…       44.1       33.1          0.47             521
+## 5 5-Apr Tues…       42.1       26.1          0               1416
+## 6 6-Apr Wedn…       45         30            0               1885
+## # … with 4 more variables: Manhattan_Bridge &lt;dbl&gt;, Williamsburg_Bridge &lt;dbl&gt;,
+## #   Queensboro_Bridge &lt;dbl&gt;, Total &lt;dbl&gt;</code></pre>
+<p>Evaluar un modelo para tratar de predecir la cantidad de ciclista que pasan por uno d elos puentes de New York</p>
+<ul>
+<li><p>CREATE A COEFFICIENT PLOT OF THE MODEL</p></li>
+<li><p>EVALUAR SI HAY SOBRE DISPERSION.</p></li>
+</ul>
+<p>SI HAY Sobre dispersión CUAL ALTERNATIVA TIENE PARA EVALUAR EL MODELO? Contruir el modelo</p>
+<hr />
+</div>
+<div id="regresión-beta" class="section level2">
+<h2>Regresión Beta</h2>
+<ol start="6" style="list-style-type: decimal">
+<li>Ejercicio de regresión de Beta</li>
+</ol>
+<p>Evaluate if the propotion of invasive plants is correlated with the island size, population, pdensity or gdp.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>GXM_Data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/GXM_Data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   island = col_character(),
+##   alien = col_double(),
+##   native = col_double(),
+##   area = col_double(),
+##   elevation = col_double(),
+##   km_mainland = col_double(),
+##   latitude = col_double(),
+##   population = col_double(),
+##   pdensity = col_double(),
+##   roads = col_double(),
+##   agriculture = col_double(),
+##   forest = col_double(),
+##   gdp = col_double(),
+##   tourists = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">head</span>(GXM_Data)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 14
+##   island alien native  area elevation km_mainland latitude population pdensity
+##   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Angui…   149    256   91         73         838     18.2      17422    192. 
+## 2 Antig…   222    711  443.       402         706     17.1      95882    217. 
+## 3 Barba…   301    539  430        336         395     13.2     293131    682. 
+## 4 Domin…   244    980  751       1447         517     15.4      74027     98.6
+## 5 Grena…   199    751  344        840         157     12.1     112207    326. 
+## 6 Guade…   333   1182 1690       1457         591     16.3     448713    266. 
+## # … with 5 more variables: roads &lt;dbl&gt;, agriculture &lt;dbl&gt;, forest &lt;dbl&gt;,
+## #   gdp &lt;dbl&gt;, tourists &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>GXM_Data<span class="op">$</span>Prop_inv_plants=GXM_Data<span class="op">$</span>alien<span class="op">/</span>(GXM_Data<span class="op">$</span>alien<span class="op">+</span>GXM_Data<span class="op">$</span>native)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ purrr   0.3.4     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">library</span>(betareg)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>Philippine_Family_Income_Expenditure &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Philippine_Family_Income_Expenditure.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Region = col_character(),
+##   `Main Source of Income` = col_character(),
+##   `Household Head Sex` = col_character(),
+##   `Household Head Marital Status` = col_character(),
+##   `Household Head Highest Grade Completed` = col_character(),
+##   `Household Head Job or Business Indicator` = col_character(),
+##   `Household Head Occupation` = col_character(),
+##   `Household Head Class of Worker` = col_character(),
+##   `Type of Household` = col_character(),
+##   `Type of Building/House` = col_character(),
+##   `Type of Roof` = col_character(),
+##   `Type of Walls` = col_character(),
+##   `Tenure Status` = col_character(),
+##   `Toilet Facilities` = col_character(),
+##   `Main Source of Water Supply` = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>Phili=Philippine_Family_Income_Expenditure</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">head</span>(Phili)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 60
+##   `Total Househol… Region `Total Food Exp… `Main Source of… `Agricultural H…
+##              &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;
+## 1           480332 CAR              117848 Wage/Salaries                   0
+## 2           198235 CAR               67766 Wage/Salaries                   0
+## 3            82785 CAR               61609 Wage/Salaries                   1
+## 4           107589 CAR               78189 Wage/Salaries                   0
+## 5           189322 CAR               94625 Wage/Salaries                   0
+## 6           152883 CAR               73326 Wage/Salaries                   0
+## # … with 55 more variables: `Bread and Cereals Expenditure` &lt;dbl&gt;, `Total Rice
+## #   Expenditure` &lt;dbl&gt;, `Meat Expenditure` &lt;dbl&gt;, `Total Fish and marine
+## #   products Expenditure` &lt;dbl&gt;, `Fruit Expenditure` &lt;dbl&gt;, `Vegetables
+## #   Expenditure` &lt;dbl&gt;, `Restaurant and hotels Expenditure` &lt;dbl&gt;, `Alcoholic
+## #   Beverages Expenditure` &lt;dbl&gt;, `Tobacco Expenditure` &lt;dbl&gt;, `Clothing,
+## #   Footwear and Other Wear Expenditure` &lt;dbl&gt;, `Housing and water
+## #   Expenditure` &lt;dbl&gt;, `Imputed House Rental Value` &lt;dbl&gt;, `Medical Care
+## #   Expenditure` &lt;dbl&gt;, `Transportation Expenditure` &lt;dbl&gt;, `Communication
+## #   Expenditure` &lt;dbl&gt;, `Education Expenditure` &lt;dbl&gt;, `Miscellaneous Goods and
+## #   Services Expenditure` &lt;dbl&gt;, `Special Occasions Expenditure` &lt;dbl&gt;, `Crop
+## #   Farming and Gardening expenses` &lt;dbl&gt;, `Total Income from Entrepreneurial
+## #   Acitivites` &lt;dbl&gt;, `Household Head Sex` &lt;chr&gt;, `Household Head Age` &lt;dbl&gt;,
+## #   `Household Head Marital Status` &lt;chr&gt;, `Household Head Highest Grade
+## #   Completed` &lt;chr&gt;, `Household Head Job or Business Indicator` &lt;chr&gt;,
+## #   `Household Head Occupation` &lt;chr&gt;, `Household Head Class of Worker` &lt;chr&gt;,
+## #   `Type of Household` &lt;chr&gt;, `Total Number of Family members` &lt;dbl&gt;, `Members
+## #   with age less than 5 year old` &lt;dbl&gt;, `Members with age 5 - 17 years
+## #   old` &lt;dbl&gt;, `Total number of family members employed` &lt;dbl&gt;, `Type of
+## #   Building/House` &lt;chr&gt;, `Type of Roof` &lt;chr&gt;, `Type of Walls` &lt;chr&gt;, `House
+## #   Floor Area` &lt;dbl&gt;, `House Age` &lt;dbl&gt;, `Number of bedrooms` &lt;dbl&gt;, `Tenure
+## #   Status` &lt;chr&gt;, `Toilet Facilities` &lt;chr&gt;, Electricity &lt;dbl&gt;, `Main Source
+## #   of Water Supply` &lt;chr&gt;, `Number of Television` &lt;dbl&gt;, `Number of
+## #   CD/VCD/DVD` &lt;dbl&gt;, `Number of Component/Stereo set` &lt;dbl&gt;, `Number of
+## #   Refrigerator/Freezer` &lt;dbl&gt;, `Number of Washing Machine` &lt;dbl&gt;, `Number of
+## #   Airconditioner` &lt;dbl&gt;, `Number of Car, Jeep, Van` &lt;dbl&gt;, `Number of
+## #   Landline/wireless telephones` &lt;dbl&gt;, `Number of Cellular phone` &lt;dbl&gt;,
+## #   `Number of Personal Computer` &lt;dbl&gt;, `Number of Stove with Oven/Gas
+## #   Range` &lt;dbl&gt;, `Number of Motorized Banca` &lt;dbl&gt;, `Number of
+## #   Motorcycle/Tricycle` &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">library</span>(janitor)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>Phili=<span class="kw">clean_names</span>(Phili)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">head</span>(Phili)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 60
+##   total_household… region total_food_expe… main_source_of_… agricultural_ho…
+##              &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;
+## 1           480332 CAR              117848 Wage/Salaries                   0
+## 2           198235 CAR               67766 Wage/Salaries                   0
+## 3            82785 CAR               61609 Wage/Salaries                   1
+## 4           107589 CAR               78189 Wage/Salaries                   0
+## 5           189322 CAR               94625 Wage/Salaries                   0
+## 6           152883 CAR               73326 Wage/Salaries                   0
+## # … with 55 more variables: bread_and_cereals_expenditure &lt;dbl&gt;,
+## #   total_rice_expenditure &lt;dbl&gt;, meat_expenditure &lt;dbl&gt;,
+## #   total_fish_and_marine_products_expenditure &lt;dbl&gt;, fruit_expenditure &lt;dbl&gt;,
+## #   vegetables_expenditure &lt;dbl&gt;, restaurant_and_hotels_expenditure &lt;dbl&gt;,
+## #   alcoholic_beverages_expenditure &lt;dbl&gt;, tobacco_expenditure &lt;dbl&gt;,
+## #   clothing_footwear_and_other_wear_expenditure &lt;dbl&gt;,
+## #   housing_and_water_expenditure &lt;dbl&gt;, imputed_house_rental_value &lt;dbl&gt;,
+## #   medical_care_expenditure &lt;dbl&gt;, transportation_expenditure &lt;dbl&gt;,
+## #   communication_expenditure &lt;dbl&gt;, education_expenditure &lt;dbl&gt;,
+## #   miscellaneous_goods_and_services_expenditure &lt;dbl&gt;,
+## #   special_occasions_expenditure &lt;dbl&gt;,
+## #   crop_farming_and_gardening_expenses &lt;dbl&gt;,
+## #   total_income_from_entrepreneurial_acitivites &lt;dbl&gt;,
+## #   household_head_sex &lt;chr&gt;, household_head_age &lt;dbl&gt;,
+## #   household_head_marital_status &lt;chr&gt;,
+## #   household_head_highest_grade_completed &lt;chr&gt;,
+## #   household_head_job_or_business_indicator &lt;chr&gt;,
+## #   household_head_occupation &lt;chr&gt;, household_head_class_of_worker &lt;chr&gt;,
+## #   type_of_household &lt;chr&gt;, total_number_of_family_members &lt;dbl&gt;,
+## #   members_with_age_less_than_5_year_old &lt;dbl&gt;,
+## #   members_with_age_5_17_years_old &lt;dbl&gt;,
+## #   total_number_of_family_members_employed &lt;dbl&gt;,
+## #   type_of_building_house &lt;chr&gt;, type_of_roof &lt;chr&gt;, type_of_walls &lt;chr&gt;,
+## #   house_floor_area &lt;dbl&gt;, house_age &lt;dbl&gt;, number_of_bedrooms &lt;dbl&gt;,
+## #   tenure_status &lt;chr&gt;, toilet_facilities &lt;chr&gt;, electricity &lt;dbl&gt;,
+## #   main_source_of_water_supply &lt;chr&gt;, number_of_television &lt;dbl&gt;,
+## #   number_of_cd_vcd_dvd &lt;dbl&gt;, number_of_component_stereo_set &lt;dbl&gt;,
+## #   number_of_refrigerator_freezer &lt;dbl&gt;, number_of_washing_machine &lt;dbl&gt;,
+## #   number_of_airconditioner &lt;dbl&gt;, number_of_car_jeep_van &lt;dbl&gt;,
+## #   number_of_landline_wireless_telephones &lt;dbl&gt;,
+## #   number_of_cellular_phone &lt;dbl&gt;, number_of_personal_computer &lt;dbl&gt;,
+## #   number_of_stove_with_oven_gas_range &lt;dbl&gt;, number_of_motorized_banca &lt;dbl&gt;,
+## #   number_of_motorcycle_tricycle &lt;dbl&gt;</code></pre>
+<p>Calculate the proportion of cost of food per family</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>Phili<span class="op">$</span>PropFood=Phili<span class="op">$</span>total_food_expenditure<span class="op">/</span>Phili<span class="op">$</span>total_household_income</span></code></pre></div>
+<p>Evaluar el porcentaje del income que se usa para comida. Cumple con las condiciones de una beta? Si no como se resuelve?</p>
+<div id="visualizar-la-distribución-de-la-proporción-del-income-dedicado-a-la-comida" class="section level4">
+<h4>Visualizar la distribución de la proporción del income dedicado a la comida</h4>
+<ul>
+<li><p>Construir el modelo de regresión beta</p></li>
+<li><p>Calucar los cuantiles</p></li>
+</ul>
+<p>Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1.</p>
+<p>Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.</p>
+</div>
+</div>
 
 
 

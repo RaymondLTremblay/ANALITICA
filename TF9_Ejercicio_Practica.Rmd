@@ -46,21 +46,27 @@ knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
+***
+## Regresión Lineal
 
 1. Ejercicio de regresión lineal
 
 
-
-
+***
+## Regresión No Lineal
 
 2. Ejercicio de regresión no lineal
 
+***
+
+## Regresión Múltiple
 
 
-3. Ejercicio de regresión múltiples
+3. Ejercicio de regresión múltiple
 
+***
 
+## Regresión Logística
 
 4. Ejercicio de regresión logística
 
@@ -74,6 +80,8 @@ Datos del Titanic: Estos son datos reales
  + Fare, how much they paid for the trip
  + Embarked port, where they embarked on the ship, Southhampton, England; Queenstown, Ireland and Cherbourg in France.  
 
+Subir los datos
+
 ```{r}
 library(readr)
 X_Titanic <- read_csv("Data/ Titanic.csv")
@@ -83,7 +91,7 @@ head(Titanic)
 ```
 
 
- + Hacer grafico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?
+ + Hacer gráfico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?
  
  
 ```{r, eval=FALSE, echo=FALSE}
@@ -99,13 +107,13 @@ ggplot(Titanic, aes(x = Survived)) +
   + Hacer gráficos de la frecuencia de las variables explicativas
   
   
-```{r}
+```{r eval=FALSE, include=FALSE}
 ggplot(Titanic, aes(Fare, fill= factor(Pclass)))+
   geom_histogram(color="white")+
   facet_grid(~factor(Pclass))
 ```
 
-```{r} 
+```{r eval=FALSE, include=FALSE}
   ggplot(Titanic, aes(Age, fill= factor(Pclass)))+
   geom_histogram(color="white")+
   facet_grid(~factor(Pclass))
@@ -118,14 +126,14 @@ ggplot(Titanic, aes(Fare, fill= factor(Pclass)))+
  
  
  
-```{r}
+```{r eval=FALSE, include=FALSE}
 model=glm(Survived~Pclass+Age+Fare+Embarked, data=Titanic, family = binomial())
 summary(model)
 ```
  
 +  Cual es la probabilidad de un pasajero de Irlanda morir si era de la tercera clase  
 
-```{r predicting death}
+```{r predicting death, eval=FALSE, include=FALSE}
 
 # Predicting the probability of death (not surviving) of passenger from Dublin from third class
 e= exp(1)
@@ -135,20 +143,89 @@ P=1/(1+exp(1)^-(0.992835-0.721635*1+0.274906*1))
 P
 ```
 
-```{r}
++ Hacer un gráfico de demuestra la relación entre edad y supervivencia separado por sexo
+
+
+```{r eval=FALSE, include=FALSE}
 ggplot(Titanic, aes(Age,Survived,colour=factor(Pclass)))+
   geom_jitter(height = 0.10, alpha=.1)+
   geom_smooth(method="glm", se=TRUE, method.args = list(family="binomial"))+
   facet_grid(~Sex)
 ```
 
+***
+
+## Regresión Poisson
+
 5. Ejercicio de regresión Poisson
 
-```{r}
+Los datos provienen del siguiente website.  https://towardsdatascience.com/generalized-poisson-regression-for-real-world-datasets-d1ff32607d79
 
+Los datos son el numero de ciclista que pasan por diferentes puentes en Nueva York.  Incluye las siguientes variables
+   + DATE
+   + DAY
+   + HIGH TEMPERATURE
+   + LOW TEMPERATURE
+   + PRECIPITATION
+   + BROOKLYN BRIDGE
+  + MANHATTAN BRIDGE
+  + WILLIAMSBURG BRIDGE
+   + QUEENBORO BRIDGE
+   + TOTAL NUMBER OF CYCLIST
+
+
+```{r}
+library(readr)
+NY_CITY_CYCLIST <- read_csv("Data/NY_CITY_CYCLIST.csv")
+
+Bici=NY_CITY_CYCLIST
+
+head(Bici)
+```
+
+
+Evaluar un modelo para tratar de predecir la cantidad de ciclista que pasan por uno d elos puentes de New York
+
+```{r eval=FALSE, include=FALSE}
+modelP=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = poisson(link="log"))
+summary(modelP)
+
+
+modelP1=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = poisson(link="sqrt"))
+summary(modelP1)
+
+modelP2=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = poisson(link="identity"))
+summary(modelP2)
+```
+
++ CREATE A COEFFICIENT PLOT OF THE MODEL
+
+
+```{r PR2, eval=FALSE, include=FALSE}
+library(coefplot)
+coefplot(modelP2)
+```
+
++ EVALUAR SI HAY SOBRE DISPERSION.  
+
+```{r PR5, eval=FALSE, include=FALSE}
+library(AER)
+dispersiontest(modelP2, trafo=1)
 
 ```
 
+SI HAY Sobre dispersión CUAL ALTERNATIVA TIENE PARA EVALUAR EL MODELO?
+Contruir el modelo
+
+```{r eval=FALSE, include=FALSE}
+modelP=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = quasipoisson(link="log"))
+summary(modelP)
+```
+
+
+***
+
+## Regresión Beta
 
 6. Ejercicio de regresión de Beta
 
@@ -189,25 +266,29 @@ Calculate the proportion of cost of food per family
 
 ```{r}
 Phili$PropFood=Phili$total_food_expenditure/Phili$total_household_income
+```
 
+Evaluar el porcentaje del income que se usa para comida.   Cumple con las condiciones de una beta?  Si no como se resuelve?
+
+```{r eval=FALSE, include=FALSE}
 Phili=Phili %>% 
   filter(PropFood<1)
 ```
 
 
 
-## Visualizar un grafico de regresión beta 
+#### Visualizar la distribución de la proporción del income dedicado a la comida
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 ggplot(Phili, aes(PropFood))+
          geom_histogram(color="white")
 
 
 ```
 
++ Construir el modelo de regresión beta
 
-
-```{r beta regression plot preparation}
+```{r beta regression plot preparation, eval=FALSE, include=FALSE}
 
 # modelpropALien=betareg(Prop_inv_plants~area+population+ pdensity+gdp, data =na.omit(GXM_Data))
 Phili2=Phili[,c("PropFood","total_household_income")] # crear un df con solamente las columnas de interes 
@@ -221,8 +302,13 @@ modelpropFr=betareg(PropFood~total_household_income, data=na.omit(Phili2))
 summary(modelpropFr)
  #head(dp2)
 #dp2$PropFR
-predict(modelpropFr, type = "response") # calcular los valores estimados (predichos)
+#predict(modelpropFr, type = "response") # calcular los valores estimados (predichos)
 
+```
+
+ + Calucar los cuantiles 
+
+```{r eval=FALSE, include=FALSE}
 dp2$response=predict(modelpropFr, type = "response")
 #dp2$link=predict(modelpropFr, type = "link")
 dp2$precision=predict(modelpropFr, type = "precision")
@@ -260,7 +346,7 @@ Al construir la figura para la regresión beta, una de las principales ventajas 
 
 Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
 
-```{r beta reg graph}
+```{r beta reg graph, eval=FALSE, include=FALSE}
 library(ggplot2)
 ggplot(dp2, aes(x=total_household_income, y=PropFood))+
   geom_point(width = 0.05, height = 0.01)+
