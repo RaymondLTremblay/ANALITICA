@@ -129,16 +129,13 @@ navbar:
           text: "Criterio de Selección"
         - 
           href: TF9_Ejercicio_Practica.html
-          text: "Ejercicios de Practica" 
-          
-          
+          text: "Ejercicios de Practica"
       text: "Taller para Facultad"
     - 
       menu: 
         - 
           href: Datos.html
-          text: Los Datos  
-          
+          text: "Los Datos"
       text: "Los Datos"
   title: ANALITICA
 output_dir: "."

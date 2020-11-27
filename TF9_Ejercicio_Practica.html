@@ -699,10 +699,10 @@ div.tocify {
 ## 6           6        0      3 Mora… male     NA     0     0 330877  8.46 &lt;NA&gt; 
 ## # … with 1 more variable: Embarked &lt;chr&gt;</code></pre>
 <ul>
-<li><p>Hacer gráfico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?</p></li>
+<li><p>Hacer gráfico de la variable de respuesta. ¿Cual de las variables de las listas es la variable de respuesta parta una regesión logística y porque?</p></li>
 <li><p>Seleccionar por lo menos tres variables explicativas de la lista, dos de estas tienen que ser el “Pclass” y “Age”, la otra uds la selecciona de la lista.</p></li>
 <li><p>Hacer gráficos de la frecuencia de las variables explicativas</p></li>
-<li><p>Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de:</p>
+<li><p>Usando la prueba correcta evalúa por lo menos tres diferentes modelos o sea la relación entre la supervivencia y estas variables y explicar lo que esta probando y su interpretación de:</p>
 <ul>
 <li>Edad</li>
 <li>Categoría de Camarote</li>
@@ -719,7 +719,19 @@ div.tocify {
 <li>Ejercicio de regresión Poisson</li>
 </ol>
 <p>Los datos provienen del siguiente website. <a href="https://towardsdatascience.com/generalized-poisson-regression-for-real-world-datasets-d1ff32607d79" class="uri">https://towardsdatascience.com/generalized-poisson-regression-for-real-world-datasets-d1ff32607d79</a></p>
-<p>Los datos son el numero de ciclista que pasan por diferentes puentes en Nueva York. Incluye las siguientes variables + DATE + DAY + HIGH TEMPERATURE + LOW TEMPERATURE + PRECIPITATION + BROOKLYN BRIDGE + MANHATTAN BRIDGE + WILLIAMSBURG BRIDGE + QUEENBORO BRIDGE + TOTAL NUMBER OF CYCLIST</p>
+<p>Los datos son el numero de ciclista que pasan por diferentes puentes en Nueva York. Incluye las siguientes variables</p>
+<ul>
+<li>DATE</li>
+<li>DAY</li>
+<li>HIGH TEMPERATURE</li>
+<li>LOW TEMPERATURE</li>
+<li>PRECIPITATION</li>
+<li>BROOKLYN BRIDGE</li>
+<li>MANHATTAN BRIDGE</li>
+<li>WILLIAMSBURG BRIDGE</li>
+<li>QUEENBORO BRIDGE</li>
+<li>TOTAL NUMBER OF CYCLIST</li>
+</ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb5-2"><a href="#cb5-2"></a>NY_CITY_CYCLIST &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/NY_CITY_CYCLIST.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
@@ -755,7 +767,7 @@ div.tocify {
 <li><p>CREATE A COEFFICIENT PLOT OF THE MODEL</p></li>
 <li><p>EVALUAR SI HAY SOBRE DISPERSION.</p></li>
 </ul>
-<p>SI HAY Sobre dispersión CUAL ALTERNATIVA TIENE PARA EVALUAR EL MODELO? Contruir el modelo</p>
+<p>SI Hay sobre dispersión CUAL ALTERNATIVA hay disponible PARA EVALUAR EL MODELO? Contruir el modelo</p>
 <hr />
 </div>
 <div id="regresión-beta" class="section level2">
@@ -763,7 +775,14 @@ div.tocify {
 <ol start="6" style="list-style-type: decimal">
 <li>Ejercicio de regresión de Beta</li>
 </ol>
-<p>Evaluate if the propotion of invasive plants is correlated with the island size, population, pdensity or gdp.</p>
+<p>Evaluate if the propotion of invasive plants is correlated with the</p>
+<ul>
+<li>island size,</li>
+<li>population size,</li>
+<li>pdensity: population density</li>
+<li>gdp: gross domestic product.</li>
+</ul>
+<p>In this chunk, I calculate the proportion of plants which are alien based of the total flora of the island, Proportion invasive = Prop_inv</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb9-2"><a href="#cb9-2"></a>GXM_Data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/GXM_Data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 

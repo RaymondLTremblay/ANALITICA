@@ -66,8 +66,18 @@ Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para p
 
 ### Datos del *World Bank*
 
-9. [Proporcion_Fumadores](Data/Proportion_smokers_world.csv")
+9. [Proporcion_Fumadores](Data/Proportion_smokers_world.csv)
   + Proporción de la población que fuma en diferentes países en diferentes años.
+  
+  
+  
+### Datos para ejercicio de los talleres de facultad
+
+
+10. [philippine](Data/Philippine_Family_Income_Expenditure.csv)
+11. [NYC-cyclist](Data/NY_CITY_CYCLIST.csv)
+12. [Titanic](Data/ Titanic.csv)
+13. [Alien Flora of the Caribbean](Data/GXM_Data.csv)
 
 ***
 

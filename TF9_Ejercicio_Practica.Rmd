@@ -91,7 +91,7 @@ head(Titanic)
 ```
 
 
- + Hacer gráfico de la variable de respuesta. ¿Cual de la lista es la variable de respuesta y porque?
+ + Hacer gráfico de la variable de respuesta. ¿Cual de las variables de las listas es la variable de respuesta parta una regesión logística y porque?
  
  
 ```{r, eval=FALSE, echo=FALSE}
@@ -119,7 +119,7 @@ ggplot(Titanic, aes(Fare, fill= factor(Pclass)))+
   facet_grid(~factor(Pclass))
 ```  
   
-  + Usando la prueba correcta evalúa los tres diferentes modelos o sea la relación entre la supervivencia y explicar lo que esta probando y su interpretación de: 
+  + Usando la prueba correcta evalúa por lo menos tres diferentes modelos o sea la relación entre la supervivencia y estas variables y explicar lo que esta probando y su interpretación de: 
       + Edad 
       + Categoría de Camarote 
       + Edad y Categoría de Camarote
@@ -162,6 +162,7 @@ ggplot(Titanic, aes(Age,Survived,colour=factor(Pclass)))+
 Los datos provienen del siguiente website.  https://towardsdatascience.com/generalized-poisson-regression-for-real-world-datasets-d1ff32607d79
 
 Los datos son el numero de ciclista que pasan por diferentes puentes en Nueva York.  Incluye las siguientes variables
+
    + DATE
    + DAY
    + HIGH TEMPERATURE
@@ -214,7 +215,7 @@ dispersiontest(modelP2, trafo=1)
 
 ```
 
-SI HAY Sobre dispersión CUAL ALTERNATIVA TIENE PARA EVALUAR EL MODELO?
+SI Hay sobre dispersión CUAL ALTERNATIVA hay disponible PARA EVALUAR EL MODELO?
 Contruir el modelo
 
 ```{r eval=FALSE, include=FALSE}
@@ -229,7 +230,14 @@ summary(modelP)
 
 6. Ejercicio de regresión de Beta
 
-Evaluate if the propotion of invasive plants is correlated with the island size, population, pdensity or gdp.  
+Evaluate if the propotion of invasive plants is correlated with the 
+
+ + area= island size, 
+ + population =population size, 
+ + pdensity: population density 
+ + gdp: gross domestic product. 
+ 
+ In this chunk, I calculate the proportion of plants which are alien based of the total flora of the island, Proportion invasive = Prop_inv
 
 ```{r}
 library(readr)
@@ -237,10 +245,10 @@ GXM_Data <- read_csv("Data/GXM_Data.csv")
 
 
 
-head(GXM_Data)
+
 
 GXM_Data$Prop_inv_plants=GXM_Data$alien/(GXM_Data$alien+GXM_Data$native)
-
+head(GXM_Data)
 ```
 
 ```{r}
@@ -250,25 +258,43 @@ library(betareg)
 ```
 
 
+
+```{r}
+modelBeta1=betareg(Prop_inv_plants~area+population+pdensity+gdp, data=na.omit(GXM_Data)) 
+
+summary(modelBeta1)
+```
+
+
+Calculate the quantiles
+
+```{r}
+
+```
+
+
+A second example: This data comes from the Philippines and is an survey of the amount economic status of 41544 families.  The survey includes 60 variables.  To see the names of the variables write ina chunk **names(Phili)**
+
+
 ```{r}
 
 library(readr)
 Philippine_Family_Income_Expenditure <- read_csv("Data/Philippine_Family_Income_Expenditure.csv")
 Phili=Philippine_Family_Income_Expenditure
-head(Phili)
+length(Phili$total_household_income)
 
 library(janitor)
 Phili=clean_names(Phili)
-head(Phili)
+
 ```
 
-Calculate the proportion of cost of food per family
+Calculate the proportion of the families cost of food per family based on the families income.  
 
 ```{r}
 Phili$PropFood=Phili$total_food_expenditure/Phili$total_household_income
 ```
 
-Evaluar el porcentaje del income que se usa para comida.   Cumple con las condiciones de una beta?  Si no como se resuelve?
+Proozca un grafico de la variable de respuesta **PropFood**.  Evaluar el porcentaje del income que se usa para comida.   Cumple con las condiciones de una beta?  Si no como se resuelve?
 
 ```{r eval=FALSE, include=FALSE}
 Phili=Phili %>% 
