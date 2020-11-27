@@ -13,7 +13,7 @@
 
 <title>Regresión Lineal</title>
 
-<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -25,6 +25,8 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -33,68 +35,6 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
-        }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #7d9029; } /* Attribute */
-      code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
-      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4070a0; } /* Char */
-      code span.cn { color: #880000; } /* Constant */
-      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-      code span.dt { color: #902000; } /* DataType */
-      code span.dv { color: #40a070; } /* DecVal */
-      code span.er { color: #ff0000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #40a070; } /* Float */
-      code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
-      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-      code span.op { color: #666666; } /* Operator */
-      code span.ot { color: #007020; } /* Other */
-      code span.pp { color: #bc7a00; } /* Preprocessor */
-      code span.sc { color: #4070a0; } /* SpecialChar */
-      code span.ss { color: #bb6688; } /* SpecialString */
-      code span.st { color: #4070a0; } /* String */
-      code span.va { color: #19177c; } /* Variable */
-      code span.vs { color: #4070a0; } /* VerbatimString */
-      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
@@ -650,6 +590,9 @@ div.tocify {
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
     </li>
+    <li>
+      <a href="TF9_Ejercicio_Practica.html">Ejercicios de Practica</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -688,11 +631,11 @@ div.tocify {
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2020-10-27&quot;</code></pre>
+<pre><code>## [1] &quot;2020-11-27&quot;</code></pre>
 <hr />
 <p>El siguiente comando verifica que tenga las librerias necesarias instaladas y las activa de estar disponible en su sistema. El paquete <strong>pacman</strong> evalúa si los tiene instalado y los instala de ser necesario.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(QuantPsyc, car, tidyverse, sjPlot, janitor)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(QuantPsyc, car, ggplot2, tidyverse, sjPlot, janitor)</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(QuantPsyc)</span>
@@ -717,23 +660,55 @@ div.tocify {
 ##   pubs = col_double(),
 ##   mortality = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Cambiamos los nombres de las columnas al español</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>pubs=pubs<span class="op">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">barras=</span>pubs, <span class="dt">mortalidad=</span>mortality) <span class="co"># cambiamos los nombres de las columnas al español. </span></span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a>pubs</span></code></pre></div>
-<pre><code>## # A tibble: 8 x 2
-##   barras mortalidad
-##    &lt;dbl&gt;      &lt;dbl&gt;
-## 1     10       1000
-## 2     20       2000
-## 3     30       3000
-## 4     40       4000
-## 5     50       5000
-## 6     60       6000
-## 7     70       7000
-## 8    500      10000</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>pubs</span></code></pre></div>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:data">
+<col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">pubs</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">mortality</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">10</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">20</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">30</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">40</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">50</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">60</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">6e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">70</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">500</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1e+04</td></tr>
+</table>
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Cambiamos los nombres de las columnas al español</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>pubs=pubs<span class="op">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">barras=</span>pubs, <span class="dt">mortalidad=</span>mortality) <span class="co"># cambiamos los nombres de las columnas al español. </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a>pubs</span></code></pre></div>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:data">
+<col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">barras</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">mortalidad</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">10</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">20</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">30</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">40</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">50</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">60</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">6e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">70</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7e+03</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">500</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1e+04</td></tr>
+</table>
+
 <hr />
 </div>
 <div id="la-función-lm" class="section level1">
@@ -753,17 +728,44 @@ div.tocify {
 <p>Ahora para determinar si estos valores son significativo hay que evaluar el valor de <strong>p</strong> en cada linea. La hipótesis nula del intercepto tiene un valor de p =0.005, que sugiere que se debería rechazar la hipótesis nula, y por consecuencia aceptamos la hipótesis alterna, que el intercepto no es igual a cero. La pendiente tiene un valor de p=0.015 y también se rechaza la hipótesis nula, esto sugiere que a medida que aumenta la cantidad de barras aumenta la cantidad de fatalidades, por cada barra adicional esperamos 14.3 fatalidades adicionales.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>pubReg &lt;-<span class="st"> </span><span class="kw">lm</span>(mortalidad<span class="op">~</span>barras, <span class="dt">data =</span> pubs) </span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># summary(pubReg) # Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">tab_model</span>(</span>
-<span id="cb7-6"><a href="#cb7-6"></a>  pubReg,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb7-7"><a href="#cb7-7"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb7-8"><a href="#cb7-8"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb7-9"><a href="#cb7-9"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb7-10"><a href="#cb7-10"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb7-11"><a href="#cb7-11"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a>  )</span>
-<span id="cb7-13"><a href="#cb7-13"></a>)</span></code></pre></div>
+<span id="cb7-3"><a href="#cb7-3"></a> <span class="kw">summary</span>(pubReg) <span class="co"># Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mortalidad ~ barras, data = pubs)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2495.3  -996.3  -223.5  1145.2  2644.3 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 3351.955    781.236   4.291  0.00515 **
+## barras        14.339      4.301   3.334  0.01572 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1864 on 6 degrees of freedom
+## Multiple R-squared:  0.6495, Adjusted R-squared:  0.591 
+## F-statistic: 11.12 on 1 and 6 DF,  p-value: 0.01572</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a> pubReg<span class="op">$</span>residuals  <span class="co"># Para ver los residuales</span></span></code></pre></div>
+<pre><code>##          1          2          3          4          5          6          7 
+## -2495.3445 -1638.7337  -782.1229    74.4879   931.0987  1787.7095  2644.3203 
+##          8 
+##  -521.4153</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a> <span class="kw">cooks.distance</span>(pubReg)<span class="co"># Pata calcular los indices de Cooks</span></span></code></pre></div>
+<pre><code>##            1            2            3            4            5            6 
+## 2.132784e-01 8.530493e-02 1.814286e-02 1.547980e-04 2.293965e-02 8.092291e-02 
+##            7            8 
+## 1.710655e-01 2.271429e+02</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">tab_model</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  pubReg,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb13-6"><a href="#cb13-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  )</span>
+<span id="cb13-9"><a href="#cb13-9"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -846,9 +848,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="visualización-de-la-regresión" class="section level1">
 <h1>Visualización de la regresión</h1>
 <p>Se observa que hay un aumento en fatalidades con aumento en el número de barras. Pero nota el valor a la derecha que parece ser muy atípico comparado a los otros.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggplot</span>(pubs, <span class="kw">aes</span>(<span class="dt">x=</span>barras, <span class="dt">y=</span>mortalidad))<span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)<span class="op">+</span><span class="st"> </span><span class="co"># modelo lineal</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">ggplot</span>(pubs, <span class="kw">aes</span>(<span class="dt">x=</span>barras, <span class="dt">y=</span>mortalidad))<span class="op">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)<span class="op">+</span><span class="st"> </span><span class="co"># modelo lineal</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <hr />
@@ -856,24 +858,41 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="el-impacto-de-valores-atípicos" class="section level1">
 <h1>El impacto de valores atípicos</h1>
 <p>En cierta ocasiones valores fuera de lo normal pueden hacer grandes cambios en el resultado, en este caso el resultado de la regresión. ¿Cual es el efecto del valor grande? Removemos ese valor del archivo de datos y re-evaluamos el modelo (la regresión lineal). Nota que ahora el modelo es sumamente diferente <span class="math inline">\(y=-163.7+103.2*x\)</span>. ¿Ahora se rechazan las dos hipótesis?</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>pubsnew &lt;-<span class="st"> </span>pubs[ <span class="kw">which</span>(pubs<span class="op">$</span>barras<span class="op">&lt;</span><span class="dv">80</span>), ]  <span class="co"># remover el valor grande</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a>pubsnew=pubsnew <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">barras =</span> <span class="dv">4</span>, <span class="dt">mortalidad =</span> <span class="dv">0</span>) <span class="co"># Añadiendo un par de valores</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a></span>
-<span id="cb10-6"><a href="#cb10-6"></a></span>
-<span id="cb10-7"><a href="#cb10-7"></a>pubRegNew &lt;-<span class="st"> </span><span class="kw">lm</span>(mortalidad<span class="op">~</span>barras, <span class="dt">data =</span> pubsnew)</span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#summary(pubRegNew)</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="kw">tab_model</span>(</span>
-<span id="cb10-11"><a href="#cb10-11"></a>  pubRegNew,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb10-12"><a href="#cb10-12"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb10-13"><a href="#cb10-13"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb10-14"><a href="#cb10-14"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb10-15"><a href="#cb10-15"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb10-16"><a href="#cb10-16"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a>  )</span>
-<span id="cb10-18"><a href="#cb10-18"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pubsnew &lt;-<span class="st"> </span>pubs[ <span class="kw">which</span>(pubs<span class="op">$</span>barras<span class="op">&lt;</span><span class="dv">80</span>), ]  <span class="co"># remover el valor grande</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>pubsnew=pubsnew <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">barras =</span> <span class="dv">4</span>, <span class="dt">mortalidad =</span> <span class="dv">0</span>) <span class="co"># Añadiendo un par de valores</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a></span>
+<span id="cb16-7"><a href="#cb16-7"></a>pubRegNew &lt;-<span class="st"> </span><span class="kw">lm</span>(mortalidad<span class="op">~</span>barras, <span class="dt">data =</span> pubsnew)</span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="kw">summary</span>(pubRegNew)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mortalidad ~ barras, data = pubsnew)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -249.11  -36.48   19.57   75.62  131.67 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -163.701     86.000  -1.903    0.106    
+## barras       103.203      2.055  50.229 4.18e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 128.9 on 6 degrees of freedom
+## Multiple R-squared:  0.9976, Adjusted R-squared:  0.9972 
+## F-statistic:  2523 on 1 and 6 DF,  p-value: 4.177e-09</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">tab_model</span>(</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  pubRegNew,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb18-6"><a href="#cb18-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb18-7"><a href="#cb18-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>  )</span>
+<span id="cb18-9"><a href="#cb18-9"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -951,9 +970,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </td>
 </tr>
 </table>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">ggplot</span>(pubsnew,<span class="kw">aes</span>(<span class="dt">x=</span>barras, <span class="dt">y=</span>mortalidad))<span class="op">+</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">ggplot</span>(pubsnew,<span class="kw">aes</span>(<span class="dt">x=</span>barras, <span class="dt">y=</span>mortalidad))<span class="op">+</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/remover%20valores-1.png" width="672" /></p>
 <hr />
@@ -962,8 +981,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <h1>La venta de discos de música</h1>
 <p>Ahora evaluamos un conjunto de datos más complejo y más realista similar a los que uno encontraría en un estudio en medicina, sociología o ecológica.</p>
 <p>Los datos representan la cantidad de dinero dedicado a la promoción de diferentes CD’s de una compañía de música y la cantidad de CD’s (CD/downloads) vendidos. En la primera linea se observa la cantidad de libras esterlina, <strong>£</strong> (UK) dedicada a la promoción del álbum de música, en la primera linea vemos que se gastó £10,256, y después la cantidad de CD vendidos fue 330. Tenemos información sobre 200 albumes diferentes.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>Album_Sales_<span class="dv">1</span>_new &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Album_Sales_1_new.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb21-2"><a href="#cb21-2"></a>Album_Sales_<span class="dv">1</span>_new &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Album_Sales_1_new.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -972,43 +991,65 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ##   airplay = col_double(),
 ##   attract = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">head</span>(Album_Sales_<span class="dv">1</span>_new)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 4
-##   adverts sales airplay attract
-##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1    10.3   330      43      10
-## 2   986.    120      28       7
-## 3  1446.    360      35       7
-## 4  1188.    270      33       7
-## 5   575.    220      44       5
-## 6   569.    170      19       5</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)  <span class="co"># cuantas filas de datos hay en el archivo. </span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">head</span>(Album_Sales_<span class="dv">1</span>_new)</span></code></pre></div>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:advertizing and sales">
+<col><col><col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">adverts</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">sales</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">airplay</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">attract</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">10.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">330</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">43</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">10</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">986&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">120</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">28</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">7</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.45e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">360</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">35</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.19e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">270</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">33</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">7</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">575&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">220</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">44</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">569&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">170</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">19</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5</td></tr>
+</table>
+
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)  <span class="co"># cuantas filas de datos hay en el archivo. </span></span></code></pre></div>
 <pre><code>## [1] 200</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">shapiro.test</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  Album_Sales_1_new$adverts
+## W = 0.92542, p-value = 1.482e-08</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">library</span>(nortest)</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="co">#Anderson-Darling </span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="kw">ad.test</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  Album_Sales_1_new$adverts
+## A = 3.8762, p-value = 1.089e-09</code></pre>
 <p>Comenzamos graficando la relcacion entre las dos variables. Nota que en la parte de <strong>geom_smooth()</strong>, tiene que incluir <strong>method=lm</strong>, esto significa que el método de construir la linea usará la regresión lineal. Se añade a la función lineal <span class="math inline">\(\epsilon\)</span> que representa los errores de los valores al comparar con la linea que representa el mejor modelo.</p>
 <p><span class="math display">\[Y_{ i }=\beta _{ 0 }+\beta _{ 1 }X_{ i }+\epsilon _{ i }\]</span> Recuerda que <span class="math inline">\(\beta _{ 0 }\)</span> es el intercepto y el <span class="math inline">\(\beta _{ 1 }x_{ i }\)</span> es la pendiente. El área sombreada es el área de 95% de intervalo de confianza. Esto quiere decir que la mejor linea, intercepto y pendiente podría variar en este rango si repetimos el experimento. Nota aquí todas las alternativas, añadí las dos pendientes extremas, con una pendiente mayor (roja) y una menor (violeta). Cada punto representa la venta de un CD con su correspondiente cantidad dedicada a la promoción. Los <span class="math inline">\(epsilon\)</span> seria la diferencia entre la mejor linea y el valor original, esto se llama también los residuales.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new,<span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se =</span> <span class="ot">TRUE</span>)<span class="op">+</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">120</span>, <span class="dt">xend=</span><span class="dv">2250</span>, <span class="dt">yend=</span><span class="dv">380</span>), <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">150</span>, <span class="dt">xend=</span><span class="dv">2250</span>, <span class="dt">yend=</span><span class="dv">320</span>), <span class="dt">colour=</span><span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new,<span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se =</span> <span class="ot">TRUE</span>)<span class="op">+</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">120</span>, <span class="dt">xend=</span><span class="dv">2250</span>, <span class="dt">yend=</span><span class="dv">380</span>), <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">150</span>, <span class="dt">xend=</span><span class="dv">2250</span>, <span class="dt">yend=</span><span class="dv">320</span>), <span class="dt">colour=</span><span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/avertizing%20graph-1.png" width="672" /></p>
 <p>El modelo lineal con la función <strong>lm()</strong>. ¿Como interpretas los coeficientes y si estos son significativos? ¿se rechaza la hipótesis nula?</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">library</span>(sjPlot)</span>
-<span id="cb21-2"><a href="#cb21-2"></a>model1=<span class="kw">lm</span>(sales<span class="op">~</span>adverts, Album_Sales_<span class="dv">1</span>_new)</span>
-<span id="cb21-3"><a href="#cb21-3"></a></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="co">#summary(model1)</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="kw">tab_model</span>(</span>
-<span id="cb21-7"><a href="#cb21-7"></a>  model1,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb21-8"><a href="#cb21-8"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb21-10"><a href="#cb21-10"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb21-11"><a href="#cb21-11"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb21-12"><a href="#cb21-12"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb21-13"><a href="#cb21-13"></a>  )</span>
-<span id="cb21-14"><a href="#cb21-14"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">library</span>(sjPlot)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>model1=<span class="kw">lm</span>(sales<span class="op">~</span>adverts, Album_Sales_<span class="dv">1</span>_new)</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#summary(model1)</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="kw">tab_model</span>(</span>
+<span id="cb32-7"><a href="#cb32-7"></a>  model1,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb32-8"><a href="#cb32-8"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
+<span id="cb32-9"><a href="#cb32-9"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb32-10"><a href="#cb32-10"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb32-11"><a href="#cb32-11"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb32-12"><a href="#cb32-12"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb32-13"><a href="#cb32-13"></a>  )</span>
+<span id="cb32-14"><a href="#cb32-14"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -1086,6 +1127,11 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </td>
 </tr>
 </table>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="TF1_Regresion_Lineal_files/figure-html/sales%20model-1.png" width="672" /></p>
 <hr />
 </div>
 <div id="supuestos-de-la-regresión-lineal" class="section level1">
@@ -1096,7 +1142,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Evaluar si hay datos sesgados (atípicos) que influencian los resultados, evaluar el gráfico #3. Si los valores estandarizados de “Student” son mayor de 3, esto sugiere que hay datos atípicos.</p></li>
 <li><p>En el cuarto gráfico evaluar si hay valores que tienen mucho peso si se incluyen o no en el análisis, evaluar el gráfico #4. Estos van a ser identificados. Los valores con los que hay que preocuparse son los que están por encima o por debajo de la linea entrecortada. En el presente gráfico hay tres valores que hay que evaluar (1, 42, 169), estos valores se tiene que asegurar que son correctos. Siempre es bueno remover los valores sesgados y rehacer el análisis para observar cuan diferente son los resultas. Tipicamente más datos en un análisis , menos peso tendrá un valor sesgado sobre los resultados, al menos que este valor sea muy diferente a la mayoría de los datos.</p></li>
 </ol>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">plot</span>(model1)  <span class="co"># Evaluar los supuestos, 1. Igualdad de varianza, 2. Normalidad, 4. Datos sesgados (Cook&#39;s Distance)</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">plot</span>(model1)  <span class="co"># Evaluar los supuestos, 1. Igualdad de varianza, 2. Normalidad, 4. Datos sesgados (Cook&#39;s Distance)</span></span></code></pre></div>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-2.png" width="672" /><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-3.png" width="672" /><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
 <hr />
 </div>
@@ -1112,17 +1158,17 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </li>
 <li>Determinar si hay valores de Cook’s <span class="math inline">\(D_i\)</span> mayor de 1, o 4/n.</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="dv">4</span><span class="op">/</span><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="dv">4</span><span class="op">/</span><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
 <pre><code>## [1] 0.02</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>cooks.distance&lt;-<span class="kw">cooks.distance</span>(model1)</span>
-<span id="cb25-2"><a href="#cb25-2"></a></span>
-<span id="cb25-3"><a href="#cb25-3"></a></span>
-<span id="cb25-4"><a href="#cb25-4"></a>Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>sequence=<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">200</span>)</span>
-<span id="cb25-5"><a href="#cb25-5"></a></span>
-<span id="cb25-6"><a href="#cb25-6"></a></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(sequence, cooks.distance))<span class="op">+</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept=</span><span class="dv">4</span><span class="op">/</span><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts), <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>cooks.distance&lt;-<span class="kw">cooks.distance</span>(model1)</span>
+<span id="cb38-2"><a href="#cb38-2"></a></span>
+<span id="cb38-3"><a href="#cb38-3"></a></span>
+<span id="cb38-4"><a href="#cb38-4"></a>Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>sequence=<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">200</span>)</span>
+<span id="cb38-5"><a href="#cb38-5"></a></span>
+<span id="cb38-6"><a href="#cb38-6"></a></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(sequence, cooks.distance))<span class="op">+</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept=</span><span class="dv">4</span><span class="op">/</span><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts), <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/Cook%20distance-1.png" width="672" /></p>
 <hr />
 </div>
@@ -1149,8 +1195,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Normalidad, qqplot</p></li>
 <li><p>Valores sesgados, la prueba de Cook</p></li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>advertizingReg &lt;-<span class="st"> </span><span class="kw">lm</span>(sales<span class="op">~</span>adverts, <span class="dt">data =</span> Album_Sales_<span class="dv">1</span>_new)</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">summary</span>(advertizingReg)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>advertizingReg &lt;-<span class="st"> </span><span class="kw">lm</span>(sales<span class="op">~</span>adverts, <span class="dt">data =</span> Album_Sales_<span class="dv">1</span>_new)</span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="kw">summary</span>(advertizingReg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = sales ~ adverts, data = Album_Sales_1_new)
@@ -1169,15 +1215,15 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## Residual standard error: 65.99 on 198 degrees of freedom
 ## Multiple R-squared:  0.3346, Adjusted R-squared:  0.3313 
 ## F-statistic: 99.59 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">tab_model</span>(</span>
-<span id="cb28-2"><a href="#cb28-2"></a>  advertizingReg,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb28-4"><a href="#cb28-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb28-5"><a href="#cb28-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb28-6"><a href="#cb28-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb28-7"><a href="#cb28-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a>  )</span>
-<span id="cb28-9"><a href="#cb28-9"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">tab_model</span>(</span>
+<span id="cb41-2"><a href="#cb41-2"></a>  advertizingReg,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb41-5"><a href="#cb41-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb41-6"><a href="#cb41-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb41-7"><a href="#cb41-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a>  )</span>
+<span id="cb41-9"><a href="#cb41-9"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -1263,20 +1309,20 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="gráficar-los-residuales" class="section level2">
 <h2>Gráficar los residuales</h2>
 <p>Si el supuesto de igualdad de varianza se cumple lo que observaremos es que la distribución de los residuales luce más o menos uniforme alrededor del promedio de los residuales (el cero). Hay aproximadamente igual cantidad de valores mayor a cero (por encima de la línea en azul) y menor a cero (por debajo de la línea en azul) que están distribuidos a través de la variable en el eje de <strong>X</strong>, o valores estimados. En adición que los residuales (negativos o positivos) no son limitado a sub grupos de los valores estimados (en la <strong>X</strong>).</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># &quot;model1&quot;, nota que este no es un data frame pero un modelo</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="co"># La figura principal</span></span>
-<span id="cb29-4"><a href="#cb29-4"></a></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se =</span> <span class="ot">TRUE</span>)<span class="op">+</span></span>
-<span id="cb29-7"><a href="#cb29-7"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># &quot;model1&quot;, nota que este no es un data frame pero un modelo</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="co"># La figura principal</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a></span>
+<span id="cb42-5"><a href="#cb42-5"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se =</span> <span class="ot">TRUE</span>)<span class="op">+</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/evaluate%20the%20residuals-1.png" width="672" /></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># Graficando los residuales con ggplot2</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="kw">ggplot</span>(model1, <span class="kw">aes</span>(<span class="dt">x=</span>.fitted, <span class="dt">y=</span>.resid))<span class="op">+</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># Graficando los residuales con ggplot2</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a></span>
+<span id="cb44-3"><a href="#cb44-3"></a><span class="kw">ggplot</span>(model1, <span class="kw">aes</span>(<span class="dt">x=</span>.fitted, <span class="dt">y=</span>.resid))<span class="op">+</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/evaluate%20the%20residuals-2.png" width="672" /></p>
 <hr />
@@ -1290,33 +1336,53 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Usando los siguientes datos haga un análisis completo de regresión lineal.</p></li>
 <li><p>Determina si los supuestos de la regresión lineal se cumple.</p></li>
 </ul>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">library</span>(datasets)</span>
-<span id="cb33-2"><a href="#cb33-2"></a>state.x77=<span class="kw">as.data.frame</span>(state.x77) <span class="co"># convertir los datos en un data frame</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a>state.x77=janitor<span class="op">::</span><span class="kw">clean_names</span>(state.x77) <span class="co"># limpiar los nombres de las variables</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="kw">head</span>(state.x77)</span></code></pre></div>
-<pre><code>##            population income illiteracy life_exp murder hs_grad frost   area
-## Alabama          3615   3624        2.1    69.05   15.1    41.3    20  50708
-## Alaska            365   6315        1.5    69.31   11.3    66.7   152 566432
-## Arizona          2212   4530        1.8    70.55    7.8    58.1    15 113417
-## Arkansas         2110   3378        1.9    70.66   10.1    39.9    65  51945
-## California      21198   5114        1.1    71.71   10.3    62.6    20 156361
-## Colorado         2541   4884        0.7    72.06    6.8    63.9   166 103766</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">library</span>(datasets)</span>
+<span id="cb46-2"><a href="#cb46-2"></a>state.x77=<span class="kw">as.data.frame</span>(state.x77) <span class="co"># convertir los datos en un data frame</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>state.x77=janitor<span class="op">::</span><span class="kw">clean_names</span>(state.x77) <span class="co"># limpiar los nombres de las variables</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="kw">head</span>(state.x77)</span></code></pre></div>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-6">
+<col><col><col><col><col><col><col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">population</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">income</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">illiteracy</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">life_exp</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">murder</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">hs_grad</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">frost</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">area</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3.62e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3.62e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2.1</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">69&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">15.1</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">41.3</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">20</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5.07e+04</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">365&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">6.32e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.5</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">69.3</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">11.3</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">66.7</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">152</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5.66e+05</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2.21e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4.53e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.8</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">70.5</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7.8</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">58.1</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">15</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.13e+05</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.11e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">3.38e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.9</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">70.7</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">10.1</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">39.9</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">65</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5.19e+04</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2.12e+04</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5.11e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.1</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">71.7</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">10.3</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">62.6</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">20</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.56e+05</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2.54e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4.88e+03</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.7</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">72.1</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">6.8</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">63.9</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">166</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.04e+05</td></tr>
+</table>
+
 <hr />
 </div>
 <div id="ejercicio-2" class="section level2">
-<h2>EJercicio 2</h2>
+<h2>Ejercicio 2</h2>
 <p>El conjunto de datos <strong>ToothGrowth</strong> del paquete <strong>datasets</strong> contiene el resultado de un experimento que estudia el efecto de la vitamina C en el crecimiento de los dientes en 60 cobayas (Guinea Pigs). Cada animal recibió uno de los tres niveles de dosis de vitamina C (0,5, 1 y 2 mg / día) mediante uno de los dos métodos de administración (jugo de naranja o ácido ascórbico (una forma de vitamina C y codificado como VC).</p>
 <p>Usando los siguiente datos haga un análisis completo de regresión lineal.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">library</span>(datasets)</span>
-<span id="cb35-2"><a href="#cb35-2"></a></span>
-<span id="cb35-3"><a href="#cb35-3"></a><span class="kw">head</span>(ToothGrowth)</span></code></pre></div>
-<pre><code>##    len supp dose
-## 1  4.2   VC  0.5
-## 2 11.5   VC  0.5
-## 3  7.3   VC  0.5
-## 4  5.8   VC  0.5
-## 5  6.4   VC  0.5
-## 6 10.0   VC  0.5</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">library</span>(datasets)</span>
+<span id="cb47-2"><a href="#cb47-2"></a></span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="kw">head</span>(ToothGrowth)</span></code></pre></div>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-8">
+<col><col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">len</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">supp</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">dose</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4.2</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">VC</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.5</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">11.5</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">VC</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.5</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7.3</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">VC</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.5</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5.8</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">VC</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.5</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">6.4</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">VC</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.5</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">10&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">VC</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.5</td></tr>
+</table>
+
 <hr />
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
 <hr />
@@ -1337,7 +1403,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

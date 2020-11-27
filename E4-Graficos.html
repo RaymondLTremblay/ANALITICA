@@ -14,7 +14,7 @@
 
 <title>Tema_3_Graficos</title>
 
-<script src="site_libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -27,6 +27,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -35,7 +37,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -512,6 +514,9 @@ div.tocify {
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
     </li>
+    <li>
+      <a href="TF9_Ejercicio_Practica.html">Ejercicios de Practica</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -648,10 +653,10 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1]  0.1318848  1.1245446  0.4347262 -0.1510170 -0.3578638  0.2561562</code></pre>
+<pre><code>## [1]  0.22411151  2.19501001 -0.07578406 -0.44125224 -1.16582873  2.01925556</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
 <pre><code>##          0%         25%         50%         75%        100% 
-## -3.49090746 -0.67661291  0.03047673  0.69088429  3.72821530</code></pre>
+## -3.13349326 -0.60636294  0.03978001  0.68070023  2.66916528</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
 <p>How to do a simple linear point graph and add text to graph, change the axis name</p>
 <pre class="r"><code>library(ggplot2)
@@ -966,7 +971,7 @@ head(hiccups)</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

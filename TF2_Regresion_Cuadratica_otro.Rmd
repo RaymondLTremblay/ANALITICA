@@ -63,7 +63,7 @@ Construcción de un modelo con polinomio. Usamos los datos de 15 observaciones d
 
 Nota aquí que se usa **I(x\^2)** para añadir el monomio $x^2$ . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. El resumen del modelo se observa que el modelo incluye tanto el intercepto, la ecuación lineal y el término cuadrático, y cada uno es significativo. Esto quiere decir que tanto el modelo lineal como el polinomio explican parte de la varianza. NOTA como se indica que un valor
 
-```{r regr_polyn}
+```{r regr_polyn1}
 fit2 <- lm(weight ~ height + I(height^2), data=women)
 summary(fit2)
 plot(fit2)
@@ -71,7 +71,7 @@ plot(fit2)
 
 ### Comparar el modelo anterior con el siguiente modelo. En el presente modelo se removio el polinimio. Evaluando los residuales es claro que estos no son distribuido de forma al azar.  Note la curva. Esto es un indicador que no cumple con el supuesto de igualdad de varianza.    
 
-```{r regr_polyn}
+```{r regr_polyn2}
 fit2 <- lm(weight ~ height, data=women)
 summary(fit2)
 plot(fit2$residuals)
