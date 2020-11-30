@@ -13,6 +13,7 @@
 
 <title>Selección de Modelos</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,6 +25,8 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -32,87 +35,23 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      code.sourceCode > span { display: inline-block; line-height: 1.25; }
-  code.sourceCode > span { color: inherit; text-decoration: inherit; }
-  code.sourceCode > span:empty { height: 1.2em; }
-  .sourceCode { overflow: visible; }
-  code.sourceCode { white-space: pre; position: relative; }
-  div.sourceCode { margin: 1em 0; }
-  pre.sourceCode { margin: 0; }
-  @media screen {
-  div.sourceCode { overflow: auto; }
-  }
-  @media print {
-  code.sourceCode { white-space: pre-wrap; }
-  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-  }
-  pre.numberSource code
-    { counter-reset: source-line 0; }
-  pre.numberSource code > span
-    { position: relative; left: -4em; counter-increment: source-line; }
-  pre.numberSource code > span > a:first-child::before
-    { content: counter(source-line);
-      position: relative; left: -1em; text-align: right; vertical-align: baseline;
-      border: none; display: inline-block;
-      -webkit-touch-callout: none; -webkit-user-select: none;
-      -khtml-user-select: none; -moz-user-select: none;
-      -ms-user-select: none; user-select: none;
-      padding: 0 4px; width: 4em;
-      color: #aaaaaa;
-    }
-  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-  div.sourceCode
-    {   }
-  @media screen {
-  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-  }
-  code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-  code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-  code span.at { color: #7d9029; } /* Attribute */
-  code span.bn { color: #40a070; } /* BaseN */
-  code span.bu { } /* BuiltIn */
-  code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-  code span.ch { color: #4070a0; } /* Char */
-  code span.cn { color: #880000; } /* Constant */
-  code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-  code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-  code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-  code span.dt { color: #902000; } /* DataType */
-  code span.dv { color: #40a070; } /* DecVal */
-  code span.er { color: #ff0000; font-weight: bold; } /* Error */
-  code span.ex { } /* Extension */
-  code span.fl { color: #40a070; } /* Float */
-  code span.fu { color: #06287e; } /* Function */
-  code span.im { } /* Import */
-  code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-  code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-  code span.op { color: #666666; } /* Operator */
-  code span.ot { color: #007020; } /* Other */
-  code span.pp { color: #bc7a00; } /* Preprocessor */
-  code span.sc { color: #4070a0; } /* SpecialChar */
-  code span.ss { color: #bb6688; } /* SpecialString */
-  code span.st { color: #4070a0; } /* String */
-  code span.va { color: #19177c; } /* Variable */
-  code span.vs { color: #4070a0; } /* VerbatimString */
-  code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -132,7 +71,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -651,6 +590,9 @@ div.tocify {
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
     </li>
+    <li>
+      <a href="TF9_Ejercicio_Practica.html">Ejercicios de Practica</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -708,32 +650,32 @@ div.tocify {
 <span id="cb1-2"><a href="#cb1-2"></a>reg.multiple &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;Data/mod_empiricos.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;bmi&quot;</span>)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co"># para ver las primeras seis filas de datos</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="kw">head</span>(reg.multiple)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 4
-##     BMI   Age Cholesterol Glucose
-##   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-## 1  19.3    21         178      95
-## 2  24.5    57         250      98
-## 3  24.7    46         176     102
-## 4  47.9    47         171     105
-## 5  44.2    61         222     101
-## 6  29.9    74         156      72</code></pre>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:modelo">
+<col><col><col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">BMI</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Age</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Cholesterol</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Glucose</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">19.3</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">21</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">95</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">24.5</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">57</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">250</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">98</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">24.7</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">46</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">176</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">102</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">47.9</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">47</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">171</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">105</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">44.2</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">61</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">222</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">101</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">29.9</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">74</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">156</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">72</td></tr>
+</table>
+
 <div id="installar-los-siguientes-paquetes-si-no-lo-tienen-instalado" class="section level4">
 <h4>Installar los siguientes paquetes si no lo tienen instalado</h4>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span></code></pre></div>
-<pre><code>## Loading required package: pacman</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(<span class="st">&quot;MuMIn&quot;</span>, <span class="st">&quot;formattable&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(<span class="st">&quot;MuMIn&quot;</span>, <span class="st">&quot;formattable&quot;</span>)</span></code></pre></div>
 <p>Se construye un modelo con todos los parametros. Vemos que el <span class="math inline">\(R^2= 0.0785\)</span>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(car)</span></code></pre></div>
-<pre><code>## Loading required package: carData</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(sjPlot)</span></code></pre></div>
-<pre><code>## Registered S3 methods overwritten by &#39;lme4&#39;:
-##   method                          from
-##   cooks.distance.influence.merMod car 
-##   influence.merMod                car 
-##   dfbeta.influence.merMod         car 
-##   dfbetas.influence.merMod        car</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">tab_model</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">library</span>(sjPlot)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>model &lt;-<span class="st"> </span><span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">tab_model</span>(model)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -832,18 +774,18 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </table>
 <hr />
 <p>Ahora evaluamos todas las posibles combinaciones de modelos. Considera la columna de <span class="math inline">\(R^2\)</span> y los valores para cada modelo. Los que se observa es que el modelo con las tres variables tiene un <span class="math inline">\(R^2\)</span> más alto seguido por los modelos con dos variables. La pregunta principal, un modelo con tres variables con un <span class="math inline">\(R^2=.127\)</span> es significativamente mejor que un modelo de 2 variables con un <span class="math inline">\(R^2=.1185\)</span>. Usando el método tradicional no hay mecanismos para seleccionar y evaluar cual de los modelos es el mejor tomando en cuenta la complejidad del modelo. NOTA: <strong><em>NA</em></strong> en la tabla quiere decir que esta variable no esta incluida en el modelo.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">library</span>(MASS)</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">library</span>(MuMIn)</span>
-<span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
-<span id="cb11-5"><a href="#cb11-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple) <span class="co"># El Modelo más completo</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#model2</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#summary(model2)</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a></span>
-<span id="cb11-9"><a href="#cb11-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">library</span>(formattable)</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">library</span>(MuMIn)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>model2=<span class="kw">lm</span>(BMI <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Cholesterol <span class="op">+</span><span class="st"> </span>Glucose, <span class="dt">data =</span> reg.multiple) <span class="co"># El Modelo más completo</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#model2</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#summary(model2)</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>ALL_models=<span class="kw">dredge</span>(model2, <span class="dt">extra=</span><span class="st">&quot;R^2&quot;</span>) <span class="co"># Evaluación de todas las compbinaciones/alternativas (modelos)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(formattable)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table class="table table-condensed">
 <thead>
 <tr>
@@ -1262,11 +1204,11 @@ NA
 <h3>Primer paso: Construcción de los modelos</h3>
 <p>El primer paso es construir los modelos que queremos comparar, para facilitar el ejemplo usamos un modelos complejo y comparamos todas las diferentes alternativas. NOTA: que este no es necesariamente el mejor acercamiento, ya que uno debería tener a priori una serie de modelos candidatos.</p>
 <p>Los datos son para evaluar el cambio de nivel de ansiedad y depresión en la población de Puerto Rico luego del Huracán María. Los datos presentados son parciales e incluyen solamente uno de los indices del nivel de depresión después de 5 o más semanas luego del Huracán (Tremblay et al. sin publicar). La hipótesis es que algunos factores sociales y/o económicos influencian el nivel de depresión en la gente.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>DFMaria_student &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/DFMaria_student.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>DFMaria_student &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/DFMaria_student.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
 <pre><code>## 
-## -- Column specification --------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   X1 = col_double(),
 ##   Sexo = col_double(),
@@ -1289,26 +1231,33 @@ NA
 <div id="limpiar-los-datos" class="section level3">
 <h3>Limpiar los datos</h3>
 <p>El primer paso es remover todos los participantes donde le falta algún información.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>DFMaria_student=<span class="kw">na.omit</span>(DFMaria_student)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>DFMaria_student=<span class="kw">na.omit</span>(DFMaria_student)</span></code></pre></div>
 </div>
 <div id="construcción-del-modelo" class="section level3">
 <h3>Construcción del modelo</h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">head</span>(DFMaria_student)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 7
-##      X1  Sexo Escolaridad Num_Pers_Hogar Sala_Mens_Antes Sala_Mens_Desp
-##   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;
-## 1     1     1           4              3               4              4
-## 2     2     1           4              3               2              2
-## 3     3     1           7              4               2              2
-## 4     4     1           4              2               5              3
-## 5     5     2           4              5               6              6
-## 6     6     2           5              2               2              7
-## # ... with 1 more variable: Index_Dep5T &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span><span class="kw">factor</span>(Sexo)<span class="op">+</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">head</span>(DFMaria_student)</span></code></pre></div>
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-6">
+<col><col><col><col><col><col><col><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">X1</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Sexo</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Escolaridad</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Num_Pers_Hogar</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Sala_Mens_Antes</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Sala_Mens_Desp</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Index_Dep5T</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">19</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">3</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">16</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">9</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">3</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">6</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">6</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">17</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">6</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">7</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">8</td></tr>
+</table>
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span><span class="kw">factor</span>(Sexo)<span class="op">+</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student)</span></code></pre></div>
 <div id="observar-el-resultado-del-modelo-lineal-completo." class="section level4">
 <h4>Observar el resultado del modelo lineal completo.</h4>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">summary</span>(Huracan_Dep)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">summary</span>(Huracan_Dep)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Index_Dep5T ~ factor(Sexo) + Escolaridad + Num_Pers_Hogar + 
@@ -1348,20 +1297,20 @@ NA
 </table>
 
 <p>Con la función <strong>dredge</strong> del paquete <strong>MuMIn</strong> podemos evaluar todas las combinaciones de modelos</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">library</span>(MASS)</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">library</span>(MuMIn)</span>
-<span id="cb22-3"><a href="#cb22-3"></a></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
-<span id="cb22-5"><a href="#cb22-5"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student) <span class="co"># El Modelo más completo</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="co">#model2</span></span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="co">#summary(model2)</span></span>
-<span id="cb22-9"><a href="#cb22-9"></a></span>
-<span id="cb22-10"><a href="#cb22-10"></a>ALL_models=<span class="kw">dredge</span>(Huracan_Dep, <span class="dt">rank=</span><span class="st">&quot;AIC&quot;</span>, <span class="dt">extra =</span> <span class="kw">c</span>(BIC, <span class="st">&quot;R^2&quot;</span>)) <span class="co"># Evaluación de todas las combinaciones/alternativas (modelos)</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">library</span>(MuMIn)</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>Huracan_Dep=<span class="kw">lm</span>(Index_Dep5T<span class="op">~</span>Escolaridad<span class="op">+</span>Num_Pers_Hogar<span class="op">+</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="st">                </span>Sala_Mens_Antes<span class="op">+</span><span class="st"> </span>Sala_Mens_Desp, <span class="dt">data=</span>DFMaria_student) <span class="co"># El Modelo más completo</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#model2</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#summary(model2)</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a>ALL_models=<span class="kw">dredge</span>(Huracan_Dep, <span class="dt">rank=</span><span class="st">&quot;AICc&quot;</span>, <span class="dt">extra =</span> <span class="kw">c</span>(BIC, <span class="st">&quot;R^2&quot;</span>)) <span class="co"># Evaluación de todas las combinaciones/alternativas (modelos)</span></span></code></pre></div>
 <pre><code>## Fixed term is &quot;(Intercept)&quot;</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">library</span>(formattable)</span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">4</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">library</span>(formattable)</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="kw">formattable</span>(ALL_models, <span class="dt">digits=</span><span class="dv">4</span>, <span class="dt">format=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table class="table table-condensed">
 <thead>
 <tr>
@@ -1395,7 +1344,7 @@ df
 logLik
 </th>
 <th style="text-align:right;">
-AIC
+AICc
 </th>
 <th style="text-align:right;">
 delta
@@ -1444,7 +1393,7 @@ NA
 0.0000
 </td>
 <td style="text-align:right;">
-0.189345
+0.187951
 </td>
 </tr>
 <tr>
@@ -1482,10 +1431,10 @@ NA
 6706
 </td>
 <td style="text-align:right;">
-0.6199
+0.5998
 </td>
 <td style="text-align:right;">
-0.138880
+0.139253
 </td>
 </tr>
 <tr>
@@ -1523,10 +1472,10 @@ NA
 6707
 </td>
 <td style="text-align:right;">
-0.8694
+0.8492
 </td>
 <td style="text-align:right;">
-0.122596
+0.122925
 </td>
 </tr>
 <tr>
@@ -1564,10 +1513,10 @@ NA
 6707
 </td>
 <td style="text-align:right;">
-1.2183
+1.1820
 </td>
 <td style="text-align:right;">
-0.102969
+0.104079
 </td>
 </tr>
 <tr>
@@ -1605,10 +1554,10 @@ NA
 6707
 </td>
 <td style="text-align:right;">
-1.6469
+1.6106
 </td>
 <td style="text-align:right;">
-0.083108
+0.084003
 </td>
 </tr>
 <tr>
@@ -1646,10 +1595,10 @@ NA
 6708
 </td>
 <td style="text-align:right;">
-1.9458
+1.9700
 </td>
 <td style="text-align:right;">
-0.071570
+0.070189
 </td>
 </tr>
 <tr>
@@ -1690,7 +1639,7 @@ NA
 2.5406
 </td>
 <td style="text-align:right;">
-0.053159
+0.052767
 </td>
 </tr>
 <tr>
@@ -1731,7 +1680,7 @@ NA
 2.7609
 </td>
 <td style="text-align:right;">
-0.047613
+0.047263
 </td>
 </tr>
 <tr>
@@ -1769,10 +1718,10 @@ NA
 6709
 </td>
 <td style="text-align:right;">
-2.8240
+2.8039
 </td>
 <td style="text-align:right;">
-0.046134
+0.046258
 </td>
 </tr>
 <tr>
@@ -1810,10 +1759,10 @@ NA
 6709
 </td>
 <td style="text-align:right;">
-3.0807
+3.0605
 </td>
 <td style="text-align:right;">
-0.040578
+0.040687
 </td>
 </tr>
 <tr>
@@ -1851,10 +1800,10 @@ NA
 6709
 </td>
 <td style="text-align:right;">
-3.6302
+3.6100
 </td>
 <td style="text-align:right;">
-0.030830
+0.030913
 </td>
 </tr>
 <tr>
@@ -1892,10 +1841,10 @@ NA
 6710
 </td>
 <td style="text-align:right;">
-4.1302
+4.0940
 </td>
 <td style="text-align:right;">
-0.024010
+0.024268
 </td>
 </tr>
 <tr>
@@ -1936,7 +1885,7 @@ NA
 4.7613
 </td>
 <td style="text-align:right;">
-0.017513
+0.017384
 </td>
 </tr>
 <tr>
@@ -1974,10 +1923,10 @@ NA
 6711
 </td>
 <td style="text-align:right;">
-4.8945
+4.8462
 </td>
 <td style="text-align:right;">
-0.016384
+0.016661
 </td>
 </tr>
 <tr>
@@ -2015,10 +1964,10 @@ NA
 6712
 </td>
 <td style="text-align:right;">
-6.0361
+6.0160
 </td>
 <td style="text-align:right;">
-0.009258
+0.009283
 </td>
 </tr>
 <tr>
@@ -2056,10 +2005,10 @@ NA
 6713
 </td>
 <td style="text-align:right;">
-6.8864
+6.8501
 </td>
 <td style="text-align:right;">
-0.006052
+0.006117
 </td>
 </tr>
 </tbody>
@@ -2068,17 +2017,17 @@ NA
 </div>
 <div id="calcular-el-coeficientes-ponderados" class="section level4">
 <h4>Calcular el coeficientes ponderados</h4>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>allmodels=<span class="kw">format</span>(<span class="kw">round</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>), <span class="dt">scientific=</span><span class="ot">FALSE</span>)</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">library</span>(data.table)</span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">write.csv</span>(allmodels, <span class="st">&quot;allmodelsdata.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>allmodels=<span class="kw">format</span>(<span class="kw">round</span>(ALL_models, <span class="dt">digits=</span><span class="dv">3</span>), <span class="dt">scientific=</span><span class="ot">FALSE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">library</span>(data.table)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="kw">write.csv</span>(allmodels, <span class="st">&quot;allmodelsdata.csv&quot;</span>)</span></code></pre></div>
 <hr />
 </div>
 </div>
 <div id="seleccionar-los-modelos" class="section level3">
 <h3>Seleccionar los modelos</h3>
 <p>Seleccionar los modelos que tienen un delta AICc menor de 2 y calcular el promedio de los coeficientes de los modelos. Nota el conjunto de coeficientes debajo <strong>subset</strong>, esto son los coeficientes de las variables del conjunto de modelos que tienen un delta AICc menor de 2.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># calculate the model average </span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">model.avg</span>(ALL_models, <span class="dt">subset =</span> delta <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># calculate the model average </span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">model.avg</span>(ALL_models, <span class="dt">subset =</span> delta <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## model.avg(object = ALL_models, subset = delta &lt; 2)
@@ -2088,91 +2037,91 @@ NA
 ## 
 ## Coefficients: 
 ##        (Intercept) Escolaridad Sala_Mens_Antes Sala_Mens_Desp Num_Pers_Hogar
-## full      12.93159  -0.2078493       0.2547956     -0.4095744    0.004178587
-## subset    12.93159  -0.3155782       0.4515174     -0.4640050    0.041363512</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># get the subset of the best models into a data frame</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a> bestModels &lt;-<span class="st"> </span><span class="kw">get.models</span>(ALL_models, <span class="dt">subset=</span>delta<span class="op">&lt;</span><span class="dv">2</span>)</span>
-<span id="cb28-3"><a href="#cb28-3"></a>    bestModels &lt;-<span class="st"> </span><span class="kw">model.avg</span>(bestModels)</span>
-<span id="cb28-4"><a href="#cb28-4"></a>    </span>
-<span id="cb28-5"><a href="#cb28-5"></a>    </span>
-<span id="cb28-6"><a href="#cb28-6"></a> bestModels=<span class="kw">summary</span>(bestModels)</span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="co"># bestModels$coefficients</span></span></code></pre></div>
+## full      12.93021  -0.2073248       0.2532552     -0.4080371    0.004098314
+## subset    12.93021  -0.3158011       0.4514584     -0.4629325    0.041363512</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># get the subset of the best models into a data frame</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a> bestModels &lt;-<span class="st"> </span><span class="kw">get.models</span>(ALL_models, <span class="dt">subset=</span>delta<span class="op">&lt;</span><span class="dv">2</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    bestModels &lt;-<span class="st"> </span><span class="kw">model.avg</span>(bestModels)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    </span>
+<span id="cb20-5"><a href="#cb20-5"></a>    </span>
+<span id="cb20-6"><a href="#cb20-6"></a> bestModels=<span class="kw">summary</span>(bestModels)</span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="co"># bestModels$coefficients</span></span></code></pre></div>
 <hr />
 </div>
 <div id="extraer-los-parametros-del-modelo-usando-las-sigueientes-funciones" class="section level3">
 <h3>Extraer los parametros del modelo, usando las sigueientes funciones</h3>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>bestModelsResults=<span class="kw">data.frame</span>(bestModels<span class="op">$</span>coefmat.subset)</span>
-<span id="cb29-2"><a href="#cb29-2"></a> <span class="kw">names</span>(bestModelsResults)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>bestModelsResults=<span class="kw">data.frame</span>(bestModels<span class="op">$</span>coefmat.subset)</span>
+<span id="cb21-2"><a href="#cb21-2"></a> <span class="kw">names</span>(bestModelsResults)</span></code></pre></div>
 <pre><code>## [1] &quot;Estimate&quot;    &quot;Std..Error&quot;  &quot;Adjusted.SE&quot; &quot;z.value&quot;     &quot;Pr...z..&quot;</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a> bestModelsResults</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a> bestModelsResults</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-12">
 <col><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Estimate</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Std..Error</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Adjusted.SE</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">z.value</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Pr...z..</th></tr>
 <tr>
-<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">12.9&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.703</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.704</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">18.4&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">12.9&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.703</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.703</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">18.4&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.316&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.189</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.19&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.67&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0959</td></tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.316&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.189</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.19&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.67&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0957</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.452&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.66&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0974</td></tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.451&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.66&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0975</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.464&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.53&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.126&nbsp;</td></tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.463&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.53&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.127&nbsp;</td></tr>
 <tr>
 <td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0414</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.232</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.817&nbsp;</td></tr>
 </table>
 
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>BMR=<span class="kw">setNames</span>(<span class="kw">cbind</span>(<span class="kw">rownames</span>(bestModelsResults), bestModelsResults, <span class="dt">row.names =</span> <span class="ot">NULL</span>), </span>
-<span id="cb32-2"><a href="#cb32-2"></a>         <span class="kw">c</span>(<span class="st">&quot;Variables&quot;</span>, <span class="st">&quot;Coef_Estimate&quot;</span>, <span class="st">&quot;Std_Error&quot;</span>, <span class="st">&quot;AdjustedSE&quot;</span>, <span class="st">&quot;z_value&quot;</span>, <span class="st">&quot;p_value&quot;</span>))</span>
-<span id="cb32-3"><a href="#cb32-3"></a>BMR=<span class="kw">as.data.frame</span>(BMR)</span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#BMR</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="kw">is.data.frame</span>(BMR)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>BMR=<span class="kw">setNames</span>(<span class="kw">cbind</span>(<span class="kw">rownames</span>(bestModelsResults), bestModelsResults, <span class="dt">row.names =</span> <span class="ot">NULL</span>), </span>
+<span id="cb24-2"><a href="#cb24-2"></a>         <span class="kw">c</span>(<span class="st">&quot;Variables&quot;</span>, <span class="st">&quot;Coef_Estimate&quot;</span>, <span class="st">&quot;Std_Error&quot;</span>, <span class="st">&quot;AdjustedSE&quot;</span>, <span class="st">&quot;z_value&quot;</span>, <span class="st">&quot;p_value&quot;</span>))</span>
+<span id="cb24-3"><a href="#cb24-3"></a>BMR=<span class="kw">as.data.frame</span>(BMR)</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#BMR</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="kw">is.data.frame</span>(BMR)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <hr />
 </div>
 <div id="intervalos-de-confianza" class="section level3">
 <h3>Intervalos de Confianza</h3>
 <p>Los Intervalos de confianza de los parámetros se extraje del modelo usando la siguiente funciones.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">library</span>(coefplot)</span></code></pre></div>
-<pre><code>## Warning: package &#39;coefplot&#39; was built under R version 4.0.3</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Calcular el intervalo de confianza de 2.5% y de 97.5% </span></span>
-<span id="cb36-2"><a href="#cb36-2"></a></span>
-<span id="cb36-3"><a href="#cb36-3"></a>BMR<span class="op">$</span>LowerBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">-</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a>BMR<span class="op">$</span>UpperBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">+</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a>BMR</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">library</span>(coefplot)</span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co"># Calcular el intervalo de confianza de 2.5% y de 97.5% </span></span>
+<span id="cb26-5"><a href="#cb26-5"></a></span>
+<span id="cb26-6"><a href="#cb26-6"></a>BMR<span class="op">$</span>LowerBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">-</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>BMR<span class="op">$</span>UpperBound=BMR<span class="op">$</span>Coef_Estimate<span class="op">+</span>BMR<span class="op">$</span>AdjustedSE<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a>BMR</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-13">
 <col><col><col><col><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Variables</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Coef_Estimate</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Std_Error</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">AdjustedSE</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">z_value</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">p_value</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">LowerBound</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">UpperBound</th></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">(Intercept)</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">12.9&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.703</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.704</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">18.4&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">11.5&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">14.3&nbsp;&nbsp;&nbsp;</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">(Intercept)</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">12.9&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.703</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.703</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">18.4&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">11.5&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">14.3&nbsp;&nbsp;&nbsp;</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Escolaridad</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.316&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.189</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.19&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.67&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0959</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.695&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0635</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Escolaridad</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.316&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.189</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.19&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.67&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0957</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.695&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.0633</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">Sala_Mens_Antes</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.452&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.66&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0974</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">-0.0934</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.996&nbsp;</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">Sala_Mens_Antes</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.451&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.272</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1.66&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0975</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">-0.0934</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.996&nbsp;</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Sala_Mens_Desp</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.464&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.53&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.126&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-1.07&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.143&nbsp;</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Sala_Mens_Desp</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-0.463&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.303</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1.53&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.127&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">-1.07&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.144&nbsp;</td></tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">Num_Pers_Hogar</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.0414</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.178</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.232</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.817&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">-0.315&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.398&nbsp;</td></tr>
 </table>
 
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">names</span>(BMR)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">names</span>(BMR)</span></code></pre></div>
 <pre><code>## [1] &quot;Variables&quot;     &quot;Coef_Estimate&quot; &quot;Std_Error&quot;     &quot;AdjustedSE&quot;   
 ## [5] &quot;z_value&quot;       &quot;p_value&quot;       &quot;LowerBound&quot;    &quot;UpperBound&quot;</code></pre>
 <hr />
 </div>
 <div id="visualizar-los-coeficientes-con-los-intervalos-de-confianza" class="section level3">
 <h3>Visualizar los coeficientes con los intervalos de confianza</h3>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">ggplot</span>(BMR, <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Variables, <span class="dt">y =</span> Coef_Estimate,</span>
-<span id="cb39-2"><a href="#cb39-2"></a>       <span class="dt">ymin =</span> LowerBound, <span class="dt">ymax =</span> UpperBound, <span class="dt">colour=</span>Variables))<span class="op">+</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">0.0</span>, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
-<span id="cb39-5"><a href="#cb39-5"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
-<span id="cb39-6"><a href="#cb39-6"></a><span class="st">  </span><span class="kw">geom_pointrange</span>()<span class="op">+</span></span>
-<span id="cb39-7"><a href="#cb39-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Variables&quot;</span>)<span class="op">+</span></span>
-<span id="cb39-8"><a href="#cb39-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Coefficients: Indice de depresión&quot;)+</span></span>
-<span id="cb39-9"><a href="#cb39-9"></a><span class="st">  rlt_theme+</span></span>
-<span id="cb39-10"><a href="#cb39-10"></a><span class="st">  theme(legend.position=&quot;</span>none<span class="st">&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">ggplot</span>(BMR, <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Variables, <span class="dt">y =</span> Coef_Estimate,</span>
+<span id="cb29-2"><a href="#cb29-2"></a>       <span class="dt">ymin =</span> LowerBound, <span class="dt">ymax =</span> UpperBound, <span class="dt">colour=</span>Variables))<span class="op">+</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">0.0</span>, <span class="dt">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="st">  </span><span class="kw">geom_pointrange</span>()<span class="op">+</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Variables&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Coefficients: Indice de depresión&quot;</span>)<span class="op">+</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="st">  </span>rlt_theme<span class="op">+</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="TF8_Akaike_Information_Criterion_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Indice_depresión.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Indice_depresión.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Referencias:</p>
 <p>Johnson, J. B., K. S. Omland. 2004. Model selection in ecology and evolution. TRENDS in Ecology and Evolution. 19:101-108. doi: 10.1016/j.tree.2003.10.013.</p>
@@ -2197,7 +2146,7 @@ NA
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
