@@ -91,7 +91,7 @@ head(Titanic)
 ```
 
 
- + Hacer gráfico de la variable de respuesta. ¿Cual de las variables de las listas es la variable de respuesta parta una regesión logística y porque?
+ + Hacer gráfico de la variable de respuesta. ¿Cual de las variables de las listas es la variable de respuesta parta una regessión logística y porque?
  
  
 ```{r, eval=FALSE, echo=FALSE}
@@ -185,7 +185,7 @@ head(Bici)
 ```
 
 
-Evaluar un modelo para tratar de predecir la cantidad de ciclista que pasan por uno d elos puentes de New York
++ Evaluar un modelo para tratar de predecir la cantidad de ciclista que pasan por uno d elos puentes de New York
 
 ```{r eval=FALSE, include=FALSE}
 modelP=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = poisson(link="log"))
@@ -244,9 +244,6 @@ library(readr)
 GXM_Data <- read_csv("Data/GXM_Data.csv")
 
 
-
-
-
 GXM_Data$Prop_inv_plants=GXM_Data$alien/(GXM_Data$alien+GXM_Data$native)
 head(GXM_Data)
 ```
@@ -259,19 +256,21 @@ library(betareg)
 
 
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 modelBeta1=betareg(Prop_inv_plants~area+population+pdensity+gdp, data=na.omit(GXM_Data)) 
 
 summary(modelBeta1)
 ```
 
 
-Calculate the quantiles
++ Calculate the quantiles
 
 ```{r}
 
 ```
 
+
+## Philippine economic status and food allocation
 
 A second example: This data comes from the Philippines and is an survey of the amount economic status of 41544 families.  The survey includes 60 variables.  To see the names of the variables write ina chunk **names(Phili)**
 
@@ -288,13 +287,13 @@ Phili=clean_names(Phili)
 
 ```
 
-Calculate the proportion of the families cost of food per family based on the families income.  
++ Calculate the proportion of the families cost of food per family based on the families income.  
 
 ```{r}
 Phili$PropFood=Phili$total_food_expenditure/Phili$total_household_income
 ```
 
-Proozca un grafico de la variable de respuesta **PropFood**.  Evaluar el porcentaje del income que se usa para comida.   Cumple con las condiciones de una beta?  Si no como se resuelve?
++ Produzca un gráfico de la variable de respuesta **PropFood**.  Evaluar el porcentaje del income que se usa para comida.   Cumple con las condiciones de una beta?  Si no como se resuelve?
 
 ```{r eval=FALSE, include=FALSE}
 Phili=Phili %>% 
@@ -368,9 +367,9 @@ dp2
 ```
 
 
-Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1. 
++ Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1. 
 
-Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
++ Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.  
 
 ```{r beta reg graph, eval=FALSE, include=FALSE}
 library(ggplot2)
