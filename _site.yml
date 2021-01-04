@@ -90,7 +90,7 @@ navbar:
           text: "Lo básico de RStudio"
         - 
           href: RMarkdown.html
-          text: "Lo básico de RMarkdown"
+          text: "RMarkdown: Lo básico"
         - 
           href: Tendencias_Centrales.html
           text: " Tendencias Centrales"
