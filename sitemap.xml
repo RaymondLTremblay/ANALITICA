@@ -8,178 +8,188 @@
 
 
 <url>
-  <loc>https://raymondltremblay.github.io/ANALITICA/index.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <loc>https://raymondltremblay.github.io/ANALITICA/</loc>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://raymondltremblay.github.io/ANALITICA/index.html</loc>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E1-Introducci%C3%B3n.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E2-Historia.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E3-TallerRFE_I.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E4-Graficos.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E5-supuestos.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E6-TallerRFE_II.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E7-TRAvanzado.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/E8-Tipos_de_Datos.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G1-ggplot2.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G2-Errores-tipicos-en-la-visualizacion.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G3-Graficos-por-conteos.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G4-Grafico-de-puntos-de-Wilkinson.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G5_geom_area_densidad_freqpoly.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G6_geom_histogram.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G7_geom_bar.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G8_geom_boxplot_geom_violin.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G9_Facet_Grid.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G10_Facet_wrap.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G11_EVALUANDO_SUPUESTOS.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G12_Mapas_Calor.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G13_geom_line.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G14_geom_point_geom_jitter.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/G15_gganimate.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/screencast_t_test.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF_1_Descripci%C3%B3n.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF1_Regresion_Lineal.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF2_Regresion_Cuadratica_otro.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF3_Regresion_Multiples.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF4_GLM.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF5_Regresion_logistica.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF6_Regresion_Poisson.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF7_Regresion_beta.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/TF8_Akaike_Information_Criterion.html</loc>
-  <lastmod>2020-10-28T22:48:19+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://raymondltremblay.github.io/ANALITICA/TF9_Ejercicio_Practica.html</loc>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://raymondltremblay.github.io/ANALITICA/Datos.html</loc>
-  <lastmod>2020-10-28T22:48:18+00:00</lastmod>
+  <lastmod>2021-01-04T16:39:15+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
