@@ -13,20 +13,26 @@
 
 <title>Regresion Poisson</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -38,11 +44,19 @@
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -125,39 +139,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="tutorial.css" type="text/css" />
 
@@ -168,10 +152,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -188,40 +168,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -249,7 +202,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -261,7 +214,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -272,10 +225,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -287,7 +253,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -413,13 +378,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -546,7 +511,7 @@ div.tocify {
       <a href="Plataforma.html">Lo básico de RStudio</a>
     </li>
     <li>
-      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
@@ -615,7 +580,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -631,23 +596,23 @@ div.tocify {
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <hr />
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(arm)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(coefplot)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coefplot)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <hr />
 <div id="regresión-poisson" class="section level2">
 <h2>Regresión Poisson</h2>
 <p>La regresión Poisson es parte de los modelos lineales generalizados (GLM) y se utiliza cuando la variable de respuesta son conteos, unidades discretas no negativas.</p>
 <p>Los datos provienen del libro y ejemplos de Jared Lander, R for Everyone, 2nd Edition, Addison Wesley Data &amp; Analitics Series, 2017.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>acs=<span class="kw">read.table</span>(<span class="st">&quot;https://jaredlander.com/data/acs_ny.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(readr)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#acs_ny &lt;- read_csv(&quot;acs_ny.csv&quot;)</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#acs=acs_ny</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">head</span>(acs)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>acs<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">&quot;https://jaredlander.com/data/acs_ny.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#acs_ny &lt;- read_csv(&quot;acs_ny.csv&quot;)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#acs=acs_ny</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(acs)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-3">
 <col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Acres</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">FamilyIncome</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">FamilyType</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumBedrooms</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumChildren</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumPeople</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumRooms</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumUnits</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumVehicles</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumWorkers</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">OwnRent</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">YearBuilt</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">HouseCosts</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">ElectricBill</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">FoodStamp</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">HeatingFuel</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Insurance</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Language</th></tr>
@@ -680,17 +645,17 @@ div.tocify {
 <li>k! es el factorial de k.</li>
 </ul>
 <p>Cuando se describe una distribución Poisson el promedio es <span class="math inline">\(\lambda\)</span> y la varianza es tambien <span class="math inline">\(\lambda\)</span>. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<a href="https://en.wikipedia.org/wiki/Poisson_distribution" class="uri">https://en.wikipedia.org/wiki/Poisson_distribution</a>).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">set.seed</span>(<span class="dv">23454</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>foo &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb3-3"><a href="#cb3-3"></a>        <span class="dt">df1 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_1&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">1</span>)), <span class="co"># lambda es igual a 1</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>        <span class="dt">df5 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_5&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">5</span>)), <span class="co"># lambda es igual a 5</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>        <span class="dt">df15 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_15&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">15</span>)),<span class="co"># lambda es igual a 15</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="dt">df25 =</span> <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rep</span>(<span class="st">&#39;lambda_50&#39;</span>, <span class="dv">500</span>), <span class="dt">y =</span> <span class="kw">rpois</span>(<span class="dv">500</span>, <span class="dv">50</span>)) <span class="co"># lambda es igual a 50</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>)</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#foo</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a>lambda=<span class="kw">rbind</span>(foo<span class="op">$</span>df1, foo<span class="op">$</span>df5,foo<span class="op">$</span>df15,foo<span class="op">$</span>df25 )</span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23454</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>foo <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">df1 =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rep</span>(<span class="st">&#39;lambda_1&#39;</span>, <span class="dv">500</span>), <span class="at">y =</span> <span class="fu">rpois</span>(<span class="dv">500</span>, <span class="dv">1</span>)), <span class="co"># lambda es igual a 1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">df5 =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rep</span>(<span class="st">&#39;lambda_5&#39;</span>, <span class="dv">500</span>), <span class="at">y =</span> <span class="fu">rpois</span>(<span class="dv">500</span>, <span class="dv">5</span>)), <span class="co"># lambda es igual a 5</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">df15 =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rep</span>(<span class="st">&#39;lambda_15&#39;</span>, <span class="dv">500</span>), <span class="at">y =</span> <span class="fu">rpois</span>(<span class="dv">500</span>, <span class="dv">15</span>)),<span class="co"># lambda es igual a 15</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">df25 =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">rep</span>(<span class="st">&#39;lambda_50&#39;</span>, <span class="dv">500</span>), <span class="at">y =</span> <span class="fu">rpois</span>(<span class="dv">500</span>, <span class="dv">50</span>)) <span class="co"># lambda es igual a 50</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#foo</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>lambda<span class="ot">=</span><span class="fu">rbind</span>(foo<span class="sc">$</span>df1, foo<span class="sc">$</span>df5,foo<span class="sc">$</span>df15,foo<span class="sc">$</span>df25 )</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lambda)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-4">
 <col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">x</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">y</th></tr>
@@ -708,8 +673,8 @@ div.tocify {
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">lambda_1</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td></tr>
 </table>
 
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>lambda<span class="op">$</span>x =<span class="st"> </span><span class="kw">factor</span>(lambda<span class="op">$</span>x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;lambda_1&#39;</span>,<span class="st">&#39;lambda_5&#39;</span>,<span class="st">&#39;lambda_15&#39;</span>,<span class="st">&#39;lambda_50&#39;</span>))</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">head</span>(lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lambda<span class="sc">$</span>x <span class="ot">=</span> <span class="fu">factor</span>(lambda<span class="sc">$</span>x, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&#39;lambda_1&#39;</span>,<span class="st">&#39;lambda_5&#39;</span>,<span class="st">&#39;lambda_15&#39;</span>,<span class="st">&#39;lambda_50&#39;</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lambda)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-4">
 <col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">x</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">y</th></tr>
@@ -731,11 +696,11 @@ div.tocify {
 <div id="distribución-de-frecuencia-de-distribución-poisson" class="section level3">
 <h3>Distribución de frecuencia de distribución Poisson</h3>
 <p>Las figuras de la frecuencia demuestran el comportamiento de la distribución de Poisson cuando <span class="math inline">\(\lambda\)</span> aumenta. Se han generado 500 valores al azar en cada simulación donde <span class="math inline">\(\lambda\)</span> es 1, 5, 15 y 25. Nota que si <span class="math inline">\(\lambda = 1\)</span> entonces el promedio es uno y la varianza es 1. A medida <span class="math inline">\(\lambda \rightarrow \infty\)</span> (y la muestra es grande la distribución se acerca a una distribución normal.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">geom_histogram</span>(<span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x, <span class="dt">scales=</span><span class="st">&quot;free_y&quot;</span>)<span class="op">+</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>)<span class="op">+</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lambda, <span class="fu">aes</span>(y, <span class="at">fill=</span>x))<span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>x, <span class="at">scales=</span><span class="st">&quot;free_y&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frecuencia&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <hr />
 </div>
@@ -744,11 +709,11 @@ div.tocify {
 <p>Se puede convertir estos gráficos en una “probability mass distribution”. En esta ocasión la distribución sigue la siguiente ecuación,</p>
 <p><span class="math display">\[Pr\left(x=k\right)=\frac{\lambda^k\cdot e^{-\lambda}}{k!}\]</span></p>
 <p>La suma de <span class="math inline">\(Pr\left(x=k\right)\)</span> es igual a uno.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">fill=</span>x))<span class="op">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span>..density..), <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="op">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>x)<span class="op">+</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lambda, <span class="fu">aes</span>(y, <span class="at">fill=</span>x))<span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">color=</span><span class="st">&quot;#e9ecef&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>x)<span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <hr />
 </div>
@@ -756,10 +721,10 @@ div.tocify {
 <div id="probabilidades-cumulativas" class="section level2">
 <h2>Probabilidades cumulativas</h2>
 <p>Aqui se aplica la función para visualizar la probabilidades cumulativas, vea <strong>stat_ecdf {ggplot2}</strong> para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativos (i.e. <span class="math inline">\(f(k) = P(X \leq k)\)</span> . Lo más importante es reconocer que la adición de las probabilidades no es continua, pero “salta” de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de <span class="math inline">\(\lambda\)</span> es más grande los saltos son más pequeños (es más suave el cambio).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(lambda, <span class="kw">aes</span>(y, <span class="dt">colour=</span>x))<span class="op">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>)<span class="op">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="op">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lambda, <span class="fu">aes</span>(y, <span class="at">colour=</span>x))<span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;step&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;P(X=k)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;k&quot;</span>)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <hr />
 </div>
@@ -779,7 +744,7 @@ div.tocify {
 <div id="regresión-poisson-1" class="section level2">
 <h2>Regresión Poisson</h2>
 <p>El primer paso es evaluar la variable dependiente. Miramos las variables del archivo.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">head</span>(acs)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(acs)</span></code></pre></div>
 <p><table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-8">
 <col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Acres</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">FamilyIncome</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">FamilyType</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumBedrooms</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumChildren</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumPeople</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumRooms</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumUnits</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumVehicles</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">NumWorkers</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">OwnRent</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">YearBuilt</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">HouseCosts</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">ElectricBill</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">FoodStamp</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">HeatingFuel</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Insurance</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">Language</th></tr>
@@ -797,9 +762,9 @@ div.tocify {
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1-10</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">480</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Male Head</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">3</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Single detached</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Rented</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Before 1939</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">700</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">140</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">No</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Gas</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">English</td></tr>
 </table>
  La variable dependiente en nuestro análisis es el número de hijos <strong>NumChildren</strong>. Se observa que la mayoria de las familias no tienen hijos,</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ggplot</span>(acs, <span class="kw">aes</span>(<span class="dt">x=</span>NumChildren))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bindwidth=</span><span class="dv">1</span>, <span class="dt">fill=</span><span class="st">&quot;#376889&quot;</span>)<span class="op">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">round</span>(<span class="kw">seq</span>(<span class="kw">min</span>(acs<span class="op">$</span>NumChildren), <span class="kw">max</span>(acs<span class="op">$</span>NumChildren), <span class="dt">by =</span> <span class="dv">1</span>),<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(acs, <span class="fu">aes</span>(<span class="at">x=</span>NumChildren))<span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bindwidth=</span><span class="dv">1</span>, <span class="at">fill=</span><span class="st">&quot;#376889&quot;</span>)<span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">min</span>(acs<span class="sc">$</span>NumChildren), <span class="fu">max</span>(acs<span class="sc">$</span>NumChildren), <span class="at">by =</span> <span class="dv">1</span>),<span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: bindwidth</code></pre>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR-1.png" width="672" /></p>
 <hr />
@@ -807,10 +772,10 @@ div.tocify {
 <div id="modelo-poisson" class="section level2">
 <h2>Modelo Poisson</h2>
 <p>El modelo de regresión Poisson usa la función <strong>glm()</strong> y una transformación <strong>log</strong> con la siguiente función <strong>family=poisson(link=“log”)</strong>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>children1&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
-<span id="cb11-2"><a href="#cb11-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">summary</span>(children1)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>children1<span class="ot">&lt;-</span><span class="fu">glm</span>(NumChildren<span class="sc">~</span>FamilyIncome<span class="sc">+</span>FamilyType<span class="sc">+</span>OwnRent,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>acs, <span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(children1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = NumChildren ~ FamilyIncome + FamilyType + OwnRent, 
@@ -838,7 +803,7 @@ div.tocify {
 ## AIC: 61370
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">coefplot</span>(children1)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coefplot</span>(children1)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR2-1.png" width="672" /></p>
 <hr />
 </div>
@@ -851,13 +816,13 @@ div.tocify {
 <p>donde</p>
 <p><span class="math display">\[{ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma } }_{ i } }{ sd({ \hat { \gamma } }_{ i }) } =\frac { \gamma _{ i }-{ \mu }_{ i }{ \hat { \theta } }_{ i } }{ \sqrt { { \mu }_{ i }{ \hat { \theta } }_{ i } } }\]</span></p>
 <p>Se puede evaluar los residuales estandarizados en R con el siguiente script. El modelo se llama <strong>children1</strong> y se aplica la formula arriba de la siguiente forma.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>z&lt;-(acs<span class="op">$</span>NumChildren<span class="op">-</span>children1<span class="op">$</span>fitted.values)<span class="op">/</span><span class="kw">sqrt</span>(children1<span class="op">$</span>fitted.values)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">head</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>z<span class="ot">&lt;-</span>(acs<span class="sc">$</span>NumChildren<span class="sc">-</span>children1<span class="sc">$</span>fitted.values)<span class="sc">/</span><span class="fu">sqrt</span>(children1<span class="sc">$</span>fitted.values)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(z)</span></code></pre></div>
 <pre><code>##           1           2           3           4           5           6 
 ##  0.18186518  0.87627176 -0.84977889 -0.08314153  0.39096022  1.95966583</code></pre>
 <div id="el-factorindice-de-sobredispersión" class="section level3">
 <h3>El factor/indice de sobredispersión</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>children1<span class="op">$</span>df.residual</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(z<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>children1<span class="sc">$</span>df.residual</span></code></pre></div>
 <pre><code>## [1] 1.469747</code></pre>
 <hr />
 </div>
@@ -866,8 +831,8 @@ div.tocify {
 <h2>Probando si hay sobredisperión</h2>
 <p>Generalmente, una relación de sobredispersión de 2 o más indica sobredispersión. Si bien esta relación de sobredispersión es menor que 2, el valor p es 1, lo que significa que hay una sobredispersión estadísticamente significativa. Así que reajustamos el modelo para tener en cuenta la sobredispersión usando la familia de quasipoisson, que en realidad usa la distribución binomial negativa.</p>
 <p>En paquete <strong>AER</strong> hay una función para evaluar la sobre dispersión que se llama <strong>dispersiontest</strong></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">library</span>(AER)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">dispersiontest</span>(children1, <span class="dt">trafo=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(children1, <span class="at">trafo=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Overdispersion test
 ## 
@@ -878,10 +843,10 @@ div.tocify {
 ##     alpha 
 ## 0.4696118</code></pre>
 <p>Pueden encontrar otras alternativas de como evaluar si hay sobredispersión de los datos en este enlace. <a href="https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant" class="uri">https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant</a></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>children2&lt;-<span class="kw">glm</span>(NumChildren<span class="op">~</span>FamilyIncome<span class="op">+</span>FamilyType<span class="op">+</span>OwnRent,</span>
-<span id="cb20-2"><a href="#cb20-2"></a>               <span class="dt">data=</span>acs, <span class="dt">family=</span><span class="kw">quasipoisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb20-3"><a href="#cb20-3"></a></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="kw">summary</span>(children2)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>children2<span class="ot">&lt;-</span><span class="fu">glm</span>(NumChildren<span class="sc">~</span>FamilyIncome<span class="sc">+</span>FamilyType<span class="sc">+</span>OwnRent,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>acs, <span class="at">family=</span><span class="fu">quasipoisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(children2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = NumChildren ~ FamilyIncome + FamilyType + OwnRent, 
@@ -909,8 +874,8 @@ div.tocify {
 ## AIC: NA
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Ahora se compara loa parametros de los dos modelos  </span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">multiplot</span>(children1, children2)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ahora se compara loa parametros de los dos modelos  </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">multiplot</span>(children1, children2)</span></code></pre></div>
 <p><img src="TF6_Regresion_Poisson_files/figure-html/PR6-1.png" width="672" /></p>
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
@@ -947,7 +912,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

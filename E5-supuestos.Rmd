@@ -112,7 +112,7 @@ hist.day1 +
   stat_function(fun = dnorm, 
                 args = list(mean = mean(dlf$day1,na.rm = TRUE), 
                 sd = sd(dlf$day1 , na.rm = TRUE)), 
-                colour = "red", size = 1)
+                colour = "blue", size = 1)
 
 shapiro.test(dlf$day1)  # don't use with more than 40 a 200 data point
 length(dlf$day1)

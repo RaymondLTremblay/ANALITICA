@@ -14,21 +14,28 @@
 
 <title>Tema_3_Graficos</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -40,11 +47,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -57,32 +59,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -92,10 +69,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -112,40 +85,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -173,7 +119,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -185,7 +131,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -196,10 +142,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -211,7 +170,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -337,13 +295,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -470,7 +428,7 @@ div.tocify {
       <a href="Plataforma.html">Lo básico de RStudio</a>
     </li>
     <li>
-      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
@@ -539,7 +497,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -653,10 +611,10 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1] -1.1529884  2.4784131  0.5588836 -1.0592050  0.1080103  0.2727082</code></pre>
+<pre><code>## [1]  2.6689231  0.3539153 -0.1579706 -0.4902075  0.8517660 -0.7742399</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
 <pre><code>##          0%         25%         50%         75%        100% 
-## -3.11704051 -0.68856654 -0.03741577  0.66538471  3.00089943</code></pre>
+## -3.13349326 -0.58743962  0.06372471  0.69708451  2.75000336</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
 <p>How to do a simple linear point graph and add text to graph, change the axis name</p>
 <pre class="r"><code>library(ggplot2)
@@ -739,13 +697,13 @@ DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></p
 <pre class="r"><code>FD=DownloadFestival
 head(FD)  # ver las 6 primeras filas</code></pre>
 <pre><code>## # A tibble: 6 x 5
-##   ticknumb gender  day1  day2   day3
-##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1     2111 Male    2.64  1.35  1.61 
-## 2     2229 Female  0.97  1.41  0.290
-## 3     2338 Male    0.84 NA    NA    
-## 4     2384 Female  3.03 NA    NA    
-## 5     2401 Female  0.88  0.08 NA    
+##   ticknumb gender  day1  day2  day3
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     2111 Male    2.64  1.35  1.61
+## 2     2229 Female  0.97  1.41  0.29
+## 3     2338 Male    0.84 NA    NA   
+## 4     2384 Female  3.03 NA    NA   
+## 5     2401 Female  0.88  0.08 NA   
 ## 6     2405 Male    0.85 NA    NA</code></pre>
 <pre class="r"><code>length(FD$ticknumb)  # cuantas filas</code></pre>
 <pre><code>## [1] 810</code></pre>
@@ -754,8 +712,8 @@ head(FD)  # ver las 6 primeras filas</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     2111 Male    2.64  1.35 1.61 
-## 2     2229 Female  0.97  1.41 0.290</code></pre>
+## 1     2111 Male    2.64  1.35  1.61
+## 2     2229 Female  0.97  1.41  0.29</code></pre>
 <pre class="r"><code>tail(FD)</code></pre>
 <pre><code>## # A tibble: 6 x 5
 ##   ticknumb gender  day1  day2  day3
@@ -768,13 +726,13 @@ head(FD)  # ver las 6 primeras filas</code></pre>
 ## 6     4765 Female  1.26 NA       NA</code></pre>
 <pre class="r"><code>head(FD)</code></pre>
 <pre><code>## # A tibble: 6 x 5
-##   ticknumb gender  day1  day2   day3
-##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1     2111 Male    2.64  1.35  1.61 
-## 2     2229 Female  0.97  1.41  0.290
-## 3     2338 Male    0.84 NA    NA    
-## 4     2384 Female  3.03 NA    NA    
-## 5     2401 Female  0.88  0.08 NA    
+##   ticknumb gender  day1  day2  day3
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     2111 Male    2.64  1.35  1.61
+## 2     2229 Female  0.97  1.41  0.29
+## 3     2338 Male    0.84 NA    NA   
+## 4     2384 Female  3.03 NA    NA   
+## 5     2401 Female  0.88  0.08 NA   
 ## 6     2405 Male    0.85 NA    NA</code></pre>
 <pre class="r"><code> ggplot(FD, aes(day1))+ 
   geom_histogram(colour=&quot;white&quot;, fill=&quot;steelblue&quot;) + 
@@ -874,18 +832,18 @@ ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 <p>Now to remove outliers</p>
 <pre class="r"><code>Festivalday1</code></pre>
 <pre><code>## # A tibble: 809 x 5
-##    ticknumb gender  day1  day2   day3
-##       &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1     2111 Male    2.64  1.35  1.61 
-##  2     2229 Female  0.97  1.41  0.290
-##  3     2338 Male    0.84 NA    NA    
-##  4     2384 Female  3.03 NA    NA    
-##  5     2401 Female  0.88  0.08 NA    
-##  6     2405 Male    0.85 NA    NA    
-##  7     2467 Female  1.56 NA    NA    
-##  8     2478 Female  3.02 NA    NA    
-##  9     2490 Male    2.29 NA    NA    
-## 10     2504 Female  1.11  0.44  0.55 
+##    ticknumb gender  day1  day2  day3
+##       &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     2111 Male    2.64  1.35  1.61
+##  2     2229 Female  0.97  1.41  0.29
+##  3     2338 Male    0.84 NA    NA   
+##  4     2384 Female  3.03 NA    NA   
+##  5     2401 Female  0.88  0.08 NA   
+##  6     2405 Male    0.85 NA    NA   
+##  7     2467 Female  1.56 NA    NA   
+##  8     2478 Female  3.02 NA    NA   
+##  9     2490 Male    2.29 NA    NA   
+## 10     2504 Female  1.11  0.44  0.55
 ## # … with 799 more rows</code></pre>
 <pre class="r"><code>ggplot(Festivalday1, aes(gender, day1))+ geom_boxplot()</code></pre>
 <p><img src="E4-Graficos_files/figure-html/boxplot2-1.png" width="672" /> #Line and error bars</p>
@@ -989,7 +947,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

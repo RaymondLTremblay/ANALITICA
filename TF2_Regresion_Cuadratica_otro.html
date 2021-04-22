@@ -13,20 +13,26 @@
 
 <title>Regresion cuadratica</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -38,11 +44,19 @@
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -125,39 +139,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="tutorial.css" type="text/css" />
 
@@ -168,10 +152,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -188,40 +168,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -249,7 +202,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -261,7 +214,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -272,10 +225,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -287,7 +253,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -413,13 +378,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -546,7 +511,7 @@ div.tocify {
       <a href="Plataforma.html">Lo básico de RStudio</a>
     </li>
     <li>
-      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
@@ -615,7 +580,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -631,23 +596,23 @@ div.tocify {
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <hr />
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(QuantPsyc, car, tidyverse, sjPlot)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(QuantPsyc)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(car)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">library</span>(sjPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(QuantPsyc, car, tidyverse, sjPlot)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(QuantPsyc)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
 <hr />
 <div id="regresión-polinomial" class="section level1">
 <h1>Regresión Polinomial</h1>
 <p>Si la gráfica de residuos de la regresión lineal indica una distribución no aleatoria del error de predicción del modelo lineal es posible que pueda mejorar su predicción utilizando una regresión con un término cuadrático (es decir, <span class="math inline">\(X^2\)</span>), por lo que ahora tenemos una <strong>regresión con un polinomio.</strong></p>
 <p>Construcción de un modelo con polinomio. Usamos los datos de 15 observaciones de mujeres en el archivo <strong>women</strong> en el paquete <strong>datasets</strong>. Los datos representan la altura (en pulgadas) y el peso (en libras) de 15 mujeres entre las edades de 30 a 39.</p>
 <p>Nota aquí que se usa <strong>I(x^2)</strong> para añadir el monomio <span class="math inline">\(x^2\)</span> . Ahora nuestro modelo evaluará el efecto de la regresión lineal y cuadrática. El resumen del modelo se observa que el modelo incluye tanto el intercepto, la ecuación lineal y el término cuadrático, y cada uno es significativo. Esto quiere decir que tanto el modelo lineal como el polinomio explican parte de la varianza. NOTA como se indica que un valor</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>fit2 &lt;-<span class="st"> </span><span class="kw">lm</span>(weight <span class="op">~</span><span class="st"> </span>height <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(height<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>women)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">summary</span>(fit2)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>(height<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>women)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = weight ~ height + I(height^2), data = women)
@@ -667,12 +632,12 @@ div.tocify {
 ## Residual standard error: 0.3841 on 12 degrees of freedom
 ## Multiple R-squared:  0.9995, Adjusted R-squared:  0.9994 
 ## F-statistic: 1.139e+04 on 2 and 12 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">plot</span>(fit2)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit2)</span></code></pre></div>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/regr_polyn1-1.png" width="672" /><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/regr_polyn1-2.png" width="672" /><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/regr_polyn1-3.png" width="672" /><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/regr_polyn1-4.png" width="672" /></p>
 <div id="comparar-el-modelo-anterior-con-el-siguiente-modelo.-en-el-presente-modelo-se-removio-el-polinimio.-evaluando-los-residuales-es-claro-que-estos-no-son-distribuido-de-forma-al-azar.-note-la-curva.-esto-es-un-indicador-que-no-cumple-con-el-supuesto-de-igualdad-de-varianza." class="section level3">
 <h3>Comparar el modelo anterior con el siguiente modelo. En el presente modelo se removio el polinimio. Evaluando los residuales es claro que estos no son distribuido de forma al azar. Note la curva. Esto es un indicador que no cumple con el supuesto de igualdad de varianza.</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fit2 &lt;-<span class="st"> </span><span class="kw">lm</span>(weight <span class="op">~</span><span class="st"> </span>height, <span class="dt">data=</span>women)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">summary</span>(fit2)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> height, <span class="at">data=</span>women)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = weight ~ height, data = women)
@@ -691,19 +656,19 @@ div.tocify {
 ## Residual standard error: 1.525 on 13 degrees of freedom
 ## Multiple R-squared:  0.991,  Adjusted R-squared:  0.9903 
 ## F-statistic:  1433 on 1 and 13 DF,  p-value: 1.091e-14</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">plot</span>(fit2<span class="op">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit2<span class="sc">$</span>residuals)</span></code></pre></div>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/regr_polyn2-1.png" width="672" /></p>
 <hr />
 </div>
 <div id="visualizando-el-gráfico." class="section level2">
 <h2>Visualizando el gráfico.</h2>
 <p>Nota que la linea <span style="color: blue;">azul</span> representa el modelo de regresión lineal y la linea <span style="color: red;">roja</span> representa el modelo <span class="math inline">\(y \approx ax^2 +bx+c\)</span>. Es claro que el modelo <span class="math inline">\(y \approx ax^2+bx+c\)</span> es un mejor modelo ya que los datos se acercan más a la linea.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggplot</span>(women, <span class="kw">aes</span>(height, weight)) <span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="kw">aes</span>(), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dv">2</span>), </span>
-<span id="cb8-5"><a href="#cb8-5"></a>              <span class="dt">color =</span><span class="st">&quot;red&quot;</span>, <span class="dt">se =</span><span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Height, inches&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Weight, lb.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(women, <span class="fu">aes</span>(height, weight)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="fu">aes</span>(), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x,<span class="dv">2</span>), </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span><span class="st">&quot;red&quot;</span>, <span class="at">se =</span><span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Height, inches&quot;</span>, <span class="at">y=</span><span class="st">&quot;Weight, lb.&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <hr />
@@ -711,24 +676,24 @@ div.tocify {
 <div id="visualizando-los-residuales" class="section level2">
 <h2>Visualizando los residuales</h2>
 <p>Recuerda que los residuales tienen que ser normalmente distribuidos a través de la variables de <strong>x</strong>. En este caso vemos que los residuales no están concentrados en un área de la gráfica. Por ejemplo los residuales no son más grande en los valores de <strong>x</strong> más grande.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">plot</span>(women<span class="op">$</span>height,<span class="kw">residuals</span>(fit2),</span>
-<span id="cb10-2"><a href="#cb10-2"></a>     <span class="dt">xlab=</span><span class="st">&quot;Height (in inches)&quot;</span>,</span>
-<span id="cb10-3"><a href="#cb10-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(women<span class="sc">$</span>height,<span class="fu">residuals</span>(fit2),</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Height (in inches)&quot;</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <hr />
 <p>La nueva ecuación polinomial es la siguiente:</p>
 <p><span class="math display">\[y=\alpha+b_1x_i+b_2x_i^2+\epsilon\]</span></p>
 <p>donde el intercepto <span class="math inline">\(\alpha\)</span> más los dos coeficientes, <span class="math inline">\(b_1\)</span> para el componente lineal y el componente cuadratico <span class="math inline">\(b_2\)</span>, el <span class="math inline">\(\epsilon\)</span> son los errores.</p>
 <p><span class="math display">\[y=261.9-7.35*x_i+0.08*x_i^2\]</span></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">tab_model</span>(</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  fit2,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,<span class="dt">show.stat =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb11-4"><a href="#cb11-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb11-5"><a href="#cb11-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb11-6"><a href="#cb11-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb11-7"><a href="#cb11-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>  )</span>
-<span id="cb11-9"><a href="#cb11-9"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  fit2,<span class="at">show.df =</span> <span class="cn">TRUE</span>,<span class="at">show.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSS =</span> <span class="fu">list</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -827,45 +792,45 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <h1>Modelo cúbico</h1>
 <p>Aquí un ejemplo para evaluar si los datos tienen una distribución cúbica. Primero creamos un conjunto de datos.</p>
 <p>Los valores en la variable <strong>x</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>d&lt;-<span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">20</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>d<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">20</span>, <span class="at">by=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <p>Los valores a predecirse en la variable <strong>y</strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>y&lt;-<span class="dv">500</span><span class="fl">+0.5</span><span class="op">*</span>(d<span class="dv">-10</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="dv">500</span><span class="fl">+0.5</span><span class="sc">*</span>(d<span class="dv">-10</span>)<span class="sc">^</span><span class="dv">3</span></span></code></pre></div>
 <p>Crear un conjunto de datos que tiene variación. Donde los datos tienen una variación con distribución normal con un promedio de 10 y una desviación estandar de 80.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>variación &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(d), <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">80</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>var.y &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>variación</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>variación <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(d), <span class="at">mean=</span><span class="dv">10</span>, <span class="at">sd=</span><span class="dv">80</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>var.y <span class="ot">&lt;-</span> y <span class="sc">+</span> variación</span></code></pre></div>
 <p>Unir los datos un un <strong>tibble</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df=<span class="kw">tibble</span>(y,var.y, d)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">tibble</span>(y,var.y, d)</span></code></pre></div>
 <p>Visualizar los datos con el polinomio cúbico.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(d, var.y)) <span class="op">+</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dv">3</span>), </span>
-<span id="cb16-4"><a href="#cb16-4"></a>              <span class="dt">color =</span><span class="st">&quot;red&quot;</span>, <span class="dt">se =</span><span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(d, var.y)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x,<span class="dv">3</span>), </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span><span class="st">&quot;red&quot;</span>, <span class="at">se =</span><span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Ahora vemos como se ve los modelos de <span style="color: blue;">regresión lineal</span> y <span style="color: orange;">cuadratico</span>. nota que los datos siguen mucho mejor la curva cúbica.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(d, var.y)) <span class="op">+</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)<span class="op">+</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dv">2</span>), </span>
-<span id="cb17-5"><a href="#cb17-5"></a>              <span class="dt">color =</span><span class="st">&quot;orange&quot;</span>, <span class="dt">se =</span><span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">1</span>)<span class="op">+</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dv">3</span>), </span>
-<span id="cb17-7"><a href="#cb17-7"></a>              <span class="dt">color =</span><span class="st">&quot;red&quot;</span>, <span class="dt">se =</span><span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(d, var.y)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x,<span class="dv">2</span>), </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span><span class="st">&quot;orange&quot;</span>, <span class="at">se =</span><span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x,<span class="dv">3</span>), </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span><span class="st">&quot;red&quot;</span>, <span class="at">se =</span><span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <hr />
 <div id="construir-el-modelo-cubico" class="section level2">
 <h2>Construir el modelo cubico</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>fit3 &lt;-<span class="st"> </span><span class="kw">lm</span>(var.y <span class="op">~</span><span class="st"> </span>d <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(d<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="st"> </span><span class="kw">I</span>(d<span class="op">^</span><span class="dv">3</span>), <span class="dt">data=</span>df)</span>
-<span id="cb19-2"><a href="#cb19-2"></a></span>
-<span id="cb19-3"><a href="#cb19-3"></a></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="kw">tab_model</span>(</span>
-<span id="cb19-5"><a href="#cb19-5"></a>  fit3,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,<span class="dt">show.stat =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb19-6"><a href="#cb19-6"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb19-7"><a href="#cb19-7"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb19-8"><a href="#cb19-8"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb19-9"><a href="#cb19-9"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb19-10"><a href="#cb19-10"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb19-11"><a href="#cb19-11"></a>  )</span>
-<span id="cb19-12"><a href="#cb19-12"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(var.y <span class="sc">~</span> d <span class="sc">+</span> <span class="fu">I</span>(d<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span> <span class="fu">I</span>(d<span class="sc">^</span><span class="dv">3</span>), <span class="at">data=</span>df)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  fit3,<span class="at">show.df =</span> <span class="cn">TRUE</span>,<span class="at">show.stat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSS =</span> <span class="fu">list</span>(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -997,7 +962,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="los-residuales-del-modelo" class="section level2">
 <h2>Los residuales del modelo</h2>
 <p>Se observa que los residuales están distribuido uniformemente entre todos los valores de la variable en <strong>x</strong>. Por consecuencia se cumple con el supuesto de <strong>Igualdad de varianza</strong>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">plot</span>(df<span class="op">$</span>d,<span class="kw">residuals</span>(fit3))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>d,<span class="fu">residuals</span>(fit3))</span></code></pre></div>
 <p><img src="TF2_Regresion_Cuadratica_otro_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="interpretación-de-la-tabla-de-resultados-1" class="section level2">
@@ -1015,7 +980,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>En el gráfico abajo a la izquierda un patrón donde sugiere que la relación entre una variable y otra no es lineal.</p></li>
 <li><p>En el gráfico abajo a la derecha se observa un patrón de residuales donde tanto los datos son heteroescadisticidad y no-lineal.</p></li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;Graficos/Residuals_heteroscadasticity.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;Graficos/Residuals_heteroscadasticity.png&quot;</span>)</span></code></pre></div>
 <p><img src="Graficos/Residuals_heteroscadasticity.png" width="50%" /></p>
 <hr />
 <blockquote>
@@ -1054,7 +1019,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

@@ -13,20 +13,26 @@
 
 <title>Regresión Lineal</title>
 
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -38,11 +44,19 @@
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -125,39 +139,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="tutorial.css" type="text/css" />
 
@@ -168,10 +152,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -188,40 +168,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -249,7 +202,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -261,7 +214,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -272,10 +225,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -287,7 +253,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -413,13 +378,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -546,7 +511,7 @@ div.tocify {
       <a href="Plataforma.html">Lo básico de RStudio</a>
     </li>
     <li>
-      <a href="RMarkdown.html">Lo básico de RMarkdown</a>
+      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
@@ -615,7 +580,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -631,19 +596,19 @@ div.tocify {
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2020-12-10&quot;</code></pre>
+<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
 <hr />
 <p>El siguiente comando verifica que tenga las librerias necesarias instaladas y las activa de estar disponible en su sistema. El paquete <strong>pacman</strong> evalúa si los tiene instalado y los instala de ser necesario.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(QuantPsyc, car, ggplot2, tidyverse, sjPlot, janitor)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(QuantPsyc)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">library</span>(car)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="kw">library</span>(sjPlot)</span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="kw">library</span>(janitor)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(QuantPsyc, car, ggplot2, tidyverse, sjPlot, janitor)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(QuantPsyc)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div>
 <hr />
 <div id="regresión-lineal" class="section level1">
 <h1>Regresión Lineal</h1>
@@ -652,15 +617,15 @@ div.tocify {
 <p>Aquí estaremos evaluando solamente la regresión lineal</p>
 <p>Vemos un ejemplo ficticio</p>
 <p>Los datos son de unos barrios de Macondo donde se observa el números de barras en un bario y la cantidad de homicidios en ese barrio. Los datos se encuentran la sección de datos abajo</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>pubs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/pubs.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pubs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Data/pubs.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   pubs = col_double(),
 ##   mortality = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>pubs</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pubs</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:data">
 <col><col><tr>
 <th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">pubs</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">mortality</th></tr>
@@ -682,12 +647,12 @@ div.tocify {
 <td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">500</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1e+04</td></tr>
 </table>
 
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Cambiamos los nombres de las columnas al español</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a>pubs=pubs<span class="op">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">barras=</span>pubs, <span class="dt">mortalidad=</span>mortality) <span class="co"># cambiamos los nombres de las columnas al español. </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a>pubs</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cambiamos los nombres de las columnas al español</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>pubs<span class="ot">=</span>pubs<span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">barras=</span>pubs, <span class="at">mortalidad=</span>mortality) <span class="co"># cambiamos los nombres de las columnas al español. </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>pubs</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:data">
 <col><col><tr>
 <th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">barras</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">mortalidad</th></tr>
@@ -726,9 +691,9 @@ div.tocify {
 </ul>
 <p>Ahora evaluamos los resultados de la regresión entre el número de barras en un vecindarios (los barrios) y la mortalidad en este mismo sector. Se observa que los coeficientes de la linea son <span class="math inline">\(y=3352+14.3*x\)</span>. Entonce el intercepto en cero comienza en 3352 fatalidades y por cada barra adicional hay 14.3 más fatalidades. Esto significa que si no hay barras la <strong>x=0</strong>, la cantidad de fatalidades esperada es de 3352.</p>
 <p>Ahora para determinar si estos valores son significativo hay que evaluar el valor de <strong>p</strong> en cada linea. La hipótesis nula del intercepto tiene un valor de p =0.005, que sugiere que se debería rechazar la hipótesis nula, y por consecuencia aceptamos la hipótesis alterna, que el intercepto no es igual a cero. La pendiente tiene un valor de p=0.015 y también se rechaza la hipótesis nula, esto sugiere que a medida que aumenta la cantidad de barras aumenta la cantidad de fatalidades, por cada barra adicional esperamos 14.3 fatalidades adicionales.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>pubReg &lt;-<span class="st"> </span><span class="kw">lm</span>(mortalidad<span class="op">~</span>barras, <span class="dt">data =</span> pubs) </span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a> <span class="kw">summary</span>(pubReg) <span class="co"># Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pubReg <span class="ot">&lt;-</span> <span class="fu">lm</span>(mortalidad<span class="sc">~</span>barras, <span class="at">data =</span> pubs) </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(pubReg) <span class="co"># Si no se acuerda de la función que sigue use la siguiente función (que es más sencilla)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mortalidad ~ barras, data = pubs)
@@ -747,25 +712,25 @@ div.tocify {
 ## Residual standard error: 1864 on 6 degrees of freedom
 ## Multiple R-squared:  0.6495, Adjusted R-squared:  0.591 
 ## F-statistic: 11.12 on 1 and 6 DF,  p-value: 0.01572</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a> pubReg<span class="op">$</span>residuals  <span class="co"># Para ver los residuales</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a> pubReg<span class="sc">$</span>residuals  <span class="co"># Para ver los residuales</span></span></code></pre></div>
 <pre><code>##          1          2          3          4          5          6          7 
 ## -2495.3445 -1638.7337  -782.1229    74.4879   931.0987  1787.7095  2644.3203 
 ##          8 
 ##  -521.4153</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a> <span class="kw">cooks.distance</span>(pubReg)<span class="co"># Pata calcular los indices de Cooks</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">cooks.distance</span>(pubReg)<span class="co"># Pata calcular los indices de Cooks</span></span></code></pre></div>
 <pre><code>##            1            2            3            4            5            6 
 ## 2.132784e-01 8.530493e-02 1.814286e-02 1.547980e-04 2.293965e-02 8.092291e-02 
 ##            7            8 
 ## 1.710655e-01 2.271429e+02</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">tab_model</span>(</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  pubReg,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb13-4"><a href="#cb13-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb13-5"><a href="#cb13-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb13-6"><a href="#cb13-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb13-7"><a href="#cb13-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a>  )</span>
-<span id="cb13-9"><a href="#cb13-9"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  pubReg,<span class="at">show.df =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSS =</span> <span class="fu">list</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -848,9 +813,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="visualización-de-la-regresión" class="section level1">
 <h1>Visualización de la regresión</h1>
 <p>Se observa que hay un aumento en fatalidades con aumento en el número de barras. Pero nota el valor a la derecha que parece ser muy atípico comparado a los otros.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">ggplot</span>(pubs, <span class="kw">aes</span>(<span class="dt">x=</span>barras, <span class="dt">y=</span>mortalidad))<span class="op">+</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)<span class="op">+</span><span class="st"> </span><span class="co"># modelo lineal</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pubs, <span class="fu">aes</span>(<span class="at">x=</span>barras, <span class="at">y=</span>mortalidad))<span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)<span class="sc">+</span> <span class="co"># modelo lineal</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <hr />
@@ -858,14 +823,14 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="el-impacto-de-valores-atípicos" class="section level1">
 <h1>El impacto de valores atípicos</h1>
 <p>En cierta ocasiones valores fuera de lo normal pueden hacer grandes cambios en el resultado, en este caso el resultado de la regresión. ¿Cual es el efecto del valor grande? Removemos ese valor del archivo de datos y re-evaluamos el modelo (la regresión lineal). Nota que ahora el modelo es sumamente diferente <span class="math inline">\(y=-163.7+103.2*x\)</span>. ¿Ahora se rechazan las dos hipótesis?</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pubsnew &lt;-<span class="st"> </span>pubs[ <span class="kw">which</span>(pubs<span class="op">$</span>barras<span class="op">&lt;</span><span class="dv">80</span>), ]  <span class="co"># remover el valor grande</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a></span>
-<span id="cb16-3"><a href="#cb16-3"></a>pubsnew=pubsnew <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">add_row</span>(<span class="dt">barras =</span> <span class="dv">4</span>, <span class="dt">mortalidad =</span> <span class="dv">0</span>) <span class="co"># Añadiendo un par de valores</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a></span>
-<span id="cb16-6"><a href="#cb16-6"></a></span>
-<span id="cb16-7"><a href="#cb16-7"></a>pubRegNew &lt;-<span class="st"> </span><span class="kw">lm</span>(mortalidad<span class="op">~</span>barras, <span class="dt">data =</span> pubsnew)</span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="kw">summary</span>(pubRegNew)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pubsnew <span class="ot">&lt;-</span> pubs[ <span class="fu">which</span>(pubs<span class="sc">$</span>barras<span class="sc">&lt;</span><span class="dv">80</span>), ]  <span class="co"># remover el valor grande</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pubsnew<span class="ot">=</span>pubsnew <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">barras =</span> <span class="dv">4</span>, <span class="at">mortalidad =</span> <span class="dv">0</span>) <span class="co"># Añadiendo un par de valores</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>pubRegNew <span class="ot">&lt;-</span> <span class="fu">lm</span>(mortalidad<span class="sc">~</span>barras, <span class="at">data =</span> pubsnew)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pubRegNew)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mortalidad ~ barras, data = pubsnew)
@@ -884,15 +849,15 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## Residual standard error: 128.9 on 6 degrees of freedom
 ## Multiple R-squared:  0.9976, Adjusted R-squared:  0.9972 
 ## F-statistic:  2523 on 1 and 6 DF,  p-value: 4.177e-09</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">tab_model</span>(</span>
-<span id="cb18-2"><a href="#cb18-2"></a>  pubRegNew,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb18-4"><a href="#cb18-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb18-5"><a href="#cb18-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb18-6"><a href="#cb18-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb18-7"><a href="#cb18-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>  )</span>
-<span id="cb18-9"><a href="#cb18-9"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  pubRegNew,<span class="at">show.df =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSS =</span> <span class="fu">list</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -970,9 +935,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </td>
 </tr>
 </table>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">ggplot</span>(pubsnew,<span class="kw">aes</span>(<span class="dt">x=</span>barras, <span class="dt">y=</span>mortalidad))<span class="op">+</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pubsnew,<span class="fu">aes</span>(<span class="at">x=</span>barras, <span class="at">y=</span>mortalidad))<span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)<span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/remover%20valores-1.png" width="672" /></p>
 <hr />
@@ -981,8 +946,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <h1>La venta de discos de música</h1>
 <p>Ahora evaluamos un conjunto de datos más complejo y más realista similar a los que uno encontraría en un estudio en medicina, sociología o ecológica.</p>
 <p>Los datos representan la cantidad de dinero dedicado a la promoción de diferentes CD’s de una compañía de música y la cantidad de CD’s (CD/downloads) vendidos. En la primera linea se observa la cantidad de libras esterlina, <strong>£</strong> (UK) dedicada a la promoción del álbum de música, en la primera linea vemos que se gastó £10,256, y después la cantidad de CD vendidos fue 330. Tenemos información sobre 200 albumes diferentes.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb21-2"><a href="#cb21-2"></a>Album_Sales_<span class="dv">1</span>_new &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Data/Album_Sales_1_new.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Album_Sales_1_new <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Data/Album_Sales_1_new.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -991,7 +956,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ##   airplay = col_double(),
 ##   attract = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">head</span>(Album_Sales_<span class="dv">1</span>_new)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Album_Sales_1_new)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:advertizing and sales">
 <col><col><col><col><tr>
 <th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">adverts</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">sales</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">airplay</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">attract</th></tr>
@@ -1009,17 +974,17 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">569&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">170</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">19</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">5</td></tr>
 </table>
 
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)  <span class="co"># cuantas filas de datos hay en el archivo. </span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Album_Sales_1_new<span class="sc">$</span>adverts)  <span class="co"># cuantas filas de datos hay en el archivo. </span></span></code></pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">shapiro.test</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(Album_Sales_1_new<span class="sc">$</span>adverts)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  Album_Sales_1_new$adverts
 ## W = 0.92542, p-value = 1.482e-08</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">library</span>(nortest)</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="co">#Anderson-Darling </span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="kw">ad.test</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Anderson-Darling </span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(Album_Sales_1_new<span class="sc">$</span>adverts)</span></code></pre></div>
 <pre><code>## 
 ##  Anderson-Darling normality test
 ## 
@@ -1027,29 +992,29 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## A = 3.8762, p-value = 1.089e-09</code></pre>
 <p>Comenzamos graficando la relcacion entre las dos variables. Nota que en la parte de <strong>geom_smooth()</strong>, tiene que incluir <strong>method=lm</strong>, esto significa que el método de construir la linea usará la regresión lineal. Se añade a la función lineal <span class="math inline">\(\epsilon\)</span> que representa los errores de los valores al comparar con la linea que representa el mejor modelo.</p>
 <p><span class="math display">\[Y_{ i }=\beta _{ 0 }+\beta _{ 1 }X_{ i }+\epsilon _{ i }\]</span> Recuerda que <span class="math inline">\(\beta _{ 0 }\)</span> es el intercepto y el <span class="math inline">\(\beta _{ 1 }x_{ i }\)</span> es la pendiente. El área sombreada es el área de 95% de intervalo de confianza. Esto quiere decir que la mejor linea, intercepto y pendiente podría variar en este rango si repetimos el experimento. Nota aquí todas las alternativas, añadí las dos pendientes extremas, con una pendiente mayor (roja) y una menor (violeta). Cada punto representa la venta de un CD con su correspondiente cantidad dedicada a la promoción. Los <span class="math inline">\(epsilon\)</span> seria la diferencia entre la mejor linea y el valor original, esto se llama también los residuales.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new,<span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se =</span> <span class="ot">TRUE</span>)<span class="op">+</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">120</span>, <span class="dt">xend=</span><span class="dv">2250</span>, <span class="dt">yend=</span><span class="dv">380</span>), <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>)<span class="op">+</span></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">150</span>, <span class="dt">xend=</span><span class="dv">2250</span>, <span class="dt">yend=</span><span class="dv">320</span>), <span class="dt">colour=</span><span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Album_Sales_1_new,<span class="fu">aes</span>(<span class="at">x=</span>adverts, <span class="at">y=</span>sales))<span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">120</span>, <span class="at">xend=</span><span class="dv">2250</span>, <span class="at">yend=</span><span class="dv">380</span>), <span class="at">colour=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">150</span>, <span class="at">xend=</span><span class="dv">2250</span>, <span class="at">yend=</span><span class="dv">320</span>), <span class="at">colour=</span><span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/avertizing%20graph-1.png" width="672" /></p>
 <p>El modelo lineal con la función <strong>lm()</strong>. ¿Como interpretas los coeficientes y si estos son significativos? ¿se rechaza la hipótesis nula?</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">library</span>(sjPlot)</span>
-<span id="cb32-2"><a href="#cb32-2"></a>model1=<span class="kw">lm</span>(sales<span class="op">~</span>adverts, Album_Sales_<span class="dv">1</span>_new)</span>
-<span id="cb32-3"><a href="#cb32-3"></a></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#summary(model1)</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a></span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="kw">tab_model</span>(</span>
-<span id="cb32-7"><a href="#cb32-7"></a>  model1,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb32-8"><a href="#cb32-8"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb32-9"><a href="#cb32-9"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb32-10"><a href="#cb32-10"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb32-11"><a href="#cb32-11"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb32-12"><a href="#cb32-12"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb32-13"><a href="#cb32-13"></a>  )</span>
-<span id="cb32-14"><a href="#cb32-14"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">=</span><span class="fu">lm</span>(sales<span class="sc">~</span>adverts, Album_Sales_1_new)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model1)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  model1,<span class="at">show.df =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSS =</span> <span class="fu">list</span>(</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -1127,9 +1092,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </td>
 </tr>
 </table>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Album_Sales_1_new, <span class="fu">aes</span>(<span class="at">x=</span>adverts, <span class="at">y=</span>sales))<span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)<span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/sales%20model-1.png" width="672" /></p>
 <hr />
@@ -1142,7 +1107,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Evaluar si hay datos sesgados (atípicos) que influencian los resultados, evaluar el gráfico #3. Si los valores estandarizados de “Student” son mayor de 3, esto sugiere que hay datos atípicos.</p></li>
 <li><p>En el cuarto gráfico evaluar si hay valores que tienen mucho peso si se incluyen o no en el análisis, evaluar el gráfico #4. Estos van a ser identificados. Los valores con los que hay que preocuparse son los que están por encima o por debajo de la linea entrecortada. En el presente gráfico hay tres valores que hay que evaluar (1, 42, 169), estos valores se tiene que asegurar que son correctos. Siempre es bueno remover los valores sesgados y rehacer el análisis para observar cuan diferente son los resultas. Tipicamente más datos en un análisis , menos peso tendrá un valor sesgado sobre los resultados, al menos que este valor sea muy diferente a la mayoría de los datos.</p></li>
 </ol>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">plot</span>(model1)  <span class="co"># Evaluar los supuestos, 1. Igualdad de varianza, 2. Normalidad, 4. Datos sesgados (Cook&#39;s Distance)</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1)  <span class="co"># Evaluar los supuestos, 1. Igualdad de varianza, 2. Normalidad, 4. Datos sesgados (Cook&#39;s Distance)</span></span></code></pre></div>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-2.png" width="672" /><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-3.png" width="672" /><img src="TF1_Regresion_Lineal_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
 <hr />
 </div>
@@ -1158,17 +1123,17 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </li>
 <li>Determinar si hay valores de Cook’s <span class="math inline">\(D_i\)</span> mayor de 1, o 4/n.</li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="dv">4</span><span class="op">/</span><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="sc">/</span><span class="fu">length</span>(Album_Sales_1_new<span class="sc">$</span>adverts)</span></code></pre></div>
 <pre><code>## [1] 0.02</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>cooks.distance&lt;-<span class="kw">cooks.distance</span>(model1)</span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a></span>
-<span id="cb38-4"><a href="#cb38-4"></a>Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>sequence=<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">200</span>)</span>
-<span id="cb38-5"><a href="#cb38-5"></a></span>
-<span id="cb38-6"><a href="#cb38-6"></a></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(sequence, cooks.distance))<span class="op">+</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept=</span><span class="dv">4</span><span class="op">/</span><span class="kw">length</span>(Album_Sales_<span class="dv">1</span>_new<span class="op">$</span>adverts), <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Album_Sales_1_new<span class="sc">$</span>cooks.distance<span class="ot">&lt;-</span><span class="fu">cooks.distance</span>(model1)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>Album_Sales_1_new<span class="sc">$</span>sequence<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Album_Sales_1_new, <span class="fu">aes</span>(sequence, cooks.distance))<span class="sc">+</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">4</span><span class="sc">/</span><span class="fu">length</span>(Album_Sales_1_new<span class="sc">$</span>adverts), <span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/Cook%20distance-1.png" width="672" /></p>
 <hr />
 </div>
@@ -1195,8 +1160,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Normalidad, qqplot</p></li>
 <li><p>Valores sesgados, la prueba de Cook</p></li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>advertizingReg &lt;-<span class="st"> </span><span class="kw">lm</span>(sales<span class="op">~</span>adverts, <span class="dt">data =</span> Album_Sales_<span class="dv">1</span>_new)</span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="kw">summary</span>(advertizingReg)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>advertizingReg <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales<span class="sc">~</span>adverts, <span class="at">data =</span> Album_Sales_1_new)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(advertizingReg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = sales ~ adverts, data = Album_Sales_1_new)
@@ -1215,15 +1180,15 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## Residual standard error: 65.99 on 198 degrees of freedom
 ## Multiple R-squared:  0.3346, Adjusted R-squared:  0.3313 
 ## F-statistic: 99.59 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">tab_model</span>(</span>
-<span id="cb41-2"><a href="#cb41-2"></a>  advertizingReg,<span class="dt">show.df =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb41-3"><a href="#cb41-3"></a>  <span class="dt">CSS =</span> <span class="kw">list</span>(</span>
-<span id="cb41-4"><a href="#cb41-4"></a>    <span class="dt">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
-<span id="cb41-5"><a href="#cb41-5"></a>    <span class="dt">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
-<span id="cb41-6"><a href="#cb41-6"></a>    <span class="dt">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
-<span id="cb41-7"><a href="#cb41-7"></a>    <span class="dt">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
-<span id="cb41-8"><a href="#cb41-8"></a>  )</span>
-<span id="cb41-9"><a href="#cb41-9"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  advertizingReg,<span class="at">show.df =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">CSS =</span> <span class="fu">list</span>(</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.depvarhead =</span> <span class="st">&#39;color: red;&#39;</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.centeralign =</span> <span class="st">&#39;text-align: left;&#39;</span>, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.firsttablecol =</span> <span class="st">&#39;font-weight: bold;&#39;</span>, </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">css.summary =</span> <span class="st">&#39;color: blue;&#39;</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; font-weight: bold; ">
@@ -1309,20 +1274,20 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <div id="gráficar-los-residuales" class="section level2">
 <h2>Gráficar los residuales</h2>
 <p>Si el supuesto de igualdad de varianza se cumple lo que observaremos es que la distribución de los residuales luce más o menos uniforme alrededor del promedio de los residuales (el cero). Hay aproximadamente igual cantidad de valores mayor a cero (por encima de la línea en azul) y menor a cero (por debajo de la línea en azul) que están distribuidos a través de la variable en el eje de <strong>X</strong>, o valores estimados. En adición que los residuales (negativos o positivos) no son limitado a sub grupos de los valores estimados (en la <strong>X</strong>).</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># &quot;model1&quot;, nota que este no es un data frame pero un modelo</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a></span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="co"># La figura principal</span></span>
-<span id="cb42-4"><a href="#cb42-4"></a></span>
-<span id="cb42-5"><a href="#cb42-5"></a><span class="kw">ggplot</span>(Album_Sales_<span class="dv">1</span>_new, <span class="kw">aes</span>(<span class="dt">x=</span>adverts, <span class="dt">y=</span>sales))<span class="op">+</span></span>
-<span id="cb42-6"><a href="#cb42-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm, <span class="dt">se =</span> <span class="ot">TRUE</span>)<span class="op">+</span></span>
-<span id="cb42-7"><a href="#cb42-7"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;model1&quot;, nota que este no es un data frame pero un modelo</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># La figura principal</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Album_Sales_1_new, <span class="fu">aes</span>(<span class="at">x=</span>adverts, <span class="at">y=</span>sales))<span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/evaluate%20the%20residuals-1.png" width="672" /></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># Graficando los residuales con ggplot2</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a></span>
-<span id="cb44-3"><a href="#cb44-3"></a><span class="kw">ggplot</span>(model1, <span class="kw">aes</span>(<span class="dt">x=</span>.fitted, <span class="dt">y=</span>.resid))<span class="op">+</span></span>
-<span id="cb44-4"><a href="#cb44-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb44-5"><a href="#cb44-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficando los residuales con ggplot2</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(model1, <span class="fu">aes</span>(<span class="at">x=</span>.fitted, <span class="at">y=</span>.resid))<span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="TF1_Regresion_Lineal_files/figure-html/evaluate%20the%20residuals-2.png" width="672" /></p>
 <hr />
@@ -1336,10 +1301,10 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Usando los siguientes datos haga un análisis completo de regresión lineal.</p></li>
 <li><p>Determina si los supuestos de la regresión lineal se cumple.</p></li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">library</span>(datasets)</span>
-<span id="cb46-2"><a href="#cb46-2"></a>state.x77=<span class="kw">as.data.frame</span>(state.x77) <span class="co"># convertir los datos en un data frame</span></span>
-<span id="cb46-3"><a href="#cb46-3"></a>state.x77=janitor<span class="op">::</span><span class="kw">clean_names</span>(state.x77) <span class="co"># limpiar los nombres de las variables</span></span>
-<span id="cb46-4"><a href="#cb46-4"></a><span class="kw">head</span>(state.x77)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>state.x77<span class="ot">=</span><span class="fu">as.data.frame</span>(state.x77) <span class="co"># convertir los datos en un data frame</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>state.x77<span class="ot">=</span>janitor<span class="sc">::</span><span class="fu">clean_names</span>(state.x77) <span class="co"># limpiar los nombres de las variables</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(state.x77)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-6">
 <col><col><col><col><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">population</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">income</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">illiteracy</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">life_exp</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">murder</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">hs_grad</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">frost</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">area</th></tr>
@@ -1363,9 +1328,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <h2>Ejercicio 2</h2>
 <p>El conjunto de datos <strong>ToothGrowth</strong> del paquete <strong>datasets</strong> contiene el resultado de un experimento que estudia el efecto de la vitamina C en el crecimiento de los dientes en 60 cobayas (Guinea Pigs). Cada animal recibió uno de los tres niveles de dosis de vitamina C (0,5, 1 y 2 mg / día) mediante uno de los dos métodos de administración (jugo de naranja o ácido ascórbico (una forma de vitamina C y codificado como VC).</p>
 <p>Usando los siguiente datos haga un análisis completo de regresión lineal.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">library</span>(datasets)</span>
-<span id="cb47-2"><a href="#cb47-2"></a></span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="kw">head</span>(ToothGrowth)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ToothGrowth)</span></code></pre></div>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-8">
 <col><col><col><tr>
 <th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">len</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">supp</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">dose</th></tr>
@@ -1421,7 +1386,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
