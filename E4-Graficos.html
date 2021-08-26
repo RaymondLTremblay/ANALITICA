@@ -14,7 +14,7 @@
 
 <title>Tema_3_Graficos</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -296,12 +296,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -431,6 +431,9 @@ div.tocify {
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
     </li>
     <li>
@@ -517,6 +520,9 @@ library(Hmisc)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:plyr&#39;:
 ## 
 ##     is.discrete, summarize</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     src, summarize</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     format.pval, units</code></pre>
@@ -531,22 +537,21 @@ library(Hmisc)</code></pre>
 <p>DATA FILE = Exam Anxiety</p>
 <pre class="r"><code>library(readr)
 Exam_Anxiety &lt;- read_csv(&quot;Data/Exam Anxiety.csv&quot;)</code></pre>
+<pre><code>## Rows: 103 Columns: 5</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): Gender
+## dbl (4): Code, Revise, Exam, Anxiety</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   Code = col_double(),
-##   Revise = col_double(),
-##   Exam = col_double(),
-##   Anxiety = col_double(),
-##   Gender = col_character()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>head(Exam_Anxiety, n=1)</code></pre>
-<pre><code>## # A tibble: 1 x 5
+<pre><code>## # A tibble: 1 × 5
 ##    Code Revise  Exam Anxiety Gender
 ##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
 ## 1     1      4    40    86.3 Male</code></pre>
 <pre class="r"><code>tail(Exam_Anxiety, n=2)</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##    Code Revise  Exam Anxiety Gender
 ##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
 ## 1   102      9    40    79.0 Male  
@@ -555,7 +560,7 @@ Exam_Anxiety &lt;- read_csv(&quot;Data/Exam Anxiety.csv&quot;)</code></pre>
 Exam_Anxiety = Anxiety
 examData=Anxiety</code></pre>
 <pre class="r"><code>head(Exam_Anxiety)  #cuando no pone n=, se ve los primepors 6</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##    Code Revise  Exam Anxiety Gender
 ##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
 ## 1     1      4    40    86.3 Male  
@@ -565,7 +570,7 @@ examData=Anxiety</code></pre>
 ## 5     5      4    40    89.5 Male  
 ## 6     6     22    70    60.5 Female</code></pre>
 <pre class="r"><code>tail(Exam_Anxiety, n=3)</code></pre>
-<pre><code>## # A tibble: 3 x 5
+<pre><code>## # A tibble: 3 × 5
 ##    Code Revise  Exam Anxiety Gender
 ##   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
 ## 1   101      1     2    82.3 Male  
@@ -611,10 +616,10 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1]  2.6689231  0.3539153 -0.1579706 -0.4902075  0.8517660 -0.7742399</code></pre>
+<pre><code>## [1] -0.7533868 -1.4578081 -1.1299855 -0.3158729  0.1911227 -0.3095599</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
-<pre><code>##          0%         25%         50%         75%        100% 
-## -3.13349326 -0.58743962  0.06372471  0.69708451  2.75000336</code></pre>
+<pre><code>##           0%          25%          50%          75%         100% 
+## -3.818712980 -0.745662120  0.007668121  0.681480978  2.976902577</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
 <p>How to do a simple linear point graph and add text to graph, change the axis name</p>
 <pre class="r"><code>library(ggplot2)
@@ -685,18 +690,17 @@ scatter + geom_point() +
 <p>The hypothesis is that the personal hygiene of the concert goers would go down dramatically over the 3 days of the festival.</p>
 <pre class="r"><code>library(readr)
 DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></pre>
+<pre><code>## Rows: 810 Columns: 5</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): gender
+## dbl (4): ticknumb, day1, day2, day3</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   ticknumb = col_double(),
-##   gender = col_character(),
-##   day1 = col_double(),
-##   day2 = col_double(),
-##   day3 = col_double()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>FD=DownloadFestival
 head(FD)  # ver las 6 primeras filas</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     2111 Male    2.64  1.35  1.61
@@ -709,13 +713,13 @@ head(FD)  # ver las 6 primeras filas</code></pre>
 <pre><code>## [1] 810</code></pre>
 <p>Constructing histograms and detecting outliers</p>
 <pre class="r"><code>head(FD, n=2)</code></pre>
-<pre><code>## # A tibble: 2 x 5
+<pre><code>## # A tibble: 2 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     2111 Male    2.64  1.35  1.61
 ## 2     2229 Female  0.97  1.41  0.29</code></pre>
 <pre class="r"><code>tail(FD)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     4749 Female  0.52 NA       NA
@@ -725,7 +729,7 @@ head(FD)  # ver las 6 primeras filas</code></pre>
 ## 5     4760 Male    1.28 NA       NA
 ## 6     4765 Female  1.26 NA       NA</code></pre>
 <pre class="r"><code>head(FD)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     2111 Male    2.64  1.35  1.61
@@ -831,7 +835,7 @@ ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 <p><img src="E4-Graficos_files/figure-html/boxplot-1.png" width="672" /></p>
 <p>Now to remove outliers</p>
 <pre class="r"><code>Festivalday1</code></pre>
-<pre><code>## # A tibble: 809 x 5
+<pre><code>## # A tibble: 809 × 5
 ##    ticknumb gender  day1  day2  day3
 ##       &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1     2111 Male    2.64  1.35  1.61
@@ -860,14 +864,13 @@ ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 
 library(readr)
 Hiccups &lt;- read_csv(&quot;Data/Hiccups.csv&quot;)</code></pre>
+<pre><code>## Rows: 15 Columns: 4</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (4): Baseline, Tongue, Carotid, Rectum</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   Baseline = col_double(),
-##   Tongue = col_double(),
-##   Carotid = col_double(),
-##   Rectum = col_double()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>#hiccupsData=Hiccups
 
 hiccups&lt;-stack(Hiccups) # to reorganize the data in two columns 
@@ -956,6 +959,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

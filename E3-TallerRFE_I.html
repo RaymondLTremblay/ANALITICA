@@ -15,7 +15,7 @@
 
 <title>Taller RFE 20191026</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -297,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -430,6 +430,9 @@ div.tocify {
     </li>
     <li>
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
+    </li>
+    <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
     <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
@@ -955,20 +958,17 @@ El proceso de Investigación
 <p>CSV files are text files where values in each line are separated by commas (i.e. 1,2,3,5,7,11), and have a carriage return code at the end of each line. The file can be created with any text editor or exported from a spreadsheet application (Excel, for example). To read a CSV file use the following basic code:</p>
 <pre class="r"><code>library(readr)
 honeymoondata &lt;- read_csv(&quot;Data/honeymoon.csv&quot;)</code></pre>
+<pre><code>## Rows: 115 Columns: 6</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (6): Person, Satisfaction_Base, Satisfaction_6_Months, Satisfaction_12_M...</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   Person = col_double(),
-##   Satisfaction_Base = col_double(),
-##   Satisfaction_6_Months = col_double(),
-##   Satisfaction_12_Months = col_double(),
-##   Satisfaction_18_Months = col_double(),
-##   Gender = col_double()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>dim(honeymoondata)</code></pre>
 <pre><code>## [1] 115   6</code></pre>
 <pre class="r"><code>head(honeymoondata)</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   Person Satisfaction_Base Satisfaction_6_M… Satisfaction_12_… Satisfaction_18_…
 ##    &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
 ## 1      1                 6                 6                 5                 2
@@ -993,20 +993,19 @@ El proceso de Investigación
 <p>These menu actions will generate a code that you can use inside your procedure.</p>
 <pre class="r"><code>library(readr)
 melocactus &lt;- read_csv(&quot;Data/melocactus.csv&quot;)</code></pre>
+<pre><code>## Rows: 145 Columns: 5</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): estado
+## dbl (4): azimuto, distancia, alturatotal, longinflo</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   azimuto = col_double(),
-##   distancia = col_double(),
-##   alturatotal = col_double(),
-##   longinflo = col_double(),
-##   estado = col_character()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>melodata=melocactus
 class(melodata)</code></pre>
 <pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
 <pre class="r"><code>head(melodata)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   azimuto distancia alturatotal longinflo estado
 ##     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
 ## 1       0     12.0           20         5 S     
@@ -1016,7 +1015,7 @@ class(melodata)</code></pre>
 ## 5       3      2.71          23         0 S     
 ## 6       3      2.71          16         0 S</code></pre>
 <pre class="r"><code>tail(melodata)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   azimuto distancia alturatotal longinflo estado
 ##     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
 ## 1     355       6            43        11 S     
@@ -1112,8 +1111,16 @@ aggdata</code></pre>
 <h3>Using a data.table</h3>
 <p>The <strong>data.table</strong> package allows for an improved functionality of data.frames operations. First, we have to convert a data.frame into a data.table. Thereafter you can select subgroups and apply functions to them.</p>
 <pre class="r"><code># activate data.table package
-library(data.table)
-# conver data.frame o data.table
+library(data.table)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<pre class="r"><code># conver data.frame o data.table
 melodataDT &lt;- data.table(melodata)
 class(melodataDT)</code></pre>
 <pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
@@ -1171,6 +1178,20 @@ library(ggplot2)
 library(Rmisc)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## Loading required package: plyr</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## ------------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     compact</code></pre>
 <pre class="r"><code># statistics for the bars&amp;errors graph
 melo.bars &lt;- summarySE(melodata, measurevar=&quot;alturatotal&quot;, groupvars=&quot;estado&quot;)
 melo.bars</code></pre>
@@ -1249,6 +1270,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

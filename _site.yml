@@ -91,7 +91,6 @@ navbar:
         - 
           href: RMarkdown.html
           text: "RMarkdown: Lo básico"
-          
         - 
           href: Documento_RMarkdown-ed
           text: "Una breve introducción a RMarkdown"

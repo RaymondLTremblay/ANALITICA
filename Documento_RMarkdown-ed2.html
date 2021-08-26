@@ -355,6 +355,9 @@ $(document).ready(function () {
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
     </li>
     <li>
@@ -570,14 +573,6 @@ $(document).ready(function () {
 <h1>Añadir una tabla en RMarkdown</h1>
 <p>Hay muchas maneras de añadir una tabla en RMarkdown, una de esta es usar la función <strong>tribble</strong> en el paquete <strong>tibble</strong>.</p>
 <pre class="r"><code>library(tidyverse) #Activar el grupo de paquetes &quot;tidyverse&quot;</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.0     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
 <p>Nota que los nombres de las variables tienen que ser continuas (o sea, no puede haber espacios), para nom bres compuestos se une con <code>_</code>. El nombre de variables se define con el siguiente signo <code>~</code>. Entre cada columna/variable/ datos, se usa una coma.</p>
 <pre class="r"><code>mi_tabla=tribble(
   ~Edad, ~Genero, ~Pueblo_nacido,~Nueva_variable,
@@ -600,14 +595,14 @@ mi_tabla</code></pre>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 × 1
-##    value
-##    &lt;dbl&gt;
-## 1 -0.332
-## 2  0.736
-## 3 -0.327
-## 4 -0.977
-## 5 -0.630
-## 6  0.541</code></pre>
+##     value
+##     &lt;dbl&gt;
+## 1  0.545 
+## 2 -0.799 
+## 3 -0.0472
+## 4 -0.551 
+## 5  0.690 
+## 6 -0.120</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>

@@ -14,7 +14,7 @@
 
 <title>Tema_4_supuestos</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -355,6 +355,9 @@ $(document).ready(function () {
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
     </li>
     <li>
@@ -437,20 +440,19 @@ $(document).ready(function () {
 <p>Los datos son de un festival de Rock y Heavy Metal en UK La categoria son 0 = You smell like a rotting corpse 4 = You smell like of sweet roses</p>
 <pre class="r"><code>library(readr)
 DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></pre>
+<pre><code>## Rows: 810 Columns: 5</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): gender
+## dbl (4): ticknumb, day1, day2, day3</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   ticknumb = col_double(),
-##   gender = col_character(),
-##   day1 = col_double(),
-##   day2 = col_double(),
-##   day3 = col_double()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>dlf &lt;- DownloadFestival
 
 dlf=subset(DownloadFestival, day1&lt;5)
 head(dlf)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     2111 Male    2.64  1.35  1.61
@@ -460,7 +462,7 @@ head(dlf)</code></pre>
 ## 5     2401 Female  0.88  0.08 NA   
 ## 6     2405 Male    0.85 NA    NA</code></pre>
 <pre class="r"><code>tail(dlf)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     4749 Female  0.52 NA       NA
@@ -580,9 +582,10 @@ psych::describe(cbind(dlf$day1, dlf$day2, dlf$day3))</code></pre>
 <p>Dicover the Mode. La moda en R</p>
 <pre class="r"><code># the mode
 library(modeest)</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;rmutil&#39;:
+<pre><code>## Registered S3 methods overwritten by &#39;rmutil&#39;:
 ##   method         from 
-##   plot.residuals psych</code></pre>
+##   plot.residuals psych
+##   print.response httr</code></pre>
 <pre class="r"><code>mfv(dlf$day1, method=&quot;mfv&quot;)</code></pre>
 <pre><code>## [1] 2</code></pre>
 <pre class="r"><code>mfv(dlf$day2, method=&quot;mfv&quot;)</code></pre>
@@ -635,18 +638,16 @@ library(ggplot2)
 library(car)
 library(readr)
 RExam &lt;- read_csv(&quot;Data/RExam.csv&quot;)</code></pre>
+<pre><code>## Rows: 100 Columns: 5</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (5): exam, computer, lectures, numeracy, uni</code></pre>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   exam = col_double(),
-##   computer = col_double(),
-##   lectures = col_double(),
-##   numeracy = col_double(),
-##   uni = col_double()
-## )</code></pre>
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>rexam=RExam
 head(rexam)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##    exam computer lectures numeracy   uni
 ##   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
 ## 1    18       54     75          7     0
@@ -701,7 +702,7 @@ x</code></pre>
 <pre class="r"><code>head(log(dlf$day1))</code></pre>
 <pre><code>## [1]  0.97077892 -0.03045921 -0.17435339  1.10856262 -0.12783337 -0.16251893</code></pre>
 <pre class="r"><code>head(dlf)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<pre><code>## # A tibble: 6 × 5
 ##   ticknumb gender  day1  day2  day3
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     2111 Male    2.64  1.35  1.61
@@ -712,7 +713,7 @@ x</code></pre>
 ## 6     2405 Male    0.85 NA    NA</code></pre>
 <pre class="r"><code>dlf$lgday1=log(dlf$day1)
 head(dlf)</code></pre>
-<pre><code>## # A tibble: 6 x 6
+<pre><code>## # A tibble: 6 × 6
 ##   ticknumb gender  day1  day2  day3  lgday1
 ##      &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1     2111 Male    2.64  1.35  1.61  0.971 

@@ -355,6 +355,9 @@ $(document).ready(function () {
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
     </li>
     <li>
@@ -516,14 +519,6 @@ $(document).ready(function () {
 <h1>Ecuación matemática en bloque</h1>
 <p>Para que la ecuación matemática aparezca centralizada en el documento se colocan dos signo de dólar, tanto antes como después de la ecuación. Por ejemplo, la fórmula para varianza es la siguiente, <span class="math display">\[\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}\]</span> Nota que se usa <strong>latex</strong> para hacer la fórmula.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.0     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
 <div id="nota-que-los-nombres-de-las-variables-no-pueden-contener-espacios" class="section level3">
 <h3>Nota que los nombres de las variables no pueden contener espacios</h3>
 <pre class="r"><code>mi_tabla=tribble(
@@ -544,18 +539,18 @@ mi_tabla</code></pre>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
-##      value
-##      &lt;dbl&gt;
-##  1  0.136 
-##  2  0.543 
-##  3 -1.69  
-##  4  0.262 
-##  5 -0.0619
-##  6 -0.302 
-##  7  0.0186
-##  8 -0.226 
-##  9  0.431 
-## 10 -0.263 
+##     value
+##     &lt;dbl&gt;
+##  1 -0.167
+##  2  0.502
+##  3  0.952
+##  4 -0.629
+##  5  0.552
+##  6  1.04 
+##  7  0.924
+##  8 -1.08 
+##  9 -0.512
+## 10 -1.78 
 ## # … with 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
@@ -564,18 +559,18 @@ x</code></pre>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
-##       value
-##       &lt;dbl&gt;
-##  1 -1.73   
-##  2  0.488  
-##  3 -0.395  
-##  4  0.450  
-##  5 -0.549  
-##  6 -0.00302
-##  7  0.597  
-##  8  1.16   
-##  9  0.411  
-## 10  0.322  
+##     value
+##     &lt;dbl&gt;
+##  1  0.208
+##  2  0.876
+##  3 -2.05 
+##  4  0.259
+##  5  0.876
+##  6  0.972
+##  7 -0.621
+##  8  1.87 
+##  9 -1.62 
+## 10  0.412
 ## # … with 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
