@@ -14,7 +14,7 @@
 
 <title>Evaluando_supuestos</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -296,12 +296,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -431,6 +431,9 @@ div.tocify {
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
     </li>
     <li>
@@ -508,7 +511,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
 <div id="la-lista-de-packetes-para-analisis-de-los-supuestos" class="section level2">
 <h2>La lista de packetes para analisis de los supuestos</h2>
 <pre class="r"><code>library(ggplot2)
@@ -1088,6 +1091,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

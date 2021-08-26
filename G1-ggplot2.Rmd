@@ -104,11 +104,11 @@ as_tibble(df)
 ```{r , warning=FALSE, message=FALSE}
 # para disparar tabla:
 df%>%
-  select(V1, Salón)%>%
-  group_by(Salón)%>%
-  summarize(promedio=mean(V1), 
-             mínima=min(V1),
-             máxima=max(V1))%>%
+  dplyr::select(V1, Salón)%>%
+dplyr::group_by(Salón)%>%
+  summarise(promedio=mean(V1, na.rm=TRUE), 
+             mínima=min(V1, na.rm=TRUE),
+             máxima=max(V1, na.rm=TRUE))%>%
   gt()%>%
   tab_header(
     title = "Tabla: Edad de los Estudiantes")

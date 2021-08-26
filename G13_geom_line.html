@@ -13,7 +13,7 @@
 
 <title>Geom_line</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -295,12 +295,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -430,6 +430,9 @@ div.tocify {
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
     </li>
     <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
     </li>
     <li>
@@ -506,7 +509,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
 <pre class="r"><code>library(ggversa)
 library(ggplot2)
 library(gt)</code></pre>
@@ -525,6 +528,7 @@ library(gt)</code></pre>
 
 subTiroide=Tiroide[which(Tiroide$Cases==&quot;New Cases&quot;),]
 gt(head(subTiroide))</code></pre>
+<div id="cyzksqvyly" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -858,53 +862,43 @@ gt(head(subTiroide))</code></pre>
 
 #cyzksqvyly .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="cyzksqvyly" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Year</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Cases</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Rate</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">1975</td>
-      <td class="gt_row gt_center">New Cases</td>
-      <td class="gt_row gt_right">4.8</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">1976</td>
-      <td class="gt_row gt_center">New Cases</td>
-      <td class="gt_row gt_right">4.8</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">1977</td>
-      <td class="gt_row gt_center">New Cases</td>
-      <td class="gt_row gt_right">5.4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">1978</td>
-      <td class="gt_row gt_center">New Cases</td>
-      <td class="gt_row gt_right">5.1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">1979</td>
-      <td class="gt_row gt_center">New Cases</td>
-      <td class="gt_row gt_right">4.5</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">1980</td>
-      <td class="gt_row gt_center">New Cases</td>
-      <td class="gt_row gt_right">4.3</td>
-    </tr>
+    <tr><td class="gt_row gt_right">1975</td>
+<td class="gt_row gt_center">New Cases</td>
+<td class="gt_row gt_right">4.8</td></tr>
+    <tr><td class="gt_row gt_right">1976</td>
+<td class="gt_row gt_center">New Cases</td>
+<td class="gt_row gt_right">4.8</td></tr>
+    <tr><td class="gt_row gt_right">1977</td>
+<td class="gt_row gt_center">New Cases</td>
+<td class="gt_row gt_right">5.4</td></tr>
+    <tr><td class="gt_row gt_right">1978</td>
+<td class="gt_row gt_center">New Cases</td>
+<td class="gt_row gt_right">5.1</td></tr>
+    <tr><td class="gt_row gt_right">1979</td>
+<td class="gt_row gt_center">New Cases</td>
+<td class="gt_row gt_right">4.5</td></tr>
+    <tr><td class="gt_row gt_right">1980</td>
+<td class="gt_row gt_center">New Cases</td>
+<td class="gt_row gt_right">4.3</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <p>El procedimiento para preparar el gráfico de tiroides se presenta a continuación:</p>
 <pre class="r"><code>ggplot(subTiroide, aes(x=as.integer(Year), y=Rate))+
   geom_line(size=2)+
@@ -1053,6 +1047,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
