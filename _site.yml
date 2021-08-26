@@ -94,7 +94,6 @@ navbar:
         - 
           href: Documento_RMarkdown-ed
           text: "Una breve introducción a RMarkdown"
-
       text: Talleres
     - 
       menu: 
