@@ -92,20 +92,9 @@ navbar:
     - 
       menu: 
         - 
-          href: Plataforma.html
-          text: "Lo básico de RStudio"
-        - 
-          href: RMarkdown.html
-          text: "RMarkdown: Lo básico"
-        - 
           href: Documento_RMarkdown-ed
           text: "Una breve introducción a RMarkdown"
-        - 
-          href: Tendencias_Centrales.html
-          text: " Tendencias Centrales"
-        - 
-          href: Medidas_Dispersión.html
-          text: " Medidas de Dispersión"
+
       text: Talleres
     - 
       menu: 
