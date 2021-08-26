@@ -58,7 +58,7 @@ El paquete **gganimate** extiende el paquete de **ggplot2** y implementa unas fu
 Los datos provienen del paquete **gapminder** y el archivo **gapminder**. Estos datos representa la expectativa de supervivencia en diferentes 142 países entre 1952 y 2007.  Aquí observamos las primeras 6 filas del archivo. 
 
 
-```{r}
+```{r data}
 gt(head(gapminder))
 ```
 
@@ -68,7 +68,7 @@ Primero creamos un gráfico de puntos sin animación o sea estático.  En el eje
 
 
 
-```{r}
+```{r grafico basico}
 p <- ggplot(
   gapminder, 
   aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)) +
@@ -86,16 +86,16 @@ Para incluir las transiciones en tiempo se usa la función **transition_time**. 
 La variable **frame_time** añade arriba una leyenda del tiempo de transición. Note que se usa la función **labs** y se añade el titulo y lo que hay entre los corchetes es la variable del cambio en tiempo.   
 
 
-```{r}
+```{r grafico con animacion de tiempo}
 GDP_time=p + transition_time(year) +
   labs(title = "Año: {frame_time}")
-#GDP_time
+GDP_time
 
 ```
 
 ```{r}
 animate(GDP_time, height = 600, width =600)
-anim_save("GDP_time.gif")
+#anim_save("GDP_time.gif")
 ```
 
 
@@ -103,7 +103,7 @@ anim_save("GDP_time.gif")
 Igual que para los gráficos de ggplot2 se puede crear una gráica por cada variable discreta.  Para crear un gráfico por grupo y observar el de patrones de cambio en tiempo por continente se añade **facet_wrap**.  En este próximo gráfico se produce un por cada continente.  
 
 
-```{r}
+```{r grafico can facet_wrap}
 p + facet_wrap(~continent) +
   transition_time(year) +
   labs(title = "Año: {frame_time}")
@@ -115,7 +115,7 @@ p + facet_wrap(~continent) +
 En este caso lo que observamos es que la leyenda en en **x** varia con los años, y la de **y** la dejamos fija.  Si se usa **view_follow(fixed_x = TRUE)**, la leyenda en **y** variaría con el cambio en GDP per capita y la de **x** seria fija.  Si queremos que los dos ejes varían con los datos se usa **view_follow()**, sin poner nada dentro de los paréntesis.
 
 
-```{r}
+```{r transiciones en tiempo}
 p + transition_time(year) +
   labs(title = "Año: {frame_time}") +
   view_follow(fixed_y = TRUE)
@@ -134,7 +134,7 @@ The length of the wake is not given in absolute frames as that would make the an
 
 
 
-```{r}
+```{r transiciones con sombra}
 p + transition_time(year) +
   labs(title = "Year: {frame_time}") +
   shadow_wake(wake_length = 0.2, alpha = FALSE)
@@ -144,120 +144,37 @@ p + transition_time(year) +
 ## Visualizar los datos originales en el fondo 
 
 
-Con la función **shadow_mark** se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script **shadow_mark(past = FALSE, future = TRUE)** se observaría los datos futuros y no del pasado.  El alternativa basica **shadow_mark()** es igual a **shadow_mark(past = TRUE, future = FALSE)**
+Con la función **shadow_mark** se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script **shadow_mark(past = FALSE, future = TRUE)** se observaría los datos futuros y no del pasado.  El alternativa básica **shadow_mark()** es igual a **shadow_mark(past = TRUE, future = FALSE)**
 
 
-```{r}
+```{r transiciones con sombra2}
 p + transition_time(year) +
   labs(title = "Year: {frame_time}") +
   shadow_mark(alpha = 0.3, size = 0.5)
 ```
 
 
-## Transiciones graduales 
-
-Con la función **transition_reveal** los datos aparece gradualmente en el gráfico
-
-Usamos otro conjunto de datos del archivo **airquality** que se encuentra en el paquete **datasets**
-Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función **group**.  
-
-```{r}
-p <- ggplot(
-  airquality,
-  aes(Day, Temp, group = Month, color = factor(Month))
-  ) +
-  geom_line() +
-  scale_color_viridis_d() +
-  labs(x = "Day of Month", y = "Temperature") +
-  theme(legend.position = "top")
-p
-```
 
 
-Ahora animamos el gráfico en el eje de **x** con la variable de **Day**, añadiendo **transition_reveal(Day)**
 
 
-```{r}
-p + transition_reveal(Day)
-```
-
-## Anadiendo un punto a la linea
-
-Se puede añadir un punto al principio de las lineas 
-
-```{r}
-cambio_m=p + 
-  geom_point() +
-  transition_reveal(Day)
-```
-
-```{r}
-animate(cambio_m, height = 800, width =800)
-# anim_save("cambio_m.gif")
-```
 
 
-## Poniendo un punto para valor
-
-Los puntos se pueden quedar en el gráfico añadiendo **(group = seq_along(Day)**. 
-
-```{r}
-p + 
-  geom_point(aes(group = seq_along(Day))) +
-  transition_reveal(Day)
-```
 
 
-# Animación con gráficos de barras
-
-La transiciones también pueden ser producida con otros geoms por ejemplo con **geom_col**. El primer paso es tener un data frame que representa los valores de cada columna/barra.  Entonces el primer paso aquí fue de calcular el promedio de temperatura por mes en un nuevo data frame que llamamos **temp.promedio**.   
-
-Preparación de los datos
-
-```{r}
-
-temp.promedio <- airquality %>%
-  group_by(Month) %>%
-  summarise(Temp = mean(Temp))
-temp.promedio
-```
-
-## Gráfico de barra estático
-
-Ahora creamos un gráfico estático de los datos con **geom_col**.  
 
 
-```{r}
-p <- ggplot(temp.promedio, aes(Month, Temp, fill = Temp)) +
-  geom_col() +
-  scale_fill_distiller(palette = "Reds", direction = 1) +
-  theme_minimal() +
-  theme(
-    panel.grid = element_blank(),
-    panel.grid.major.y = element_line(color = "white"),
-    panel.ontop = TRUE
-  )
-p
-```
-
-## Añadiendo efecto de transición en las columnas
-
-El efecto de transición de un mes al otro se añade con la función **transition_states()**. Si uno añade solamente esta función aparece solamente una barra a la vez.  
-
-```{r}
-p + transition_states(Month, wrap = FALSE) 
-```
-
-## Añadiendo efecto de transición y shadow
-
-```{r}
-p + transition_states(Month, wrap = FALSE) +
-  shadow_mark()
-```
 
 
-Para más ejemplos de como usar gganimate ves este enlace 
-<https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/>
+
+
+
+
+
+
+
+
+
 
 
 

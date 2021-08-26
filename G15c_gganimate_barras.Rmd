@@ -1,0 +1,101 @@
+---
+title: "G15c_gganimate_barras"
+author: "Raymond L. Tremblay"
+date: "8/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(gganimate)
+library(rgl)
+library(gapminder)
+library(ggplot2)
+library(animation)
+library(gt)
+```
+
+
+
+Usamos otro conjunto de datos del archivo **airquality** que se encuentra en el paquete **datasets**. 
+Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función **group**.  
+
+Comenzamos con cambiar el nombre de algunas variables al castellano
+
+```{r cambio de nombre}
+names(airquality) # Nombres originales
+names(airquality)[3] <- 'Viento'
+names(airquality)[5] <- 'Mes'
+names(airquality)[6] <- 'Día'
+#names(airquality) # Nombres en castellano
+calidad_aire=airquality
+head(calidad_aire)
+```
+
+
+# Animación con gráficos de barras
+
+La transiciones también pueden ser producida con otros geoms por ejemplo con **geom_col**. El primer paso es tener un data frame que representa los valores de cada columna/barra.  Entonces el primer paso aquí fue de calcular el promedio de temperatura por mes en un nuevo data frame que llamamos **temp.promedio**.   
+
+Preparación de los datos
+
+```{r summarize data por mes}
+names(calidad_aire)
+temp.promedio2 <- calidad_aire %>%
+  dplyr::select(Mes, Temp) %>% 
+  dplyr::group_by(Mes) %>%
+  summarise(Temp = mean( Temp))
+temp.promedio2
+```
+
+
+
+
+## Gráfico de barra estático
+
+Ahora creamos un gráfico estático de los datos con **geom_col**.  
+
+
+```{r animado por mes barras}
+library(ggplot2)
+s=temp.promedio2 %>% 
+  dplyr::select(Mes, Temp) %>% 
+  ggplot(aes(Mes, Temp, fill = Temp)) +
+  geom_col() +
+  scale_fill_distiller(palette = "Reds", direction = 1) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_line(color = "white"),
+    panel.ontop = TRUE
+  )
+s
+```
+
+
+
+## Añadiendo efecto de transición en las columnas
+
+El efecto de transición de un mes al otro se añade con la función **transition_states()**. Si uno añade solamente esta función aparece solamente una barra a la vez.  
+
+```{r transiciones}
+s + transition_states( Mes, wrap = FALSE) 
+```
+
+
+## Añadiendo efecto de transición y **shadow** o sea una sombra
+
+```{r con sombras}
+s + transition_states( Mes, wrap = FALSE) +
+  shadow_mark()
+```
+
+
+Para más ejemplos de como usar **gganimate** ver este enlace 
+[Oceonografia](https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/)
+

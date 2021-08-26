@@ -75,7 +75,13 @@ navbar:
           text: "Geom_point y geom_jitter"
         - 
           href: G15_gganimate.html
-          text: "Gráficos animados en movimiento"
+          text: "Gráficos animados (en movimiento) 1"
+        -   
+          href: G15b_gganimate.html
+          text: "Gráficos animados (en movimiento) 2"
+        -  
+          href: G15c_gganimate_barras.html
+          text: "Gráficos animados (en movimiento) 3"
       text: Visualización
     - 
       menu: 
@@ -100,7 +106,7 @@ navbar:
         - 
           href: Medidas_Dispersión.html
           text: " Medidas de Dispersión"
-      text: Ejercicios
+      text: Talleres
     - 
       menu: 
         - 
@@ -108,7 +114,7 @@ navbar:
           text: "Descripción del taller"
         - 
           href: TF1_Regresion_Lineal.html
-          text: Regresion_Lineal
+          text: "Regresion_Lineal"
         - 
           href: TF2_Regresion_Cuadratica_otro.html
           text: "Regresion no lineal"

@@ -14,7 +14,7 @@
 
 <title>gganimate</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -296,12 +296,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -401,7 +401,13 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
@@ -419,7 +425,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
+    Talleres
      
     <span class="caret"></span>
   </a>
@@ -429,6 +435,9 @@ div.tocify {
     </li>
     <li>
       <a href="RMarkdown.html">RMarkdown: Lo básico</a>
+    </li>
+    <li>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
     <li>
       <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
@@ -508,7 +517,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
 <pre class="r"><code>#if(!require(devtools)) install.packages(&quot;devtools&quot;)
 #devtools::install_github(&quot;dgrtwo/gganimate&quot;)
 #devtools::install_github(&quot;yihui/animation&quot;)</code></pre>
@@ -522,11 +531,12 @@ library(gt)</code></pre>
 <p>El paquete <strong>gganimate</strong> extiende el paquete de <strong>ggplot2</strong> y implementa unas funciones para animar gráficos que típicamente estuviese estática. El paquete fue desarrollado por Pedersen y Robinson (2017).Siempre puede ir al siguiente enlace para tener más información y otros ejemplos. <a href="https://gganimate.com/articles/gganimate.html" class="uri">https://gganimate.com/articles/gganimate.html</a>. Note que antes de utilizar este modulo se asume que se conozca la estructura de la creación de gráficos con ggplot2.</p>
 <p>Los datos provienen del paquete <strong>gapminder</strong> y el archivo <strong>gapminder</strong>. Estos datos representa la expectativa de supervivencia en diferentes 142 países entre 1952 y 2007. Aquí observamos las primeras 6 filas del archivo.</p>
 <pre class="r"><code>gt(head(gapminder))</code></pre>
+<div id="xscuwcmfcr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#hqbfsjkrqp .gt_table {
+#xscuwcmfcr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -551,7 +561,7 @@ library(gt)</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_heading {
+#xscuwcmfcr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -563,7 +573,7 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_title {
+#xscuwcmfcr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -573,7 +583,7 @@ library(gt)</code></pre>
   border-bottom-width: 0;
 }
 
-#hqbfsjkrqp .gt_subtitle {
+#xscuwcmfcr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -583,13 +593,13 @@ library(gt)</code></pre>
   border-top-width: 0;
 }
 
-#hqbfsjkrqp .gt_bottom_border {
+#xscuwcmfcr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_col_headings {
+#xscuwcmfcr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -604,7 +614,7 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_col_heading {
+#xscuwcmfcr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -624,7 +634,7 @@ library(gt)</code></pre>
   overflow-x: hidden;
 }
 
-#hqbfsjkrqp .gt_column_spanner_outer {
+#xscuwcmfcr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -636,15 +646,15 @@ library(gt)</code></pre>
   padding-right: 4px;
 }
 
-#hqbfsjkrqp .gt_column_spanner_outer:first-child {
+#xscuwcmfcr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hqbfsjkrqp .gt_column_spanner_outer:last-child {
+#xscuwcmfcr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hqbfsjkrqp .gt_column_spanner {
+#xscuwcmfcr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -656,7 +666,7 @@ library(gt)</code></pre>
   width: 100%;
 }
 
-#hqbfsjkrqp .gt_group_heading {
+#xscuwcmfcr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -678,7 +688,7 @@ library(gt)</code></pre>
   vertical-align: middle;
 }
 
-#hqbfsjkrqp .gt_empty_group_heading {
+#xscuwcmfcr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -693,15 +703,15 @@ library(gt)</code></pre>
   vertical-align: middle;
 }
 
-#hqbfsjkrqp .gt_from_md > :first-child {
+#xscuwcmfcr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hqbfsjkrqp .gt_from_md > :last-child {
+#xscuwcmfcr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hqbfsjkrqp .gt_row {
+#xscuwcmfcr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -720,7 +730,7 @@ library(gt)</code></pre>
   overflow-x: hidden;
 }
 
-#hqbfsjkrqp .gt_stub {
+#xscuwcmfcr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -732,7 +742,7 @@ library(gt)</code></pre>
   padding-left: 12px;
 }
 
-#hqbfsjkrqp .gt_summary_row {
+#xscuwcmfcr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -742,7 +752,7 @@ library(gt)</code></pre>
   padding-right: 5px;
 }
 
-#hqbfsjkrqp .gt_first_summary_row {
+#xscuwcmfcr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -752,7 +762,7 @@ library(gt)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_grand_summary_row {
+#xscuwcmfcr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -762,7 +772,7 @@ library(gt)</code></pre>
   padding-right: 5px;
 }
 
-#hqbfsjkrqp .gt_first_grand_summary_row {
+#xscuwcmfcr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -772,11 +782,11 @@ library(gt)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_striped {
+#xscuwcmfcr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hqbfsjkrqp .gt_table_body {
+#xscuwcmfcr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -785,7 +795,7 @@ library(gt)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_footnotes {
+#xscuwcmfcr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -799,13 +809,13 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_footnote {
+#xscuwcmfcr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#hqbfsjkrqp .gt_sourcenotes {
+#xscuwcmfcr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -819,110 +829,100 @@ library(gt)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hqbfsjkrqp .gt_sourcenote {
+#xscuwcmfcr .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#hqbfsjkrqp .gt_left {
+#xscuwcmfcr .gt_left {
   text-align: left;
 }
 
-#hqbfsjkrqp .gt_center {
+#xscuwcmfcr .gt_center {
   text-align: center;
 }
 
-#hqbfsjkrqp .gt_right {
+#xscuwcmfcr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hqbfsjkrqp .gt_font_normal {
+#xscuwcmfcr .gt_font_normal {
   font-weight: normal;
 }
 
-#hqbfsjkrqp .gt_font_bold {
+#xscuwcmfcr .gt_font_bold {
   font-weight: bold;
 }
 
-#hqbfsjkrqp .gt_font_italic {
+#xscuwcmfcr .gt_font_italic {
   font-style: italic;
 }
 
-#hqbfsjkrqp .gt_super {
+#xscuwcmfcr .gt_super {
   font-size: 65%;
 }
 
-#hqbfsjkrqp .gt_footnote_marks {
+#xscuwcmfcr .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="hqbfsjkrqp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">country</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">continent</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">year</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">lifeExp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">pop</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">pop</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">gdpPercap</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">Afghanistan</td>
-      <td class="gt_row gt_center">Asia</td>
-      <td class="gt_row gt_center">1952</td>
-      <td class="gt_row gt_right">28.801</td>
-      <td class="gt_row gt_center">8425333</td>
-      <td class="gt_row gt_right">779.4453</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">Afghanistan</td>
-      <td class="gt_row gt_center">Asia</td>
-      <td class="gt_row gt_center">1957</td>
-      <td class="gt_row gt_right">30.332</td>
-      <td class="gt_row gt_center">9240934</td>
-      <td class="gt_row gt_right">820.8530</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">Afghanistan</td>
-      <td class="gt_row gt_center">Asia</td>
-      <td class="gt_row gt_center">1962</td>
-      <td class="gt_row gt_right">31.997</td>
-      <td class="gt_row gt_center">10267083</td>
-      <td class="gt_row gt_right">853.1007</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">Afghanistan</td>
-      <td class="gt_row gt_center">Asia</td>
-      <td class="gt_row gt_center">1967</td>
-      <td class="gt_row gt_right">34.020</td>
-      <td class="gt_row gt_center">11537966</td>
-      <td class="gt_row gt_right">836.1971</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">Afghanistan</td>
-      <td class="gt_row gt_center">Asia</td>
-      <td class="gt_row gt_center">1972</td>
-      <td class="gt_row gt_right">36.088</td>
-      <td class="gt_row gt_center">13079460</td>
-      <td class="gt_row gt_right">739.9811</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">Afghanistan</td>
-      <td class="gt_row gt_center">Asia</td>
-      <td class="gt_row gt_center">1977</td>
-      <td class="gt_row gt_right">38.438</td>
-      <td class="gt_row gt_center">14880372</td>
-      <td class="gt_row gt_right">786.1134</td>
-    </tr>
+    <tr><td class="gt_row gt_center">Afghanistan</td>
+<td class="gt_row gt_center">Asia</td>
+<td class="gt_row gt_right">1952</td>
+<td class="gt_row gt_right">28.801</td>
+<td class="gt_row gt_right">8425333</td>
+<td class="gt_row gt_right">779.4453</td></tr>
+    <tr><td class="gt_row gt_center">Afghanistan</td>
+<td class="gt_row gt_center">Asia</td>
+<td class="gt_row gt_right">1957</td>
+<td class="gt_row gt_right">30.332</td>
+<td class="gt_row gt_right">9240934</td>
+<td class="gt_row gt_right">820.8530</td></tr>
+    <tr><td class="gt_row gt_center">Afghanistan</td>
+<td class="gt_row gt_center">Asia</td>
+<td class="gt_row gt_right">1962</td>
+<td class="gt_row gt_right">31.997</td>
+<td class="gt_row gt_right">10267083</td>
+<td class="gt_row gt_right">853.1007</td></tr>
+    <tr><td class="gt_row gt_center">Afghanistan</td>
+<td class="gt_row gt_center">Asia</td>
+<td class="gt_row gt_right">1967</td>
+<td class="gt_row gt_right">34.020</td>
+<td class="gt_row gt_right">11537966</td>
+<td class="gt_row gt_right">836.1971</td></tr>
+    <tr><td class="gt_row gt_center">Afghanistan</td>
+<td class="gt_row gt_center">Asia</td>
+<td class="gt_row gt_right">1972</td>
+<td class="gt_row gt_right">36.088</td>
+<td class="gt_row gt_right">13079460</td>
+<td class="gt_row gt_right">739.9811</td></tr>
+    <tr><td class="gt_row gt_center">Afghanistan</td>
+<td class="gt_row gt_center">Asia</td>
+<td class="gt_row gt_right">1977</td>
+<td class="gt_row gt_right">38.438</td>
+<td class="gt_row gt_right">14880372</td>
+<td class="gt_row gt_right">786.1134</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <p>Primero creamos un gráfico de puntos sin animación o sea estático. En el eje de <strong>X</strong> representa el GDP per capita en cada país, y en el eje de <strong>Y</strong> la supervivencia. El tamaño del punto es relativo el tamaño del país. La escala en el eje de <strong>X</strong> fue cambiado a una logarítmica usando <strong>scale_x_log10()</strong>. Aunque es difícil percibir la diferencia cada país tiene su proprio color.</p>
 <pre class="r"><code>p &lt;- ggplot(
   gapminder, 
@@ -932,17 +932,18 @@ library(gt)</code></pre>
   scale_x_log10() +
   labs(x = &quot;GDP per capita&quot;, y = &quot;Expectativa de Vida&quot;)
 p</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="G15_gganimate_files/figure-html/grafico%20basico-1.png" width="672" /></p>
 <div id="gráficos-con-animación" class="section level2">
 <h2>Gráficos con animación:</h2>
 <p>Para incluir las transiciones en tiempo se usa la función <strong>transition_time</strong>. El largo de transición sera corresponde as la diferencia entre la variable de tiempo (en este casa “Time”).</p>
 <p>La variable <strong>frame_time</strong> añade arriba una leyenda del tiempo de transición. Note que se usa la función <strong>labs</strong> y se añade el titulo y lo que hay entre los corchetes es la variable del cambio en tiempo.</p>
 <pre class="r"><code>GDP_time=p + transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;)
-#GDP_time</code></pre>
+GDP_time</code></pre>
+<p><img src="G15_gganimate_files/figure-html/grafico%20con%20animacion%20de%20tiempo-1.gif" /><!-- --></p>
 <pre class="r"><code>animate(GDP_time, height = 600, width =600)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
-<pre class="r"><code>anim_save(&quot;GDP_time.gif&quot;)</code></pre>
+<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
+<pre class="r"><code>#anim_save(&quot;GDP_time.gif&quot;)</code></pre>
 </div>
 <div id="crear-facet-animados." class="section level2">
 <h2>Crear facet animados.</h2>
@@ -950,7 +951,7 @@ p</code></pre>
 <pre class="r"><code>p + facet_wrap(~continent) +
   transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-9-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/grafico%20can%20facet_wrap-1.gif" /><!-- --></p>
 </div>
 <div id="animación-de-los-ejes-ejes-variables" class="section level2">
 <h2>Animación de los ejes: ejes variables</h2>
@@ -958,7 +959,7 @@ p</code></pre>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;) +
   view_follow(fixed_y = TRUE)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/transiciones%20en%20tiempo-1.gif" /><!-- --></p>
 </div>
 <div id="observar-transiciones-entre-valores" class="section level2">
 <h2>Observar transiciones entre valores</h2>
@@ -969,96 +970,15 @@ p</code></pre>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Year: {frame_time}&quot;) +
   shadow_wake(wake_length = 0.2, alpha = FALSE)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-11-1.gif" /><!-- --></p>
+<p><img src="G15_gganimate_files/figure-html/transiciones%20con%20sombra-1.gif" /><!-- --></p>
 </div>
 <div id="visualizar-los-datos-originales-en-el-fondo" class="section level2">
 <h2>Visualizar los datos originales en el fondo</h2>
-<p>Con la función <strong>shadow_mark</strong> se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script <strong>shadow_mark(past = FALSE, future = TRUE)</strong> se observaría los datos futuros y no del pasado. El alternativa basica <strong>shadow_mark()</strong> es igual a <strong>shadow_mark(past = TRUE, future = FALSE)</strong></p>
+<p>Con la función <strong>shadow_mark</strong> se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script <strong>shadow_mark(past = FALSE, future = TRUE)</strong> se observaría los datos futuros y no del pasado. El alternativa básica <strong>shadow_mark()</strong> es igual a <strong>shadow_mark(past = TRUE, future = FALSE)</strong></p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Year: {frame_time}&quot;) +
   shadow_mark(alpha = 0.3, size = 0.5)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-12-1.gif" /><!-- --></p>
-</div>
-<div id="transiciones-graduales" class="section level2">
-<h2>Transiciones graduales</h2>
-<p>Con la función <strong>transition_reveal</strong> los datos aparece gradualmente en el gráfico</p>
-<p>Usamos otro conjunto de datos del archivo <strong>airquality</strong> que se encuentra en el paquete <strong>datasets</strong> Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función <strong>group</strong>.</p>
-<pre class="r"><code>p &lt;- ggplot(
-  airquality,
-  aes(Day, Temp, group = Month, color = factor(Month))
-  ) +
-  geom_line() +
-  scale_color_viridis_d() +
-  labs(x = &quot;Day of Month&quot;, y = &quot;Temperature&quot;) +
-  theme(legend.position = &quot;top&quot;)
-p</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Ahora animamos el gráfico en el eje de <strong>x</strong> con la variable de <strong>Day</strong>, añadiendo <strong>transition_reveal(Day)</strong></p>
-<pre class="r"><code>p + transition_reveal(Day)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-14-1.gif" /><!-- --></p>
-</div>
-<div id="anadiendo-un-punto-a-la-linea" class="section level2">
-<h2>Anadiendo un punto a la linea</h2>
-<p>Se puede añadir un punto al principio de las lineas</p>
-<pre class="r"><code>cambio_m=p + 
-  geom_point() +
-  transition_reveal(Day)</code></pre>
-<pre class="r"><code>animate(cambio_m, height = 800, width =800)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-16-1.gif" /><!-- --></p>
-<pre class="r"><code># anim_save(&quot;cambio_m.gif&quot;)</code></pre>
-</div>
-<div id="poniendo-un-punto-para-valor" class="section level2">
-<h2>Poniendo un punto para valor</h2>
-<p>Los puntos se pueden quedar en el gráfico añadiendo <strong>(group = seq_along(Day)</strong>.</p>
-<pre class="r"><code>p + 
-  geom_point(aes(group = seq_along(Day))) +
-  transition_reveal(Day)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-17-1.gif" /><!-- --></p>
-</div>
-<div id="animación-con-gráficos-de-barras" class="section level1">
-<h1>Animación con gráficos de barras</h1>
-<p>La transiciones también pueden ser producida con otros geoms por ejemplo con <strong>geom_col</strong>. El primer paso es tener un data frame que representa los valores de cada columna/barra. Entonces el primer paso aquí fue de calcular el promedio de temperatura por mes en un nuevo data frame que llamamos <strong>temp.promedio</strong>.</p>
-<p>Preparación de los datos</p>
-<pre class="r"><code>temp.promedio &lt;- airquality %&gt;%
-  group_by(Month) %&gt;%
-  summarise(Temp = mean(Temp))
-temp.promedio</code></pre>
-<pre><code>## # A tibble: 5 x 2
-##   Month  Temp
-##   &lt;int&gt; &lt;dbl&gt;
-## 1     5  65.5
-## 2     6  79.1
-## 3     7  83.9
-## 4     8  84.0
-## 5     9  76.9</code></pre>
-<div id="gráfico-de-barra-estático" class="section level2">
-<h2>Gráfico de barra estático</h2>
-<p>Ahora creamos un gráfico estático de los datos con <strong>geom_col</strong>.</p>
-<pre class="r"><code>p &lt;- ggplot(temp.promedio, aes(Month, Temp, fill = Temp)) +
-  geom_col() +
-  scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1) +
-  theme_minimal() +
-  theme(
-    panel.grid = element_blank(),
-    panel.grid.major.y = element_line(color = &quot;white&quot;),
-    panel.ontop = TRUE
-  )
-p</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-</div>
-<div id="añadiendo-efecto-de-transición-en-las-columnas" class="section level2">
-<h2>Añadiendo efecto de transición en las columnas</h2>
-<p>El efecto de transición de un mes al otro se añade con la función <strong>transition_states()</strong>. Si uno añade solamente esta función aparece solamente una barra a la vez.</p>
-<pre class="r"><code>p + transition_states(Month, wrap = FALSE) </code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-20-1.gif" /><!-- --></p>
-</div>
-<div id="añadiendo-efecto-de-transición-y-shadow" class="section level2">
-<h2>Añadiendo efecto de transición y shadow</h2>
-<pre class="r"><code>p + transition_states(Month, wrap = FALSE) +
-  shadow_mark()</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-21-1.gif" /><!-- --></p>
-<p>Para más ejemplos de como usar gganimate ves este enlace <a href="https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/" class="uri">https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/</a></p>
-</div>
+<p><img src="G15_gganimate_files/figure-html/transiciones%20con%20sombra2-1.gif" /><!-- --></p>
 </div>
 
 
@@ -1099,6 +1019,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

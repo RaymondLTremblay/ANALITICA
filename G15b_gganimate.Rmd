@@ -1,0 +1,91 @@
+---
+title: "G15b_gganimate"
+author: "RLT"
+header-includes:
+   - \usepackage{animate}
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(gganimate)
+library(rgl)
+library(gapminder)
+library(ggplot2)
+library(animation)
+library(gt)
+```
+
+
+## Transiciones graduales 
+
+Con la función **transition_reveal** los datos aparece gradualmente en el gráfico
+
+Usamos otro conjunto de datos del archivo **airquality** que se encuentra en el paquete **datasets**. 
+Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función **group**.  
+
+Comenzamos con cambiar el nombre de algunas variables al castellano
+
+```{r cambio de nombre}
+names(airquality) # Nombres originales
+names(airquality)[3] <- 'Viento'
+names(airquality)[5] <- 'Mes'
+names(airquality)[6] <- 'Día'
+#names(airquality) # Nombres en castellano
+calidad_aire=airquality
+head(calidad_aire)
+```
+
+
+```{r grafico basico 2}
+t <- ggplot(
+  calidad_aire,
+  aes(Día, Temp, group = Mes, color = factor( Mes))) +
+  geom_line() +
+  scale_color_viridis_d() +
+  labs(x = "Día del Mes", y = "Temperatura") +
+  theme(legend.position = "top")
+t
+```
+
+
+Ahora animamos el gráfico en el eje de **x** con la variable de **Día**, añadiendo **transition_reveal(Día)**
+
+
+```{r grafico lineal transiciones}
+t + transition_reveal( Día)
+```
+
+
+
+## Anadiendo un punto a la linea
+
+Se puede añadir un punto al principio de las lineas 
+
+```{r lineas y puntos}
+cambio_m=t + 
+  geom_point() +
+  transition_reveal( Día)
+```
+
+```{r salvar el grafico}
+animate(cambio_m, height = 800, width = 800)
+# anim_save("cambio_m.gif")
+```
+
+
+## Poniendo un punto para valor
+
+Los puntos se pueden quedar en el gráfico añadiendo **(group = seq_along(Día)**. 
+
+```{r puntos permanentes}
+t + geom_point(aes(group = seq_along( Día))) +
+  transition_reveal( Día)
+```
