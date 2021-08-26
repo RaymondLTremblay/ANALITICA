@@ -1,0 +1,162 @@
+---
+title: "Documento_RMarkdown"
+author: "Raymond L. Tremblay"
+date: "12/8/2021"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Selecciona el tamaño de la letra con la cantidad de "hashtags"
+
+# Normandie
+## Luis
+### José
+#### María
+##### Denny
+###### Hello
+#######  Saludos
+
+Estoy enamorado de RMarkdown 
+
+
+# Lista no ordenada
+
++ El primer ítem
++ El segundo ítem 
+  - un primer sub-ítem
+  - un segundo sub-ítem
+  
++ El tercer ítem (Nota que no se considera el espacio entre las líneas)  
+
+# Lista ordenada
+
+Para una lista ordenada se usan números arábigos y números romanos en minúscula, ej. **i)**.
+
+1. lista ordenada
+2. el segundo punto
+3. el tercer punto 
+    i) sub-ítem 1 (aquí es muy importante la cantidad de "tabs": se necesitan 4 "tabs")
+   ii) sub-ítem 2 (nota que el documento .html se ve diferente al documento .rmd)
+        A) un sub-sub ítem (se necesitan 3 "tabs" suplementarios).
+        
+  ***  
+  
+# Para una lista numerada que continúa luego de alguna interrupción se usa "@"
+  
+(@) Un énfasis
+ 
+Un texto sin numeración.............
+   
+(@) Otro tema con énfasis
+
+
+# Texto en letra itálica
+
+El texto a continuación tiene palabras en letra *itálica* para resaltar un tema o una palabra en otro idioma. 
+  
+# Texto ennegrecido/Bold
+
+Otra técnica para resaltar un texto es ennegracerlo. El título del libro que estoy leyendo es ***Seven Japanese Tales*** de **Junichiro Tanizaki**. 
+
+# endash y emdash
+
+Para añadir líneas antes de un texto se usan dos guiones, ej. -- el texto, o tres guiones para una más larga, ej. --- otro texto 
+
+# Ecuación matemática en la oración
+
+Para añadir una ecuación matemática en el texto como parte de una oración se usa un signo de **dólar** antes y después de la ecuación deseada $x^2$. Esta ecuación se incluye aparte de la oración.  
+
+# Ecuación matemática en bloque 
+ Para que la ecuación matemática aparezca centralizada en el documento se colocan dos signo de dólar, tanto antes como después de la ecuación. Por ejemplo, la fórmula para varianza es la siguiente, $$\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}$$  Nota que se usa **latex** para hacer la fórmula.
+ 
+ 
+```{r}
+library(tidyverse)
+```
+
+### Nota que los nombres de las variables no pueden contener espacios
+
+
+```{r}
+mi_tabla=tribble(
+  ~Edad, ~Genero, ~Pueblo_nacido,~Nueva_variable,
+  23, "F", "Caguas", 1, 
+  190, "M", "San Juan", 2
+)
+mi_tabla
+```
+
+
+
+# Añadir una gráfica
+
+```{r}
+x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
+x
+
+ggplot(x, aes(value))+
+  geom_histogram(colour="white")
+
+```
+
+
+```{r}
+x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
+x
+
+ggplot(x, aes(value))+
+  geom_histogram(colour="white")
+
+```
+
+
+***
+
+> Una manera de resaltar algún texto en particular es colocar este en un bloque para demostrar una idea, una definición, o un concepto. Por ejemplo: Analítica Fundación, Inc., es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en 2018. Su especialidad es el análisis de datos. Su objetivo principal es proveer una gran variedad de servicios educativos, de investigación y de capacitación profesional, fomentando el desarrollo de pensamiento crítico en el campo del análisis cuantitativo.
+
+
+
+# Enseñar un texto "verbatim"
+
+En otras palabras, mostrar exactamente cómo aparece en el texto.  Por ejemplo, quiero que este texto luzca exactamente como se ve `aquí _     - sin que se modifique el formato del texto. 
+
+Al contrario, si se escribe sin comillas    aquí _     - se ve diferente sin que se modifique el formato del texto. 
+
+
+ Esto es perfecto para poesía
+ 
+       `une volée d'outardes
+        se pointe
+        a l'horizon'
+        
+        la première lettre
+        de mon prénom
+        traverse            le ciel`
+        
+Poema de Véronique Sylvain, *Premier quart*, 2019. 
+
+
+### Añadir un enlace de una página web
+
+NOTA: hay dos alternativas, una con la dirección del enlace de forma visible y otra con solo el enlace sin que aparezca la dirección.
+
+1. En la primera alternativa se ve la dirección del enlace <https://raymondltremblay.github.io/ANALITICA/index.html>
+
+2. En la segunda alternativa no se ve la dirección del enlace. Por ejemplo, se puede poner un comentario como el siguiente.  *Para conectarse a la página web de Analítica presione aquí* [Analitica](https://raymondltremblay.github.io/ANALITICA/index.html)
+
+## Para añadir una nota al calce se usa `[^1]`
+
+Al final de esta oración añado el número de una nota al calce o de una referencia; por ejemplo, de mi manuscrito más citado[^1]
+
+Para una segunda referencia[^2]
+
+Referencias
+
+[^1]: Tremblay, Raymond L., et al. "Variation in sexual reproduction in orchids and its evolutionary consequences: a spasmodic journey to diversification." Biological Journal of the Linnean Society 84.1 (2005): 1-54.
+
+[^2]: Segunda referencia

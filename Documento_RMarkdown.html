@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Raymond L. Tremblay" />
+
+
+<title>Documento_RMarkdown</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ANALITICA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Estadística básica
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="E1-Introducción.html">¿Qué es la Estadística?</a>
+    </li>
+    <li>
+      <a href="E2-Historia.html">Historia breve de la estadística cuantitativa</a>
+    </li>
+    <li>
+      <a href="E3-TallerRFE_I.html">Introducción a R, Rstudio y RMarkdown</a>
+    </li>
+    <li>
+      <a href="E4-Graficos.html">Explorando los datos con gráficos</a>
+    </li>
+    <li>
+      <a href="E5-supuestos.html">Los Supuestos de las pruebas paramétricas</a>
+    </li>
+    <li>
+      <a href="E6-TallerRFE_II.html">Regresión simple y ANOVA</a>
+    </li>
+    <li>
+      <a href="E7-TRAvanzado.html">Modelos Lineales</a>
+    </li>
+    <li>
+      <a href="E8-Tipos_de_Datos.html">Tipos de Datos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Visualización
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="G1-ggplot2.html">Qué es la visualización de datos y ejemplos historicos</a>
+    </li>
+    <li>
+      <a href="G2-Errores-tipicos-en-la-visualizacion.html">Errores típicos en la visualización</a>
+    </li>
+    <li>
+      <a href="G3-Graficos-por-conteos.html">Gráficos para conteos</a>
+    </li>
+    <li>
+      <a href="G4-Grafico-de-puntos-de-Wilkinson.html">Gráficos de puntos de Wilkinson</a>
+    </li>
+    <li>
+      <a href="G5_geom_area_densidad_freqpoly.html">Gráficos de area y densidad</a>
+    </li>
+    <li>
+      <a href="G6_geom_histogram.html">Histogramas</a>
+    </li>
+    <li>
+      <a href="G7_geom_bar.html">Gráficos de barras</a>
+    </li>
+    <li>
+      <a href="G8_geom_boxplot_geom_violin.html">Gráficos de caja y de violín</a>
+    </li>
+    <li>
+      <a href="G9_Facet_Grid.html">Facet Grid</a>
+    </li>
+    <li>
+      <a href="G10_Facet_wrap.html">Facet Wrap</a>
+    </li>
+    <li>
+      <a href="G11_EVALUANDO_SUPUESTOS.html">Evaluando Supuestos</a>
+    </li>
+    <li>
+      <a href="G12_Mapas_Calor.html">Mapas de Calor</a>
+    </li>
+    <li>
+      <a href="G13_geom_line.html">Gráficos con lineas</a>
+    </li>
+    <li>
+      <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
+    </li>
+    <li>
+      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Sreencasts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="screencast_t_test.html">t-test Screencast</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ejercicios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Plataforma.html">Lo básico de RStudio</a>
+    </li>
+    <li>
+      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
+    </li>
+    <li>
+      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
+    </li>
+    <li>
+      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Taller para Facultad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TF_1_Descripción.html">Descripción del taller</a>
+    </li>
+    <li>
+      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+    </li>
+    <li>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+    </li>
+    <li>
+      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+    </li>
+    <li>
+      <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
+    </li>
+    <li>
+      <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
+    </li>
+    <li>
+      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+    </li>
+    <li>
+      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+    </li>
+    <li>
+      <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
+    </li>
+    <li>
+      <a href="TF9_Ejercicio_Practica.html">Ejercicios de Practica</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Los Datos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Datos.html">Los Datos</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Documento_RMarkdown</h1>
+<h4 class="author">Raymond L. Tremblay</h4>
+<h4 class="date">8/12/2021</h4>
+
+</div>
+
+
+<div id="seleciona-el-tamaño-de-las-letras-con-la-cantidad-de-hashtags" class="section level1">
+<h1>Seleciona el tamaño de las letras con la cantidad de “hashtags”</h1>
+</div>
+<div id="normandie" class="section level1">
+<h1>Normandie</h1>
+<div id="luis" class="section level2">
+<h2>Luis</h2>
+<div id="josé" class="section level3">
+<h3>José</h3>
+<div id="maria" class="section level4">
+<h4>Maria</h4>
+<div id="denny" class="section level5">
+<h5>Denny</h5>
+<div id="hello" class="section level6">
+<h6>Hello</h6>
+<div id="saludos" class="section level7">
+<p class="heading">Saludos</p>
+<p>Estoy enamorado de RMarkdown</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="lista-no-ordenada" class="section level1">
+<h1>Lista no ordenada</h1>
+<ul>
+<li>El primer item</li>
+<li>El segundo item
+<ul>
+<li>un primer sub-item</li>
+<li>un segundo sub-item</li>
+</ul></li>
+<li>El tercer item (Nota que el espacio entre las lineas no es considerado)</li>
+</ul>
+</div>
+<div id="lista-ordenada" class="section level1">
+<h1>Lista ordenada</h1>
+<p>Para una lista ordenada se usa números y <strong>i)</strong>.</p>
+<ol style="list-style-type: decimal">
+<li>lista ordenada</li>
+<li>el segundo punto</li>
+<li>el tercer punto
+<ol style="list-style-type: lower-roman">
+<li>sub-item 1 (Aqui es muy importante la cantidad de “tabs”, se necesita 4 “tabs”)</li>
+<li>sub-item 2 (nota que se ve diferente en el html que en el documento .rmd)
+<ol style="list-style-type: upper-alpha">
+<li>un sub-sub item (3 “tabs” suplementarios).</li>
+</ol></li>
+</ol></li>
+</ol>
+<hr />
+</div>
+<div id="una-lista-numerada-que-continua-despues-de-una-iterumpción-se-usa" class="section level1">
+<h1>Una lista numerada que continua despues de una iterumpción se usa “@”</h1>
+<ol class="example" style="list-style-type: decimal">
+<li>Un enfasis</li>
+</ol>
+<p>Un texto sin numeración………….</p>
+<ol start="2" class="example" style="list-style-type: decimal">
+<li>Otro tema con enfasis</li>
+</ol>
+</div>
+<div id="texto-en-italics" class="section level1">
+<h1>Texto en Italics</h1>
+<p>El texto que sigue tiene unas palabras en <em>italico</em>, para resaltar un tema o es una palabra en otro idioma.</p>
+</div>
+<div id="texto-enegrecidobold" class="section level1">
+<h1>Texto enegrecido/Bold</h1>
+<p>Otro metodo de resaltar un texto es enegracerlo, El titulo del libro que estoy leyendo al momento es <strong><em>Seven Japanese Tales</em></strong> de <strong>Junichiro Tanizaki</strong>.</p>
+</div>
+<div id="endash-y-emdash" class="section level1">
+<h1>endash y emdash</h1>
+<p>Para añadir lineas antes de un texto se usa – el texto, o tres para uno más largo — otro texto</p>
+</div>
+<div id="ecuación-matemática-en-la-oración" class="section level1">
+<h1>Ecuación matemática en la oración</h1>
+<p>Para añadir una ecuación matemática en el texto como parte de una oración se usa un signo de <strong>dolar</strong> antes y después de la ecuación deseado <span class="math inline">\(x^2\)</span>, y esta ecuación se incluye parate de la oración.</p>
+</div>
+<div id="ecuación-matemática-en-bloque" class="section level1">
+<h1>Ecuación matemática en bloque,</h1>
+<p>Para que la ecuación matemática aparezca centralizado en el documento se usa dos signo de dolares antes y después. Por ejemplo la formula para varianza es la siguiente, <span class="math display">\[\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}\]</span> Nota que se usa <strong>latex</strong> para hacer la formula.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   2.0.0     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>mi_tabla=tribble(
+  ~Edad, ~Genero, ~Pueblo_nacido,~Nueva_variable,
+  23, &quot;F&quot;, &quot;Caguas&quot;, 1, 
+  190, &quot;M&quot;, &quot;San Juan&quot;, 2
+)
+mi_tabla</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##    Edad Genero Pueblo_nacido Nueva_variable
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                  &lt;dbl&gt;
+## 1    23 F      Caguas                     1
+## 2   190 M      San Juan                   2</code></pre>
+</div>
+<div id="añadir-un-gráfico" class="section level1">
+<h1>Añadir un gráfico</h1>
+<pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
+x</code></pre>
+<pre><code>## # A tibble: 1,000 × 1
+##       value
+##       &lt;dbl&gt;
+##  1 -0.00885
+##  2 -0.0623 
+##  3  0.225  
+##  4  0.551  
+##  5 -1.10   
+##  6  0.332  
+##  7  0.420  
+##  8 -0.877  
+##  9  0.113  
+## 10  1.67   
+## # … with 990 more rows</code></pre>
+<pre class="r"><code>ggplot(x, aes(value))+
+  geom_histogram(colour=&quot;white&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="Documento_RMarkdown_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
+x</code></pre>
+<pre><code>## # A tibble: 1,000 × 1
+##      value
+##      &lt;dbl&gt;
+##  1  1.17  
+##  2 -1.93  
+##  3  0.0312
+##  4  1.33  
+##  5  1.65  
+##  6 -0.143 
+##  7  0.663 
+##  8 -1.30  
+##  9  0.354 
+## 10  0.497 
+## # … with 990 more rows</code></pre>
+<pre class="r"><code>ggplot(x, aes(value))+
+  geom_histogram(colour=&quot;white&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="Documento_RMarkdown_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<hr />
+<blockquote>
+<p>Muchas veces uno quiere resaltar un texto poniendolo en un bloque para demostrar un idea, una definicion y concepto. Por ejemplo: Analítica Fundación, Inc., es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en el 2018. Su especialidad es el análisis de datos. Su objetivo principal es proveer todo tipo de servicios educativos, de investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.</p>
+</blockquote>
+</div>
+<div id="enseñar-un-texto-verbatim" class="section level1">
+<h1>Enseñar un texto “verbatim”</h1>
+<p>En otra palabra exactamente como parece en el texto. Por ejemplo, quiero este texti que se visualiza exactamente como <code>aqui _     - sin que se modifica el formato del texto</code>.</p>
+<p>Al contrario si lo escribo sin las comillas aqui _ - sin que se modifica el fromato del texto se ve diferente.</p>
+<p>Esto es perfecto para poesia</p>
+<pre><code>   `une volée d&#39;outardes
+    se pointe
+    a l&#39;horizon&#39;
+    
+    la première lettre
+    de mon prénom
+    traverse            le ciel`
+    </code></pre>
+<p>Poesie de Véronique Sylvain, <em>Premier quart</em>, 2019.</p>
+<div id="añadir-un-enlace-a-un-website" class="section level3">
+<h3>Añadir un enlace a un website</h3>
+<p>NOTE: hay dos alternativas</p>
+<ol style="list-style-type: decimal">
+<li><p>En la primera alternativa se ve web enlace <a href="https://raymondltremblay.github.io/ANALITICA/index.html" class="uri">https://raymondltremblay.github.io/ANALITICA/index.html</a></p></li>
+<li><p>En la segunda alternativa no se ve el enlace. Por ejemplo se puede poner un comentario como lo siguiente. <em>Para conectarse al website de Analítica presione aqui</em> <a href="https://raymondltremblay.github.io/ANALITICA/index.html">Analitica</a></p></li>
+</ol>
+</div>
+<div id="para-añadir-un-footnote-se-usa-1" class="section level2">
+<h2>Para añadir un footnote se usa <code>[^1]</code></h2>
+<p>Al final de esta oración añado un footnote o una referencia por ejemplo de mi manuscrito más citado<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Una segunda referencias<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Referencias</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Tremblay, Raymond L., et al. “Variation in sexual reproduction in orchids and its evolutionary consequences: a spasmodic journey to diversification.” Biological Journal of the Linnean Society 84.1 (2005): 1-54.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>" segunda ref<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

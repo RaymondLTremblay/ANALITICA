@@ -1,0 +1,239 @@
+---
+title: "Documento_RMarkdown"
+author: "Raymond L. Tremblay"
+date: "12/8/2021"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Selecciona el tamaño de la letra con la cantidad de "hashtags"
+
+`# Normandie, un hashtag es el tamaño de letra más grande`
+
+# Normandie
+
+
+`## Luis, dos hashtag`
+
+## Luis
+
+`### José`
+
+### José
+
+`#### María`
+
+#### María
+
+`##### Denny`
+
+##### Denny
+
+`###### Hello, seis hashtags el tamaño de letra más pequeño`
+
+###### Hello
+
+`#######  Saludos, Añadir más hashtags no produce un tamaño más pequeño`
+
+#######  Saludos
+
+Estoy enamorado de RMarkdown "si no pone **hashtag** asi sera el tamaño de las letras"
+
+###### ---------------------------------------------------
+
+# Lista no ordenada
+
+Para una lista no ordenada (sin numeración), usa "+" y "-", los "+" serán puntos negros, y los "-" serán puntos abiertos. 
+
++ El primer ítem
++ El segundo ítem 
+  - un primer sub-ítem
+  - un segundo sub-ítem
+  
++ El tercer ítem (Nota que no se considera el espacio entre las líneas)  
+
+###### ---------------------------------------------------
+
+# Lista ordenada
+
+Para una lista ordenada se usan números y numeración latin **i)**.  Nota la indentación  necesaria para construir una lista ordenada.  
+
+1. lista ordenada
+2. el segundo punto
+3. el tercer punto 
+    i) sub-ítem 1 (aquí es muy importante la cantidad de "tabs"; se necesitan 4 "tabs")
+   ii) sub-ítem 2 (nota que el documento .html se ve diferente al documento .rmd)
+   
+        A) un sub-sub ítem (se necesitan 3 "tabs" suplementarios).
+   iii) ,,,,
+   iv) más texto
+
+
+
+###### ---------------------------------------------------
+
+# Para una lista numerada que continúa luego de alguna interrupción se usa "@"
+
+`(@) Un énfasis`
+
+##### Ejemplo: 
+
+(@) Un énfasis
+ 
+Un texto sin numeración.............
+
+`(@) Otro tema con énfasis`
+
+(@) Otro tema con énfasis
+
+###### ---------------------------------------------------
+
+# Texto en letra itálica 
+
+Para letra en itálica se usa `*`, antes y después del texto, `*texto en italico*`
+
+##### Ejemplo: 
+
+El texto a continuación tiene palabras en letra *itálica* para resaltar un tema o una palabra en otro idioma. 
+  
+# Texto ennegrecido/Bold
+
+Para letra en ennegrecido se usa dos `**`, antes y después del texto, `**texto en ennegrecido**`
+
+##### Ejemplo: 
+
+Otro método para resaltar un texto es ennegracerlo. El título del libro que estoy leyendo es ***Seven Japanese Tales*** de **Junichiro Tanizaki**. 
+
+###### ---------------------------------------------------
+
+
+# endash y emdash
+
+Para añadir una linea corta o larga se usa dos `--` o tres `---`. 
+
+##### Ejemplo: 
+
+Para añadir líneas antes de un texto se usa -- el texto, o tres para uno más largo --- otro texto 
+
+###### ---------------------------------------------------
+
+
+# Ecuación matemática en la oración
+
+
+Para añadir una ecuación matemática en el texto como parte de una oración se usa un signo de **dólar** antes y después de la ecuación deseada `$x^2$`, $x^2$; esta ecuación se incluye parte de la oración. 
+
+###### ---------------------------------------------------
+
+
+# Ecuación matemática en bloque
+
+ Para que la ecuación matemática aparezca centralizada en el documento se usan dos signo de dólar, tanto antes como después. Por ejemplo, la fórmula para varianza es la siguiente, `$$\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}$$`,   $$\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}$$  Nota que se usa **latex** para hacer la fórmula.
+ 
+ 
+###### ---------------------------------------------------
+
+# Añadir una tabla en RMarkdown
+
+Hay muchas maneras de añadir una tabla en RMarkdown, una de esta es usar la función **tribble** en el paquete **tibble**. 
+ 
+```{r}
+library(tidyverse) #Activar el grupo de paquetes "tidyverse"
+```
+
+Nota que los nombres de las variables tienen que ser continuas (o sea, no puede haber espacios), para nom bres compuestos se une con `_`.  El nombre de variables se define con el siguiente signo `~`. Entre cada columna/variable/ datos, se usa una coma.   
+
+
+```{r}
+mi_tabla=tribble(
+  ~Edad, ~Genero, ~Pueblo_nacido,~Nueva_variable,
+  23, "F", "Caguas", 1, 
+  190, "M", "San Juan", 2
+)
+mi_tabla
+```
+
+
+###### ---------------------------------------------------
+
+# Añadir una gráfica
+
+Una de la gran ventaja de trabajar con RMarkdown es que es sumamente fácil integrar los análisis estadístico y gráficos al documento.  Aqui se demuestra como usando añadir un gráfico. El primer paso es añadir un *chunk* de R, despues los datos que añadimos en un objeto llamado **x**. Usando estos datos se produce un gráfico. 
+
+```{r}
+x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
+head(x)
+
+ggplot(x, aes(value))+
+  geom_histogram(colour="white")
+
+```
+
+
+###### ---------------------------------------------------
+
+
+# Resaltando un parafó o múltiples lineas 
+
+Se puede resaltar un texto más largo usando el siguiente signo al frente del texto `>`.  Vemos que el texto es un bloque en un tamaño de letra distincta. 
+
+> Una manera de resaltar texto es poner este en un bloque para demostrar un idea, una definición, o concepto. Por ejemplo: Analítica Fundación, Inc., es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en 2018. Su especialidad es el análisis de datos. Su objetivo principal es proveer una gran variedad de servicios educativos, de investigación y de capacitación profesional, fomentando el desarrollo de pensamiento crítico en el campo del análisis cuantitativo.
+
+
+###### ---------------------------------------------------
+
+# Enseñar un texto "verbatim"
+
+En otras palabras, mostrar exactamente como aparece en el texto.  Por ejemplo, quiero que este texto luzca exactamente como `aqui _     - sin que se modifique el formato del texto.` 
+
+Al contrario, si se escribe sin comillas    aqui _     - se ve diferente al texto anterior. 
+
+
+ Esto es perfecto para poesía
+ 
+       `une volée d'outardes
+        se pointe
+        a l'horizon'
+        
+        la première lettre
+        de mon prénom
+        traverse            le ciel`
+        
+Poema de Véronique Sylvain, **Premier quart**, Prise de Parole, 2019. 
+
+
+###### ---------------------------------------------------
+
+### Añadir un enlace de una página web
+
+NOTA: hay dos alternativas, una con la dirección del enlace de forma visible y otra con solo el enlace sin que aparezca la dirección. En el primer ejemplo se añade `<` antes del **url** y `>` después como lo siguiente `<https://raymondltremblay.github.io>`. La ventaja es que presionar sobre el enlace lo lleva a la dirección del enlace.
+
+1. En la primera alternativa se ve la dirección del enlace <https://raymondltremblay.github.io/ANALITICA/index.html>
+
+El segundo ejemplo se añade de la siguiente manera `[texto visto](el ulr que no se ve)`, nota aqui que se usa los corchetes y parentesis. El ejemplo en el texto tiene la siguiente información.  `[Analitica](https://raymondltremblay.github.io/ANALITICA/index.html)`.  
+
+2. En la segunda alternativa no se ve la dirección del enlace. Por ejemplo, se puede poner un comentario como el siguiente.  *Para conectarse al website de Analítica presione aqui* [Analitica](https://raymondltremblay.github.io/ANALITICA/index.html)
+
+
+###### ---------------------------------------------------
+
+# Para añadir una nota al calce se usa `[^1]`
+
+Al final de esta oración añado el número de una nota al calce o de una referencia; por ejemplo, de mi manuscrito más citado[^1]
+
+Una segunda referencia[^2]
+
+La ventaja de este sistema es que presionando en el **.html** el número de la nota lo lleva a la sección de referencias. 
+
+###### ---------------------------------------------------
+
+
+Referencias
+
+[^1]: Tremblay, Raymond L., et al. "Variation in sexual reproduction in orchids and its evolutionary consequences: a spasmodic journey to diversification." Biological Journal of the Linnean Society 84.1 (2005): 1-54.
+
+[^2]:" segunda ref
