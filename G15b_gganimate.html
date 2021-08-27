@@ -431,19 +431,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
     </li>
   </ul>
 </li>
@@ -569,7 +557,7 @@ t</code></pre>
 <div id="poniendo-un-punto-para-valor" class="section level2">
 <h2>Poniendo un punto para valor</h2>
 <p>Los puntos se pueden quedar en el gráfico añadiendo <strong>(group = seq_along(Día)</strong>.</p>
-<pre class="r"><code>t + geom_point(aes(group = seq_along( Día))) +
+<pre class="r"><code>t + geom_point(aes(group = seq_along( Día ))) +
   transition_reveal( Día)</code></pre>
 <p><img src="G15b_gganimate_files/figure-html/puntos%20permanentes-1.gif" /><!-- --></p>
 </div>

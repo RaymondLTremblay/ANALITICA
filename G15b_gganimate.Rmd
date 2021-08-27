@@ -86,6 +86,6 @@ animate(cambio_m, height = 800, width = 800)
 Los puntos se pueden quedar en el gráfico añadiendo **(group = seq_along(Día)**. 
 
 ```{r puntos permanentes}
-t + geom_point(aes(group = seq_along( Día))) +
+t + geom_point(aes(group = seq_along( Día ))) +
   transition_reveal( Día)
 ```

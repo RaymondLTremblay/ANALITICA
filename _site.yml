@@ -94,6 +94,9 @@ navbar:
         - 
           href: Documento_RMarkdown-ed
           text: "Una breve introducción a RMarkdown"
+        - 
+          href: Documento_dplyr
+          text: "Una breve introducción a dplyr"
       text: Talleres
     - 
       menu: 
