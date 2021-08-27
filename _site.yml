@@ -86,12 +86,6 @@ navbar:
     - 
       menu: 
         - 
-          href: screencast_t_test.html
-          text: "t-test Screencast"
-      text: Sreencasts
-    - 
-      menu: 
-        - 
           href: Documento_RMarkdown-ed
           text: "Una breve introducción a RMarkdown"
         - 
