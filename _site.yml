@@ -48,7 +48,7 @@ navbar:
           text: "Gráficos de area y densidad"
         - 
           href: G6_geom_histogram.html
-          text: Histogramas
+          text: "Histogramas"
         - 
           href: G7_geom_bar.html
           text: "Gráficos de barras"
@@ -99,13 +99,13 @@ navbar:
           text: "Descripción del taller"
         - 
           href: TF1_Regresion_Lineal.html
-          text: Regresion_Lineal
+          text: "Regresión Lineal"
         - 
           href: TF2_Regresion_Cuadratica_otro.html
-          text: "Regresion no lineal"
+          text: "Regresión no lineal"
         - 
           href: TF3_Regresion_Multiples.html
-          text: "Regresion Multiples"
+          text: "Regresión Multiples"
         - 
           href: TF4_GLM.html
           text: "Modelos Lineales Generalizados"
@@ -114,10 +114,10 @@ navbar:
           text: "Regresion Logística"
         - 
           href: TF6_Regresion_Poisson.html
-          text: "Regresion Poisson"
+          text: "Regresión Poisson"
         - 
           href: TF7_Regresion_beta.html
-          text: "Regresion Beta"
+          text: "Regresión Beta"
         - 
           href: TF8_Akaike_Information_Criterion.html
           text: "Criterio de Selección"
