@@ -49,7 +49,7 @@ library(tidyverse)
 
 ## Regessión Logística
 
-La regresión logística es el procedimiento para evaluar el efecto de una variable continua sobre una variable discreta binaria. En este caso la variable discreta está limitada a solamente dos alternativas.  Por ejemplo: si o no, vivo o muerto, presente o ausente, tiene flores o no tiene flores, estar infectado o no estar infectado con el COVID-19, o Trump o Biden.  Tipicamente se codifica con valores numéricos. En uno de los estados se la asigna un "0" y la otra se la asigna un "1". 
+La regresión logística es el procedimiento para evaluar el efecto de una variable continua sobre una variable discreta binaria. En este caso la variable discreta está limitada a solamente dos alternativas.  Por ejemplo: si o no, vivo o muerto, presente o ausente, tiene flores o no tiene flores, estar infectado o no estar infectado con el COVID-19, o Trump o Biden.  Típicamente se codifica con valores numéricos. En uno de los estados se la asigna un "0" y la otra se la asigna un "1". 
 
 En el siguiente dataset ficticio la variable continua representa el tamaño de 20 bacterias (en µm), y la variable discreta binomial representa si esta bacteria hizo fisión (1) o no (0).  
 
@@ -57,7 +57,7 @@ En el siguiente dataset ficticio la variable continua representa el tamaño de 2
 
 ## Ejemplo de un patrón casi perfecto
 
-Con la siguiente gráfica se observa que cuando las bacterias son muy pequeñas no ocurre fision y cuando miden 9 µm o más hay una  fisión binaria. Si una bacteria tiene un tamaño de 10 µm tiene una probabilidad de fisionarse de 50%.    
+Con la siguiente gráfica se observa que cuando las bacterias son muy pequeñas no ocurre fisión y cuando miden 9 µm o más hay una  fisión binaria. Si una bacteria tiene un tamaño de 10 µm tiene una probabilidad de fisionarse de 50%.    
 
 ```{r perfect logistic regression, echo=TRUE, warning=FALSE}
 continuous=c(rep(1:20,2))
@@ -85,11 +85,11 @@ model<-glm(binomial~continuous, data= df, family = binomial())
  Igual como en una regresión lineal se evalúa el intercepto y los coeficientes de las variables continuas. En este caso tenemos solamente una variable continua.  El **Estimate** son los coeficientes en la escala $logit(p)=\log\frac{p}{1-p}$, donde las $p's$ representan las probabilidades de estar en el estado "1".   El valor de $p = Pr(>|z|)$ es la probabilidad de que el intercepto o las pendientes sean diferentes de cero.  
  
  
-Los valores de **Null Deviance** y **Residual Deviance** son índices del "goodness of fit" del modelo. Valores grandes siempre sugieren que el modelo no es bueno.   
+Los valores de **Null Deviance** y **Residual Deviance** son índices **Bondad de ajuste** o sea del *goodness of fit* del modelo. Valores grandes siempre sugieren que el modelo no es bueno.   
 
 La desviación nula (Null Deviance) muestra qué tan bien la variable de respuesta es predicha por un modelo que incluye solamente el intercepto (gran media).  La desviación de los residuales donde incluye las de variables independientes. 
 
-En nuestro modelo ficticio, el Null Deviance es bien alto (55.35), pero cuando se incluye la variable independiente el deviance (residual deviance) baja mucho (7.83).  Esto suguiere que el modelo no es muy bueno a predecir si las células van tener una fisión, al contrario el tamaño es una variable que explica gran parte de la variación para predecir la probabilidad de fisión binaria.  
+En nuestro modelo ficticio, la **desviación nula**, el *Null Deviance* es bien alto (55.35), pero cuando se incluye la variable independiente la **desviación residual** (*residual deviance*) baja mucho (7.83).  Esto surgiere que el modelo no es muy bueno a predecir si las células van tener una fisión, al contrario el tamaño es una variable que explica gran parte de la variación para predecir la probabilidad de fisión binaria.  
 
 
 ```{r}
@@ -147,7 +147,7 @@ Regresión logística:
 $p=P(Y=1)$ o sea la probabilidad que p tenga el valor de **1** o  $1-p= 1-P(Y=1)$ que seria el valor de **0** en su conjunto de datos.  
 
 $$\log\frac{p}{1-p}=\beta_0+\beta_1X_i+\beta_2X_i$$
-Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de predictora tenga una probabilidad entre $0$ y $1$.  Las probabilidades van a variar de $0$ a $1$ o sea de 0% a 100%.  El vocabulario formal es que las respuesta son binarias o que siguen la distribución de Bernoulli.  
+Nota que la primera ecuación es un modelo que trata de predecir el valor de **Y** en la segunda se estima la probabilidad de que el valor de las variables predictora tenga una probabilidad entre $0$ y $1$.  Las probabilidades van a variar de $0$ a $1$ o sea de 0% a 100%.  El vocabulario formal es que las respuesta son binarias o que siguen la distribución de Bernoulli.  
 
 En la literatura la formula también se representa como $logit(p)$.  
 
@@ -163,7 +163,7 @@ En el siguiente enlace se puede encontrar más información <https://en.wikipedi
 
 ## Los Datos
 
-Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varones al nacer y su supervivencia (fallecio= 0 y sobrevivio= 1).  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
+Los datos provienen de un estudio realizado por Mary N. Karn and L. S. Penrose publicado en **Annals of Eugenics**, titulado **Birth Weight and gestation time in relation to maternal age, parity and infant survival** publicado en 1951.  Estaremos usando solamente una parte de los datos. El periodo de gestación y el peso de los bebés varones al nacer y su supervivencia (falleció= 0 y sobrevivió= 1).  Para facilitar el trabajo he modificado los datos un poco para cumplir con las tareas asignada.
 
 El archivo "Karn_Penrose_infant_survivorship.csv" tiene datos sobre 7036 nacimientos entre los años 1935 y 1946 y tiene 4 columnas:
 
@@ -185,18 +185,18 @@ summary(KPdata)
 
 ***
 
-1. Pregunta: Explique en sus propias palabras cuales son las hipotesis que se pueden probar. Especificamente mencione si la hipótesis es una hipótesis nula o alterna.
+1. Pregunta: Explique en sus propias palabras cuales son las hipótesis que se pueden probar. Específicamente mencione si la hipótesis es una hipótesis nula o alterna.
 
-  - Hipotesis Nula: El peso de los varones y el periodo de gestacion no afectan el indice de supervivencia. 
+  - Hipótesis Nula: El peso de los varones y el periodo de gestación no afectan el indice de supervivencia. 
   
-  - Hipotesis Alterna #1: Los varones con un periodo de  mayor gestacion tienen mayor probabilidad de supervivencia que los varones con un mayor peso.
+  - Hipótesis Alterna #1: Los varones con un periodo de  mayor gestación tienen mayor probabilidad de supervivencia que los varones con un mayor peso.
 
-  - Hipotesis Alterna #2: Los varones con mayor peso al nacer tienen mayor probabilidad de supervivencia que los varones con un mayor periodo de gestacion.
+  - Hipótesis Alterna #2: Los varones con mayor peso al nacer tienen mayor probabilidad de supervivencia que los varones con un mayor periodo de gestación.
 
 
 ***
 
-2. Pregunta: Grafique la variable de respuesta
+2. Pregunta: Construye una gráfica la variable de respuesta
 
 ```{r variable de respuesta}
 names(KPdata)
@@ -211,7 +211,7 @@ ggplot(KPdata, aes(Weigth_lb))+
 
 ***
 
-3. Pregunta: Grafique las variables explicativas
+3. Pregunta: Construye una gráfica la variable de las variables explicativas
     - Periodo de gestación
     - Peso de los varones al nacer
 
@@ -262,7 +262,7 @@ ggplot(KPdata, aes(x=Weigth_lb, y=Survival)) +
 
 ## Comparando modelos
 
-En el siguiente gráfico se observan tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biológicamente (y matematicamente) imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebés que nacen con un peso muy grande también pueden tener complicaciones y por ende una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesárea para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
+En el siguiente gráfico se observan tres modelos, `r colorize("logístico", "blue")`, `r colorize("lineal", "orange")` y `r colorize("LOESS", "red")`.  Cada uno de estos modelos tiene sus aplicaciones en diferentes circunstancias.  Si evaluamos el modelos `r colorize("lineal", "orange")` se observa que la pendiente es positiva y que sobre pasa el 100%, donde este sugiere que hay más que un 100% de probabilidad de sobrevivir. Es claro que este modelo no es adecuado ya que es biológicamente (y matemáticamente) imposible.  El modelo `r colorize("LOESS", "red")` pudiese ser aceptable, ya que bebés que nacen con un peso muy grande también pueden tener complicaciones y por ende una menor probabilidad de sobrevivir. Es es una de las razones que se usa la cesárea para dar a luz a estos bebes (en adición que para la madre también pudiese haber complicaciones). 
 
 El punto importante es que como la regresión logística representa una probabilidad, la regresión está limitada a valores  entre 0 y 1, incluyendo el intervalo de confianza (el intervalo no puede tener valores menos de cero ni mayor de 1).  Por consecuencia las probabilidades y el intervalo de confianza se limita entre 0 y 1. 
 
@@ -352,7 +352,6 @@ Brass %>%
 
 ## La variable de respuesta, **Y**. 
 
-You can also embed plots, for example:
 
 ```{r head, echo=FALSE, message=FALSE}
 

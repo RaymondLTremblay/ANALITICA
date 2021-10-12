@@ -73,7 +73,7 @@ donde
 -   k es el número de ocurrencias.
 -   k! es el factorial de k.
 
-Cuando se describe una distribución Poisson el promedio es $\lambda$ y la varianza es tambien $\lambda$. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<https://en.wikipedia.org/wiki/Poisson_distribution>).
+Cuando se describe una distribución Poisson el promedio es $\lambda$ y la varianza es también $\lambda$. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<https://en.wikipedia.org/wiki/Poisson_distribution>).
 
 ```{r}
 set.seed(23454)
@@ -131,7 +131,7 @@ geom_histogram(aes(y=..density..), color="#e9ecef")+
 
 ## Probabilidades cumulativas
 
-Aqui se aplica la función para visualizar la probabilidades cumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores cumulativos (i.e. $f(k) = P(X \leq k)$ . Lo más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
+Aquí se aplica la función para visualizar la probabilidades acumulativas, vea **stat\_ecdf {ggplot2}** para más detalles. Lo que se observa es la probabilidad de incluir los valores acumulativos (i.e. $f(k) = P(X \leq k)$ . Lo más importante es reconocer que la adición de las probabilidades no es continua, pero "salta" de un valor a otra a medida que se añade la frecuencia de los valores en el eje de x. Si fuese una distribución normal, la linea seria suavizada. Nota que cuando el valor de $\lambda$ es más grande los saltos son más pequeños (es más suave el cambio).  
 
 
 ```{r}
@@ -146,7 +146,7 @@ stat_ecdf(geom = "step")+
 
 ## Ejemplos de Datos Poisson 
 
-Muchas veces los datos recolectados tienen la característica de ser discretos y nonegativos. 
+Muchas veces los datos recolectados tienen la característica de ser discretos y no negativos. 
 Ejemplos:
 
  + El número de hijos por mujer.
@@ -166,7 +166,7 @@ El primer paso es evaluar la variable dependiente.  Miramos las variables del ar
 ```{r}
 head(acs)
 ```
-La variable dependiente en nuestro análisis es el número de hijos **NumChildren**. Se observa que la mayoria de las familias no tienen hijos, 
+La variable dependiente en nuestro análisis es el número de hijos **NumChildren**. Se observa que la mayoría de las familias no tienen hijos, 
 
 ```{r PR}
 ggplot(acs, aes(x=NumChildren))+ 
@@ -210,7 +210,7 @@ donde
 
 $${ z }_{ i }=\frac { \gamma _{ i }-{ \hat { \gamma } }_{ i } }{ sd({ \hat { \gamma } }_{ i }) } =\frac { \gamma _{ i }-{ \mu }_{ i }{ \hat { \theta } }_{ i } }{ \sqrt { { \mu }_{ i }{ \hat { \theta } }_{ i } } }$$
 
-Se puede evaluar los residuales estandarizados en R con el siguiente script. El modelo se llama **children1** y se aplica la formula arriba de la siguiente forma. 
+Se puede evaluar los residuales estandarizados en R con el siguiente *script* o sea **secuencia de comandos** . El modelo se llama **children1** y se aplica la formula arriba de la siguiente forma. 
 
 
 ```{r PR3}
@@ -238,7 +238,7 @@ dispersiontest(children1, trafo=1)
 
 ```
 
-Pueden encontrar otras alternativas de como evaluar si hay sobredispersión de los datos en este enlace. <https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant>
+Pueden encontrar otras alternativas de como evaluar si hay sobre dispersión de los datos en este enlace. <https://stats.stackexchange.com/questions/66586/is-there-a-test-to-determine-whether-glm-overdispersion-is-significant>
 
 
 
@@ -250,7 +250,7 @@ children2<-glm(NumChildren~FamilyIncome+FamilyType+OwnRent,
                data=acs, family=quasipoisson(link="log"))
 
 summary(children2)
-# Ahora se compara loa parametros de los dos modelos  
+# Ahora se compara loa parámetros de los dos modelos  
 multiplot(children1, children2)
 ```
 

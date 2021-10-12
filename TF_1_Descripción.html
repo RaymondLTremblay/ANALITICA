@@ -13,7 +13,7 @@
 
 <title>Taller para Facultad</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -284,12 +284,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -389,40 +389,28 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
     <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
@@ -437,13 +425,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -452,10 +440,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -592,6 +580,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

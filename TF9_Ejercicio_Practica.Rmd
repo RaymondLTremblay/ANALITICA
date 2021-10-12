@@ -72,13 +72,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Datos del Titanic: Estos son datos reales
 
- + Survived, if the passenger survived or not
- + Pclass, the type of cabin, first, second and third class
- + Name: the name of the passenger
- + Sex of the passenger
- + Age of the passenger
- + Fare, how much they paid for the trip
- + Embarked port, where they embarked on the ship, Southhampton, England; Queenstown, Ireland and Cherbourg in France.  
+ + Survived, si el pasajo sobrevivio o no
+ + Pclass, El tipo de cabina donde estaba asignado los pasajeros, primera, segunda o tercera clases
+ + Name: El nombre del pasajero
+ + Sex of the passenger: El sexo del pasajero
+ + Age of the passenger: La edad del pasajero
+ + Fare: Cuanto pago para el viaje. 
+ + Embarked port: El puerto donde enbarco los pasajeros, Southhampton, England; Queenstown, Ireland and Cherbourg in France.  
 
 Subir los datos
 
@@ -135,7 +135,8 @@ summary(model)
 
 ```{r predicting death, eval=FALSE, include=FALSE}
 
-# Predicting the probability of death (not surviving) of passenger from Dublin from third class
+> Predecir la probabilidad de muerte (no sobrevivir) de un pasajero de Dublín de tercera clase
+
 e= exp(1)
 
 
@@ -185,7 +186,7 @@ head(Bici)
 ```
 
 
-+ Evaluar un modelo para tratar de predecir la cantidad de ciclista que pasan por uno d elos puentes de New York
++ Evaluar un modelo para tratar de predecir la cantidad de ciclista que pasan por uno de los puentes de New York
 
 ```{r eval=FALSE, include=FALSE}
 modelP=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = poisson(link="log"))
@@ -199,7 +200,7 @@ modelP2=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, fami
 summary(modelP2)
 ```
 
-+ CREATE A COEFFICIENT PLOT OF THE MODEL
++ Crea un gráfico de los coeficientes
 
 
 ```{r PR2, eval=FALSE, include=FALSE}
@@ -216,7 +217,7 @@ dispersiontest(modelP2, trafo=1)
 ```
 
 SI Hay sobre dispersión CUAL ALTERNATIVA hay disponible PARA EVALUAR EL MODELO?
-Contruir el modelo
+Construir el modelo
 
 ```{r eval=FALSE, include=FALSE}
 modelP=glm(Brooklyn_Bridge~High_Tem_F+Low_Temp_F+Precipitation, data=Bici, family = quasipoisson(link="log"))
@@ -232,12 +233,13 @@ summary(modelP)
 
 Evaluate if the propotion of invasive plants is correlated with the 
 
- + area= island size, 
- + population =population size, 
- + pdensity: population density 
- + gdp: gross domestic product. 
+ + area= tamaño de la isla, 
+ + population =tamaño poblacional, 
+ + pdensity: densidad poblacional 
+ + gdp: producto Interno Bruto. 
  
- In this chunk, I calculate the proportion of plants which are alien based of the total flora of the island, Proportion invasive = Prop_inv
+ 
+En este fragmento, calculo la proporción de plantas que son extrañas en función de la flora total de la isla, **Proporción de especie invasivas** = ***Prop_inv***. 
 
 ```{r}
 library(readr)
@@ -263,16 +265,16 @@ summary(modelBeta1)
 ```
 
 
-+ Calculate the quantiles
++ Calcular los cuantiles
 
 ```{r}
 
 ```
 
 
-## Philippine economic status and food allocation
+## Situación económica y asignación de alimentos de Filipinas
 
-A second example: This data comes from the Philippines and is an survey of the amount economic status of 41544 families.  The survey includes 60 variables.  To see the names of the variables write ina chunk **names(Phili)**
+Estos datos provienen de Filipinas y son una encuesta de la situación económica de 41544 familias. La encuesta incluye 60 variables. Para ver los nombres de las variables, escriba en un fragmento.  **names(Phili)**
 
 
 ```{r}
@@ -287,7 +289,7 @@ Phili=clean_names(Phili)
 
 ```
 
-+ Calculate the proportion of the families cost of food per family based on the families income.  
++ Calcule la proporción del costo de alimentación de las familias por familia en función de los ingresos familiares.  
 
 ```{r}
 Phili$PropFood=Phili$total_food_expenditure/Phili$total_household_income

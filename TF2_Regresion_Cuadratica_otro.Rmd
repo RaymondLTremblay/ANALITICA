@@ -113,7 +113,7 @@ La nueva ecuación polinomial es la siguiente:
 
 $$y=\alpha+b_1x_i+b_2x_i^2+\epsilon$$
 
-donde el intercepto $\alpha$ más los dos coeficientes, $b_1$ para el componente lineal y el componente cuadratico $b_2$, el $\epsilon$ son los errores.
+donde el intercepto $\alpha$ más los dos coeficientes, $b_1$ para el componente lineal y el componente cuadrático $b_2$, el $\epsilon$ son los errores.
 
 $$y=261.9-7.35*x_i+0.08*x_i^2$$
 
@@ -156,7 +156,7 @@ Los valores a predecirse en la variable **y**
 y<-500+0.5*(d-10)^3
 ```
 
-Crear un conjunto de datos que tiene variación. Donde los datos tienen una variación con distribución normal con un promedio de 10 y una desviación estandar de 80.
+Crear un conjunto de datos que tiene variación. Donde los datos tienen una variación con distribución normal con un promedio de 10 y una desviación estándar de 80.
 
 ```{r}
 variación <- rnorm(length(d), mean=10, sd=80)
@@ -234,11 +234,11 @@ La cantidad de variación contabilizada toma en cuenta 84.6% de la variación to
 
 Evidencia de Residuales que no cumple con **Igualdad de varianza.**
 
-Aquí se demuestra algunos de los patrones que pueden sugerir que los datos no cumplen con los supuestos de la prueba. El grafico es de Field, Miles and Field del libro Discovering Statistics Using R, 2012. La figure 7.15 (Con permiso del autor A. Field, email, 2020-10-08) .
+Aquí se demuestra algunos de los patrones que pueden sugerir que los datos no cumplen con los supuestos de la prueba. El gráfico es de Field, Miles and Field del libro Discovering Statistics Using R, 2012. La figure 7.15 (Con permiso del autor A. Field, email, 2020-10-08) .
 
 -   En el gráfico arriba a la izquierda es una distribución de los datos que sugiere igualdad de varianza o **homogeneidad de varianza**.
 
--   En el gráfico arriba a la derecha demuestra un patrón de residuales donde los residuales no son distribuido equitativamente, y sugiere heteroescadisticidad de varianza.
+-   En el gráfico arriba a la derecha demuestra un patrón de residuales donde los residuales no son distribuido equitativamente, y sugiere heteroscadastiticidad de varianza.
 
 -   En el gráfico abajo a la izquierda un patrón donde sugiere que la relación entre una variable y otra no es lineal.
 
