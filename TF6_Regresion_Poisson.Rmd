@@ -1,5 +1,5 @@
 ---
-title: "Regresion Poisson"
+title: "Regresión Poisson"
 output:
   html_document:
     css: tutorial.css
