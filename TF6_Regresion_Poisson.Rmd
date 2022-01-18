@@ -8,6 +8,7 @@ output:
    # theme: simplex
     toc: yes
     toc_float: yes
+    code_folding: hide
 ---
 
 ```{=html}
@@ -61,7 +62,7 @@ head(acs)
 
 La distribución de Poisson se usa cuando tenemos valores numéricos discretos, $0, 1, 2, 3, 4, \ldots, k, \ldots$ pero no puede tener valores parciales como $1.4$
 
-La formulación de la regresión de Poisson es ${ y }_{ i }~ pois({ \theta }_{ i })$ donde ${ y }_{ i }$ es la i-ésima respuesta y ${ \theta }_{ i }=\quad { e }^{ { X }_{ i }\beta}$ es la media de la distribución para la i-ésima observación.
+La formulación de la regresión de Poisson es ${ y }_{ i }~ pois({ \theta }_{ i })$ donde ${ y }_{ i }$ es la i-ésima respuesta y $${ \theta }_{ i }={ e }^{ { X }_{ i }\beta}$$ es la media de la distribución para la i-ésima observación.
 
 Para el primer ejercicio nota aquí que los datos son la cantidad de hijos por familia. El primer punto que hay que apreciar es que los valores son unidades, y que estos no puede haber 1.1, medio hijo o -1 hijo. En otras palabras es que los datos son discretos y no negativos. Entonces la distribución Poisson es una variable **x** de datos al azar y discreta y tiene una distribución Poisson si los parámetros $\lambda$ \> 0, para k = 0,1,2,....k, y la función de probabilidad es igual a
 
@@ -75,29 +76,44 @@ donde
 
 Cuando se describe una distribución Poisson el promedio es $\lambda$ y la varianza es también $\lambda$. Es el mismo valor. Para la descripción de los otras medidas de tendencia centrales y de dispersión vea el website de Wikipedia (<https://en.wikipedia.org/wiki/Poisson_distribution>).
 
-```{r}
+```{r include=FALSE}
 set.seed(23454)
 foo <- list(
         df1 = data.frame(x=rep('lambda_1', 500), y = rpois(500, 1)), # lambda es igual a 1
         df5 = data.frame(x=rep('lambda_5', 500), y = rpois(500, 5)), # lambda es igual a 5
         df15 = data.frame(x=rep('lambda_15', 500), y = rpois(500, 15)),# lambda es igual a 15
-        df25 = data.frame(x=rep('lambda_50', 500), y = rpois(500, 50)) # lambda es igual a 50
+        df25 = data.frame(x=rep('lambda_25', 500), y = rpois(500, 25)) # lambda es igual a 50
 )
 #foo
 
 lambda=rbind(foo$df1, foo$df5,foo$df15,foo$df25 )
 head(lambda)
 
-lambda$x = factor(lambda$x, levels=c('lambda_1','lambda_5','lambda_15','lambda_50'))
-head(lambda)
+lambda$x = factor(lambda$x, levels=c('lambda_1','lambda_5','lambda_15','lambda_25'))
+#head(lambda)
 
 ```
 
 ***
 
+## Información básica 
+
+### Notación: Pois( $\lambda$ )
+### Parametros: $\lambda\in (0, inf)$ (Números naturales comenzando en zero)
+### Promedio: $\lambda$
+### Varianza: $\lambda$ 
+### Mediana: $\approx [\lambda +1/3 -0.02/\lambda]$
+### Skewness: $\lambda^{-1/2}$
+### Kurtosis: $\lambda^{-1}$ 
+
+
+
+***
 ### Distribución de frecuencia de distribución Poisson
 
-Las figuras de la frecuencia demuestran el comportamiento de la distribución de Poisson cuando $\lambda$ aumenta. Se han generado  500 valores al azar en cada simulación donde $\lambda$ es 1, 5, 15 y 25. Nota que si $\lambda = 1$ entonces el promedio es uno y la varianza es 1. A medida $\lambda \rightarrow \infty$  (y la muestra es grande la distribución se acerca a una distribución normal.
+Las figuras de la frecuencia demuestran el comportamiento de la distribución de Poisson cuando $\lambda$ aumenta. Se han generado 500 valores al azar en cada simulación donde $\lambda$ es 1, 5, 15 y 25. Nota que si $\lambda = 1$ entonces el promedio es uno y la varianza es 1. A medida $\lambda \rightarrow \infty$  (y la muestra es grande la distribución se acerca a una distribución normal.
+
+
 
 
 
@@ -127,6 +143,24 @@ geom_histogram(aes(y=..density..), color="#e9ecef")+
   xlab("k")
 ```
 
+### Acercamiento a las dos primeras graficas.
+
+- Nota que la cantidad/proporción de cada grupo es discreta. 
+
+- Segundo no sigue una distribución norma.
+
+
+
+
+```{r}
+#lambda
+lambda %>%  filter(x==c("lambda_1", "lambda_5")) %>% 
+  ggplot(aes(y, fill=x))+
+geom_histogram(aes(y=..density..), color="#e9ecef")+
+facet_wrap(~x)
+```
+
+
 ***
 
 ## Probabilidades cumulativas
@@ -141,6 +175,36 @@ stat_ecdf(geom = "step")+
   ylab("P(X=k)")+
   xlab("k")
 ```
+
+
+## Ejemplo de tamaño de muestra grande con un lambda grande (lo importante es que no este cerce de zero)
+
+```{r include=FALSE}
+
+foo2 <- list(
+        df1000 = data.frame(x=rep('lambda_1000', 1000), y = rpois(1000, 1000)) # lambda es igual a 1
+
+)
+#foo2
+
+
+
+lambda2=rbind(foo2$df1000 )
+head(lambda)
+
+lambda2$x = factor(lambda2$x, levels=c('lambda_1000'))
+#head(lambda2)
+```
+
+
+```{r}
+ggplot(lambda2, aes(y, fill=x))+
+geom_histogram(aes(y=..density..), color="#e9ecef")+
+  ylab("P(X=k)")+
+  xlab("k")
+```
+
+
 
 ***
 
@@ -166,6 +230,9 @@ El primer paso es evaluar la variable dependiente.  Miramos las variables del ar
 ```{r}
 head(acs)
 ```
+
+***
+
 La variable dependiente en nuestro análisis es el número de hijos **NumChildren**. Se observa que la mayoría de las familias no tienen hijos, 
 
 ```{r PR}
@@ -188,7 +255,7 @@ children1<-glm(NumChildren~FamilyIncome+FamilyType+OwnRent,
 summary(children1)
 ```
 
-```{r PR2}
+```{r PR2, message=FALSE, warning=FALSE}
 coefplot(children1)
 ```
 
@@ -197,11 +264,11 @@ coefplot(children1)
 ## ¿Qué es la sobredisperción?
 
 
-En estadística, la sobredispeción es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual a al promedio
+En estadística, la sobredispeción es la presencia de una mayor variabilidad (dispersión estadística) en un conjunto de datos de lo que se esperaría según un modelo estadístico dado.  En el modelo Poisson, el promedio es igual a $\lambda$ y la varianza es igual a $\lambda$, entonces son iguales.  Por consecuencia el supuesto es que la hipótesis nula es que la varianza es igual al promedio
 
 OD = Overdispersion, **Sobredisperción**
 
-La sobre es definida como
+La sobredispersión es definida como
 
 $$OD=\frac { 1 }{ n-p } \sum _{ i=1 }^{ n }{ { z }_{ i }^{ 2 } }$$
 
@@ -245,7 +312,7 @@ Pueden encontrar otras alternativas de como evaluar si hay sobre dispersión de 
 
 
 
-```{r PR6}
+```{r PR6, message=FALSE, warning=FALSE}
 children2<-glm(NumChildren~FamilyIncome+FamilyType+OwnRent,
                data=acs, family=quasipoisson(link="log"))
 
