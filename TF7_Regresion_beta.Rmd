@@ -44,7 +44,7 @@ Referencias:
 
 Cribari-Neto, F., and Zeileis, A. (2010). Beta Regression in R. Journal of Statistical Software, 34(2), 1–24. http://www.jstatsoft.org/v34/i02/.
 
-Grün, B., Kosmidis, I., and Zeileis, A. (2012). Extended Beta Regression in R: Shaken, Stirred, Mixed, and Partitioned. Journal of Statistical Software, 48(11), 1–25. http://www.jstatsoft. org/v48/i11/.
+Grün, B., Kosmidis, I., and Zeileis, A. (2012). Extended Beta Regression in R: Shaken, Stirred, Mixed, and Partitioned. Journal of Statistical Software, 48(11), 1–25. http://www.jstatsoft.org/v48/i11/.
 
 Articulo sobre regresión beta y diferentes paquetes de R que se puede usar para hacer los análisis [Douma and Weedon 2019](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13234)
 
@@ -165,7 +165,7 @@ ggplot(betadj, aes(b1, cases, colour=beta_shapes))+
 
 ## Wikipedia
 
-En Wikipedia se puede apreciar como la distribución cambian cuando varia los parametros
+En la pagina de Wikipedia sobre distribución beta se puede apreciar como la distribución cambian cuando varia los parametros
 
 
 <a title="Pabloparsil, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:PDF_of_the_Beta_distribution.gif"><img width="516" alt="PDF of the Beta distribution" src="https://upload.wikimedia.org/wikipedia/commons/7/78/PDF_of_the_Beta_distribution.gif"></a>
@@ -452,6 +452,9 @@ AIC(modelpropFr,modelpropFr_lm)
 
 
 ***
+
+## Distribución de valores especificos
+
 
 Evaluando la distribución de beta para valores específicos de x= Proporción de frutos por plantas basado en la cantidad de flores en la planta. 
 
