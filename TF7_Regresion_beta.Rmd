@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics(c("Graficos/Analitica.png", "Graficos/UPR_IPERT_logo.png"))
 ```
 #Un cambio para modificar los gráficos
-```{r, echo=TRUE}
+```{r include=FALSE}
 library(ggplot2)
 
 rlt_theme <- theme(axis.title.y = element_text(colour="grey20",size=15,face="bold"),
@@ -46,13 +46,18 @@ Cribari-Neto, F., and Zeileis, A. (2010). Beta Regression in R. Journal of Stati
 
 Grün, B., Kosmidis, I., and Zeileis, A. (2012). Extended Beta Regression in R: Shaken, Stirred, Mixed, and Partitioned. Journal of Statistical Software, 48(11), 1–25. http://www.jstatsoft. org/v48/i11/.
 
+Articulo sobre regresión beta y diferentes paquetes de R que se puede usar para hacer los análisis [Douma and Weedon 2019](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13234)
 
-La regresión beta es una aproximación bajo GLM. La regresión beta modela variables dependientes distribuidas con la distribución beta. Datos con la distribución beta incluyen proporciones y razones, donde los valores $x$ se encuentran entre 0 y 1 pero no inclusivo (i.e. $0< x< 1$). Además de producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
+***
 
-Los valores de la variable de respuesta satisfacen $0 < x< 1$. Por consecuencia tiene valores que son 0 o 1, es necesario cambiarlos a 0= 0.001 y 1 = 0.999. **Los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1**.
+# ¿Qué es la Regresión beta?
+
+La regresión beta es una aproximación bajo GLM "Modelos lineales generalizado". La regresión beta modela variables dependientes distribuidas con la distribución beta. Datos con la distribución beta incluyen proporciones y razones, donde los valores $x$ se encuentran entre 0 y 1 pero no inclusivo (i.e. $0 < x< 1$). Además de producir una regresión que máxima la verosimilitud (tanto para la media como para la precisión de una respuesta distribuida en beta), se proporcionan estimaciones con corrección de sesgo.
+
+Los valores de la variable de respuesta satisfacen $0 < x < 1$. Por consecuencia si tiene valores que son 0 o 1, es necesario cambiarlos a $0= 0.001$ y $1 = 0.999$. **Los números no pueden ser 0 ni 1, deben ser mayores que 0 y menores que 1**. Efectivamente a cambiar los los valores a $0.001$ y $0.999$ no tiene impacto sobre la interpretación de los datos, al menos que todos sus datos son solamente $0$ ó $1$, en este caso no se debería usar esta herramienta pero una regresión logística.   
 
 
-El paquete "betareg" y sus datos. Tenga en cuenta que el enfoque del modelo GLM es desarrollar una regresión con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal, existen numerosas funciones de enlace, que pueden ser útil como "logit", "probit", "cloglog", "cauchit", "log", "loglog".
+El paquete "betareg" y sus datos. Tenga en cuenta que el enfoque del modelo GLM es desarrollar una regresión con la respuesta a través de una función de enlace y un predictor lineal. Igual como GLM normal, existen numerosas funciones de enlace, que pueden ser útil como "logit", "probit", "cloglog", "cauchit", "log", "loglog" para linearizar los datos.
 
 Casi toda la información que se estará presentando aquí proviene de Cribari-Neto y Zeileis (Beta Regression in R).  
 
@@ -61,16 +66,55 @@ Consulte el pdf, https://cran.r-project.org/web/packages/betareg/betareg.pdf par
 
 Estaré usando datos diferentes a lo que se presenta en el paquete para demostrar el valor de los análisis.  
 
-## Primer paso, que es una distribución beta?
 
-Lo más importante de la distribución beta es que los valores **NUNCA** son menores de 0 ni mayores de 1 (i.e. $0 <x < 1$).  En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
+***
+
+
+Errores típicos de análisis con datos que son fracciones.
+
+Miramos un ejemplo. Aquí la relación entre el gasto se salud publica per capita en 156 paises y el porcentaje de niñas que no están en la escuela.
+
+Datos del "World Development Agency"
+
+## Que es lo que obseva que no tienen sentido?
+
+
+
 
 ```{r}
+library(ggversa)
+
+#Edu_Salud_Gastos_GDP
+
+ggplot(Edu_Salud_Gastos_GDP, aes(Gasto_Salud_percapita, Porc_Ninas_no_escuela))+
+  geom_point()+
+  geom_smooth(method = lm)
+
+```
+
+ Nota:
+ - hay valores de proporciones negativa
+ - el intervalo de confianza también es negativo
+ - la dispersión de los datos en y alrededor de la media no es igual a medida que el gasto de salud per capita cambia (en x).  
+
+
+Los modelos usando la distribución beta resuelve estos asuntos. 
+
+***
+
+## Primer paso, que es una distribución beta?
+
+Lo más importante de la distribución beta es que los valores **NUNCA** son menores de 0 ni mayores de 1 (i.e. $0 < x < 1$).  En adición los intervalos de confianza tampoco no pueden ser ni menor de 0 ni mayor de 1. 
+
+```{r include=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(betareg)
+library(gt)
 ```
 
+
+Se construye múltiples conjuntos de datos con distribuciones beta distinta, para evaluar como se ve la distribuciones, nota que aquí los parametros no son el promedio y la sd, pero dos parámetros que se llama **shape**.
 
 
 ```{r, echo=FALSE}
@@ -92,7 +136,7 @@ by_2_2 <- dbeta(b1, shape1 = 2, shape2 = 2)
 
 betad=cbind(b1, by8_1_5, by2_5, by_5, by_2_2)
 betad=as_tibble(betad)
-#betad
+#gt(head(betad))
 
 
 
@@ -117,6 +161,19 @@ ggplot(betadj, aes(b1, cases, colour=beta_shapes))+
   scale_colour_discrete(name = "Beta_Shapes", labels = c("Shape 2 y 2", "Shape .5 y .5", "Shape 2 y 5", "Shape 8 y 1.5"))
 ```
 
+***
+
+## Wikipedia
+
+En Wikipedia se puede apreciar como la distribución cambian cuando varia los parametros
+
+
+<a title="Pabloparsil, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:PDF_of_the_Beta_distribution.gif"><img width="516" alt="PDF of the Beta distribution" src="https://upload.wikimedia.org/wikipedia/commons/7/78/PDF_of_the_Beta_distribution.gif"></a>
+
+***
+
+
+
 ## Propoción de fumadores por diferentes paises. 
 Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman. 
 
@@ -128,21 +185,37 @@ Proportion_smokers_world <- read_csv("Data/Proportion_smokers_world.csv")
 
 Smokers=Proportion_smokers_world 
 
+gt(head(Smokers))
 ```
+
+***
 
 Primero vamos a convertir los datos en proporción ya que el programa tiene que utilizar datos mayor de 0 y menor de 1.  Seleccionamos el año 2000 y creamos un histograma de la distribución.
 
 ```{r}
 Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
+Smokers %>% select(Country_Name, Y2000P)
 ```
 
-## Convertir el promedio y varianza en shape
+***
 
-Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$  y $\beta$. Se usa la siguiente para calcular los shapes. Los valores esperado y la varianza se comportan de forma distinta.
+## Convertir el promedio y varianza en shape $\alpha$ y $\beta$
 
-$E(X) = \frac{\alpha}{\alpha+\beta}$, $V(X) = \frac{\alpha\beta}{(\alpha+\beta+1)(\alpha+\beta)^2}$
+Convertir el promedio y la varianza de los datos en los valores del shape $\alpha$ y $\beta$. Se usa la siguiente para calcular los shapes. Los valores esperado y la varianza se comportan de forma distinta.
 
-El $\alpha$ refiere al promedio y $\beta$ a la varianza. Usamos la siguiente función. 
+$$E(X) = \frac{\alpha}{\alpha+\beta}$$ 
+
+$$V(X) = \frac{\alpha\beta}{(\alpha+\beta+1)(\alpha+\beta)^2}$$
+
+
+
+
+Usando el promedio y varianza se puede convertir en $\alpha$ y $\beta$ con la siguiente ecuaciones
+
+
+$$\alpha = \frac{1-mu}{(var-1)/mu}*mu^2$$
+$$\beta = \alpha*(\frac{1}{mu}-1)$$
+Aquí un script para convertir los parametros en shape
 
 ```{r}
 
@@ -154,14 +227,18 @@ estBetaParams <- function(mu, var) {
 #mean(Smokers$Y2000P)
 #var(Smokers$Y2000P)
 estBetaParams((mean(Smokers$Y2000P)), (var(Smokers$Y2000P)))
+
 ```
+
+
+Ahora comparamos la distribución beta y normal de los datos de los fumadores de mayores de 15 años
 
 ```{r}
 Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
 x <- seq(0, 1, len = 100)
 
-mean(Smokers$Y2000P)
-var(Smokers$Y2000P)
+#mean(Smokers$Y2000P)
+#var(Smokers$Y2000P)
 
 ggplot(Smokers, aes(Y2000P))+
   geom_histogram(aes(y=..density..), colour="white", fill="grey50")+
@@ -171,9 +248,10 @@ ggplot(Smokers, aes(Y2000P))+
                 args = list(mean = mean(Smokers$Y2000P, na.rm = TRUE), 
                 sd = sd(Smokers$Y2000P, na.rm = TRUE)), 
                 colour = "green", size = 1)+
-  xlab("Proportción de fumadores por Pais")+
+  xlab("Proporción de fumadores de mayor \n de 15 años por Pais")+
   annotate("text", x = .5, y = 4.2, label = "Verde: dist Normal", color="darkgreen")+
-  annotate("text", x = .5, y = 3.7, label = "Verde: dist Beta", color="red")
+  annotate("text", x = .5, y = 3.7, label = "Verde: dist Beta", color="red")+
+  xlim(-0.1, 0.9)
   
 ```
 
@@ -217,6 +295,11 @@ ggplot(Smokers, aes(Y2000P))+
 
 
 
+
+
+
+
+
 ```{r}
 library(betareg) # El paquete para hacer regresión beta
 library(ggversa) # paquete para los datos
@@ -229,7 +312,7 @@ head(dipodium, n=4)
 
 ## Regresión beta, proporción de frutos por cantidad de flores
 
-```{r, out.width="300",   fig.cap ="from this webpage: https://binalongbungalows.wordpress.com/tasmanian-orchids/dipodium-roseum-rosy-hyacinth-orchid-0615-web/",echo=FALSE, out.extra='style="float:right; padding:10px"', fig}
+```{r, out.width="150",   fig.cap ="from this webpage: https://binalongbungalows.wordpress.com/tasmanian-orchids/dipodium-roseum-rosy-hyacinth-orchid-0615-web/",echo=FALSE, out.extra='style="float:right; padding:10px"', fig}
 knitr::include_graphics("Graficos/dipodium_roseum.jpg")
 ```
 
@@ -247,7 +330,7 @@ Los datos provienen de una especie de orquidea de Australia, *Dipodium roseum*, 
 
 
 ```{r beta regression}
-head(dipodium)
+#head(dipodium)
 library(tidyverse)
 dipodium$PropFR=dipodium$Perc_FR_set+0.0001 # solucionar para remover los cero
 #dipodium$PropFR
@@ -266,7 +349,9 @@ summary(modelpropFr)
 
 ```
 
-## Visualizar un grafico de regresión beta 
+***
+
+## Visualizar un gráfico de regresión beta 
 
 
 
@@ -322,7 +407,7 @@ Evalua la siguiente figura en cada x hay una distribución beta, donde la linea 
 ```{r beta reg graph}
 library(ggplot2)
 ggplot(dp2, aes(x=Number_of_Flowers, y=PropFR))+
-  geom_point(width = 0.05, height = 0.01)+
+  geom_point()+
   geom_line(aes(y=quantile_.05), linetype="twodash", colour="blue")+
   geom_line(aes(y=quantile_.25),linetype=2, colour="green")+
   geom_line(aes(y=quantile_.50), colour="red")+
@@ -345,7 +430,27 @@ theme(axis.title.y = element_text(colour="grey20",size=20,face="bold"),
 ggsave("Graficos/Beta_number_flowers.png")
 ```
 
-Esto es una representación de las distribuciones beta en las x, número de flores. En rojo simulamos la distribución de la proporción esperada de frutos en plantas que tienen 15 flores y en la linea azul simulamos la distribución esperada de la proporción de frutos en plantas con 30 flores.   
+Esto es una representación de las distribuciones beta en las x, número de flores. En rojo simulamos la distribución de la proporción esperada de frutos en plantas que tienen 15 flores y en la linea azul simulamos la distribución esperada de la proporción de frutos en plantas con 30 flores.  
+
+
+***
+
+## Comparar el modelo tradicional lineal versus un modelo beta
+
+Para comparar efectivadad de los modelos usamos el Akaike Information Criterion (AIC). En un acercmiento de selección modelo se acepta como mejor modelo el indice de AIC más pequeño, que representa el modelo meas parsimonio.  Una diferencia de AIC DE 4 es significativo. Nota que el modelo beta es mucho mejor (AIC = -219) que el modelo de regresión lineal (AIC = -102)
+
+```{r}
+#AIC(modelpropFr) # modelo beta
+
+
+modelpropFr_lm=lm(PropFR~Number_of_Flowers, data=dp2)
+
+AIC(modelpropFr,modelpropFr_lm)
+
+```
+
+
+
 ***
 
 Evaluando la distribución de beta para valores específicos de x= Proporción de frutos por plantas basado en la cantidad de flores en la planta. 
@@ -361,7 +466,7 @@ dpQ=dp2 %>%
   select(c(1, 6:26))
 
 dpQ2=dpQ%>% 
-  filter(Number_of_Flowers== 13) %>% select(c(2:22))%>% t %>% as.data.frame
+  filter(Number_of_Flowers== 35) %>% select(c(2:22))%>% t %>% as.data.frame
 dpQ2$Quartiles=c(.01, 0.05, .1, .15, .2, .25, .30, .35, .4, .45, .5, .55, .6, .65,  .7,.75, .8, .85, .9, .95, .99 )
 
 mean(dpQ2$V1, na.rm=FALSE)
@@ -400,23 +505,27 @@ library(gridExtra)
 a=ggplot(dipodium2, aes(PropFR))+
 stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="red", n = 62,
                       args = list(shape1 =0.5418068, shape2 =3.135593))+
-  annotate("text", label="x=25 flores", x=0.1, y=10)+
   ylab("Beta \nDensity")+
-  xlab("Probabilidad de tener frutos")
+  xlab("Probabilidad de tener frutos")+
+  coord_cartesian(xlim=c(0,0.05))+
+  ggtitle("Densidad beta para plantas con 25 flores")
 
 b=ggplot(dipodium2, aes(PropFR))+
 stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="blue", n = 62,
                       args = list(shape1 = 0.7549048, shape2 =2.949404))+
-  annotate("text", label="x=30 flores", x=0.1, y=5)+
   ylab("Beta \nDensity")+
-  xlab("Probabilidad de tener frutos")
+  xlab("Probabilidad de tener frutos")+
+  coord_cartesian(xlim=c(0,0.1))+
+  ggtitle("Densidad beta para plantas con 30 flores")
 
 c=ggplot(dipodium2, aes(PropFR))+
 stat_function(aes(x = dipodium2$PropFR, y = ..y..), fun = dbeta, colour="black", n = 62,
                       args = list(shape1 = 1.027498, shape2 =2.698331))+
-  annotate("text", label="x=35 flores", x=0.1, y=2)+
   ylab("Beta \nDensity")+
-  xlab("Probabilidad de tener frutos")
+  xlab("Probabilidad de tener frutos")+
+  coord_cartesian(xlim=c(0,0.10))+
+  ggtitle("Densidad beta para plantas con 35 flores")
+
 tresDensidad=grid.arrange(a,b,c, ncol=1)
 tresDensidad
 
@@ -424,6 +533,34 @@ ggsave("Graficos/tresDensidad.png")
 
 ```
 
+Un segundo ejemplo
+
+
+```{r}
+data("StressAnxiety", package = "betareg")
+StressAnxiety <- StressAnxiety[order(StressAnxiety$stress),]
+
+## Smithson & Verkuilen (2006, Table 4)
+sa_null <- betareg(anxiety ~ 1 | 1,
+  data = StressAnxiety, hessian = TRUE)
+sa_stress <- betareg(anxiety ~ stress | stress,
+  data = StressAnxiety, hessian = TRUE)
+summary(sa_null)
+summary(sa_stress)
+AIC(sa_null, sa_stress)
+1 - as.vector(logLik(sa_null)/logLik(sa_stress))
+
+## visualization
+attach(StressAnxiety)
+plot(jitter(anxiety) ~ jitter(stress),
+  xlab = "Stress", ylab = "Anxiety",
+  xlim = c(0, 1), ylim = c(0, 1))
+lines(lowess(anxiety ~ stress))
+lines(fitted(sa_stress) ~ stress, lty = 2)
+lines(fitted(lm(anxiety ~ stress)) ~ stress, lty = 3)
+legend("topleft", c("lowess", "betareg", "lm"), lty = 1:3, bty = "n")
+detach(StressAnxiety)
+```
 
 
 

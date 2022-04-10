@@ -82,7 +82,7 @@ foo <- list(
         df1 = data.frame(x=rep('lambda_1', 500), y = rpois(500, 1)), # lambda es igual a 1
         df5 = data.frame(x=rep('lambda_5', 500), y = rpois(500, 5)), # lambda es igual a 5
         df15 = data.frame(x=rep('lambda_15', 500), y = rpois(500, 15)),# lambda es igual a 15
-        df25 = data.frame(x=rep('lambda_25', 500), y = rpois(500, 25)) # lambda es igual a 50
+        df25 = data.frame(x=rep('lambda_25', 5000), y = rpois(5000, 100)) # lambda es igual a 50
 )
 #foo
 
