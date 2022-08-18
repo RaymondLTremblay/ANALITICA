@@ -13,7 +13,7 @@
 
 <title>Regressión beta</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -126,13 +126,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -228,11 +235,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -640,9 +651,9 @@ div.tocify {
 <p><a title="Pabloparsil, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:PDF_of_the_Beta_distribution.gif"><img width="516" alt="PDF of the Beta distribution" src="https://upload.wikimedia.org/wikipedia/commons/7/78/PDF_of_the_Beta_distribution.gif"></a></p>
 <hr />
 </div>
-<div id="propoción-de-fumadores-por-diferentes-paises." class="section level2">
-<h2>Propoción de fumadores por diferentes paises.</h2>
-<p>Los datos provienen de World Bank en el siguiente enlace, <a href="https://data.worldbank.org/indicator/SH.PRV.SMOK">Smokers</a>. Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman.</p>
+<div id="proporción-de-fumadores-por-diferentes-paises." class="section level2">
+<h2>Proporción de fumadores por diferentes paises.</h2>
+<p>Los datos provienen de World Bank en el siguiente enlace, <a href="https://data.worldbank.org/indicator/SH.PRV.SMOK">Smokers</a>. En el archivo se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman.</p>
 <p>Los datos están debajo pestaña de “Los Datos”</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Proportion_smokers_world <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Data/Proportion_smokers_world.csv&quot;</span>)</span></code></pre></div>
@@ -657,12 +668,12 @@ div.tocify {
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Smokers<span class="ot">=</span>Proportion_smokers_world </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(Smokers))</span></code></pre></div>
-<div id="dmvimujxif" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gybsrwvwfz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#dmvimujxif .gt_table {
+#gybsrwvwfz .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -687,7 +698,7 @@ div.tocify {
   border-left-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_heading {
+#gybsrwvwfz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -699,7 +710,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_title {
+#gybsrwvwfz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -711,7 +722,7 @@ div.tocify {
   border-bottom-width: 0;
 }
 
-#dmvimujxif .gt_subtitle {
+#gybsrwvwfz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -723,13 +734,13 @@ div.tocify {
   border-top-width: 0;
 }
 
-#dmvimujxif .gt_bottom_border {
+#gybsrwvwfz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_col_headings {
+#gybsrwvwfz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -744,7 +755,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_col_heading {
+#gybsrwvwfz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -764,7 +775,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#dmvimujxif .gt_column_spanner_outer {
+#gybsrwvwfz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -776,15 +787,15 @@ div.tocify {
   padding-right: 4px;
 }
 
-#dmvimujxif .gt_column_spanner_outer:first-child {
+#gybsrwvwfz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dmvimujxif .gt_column_spanner_outer:last-child {
+#gybsrwvwfz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dmvimujxif .gt_column_spanner {
+#gybsrwvwfz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -796,7 +807,7 @@ div.tocify {
   width: 100%;
 }
 
-#dmvimujxif .gt_group_heading {
+#gybsrwvwfz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -821,7 +832,7 @@ div.tocify {
   vertical-align: middle;
 }
 
-#dmvimujxif .gt_empty_group_heading {
+#gybsrwvwfz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -836,15 +847,15 @@ div.tocify {
   vertical-align: middle;
 }
 
-#dmvimujxif .gt_from_md > :first-child {
+#gybsrwvwfz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dmvimujxif .gt_from_md > :last-child {
+#gybsrwvwfz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dmvimujxif .gt_row {
+#gybsrwvwfz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -863,7 +874,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#dmvimujxif .gt_stub {
+#gybsrwvwfz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -876,7 +887,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#dmvimujxif .gt_stub_row_group {
+#gybsrwvwfz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -890,11 +901,11 @@ div.tocify {
   vertical-align: top;
 }
 
-#dmvimujxif .gt_row_group_first td {
+#gybsrwvwfz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dmvimujxif .gt_summary_row {
+#gybsrwvwfz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -904,16 +915,16 @@ div.tocify {
   padding-right: 5px;
 }
 
-#dmvimujxif .gt_first_summary_row {
+#gybsrwvwfz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_first_summary_row.thick {
+#gybsrwvwfz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dmvimujxif .gt_last_summary_row {
+#gybsrwvwfz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -923,7 +934,7 @@ div.tocify {
   border-bottom-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_grand_summary_row {
+#gybsrwvwfz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -933,7 +944,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#dmvimujxif .gt_first_grand_summary_row {
+#gybsrwvwfz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -943,11 +954,11 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_striped {
+#gybsrwvwfz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dmvimujxif .gt_table_body {
+#gybsrwvwfz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -956,7 +967,7 @@ div.tocify {
   border-bottom-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_footnotes {
+#gybsrwvwfz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -970,7 +981,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_footnote {
+#gybsrwvwfz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -979,7 +990,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#dmvimujxif .gt_sourcenotes {
+#gybsrwvwfz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -993,7 +1004,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#dmvimujxif .gt_sourcenote {
+#gybsrwvwfz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1001,60 +1012,69 @@ div.tocify {
   padding-right: 5px;
 }
 
-#dmvimujxif .gt_left {
+#gybsrwvwfz .gt_left {
   text-align: left;
 }
 
-#dmvimujxif .gt_center {
+#gybsrwvwfz .gt_center {
   text-align: center;
 }
 
-#dmvimujxif .gt_right {
+#gybsrwvwfz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dmvimujxif .gt_font_normal {
+#gybsrwvwfz .gt_font_normal {
   font-weight: normal;
 }
 
-#dmvimujxif .gt_font_bold {
+#gybsrwvwfz .gt_font_bold {
   font-weight: bold;
 }
 
-#dmvimujxif .gt_font_italic {
+#gybsrwvwfz .gt_font_italic {
   font-style: italic;
 }
 
-#dmvimujxif .gt_super {
+#gybsrwvwfz .gt_super {
   font-size: 65%;
 }
 
-#dmvimujxif .gt_footnote_marks {
+#gybsrwvwfz .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#gybsrwvwfz .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#dmvimujxif .gt_asterisk {
+#gybsrwvwfz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dmvimujxif .gt_slash_mark {
+#gybsrwvwfz .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#dmvimujxif .gt_fraction_numerator {
+#gybsrwvwfz .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#dmvimujxif .gt_fraction_denominator {
+#gybsrwvwfz .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -1180,7 +1200,8 @@ div.tocify {
 ##  8 Barbados      0.083
 ##  9 Eritrea       0.087
 ## 10 Benin         0.091
-## # … with 177 more rows</code></pre>
+## # … with 177 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <hr />
 </div>
 <div id="convertir-el-promedio-y-varianza-en-shape-alpha-y-beta" class="section level2">
@@ -1219,9 +1240,10 @@ div.tocify {
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">sd =</span> <span class="fu">sd</span>(Smokers<span class="sc">$</span>Y2000P, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), </span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Proporción de fumadores de mayor </span><span class="sc">\n</span><span class="st"> de 15 años por Pais&quot;</span>)<span class="sc">+</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> .<span class="dv">5</span>, <span class="at">y =</span> <span class="fl">4.2</span>, <span class="at">label =</span> <span class="st">&quot;Verde: dist Normal&quot;</span>, <span class="at">color=</span><span class="st">&quot;darkgreen&quot;</span>)<span class="sc">+</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> .<span class="dv">5</span>, <span class="at">y =</span> <span class="fl">3.7</span>, <span class="at">label =</span> <span class="st">&quot;Verde: dist Beta&quot;</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.9</span>)</span></code></pre></div>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Densidad&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> .<span class="dv">5</span>, <span class="at">y =</span> <span class="fl">4.2</span>, <span class="at">label =</span> <span class="st">&quot;Verde: dist Normal&quot;</span>, <span class="at">color=</span><span class="st">&quot;darkgreen&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> .<span class="dv">5</span>, <span class="at">y =</span> <span class="fl">3.7</span>, <span class="at">label =</span> <span class="st">&quot;Verde: dist Beta&quot;</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.9</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <p><img src="TF7_Regresion_beta_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
@@ -1246,7 +1268,7 @@ div.tocify {
 ## 
 ## Intervals : 
 ## Level       BCa          
-## 95%   ( 0.2361,  0.2948 )  
+## 95%   ( 0.2370,  0.2745 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <hr />
 </div>
@@ -1268,18 +1290,20 @@ div.tocify {
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(dipodium)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dipodium, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 21
-##   `Tree Number` `Tree species`   DBH `Plant number` `Ramet number` Distance
-##           &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;          &lt;int&gt;          &lt;int&gt;    &lt;dbl&gt;
-## 1             1 E.o               75              1              1     2.47
-## 2             1 E.o               76              2              1     1.97
-## 3             2 E.o               76              3              1     1.95
-## 4             3 E.o               58              4              1     3.24
-## # … with 15 more variables: Orientation &lt;dbl&gt;, Number_of_Flowers &lt;int&gt;,
-## #   Height_Inflo &lt;int&gt;, Herbivory &lt;chr&gt;, RowPosition_NF &lt;int&gt;,
+##   Tree N…¹ Tree …²   DBH Plant…³ Ramet…⁴ Dista…⁵ Orien…⁶ Numbe…⁷ Heigh…⁸ Herbi…⁹
+##      &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt;  
+## 1        1 E.o        75       1       1    2.47      40      11      35 n      
+## 2        1 E.o        76       2       1    1.97      50      19      47 n      
+## 3        2 E.o        76       3       1    1.95     350      18      63 n      
+## 4        3 E.o        58       4       1    3.24     210      24      47 n      
+## # … with 11 more variables: RowPosition_NF &lt;int&gt;,
 ## #   Number_Flowers_position &lt;int&gt;, Number_of_fruits &lt;int&gt;, Perc_FR_set &lt;dbl&gt;,
 ## #   pardalinum_or_roseum &lt;chr&gt;, Fruit_position_effect &lt;int&gt;,
 ## #   Frutos_si_o_no &lt;int&gt;, P_or_R_Infl_Lenght &lt;chr&gt;, `Num of fruits` &lt;int&gt;,
-## #   Species_Name &lt;chr&gt;, `Cardinal orientation` &lt;int&gt;</code></pre>
+## #   Species_Name &lt;chr&gt;, `Cardinal orientation` &lt;int&gt;, and abbreviated variable
+## #   names ¹​`Tree Number`, ²​`Tree species`, ³​`Plant number`, ⁴​`Ramet number`,
+## #   ⁵​Distance, ⁶​Orientation, ⁷​Number_of_Flowers, ⁸​Height_Inflo, ⁹​Herbivory
+## # ℹ Use `colnames()` to see all variable names</code></pre>
 <hr />
 <div id="regresión-beta-proporción-de-frutos-por-cantidad-de-flores" class="section level2">
 <h2>Regresión beta, proporción de frutos por cantidad de flores</h2>
@@ -1310,16 +1334,15 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>dipodium2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Data/dipodium2.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## New names:
-## * `` -&gt; ...1</code></pre>
-<pre><code>## Rows: 62 Columns: 5
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## dbl (5): ...1, PropFR, Number_of_Flowers, Height_Inflo, Distance
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>modelpropFr<span class="ot">=</span><span class="fu">betareg</span>(PropFR<span class="sc">~</span>Number_of_Flowers<span class="sc">+</span>Height_Inflo<span class="sc">+</span>Distance, <span class="at">data =</span><span class="fu">na.omit</span>(dipodium2))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelpropFr)</span></code></pre></div>
+## Rows: 62 Columns: 5
+## ── Column specification
+## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; dbl
+## (5): ...1, PropFR, Number_of_Flowers, Height_Inflo, Distance
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## • `` -&gt; `...1`</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>modelpropFr<span class="ot">=</span><span class="fu">betareg</span>(PropFR<span class="sc">~</span>Number_of_Flowers<span class="sc">+</span>Height_Inflo<span class="sc">+</span>Distance, <span class="at">data =</span><span class="fu">na.omit</span>(dipodium2))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelpropFr)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## betareg(formula = PropFR ~ Number_of_Flowers + Height_Inflo + Distance, 
@@ -1350,12 +1373,12 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 </div>
 <div id="visualizar-un-gráfico-de-regresión-beta" class="section level2">
 <h2>Visualizar un gráfico de regresión beta</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dipodiumbeta<span class="ot">=</span>dipodium2[,<span class="fu">c</span>(<span class="st">&quot;Number_of_Flowers&quot;</span>,<span class="st">&quot;PropFR&quot;</span>)] <span class="co"># crear un df con solamente las columnas de interes </span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a> dp2<span class="ot">=</span>dipodiumbeta[<span class="fu">complete.cases</span>(dipodiumbeta),] <span class="co"># remover los &quot;NA&quot; </span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>modelpropFr<span class="ot">=</span><span class="fu">betareg</span>(PropFR<span class="sc">~</span>Number_of_Flowers, <span class="at">data=</span>dp2) <span class="co"># El modelo con solamente la explicativa</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelpropFr)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dipodiumbeta<span class="ot">=</span>dipodium2[,<span class="fu">c</span>(<span class="st">&quot;Number_of_Flowers&quot;</span>,<span class="st">&quot;PropFR&quot;</span>)] <span class="co"># crear un df con solamente las columnas de interes </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a> dp2<span class="ot">=</span>dipodiumbeta[<span class="fu">complete.cases</span>(dipodiumbeta),] <span class="co"># remover los &quot;NA&quot; </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>modelpropFr<span class="ot">=</span><span class="fu">betareg</span>(PropFR<span class="sc">~</span>Number_of_Flowers, <span class="at">data=</span>dp2) <span class="co"># El modelo con solamente la explicativa</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelpropFr)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## betareg(formula = PropFR ~ Number_of_Flowers, data = dp2)
@@ -1379,9 +1402,9 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 ## Log-likelihood: 112.9 on 3 Df
 ## Pseudo R-squared: 0.2538
 ## Number of iterations: 18 (BFGS) + 1 (Fisher scoring)</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#head(dp2)</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dp2$PropFR</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># calcular los valores estimados (predichos)</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#head(dp2)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dp2$PropFR</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># calcular los valores estimados (predichos)</span></span></code></pre></div>
 <pre><code>##          1          2          3          4          5          6          7 
 ## 0.02568523 0.02783519 0.03015954 0.04856508 0.05679268 0.05679268 0.05679268 
 ##          8          9         10         11         12         13         14 
@@ -1400,81 +1423,82 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 ## 0.14980172 0.14980172 0.17207828 0.17207828 0.17207828 0.17207828 0.19690033 
 ##         57         58         59         60         61         62 
 ## 0.19690033 0.22433274 0.22433274 0.23903102 0.27035714 0.28695536</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>response<span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dp2$link=predict(modelpropFr, type = &quot;link&quot;)</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>precision<span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;precision&quot;</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>variance<span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;variance&quot;</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.01</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.01</span>))</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.05</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.05</span>))</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.10</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.10</span>))</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.15</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.15</span>))</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.20</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.20</span>))</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.25</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.25</span>))</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.30</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.30</span>))</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.35</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.35</span>))</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.40</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.40</span>))</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.45</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.45</span>))</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.50</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.50</span>))</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.55</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.55</span>))</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.60</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.60</span>))</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.65</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.65</span>))</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.70</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.70</span>))</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.75</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.75</span>))</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.80</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.80</span>))</span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.85</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.85</span>))</span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.90</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.90</span>))</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.95</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.95</span>))</span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.99</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.99</span>))</span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>dp2</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>response<span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dp2$link=predict(modelpropFr, type = &quot;link&quot;)</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>precision<span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;precision&quot;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>variance<span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;variance&quot;</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.01</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.01</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.05</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.05</span>))</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.10</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.10</span>))</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.15</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.15</span>))</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.20</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.20</span>))</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.25</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.25</span>))</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.30</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.30</span>))</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.35</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.35</span>))</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.40</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.40</span>))</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.45</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.45</span>))</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.50</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.50</span>))</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.55</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.55</span>))</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.60</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.60</span>))</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.65</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.65</span>))</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.70</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.70</span>))</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.75</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.75</span>))</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.80</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.80</span>))</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.85</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.85</span>))</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.90</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.90</span>))</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.95</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.95</span>))</span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>dp2<span class="sc">$</span>quantile_<span class="fl">.99</span><span class="ot">=</span><span class="fu">predict</span>(modelpropFr, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.99</span>))</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>dp2</span></code></pre></div>
 <pre><code>## # A tibble: 62 × 26
-##    Number_of_Flowe… PropFR response precision variance quantile_.01 quantile_.05
-##               &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-##  1                3 0.0001   0.0257      4.69  0.00439     3.86e-18     2.42e-12
-##  2                4 0.0001   0.0278      4.69  0.00475     7.44e-17     1.66e-11
-##  3                5 0.0001   0.0302      4.69  0.00514     1.14e-15     9.81e-11
-##  4               11 0.0001   0.0486      4.69  0.00811     2.75e-10     3.20e- 7
-##  5               13 0.0358   0.0568      4.69  0.00941     5.29e- 9     2.21e- 6
-##  6               13 0.0938   0.0568      4.69  0.00941     5.29e- 9     2.21e- 6
-##  7               13 0.0001   0.0568      4.69  0.00941     5.29e- 9     2.21e- 6
-##  8               14 0.0001   0.0614      4.69  0.0101      1.96e- 8     5.21e- 6
-##  9               14 0.364    0.0614      4.69  0.0101      1.96e- 8     5.21e- 6
-## 10               14 0.105    0.0614      4.69  0.0101      1.96e- 8     5.21e- 6
-## # … with 52 more rows, and 19 more variables: quantile_.10 &lt;dbl&gt;,
-## #   quantile_.15 &lt;dbl&gt;, quantile_.20 &lt;dbl&gt;, quantile_.25 &lt;dbl&gt;,
-## #   quantile_.30 &lt;dbl&gt;, quantile_.35 &lt;dbl&gt;, quantile_.40 &lt;dbl&gt;,
-## #   quantile_.45 &lt;dbl&gt;, quantile_.50 &lt;dbl&gt;, quantile_.55 &lt;dbl&gt;,
-## #   quantile_.60 &lt;dbl&gt;, quantile_.65 &lt;dbl&gt;, quantile_.70 &lt;dbl&gt;,
-## #   quantile_.75 &lt;dbl&gt;, quantile_.80 &lt;dbl&gt;, quantile_.85 &lt;dbl&gt;,
-## #   quantile_.90 &lt;dbl&gt;, quantile_.95 &lt;dbl&gt;, quantile_.99 &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelpropFr$precision</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#quantile_many=predict(modelpropFr, type = &quot;quantile&quot;, at=c(.99))</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#quantile_many</span></span></code></pre></div>
+##    Number_of…¹ PropFR respo…² preci…³ varia…⁴ quanti…⁵ quanti…⁶ quanti…⁷ quant…⁸
+##          &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+##  1           3 0.0001  0.0257    4.69 0.00439 3.86e-18 2.42e-12 7.58e-10 2.19e-8
+##  2           4 0.0001  0.0278    4.69 0.00475 7.44e-17 1.66e-11 3.34e- 9 7.44e-8
+##  3           5 0.0001  0.0302    4.69 0.00514 1.14e-15 9.81e-11 1.31e- 8 2.30e-7
+##  4          11 0.0001  0.0486    4.69 0.00811 2.75e-10 3.20e- 7 6.69e- 6 3.96e-5
+##  5          13 0.0358  0.0568    4.69 0.00941 5.29e- 9 2.21e- 6 2.98e- 5 1.36e-4
+##  6          13 0.0938  0.0568    4.69 0.00941 5.29e- 9 2.21e- 6 2.98e- 5 1.36e-4
+##  7          13 0.0001  0.0568    4.69 0.00941 5.29e- 9 2.21e- 6 2.98e- 5 1.36e-4
+##  8          14 0.0001  0.0614    4.69 0.0101  1.96e- 8 5.21e- 6 5.77e- 5 2.36e-4
+##  9          14 0.364   0.0614    4.69 0.0101  1.96e- 8 5.21e- 6 5.77e- 5 2.36e-4
+## 10          14 0.105   0.0614    4.69 0.0101  1.96e- 8 5.21e- 6 5.77e- 5 2.36e-4
+## # … with 52 more rows, 17 more variables: quantile_.20 &lt;dbl&gt;,
+## #   quantile_.25 &lt;dbl&gt;, quantile_.30 &lt;dbl&gt;, quantile_.35 &lt;dbl&gt;,
+## #   quantile_.40 &lt;dbl&gt;, quantile_.45 &lt;dbl&gt;, quantile_.50 &lt;dbl&gt;,
+## #   quantile_.55 &lt;dbl&gt;, quantile_.60 &lt;dbl&gt;, quantile_.65 &lt;dbl&gt;,
+## #   quantile_.70 &lt;dbl&gt;, quantile_.75 &lt;dbl&gt;, quantile_.80 &lt;dbl&gt;,
+## #   quantile_.85 &lt;dbl&gt;, quantile_.90 &lt;dbl&gt;, quantile_.95 &lt;dbl&gt;,
+## #   quantile_.99 &lt;dbl&gt;, and abbreviated variable names ¹​Number_of_Flowers, …
+## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelpropFr$precision</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#quantile_many=predict(modelpropFr, type = &quot;quantile&quot;, at=c(.99))</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#quantile_many</span></span></code></pre></div>
 <p>Al construir la figura para la regresión beta, una de las principales ventajas de utilizar este enfoque es que los cuartiles se calcula con una distribución beta. Por lo tanto, el margen de error NO baja de 0 y NO pasa de 1.</p>
 <p>Evalua la siguiente figura en cada x hay una distribución beta, donde la linea roja representa una mediana, las lineas verdes son los cuartiles 25 y 75 y las lineas azules las percentilas 5 y 95. NOTA que la distribución no es simétrica, y cambia a travez de la regresión.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dp2, <span class="fu">aes</span>(<span class="at">x=</span>Number_of_Flowers, <span class="at">y=</span>PropFR))<span class="sc">+</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.05</span>), <span class="at">linetype=</span><span class="st">&quot;twodash&quot;</span>, <span class="at">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.25</span>),<span class="at">linetype=</span><span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.50</span>), <span class="at">colour=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.75</span>), <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.95</span>), <span class="at">linetype=</span><span class="st">&quot;twodash&quot;</span>, <span class="at">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicción de la proporción de frutos&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Números de Flores&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">25</span>, <span class="at">y=</span><span class="fl">0.50</span>, <span class="at">label=</span><span class="st">&quot;95th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">32</span>, <span class="at">y=</span><span class="fl">0.39</span>, <span class="at">label=</span><span class="st">&quot;75th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">33</span>, <span class="at">y=</span><span class="fl">0.14</span>, <span class="at">label=</span><span class="st">&quot;25th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">33</span>, <span class="at">y=</span><span class="fl">0.27</span>, <span class="at">label=</span><span class="st">&quot;Median&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">35</span>, <span class="at">y=</span><span class="sc">-</span><span class="fl">0.02</span>, <span class="at">label=</span><span class="st">&quot;5th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>), </span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))<span class="sc">+</span></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  rlt_theme</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dp2, <span class="fu">aes</span>(<span class="at">x=</span>Number_of_Flowers, <span class="at">y=</span>PropFR))<span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.05</span>), <span class="at">linetype=</span><span class="st">&quot;twodash&quot;</span>, <span class="at">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.25</span>),<span class="at">linetype=</span><span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.50</span>), <span class="at">colour=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.75</span>), <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>quantile_<span class="fl">.95</span>), <span class="at">linetype=</span><span class="st">&quot;twodash&quot;</span>, <span class="at">colour=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicción de la proporción de frutos&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Números de Flores&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">25</span>, <span class="at">y=</span><span class="fl">0.50</span>, <span class="at">label=</span><span class="st">&quot;95th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">32</span>, <span class="at">y=</span><span class="fl">0.39</span>, <span class="at">label=</span><span class="st">&quot;75th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">33</span>, <span class="at">y=</span><span class="fl">0.14</span>, <span class="at">label=</span><span class="st">&quot;25th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">33</span>, <span class="at">y=</span><span class="fl">0.27</span>, <span class="at">label=</span><span class="st">&quot;Median&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="dv">35</span>, <span class="at">y=</span><span class="sc">-</span><span class="fl">0.02</span>, <span class="at">label=</span><span class="st">&quot;5th quartile&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;italic&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>), </span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;grey20&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">face=</span><span class="st">&quot;bold&quot;</span>))<span class="sc">+</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  rlt_theme</span></code></pre></div>
 <p><img src="TF7_Regresion_beta_files/figure-html/beta%20reg%20graph-1.png" width="672" /></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Graficos/Beta_number_flowers.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Graficos/Beta_number_flowers.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Esto es una representación de las distribuciones beta en las x, número de flores. En rojo simulamos la distribución de la proporción esperada de frutos en plantas que tienen 15 flores y en la linea azul simulamos la distribución esperada de la proporción de frutos en plantas con 30 flores.</p>
 <hr />
@@ -1482,12 +1506,12 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 <div id="comparar-el-modelo-tradicional-lineal-versus-un-modelo-beta" class="section level2">
 <h2>Comparar el modelo tradicional lineal versus un modelo beta</h2>
 <p>Para comparar efectivadad de los modelos usamos el Akaike Information Criterion (AIC). En un acercmiento de selección modelo se acepta como mejor modelo el indice de AIC más pequeño, que representa el modelo meas parsimonio. Una diferencia de AIC DE 4 es significativo. Nota que el modelo beta es mucho mejor (AIC = -219) que el modelo de regresión lineal (AIC = -102)</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#AIC(modelpropFr) # modelo beta</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>modelpropFr_lm<span class="ot">=</span><span class="fu">lm</span>(PropFR<span class="sc">~</span>Number_of_Flowers, <span class="at">data=</span>dp2)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelpropFr,modelpropFr_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#AIC(modelpropFr) # modelo beta</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>modelpropFr_lm<span class="ot">=</span><span class="fu">lm</span>(PropFR<span class="sc">~</span>Number_of_Flowers, <span class="at">data=</span>dp2)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelpropFr,modelpropFr_lm)</span></code></pre></div>
 <pre><code>##                df       AIC
 ## modelpropFr     3 -219.8470
 ## modelpropFr_lm  3 -102.3526</code></pre>
@@ -1498,32 +1522,32 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 <p>Evaluando la distribución de beta para valores específicos de x= Proporción de frutos por plantas basado en la cantidad de flores en la planta.</p>
 <p>Seleccionar los diferentes valores de <strong>x</strong> y calcular el promedio y la varianza y convertir estos en <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span>. Con estos parámetros se puede construir la densidad de la distribución por cada valor de x.</p>
 <p>Se seleccionan valores específicos para la visualizar la distribución, las plantas que tienen 25, 30 y 35 flores. Se tiene que reorganizar los datos para calcular el promedio y la varianza.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dpQ<span class="ot">=</span>dp2 <span class="sc">%&gt;%</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">26</span>))</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>dpQ2<span class="ot">=</span>dpQ<span class="sc">%&gt;%</span> </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Number_of_Flowers<span class="sc">==</span> <span class="dv">35</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">22</span>))<span class="sc">%&gt;%</span> t <span class="sc">%&gt;%</span> as.data.frame</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>dpQ2<span class="sc">$</span>Quartiles<span class="ot">=</span><span class="fu">c</span>(.<span class="dv">01</span>, <span class="fl">0.05</span>, .<span class="dv">1</span>, .<span class="dv">15</span>, .<span class="dv">2</span>, .<span class="dv">25</span>, .<span class="dv">30</span>, .<span class="dv">35</span>, .<span class="dv">4</span>, .<span class="dv">45</span>, .<span class="dv">5</span>, .<span class="dv">55</span>, .<span class="dv">6</span>, .<span class="dv">65</span>,  .<span class="dv">7</span>,.<span class="dv">75</span>, .<span class="dv">8</span>, .<span class="dv">85</span>, .<span class="dv">9</span>, .<span class="dv">95</span>, .<span class="dv">99</span> )</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dpQ2<span class="sc">$</span>V1, <span class="at">na.rm=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dpQ<span class="ot">=</span>dp2 <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">26</span>))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>dpQ2<span class="ot">=</span>dpQ<span class="sc">%&gt;%</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Number_of_Flowers<span class="sc">==</span> <span class="dv">35</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">22</span>))<span class="sc">%&gt;%</span> t <span class="sc">%&gt;%</span> as.data.frame</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>dpQ2<span class="sc">$</span>Quartiles<span class="ot">=</span><span class="fu">c</span>(.<span class="dv">01</span>, <span class="fl">0.05</span>, .<span class="dv">1</span>, .<span class="dv">15</span>, .<span class="dv">2</span>, .<span class="dv">25</span>, .<span class="dv">30</span>, .<span class="dv">35</span>, .<span class="dv">4</span>, .<span class="dv">45</span>, .<span class="dv">5</span>, .<span class="dv">55</span>, .<span class="dv">6</span>, .<span class="dv">65</span>,  .<span class="dv">7</span>,.<span class="dv">75</span>, .<span class="dv">8</span>, .<span class="dv">85</span>, .<span class="dv">9</span>, .<span class="dv">95</span>, .<span class="dv">99</span> )</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dpQ2<span class="sc">$</span>V1, <span class="at">na.rm=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2757771</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(dpQ2<span class="sc">$</span>V1, <span class="at">na.rm=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(dpQ2<span class="sc">$</span>V1, <span class="at">na.rm=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.04226223</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dpQ2</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dpQ2, <span class="fu">aes</span>(Quartiles, V1))<span class="sc">+</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dpQ2</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dpQ2, <span class="fu">aes</span>(Quartiles, V1))<span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="TF7_Regresion_beta_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Usando la varianza calculada en el chunk anterior, se puede calcular el <span class="math inline">\(\alpha\)</span> y el <span class="math inline">\(\beta\)</span>.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>estBetaParams <span class="ot">&lt;-</span> <span class="cf">function</span>(mu, var) {</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> ((<span class="dv">1</span> <span class="sc">-</span> mu) <span class="sc">/</span> var <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> mu) <span class="sc">*</span> mu <span class="sc">^</span> <span class="dv">2</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> mu <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">alpha =</span> alpha, <span class="at">beta =</span> beta))</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co">#mean(Smokers$Y2000P)</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">#var(Smokers$Y2000P)</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">estBetaParams</span>(<span class="fl">0.2757771</span>,<span class="fl">0.04226223</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>estBetaParams <span class="ot">&lt;-</span> <span class="cf">function</span>(mu, var) {</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> ((<span class="dv">1</span> <span class="sc">-</span> mu) <span class="sc">/</span> var <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> mu) <span class="sc">*</span> mu <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> alpha <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> mu <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="at">params =</span> <span class="fu">list</span>(<span class="at">alpha =</span> alpha, <span class="at">beta =</span> beta))</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co">#mean(Smokers$Y2000P)</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co">#var(Smokers$Y2000P)</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">estBetaParams</span>(<span class="fl">0.2757771</span>,<span class="fl">0.04226223</span>)</span></code></pre></div>
 <pre><code>## $alpha
 ## [1] 1.027498
 ## 
@@ -1531,56 +1555,56 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 ## [1] 2.698331</code></pre>
 <hr />
 <p>Producción de los gráficos. Se observa que para las plantas que tienen 25 y 30 flores la densidad esta sesgada a la izquierda, en otra palabra la probabilidad de tener pocas frutos domina la distribuciones.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;gridExtra&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     combine</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="fu">ggplot</span>(dipodium2, <span class="fu">aes</span>(PropFR))<span class="sc">+</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> dipodium2<span class="sc">$</span>PropFR, <span class="at">y =</span> ..y..), <span class="at">fun =</span> dbeta, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>, <span class="at">n =</span> <span class="dv">62</span>,</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">args =</span> <span class="fu">list</span>(<span class="at">shape1 =</span><span class="fl">0.5418068</span>, <span class="at">shape2 =</span><span class="fl">3.135593</span>))<span class="sc">+</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Beta </span><span class="sc">\n</span><span class="st">Density&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>))<span class="sc">+</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Densidad beta para plantas con 25 flores&quot;</span>)</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>b<span class="ot">=</span><span class="fu">ggplot</span>(dipodium2, <span class="fu">aes</span>(PropFR))<span class="sc">+</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> dipodium2<span class="sc">$</span>PropFR, <span class="at">y =</span> ..y..), <span class="at">fun =</span> dbeta, <span class="at">colour=</span><span class="st">&quot;blue&quot;</span>, <span class="at">n =</span> <span class="dv">62</span>,</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">args =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="fl">0.7549048</span>, <span class="at">shape2 =</span><span class="fl">2.949404</span>))<span class="sc">+</span></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Beta </span><span class="sc">\n</span><span class="st">Density&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.1</span>))<span class="sc">+</span></span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Densidad beta para plantas con 30 flores&quot;</span>)</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>c<span class="ot">=</span><span class="fu">ggplot</span>(dipodium2, <span class="fu">aes</span>(PropFR))<span class="sc">+</span></span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> dipodium2<span class="sc">$</span>PropFR, <span class="at">y =</span> ..y..), <span class="at">fun =</span> dbeta, <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">n =</span> <span class="dv">62</span>,</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">args =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="fl">1.027498</span>, <span class="at">shape2 =</span><span class="fl">2.698331</span>))<span class="sc">+</span></span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Beta </span><span class="sc">\n</span><span class="st">Density&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.10</span>))<span class="sc">+</span></span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Densidad beta para plantas con 35 flores&quot;</span>)</span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>tresDensidad<span class="ot">=</span><span class="fu">grid.arrange</span>(a,b,c, <span class="at">ncol=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="fu">ggplot</span>(dipodium2, <span class="fu">aes</span>(PropFR))<span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> dipodium2<span class="sc">$</span>PropFR, <span class="at">y =</span> ..y..), <span class="at">fun =</span> dbeta, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>, <span class="at">n =</span> <span class="dv">62</span>,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">args =</span> <span class="fu">list</span>(<span class="at">shape1 =</span><span class="fl">0.5418068</span>, <span class="at">shape2 =</span><span class="fl">3.135593</span>))<span class="sc">+</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Beta </span><span class="sc">\n</span><span class="st">Density&quot;</span>)<span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)<span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>))<span class="sc">+</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Densidad beta para plantas con 25 flores&quot;</span>)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>b<span class="ot">=</span><span class="fu">ggplot</span>(dipodium2, <span class="fu">aes</span>(PropFR))<span class="sc">+</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> dipodium2<span class="sc">$</span>PropFR, <span class="at">y =</span> ..y..), <span class="at">fun =</span> dbeta, <span class="at">colour=</span><span class="st">&quot;blue&quot;</span>, <span class="at">n =</span> <span class="dv">62</span>,</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">args =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="fl">0.7549048</span>, <span class="at">shape2 =</span><span class="fl">2.949404</span>))<span class="sc">+</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Beta </span><span class="sc">\n</span><span class="st">Density&quot;</span>)<span class="sc">+</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)<span class="sc">+</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.1</span>))<span class="sc">+</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Densidad beta para plantas con 30 flores&quot;</span>)</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>c<span class="ot">=</span><span class="fu">ggplot</span>(dipodium2, <span class="fu">aes</span>(PropFR))<span class="sc">+</span></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> dipodium2<span class="sc">$</span>PropFR, <span class="at">y =</span> ..y..), <span class="at">fun =</span> dbeta, <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">n =</span> <span class="dv">62</span>,</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">args =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="fl">1.027498</span>, <span class="at">shape2 =</span><span class="fl">2.698331</span>))<span class="sc">+</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Beta </span><span class="sc">\n</span><span class="st">Density&quot;</span>)<span class="sc">+</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Probabilidad de tener frutos&quot;</span>)<span class="sc">+</span></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.10</span>))<span class="sc">+</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Densidad beta para plantas con 35 flores&quot;</span>)</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>tresDensidad<span class="ot">=</span><span class="fu">grid.arrange</span>(a,b,c, <span class="at">ncol=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="TF7_Regresion_beta_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>tresDensidad</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>tresDensidad</span></code></pre></div>
 <pre><code>## TableGrob (3 x 1) &quot;arrange&quot;: 3 grobs
 ##   z     cells    name           grob
 ## 1 1 (1-1,1-1) arrange gtable[layout]
 ## 2 2 (2-2,1-1) arrange gtable[layout]
 ## 3 3 (3-3,1-1) arrange gtable[layout]</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Graficos/tresDensidad.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Graficos/tresDensidad.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <p>Un segundo ejemplo</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;StressAnxiety&quot;</span>, <span class="at">package =</span> <span class="st">&quot;betareg&quot;</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>StressAnxiety <span class="ot">&lt;-</span> StressAnxiety[<span class="fu">order</span>(StressAnxiety<span class="sc">$</span>stress),]</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Smithson &amp; Verkuilen (2006, Table 4)</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>sa_null <span class="ot">&lt;-</span> <span class="fu">betareg</span>(anxiety <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> <span class="dv">1</span>,</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> StressAnxiety, <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>sa_stress <span class="ot">&lt;-</span> <span class="fu">betareg</span>(anxiety <span class="sc">~</span> stress <span class="sc">|</span> stress,</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> StressAnxiety, <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sa_null)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;StressAnxiety&quot;</span>, <span class="at">package =</span> <span class="st">&quot;betareg&quot;</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>StressAnxiety <span class="ot">&lt;-</span> StressAnxiety[<span class="fu">order</span>(StressAnxiety<span class="sc">$</span>stress),]</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Smithson &amp; Verkuilen (2006, Table 4)</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>sa_null <span class="ot">&lt;-</span> <span class="fu">betareg</span>(anxiety <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> <span class="dv">1</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> StressAnxiety, <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>sa_stress <span class="ot">&lt;-</span> <span class="fu">betareg</span>(anxiety <span class="sc">~</span> stress <span class="sc">|</span> stress,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> StressAnxiety, <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sa_null)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## betareg(formula = anxiety ~ 1 | 1, data = StressAnxiety, hessian = TRUE)
@@ -1602,7 +1626,7 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 ## Type of estimator: ML (maximum likelihood)
 ## Log-likelihood: 239.4 on 2 Df
 ## Number of iterations in BFGS optimization: 9</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sa_stress)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sa_stress)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## betareg(formula = anxiety ~ stress | stress, data = StressAnxiety, hessian = TRUE)
@@ -1627,23 +1651,23 @@ from this webpage: <a href="https://binalongbungalows.wordpress.com/tasmanian-or
 ## Log-likelihood:   302 on 4 Df
 ## Pseudo R-squared: 0.4748
 ## Number of iterations in BFGS optimization: 16</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(sa_null, sa_stress)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(sa_null, sa_stress)</span></code></pre></div>
 <pre><code>##           df       AIC
 ## sa_null    2 -474.8960
 ## sa_stress  4 -595.9202</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">as.vector</span>(<span class="fu">logLik</span>(sa_null)<span class="sc">/</span><span class="fu">logLik</span>(sa_stress))</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">as.vector</span>(<span class="fu">logLik</span>(sa_null)<span class="sc">/</span><span class="fu">logLik</span>(sa_stress))</span></code></pre></div>
 <pre><code>## [1] 0.207021</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="do">## visualization</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(StressAnxiety)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">jitter</span>(anxiety) <span class="sc">~</span> <span class="fu">jitter</span>(stress),</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Stress&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Anxiety&quot;</span>,</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(anxiety <span class="sc">~</span> stress))</span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(sa_stress) <span class="sc">~</span> stress, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(<span class="fu">lm</span>(anxiety <span class="sc">~</span> stress)) <span class="sc">~</span> stress, <span class="at">lty =</span> <span class="dv">3</span>)</span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;lowess&quot;</span>, <span class="st">&quot;betareg&quot;</span>, <span class="st">&quot;lm&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## visualization</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(StressAnxiety)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">jitter</span>(anxiety) <span class="sc">~</span> <span class="fu">jitter</span>(stress),</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Stress&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Anxiety&quot;</span>,</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(anxiety <span class="sc">~</span> stress))</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(sa_stress) <span class="sc">~</span> stress, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(<span class="fu">lm</span>(anxiety <span class="sc">~</span> stress)) <span class="sc">~</span> stress, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;lowess&quot;</span>, <span class="st">&quot;betareg&quot;</span>, <span class="st">&quot;lm&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
 <p><img src="TF7_Regresion_beta_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(StressAnxiety)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(StressAnxiety)</span></code></pre></div>
 <blockquote>
 <p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
 </blockquote>

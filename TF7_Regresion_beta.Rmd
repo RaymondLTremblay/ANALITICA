@@ -174,8 +174,9 @@ En la pagina de Wikipedia sobre distribución beta se puede apreciar como la dis
 
 
 
-## Propoción de fumadores por diferentes paises. 
-Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  Se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman. 
+## Proporción de fumadores por diferentes paises. 
+
+Los datos provienen de World Bank en el siguiente enlace, [Smokers](https://data.worldbank.org/indicator/SH.PRV.SMOK).  En el archivo se encuentra información sobre 187 pais y la proporción de población mayor de 15 años que fuman. 
 
 Los datos están debajo pestaña de "Los Datos" 
 
@@ -249,6 +250,7 @@ ggplot(Smokers, aes(Y2000P))+
                 sd = sd(Smokers$Y2000P, na.rm = TRUE)), 
                 colour = "green", size = 1)+
   xlab("Proporción de fumadores de mayor \n de 15 años por Pais")+
+  ylab("Densidad")+
   annotate("text", x = .5, y = 4.2, label = "Verde: dist Normal", color="darkgreen")+
   annotate("text", x = .5, y = 3.7, label = "Verde: dist Beta", color="red")+
   xlim(-0.1, 0.9)
