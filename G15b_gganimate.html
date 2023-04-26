@@ -14,8 +14,8 @@
 
 <title>G15b_gganimate</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -412,19 +413,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -433,10 +422,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -446,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -461,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -475,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -513,9 +505,15 @@ library(animation)
 library(gt)</code></pre>
 <div id="transiciones-graduales" class="section level2">
 <h2>Transiciones graduales</h2>
-<p>Con la función <strong>transition_reveal</strong> los datos aparece gradualmente en el gráfico</p>
-<p>Usamos otro conjunto de datos del archivo <strong>airquality</strong> que se encuentra en el paquete <strong>datasets</strong>. Primero creamos un gráfico estático (sin animación), el día del mes (day), la temperatura del día (Temp) y una linea para cada mes (mayo a septiembre) con la función <strong>group</strong>.</p>
-<p>Comenzamos con cambiar el nombre de algunas variables al castellano</p>
+<p>Con la función <strong>transition_reveal</strong> los datos aparece
+gradualmente en el gráfico</p>
+<p>Usamos otro conjunto de datos del archivo <strong>airquality</strong>
+que se encuentra en el paquete <strong>datasets</strong>. Primero
+creamos un gráfico estático (sin animación), el día del mes (day), la
+temperatura del día (Temp) y una linea para cada mes (mayo a septiembre)
+con la función <strong>group</strong>.</p>
+<p>Comenzamos con cambiar el nombre de algunas variables al
+castellano</p>
 <pre class="r"><code>names(airquality) # Nombres originales</code></pre>
 <pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Wind&quot;    &quot;Temp&quot;    &quot;Month&quot;   &quot;Day&quot;</code></pre>
 <pre class="r"><code>names(airquality)[3] &lt;- &#39;Viento&#39;
@@ -540,9 +538,18 @@ head(calidad_aire)</code></pre>
   theme(legend.position = &quot;top&quot;)
 t</code></pre>
 <p><img src="G15b_gganimate_files/figure-html/grafico%20basico%202-1.png" width="672" /></p>
-<p>Ahora animamos el gráfico en el eje de <strong>x</strong> con la variable de <strong>Día</strong>, añadiendo <strong>transition_reveal(Día)</strong></p>
+<p>Ahora animamos el gráfico en el eje de <strong>x</strong> con la
+variable de <strong>Día</strong>, añadiendo
+<strong>transition_reveal(Día)</strong></p>
 <pre class="r"><code>t + transition_reveal( Día)</code></pre>
-<p><img src="G15b_gganimate_files/figure-html/grafico%20lineal%20transiciones-1.gif" /><!-- --></p>
+<pre><code>## `geom_line()`: Each group consists of only one
+## observation.
+## ℹ Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one
+## observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
+<p><img
+src="G15b_gganimate_files/figure-html/grafico%20lineal%20transiciones-1.gif" /><!-- --></p>
 </div>
 <div id="anadiendo-un-punto-a-la-linea" class="section level2">
 <h2>Anadiendo un punto a la linea</h2>
@@ -551,15 +558,30 @@ t</code></pre>
   geom_point() +
   transition_reveal( Día)</code></pre>
 <pre class="r"><code>animate(cambio_m, height = 800, width = 800)</code></pre>
-<p><img src="G15b_gganimate_files/figure-html/salvar%20el%20grafico-1.gif" /><!-- --></p>
+<pre><code>## `geom_line()`: Each group consists of only one
+## observation.
+## ℹ Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one
+## observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
+<p><img
+src="G15b_gganimate_files/figure-html/salvar%20el%20grafico-1.gif" /><!-- --></p>
 <pre class="r"><code># anim_save(&quot;cambio_m.gif&quot;)</code></pre>
 </div>
 <div id="poniendo-un-punto-para-valor" class="section level2">
 <h2>Poniendo un punto para valor</h2>
-<p>Los puntos se pueden quedar en el gráfico añadiendo <strong>(group = seq_along(Día)</strong>.</p>
+<p>Los puntos se pueden quedar en el gráfico añadiendo <strong>(group =
+seq_along(Día)</strong>.</p>
 <pre class="r"><code>t + geom_point(aes(group = seq_along( Día ))) +
   transition_reveal( Día)</code></pre>
-<p><img src="G15b_gganimate_files/figure-html/puntos%20permanentes-1.gif" /><!-- --></p>
+<pre><code>## `geom_line()`: Each group consists of only one
+## observation.
+## ℹ Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one
+## observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
+<p><img
+src="G15b_gganimate_files/figure-html/puntos%20permanentes-1.gif" /><!-- --></p>
 </div>
 
 

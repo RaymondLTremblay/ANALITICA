@@ -14,8 +14,8 @@
 
 <title>gganimate</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -412,19 +413,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -433,10 +422,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -446,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -461,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -475,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -505,7 +497,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-26&quot;</code></pre>
 <pre class="r"><code>#if(!require(devtools)) install.packages(&quot;devtools&quot;)
 #devtools::install_github(&quot;dgrtwo/gganimate&quot;)
 #devtools::install_github(&quot;yihui/animation&quot;)</code></pre>
@@ -516,17 +508,40 @@ library(gapminder)
 library(ggplot2)
 library(animation)
 library(gt)</code></pre>
-<p>El paquete <strong>gganimate</strong> extiende el paquete de <strong>ggplot2</strong> y implementa unas funciones para animar gráficos que típicamente estuviese estática. El paquete fue desarrollado por Pedersen y Robinson (2017).Siempre puede ir al siguiente enlace para tener más información y otros ejemplos. <a href="https://gganimate.com/articles/gganimate.html" class="uri">https://gganimate.com/articles/gganimate.html</a>. Note que antes de utilizar este modulo se asume que se conozca la estructura de la creación de gráficos con ggplot2.</p>
-<p>Los datos provienen del paquete <strong>gapminder</strong> y el archivo <strong>gapminder</strong>. Estos datos representa la expectativa de supervivencia en diferentes 142 países entre 1952 y 2007. Aquí observamos las primeras 6 filas del archivo.</p>
+<p>El paquete <strong>gganimate</strong> extiende el paquete de
+<strong>ggplot2</strong> y implementa unas funciones para animar
+gráficos que típicamente estuviese estática. El paquete fue desarrollado
+por Pedersen y Robinson (2017).Siempre puede ir al siguiente enlace para
+tener más información y otros ejemplos. <a
+href="https://gganimate.com/articles/gganimate.html"
+class="uri">https://gganimate.com/articles/gganimate.html</a>. Note que
+antes de utilizar este modulo se asume que se conozca la estructura de
+la creación de gráficos con ggplot2.</p>
+<p>Los datos provienen del paquete <strong>gapminder</strong> y el
+archivo <strong>gapminder</strong>. Estos datos representa la
+expectativa de supervivencia en diferentes 142 países entre 1952 y 2007.
+Aquí observamos las primeras 6 filas del archivo.</p>
 <pre class="r"><code>gt(head(gapminder))</code></pre>
-<div id="xscuwcmfcr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="xscuwcmfcr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xscuwcmfcr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xscuwcmfcr thead, #xscuwcmfcr tbody, #xscuwcmfcr tfoot, #xscuwcmfcr tr, #xscuwcmfcr td, #xscuwcmfcr th {
+  border-style: none;
+}
+
+#xscuwcmfcr p {
+  margin: 0;
+  padding: 0;
 }
 
 #xscuwcmfcr .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -549,6 +564,35 @@ library(gt)</code></pre>
   border-left-color: #D3D3D3;
 }
 
+#xscuwcmfcr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xscuwcmfcr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xscuwcmfcr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
 #xscuwcmfcr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
@@ -559,26 +603,6 @@ library(gt)</code></pre>
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
-}
-
-#xscuwcmfcr .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#xscuwcmfcr .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
 }
 
 #xscuwcmfcr .gt_bottom_border {
@@ -648,14 +672,21 @@ library(gt)</code></pre>
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
+#xscuwcmfcr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #xscuwcmfcr .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -674,6 +705,7 @@ library(gt)</code></pre>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #xscuwcmfcr .gt_empty_group_heading {
@@ -727,7 +759,30 @@ library(gt)</code></pre>
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xscuwcmfcr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xscuwcmfcr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xscuwcmfcr .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
 #xscuwcmfcr .gt_summary_row {
@@ -741,13 +796,22 @@ library(gt)</code></pre>
 }
 
 #xscuwcmfcr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xscuwcmfcr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xscuwcmfcr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #xscuwcmfcr .gt_grand_summary_row {
@@ -768,6 +832,16 @@ library(gt)</code></pre>
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#xscuwcmfcr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
 }
 
 #xscuwcmfcr .gt_striped {
@@ -800,7 +874,10 @@ library(gt)</code></pre>
 #xscuwcmfcr .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #xscuwcmfcr .gt_sourcenotes {
@@ -819,7 +896,10 @@ library(gt)</code></pre>
 
 #xscuwcmfcr .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #xscuwcmfcr .gt_left {
@@ -852,66 +932,97 @@ library(gt)</code></pre>
 }
 
 #xscuwcmfcr .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xscuwcmfcr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xscuwcmfcr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xscuwcmfcr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xscuwcmfcr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xscuwcmfcr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xscuwcmfcr .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">country</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">continent</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">lifeExp</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">pop</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">gdpPercap</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="country">country</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="continent">continent</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="year">year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="lifeExp">lifeExp</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="pop">pop</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="gdpPercap">gdpPercap</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center">Afghanistan</td>
-<td class="gt_row gt_center">Asia</td>
-<td class="gt_row gt_right">1952</td>
-<td class="gt_row gt_right">28.801</td>
-<td class="gt_row gt_right">8425333</td>
-<td class="gt_row gt_right">779.4453</td></tr>
-    <tr><td class="gt_row gt_center">Afghanistan</td>
-<td class="gt_row gt_center">Asia</td>
-<td class="gt_row gt_right">1957</td>
-<td class="gt_row gt_right">30.332</td>
-<td class="gt_row gt_right">9240934</td>
-<td class="gt_row gt_right">820.8530</td></tr>
-    <tr><td class="gt_row gt_center">Afghanistan</td>
-<td class="gt_row gt_center">Asia</td>
-<td class="gt_row gt_right">1962</td>
-<td class="gt_row gt_right">31.997</td>
-<td class="gt_row gt_right">10267083</td>
-<td class="gt_row gt_right">853.1007</td></tr>
-    <tr><td class="gt_row gt_center">Afghanistan</td>
-<td class="gt_row gt_center">Asia</td>
-<td class="gt_row gt_right">1967</td>
-<td class="gt_row gt_right">34.020</td>
-<td class="gt_row gt_right">11537966</td>
-<td class="gt_row gt_right">836.1971</td></tr>
-    <tr><td class="gt_row gt_center">Afghanistan</td>
-<td class="gt_row gt_center">Asia</td>
-<td class="gt_row gt_right">1972</td>
-<td class="gt_row gt_right">36.088</td>
-<td class="gt_row gt_right">13079460</td>
-<td class="gt_row gt_right">739.9811</td></tr>
-    <tr><td class="gt_row gt_center">Afghanistan</td>
-<td class="gt_row gt_center">Asia</td>
-<td class="gt_row gt_right">1977</td>
-<td class="gt_row gt_right">38.438</td>
-<td class="gt_row gt_right">14880372</td>
-<td class="gt_row gt_right">786.1134</td></tr>
+    <tr><td headers="country" class="gt_row gt_center">Afghanistan</td>
+<td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="year" class="gt_row gt_right">1952</td>
+<td headers="lifeExp" class="gt_row gt_right">28.801</td>
+<td headers="pop" class="gt_row gt_right">8425333</td>
+<td headers="gdpPercap" class="gt_row gt_right">779.4453</td></tr>
+    <tr><td headers="country" class="gt_row gt_center">Afghanistan</td>
+<td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="year" class="gt_row gt_right">1957</td>
+<td headers="lifeExp" class="gt_row gt_right">30.332</td>
+<td headers="pop" class="gt_row gt_right">9240934</td>
+<td headers="gdpPercap" class="gt_row gt_right">820.8530</td></tr>
+    <tr><td headers="country" class="gt_row gt_center">Afghanistan</td>
+<td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="year" class="gt_row gt_right">1962</td>
+<td headers="lifeExp" class="gt_row gt_right">31.997</td>
+<td headers="pop" class="gt_row gt_right">10267083</td>
+<td headers="gdpPercap" class="gt_row gt_right">853.1007</td></tr>
+    <tr><td headers="country" class="gt_row gt_center">Afghanistan</td>
+<td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="year" class="gt_row gt_right">1967</td>
+<td headers="lifeExp" class="gt_row gt_right">34.020</td>
+<td headers="pop" class="gt_row gt_right">11537966</td>
+<td headers="gdpPercap" class="gt_row gt_right">836.1971</td></tr>
+    <tr><td headers="country" class="gt_row gt_center">Afghanistan</td>
+<td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="year" class="gt_row gt_right">1972</td>
+<td headers="lifeExp" class="gt_row gt_right">36.088</td>
+<td headers="pop" class="gt_row gt_right">13079460</td>
+<td headers="gdpPercap" class="gt_row gt_right">739.9811</td></tr>
+    <tr><td headers="country" class="gt_row gt_center">Afghanistan</td>
+<td headers="continent" class="gt_row gt_center">Asia</td>
+<td headers="year" class="gt_row gt_right">1977</td>
+<td headers="lifeExp" class="gt_row gt_right">38.438</td>
+<td headers="pop" class="gt_row gt_right">14880372</td>
+<td headers="gdpPercap" class="gt_row gt_right">786.1134</td></tr>
   </tbody>
   
   
 </table>
 </div>
-<p>Primero creamos un gráfico de puntos sin animación o sea estático. En el eje de <strong>X</strong> representa el GDP per capita en cada país, y en el eje de <strong>Y</strong> la supervivencia. El tamaño del punto es relativo el tamaño del país. La escala en el eje de <strong>X</strong> fue cambiado a una logarítmica usando <strong>scale_x_log10()</strong>. Aunque es difícil percibir la diferencia cada país tiene su proprio color.</p>
+<p>Primero creamos un gráfico de puntos sin animación o sea estático. En
+el eje de <strong>X</strong> representa el GDP per capita en cada país,
+y en el eje de <strong>Y</strong> la supervivencia. El tamaño del punto
+es relativo el tamaño del país. La escala en el eje de
+<strong>X</strong> fue cambiado a una logarítmica usando
+<strong>scale_x_log10()</strong>. Aunque es difícil percibir la
+diferencia cada país tiene su proprio color.</p>
 <pre class="r"><code>p &lt;- ggplot(
   gapminder, 
   aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)) +
@@ -923,50 +1034,90 @@ p</code></pre>
 <p><img src="G15_gganimate_files/figure-html/grafico%20basico-1.png" width="672" /></p>
 <div id="gráficos-con-animación" class="section level2">
 <h2>Gráficos con animación:</h2>
-<p>Para incluir las transiciones en tiempo se usa la función <strong>transition_time</strong>. El largo de transición sera corresponde as la diferencia entre la variable de tiempo (en este casa “Time”).</p>
-<p>La variable <strong>frame_time</strong> añade arriba una leyenda del tiempo de transición. Note que se usa la función <strong>labs</strong> y se añade el titulo y lo que hay entre los corchetes es la variable del cambio en tiempo.</p>
+<p>Para incluir las transiciones en tiempo se usa la función
+<strong>transition_time</strong>. El largo de transición sera
+corresponde as la diferencia entre la variable de tiempo (en este casa
+“Time”).</p>
+<p>La variable <strong>frame_time</strong> añade arriba una leyenda del
+tiempo de transición. Note que se usa la función <strong>labs</strong> y
+se añade el titulo y lo que hay entre los corchetes es la variable del
+cambio en tiempo.</p>
 <pre class="r"><code>GDP_time=p + transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;)
 GDP_time</code></pre>
-<p><img src="G15_gganimate_files/figure-html/grafico%20con%20animacion%20de%20tiempo-1.gif" /><!-- --></p>
+<p><img
+src="G15_gganimate_files/figure-html/grafico%20con%20animacion%20de%20tiempo-1.gif" /><!-- --></p>
 <pre class="r"><code>animate(GDP_time, height = 600, width =600)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
+<p><img
+src="G15_gganimate_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
 <pre class="r"><code>#anim_save(&quot;GDP_time.gif&quot;)</code></pre>
 </div>
 <div id="crear-facet-animados." class="section level2">
 <h2>Crear facet animados.</h2>
-<p>Igual que para los gráficos de ggplot2 se puede crear una gráica por cada variable discreta. Para crear un gráfico por grupo y observar el de patrones de cambio en tiempo por continente se añade <strong>facet_wrap</strong>. En este próximo gráfico se produce un por cada continente.</p>
+<p>Igual que para los gráficos de ggplot2 se puede crear una gráica por
+cada variable discreta. Para crear un gráfico por grupo y observar el de
+patrones de cambio en tiempo por continente se añade
+<strong>facet_wrap</strong>. En este próximo gráfico se produce un por
+cada continente.</p>
 <pre class="r"><code>p + facet_wrap(~continent) +
   transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/grafico%20can%20facet_wrap-1.gif" /><!-- --></p>
+<p><img
+src="G15_gganimate_files/figure-html/grafico%20can%20facet_wrap-1.gif" /><!-- --></p>
 </div>
 <div id="animación-de-los-ejes-ejes-variables" class="section level2">
 <h2>Animación de los ejes: ejes variables</h2>
-<p>En este caso lo que observamos es que la leyenda en en <strong>x</strong> varia con los años, y la de <strong>y</strong> la dejamos fija. Si se usa <strong>view_follow(fixed_x = TRUE)</strong>, la leyenda en <strong>y</strong> variaría con el cambio en GDP per capita y la de <strong>x</strong> seria fija. Si queremos que los dos ejes varían con los datos se usa <strong>view_follow()</strong>, sin poner nada dentro de los paréntesis.</p>
+<p>En este caso lo que observamos es que la leyenda en en
+<strong>x</strong> varia con los años, y la de <strong>y</strong> la
+dejamos fija. Si se usa <strong>view_follow(fixed_x = TRUE)</strong>, la
+leyenda en <strong>y</strong> variaría con el cambio en GDP per capita y
+la de <strong>x</strong> seria fija. Si queremos que los dos ejes varían
+con los datos se usa <strong>view_follow()</strong>, sin poner nada
+dentro de los paréntesis.</p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Año: {frame_time}&quot;) +
   view_follow(fixed_y = TRUE)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/transiciones%20en%20tiempo-1.gif" /><!-- --></p>
+<p><img
+src="G15_gganimate_files/figure-html/transiciones%20en%20tiempo-1.gif" /><!-- --></p>
 </div>
 <div id="observar-transiciones-entre-valores" class="section level2">
 <h2>Observar transiciones entre valores</h2>
-<p>La función <strong>shadow_wake</strong> es para representar un efecto de sobre o dirreccón por donde ocurre los cambios. Se puede seleccionar el tamaño de la disminución y la opacidad de la sombra. El largo de la cola no es</p>
+<p>La función <strong>shadow_wake</strong> es para representar un efecto
+de sobre o dirreccón por donde ocurre los cambios. Se puede seleccionar
+el tamaño de la disminución y la opacidad de la sombra. El largo de la
+cola no es</p>
 <p><span style="color: red;">Julián check this translation?</span></p>
-<p>La duración de la estela no se da en cuadros absolutos, ya que eso haría que la animación sea susceptible a cambios en la velocidad de fotogramas. En cambio, se da por proporción de la longitud total de la animación. Por consecuencia el <strong>wake_length</strong> varia entre 0 a 1 en relación con el total de numero de periodo de tiempo (frames). En otra palabra más cerca el valor se acerca a 1, más largo sera la cola.</p>
-<p>The length of the wake is not given in absolute frames as that would make the animation susceptible to changes in the framerate. Instead it is given as a proportion of the total length of the animation.</p>
+<p>La duración de la estela no se da en cuadros absolutos, ya que eso
+haría que la animación sea susceptible a cambios en la velocidad de
+fotogramas. En cambio, se da por proporción de la longitud total de la
+animación. Por consecuencia el <strong>wake_length</strong> varia entre
+0 a 1 en relación con el total de numero de periodo de tiempo (frames).
+En otra palabra más cerca el valor se acerca a 1, más largo sera la
+cola.</p>
+<p>The length of the wake is not given in absolute frames as that would
+make the animation susceptible to changes in the framerate. Instead it
+is given as a proportion of the total length of the animation.</p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Year: {frame_time}&quot;) +
   shadow_wake(wake_length = 0.2, alpha = FALSE)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/transiciones%20con%20sombra-1.gif" /><!-- --></p>
+<p><img
+src="G15_gganimate_files/figure-html/transiciones%20con%20sombra-1.gif" /><!-- --></p>
 </div>
-<div id="visualizar-los-datos-originales-en-el-fondo" class="section level2">
+<div id="visualizar-los-datos-originales-en-el-fondo"
+class="section level2">
 <h2>Visualizar los datos originales en el fondo</h2>
-<p>Con la función <strong>shadow_mark</strong> se puede ver los datos originales. Tanto los datos anteriores y futuros se pueden demostrar con diferentes estilos. Por ejemplo con el siguiente script <strong>shadow_mark(past = FALSE, future = TRUE)</strong> se observaría los datos futuros y no del pasado. El alternativa básica <strong>shadow_mark()</strong> es igual a <strong>shadow_mark(past = TRUE, future = FALSE)</strong></p>
+<p>Con la función <strong>shadow_mark</strong> se puede ver los datos
+originales. Tanto los datos anteriores y futuros se pueden demostrar con
+diferentes estilos. Por ejemplo con el siguiente script
+<strong>shadow_mark(past = FALSE, future = TRUE)</strong> se observaría
+los datos futuros y no del pasado. El alternativa básica
+<strong>shadow_mark()</strong> es igual a <strong>shadow_mark(past =
+TRUE, future = FALSE)</strong></p>
 <pre class="r"><code>p + transition_time(year) +
   labs(title = &quot;Year: {frame_time}&quot;) +
   shadow_mark(alpha = 0.3, size = 0.5)</code></pre>
-<p><img src="G15_gganimate_files/figure-html/transiciones%20con%20sombra2-1.gif" /><!-- --></p>
+<p><img
+src="G15_gganimate_files/figure-html/transiciones%20con%20sombra2-1.gif" /><!-- --></p>
 </div>
 
 

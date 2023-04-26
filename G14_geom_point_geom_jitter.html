@@ -13,8 +13,8 @@
 
 <title>Geom_point_geom_jitter</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -83,6 +84,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -140,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -173,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -182,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -308,7 +309,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -318,7 +319,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -351,7 +352,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -411,19 +412,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -432,10 +421,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -445,13 +437,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -460,10 +452,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -474,7 +466,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -503,7 +495,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-26&quot;</code></pre>
 <pre class="r"><code>library(ggplot2)
 library(ggversa)
 library(gt)
@@ -511,8 +503,20 @@ library(gridExtra)</code></pre>
 <hr />
 <div id="gráficos-de-puntos-con-geom_point" class="section level1">
 <h1>Gráficos de puntos con geom_point</h1>
-<p>El tipo de gráfico básico de puntos que relaciona dos variables continuas se puede hacer en ggplot2 con <strong>geom_point</strong>. Es probablemente el gráfico más utilizado. A continuación en el gráfico de la Figura apreciamos la producción básica de este tipo de gráfico combinando a <strong>ggplot (el archivo, aes(x, y))</strong> y a <strong>geom_point()</strong>. Este produce unos puntos negros para demostrar la relación. Se puede cambiar la descripción de los nombres de los ejes <strong>labels</strong> utilizando <strong>labs</strong>, al nombrar cada uno de ellos <strong>x=Altura de la inflorescencia</strong>, y <strong>y={Número de Flores</strong>.</p>
-<p>Para este gráfico se representa la altura de las inflorescencias y la cantidad de flores de una orquídea terrestre de <em>Dipodium roseum</em>. En general, el patrón demuestra que las plantas con inflorescencias más larga tienen más flores.</p>
+<p>El tipo de gráfico básico de puntos que relaciona dos variables
+continuas se puede hacer en ggplot2 con <strong>geom_point</strong>. Es
+probablemente el gráfico más utilizado. A continuación en el gráfico de
+la Figura apreciamos la producción básica de este tipo de gráfico
+combinando a <strong>ggplot (el archivo, aes(x, y))</strong> y a
+<strong>geom_point()</strong>. Este produce unos puntos negros para
+demostrar la relación. Se puede cambiar la descripción de los nombres de
+los ejes <strong>labels</strong> utilizando <strong>labs</strong>, al
+nombrar cada uno de ellos <strong>x=Altura de la
+inflorescencia</strong>, y <strong>y={Número de Flores</strong>.</p>
+<p>Para este gráfico se representa la altura de las inflorescencias y la
+cantidad de flores de una orquídea terrestre de <em>Dipodium
+roseum</em>. En general, el patrón demuestra que las plantas con
+inflorescencias más larga tienen más flores.</p>
 <pre class="r"><code>library(ggplot2)
 
 ggplot(dipodium, aes(Height_Inflo, Number_of_Flowers))+
@@ -520,12 +524,22 @@ ggplot(dipodium, aes(Height_Inflo, Number_of_Flowers))+
   labs(x=&quot;Altura de la inflorescencia&quot;,
        y=&quot;Número de Flores&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntos-1.png" width="672" /> *** ## Añadir una tercera variable con color en los puntos</p>
-<p>En el gráfico se sobrepuso información adicional. Ahora el objetivo es visualizar si las inflorescencias más altas y con muchas flores también se pueden relacionar a más frutos. Dos pasos son necesarios. A este nuevo gráfico se le añadió la tercera variable, la cantidad de frutos, con una escala continua. Con el siguiente primer paso,</p>
-<p>ggplot(dipodium, aes(Height_Inflo, Number_of_Flowers, color=Number_of_fruits)),</p>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntos-1.png" width="672" />
+*** ## Añadir una tercera variable con color en los puntos</p>
+<p>En el gráfico se sobrepuso información adicional. Ahora el objetivo
+es visualizar si las inflorescencias más altas y con muchas flores
+también se pueden relacionar a más frutos. Dos pasos son necesarios. A
+este nuevo gráfico se le añadió la tercera variable, la cantidad de
+frutos, con una escala continua. Con el siguiente primer paso,</p>
+<p>ggplot(dipodium, aes(Height_Inflo, Number_of_Flowers,
+color=Number_of_fruits)),</p>
 <p>se le añade la variable que se desea salga en color,</p>
 <p>color=Number_of_fruits.</p>
-<p>Para este gráfico, los colores serán asignados automáticamente. En la Figura podemos ver que van del negro al azul claro. A pesar de que no se seleccionaron esos colores específicamente, en ggplot2 casi todo se puede modificar (incluyendo esos colores) tal como se verá en la próxima sección.</p>
+<p>Para este gráfico, los colores serán asignados automáticamente. En la
+Figura podemos ver que van del negro al azul claro. A pesar de que no se
+seleccionaron esos colores específicamente, en ggplot2 casi todo se
+puede modificar (incluyendo esos colores) tal como se verá en la próxima
+sección.</p>
 <pre class="r"><code>m=ggplot(na.omit(dipodium), aes(Height_Inflo, factor(Number_of_Flowers),
                        colour=Number_of_fruits))
 
@@ -534,14 +548,24 @@ m+geom_point()+
        y=&quot;Número de Flores&quot;)+
   labs(color=&quot;Cantidad de\n Frutos&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA-1.png" width="672" /> ***</p>
-<div id="modificar-el-rango-de-colores-de-los-puntos" class="section level2">
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA-1.png" width="672" />
+***</p>
+<div id="modificar-el-rango-de-colores-de-los-puntos"
+class="section level2">
 <h2>Modificar el rango de colores de los puntos</h2>
-<p>Para especificar el rango de color que uno quiere, por ejemplo de azul a rojo y pasando por amarillo, utilizar la opción y parámetros siguientes:</p>
+<p>Para especificar el rango de color que uno quiere, por ejemplo de
+azul a rojo y pasando por amarillo, utilizar la opción y parámetros
+siguientes:</p>
 <p>scale_colour_gradient2(low= {blue}, high= {red},<br />
 mid= {yellow},<br />
 midpoint=4)</p>
-<p>Note que el valor <strong>midpoint</strong> identifica el valor en el medio del rango para que salga en amarillo. Ahora las plantas que tengan cuatro frutos tendrán asignado el color amarillo. Note que la descripción de la leyenda, <strong>Cantidad de Frutos</strong>, se hizo usando <strong>labs(color={Cantidad de Frutos})</strong>. Note además que aparece a la derecha. Más adelante veremos cómo posicionar la leyenda en otra ubicación.</p>
+<p>Note que el valor <strong>midpoint</strong> identifica el valor en el
+medio del rango para que salga en amarillo. Ahora las plantas que tengan
+cuatro frutos tendrán asignado el color amarillo. Note que la
+descripción de la leyenda, <strong>Cantidad de Frutos</strong>, se hizo
+usando <strong>labs(color={Cantidad de Frutos})</strong>. Note además
+que aparece a la derecha. Más adelante veremos cómo posicionar la
+leyenda en otra ubicación.</p>
 <pre class="r"><code>m+geom_point()+
   labs(x=&quot;Altura de la inflorescencia&quot;,
        y=&quot;Número de Flores&quot;)+
@@ -551,13 +575,20 @@ midpoint=4)</p>
                          midpoint=4)+
   labs(color=&quot;Cantidad de Frutos&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA1-1.png" width="672" /> ***</p>
+<p><img src="G14_geom_point_geom_jitter_files/figure-html/graficadepuntosA1-1.png" width="672" />
+***</p>
 </div>
 <div id="modificar-la-posición-de-la-leyenda" class="section level2">
 <h2>Modificar la posición de la leyenda</h2>
-<p>Para posicionar la leyenda dentro del gráfico, como se muestra en la Figura, se usa la opción</p>
+<p>Para posicionar la leyenda dentro del gráfico, como se muestra en la
+Figura, se usa la opción</p>
 <p>theme(legend.position=c(0,1), legend.justification=c(0,1))</p>
-<p>El centro del gráfico tiene las coordinadas de (0.5, 0.5), las que ubicarían la leyenda en el centro mismo. La posición (0,0) es la coordenada izquierda inferior, la (1,1) es la derecha superior, la (0,1) es la izquierda superior, y la (1,0) es la derecha inferior. Para información más detallada sobre la ubicación de la leyenda dentro de un gráfico.</p>
+<p>El centro del gráfico tiene las coordinadas de (0.5, 0.5), las que
+ubicarían la leyenda en el centro mismo. La posición (0,0) es la
+coordenada izquierda inferior, la (1,1) es la derecha superior, la (0,1)
+es la izquierda superior, y la (1,0) es la derecha inferior. Para
+información más detallada sobre la ubicación de la leyenda dentro de un
+gráfico.</p>
 <pre class="r"><code># para incluir la leyenda dentro del gráfico
 m+geom_point()+
   labs(x=&quot;Altura de la inflorescencia&quot;,
@@ -575,7 +606,18 @@ m+geom_point()+
 </div>
 <div id="geom_point-y-la-mortandad-infantil" class="section level2">
 <h2>Geom_point y la mortandad infantil</h2>
-<p>Visualicemos ahora otro gráfico utilizando datos sobre la mortandad infantil (NMI) y su relación con la mortandad maternal (NMP) durante el parto. En el ejemplo de la Figura  se observa esta relación. A continuación le añadimos una columna que identifica en qué continente se encuentra el país. Seleccionamos solamente dos grupos geográficos identificados como América=AM y Unión Europea=EU. Las variables fueron transformadas con la función logarítmica {log}. Para seleccionar solamente las dos regiones geográficas, se usó la función de {subset}. La barra {|} quiere decir que se seleccionaron solamente las filas que cumplen con las dos condiciones; en nuestro caso, los países de América y de la Unión Europea. Eso se demuestra a continuación:</p>
+<p>Visualicemos ahora otro gráfico utilizando datos sobre la mortandad
+infantil (NMI) y su relación con la mortandad maternal (NMP) durante el
+parto. En el ejemplo de la Figura <span
+class="math inline">\(\ref{fig:graficadepuntosDemo2}\)</span> se observa
+esta relación. A continuación le añadimos una columna que identifica en
+qué continente se encuentra el país. Seleccionamos solamente dos grupos
+geográficos identificados como América=AM y Unión Europea=EU. Las
+variables fueron transformadas con la función logarítmica {log}. Para
+seleccionar solamente las dos regiones geográficas, se usó la función de
+{subset}. La barra {|} quiere decir que se seleccionaron solamente las
+filas que cumplen con las dos condiciones; en nuestro caso, los países
+de América y de la Unión Europea. Eso se demuestra a continuación:</p>
 <pre class="r"><code># log(1)
 
 Parto=PartosInfantes
@@ -588,14 +630,26 @@ Parto$sumaalgo=Parto$NMI+Parto$NMP*sqrt(Parto$GSPC)^2
 Partosub=subset(Parto, Grupo==&quot;AM&quot;|Grupo==&quot;EU&quot;|Grupo==&quot;AF&quot;)
 
 gt(head(Partosub))</code></pre>
-<div id="tnmxjazbrb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="tnmxjazbrb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tnmxjazbrb table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tnmxjazbrb thead, #tnmxjazbrb tbody, #tnmxjazbrb tfoot, #tnmxjazbrb tr, #tnmxjazbrb td, #tnmxjazbrb th {
+  border-style: none;
+}
+
+#tnmxjazbrb p {
+  margin: 0;
+  padding: 0;
 }
 
 #tnmxjazbrb .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -618,6 +672,35 @@ gt(head(Partosub))</code></pre>
   border-left-color: #D3D3D3;
 }
 
+#tnmxjazbrb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tnmxjazbrb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tnmxjazbrb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
 #tnmxjazbrb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
@@ -628,26 +711,6 @@ gt(head(Partosub))</code></pre>
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
-}
-
-#tnmxjazbrb .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#tnmxjazbrb .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
 }
 
 #tnmxjazbrb .gt_bottom_border {
@@ -717,14 +780,21 @@ gt(head(Partosub))</code></pre>
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
+#tnmxjazbrb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #tnmxjazbrb .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -743,6 +813,7 @@ gt(head(Partosub))</code></pre>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #tnmxjazbrb .gt_empty_group_heading {
@@ -796,7 +867,30 @@ gt(head(Partosub))</code></pre>
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tnmxjazbrb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tnmxjazbrb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tnmxjazbrb .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
 #tnmxjazbrb .gt_summary_row {
@@ -810,13 +904,22 @@ gt(head(Partosub))</code></pre>
 }
 
 #tnmxjazbrb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tnmxjazbrb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tnmxjazbrb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #tnmxjazbrb .gt_grand_summary_row {
@@ -837,6 +940,16 @@ gt(head(Partosub))</code></pre>
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#tnmxjazbrb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
 }
 
 #tnmxjazbrb .gt_striped {
@@ -869,7 +982,10 @@ gt(head(Partosub))</code></pre>
 #tnmxjazbrb .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #tnmxjazbrb .gt_sourcenotes {
@@ -888,7 +1004,10 @@ gt(head(Partosub))</code></pre>
 
 #tnmxjazbrb .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #tnmxjazbrb .gt_left {
@@ -921,81 +1040,106 @@ gt(head(Partosub))</code></pre>
 }
 
 #tnmxjazbrb .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tnmxjazbrb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tnmxjazbrb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tnmxjazbrb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tnmxjazbrb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tnmxjazbrb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tnmxjazbrb .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">NMI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">NMP</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GSPC</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Grupo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Pais</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">logNMI</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">logNMP</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">logGSPC</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">sumaalgo</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="NMI">NMI</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="NMP">NMP</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="GSPC">GSPC</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Grupo">Grupo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Pais">Pais</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="logNMI">logNMI</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="logNMP">logNMP</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="logGSPC">logGSPC</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="sumaalgo">sumaalgo</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">8723</td>
-<td class="gt_row gt_right">400</td>
-<td class="gt_row gt_right">605.1878</td>
-<td class="gt_row gt_center">AM</td>
-<td class="gt_row gt_center">Argentina</td>
-<td class="gt_row gt_right">9.073833</td>
-<td class="gt_row gt_right">5.9939614</td>
-<td class="gt_row gt_right">6.407190</td>
-<td class="gt_row gt_right">250798.1379</td></tr>
-    <tr><td class="gt_row gt_right">60</td>
-<td class="gt_row gt_right">5</td>
-<td class="gt_row gt_right">1720.1595</td>
-<td class="gt_row gt_center">AM</td>
-<td class="gt_row gt_center">Bahamas</td>
-<td class="gt_row gt_right">4.110874</td>
-<td class="gt_row gt_right">1.7917595</td>
-<td class="gt_row gt_right">7.450753</td>
-<td class="gt_row gt_right">8660.7973</td></tr>
-    <tr><td class="gt_row gt_right">42</td>
-<td class="gt_row gt_right">1</td>
-<td class="gt_row gt_right">1146.0417</td>
-<td class="gt_row gt_center">AM</td>
-<td class="gt_row gt_center">Barbados</td>
-<td class="gt_row gt_right">3.761200</td>
-<td class="gt_row gt_right">0.6931472</td>
-<td class="gt_row gt_right">7.044941</td>
-<td class="gt_row gt_right">1188.0417</td></tr>
-    <tr><td class="gt_row gt_right">121</td>
-<td class="gt_row gt_right">2</td>
-<td class="gt_row gt_right">278.5792</td>
-<td class="gt_row gt_center">AM</td>
-<td class="gt_row gt_center">Belize</td>
-<td class="gt_row gt_right">4.804021</td>
-<td class="gt_row gt_right">1.0986123</td>
-<td class="gt_row gt_right">5.633286</td>
-<td class="gt_row gt_right">678.1584</td></tr>
-    <tr><td class="gt_row gt_right">7756</td>
-<td class="gt_row gt_right">540</td>
-<td class="gt_row gt_right">208.7842</td>
-<td class="gt_row gt_center">AM</td>
-<td class="gt_row gt_center">Bolivia</td>
-<td class="gt_row gt_right">8.956351</td>
-<td class="gt_row gt_right">6.2934193</td>
-<td class="gt_row gt_right">5.346079</td>
-<td class="gt_row gt_right">120499.4649</td></tr>
-    <tr><td class="gt_row gt_right">45682</td>
-<td class="gt_row gt_right">1400</td>
-<td class="gt_row gt_right">947.4277</td>
-<td class="gt_row gt_center">AM</td>
-<td class="gt_row gt_center">Brazil</td>
-<td class="gt_row gt_right">10.729482</td>
-<td class="gt_row gt_right">7.2449415</td>
-<td class="gt_row gt_right">6.854806</td>
-<td class="gt_row gt_right">1372080.7744</td></tr>
+    <tr><td headers="NMI" class="gt_row gt_right">8723</td>
+<td headers="NMP" class="gt_row gt_right">400</td>
+<td headers="GSPC" class="gt_row gt_right">605.1878</td>
+<td headers="Grupo" class="gt_row gt_center">AM</td>
+<td headers="Pais" class="gt_row gt_center">Argentina</td>
+<td headers="logNMI" class="gt_row gt_right">9.073833</td>
+<td headers="logNMP" class="gt_row gt_right">5.9939614</td>
+<td headers="logGSPC" class="gt_row gt_right">6.407190</td>
+<td headers="sumaalgo" class="gt_row gt_right">250798.1379</td></tr>
+    <tr><td headers="NMI" class="gt_row gt_right">60</td>
+<td headers="NMP" class="gt_row gt_right">5</td>
+<td headers="GSPC" class="gt_row gt_right">1720.1595</td>
+<td headers="Grupo" class="gt_row gt_center">AM</td>
+<td headers="Pais" class="gt_row gt_center">Bahamas</td>
+<td headers="logNMI" class="gt_row gt_right">4.110874</td>
+<td headers="logNMP" class="gt_row gt_right">1.7917595</td>
+<td headers="logGSPC" class="gt_row gt_right">7.450753</td>
+<td headers="sumaalgo" class="gt_row gt_right">8660.7973</td></tr>
+    <tr><td headers="NMI" class="gt_row gt_right">42</td>
+<td headers="NMP" class="gt_row gt_right">1</td>
+<td headers="GSPC" class="gt_row gt_right">1146.0417</td>
+<td headers="Grupo" class="gt_row gt_center">AM</td>
+<td headers="Pais" class="gt_row gt_center">Barbados</td>
+<td headers="logNMI" class="gt_row gt_right">3.761200</td>
+<td headers="logNMP" class="gt_row gt_right">0.6931472</td>
+<td headers="logGSPC" class="gt_row gt_right">7.044941</td>
+<td headers="sumaalgo" class="gt_row gt_right">1188.0417</td></tr>
+    <tr><td headers="NMI" class="gt_row gt_right">121</td>
+<td headers="NMP" class="gt_row gt_right">2</td>
+<td headers="GSPC" class="gt_row gt_right">278.5792</td>
+<td headers="Grupo" class="gt_row gt_center">AM</td>
+<td headers="Pais" class="gt_row gt_center">Belize</td>
+<td headers="logNMI" class="gt_row gt_right">4.804021</td>
+<td headers="logNMP" class="gt_row gt_right">1.0986123</td>
+<td headers="logGSPC" class="gt_row gt_right">5.633286</td>
+<td headers="sumaalgo" class="gt_row gt_right">678.1584</td></tr>
+    <tr><td headers="NMI" class="gt_row gt_right">7756</td>
+<td headers="NMP" class="gt_row gt_right">540</td>
+<td headers="GSPC" class="gt_row gt_right">208.7842</td>
+<td headers="Grupo" class="gt_row gt_center">AM</td>
+<td headers="Pais" class="gt_row gt_center">Bolivia</td>
+<td headers="logNMI" class="gt_row gt_right">8.956351</td>
+<td headers="logNMP" class="gt_row gt_right">6.2934193</td>
+<td headers="logGSPC" class="gt_row gt_right">5.346079</td>
+<td headers="sumaalgo" class="gt_row gt_right">120499.4649</td></tr>
+    <tr><td headers="NMI" class="gt_row gt_right">45682</td>
+<td headers="NMP" class="gt_row gt_right">1400</td>
+<td headers="GSPC" class="gt_row gt_right">947.4277</td>
+<td headers="Grupo" class="gt_row gt_center">AM</td>
+<td headers="Pais" class="gt_row gt_center">Brazil</td>
+<td headers="logNMI" class="gt_row gt_right">10.729482</td>
+<td headers="logNMP" class="gt_row gt_right">7.2449415</td>
+<td headers="logGSPC" class="gt_row gt_right">6.854806</td>
+<td headers="sumaalgo" class="gt_row gt_right">1372080.7744</td></tr>
   </tbody>
   
   
@@ -1019,14 +1163,34 @@ geom_point()+
 <li><p>fill: el color de las barras</p></li>
 <li><p>linetype: representa el estilo de línea</p></li>
 <li><p>size: representa el grosor de la línea</p></li>
-<li><p>weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado)</p></li>
+<li><p>weight: para modificar el valor original; entonces no sería, por
+ejemplo, el conteo/suma de los valores si no un valor ponderado
+(promedio ponderado)</p></li>
 </ul>
 <hr />
 </div>
-<div id="gráfico-de-puntos-con-jitter-y-con-geom_jitter" class="section level2">
+<div id="gráfico-de-puntos-con-jitter-y-con-geom_jitter"
+class="section level2">
 <h2>Gráfico de puntos con jitter y con <strong>geom_jitter</strong></h2>
-<p>Con frecuencia hacemos representaciones gráficas en que aparecen muchos datos que se solapan unos sobre otros, lo que no permite visualizar y apreciar la cantidad de datos que se están representando. Podemos mejorar la representación con la opción geom_jitter. Esta forma de graficar es muy similar al gráfico de puntos y sumamente efectiva cuando tenemos demasiados datos aglomerados. La diferencia más importante es que los datos no están exactamente en las coordenadas tal como se especifica en los datos de la tabla o archivo CSV; más bien están levemente desplazados.</p>
-<p>En el siguiente ejemplo, se usan los mismos datos de la orquídea <em>Dipodium</em> para la generación de los dos gráficos: una con <strong>geom_point</strong> y la otra con <strong>geom_jitter</strong>. En el gráfico de la Figura (a), los puntos están posicionados exactamente de acuerdo a los valores como aparece en la hoja de cálculo. A consecuencia de eso, los datos iguales estarán completamente solapados. Por otro lado, en el gráfico de <strong>jitter</strong> en la Figura (b), los valores se han desplazado un poco. En este último caso, ya que los datos no están completamente solapados, eso ayuda a visualizar mejor la cantidad de datos del análisis.</p>
+<p>Con frecuencia hacemos representaciones gráficas en que aparecen
+muchos datos que se solapan unos sobre otros, lo que no permite
+visualizar y apreciar la cantidad de datos que se están representando.
+Podemos mejorar la representación con la opción geom_jitter. Esta forma
+de graficar es muy similar al gráfico de puntos y sumamente efectiva
+cuando tenemos demasiados datos aglomerados. La diferencia más
+importante es que los datos no están exactamente en las coordenadas tal
+como se especifica en los datos de la tabla o archivo CSV; más bien
+están levemente desplazados.</p>
+<p>En el siguiente ejemplo, se usan los mismos datos de la orquídea
+<em>Dipodium</em> para la generación de los dos gráficos: una con
+<strong>geom_point</strong> y la otra con <strong>geom_jitter</strong>.
+En el gráfico de la Figura (a), los puntos están posicionados
+exactamente de acuerdo a los valores como aparece en la hoja de cálculo.
+A consecuencia de eso, los datos iguales estarán completamente
+solapados. Por otro lado, en el gráfico de <strong>jitter</strong> en la
+Figura (b), los valores se han desplazado un poco. En este último caso,
+ya que los datos no están completamente solapados, eso ayuda a
+visualizar mejor la cantidad de datos del análisis.</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Height_Inflo, Number_of_fruits))+
   geom_point(size=3,shape=23,fill=&quot;red&quot;, color=&quot;red&quot;)+
   labs(x=&quot;Altura de la inflorescencia&quot;, y=&quot;Cantidad de Frutos&quot;)+
@@ -1039,8 +1203,37 @@ b= ggplot(dipodium, aes(Height_Inflo, Number_of_fruits))+
 
 grid.arrange(a,b,ncol=2)</code></pre>
 <p><img src="G14_geom_point_geom_jitter_files/figure-html/graficajitter-1.png" width="672" /></p>
-<p>Veamos un ejemplo más contundente de la utilidad de <strong>geom_jitter</strong>. En el próximo ejemplo a continuación, Figura (a), el gráfico nuevamente tiene los datos posicionados exactamente en las coordenadas como aparece en el archivo de datos. La variables son la altura de la inflorescencia y el valor de presencia o ausencia de frutos. Por ende, en el eje de <strong>Y</strong> hay solamente dos valores: 0 = sin frutos, o 1 = con frutos, y eso es sin importar la frecuencia de los eventos; en otras palabras, solo indica <strong>sí</strong> o <strong>no</strong>. En el segundo gráfico, Figura (b), la opción de geom_jitter es aplicada y uno puede apreciar mejor la cantidad de datos en el archivo dado el grado de dispersión.</p>
-<p>Se podría argumentar que de hecho la dispersión de los datos es exagerada y no está suficientemente concentrada alrededor de los valores originales de 0 y 1. En tal caso, para reducir la dispersión alrededor de las categorías, en la Figura (c) se le asigna la cantidad de dispersión usando <strong>geom_jitter(width = x.xx, height = x.xx)</strong>; <strong>width</strong> es para controlar el <strong>jitter</strong> (o dispersión) en el eje de <strong>X</strong>, y <strong>height</strong> es para controlarla en el eje de <strong>Y</strong>. En el tercer gráfico, Figura (c), se redujo la dispersión de 0.5 a 0.10, lo que hace que los puntos estén dispersados entre los valores de -0.10 a 0.10 dentro de las categorías 0 y 1 en el eje de <strong>Y</strong>. Tengamos en cuenta que la dispersión de {jitter} por omisión es de 40% de la resolución hacia lo ancho <strong>width</strong> y hacia lo alto <strong>height</strong>. Entonces, eso quiere decir que <strong>jitter</strong> usará 80% del espacio del compartimento, o <strong>bin</strong>; o sea, el espacio que le toca dentro del gráfico. Esto se aprecia mejor en el gráfico de la Figura (b), donde se ve que los datos están demasiado dispersos entre -0.5 y 0.5 alrededor del cero. Pero sin duda este gráfico permite apreciar mucho mejor la cantidad de datos que contiene.</p>
+<p>Veamos un ejemplo más contundente de la utilidad de
+<strong>geom_jitter</strong>. En el próximo ejemplo a continuación,
+Figura (a), el gráfico nuevamente tiene los datos posicionados
+exactamente en las coordenadas como aparece en el archivo de datos. La
+variables son la altura de la inflorescencia y el valor de presencia o
+ausencia de frutos. Por ende, en el eje de <strong>Y</strong> hay
+solamente dos valores: 0 = sin frutos, o 1 = con frutos, y eso es sin
+importar la frecuencia de los eventos; en otras palabras, solo indica
+<strong>sí</strong> o <strong>no</strong>. En el segundo gráfico, Figura
+(b), la opción de geom_jitter es aplicada y uno puede apreciar mejor la
+cantidad de datos en el archivo dado el grado de dispersión.</p>
+<p>Se podría argumentar que de hecho la dispersión de los datos es
+exagerada y no está suficientemente concentrada alrededor de los valores
+originales de 0 y 1. En tal caso, para reducir la dispersión alrededor
+de las categorías, en la Figura (c) se le asigna la cantidad de
+dispersión usando <strong>geom_jitter(width = x.xx, height =
+x.xx)</strong>; <strong>width</strong> es para controlar el
+<strong>jitter</strong> (o dispersión) en el eje de <strong>X</strong>,
+y <strong>height</strong> es para controlarla en el eje de
+<strong>Y</strong>. En el tercer gráfico, Figura (c), se redujo la
+dispersión de 0.5 a 0.10, lo que hace que los puntos estén dispersados
+entre los valores de -0.10 a 0.10 dentro de las categorías 0 y 1 en el
+eje de <strong>Y</strong>. Tengamos en cuenta que la dispersión de
+{jitter} por omisión es de 40% de la resolución hacia lo ancho
+<strong>width</strong> y hacia lo alto <strong>height</strong>.
+Entonces, eso quiere decir que <strong>jitter</strong> usará 80% del
+espacio del compartimento, o <strong>bin</strong>; o sea, el espacio que
+le toca dentro del gráfico. Esto se aprecia mejor en el gráfico de la
+Figura (b), donde se ve que los datos están demasiado dispersos entre
+-0.5 y 0.5 alrededor del cero. Pero sin duda este gráfico permite
+apreciar mucho mejor la cantidad de datos que contiene.</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Height_Inflo, Frutos_si_o_no))+
   geom_point(size=1,shape=23,
              fill=&quot;red&quot;, color=&quot;red&quot;)+
@@ -1075,7 +1268,9 @@ grid.arrange(a,b,c,ncol=3)</code></pre>
 <li><p>fill: el color de las barras</p></li>
 <li><p>linetype: representa el estilo de línea</p></li>
 <li><p>size: representa el grosor de la línea</p></li>
-<li><p>weight: para modificar el valor original; entonces no sería, por ejemplo, el conteo/suma de los valores si no un valor ponderado (promedio ponderado)</p></li>
+<li><p>weight: para modificar el valor original; entonces no sería, por
+ejemplo, el conteo/suma de los valores si no un valor ponderado
+(promedio ponderado)</p></li>
 </ul>
 </div>
 </div>

@@ -14,8 +14,8 @@
 
 <title>Tema_3_Graficos</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -412,19 +413,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -433,10 +422,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -446,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -461,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -475,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -507,8 +499,6 @@ div.tocify {
 
 <pre class="r"><code>library(ggplot2)
 library(Hmisc)</code></pre>
-<pre><code>## Loading required package: survival</code></pre>
-<pre><code>## Loading required package: Formula</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;Hmisc&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:plyr&#39;:
@@ -520,23 +510,29 @@ library(Hmisc)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     format.pval, units</code></pre>
-<p>La información utilizada en este documento proviene en parte del libro <em>Discovering Statistics using R</em> por Andy Field, Jeremy Miles y Zoë Field.</p>
-<div id="como-crear-una-gráfica-de-regresión-lineal-usando-ggplot" class="section level1">
+<p>La información utilizada en este documento proviene en parte del
+libro <em>Discovering Statistics using R</em> por Andy Field, Jeremy
+Miles y Zoë Field.</p>
+<div id="como-crear-una-gráfica-de-regresión-lineal-usando-ggplot"
+class="section level1">
 <h1>Como crear una gráfica de regresión lineal usando ggplot</h1>
 <ol style="list-style-type: decimal">
-<li>Subir los datos “ExamAnxiety” Los archivos de datos que se usan en el libro se encuentran en este enlace, <a href="https://studysites.sagepub.com/dsur/study/articles.htm" class="uri">https://studysites.sagepub.com/dsur/study/articles.htm</a></li>
+<li>Subir los datos “ExamAnxiety” Los archivos de datos que se usan en
+el libro se encuentran en este enlace, <a
+href="https://studysites.sagepub.com/dsur/study/articles.htm"
+class="uri">https://studysites.sagepub.com/dsur/study/articles.htm</a></li>
 </ol>
 <div id="see-page-136-in-book" class="section level2">
 <h2>see page 136 in book</h2>
 <p>DATA FILE = Exam Anxiety</p>
 <pre class="r"><code>library(readr)
 Exam_Anxiety &lt;- read_csv(&quot;Data/Exam Anxiety.csv&quot;)</code></pre>
-<pre><code>## Rows: 103 Columns: 5</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## Rows: 103 Columns: 5
+## ── Column specification ──────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): Gender
-## dbl (4): Code, Revise, Exam, Anxiety</code></pre>
-<pre><code>## 
+## dbl (4): Code, Revise, Exam, Anxiety
+## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>head(Exam_Anxiety, n=1)</code></pre>
@@ -610,12 +606,13 @@ mean(x)</code></pre>
 <pre><code>## [1]  0 98</code></pre>
 <pre class="r"><code>y=rnorm(1001)
 head(y)</code></pre>
-<pre><code>## [1] -0.7533868 -1.4578081 -1.1299855 -0.3158729  0.1911227 -0.3095599</code></pre>
+<pre><code>## [1] -0.6990233  0.4091286 -0.1936092  0.2788028 -0.6777792  0.4424148</code></pre>
 <pre class="r"><code>quantile(y)</code></pre>
 <pre><code>##           0%          25%          50%          75%         100% 
-## -3.818712980 -0.745662120  0.007668121  0.681480978  2.976902577</code></pre>
+## -3.238990279 -0.677779199  0.002436577  0.666787745  2.734841279</code></pre>
 <pre class="r"><code>probs = c(0.01, 0.10, 0.50,.90)</code></pre>
-<p>How to do a simple linear point graph and add text to graph, change the axis name</p>
+<p>How to do a simple linear point graph and add text to graph, change
+the axis name</p>
 <pre class="r"><code>library(ggplot2)
 #names(Exam_Anxiety) # para seber el nombre de las columnas
 
@@ -635,7 +632,7 @@ ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety))+
   geom_smooth(method=&quot;lm&quot;, colour=&quot;aquamarine&quot;) +  # lm is for linear model 
   labs(x = &quot;El largo del Sepalo&quot;, y = &quot;El largo del Petalo&quot;)+
   ggtitle(&quot;Basic geom_point and linear regression&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code># How to add a title, &quot;ggtitle&quot;
 
@@ -643,29 +640,30 @@ ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety))+
 
 ggsave(&quot;Iris_size.png&quot;) # .jpeg/.jpg/.tiff</code></pre>
 <pre><code>## Saving 7 x 5 in image
-## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <pre class="r"><code>#Simple scatter with regression line
 scatter &lt;- ggplot(examData, aes(Anxiety, Exam))
 scatter + geom_point(shape=20, colour=&quot;red&quot;) + 
           geom_smooth(method = &quot;lm&quot;, colour = &quot;blue&quot;, se = F) +  # se = F, remueve el intervalo de confianza
   labs(x = &quot;Exam Anxiety&quot;, y = &quot;Exam Performance %&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/more%20examples-1.png" width="672" /></p>
 <p>#Simple scatter with regression line + CI</p>
 <pre class="r"><code>scatter &lt;- ggplot(examData, aes(Anxiety, Exam))
 scatter + geom_point() + 
           geom_smooth(method = &quot;lm&quot;, colour = &quot;Red&quot;)+ 
   labs(x = &quot;Exam Anxiety&quot;, y = &quot;Exam Performance %&quot;) </code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>#Regresión lineal más el intervalo de confianza.</p>
 <pre class="r"><code>scatter &lt;- ggplot(examData, aes(Anxiety, Exam))
 scatter + geom_point() + 
   geom_smooth(method = &quot;lm&quot;, colour = &quot;Red&quot;, alpha = 0.2, fill = &quot;orange&quot;) + 
   labs(x = &quot;Exam Anxiety&quot;, y = &quot;Exam Performance %&quot;) </code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>#Regresión lineal más el intervalo de confianza, usar “colour” por multiples grupos.</p>
+<p>#Regresión lineal más el intervalo de confianza, usar “colour” por
+multiples grupos.</p>
 <pre class="r"><code>names(Exam_Anxiety)</code></pre>
 <pre><code>## [1] &quot;Code&quot;    &quot;Revise&quot;  &quot;Exam&quot;    &quot;Anxiety&quot; &quot;Gender&quot;</code></pre>
 <pre class="r"><code>ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety, colour=Gender))+ 
@@ -673,23 +671,29 @@ scatter + geom_point() +
   geom_smooth(method=&quot;lm&quot;) +  # lm is for linear model 
   labs(x = &quot;Exam Anxiety Score&quot;, y = &quot;Exam Performance %&quot;)+
   ggtitle(&quot;Basic geom_point and linear regression&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="constructing-histograms" class="section level1">
 <h1>Constructing histograms</h1>
 <div id="data-needed-are-from-festivaldata" class="section level2">
 <h2>Data needed are from festivalData</h2>
-<p>A biologist was worried about the potential health effects of music festivals. So, one year she went to the Download Festival in UK (Download Festival UK). She measured the higiene of 810 concert goes over the 3 day festival. Each day she attempted find all the individuals she census on the first day. + 0 = you smell like a corpse, that is left to rot + 4 = you smell of sweet roses on fresh spring day</p>
-<p>The hypothesis is that the personal hygiene of the concert goers would go down dramatically over the 3 days of the festival.</p>
+<p>A biologist was worried about the potential health effects of music
+festivals. So, one year she went to the Download Festival in UK
+(Download Festival UK). She measured the higiene of 810 concert goes
+over the 3 day festival. Each day she attempted find all the individuals
+she census on the first day. + 0 = you smell like a corpse, that is left
+to rot + 4 = you smell of sweet roses on fresh spring day</p>
+<p>The hypothesis is that the personal hygiene of the concert goers
+would go down dramatically over the 3 days of the festival.</p>
 <pre class="r"><code>library(readr)
 DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></pre>
-<pre><code>## Rows: 810 Columns: 5</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## Rows: 810 Columns: 5
+## ── Column specification ──────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): gender
-## dbl (4): ticknumb, day1, day2, day3</code></pre>
-<pre><code>## 
+## dbl (4): ticknumb, day1, day2, day3
+## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>FD=DownloadFestival
@@ -735,7 +739,8 @@ head(FD)  # ver las 6 primeras filas</code></pre>
 <pre class="r"><code> ggplot(FD, aes(day1))+ 
   geom_histogram(colour=&quot;white&quot;, fill=&quot;steelblue&quot;) + 
   labs(x = &quot;Hygiene (Day 1 of Festival)&quot;, y = &quot;Frequency&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value
+## with `binwidth`.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/histograms-1.png" width="672" /></p>
 <pre class="r"><code>  summary(DownloadFestival)</code></pre>
 <pre><code>##     ticknumb       gender               day1             day2       
@@ -778,7 +783,8 @@ summary(Festivalday1)</code></pre>
 festivalHistogram + 
   geom_histogram(fill=&quot;orange&quot;, colour=&quot;white&quot;) + 
   labs(x = &quot;Hygiene (Day 1 of Festival)&quot;, y = &quot;Frequency&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value
+## with `binwidth`.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/no%20outliers-1.png" width="672" /></p>
 <p>How to create boxplots</p>
 <pre class="r"><code>festivalBoxplot &lt;- ggplot(Festivalday1, aes(x=1,y=day1))
@@ -792,10 +798,14 @@ festivalBoxplot +
   geom_point()+
   geom_boxplot(fill=&quot;yellow&quot;, alpha=0.1) + 
   labs(x = &quot;Gender&quot;, y = &quot;Hygiene (Day 2 of Festival)&quot;)</code></pre>
-<pre><code>## Warning: Removed 546 rows containing non-finite values (stat_boxplot).</code></pre>
-<pre><code>## Warning: Removed 546 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 546 rows containing non-finite values
+## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 546 rows containing missing values
+## (`geom_point()`).</code></pre>
 <p><img src="E4-Graficos_files/figure-html/boxplots-1.png" width="672" /></p>
-<p>How to detect outliers. Determine the % of data which are outliers (IN Spanish, sesgado) NOTE: that I’m constructing a function, which does not exist</p>
+<p>How to detect outliers. Determine the % of data which are outliers
+(IN Spanish, sesgado) NOTE: that I’m constructing a function, which does
+not exist</p>
 <pre class="r"><code>#--------OUTLIERS----------
 
 
@@ -822,8 +832,10 @@ outlierSummary(FD$day3)</code></pre>
 <pre><code>## Absolute z-score greater than 1.96 =  4.07 % 
 ## Absolute z-score greater than 2.58 =  2.44 % 
 ## Absolute z-score greater than 3.29 =  0.81 %</code></pre>
-<p>How to do a BOXPLOT of the distribution of the data, no assuming normal distribution.</p>
-<p>In this figure we show the median and the percentiles and the outliers</p>
+<p>How to do a BOXPLOT of the distribution of the data, no assuming
+normal distribution.</p>
+<p>In this figure we show the median and the percentiles and the
+outliers</p>
 <pre class="r"><code>library(ggplot2)
 ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 <p><img src="E4-Graficos_files/figure-html/boxplot-1.png" width="672" /></p>
@@ -842,14 +854,20 @@ ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 ##  8     2478 Female  3.02 NA    NA   
 ##  9     2490 Male    2.29 NA    NA   
 ## 10     2504 Female  1.11  0.44  0.55
-## # … with 799 more rows</code></pre>
+## # ℹ 799 more rows</code></pre>
 <pre class="r"><code>ggplot(Festivalday1, aes(gender, day1))+ geom_boxplot()</code></pre>
-<p><img src="E4-Graficos_files/figure-html/boxplot2-1.png" width="672" /> #Line and error bars</p>
+<p><img src="E4-Graficos_files/figure-html/boxplot2-1.png" width="672" />
+#Line and error bars</p>
 <ol style="list-style-type: decimal">
-<li>Learn how to reformat data in the correct type of data frame (as the original data set is not in the correct format) with the function “stack”</li>
+<li>Learn how to reformat data in the correct type of data frame (as the
+original data set is not in the correct format) with the function
+“stack”</li>
 <li>How to add the mean of the variable with “stat_summary”</li>
 <li>How to connect the mean with a line and change color</li>
-<li>how to add the error bars and color (The 95% confidence intervals, created with the stat_summary() function and the “mean_cl_boot” argument are bootstrap confidence intervals using the smean.cl.boot() function in Hmisc)</li>
+<li>how to add the error bars and color (The 95% confidence intervals,
+created with the stat_summary() function and the “mean_cl_boot” argument
+are bootstrap confidence intervals using the smean.cl.boot() function in
+Hmisc)</li>
 </ol>
 </div>
 <div id="install-libraryhmisc" class="section level2">
@@ -858,11 +876,11 @@ ggplot(FD, aes(gender, day1))+ geom_boxplot()</code></pre>
 
 library(readr)
 Hiccups &lt;- read_csv(&quot;Data/Hiccups.csv&quot;)</code></pre>
-<pre><code>## Rows: 15 Columns: 4</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## Rows: 15 Columns: 4
+## ── Column specification ──────────────────────────────
 ## Delimiter: &quot;,&quot;
-## dbl (4): Baseline, Tongue, Carotid, Rectum</code></pre>
-<pre><code>## 
+## dbl (4): Baseline, Tongue, Carotid, Rectum
+## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>#hiccupsData=Hiccups
@@ -899,18 +917,18 @@ head(hiccups)</code></pre>
   stat_summary(fun.y = &quot;mean&quot;, geom = &quot;line&quot;, aes(group = 1),colour = &quot;Red&quot;, linetype = &quot;dashed&quot;) +      
   stat_summary(fun.data = mean_cl_boot, geom = &quot;errorbar&quot;, width = 0.2, colour=&quot;blue&quot;) + 
   labs(x = &quot;Intervention&quot;, y = &quot;Mean Number of Hiccups&quot;)</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.
-
-## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
+<pre><code>## Warning: The `fun.y` argument of `stat_summary()` is
+## deprecated as of ggplot2 3.3.0.
+## ℹ Please use the `fun` argument instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see
+## where this warning was generated.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(hiccups, aes(y=Num_Hiccups,x=Intervention))+ 
   stat_summary(fun.y = mean, geom = &quot;point&quot;) + 
   stat_summary(fun.y = mean, geom = &quot;line&quot;, aes(group = 1),colour = &quot;Red&quot;, linetype = &quot;dashed&quot;) +      
   stat_summary(fun.data = mean_cl_boot, geom = &quot;errorbar&quot;, width = 0.2, colour=&quot;blue&quot;) + 
   labs(x = &quot;Intervention&quot;, y = &quot;Mean Number of Hiccups&quot;)</code></pre>
-<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.
-
-## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 </div>

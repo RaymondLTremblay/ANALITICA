@@ -14,8 +14,8 @@
 
 <title>RMarkdown_Ejemplo</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -138,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -171,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -180,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -233,7 +234,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -243,7 +244,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -276,7 +277,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -325,45 +326,33 @@ $(document).ready(function () {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -373,13 +362,13 @@ $(document).ready(function () {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -388,10 +377,10 @@ $(document).ready(function () {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -402,7 +391,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -432,8 +421,10 @@ $(document).ready(function () {
 </div>
 
 
-<div id="seleciona-el-tamaño-de-las-letras-con-la-can-tidad-de-hashtags" class="section level1">
-<h1>Seleciona el tamaño de las letras con la can tidad de “hashtags”</h1>
+<div id="seleciona-el-tamaño-de-las-letras-con-la-can-tidad-de-hashtags"
+class="section level1">
+<h1>Seleciona el tamaño de las letras con la can tidad de
+“hashtags”</h1>
 </div>
 <div id="normandie" class="section level1">
 <h1>Normandie</h1>
@@ -467,7 +458,8 @@ $(document).ready(function () {
 <li>un primer sub-item</li>
 <li>un segundo sub-item</li>
 </ul></li>
-<li>El tercer item (Nota que el espacio entre las lineas no es considerado)</li>
+<li>El tercer item (Nota que el espacio entre las lineas no es
+considerado)</li>
 </ul>
 </div>
 <div id="lista-ordenada" class="section level1">
@@ -478,8 +470,10 @@ $(document).ready(function () {
 <li>el segundo punto</li>
 <li>el tercer punto
 <ol style="list-style-type: lower-roman">
-<li>sub-item 1 (Aqui es muy importante la cantidad de “tabs”, se necesita 4 “tabs”)</li>
-<li>sub-item 2 (nota que se ve diferente en el html que en el documento .rmd)
+<li>sub-item 1 (Aqui es muy importante la cantidad de “tabs”, se
+necesita 4 “tabs”)</li>
+<li>sub-item 2 (nota que se ve diferente en el html que en el documento
+.rmd)
 <ol style="list-style-type: upper-alpha">
 <li>un sub-sub item (3 “tabs” suplementarios)</li>
 </ol></li>
@@ -487,8 +481,11 @@ $(document).ready(function () {
 </ol>
 <hr />
 </div>
-<div id="una-lista-numerada-que-continua-despues-de-una-iterumpción-se-usa" class="section level1">
-<h1>Una lista numerada que continua despues de una iterumpción se usa “@”</h1>
+<div
+id="una-lista-numerada-que-continua-despues-de-una-iterumpción-se-usa"
+class="section level1">
+<h1>Una lista numerada que continua despues de una iterumpción se usa
+“@”</h1>
 <ol class="example" style="list-style-type: decimal">
 <li>Un enfasis</li>
 </ol>
@@ -500,36 +497,45 @@ $(document).ready(function () {
 </div>
 <div id="texto-en-italics" class="section level1">
 <h1>Texto en Italics</h1>
-<p>El texto que sigue tiene unas palabras en <em>italico</em>, para resaltar un tema o es una palabra en otro idioma.</p>
+<p>El texto que sigue tiene unas palabras en <em>italico</em>, para
+resaltar un tema o es una palabra en otro idioma.</p>
 </div>
 <div id="texto-enegrecidobold" class="section level1">
 <h1>Texto enegrecido/Bold</h1>
-<p>Otro metodo de resaltar un texto es enegracerlo, El titulo del libro que estoy leyendo al momento es <strong>Seven Japanese Tales</strong> de <strong>Junichiro Tanizaki</strong>.</p>
-<div id="superscript" class="section level2">
-<h2>Superscript</h2>
-<p>Los supercript siempre se usa el acento circumflexo<sup>2</sup>, del texto deseado antes y después.</p>
-</div>
+<p>Otro metodo de resaltar un texto es enegracerlo, El titulo del libro
+que estoy leyendo al momento es <strong>Seven Japanese Tales</strong> de
+<strong>Junichiro Tanizaki</strong>.</p>
 </div>
 <div id="endash-y-emdash" class="section level1">
 <h1>endash y emdash</h1>
-<p>Para añadir lineas antes de un texto se usa – el texto, o tres para uno más largo — otro texto</p>
+<p>Para añadir lineas antes de un texto se usa – el texto, o tres para
+uno más largo — otro texto</p>
 </div>
 <div id="ecuación-matemática-en-la-oració" class="section level1">
 <h1>Ecuación matemática en la oració</h1>
-<p>Para añadir una ecuación matemática en el texto como parte de una oración se usa un signo de <strong>dolar</strong> antes y después de la ecuación deseado <span class="math inline">\(x^2\)</span>, y esta ecuación se incluye parate de la oración.</p>
+<p>Para añadir una ecuación matemática en el texto como parte de una
+oración se usa un signo de <strong>dolar</strong> antes y después de la
+ecuación deseado <span class="math inline">\(x^2\)</span>, y esta
+ecuación se incluye parate de la oración.</p>
 </div>
 <div id="ecuación-matemática-en-bloque" class="section level1">
 <h1>Ecuación matemática en bloque,</h1>
-<p>Para que la ecuación matemática aparezca centralizado en el documento se usa dos signo de dolares antes y después. Por ejemplo la formula para varianza es la siguiente, <span class="math display">\[\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}\]</span> Nota que se usa <strong>latex</strong> para hacer la formula.</p>
+<p>Para que la ecuación matemática aparezca centralizado en el documento
+se usa dos signo de dolares antes y después. Por ejemplo la formula para
+varianza es la siguiente, <span
+class="math display">\[\sigma^2=\frac{\sum_{i=1}^{n}(x_i-\mu_x)}{n-1}\]</span>
+Nota que se usa <strong>latex</strong> para hacer la formula.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.0     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.1     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.1     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <div id="crear-una-tabla-con-la-función-tribble" class="section level2">
 <h2>Crear una tabla con la función tribble</h2>
 <pre class="r"><code>mi_tabla=tribble(
@@ -548,32 +554,43 @@ mi_tabla</code></pre>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
-##      value
-##      &lt;dbl&gt;
-##  1  0.0271
-##  2 -0.261 
-##  3  0.145 
-##  4 -0.584 
-##  5 -0.907 
-##  6 -1.39  
-##  7  0.716 
-##  8 -1.43  
-##  9  0.496 
-## 10  0.0860
-## # … with 990 more rows</code></pre>
+##     value
+##     &lt;dbl&gt;
+##  1  0.134
+##  2  1.12 
+##  3 -0.659
+##  4 -1.81 
+##  5 -1.36 
+##  6  0.158
+##  7 -1.44 
+##  8 -0.922
+##  9  1.68 
+## 10 -1.18 
+## # ℹ 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="RMarkdown_Ejemplo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <hr />
 <blockquote>
-<p>Muchas veces uno quiere resaltar un texto poniendolo en un bloque para demostrar un idea, una definicion y concepto. Por ejemplo: Analítica Fundación, Inc., es una corporación sin fines de lucro incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en el 2018. Su especialidad es el análisis de datos. Su objetivo principal es proveer todo tipo de servicios educativos, de investigación y capacitación profesional, y el desarrollo de pensamiento crítico en el campo de la analítica.</p>
+<p>Muchas veces uno quiere resaltar un texto poniendolo en un bloque
+para demostrar un idea, una definicion y concepto. Por ejemplo:
+Analítica Fundación, Inc., es una corporación sin fines de lucro
+incorporada bajo las leyes del Estado Libre Asociado de Puerto Rico en
+el 2018. Su especialidad es el análisis de datos. Su objetivo principal
+es proveer todo tipo de servicios educativos, de investigación y
+capacitación profesional, y el desarrollo de pensamiento crítico en el
+campo de la analítica.</p>
 </blockquote>
 <hr />
 </div>
 <div id="enseñar-un-texto-verbatim" class="section level1">
 <h1>Enseñar un texto “verbatim”</h1>
-<p>En otra palabra exactamente como parece en el texto. Por ejemplo, quiero este texti que se visualiza exactamente como <code>aqui _     - sin que se modifica el fromato del texto</code>. Al contrario si lo escribo sin las comillas aqui _ - sin que se modifica el fromato del texto se ve diferente.</p>
+<p>En otra palabra exactamente como parece en el texto. Por ejemplo,
+quiero este texti que se visualiza exactamente como
+<code>aqui _     - sin que se modifica el fromato del texto</code>. Al
+contrario si lo escribo sin las comillas aqui _ - sin que se modifica el
+fromato del texto se ve diferente.</p>
 <p>Esto es perfecto para poesia</p>
 <pre><code>   `une volée d&#39;outardes
     se pointe
@@ -586,22 +603,32 @@ x</code></pre>
 <p>Poesie de Véronique Sylvain, <em>Premier quart</em>, 2019.</p>
 <div id="para-añadir-un-footnote-se-usa-1" class="section level2">
 <h2>Para añadir un footnote se usa <code>[^1]</code></h2>
-<p>Al final de esta oración añado un footnote o una referencia por ejemplo de mi manuscrito más citado<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Al final de esta oración añado un footnote o una referencia por
+ejemplo de mi manuscrito más citado<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></p>
 <div id="añadir-un-enlace-a-un-website" class="section level3">
 <h3>Añadir un enlace a un website</h3>
 <p>NOTE: hay dos alternativas</p>
 <ol style="list-style-type: decimal">
-<li><p>En la primera alternativa se ve web enlace <a href="https://raymondltremblay.github.io/ANALITICA/index.html" class="uri">https://raymondltremblay.github.io/ANALITICA/index.html</a></p></li>
-<li><p>En la segunda alternatica no se ve el enlace. Por ejemplo se puede poner un comentario como lo siguiente. <em>Para conectarse al website de Analítica presione aqui</em> <a href="https://raymondltremblay.github.io/ANALITICA/index.html">Analitica</a></p></li>
+<li><p>En la primera alternativa se ve web enlace <a
+href="https://raymondltremblay.github.io/ANALITICA/index.html"
+class="uri">https://raymondltremblay.github.io/ANALITICA/index.html</a></p></li>
+<li><p>En la segunda alternatica no se ve el enlace. Por ejemplo se
+puede poner un comentario como lo siguiente. <em>Para conectarse al
+website de Analítica presione aqui</em> <a
+href="https://raymondltremblay.github.io/ANALITICA/index.html">Analitica</a></p></li>
 </ol>
 <hr />
 </div>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Tremblay, Raymond L., et al. “Variation in sexual reproduction in orchids and its evolutionary consequences: a spasmodic journey to diversification.” Biological Journal of the Linnean Society 84.1 (2005): 1-54.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Tremblay, Raymond L., et al. “Variation in sexual
+reproduction in orchids and its evolutionary consequences: a spasmodic
+journey to diversification.” Biological Journal of the Linnean Society
+84.1 (2005): 1-54.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

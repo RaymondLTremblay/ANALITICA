@@ -118,16 +118,7 @@ shapiro.test(dlf$day1)  # don't use with more than 40 a 200 data point
 length(dlf$day1)
 ```
 
-A third method
 
-3. The QQ plot method
-
-```{r qqplot}
-#Q-Q plot for day 1:
-qqplot.day1 <- qplot(sample = dlf$day3, stat="qq")
-qqplot.day1
-
-```
 
 
 

@@ -212,19 +212,7 @@ Hay muchas pruebas estadísticas que asumen que los datos provienen de una distr
 
 Una alternativa tradicional para comprobar la normalidad de los datos es mirar el gráfico de QQ; o sea, una visualización para comparar las probabilidades de dos variables en las que se gráfican los cuartiles (recordemos que **Q** viene de cuartil). Si las distribuciones de las dos variables son similares, los puntos aparecerán nítidamente en el gráfico de QQ sobre la línea de **X-Y**. Eso se demostrará a continuación.
 
-## qplot
 
-En el gráfico se representa el consumo por la Becasa de Mar de la base de datos Godwits, el ave de las marismas de Argentina que hemos analizado anteriormente.  En el gráfico se nota que los datos a los extremos no están muy cerca de la línea **X-Y**, lo que sugiere que el consumo por la Becasa de Mar no tiene una distribución normal. La función qplot es la manera más sencilla para generar el gráfico de QQ.
-
-```{r Becasaqqplot2, message=FALSE}
-# Note que anteriormente ya habíamos depositado los datos en el data.frame BecasaDeMar
-qplot(sample = BecasaDeMar$mgconsumed, stat="qq")+
-  theme(axis.title=element_text(size=20,face="bold"),
-        axis.text = element_text(size=20,face="bold"))+
-   xlab("Valores teóricos")+
-   ylab("Valores observados")
-   
-```
 
 ***
 

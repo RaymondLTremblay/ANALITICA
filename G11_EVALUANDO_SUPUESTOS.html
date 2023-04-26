@@ -14,8 +14,8 @@
 
 <title>Evaluando_supuestos</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -412,19 +413,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -433,10 +422,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -446,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -461,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -475,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -505,8 +497,9 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
-<div id="la-lista-de-packetes-para-analisis-de-los-supuestos" class="section level2">
+<pre><code>## [1] &quot;2023-04-26&quot;</code></pre>
+<div id="la-lista-de-packetes-para-analisis-de-los-supuestos"
+class="section level2">
 <h2>La lista de packetes para analisis de los supuestos</h2>
 <pre class="r"><code>library(ggplot2)
 library(ggversa)
@@ -518,29 +511,71 @@ library(reshape2)
 library(ggcorrplot)
 library(gridExtra)</code></pre>
 <hr />
-<p>La ética en estadística basado en comprobar y cumplir con los supuestos de las pruebas estadística que se usan. La gran mayoría de las pruebas tradicional asume que los datos cumple con algunos supuestos, algunos típicos son.</p>
+<p>La ética en estadística basado en comprobar y cumplir con los
+supuestos de las pruebas estadística que se usan. La gran mayoría de las
+pruebas tradicional asume que los datos cumple con algunos supuestos,
+algunos típicos son.</p>
 <ol style="list-style-type: decimal">
 <li>distribución normal</li>
 <li>igualdad de varianza</li>
 <li>simetría de las distribuciones</li>
 <li>datos recolectado al azar</li>
 </ol>
-<p>Cuando no se cumple con los datos estamos aumentando la probabilidad de tipo de error 1, es decir rechazar la hipótesis nula cuando se debería aceptar o tipo de error 2, cuando se debería aceptar la alterna cuando se debería rechazar.</p>
-<p>Por consecuencia es <strong>primodial</strong> que cada investigador cumple con evaluar los supuestos de las pruebas que usa y si no cumple que busca métodos alternos. Por ejemplo métodos de análisis que podría usar pruebas no paramétrica tambien estadística bayesiana o robusta.</p>
-<p>En el siguiente modulo se habla de como asegurar que cumple con los supuestos básico de las pruebas paramétricas que incluye t-test, ANOVA entre otros.</p>
-<p>Note que aquí el énfasis es de evalur los supuestos con herramientas visual, hay herramientas estadística que son igual para cada una de estos supuestos. Vea la sección de estadística para estas alterativas para detalles más completos.</p>
+<p>Cuando no se cumple con los datos estamos aumentando la probabilidad
+de tipo de error 1, es decir rechazar la hipótesis nula cuando se
+debería aceptar o tipo de error 2, cuando se debería aceptar la alterna
+cuando se debería rechazar.</p>
+<p>Por consecuencia es <strong>primodial</strong> que cada investigador
+cumple con evaluar los supuestos de las pruebas que usa y si no cumple
+que busca métodos alternos. Por ejemplo métodos de análisis que podría
+usar pruebas no paramétrica tambien estadística bayesiana o robusta.</p>
+<p>En el siguiente modulo se habla de como asegurar que cumple con los
+supuestos básico de las pruebas paramétricas que incluye t-test, ANOVA
+entre otros.</p>
+<p>Note que aquí el énfasis es de evalur los supuestos con herramientas
+visual, hay herramientas estadística que son igual para cada una de
+estos supuestos. Vea la sección de estadística para estas alterativas
+para detalles más completos.</p>
 <hr />
 </div>
 <div id="homogeneidad-de-varianza" class="section level1">
 <h1>Homogeneidad de varianza</h1>
-<p>La homogeneidad de varianza es un supuesto primordial en el análisis de varianza (ANOVA) y sus vertientes. Este mismo supuesto es también importante en el análisis de regresión simple y multivariable; por ejemplo, en el análisis discriminante (<em>discriminant function analysis</em> en inglés). Utilizaremos los datos de la Becasa de Mar <em>Limosa haemastica</em>, un ave migrante de las costas de las marismas de Argentina, de la base de datos Godwits. Para determinar si la razón de adquisición de comida es diferente entre sexo, tiempo del año, y la combinación de estas dos variables (en otras palabras, las interacciones entre ambas), hay que asumir lo siguiente: 1ro. la varianza en las observaciones entre sexo es similar, 2do. la variación en las tres estaciones es similar, y 3ro. la variación entre los grupos por sexo es similar.</p>
+<p>La homogeneidad de varianza es un supuesto primordial en el análisis
+de varianza (ANOVA) y sus vertientes. Este mismo supuesto es también
+importante en el análisis de regresión simple y multivariable; por
+ejemplo, en el análisis discriminante (<em>discriminant function
+analysis</em> en inglés). Utilizaremos los datos de la Becasa de Mar
+<em>Limosa haemastica</em>, un ave migrante de las costas de las
+marismas de Argentina, de la base de datos Godwits. Para determinar si
+la razón de adquisición de comida es diferente entre sexo, tiempo del
+año, y la combinación de estas dos variables (en otras palabras, las
+interacciones entre ambas), hay que asumir lo siguiente: 1ro. la
+varianza en las observaciones entre sexo es similar, 2do. la variación
+en las tres estaciones es similar, y 3ro. la variación entre los grupos
+por sexo es similar.</p>
 <div id="gráficos-de-cajas-condicionales" class="section level2">
 <h2>Gráficos de cajas condicionales</h2>
-<p>Para el ejemplo BecasaDeMar, se removieron algunos datos del análisis como se explica a continuación. En la variable <strong>SEX</strong>, hay tres categorías: 0 = sexo no identificado, 1 = hembra, y 2 = macho. Se removió la categoría de <strong>no identificado</strong> usando la siguiente función <strong>which</strong>:</p>
+<p>Para el ejemplo BecasaDeMar, se removieron algunos datos del análisis
+como se explica a continuación. En la variable <strong>SEX</strong>, hay
+tres categorías: 0 = sexo no identificado, 1 = hembra, y 2 = macho. Se
+removió la categoría de <strong>no identificado</strong> usando la
+siguiente función <strong>which</strong>:</p>
 <p><strong>BecasaDeMar=BecasaDeMar[-which(BecasaDeMar$SEX=={0}),]</strong></p>
-<p>Note aquí el <strong>-</strong> (el signo de resta) antes de <strong>which</strong>.</p>
-<p>El siguiente paso, después de remover los individuos no identificados por sexo, es cambiar el nombre de los niveles 1 y 2 a hembra y macho respectivamente. Para evaluar la homogeneidad de varianza entre las estaciones también se le asigna el nombre del periodo: Verano, Pre-migración e Invierno.</p>
-<p>Por ejemplo, con relación al supuesto de homogeneidad, en la figura se nota que hay un poco de variación en la varianza de ciertos grupos, pero en general no habría que preocuparse de una desigualdad como tal, aunque los 4 individuos identificados como puntos en la gráfica en el periodo de verano deberían ser evaluados con más detenimiento para asegurarse que los datos están correctos y que representen datos biológicamente posibles y no error en la toma de los datos o cuando se entraron en la hoja de datos.</p>
+<p>Note aquí el <strong>-</strong> (el signo de resta) antes de
+<strong>which</strong>.</p>
+<p>El siguiente paso, después de remover los individuos no identificados
+por sexo, es cambiar el nombre de los niveles 1 y 2 a hembra y macho
+respectivamente. Para evaluar la homogeneidad de varianza entre las
+estaciones también se le asigna el nombre del periodo: Verano,
+Pre-migración e Invierno.</p>
+<p>Por ejemplo, con relación al supuesto de homogeneidad, en la figura
+se nota que hay un poco de variación en la varianza de ciertos grupos,
+pero en general no habría que preocuparse de una desigualdad como tal,
+aunque los 4 individuos identificados como puntos en la gráfica en el
+periodo de verano deberían ser evaluados con más detenimiento para
+asegurarse que los datos están correctos y que representen datos
+biológicamente posibles y no error en la toma de los datos o cuando se
+entraron en la hoja de datos.</p>
 <div id="selección-de-los-datos" class="section level3">
 <h3>Selección de los datos</h3>
 <pre class="r"><code>BecasaDeMar=Godwits
@@ -578,14 +613,32 @@ BecasaMar + geom_boxplot(notch=TRUE)+
         axis.text=element_text(size=12, face=&quot;bold&quot;))+
             xlab(&quot;Sexo de las aves&quot;)+
             ylab(&quot;Razón de consumo&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/BecasaDeMarBP-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/BecasaDeMarBP-1.png" width="672" />
+***</p>
 </div>
 </div>
-<div id="homogeneidad-de-varianza-en-modelos-de-regresión" class="section level2">
+<div id="homogeneidad-de-varianza-en-modelos-de-regresión"
+class="section level2">
 <h2>Homogeneidad de varianza en modelos de regresión</h2>
-<p>Para el análisis de tipo regresión es necesario evaluar la homogeneidad de los datos utilizando los residuales del modelo. Esto lo logramos graficándolos contra los valores estimados (fitted values) y haciendo un gráfico de caja condicional con los residuales. Los residuales tienen que ser similares en todos los grupos. Si la variación de los residuales no es igual, será necesario transformar los datos o usar otras técnicas que no requieran del supuesto de la homogeneidad de varianza; por ejemplo, mínimos cuadrados generalizados (generalized least square, en inglés) o un análisis no paramétrico.</p>
-<p>El gráfico que utilizaremos se llama caja condicional ya que la distribución es condicional al grupo. El residual se calcula como la diferencia entre el valor observado y el valor esperado; en este caso, en la variable de <strong>y</strong>.</p>
-<p>A continuación, completamos el análisis utilizando otra vez los datos de la orquídea <strong>Dipodium</strong>. Primero hay que hacer un análisis de regresión simple usando <strong>lm()</strong> y darle un nombre al análisis o sea el modelo. Subseguientemente uno puede llamar los valores necesarios para hacer el gráfico con <strong>.fitted</strong> y <strong>.resid</strong>.</p>
+<p>Para el análisis de tipo regresión es necesario evaluar la
+homogeneidad de los datos utilizando los residuales del modelo. Esto lo
+logramos graficándolos contra los valores estimados (fitted values) y
+haciendo un gráfico de caja condicional con los residuales. Los
+residuales tienen que ser similares en todos los grupos. Si la variación
+de los residuales no es igual, será necesario transformar los datos o
+usar otras técnicas que no requieran del supuesto de la homogeneidad de
+varianza; por ejemplo, mínimos cuadrados generalizados (generalized
+least square, en inglés) o un análisis no paramétrico.</p>
+<p>El gráfico que utilizaremos se llama caja condicional ya que la
+distribución es condicional al grupo. El residual se calcula como la
+diferencia entre el valor observado y el valor esperado; en este caso,
+en la variable de <strong>y</strong>.</p>
+<p>A continuación, completamos el análisis utilizando otra vez los datos
+de la orquídea <strong>Dipodium</strong>. Primero hay que hacer un
+análisis de regresión simple usando <strong>lm()</strong> y darle un
+nombre al análisis o sea el modelo. Subseguientemente uno puede llamar
+los valores necesarios para hacer el gráfico con
+<strong>.fitted</strong> y <strong>.resid</strong>.</p>
 <pre class="r"><code>modelflower=lm(Number_of_Flowers~Height_Inflo,
          data=dipodium)
 
@@ -609,8 +662,19 @@ summary(modelflower)</code></pre>
 ##   (1182 observations deleted due to missingness)
 ## Multiple R-squared:  0.6694, Adjusted R-squared:  0.6676 
 ## F-statistic: 362.5 on 1 and 179 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Lo que observaremos es que la distribución de los residuales luce más o menos uniforme alrededor del promedio de los residuales (el cero). Hay aproximadamente igual cantidad de valores mayor a cero (por encima de la línea en verde) y menor a cero (por debajo de la línea en verde) que están distribuidos a través de la variable en el eje de <strong>X</strong>, o valores estimados. En adición que los residuales (negativos o positivos) no son limitado a sub grupos de de los valores estimados (en la <strong>X</strong>).</p>
-<p>Note que se está aplicando el modelo <strong>modelflower</strong>, y se usan los valores calculados en el modelo <strong>.fitted</strong> y <strong>.resid</strong> para producir el gráfico. Se añade una linea horizontal para identificar el modelo nulo con <strong>geom_hline</strong>.</p>
+<p>Lo que observaremos es que la distribución de los residuales luce más
+o menos uniforme alrededor del promedio de los residuales (el cero). Hay
+aproximadamente igual cantidad de valores mayor a cero (por encima de la
+línea en verde) y menor a cero (por debajo de la línea en verde) que
+están distribuidos a través de la variable en el eje de
+<strong>X</strong>, o valores estimados. En adición que los residuales
+(negativos o positivos) no son limitado a sub grupos de de los valores
+estimados (en la <strong>X</strong>).</p>
+<p>Note que se está aplicando el modelo <strong>modelflower</strong>, y
+se usan los valores calculados en el modelo <strong>.fitted</strong> y
+<strong>.resid</strong> para producir el gráfico. Se añade una linea
+horizontal para identificar el modelo nulo con
+<strong>geom_hline</strong>.</p>
 <pre class="r"><code>  res&lt;-ggplot(modelflower, aes(.fitted, .resid))+
   geom_point()+
   geom_hline(yintercept=0,
@@ -621,11 +685,22 @@ summary(modelflower)</code></pre>
            ylab(&quot;Residuales&quot;)+
   ggtitle(&quot;Residuales vs. Valores Estimados&quot;)
 res</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Homogeneityvariance1-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Homogeneityvariance1-1.png" width="672" />
+***</p>
 </div>
-<div id="los-residuales-de-student-para-detectar-valores-sesgados" class="section level2">
+<div id="los-residuales-de-student-para-detectar-valores-sesgados"
+class="section level2">
 <h2>Los residuales de Student para detectar valores sesgados</h2>
-<p>A continuación se ilustra otro enfoque para evaluar los residuales. En este caso, para detectar valores sesgados (ouliers). Se puede visualizar los residuales se usa los residuales estandarizados divido por la desviación estandard. Valores que mayores de 3 serian considerados sesgados. Esta alternativa es apropiada si detectar valores sesgados. Note en la figura que se usa otra vez el modelo <strong>modelflower</strong> y los valores calculados en el modelo <strong>.fitted</strong> y los residuales de student con <strong>.stdresid</strong>. Note ahora también que todos los valores en el eje de <strong>Y</strong> son mayores de cero.</p>
+<p>A continuación se ilustra otro enfoque para evaluar los residuales.
+En este caso, para detectar valores sesgados (ouliers). Se puede
+visualizar los residuales se usa los residuales estandarizados divido
+por la desviación estandard. Valores que mayores de 3 serian
+considerados sesgados. Esta alternativa es apropiada si detectar valores
+sesgados. Note en la figura que se usa otra vez el modelo
+<strong>modelflower</strong> y los valores calculados en el modelo
+<strong>.fitted</strong> y los residuales de student con
+<strong>.stdresid</strong>. Note ahora también que todos los valores en
+el eje de <strong>Y</strong> son mayores de cero.</p>
 <pre class="r"><code>  ResEst=ggplot(modelflower,
                  aes(.fitted, sqrt(abs(.stdresid)))) +
                  geom_point(na.rm=TRUE)+
@@ -635,12 +710,47 @@ res</code></pre>
           ylab(&quot;Residuales estandarizados \n de Student&quot;)+
   ggtitle(&quot;Residuales vs. Valores Estimados&quot;)
 ResEst</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Homogeneityvariance2-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Homogeneityvariance2-1.png" width="672" />
+***</p>
 </div>
-<div id="valores-sesgados-con-la-distancia-de-cook-di" class="section level2">
+<div id="valores-sesgados-con-la-distancia-de-cook-di"
+class="section level2">
 <h2>Valores sesgados con la Distancia de Cook, Di</h2>
-<p>Continuando con el tema de evaluar si hay valores que podrían influenciar mucho el análisis, podemos utilizar una de las herramientas para evaluar el peso de cada valor sobre una regresión lineal basada en métodos de los mínimos cuadrados, llamada la <strong>Distancia de Cook</strong>. Este análisis fue desarrollado por R. Dennis Cook en 1977 y tiene como objetivo evaluar cada valor en la matriz de datos y el peso que tiene sobre el resultado (cuando esté este incluido o no en el análisis). Produce un índice para cada uno de los valores sobre el resultado basándose en los valores residuales que se llama la Distancia de Cook. Por lo tanto, ese análisis evalúa el impacto relativo de cada valor sobre el índice. Infortunadamente no está claro cuál es el valor crítico; o sea, qué valor nos puede indicar que se tiene exceso de peso sobre los resultados. Las dos principales sugerencias son: <strong>Distancia de Cook</strong>, Di, es mayor a 1 (sugerido por R. Dennis Cook Cook mismo en 1982); y que la <strong>Di &gt; 4/n</strong>, donde <strong>n</strong> es el número de observaciones (Bollen <em>et al</em>. 1990).</p>
-<p>Para hacer una ilustración, continuaremos con el modelo <strong>modelflower</strong> usando los valores calculados en el modelo anterior. El gráfico se construirá utilizando la opción <strong>seq_along</strong>, para que los valores en el eje de <strong>X</strong> se basen en la secuencia de datos en el archivo y los valores en el eje de <strong>Y</strong> se basen en los valores de la <strong>Distancia de Cook</strong>. En este caso, vemos que todos los valores están muy por debajo de 1, lo que sugiere que ninguno de los valores individuales influenciaría mucho en los resultados aún si estos fuesen excluidos. Si utilizáramos la segunda alternativa de <strong>Di &gt; 4/n</strong>, entonces nos deberían preocupar los 8 valores de Di que son mayores a 4/181=0.022, donde 181 es la cantidad de datos en el archivo. Si se considera esta segunda alternativa, sería necesario evaluar 8 valores en la tabla de datos que pudiesen ser sospechosos (los valores encima de la línea roja). Note que no es que están incorrectos; más bien, este resultado es solamente una herramienta para evaluar valores que <strong>parecen</strong> tener un impacto considerable sobre los resultados.</p>
+<p>Continuando con el tema de evaluar si hay valores que podrían
+influenciar mucho el análisis, podemos utilizar una de las herramientas
+para evaluar el peso de cada valor sobre una regresión lineal basada en
+métodos de los mínimos cuadrados, llamada la <strong>Distancia de
+Cook</strong>. Este análisis fue desarrollado por R. Dennis Cook en 1977
+y tiene como objetivo evaluar cada valor en la matriz de datos y el peso
+que tiene sobre el resultado (cuando esté este incluido o no en el
+análisis). Produce un índice para cada uno de los valores sobre el
+resultado basándose en los valores residuales que se llama la Distancia
+de Cook. Por lo tanto, ese análisis evalúa el impacto relativo de cada
+valor sobre el índice. Infortunadamente no está claro cuál es el valor
+crítico; o sea, qué valor nos puede indicar que se tiene exceso de peso
+sobre los resultados. Las dos principales sugerencias son:
+<strong>Distancia de Cook</strong>, Di, es mayor a 1 (sugerido por R.
+Dennis Cook Cook mismo en 1982); y que la <strong>Di &gt; 4/n</strong>,
+donde <strong>n</strong> es el número de observaciones (Bollen <em>et
+al</em>. 1990).</p>
+<p>Para hacer una ilustración, continuaremos con el modelo
+<strong>modelflower</strong> usando los valores calculados en el modelo
+anterior. El gráfico se construirá utilizando la opción
+<strong>seq_along</strong>, para que los valores en el eje de
+<strong>X</strong> se basen en la secuencia de datos en el archivo y los
+valores en el eje de <strong>Y</strong> se basen en los valores de la
+<strong>Distancia de Cook</strong>. En este caso, vemos que todos los
+valores están muy por debajo de 1, lo que sugiere que ninguno de los
+valores individuales influenciaría mucho en los resultados aún si estos
+fuesen excluidos. Si utilizáramos la segunda alternativa de <strong>Di
+&gt; 4/n</strong>, entonces nos deberían preocupar los 8 valores de Di
+que son mayores a 4/181=0.022, donde 181 es la cantidad de datos en el
+archivo. Si se considera esta segunda alternativa, sería necesario
+evaluar 8 valores en la tabla de datos que pudiesen ser sospechosos (los
+valores encima de la línea roja). Note que no es que están incorrectos;
+más bien, este resultado es solamente una herramienta para evaluar
+valores que <strong>parecen</strong> tener un impacto considerable sobre
+los resultados.</p>
 <pre class="r"><code>  ggplot(modelflower,
         aes(seq_along(.cooksd), .cooksd))+
         geom_bar(stat=&quot;identity&quot;,
@@ -651,37 +761,60 @@ ResEst</code></pre>
         xlab(&quot;La secuencia de las observaciones&quot;)+
         ylab(&quot;Distancia de Cook&quot;)+
         ggtitle(&quot;Distancia de Cook&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Cookdistance-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Cookdistance-1.png" width="672" />
+***</p>
 </div>
-<div id="causas-principales-de-los-valores-sesgados" class="section level2">
+<div id="causas-principales-de-los-valores-sesgados"
+class="section level2">
 <h2>Causas principales de los valores sesgados</h2>
-<p>Los valores que parecen sesgados pueden ser normal de la población estudiada, y por consecuencia en estos casos remoción de estos valores podría resultar en descripción de los resultados incorrectos. Primero hay que evaluar los siguientes posibles causas de valores sesgados. Si algunos de los siguientes son presentes hay que resolver los valores o removerlos de la hoja de analisis.</p>
+<p>Los valores que parecen sesgados pueden ser normal de la población
+estudiada, y por consecuencia en estos casos remoción de estos valores
+podría resultar en descripción de los resultados incorrectos. Primero
+hay que evaluar los siguientes posibles causas de valores sesgados. Si
+algunos de los siguientes son presentes hay que resolver los valores o
+removerlos de la hoja de analisis.</p>
 <ul>
 <li>los valores recolectado son erróneo.</li>
 <li>los valores fueron entrado incorrectamente en la hoja de datos</li>
-<li>los valores recolectado tienen diferente dimensiones, por ejemplo algunos fueron recolectados en cm y otros en mm para la misma variable.</li>
+<li>los valores recolectado tienen diferente dimensiones, por ejemplo
+algunos fueron recolectados en cm y otros en mm para la misma
+variable.</li>
 </ul>
 </div>
 <div id="supuesto-de-normalidad" class="section level2">
 <h2>Supuesto de normalidad</h2>
-<p>Hay muchas pruebas estadísticas que asumen que los datos provienen de una distribución normal. Pero no todas las pruebas tienen que satisfacer ese supuesto. Por ejemplo, un Análisis de Componentes Principales o ACP (en inglés, PCA o Principle Component Analysis) o la prueba de t asumen distribución normal. Por el contrario, las pruebas no paramétricas como Wilcoxon, Mann-Whitney, Kruskall Wallis y otras no asumen ese supuesto.</p>
-<p>Una alternativa tradicional para comprobar la normalidad de los datos es mirar el gráfico de QQ; o sea, una visualización para comparar las probabilidades de dos variables en las que se gráfican los cuartiles (recordemos que <strong>Q</strong> viene de cuartil). Si las distribuciones de las dos variables son similares, los puntos aparecerán nítidamente en el gráfico de QQ sobre la línea de <strong>X-Y</strong>. Eso se demostrará a continuación.</p>
-</div>
-<div id="qplot" class="section level2">
-<h2>qplot</h2>
-<p>En el gráfico se representa el consumo por la Becasa de Mar de la base de datos Godwits, el ave de las marismas de Argentina que hemos analizado anteriormente. En el gráfico se nota que los datos a los extremos no están muy cerca de la línea <strong>X-Y</strong>, lo que sugiere que el consumo por la Becasa de Mar no tiene una distribución normal. La función qplot es la manera más sencilla para generar el gráfico de QQ.</p>
-<pre class="r"><code># Note que anteriormente ya habíamos depositado los datos en el data.frame BecasaDeMar
-qplot(sample = BecasaDeMar$mgconsumed, stat=&quot;qq&quot;)+
-  theme(axis.title=element_text(size=20,face=&quot;bold&quot;),
-        axis.text = element_text(size=20,face=&quot;bold&quot;))+
-   xlab(&quot;Valores teóricos&quot;)+
-   ylab(&quot;Valores observados&quot;)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/Becasaqqplot2-1.png" width="672" /></p>
+<p>Hay muchas pruebas estadísticas que asumen que los datos provienen de
+una distribución normal. Pero no todas las pruebas tienen que satisfacer
+ese supuesto. Por ejemplo, un Análisis de Componentes Principales o ACP
+(en inglés, PCA o Principle Component Analysis) o la prueba de t asumen
+distribución normal. Por el contrario, las pruebas no paramétricas como
+Wilcoxon, Mann-Whitney, Kruskall Wallis y otras no asumen ese
+supuesto.</p>
+<p>Una alternativa tradicional para comprobar la normalidad de los datos
+es mirar el gráfico de QQ; o sea, una visualización para comparar las
+probabilidades de dos variables en las que se gráfican los cuartiles
+(recordemos que <strong>Q</strong> viene de cuartil). Si las
+distribuciones de las dos variables son similares, los puntos aparecerán
+nítidamente en el gráfico de QQ sobre la línea de <strong>X-Y</strong>.
+Eso se demostrará a continuación.</p>
 <hr />
 </div>
 <div id="geom_qq-y-geom_qq_line" class="section level2">
 <h2>geom_qq y geom_qq_line</h2>
-<p>A pesar de lo fácil de este enfoque, apreciar si los datos quedan nítidamente alineados sobre una línea no es tan evidente en algunos casos. Por lo tanto, en la siguiente versión del gráfico de QQ producida con la función <strong>geom_qq</strong> y <strong>geom_qq_line</strong> se le añade una línea para mostrar dónde debería estar localizada la gran mayoría de los datos si estos tuvieran una distribución normal. Ahora vemos que claramente muchos de los datos no yacen en la línea. Evidentemente, el trazar la línea teórica ayuda a visualizar la conclusión; en este caso, se podría concluir que el consumo de comida por este pájaro no sigue una distribución normal <span style="color: blue;">la linea azul</span>. En el segundo ejemplo se crea un archivo de datos que tiene una distribución normal y esta ejemplo la gran mayoría de los datos solapen la linea, <span style="color: red;">la linea roja</span></p>
+<p>A pesar de lo fácil de este enfoque, apreciar si los datos quedan
+nítidamente alineados sobre una línea no es tan evidente en algunos
+casos. Por lo tanto, en la siguiente versión del gráfico de QQ producida
+con la función <strong>geom_qq</strong> y <strong>geom_qq_line</strong>
+se le añade una línea para mostrar dónde debería estar localizada la
+gran mayoría de los datos si estos tuvieran una distribución normal.
+Ahora vemos que claramente muchos de los datos no yacen en la línea.
+Evidentemente, el trazar la línea teórica ayuda a visualizar la
+conclusión; en este caso, se podría concluir que el consumo de comida
+por este pájaro no sigue una distribución normal <span
+style="color: blue;">la linea azul</span>. En el segundo ejemplo se crea
+un archivo de datos que tiene una distribución normal y esta ejemplo la
+gran mayoría de los datos solapen la linea, <span style="color: red;">la
+linea roja</span></p>
 <pre class="r"><code>a= ggplot(Godwits, aes(sample = mgconsumed)) +
   stat_qq() +
   stat_qq_line(colour=&quot;blue&quot;)+
@@ -700,14 +833,35 @@ grid.arrange(a,b,ncol=2)</code></pre>
 </div>
 <div id="la-distribución-normal" class="section level2">
 <h2>La distribución normal</h2>
-<p>Una segunda alternativa para visualizar si los datos siguen una distribución normal es construir un histograma de los datos y gráficar sobre este la curva normal basándonos en el promedio y la desviación estándar de los mismos datos. Para construir el histograma se usa la función <strong>geom_histogram</strong> y para la distribución teorica normal de estos datos se usa la función <strong>stat_function</strong>. Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde se representa la razón de consumo y el período en que esto ocurrió. En la Figura (a) vemos la distribución para todos los períodos, y los otros tres en la Figura (b) muestran una distribución para cada uno de los períodos. Se observa en todos los casos que las distribuciones están sesgadas hacia los valores pequeños (hacia la izquierda). Esta visualización nos ayuda a evaluar la normalidad de esos datos. NOta que no es una prueba estadística igual como el gráfico de qqplot</p>
+<p>Una segunda alternativa para visualizar si los datos siguen una
+distribución normal es construir un histograma de los datos y gráficar
+sobre este la curva normal basándonos en el promedio y la desviación
+estándar de los mismos datos. Para construir el histograma se usa la
+función <strong>geom_histogram</strong> y para la distribución teorica
+normal de estos datos se usa la función <strong>stat_function</strong>.
+Esto lo demostramos con gráficos adicionales de la Becasa del Mar, donde
+se representa la razón de consumo y el período en que esto ocurrió. En
+la Figura (a) vemos la distribución para todos los períodos, y los otros
+tres en la Figura (b) muestran una distribución para cada uno de los
+períodos. Se observa en todos los casos que las distribuciones están
+sesgadas hacia los valores pequeños (hacia la izquierda). Esta
+visualización nos ayuda a evaluar la normalidad de esos datos. NOta que
+no es una prueba estadística igual como el gráfico de qqplot</p>
 <p>Note que en <strong>geom_histogram</strong> se tiene que incluir</p>
 <p><strong>aes(..density..)</strong></p>
-<p>y añadir dentro de la función <strong>stat_function</strong> todo lo siguiente:</p>
-<p>stat_function(fun = dnorm, args = list(mean = mean(Godwits<span class="math inline">\(mgconsumed,  na.rm = TRUE),  sd = sd(Godwits\)</span>mgconsumed, na.rm = TRUE)), colour = “red”, size = 1.)</p>
-<p>El parámetro <strong>dnorm</strong> quiere decir densidad de la distribución normal. También se necesitan dos parámetros para calcular el promedio (mean) y la desviación estándar (sd). Con ambos hay que especificar de dónde provienen los datos; en este caso,</p>
+<p>y añadir dentro de la función <strong>stat_function</strong> todo lo
+siguiente:</p>
+<p>stat_function(fun = dnorm, args = list(mean = mean(Godwits<span
+class="math inline">\(mgconsumed,  na.rm = TRUE),  sd =
+sd(Godwits\)</span>mgconsumed, na.rm = TRUE)), colour = “red”, size =
+1.)</p>
+<p>El parámetro <strong>dnorm</strong> quiere decir densidad de la
+distribución normal. También se necesitan dos parámetros para calcular
+el promedio (mean) y la desviación estándar (sd). Con ambos hay que
+especificar de dónde provienen los datos; en este caso,</p>
 <p><strong>Godwits$mgconsumed</strong></p>
-<p>Además, si hay NA en los datos, hay que añadir <strong>na.rm = TRUE</strong> para excluir los <strong>NA</strong>. Veamos.</p>
+<p>Además, si hay NA en los datos, hay que añadir <strong>na.rm =
+TRUE</strong> para excluir los <strong>NA</strong>. Veamos.</p>
 <pre class="r"><code>a=ggplot(Godwits, aes(mgconsumed)) +
   theme(legend.position = &quot;none&quot;) +
   geom_histogram(aes(y=..density..),
@@ -739,11 +893,21 @@ b= ggplot(Godwits, aes(mgconsumed)) +
     facet_wrap(~PERIOD)
 
 grid.arrange(a,b,ncol=1)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density-1.png" width="672" />
+***</p>
 </div>
 <div id="stat_function" class="section level2">
 <h2>stat_function</h2>
-<p>Continuaremos con este mismo análisis pero esta vez evaluaremos la distribución del peso de gorriones en un trabajo de captura y recaptura en 6 meses diferentes. Utilizaremos la base de datos <strong>SparrowsElphick</strong>. En la figura (a) observamos un histograma de la distribución de los pesos de estas aves por cada mes. Vemos claramente que hay meses (mayo, septiembre y octubre) en los que se tuvieron muchas menos observaciones. En el segundo gráfico, Figura (b), observamos el histograma y la curva normal para todos los datos sin importar el mes. Igualmente, esta visualización nos ayuda a evaluar la normalidad de los datos.</p>
+<p>Continuaremos con este mismo análisis pero esta vez evaluaremos la
+distribución del peso de gorriones en un trabajo de captura y recaptura
+en 6 meses diferentes. Utilizaremos la base de datos
+<strong>SparrowsElphick</strong>. En la figura (a) observamos un
+histograma de la distribución de los pesos de estas aves por cada mes.
+Vemos claramente que hay meses (mayo, septiembre y octubre) en los que
+se tuvieron muchas menos observaciones. En el segundo gráfico, Figura
+(b), observamos el histograma y la curva normal para todos los datos sin
+importar el mes. Igualmente, esta visualización nos ayuda a evaluar la
+normalidad de los datos.</p>
 <pre class="r"><code>Sparrows=SparrowsElphick
 
 Sparrows$fMonth&lt;-factor(Sparrows$Month,
@@ -772,11 +936,29 @@ b=ggplot(Sparrows, aes(wt)) +
       colour = &quot;red&quot;, size = 1)
 
 grid.arrange(a,b,ncol=2)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density3-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density3-1.png" width="672" />
+***</p>
 </div>
-<div id="visualizando-la-distribuciones-con-geom_density" class="section level2">
-<h2>Visualizando la distribuciones con <strong>geom_density</strong></h2>
-<p>A continuación se muestra otra alternativa para observar los datos anteriores. Nada más que estos ahora se representan sustituyendo las funciones <strong>geom_histogram</strong> y <strong>stat_function</strong> por <strong>geom_density</strong> para la construcción de curvas de densidad. Otra vez utilizaremos la base de datos <strong>SparrowsElphick</strong>. La curva normal que se genera es tipo gausiana (gaussian en inglés). Nóte que para el segundo conjunto de gráficos, (b), no se le especificó la opción en <strong>kernel</strong> igual a <strong>gaussian</strong> ya que de forma predeterminada la función <strong>geom_density</strong> usa el parámetro <strong>gaussian</strong>; o sea, no es necesario especificarla si eso es lo que se quiere. Una distribución en donde el pico es más alto significa que hay mayor densidad de datos en esa región de la variable en el eje de <strong>X</strong>. Podemos apreciar que la curva de densidad no sigue claramente una distribución normal con respecto a los valores en <strong>X</strong>.</p>
+<div id="visualizando-la-distribuciones-con-geom_density"
+class="section level2">
+<h2>Visualizando la distribuciones con
+<strong>geom_density</strong></h2>
+<p>A continuación se muestra otra alternativa para observar los datos
+anteriores. Nada más que estos ahora se representan sustituyendo las
+funciones <strong>geom_histogram</strong> y
+<strong>stat_function</strong> por <strong>geom_density</strong> para la
+construcción de curvas de densidad. Otra vez utilizaremos la base de
+datos <strong>SparrowsElphick</strong>. La curva normal que se genera es
+tipo gausiana (gaussian en inglés). Nóte que para el segundo conjunto de
+gráficos, (b), no se le especificó la opción en <strong>kernel</strong>
+igual a <strong>gaussian</strong> ya que de forma predeterminada la
+función <strong>geom_density</strong> usa el parámetro
+<strong>gaussian</strong>; o sea, no es necesario especificarla si eso
+es lo que se quiere. Una distribución en donde el pico es más alto
+significa que hay mayor densidad de datos en esa región de la variable
+en el eje de <strong>X</strong>. Podemos apreciar que la curva de
+densidad no sigue claramente una distribución normal con respecto a los
+valores en <strong>X</strong>.</p>
 <pre class="r"><code># Note que anteriormente ya habíamos depositado los datos en el data.frame Sparrows:
 a= ggplot(Sparrows, aes(wt))+
 geom_density(aes(group=fMonth, fill=fMonth),
@@ -800,18 +982,54 @@ b= ggplot(Sparrows, aes(wt))+
   labs(colour=&quot;Mes&quot;)
 
 grid.arrange(a,b,ncol=1)</code></pre>
-<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density4-1.png" width="672" /> ***</p>
+<p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/density4-1.png" width="672" />
+***</p>
 </div>
-<div id="colinealidad-entre-covariables-con-ggpairs" class="section level2">
+<div id="colinealidad-entre-covariables-con-ggpairs"
+class="section level2">
 <h2>Colinealidad entre covariables con <strong>ggpairs</strong></h2>
-<p>Hoy en día la cantidad de datos que se obtienen en diferentes estudios puede ser muy impresionante. Muchas veces el objetivo es detectar si unas variables, entre muchas otras, podrían predecir la variable de respuesta. A consecuencia de eso, el problema mayor es tomar en cuenta la colinealidad entre variables explicativas. La colinealidad es simplemente la correlación entre variables en un modelo de análisis de regresión múltiple, en donde las variables predictivas están altamente correlacionadas.</p>
-<p>Un ejemplo sencillo de variables con colinealidad podría incluir la relación entre el largo y ancho de las hojas de una herbácea y cómo estas están correlacionadas con la producción de flores. Es probable que la correlación entre el largo y el ancho de la hoja estén correlacionadas con la producción de las flores de formas muy similares; o sea, con una pendiente que explicaría ambas relaciones de formas similares. Entonces, al añadir ambas variables al modelo de regresión múltiple, no estaríamos explicando variaciones distintas, si no más bien la misma variación. Cuando hay mucha colinealidad entre variables explicativas, se debería seleccionar un subgrupo de estas variables que expliquen variaciones distintas para el modelo y no incluir todas las variables.</p>
-<p>A continuación exploraremos diferentes alternativas para llevar a cabo este tipo de análisis utilizando otra vez los datos de la orquídea <em>Dipodium</em>. En el primer ejemplo, se utiliza la función <strong>cor</strong> para evaluar solo una relación: la correlación entre la distancia de la planta a un árbol y la altura de la planta, dejando otras variables a un lado. Como deseamos el estimado de la correlación solamente, utilizamos un par de variables a la vez para evaluar la correlación entre la distancia de la orquídea al árbol y la altura de la inflorescencia (mostrado más adelante). Concluimos que a mayor distancia del árbol, menor es la altura de la inflorescencia al este análisis arrojar un valor de pendiente de -0.095 como se muestra en el ejemplo.</p>
+<p>Hoy en día la cantidad de datos que se obtienen en diferentes
+estudios puede ser muy impresionante. Muchas veces el objetivo es
+detectar si unas variables, entre muchas otras, podrían predecir la
+variable de respuesta. A consecuencia de eso, el problema mayor es tomar
+en cuenta la colinealidad entre variables explicativas. La colinealidad
+es simplemente la correlación entre variables en un modelo de análisis
+de regresión múltiple, en donde las variables predictivas están
+altamente correlacionadas.</p>
+<p>Un ejemplo sencillo de variables con colinealidad podría incluir la
+relación entre el largo y ancho de las hojas de una herbácea y cómo
+estas están correlacionadas con la producción de flores. Es probable que
+la correlación entre el largo y el ancho de la hoja estén
+correlacionadas con la producción de las flores de formas muy similares;
+o sea, con una pendiente que explicaría ambas relaciones de formas
+similares. Entonces, al añadir ambas variables al modelo de regresión
+múltiple, no estaríamos explicando variaciones distintas, si no más bien
+la misma variación. Cuando hay mucha colinealidad entre variables
+explicativas, se debería seleccionar un subgrupo de estas variables que
+expliquen variaciones distintas para el modelo y no incluir todas las
+variables.</p>
+<p>A continuación exploraremos diferentes alternativas para llevar a
+cabo este tipo de análisis utilizando otra vez los datos de la orquídea
+<em>Dipodium</em>. En el primer ejemplo, se utiliza la función
+<strong>cor</strong> para evaluar solo una relación: la correlación
+entre la distancia de la planta a un árbol y la altura de la planta,
+dejando otras variables a un lado. Como deseamos el estimado de la
+correlación solamente, utilizamos un par de variables a la vez para
+evaluar la correlación entre la distancia de la orquídea al árbol y la
+altura de la inflorescencia (mostrado más adelante). Concluimos que a
+mayor distancia del árbol, menor es la altura de la inflorescencia al
+este análisis arrojar un valor de pendiente de -0.095 como se muestra en
+el ejemplo.</p>
 <pre class="r"><code>cor(dipodium$Distance, 
     dipodium$Height_Inflo,
     use=&quot;pairwise.complete.obs&quot;)</code></pre>
 <pre><code>## [1] -0.09541256</code></pre>
-<p>Otra alternativa es hacer el análisis de correlación de muchas variables en conjunto. En la tabla, <strong>Correlaciones de Pearson</strong>, se muestra la correlación entre las tres variables siguientes: DBH, cantidad de flores y altura de la inflorescencia. En esa tabla se observa la correlación de Pearson para estos datos. Recordemos que esta correlación asume distribución normal.</p>
+<p>Otra alternativa es hacer el análisis de correlación de muchas
+variables en conjunto. En la tabla, <strong>Correlaciones de
+Pearson</strong>, se muestra la correlación entre las tres variables
+siguientes: DBH, cantidad de flores y altura de la inflorescencia. En
+esa tabla se observa la correlación de Pearson para estos datos.
+Recordemos que esta correlación asume distribución normal.</p>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  use=&quot;pairwise.complete.obs&quot;),2))</code></pre>
 <table>
@@ -878,7 +1096,10 @@ Height_Inflo
 <hr />
 <div id="tabla-de-correlación-de-kendall" class="section level3">
 <h3>Tabla de correlación de Kendall</h3>
-<p>Usando la función <strong>cor</strong> se puede también calcular estimados de correlación sin asumir distribución normal usando los métodos <strong>Kendall</strong> o <strong>Spearman</strong> mostrados en la Tabla siguiente.</p>
+<p>Usando la función <strong>cor</strong> se puede también calcular
+estimados de correlación sin asumir distribución normal usando los
+métodos <strong>Kendall</strong> o <strong>Spearman</strong> mostrados
+en la Tabla siguiente.</p>
 <pre class="r"><code>kable(signif(cor(dipodium[,c(3, 8, 9)],
  method=&quot;kendall&quot;,
  use=&quot;pairwise.complete.obs&quot;),2), 
@@ -1015,20 +1236,73 @@ Height_Inflo
 </tr>
 </tbody>
 </table>
-<p>En esas tres tablas podemos apreciar un patrón consistente entre todos los métodos; o sea, la altura de la inflorescencia está altamente correlacionada con la cantidad de flores (con coeficientes de correlación de 0.82, 0.65, y 0.81 respectivamente). Note que para facilitar la lectura de los valores, se usó la función <strong>signif</strong> para así identificar solamente los valores significativos del análisis.</p>
-<p>Brevemente recapitulamos, si los datos no siguen una distribución normal, se deberían utilizar los métodos Kendall o Spearman. Si se tienen pocos datos, Kendall tiende a ser una mejor alternativa para determinar el indice de correlación. Se le advierte, sin embargo, que consulte libros de estadística sobre este tema antes que realice un análisis de este tipo ya que la decisión de seleccionar una alternativa sobre otra no es tan sencilla.</p>
+<p>En esas tres tablas podemos apreciar un patrón consistente entre
+todos los métodos; o sea, la altura de la inflorescencia está altamente
+correlacionada con la cantidad de flores (con coeficientes de
+correlación de 0.82, 0.65, y 0.81 respectivamente). Note que para
+facilitar la lectura de los valores, se usó la función
+<strong>signif</strong> para así identificar solamente los valores
+significativos del análisis.</p>
+<p>Brevemente recapitulamos, si los datos no siguen una distribución
+normal, se deberían utilizar los métodos Kendall o Spearman. Si se
+tienen pocos datos, Kendall tiende a ser una mejor alternativa para
+determinar el indice de correlación. Se le advierte, sin embargo, que
+consulte libros de estadística sobre este tema antes que realice un
+análisis de este tipo ya que la decisión de seleccionar una alternativa
+sobre otra no es tan sencilla.</p>
 </div>
 </div>
-<div id="seleción-de-parametros-pra-correlaciones-cuando-hay-na" class="section level2">
+<div id="seleción-de-parametros-pra-correlaciones-cuando-hay-na"
+class="section level2">
 <h2>Seleción de parametros pra correlaciones cuando hay NA</h2>
-<p>Además, los analísis anteriores utilizados emplearon el parámetro <strong>pairwise.complete.obs</strong>, ya que obviaría los <strong>NA</strong> en las columnas que se utilizan para calcular la correlación. Por lo tanto, la cantidad de pares de datos utilizados para calcular las diferentes correlaciones entre variables puede variar si hay <strong>NA</strong> en el archivo. Tome en consideración que hay otras cuatro alternativas para analizar los datos cuando tenemos <strong>NA</strong> presentes: <strong>everything</strong>, <strong>all.obs</strong>, <strong>complete.obs</strong> y <strong>na.or.complete</strong>. No vamos a discutir esas alternativas en el presente libro. Sería bueno que busque información en R para sus usos. Estas alternativas se discutiran en otros modulos.</p>
-<p>Finalmente, también se utilizó el comando <strong>kable</strong> ya que es una manera efectiva de organizar los resultados en una tabla.</p>
+<p>Además, los analísis anteriores utilizados emplearon el parámetro
+<strong>pairwise.complete.obs</strong>, ya que obviaría los
+<strong>NA</strong> en las columnas que se utilizan para calcular la
+correlación. Por lo tanto, la cantidad de pares de datos utilizados para
+calcular las diferentes correlaciones entre variables puede variar si
+hay <strong>NA</strong> en el archivo. Tome en consideración que hay
+otras cuatro alternativas para analizar los datos cuando tenemos
+<strong>NA</strong> presentes: <strong>everything</strong>,
+<strong>all.obs</strong>, <strong>complete.obs</strong> y
+<strong>na.or.complete</strong>. No vamos a discutir esas alternativas
+en el presente libro. Sería bueno que busque información en R para sus
+usos. Estas alternativas se discutiran en otros modulos.</p>
+<p>Finalmente, también se utilizó el comando <strong>kable</strong> ya
+que es una manera efectiva de organizar los resultados en una tabla.</p>
 </div>
 <div id="uso-de-ggally-para-ver-correlaciones" class="section level2">
 <h2>Uso de GGally para ver correlaciones</h2>
-<p>Continuando con el mismo tema, una tercera opción para descubrir la colinealidad entre covariables es utilizar el paquete <strong>GGally</strong>, ya que no solamente nos calcula las correlaciones, si no que también nos permite hacer los gráficos de densidad de la distribución de las variables y un gráfico de dispersión por pares de variables evaluadas.</p>
-<p>En los gráficos de la siguiente Figura observamos los coeficientes de correlación, la distribución de los datos y la visualización de correlación por cada par. Además, vemos el diagrama de caja de los datos cuando hay variables discretas. Note al extremo derecho que la variable <strong>Herbivory</strong> tiene una categoría no identificada, que incluye los <strong>NA</strong>.</p>
-<p>Con la función de <strong>ggpairs</strong> podemos calcular las correlaciones entre las variables y a la misma vez producir todos los gráficos entre las variables y gráficos de distribución de densidad de cada variable. En el gráfico podemos observar en la parte izquierda la distribución de los datos en pares. En la diagonal se observa la densidad de cada una de las variables. En la parte superior derecha se observa el valor de correlación y en el extremo derecho se observan los diagramas de caja de las variables discretas con relación a la variable de la izquierda. Este gráfico es sumamente práctico, ya que produce mucha información con pocos pasos. Desafortunadamente, no hay manera de remover los <strong>NA</strong> al presente. A consecuencia de esto, al extremo derecho uno observa en las cajas abajo una barra con muchos valores (la de la derecha), pero esta representa todos los valores <strong>NA</strong> en la tabla de datos. En este caso, la presencia de herbivoría en las plantas no fue recolectada y en cambio se dejó con un <strong>NA</strong>. Note que aquí no se pueden poner ceros u otros valores. Las alternativas podrían ser <strong>H</strong> para evidenciar la presencia de herbaria y <strong>n</strong> para las plantas donde no hay evidencia de herbivoría.</p>
+<p>Continuando con el mismo tema, una tercera opción para descubrir la
+colinealidad entre covariables es utilizar el paquete
+<strong>GGally</strong>, ya que no solamente nos calcula las
+correlaciones, si no que también nos permite hacer los gráficos de
+densidad de la distribución de las variables y un gráfico de dispersión
+por pares de variables evaluadas.</p>
+<p>En los gráficos de la siguiente Figura observamos los coeficientes de
+correlación, la distribución de los datos y la visualización de
+correlación por cada par. Además, vemos el diagrama de caja de los datos
+cuando hay variables discretas. Note al extremo derecho que la variable
+<strong>Herbivory</strong> tiene una categoría no identificada, que
+incluye los <strong>NA</strong>.</p>
+<p>Con la función de <strong>ggpairs</strong> podemos calcular las
+correlaciones entre las variables y a la misma vez producir todos los
+gráficos entre las variables y gráficos de distribución de densidad de
+cada variable. En el gráfico podemos observar en la parte izquierda la
+distribución de los datos en pares. En la diagonal se observa la
+densidad de cada una de las variables. En la parte superior derecha se
+observa el valor de correlación y en el extremo derecho se observan los
+diagramas de caja de las variables discretas con relación a la variable
+de la izquierda. Este gráfico es sumamente práctico, ya que produce
+mucha información con pocos pasos. Desafortunadamente, no hay manera de
+remover los <strong>NA</strong> al presente. A consecuencia de esto, al
+extremo derecho uno observa en las cajas abajo una barra con muchos
+valores (la de la derecha), pero esta representa todos los valores
+<strong>NA</strong> en la tabla de datos. En este caso, la presencia de
+herbivoría en las plantas no fue recolectada y en cambio se dejó con un
+<strong>NA</strong>. Note que aquí no se pueden poner ceros u otros
+valores. Las alternativas podrían ser <strong>H</strong> para evidenciar
+la presencia de herbaria y <strong>n</strong> para las plantas donde no
+hay evidencia de herbivoría.</p>
 <pre class="r"><code>names(dipodium) # para ver los nombres de las variables/columnas</code></pre>
 <pre><code>##  [1] &quot;Tree Number&quot;             &quot;Tree species&quot;           
 ##  [3] &quot;DBH&quot;                     &quot;Plant number&quot;           
@@ -1040,7 +1314,7 @@ Height_Inflo
 ## [15] &quot;pardalinum_or_roseum&quot;    &quot;Fruit_position_effect&quot;  
 ## [17] &quot;Frutos_si_o_no&quot;          &quot;P_or_R_Infl_Lenght&quot;     
 ## [19] &quot;Num of fruits&quot;           &quot;Species_Name&quot;           
-## [21] &quot;Cardinal orientation&quot;    &quot;PropFR&quot;</code></pre>
+## [21] &quot;Cardinal orientation&quot;</code></pre>
 <pre class="r"><code>ggpairs(dipodium[,c(8, 9, 13, 14, 10)])</code></pre>
 <p><img src="G11_EVALUANDO_SUPUESTOS_files/figure-html/ggpairs-1.png" width="672" /></p>
 <hr />

@@ -13,8 +13,8 @@
 
 <title>Geom_line</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -83,6 +84,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -140,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -173,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -182,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -308,7 +309,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -318,7 +319,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -351,7 +352,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -411,19 +412,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -432,10 +421,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -445,13 +437,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -460,10 +452,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -474,7 +466,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -503,7 +495,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-26&quot;</code></pre>
 <pre class="r"><code>library(ggversa)
 library(ggplot2)
 library(gt)</code></pre>
@@ -512,24 +504,53 @@ library(gt)</code></pre>
 </div>
 <div id="gráfico-de-línea-básico-con-geom_line" class="section level2">
 <h2>Gráfico de línea básico con <strong>geom_line</strong></h2>
-<p>Los gráficos de línea se usan frecuentemente cuando hay una variable de datos continuos ordenada secuencialmente, como las series en tiempo (años, hora, minutos, u otras secuencias). En los ejemplos que veremos a continuación se muestra la relación entre la detección del cáncer de tiroides en EE. UU. entre los años 1975 y 2012, su aumento y el nivel de mortandad.</p>
-<p>En la Figura se muestra el cambio en número de casos de cáncer de tiroides por cada 100,000 habitantes. La columna <strong>Year</strong>, año, es una variable numérica, y típicamente no se gráfica correctamente porque no se toma como numérica automáticamente. Es necesario identificarla como que contiene valores enteros usando la opción <strong>as.integer</strong>.</p>
-<p>En primer lugar, crearemos un nuevo <strong>data.frame</strong> para agrupar solamente los nuevos casos de cáncer. Para crear un <strong>data.frame</strong> solamente con esos datos se usa la opción <strong>which</strong>, con el siguiente procedimiento:</p>
-<p>subconjunto del_archivo[which( el_archivo$la_variable == “la variable de interés”),]</p>
-<p>Note que la variable de interés es un conjunto de valores en “la_variable” o es una categoría, como en este caso, nuevos casos (o “New Cases”). El símbolo “==” significa “que sea exactamente igual a…”</p>
+<p>Los gráficos de línea se usan frecuentemente cuando hay una variable
+de datos continuos ordenada secuencialmente, como las series en tiempo
+(años, hora, minutos, u otras secuencias). En los ejemplos que veremos a
+continuación se muestra la relación entre la detección del cáncer de
+tiroides en EE. UU. entre los años 1975 y 2012, su aumento y el nivel de
+mortandad.</p>
+<p>En la Figura se muestra el cambio en número de casos de cáncer de
+tiroides por cada 100,000 habitantes. La columna <strong>Year</strong>,
+año, es una variable numérica, y típicamente no se gráfica correctamente
+porque no se toma como numérica automáticamente. Es necesario
+identificarla como que contiene valores enteros usando la opción
+<strong>as.integer</strong>.</p>
+<p>En primer lugar, crearemos un nuevo <strong>data.frame</strong> para
+agrupar solamente los nuevos casos de cáncer. Para crear un
+<strong>data.frame</strong> solamente con esos datos se usa la opción
+<strong>which</strong>, con el siguiente procedimiento:</p>
+<p>subconjunto del_archivo[which( el_archivo$la_variable == “la variable
+de interés”),]</p>
+<p>Note que la variable de interés es un conjunto de valores en
+“la_variable” o es una categoría, como en este caso, nuevos casos (o
+“New Cases”). El símbolo “==” significa “que sea exactamente igual
+a…”</p>
 <p>Aquí vemos parte de los datos originales:</p>
 <pre class="r"><code>library(ggversa)
 
 subTiroide=Tiroide[which(Tiroide$Cases==&quot;New Cases&quot;),]
 gt(head(subTiroide))</code></pre>
-<div id="cyzksqvyly" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="cyzksqvyly" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cyzksqvyly table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cyzksqvyly thead, #cyzksqvyly tbody, #cyzksqvyly tfoot, #cyzksqvyly tr, #cyzksqvyly td, #cyzksqvyly th {
+  border-style: none;
+}
+
+#cyzksqvyly p {
+  margin: 0;
+  padding: 0;
 }
 
 #cyzksqvyly .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -552,6 +573,35 @@ gt(head(subTiroide))</code></pre>
   border-left-color: #D3D3D3;
 }
 
+#cyzksqvyly .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cyzksqvyly .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cyzksqvyly .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
 #cyzksqvyly .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
@@ -562,26 +612,6 @@ gt(head(subTiroide))</code></pre>
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
-}
-
-#cyzksqvyly .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#cyzksqvyly .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
 }
 
 #cyzksqvyly .gt_bottom_border {
@@ -651,14 +681,21 @@ gt(head(subTiroide))</code></pre>
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
+#cyzksqvyly .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #cyzksqvyly .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -677,6 +714,7 @@ gt(head(subTiroide))</code></pre>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #cyzksqvyly .gt_empty_group_heading {
@@ -730,7 +768,30 @@ gt(head(subTiroide))</code></pre>
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cyzksqvyly .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cyzksqvyly .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cyzksqvyly .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
 #cyzksqvyly .gt_summary_row {
@@ -744,13 +805,22 @@ gt(head(subTiroide))</code></pre>
 }
 
 #cyzksqvyly .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cyzksqvyly .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cyzksqvyly .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #cyzksqvyly .gt_grand_summary_row {
@@ -771,6 +841,16 @@ gt(head(subTiroide))</code></pre>
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#cyzksqvyly .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
 }
 
 #cyzksqvyly .gt_striped {
@@ -803,7 +883,10 @@ gt(head(subTiroide))</code></pre>
 #cyzksqvyly .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #cyzksqvyly .gt_sourcenotes {
@@ -822,7 +905,10 @@ gt(head(subTiroide))</code></pre>
 
 #cyzksqvyly .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #cyzksqvyly .gt_left {
@@ -855,45 +941,71 @@ gt(head(subTiroide))</code></pre>
 }
 
 #cyzksqvyly .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cyzksqvyly .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cyzksqvyly .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cyzksqvyly .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cyzksqvyly .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cyzksqvyly .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cyzksqvyly .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Cases</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Rate</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Year">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Cases">Cases</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Rate">Rate</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">1975</td>
-<td class="gt_row gt_center">New Cases</td>
-<td class="gt_row gt_right">4.8</td></tr>
-    <tr><td class="gt_row gt_right">1976</td>
-<td class="gt_row gt_center">New Cases</td>
-<td class="gt_row gt_right">4.8</td></tr>
-    <tr><td class="gt_row gt_right">1977</td>
-<td class="gt_row gt_center">New Cases</td>
-<td class="gt_row gt_right">5.4</td></tr>
-    <tr><td class="gt_row gt_right">1978</td>
-<td class="gt_row gt_center">New Cases</td>
-<td class="gt_row gt_right">5.1</td></tr>
-    <tr><td class="gt_row gt_right">1979</td>
-<td class="gt_row gt_center">New Cases</td>
-<td class="gt_row gt_right">4.5</td></tr>
-    <tr><td class="gt_row gt_right">1980</td>
-<td class="gt_row gt_center">New Cases</td>
-<td class="gt_row gt_right">4.3</td></tr>
+    <tr><td headers="Year" class="gt_row gt_right">1975</td>
+<td headers="Cases" class="gt_row gt_center">New Cases</td>
+<td headers="Rate" class="gt_row gt_right">4.8</td></tr>
+    <tr><td headers="Year" class="gt_row gt_right">1976</td>
+<td headers="Cases" class="gt_row gt_center">New Cases</td>
+<td headers="Rate" class="gt_row gt_right">4.8</td></tr>
+    <tr><td headers="Year" class="gt_row gt_right">1977</td>
+<td headers="Cases" class="gt_row gt_center">New Cases</td>
+<td headers="Rate" class="gt_row gt_right">5.4</td></tr>
+    <tr><td headers="Year" class="gt_row gt_right">1978</td>
+<td headers="Cases" class="gt_row gt_center">New Cases</td>
+<td headers="Rate" class="gt_row gt_right">5.1</td></tr>
+    <tr><td headers="Year" class="gt_row gt_right">1979</td>
+<td headers="Cases" class="gt_row gt_center">New Cases</td>
+<td headers="Rate" class="gt_row gt_right">4.5</td></tr>
+    <tr><td headers="Year" class="gt_row gt_right">1980</td>
+<td headers="Cases" class="gt_row gt_center">New Cases</td>
+<td headers="Rate" class="gt_row gt_right">4.3</td></tr>
   </tbody>
   
   
 </table>
 </div>
-<p>El procedimiento para preparar el gráfico de tiroides se presenta a continuación:</p>
+<p>El procedimiento para preparar el gráfico de tiroides se presenta a
+continuación:</p>
 <pre class="r"><code>ggplot(subTiroide, aes(x=as.integer(Year), y=Rate))+
   geom_line(size=2)+
   annotate(&quot;text&quot;, x= 1990,y= 12, size= 4,
@@ -903,12 +1015,23 @@ gt(head(subTiroide))</code></pre>
     xlab(&quot;Años&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <p><img src="G13_geom_line_files/figure-html/graficalinea1-1.png" width="672" /></p>
-<p>Note que se utilizó la función <strong>annonate</strong> para escribir información sobre el gráfico. Esta función será discutida con más detalle más adelante.</p>
+<p>Note que se utilizó la función <strong>annonate</strong> para
+escribir información sobre el gráfico. Esta función será discutida con
+más detalle más adelante.</p>
 <hr />
 </div>
-<div id="gráfico-con-múltiples-líneas-con-geom_line" class="section level2">
+<div id="gráfico-con-múltiples-líneas-con-geom_line"
+class="section level2">
 <h2>Gráfico con múltiples líneas con geom_line</h2>
-<p>A veces es importante comparar dos o más secuencias de datos. Eso se mostrará en la Figura continuando con el mismo ejemplo de tiroides anterior pero esta vez se le añadirá la razón de mortandad por tiroidismo en EEUU en el mismo gráfico. Usando la función <strong>group=</strong> identifica cual son los grupos, si hubiese más de dos grupos hubiese una linea para cada grupo. Lo que se observa es que aunque hay mucha más gente que es diagnosticada con cáncer de la tiroides, la proporción de gente que muere de este tipo de cáncer es consistente a través del tiempo.</p>
+<p>A veces es importante comparar dos o más secuencias de datos. Eso se
+mostrará en la Figura continuando con el mismo ejemplo de tiroides
+anterior pero esta vez se le añadirá la razón de mortandad por
+tiroidismo en EEUU en el mismo gráfico. Usando la función
+<strong>group=</strong> identifica cual son los grupos, si hubiese más
+de dos grupos hubiese una linea para cada grupo. Lo que se observa es
+que aunque hay mucha más gente que es diagnosticada con cáncer de la
+tiroides, la proporción de gente que muere de este tipo de cáncer es
+consistente a través del tiempo.</p>
 <pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year),
                     y=Rate, group=Cases, color=Cases))+
   geom_line(size=2)+
@@ -921,11 +1044,25 @@ gt(head(subTiroide))</code></pre>
   xlab(&quot;Años&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <p><img src="G13_geom_line_files/figure-html/graficalinea2-1.png" width="672" /></p>
-<p>La función <strong>annonate</strong> nos permitió añadir la descripción <strong>Mortandad</strong> a la línea inferior en forma de texto <strong>text</strong> a la altura del punto 2000 en el eje de <strong>X</strong> y a la altura del punto 1 en el eje de <strong>Y</strong>. De igual manera se hizo con la descripción <strong>Nuevos Casos</strong> en la coordenada (1990, 8).</p>
+<p>La función <strong>annonate</strong> nos permitió añadir la
+descripción <strong>Mortandad</strong> a la línea inferior en forma de
+texto <strong>text</strong> a la altura del punto 2000 en el eje de
+<strong>X</strong> y a la altura del punto 1 en el eje de
+<strong>Y</strong>. De igual manera se hizo con la descripción
+<strong>Nuevos Casos</strong> en la coordenada (1990, 8).</p>
 </div>
-<div id="gráfico-de-líneas-con-ejes-expandidos-con-geom_line" class="section level2">
-<h2>Gráfico de líneas con ejes expandidos con <strong>geom_line</strong></h2>
-<p>Muchas veces el intervalo de la escala de los ejes no es el óptimo. Continuando con el ejemplo anterior, modificamos el eje de <strong>X</strong> en la Figura para que incluya el último año (el último valor de la secuencia en el eje de <strong>X</strong>). Para ello se indica en el mismo código que el límite de <strong>X</strong> en el eje se vea a intervalos de 10 años con la función <strong>xlim</strong>. Note que para expandir el eje de <strong>Y</strong> se usaría la misma técnica.</p>
+<div id="gráfico-de-líneas-con-ejes-expandidos-con-geom_line"
+class="section level2">
+<h2>Gráfico de líneas con ejes expandidos con
+<strong>geom_line</strong></h2>
+<p>Muchas veces el intervalo de la escala de los ejes no es el óptimo.
+Continuando con el ejemplo anterior, modificamos el eje de
+<strong>X</strong> en la Figura para que incluya el último año (el
+último valor de la secuencia en el eje de <strong>X</strong>). Para ello
+se indica en el mismo código que el límite de <strong>X</strong> en el
+eje se vea a intervalos de 10 años con la función <strong>xlim</strong>.
+Note que para expandir el eje de <strong>Y</strong> se usaría la misma
+técnica.</p>
 <pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
                     group=Cases, color=Cases))+
   geom_line(size=2)+
@@ -940,9 +1077,14 @@ gt(head(subTiroide))</code></pre>
   theme(axis.title=element_text(size=14,face=&quot;bold&quot;))</code></pre>
 <p><img src="G13_geom_line_files/figure-html/graficalinea-1.png" width="672" /></p>
 </div>
-<div id="gráfico-de-líneas-con-los-puntos-añadidos-con-geom_line" class="section level2">
-<h2>Gráfico de líneas con los puntos añadidos con <strong>geom_line</strong></h2>
-<p>A veces nos interesa que la línea muestre los puntos que la componen. En el próximo ejemplo, lo mostraremos nuevamente utilizando el ejemplo anterior de tiroides. A continuación el código modificado que muestra ese efecto añadiendo <strong>geom_point</strong>:</p>
+<div id="gráfico-de-líneas-con-los-puntos-añadidos-con-geom_line"
+class="section level2">
+<h2>Gráfico de líneas con los puntos añadidos con
+<strong>geom_line</strong></h2>
+<p>A veces nos interesa que la línea muestre los puntos que la componen.
+En el próximo ejemplo, lo mostraremos nuevamente utilizando el ejemplo
+anterior de tiroides. A continuación el código modificado que muestra
+ese efecto añadiendo <strong>geom_point</strong>:</p>
 <pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate, 
                     group=Cases,
                     color=Cases))+
@@ -958,10 +1100,25 @@ gt(head(subTiroide))</code></pre>
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <p><img src="G13_geom_line_files/figure-html/graficalinea4-1.png" width="672" /></p>
 </div>
-<div id="gráfico-de-línea-con-los-puntos-en-otro-estilo-con-geom_line" class="section level2">
-<h2>Gráfico de línea con los puntos en otro estilo con <strong>geom_line</strong></h2>
-<p>Para cambiar el estilo de los puntos en un gráfico de línea se usan los parámetros <strong>size, shape, color</strong> y <strong>fill</strong>. Como ya habrá notado, estas alternativas para modificar la apariencia de los gráficos son comunes en casi todos los tipos de gráficos en <strong>ggplot2</strong>. La forma <strong>shape</strong> de los puntos predeterminada es un círculo con tamaño de 2, <strong>size=2</strong>. La opción de <strong>fill</strong> (para rellenar el punto con un color específico) es aplicable solamente al parámetro <strong>shape</strong> con valor de 21 al 25.</p>
-<p>Un punto importante que hay que observar es que si las líneas y los puntos son de diferentes colores, se tienen que especificar los puntos con <strong>geom_point</strong> después de la línea con <strong>geom_line</strong> ya que ggplot funciona con capas de información. En otras palabras, lo que se especifica primero, sale primero.</p>
+<div id="gráfico-de-línea-con-los-puntos-en-otro-estilo-con-geom_line"
+class="section level2">
+<h2>Gráfico de línea con los puntos en otro estilo con
+<strong>geom_line</strong></h2>
+<p>Para cambiar el estilo de los puntos en un gráfico de línea se usan
+los parámetros <strong>size, shape, color</strong> y
+<strong>fill</strong>. Como ya habrá notado, estas alternativas para
+modificar la apariencia de los gráficos son comunes en casi todos los
+tipos de gráficos en <strong>ggplot2</strong>. La forma
+<strong>shape</strong> de los puntos predeterminada es un círculo con
+tamaño de 2, <strong>size=2</strong>. La opción de <strong>fill</strong>
+(para rellenar el punto con un color específico) es aplicable solamente
+al parámetro <strong>shape</strong> con valor de 21 al 25.</p>
+<p>Un punto importante que hay que observar es que si las líneas y los
+puntos son de diferentes colores, se tienen que especificar los puntos
+con <strong>geom_point</strong> después de la línea con
+<strong>geom_line</strong> ya que ggplot funciona con capas de
+información. En otras palabras, lo que se especifica primero, sale
+primero.</p>
 <pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
                     group=Cases, color=Cases))+
   geom_line(size=3)+
@@ -975,7 +1132,13 @@ gt(head(subTiroide))</code></pre>
 <p><img src="G13_geom_line_files/figure-html/graficalinea5-1.png" width="672" /></p>
 <div id="ejemplo-de-modificar-el-orden-de-capas" class="section level3">
 <h3>Ejemplo de modificar el orden de capas</h3>
-<p>Nuevamente, si las líneas y los puntos son de diferentes colores, se tienen que especificar los puntos <strong>geom_point</strong> después de la función <strong>geom_line</strong>. Por ejemplo,se puede ver el resultado cuando <strong>geom_point</strong> se específica antes de la línea. Los puntos están debajo de la línea, lo que los hace difícil de apreciar. Recordemos entonces que el orden de las funciones puede tener un impacto muy importante en la producción de un gráfico.</p>
+<p>Nuevamente, si las líneas y los puntos son de diferentes colores, se
+tienen que especificar los puntos <strong>geom_point</strong> después de
+la función <strong>geom_line</strong>. Por ejemplo,se puede ver el
+resultado cuando <strong>geom_point</strong> se específica antes de la
+línea. Los puntos están debajo de la línea, lo que los hace difícil de
+apreciar. Recordemos entonces que el orden de las funciones puede tener
+un impacto muy importante en la producción de un gráfico.</p>
 <pre class="r"><code>ggplot(Tiroide, aes(x=as.integer(Year), y=Rate,
                     group=Cases, color=Cases))+
   geom_point(shape=22, size=4, color=&quot;blue&quot;, fill=&quot;white&quot;)+

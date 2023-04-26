@@ -14,8 +14,8 @@
 
 <title>Hojas de Datos</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -49,6 +49,7 @@
 
 
 
+
 <link rel="stylesheet" href="tutorial.css" type="text/css" />
 
 
@@ -73,6 +74,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -130,11 +134,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -163,8 +171,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -172,16 +180,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -298,7 +299,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -308,7 +309,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -341,7 +342,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -401,19 +402,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -422,10 +411,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -435,13 +427,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -450,10 +442,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -464,7 +456,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -501,23 +493,30 @@ div.tocify {
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <div id="datos-de-tremblay-et-al." class="section level3">
 <h3>Datos de Tremblay <em>et al</em>.</h3>
-<p>Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden usar para publicaciones excepto con permiso escrito del autor.</p>
+<p>Los siguientes datos son de R. L. Tremblay. Estos datos no se pueden
+usar para publicaciones excepto con permiso escrito del autor.</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="Data/DFMaria_student.csv">Huracan_Maria_Depression.csv</a></p>
+<li><p><a
+href="Data/DFMaria_student.csv">Huracan_Maria_Depression.csv</a></p>
 <p>Estos datos fueron recolectado despúes del huracán María.</p>
 <p>Metadata:</p>
 <ul>
 <li>Sexo, 1= Mujer; 2 = Hombres</li>
 <li>Escolaridad, major el número más escolaridad tiene</li>
-<li>Num_Pers_Hogar, Cantidad de persona que comparte el hogar familiar</li>
-<li>Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor el número mayor el salario</li>
-<li>Sala_Mens_Des, El salario mensual después del Huracán María, mayor el número mayor el salario</li>
-<li>Index_Dep5, Un indice de depresión 5 o más semanas después del Huracán.</li>
+<li>Num_Pers_Hogar, Cantidad de persona que comparte el hogar
+familiar</li>
+<li>Sala_Mens_Antes, El salario mensual antes del Huracán María, mayor
+el número mayor el salario</li>
+<li>Sala_Mens_Des, El salario mensual después del Huracán María, mayor
+el número mayor el salario</li>
+<li>Index_Dep5, Un indice de depresión 5 o más semanas después del
+Huracán.</li>
 </ul></li>
 <li><p><a href="Data/Student_Brassavola.csv">Brassavola</a></p></li>
 </ol>
 </div>
-<div id="datos-ofrecidos-por-denny-fernandez-del-viso" class="section level3">
+<div id="datos-ofrecidos-por-denny-fernandez-del-viso"
+class="section level3">
 <h3>Datos ofrecidos por Denny Fernandez del Viso</h3>
 <ol start="3" style="list-style-type: decimal">
 <li><a href="Data/mod_empiricos.xlsx">mod_empiricos.xlsx</a><br />
@@ -526,7 +525,8 @@ div.tocify {
 <li><a href="Data/Titanic.xlxs">Titanic.xlsx</a></li>
 </ol>
 </div>
-<div id="datos-del-libro-discovering-statistics-using-r" class="section level3">
+<div id="datos-del-libro-discovering-statistics-using-r"
+class="section level3">
 <h3>Datos del Libro <strong>Discovering Statistics Using R</strong></h3>
 <p>por Andy Field <em>et al.</em> 2012.</p>
 <ol start="6" style="list-style-type: decimal">
@@ -534,25 +534,31 @@ div.tocify {
 <li><a href="Data/pubs.csv">pubs</a></li>
 </ol>
 </div>
-<div id="datos-de-karn-and-penrose-publicado-en-1951." class="section level3">
+<div id="datos-de-karn-and-penrose-publicado-en-1951."
+class="section level3">
 <h3>Datos de Karn and Penrose publicado en 1951.</h3>
 <ol start="8" style="list-style-type: decimal">
-<li><a href="Data/Karn_Penrose_infant_survivorship.csv">Karn_Penrose</a></li>
+<li><a
+href="Data/Karn_Penrose_infant_survivorship.csv">Karn_Penrose</a></li>
 </ol>
 </div>
 <div id="datos-del-world-bank" class="section level3">
 <h3>Datos del <em>World Bank</em></h3>
 <ol start="9" style="list-style-type: decimal">
-<li><a href="Data/Proportion_smokers_world.csv">Proporcion_Fumadores</a></li>
+<li><a
+href="Data/Proportion_smokers_world.csv">Proporcion_Fumadores</a></li>
 </ol>
 <ul>
-<li>Proporción de la población que fuma en diferentes países en diferentes años.</li>
+<li>Proporción de la población que fuma en diferentes países en
+diferentes años.</li>
 </ul>
 </div>
-<div id="datos-para-ejercicio-de-los-talleres-de-facultad" class="section level3">
+<div id="datos-para-ejercicio-de-los-talleres-de-facultad"
+class="section level3">
 <h3>Datos para ejercicio de los talleres de facultad</h3>
 <ol start="10" style="list-style-type: decimal">
-<li><a href="Data/Philippine_Family_Income_Expenditure.csv">philippine</a></li>
+<li><a
+href="Data/Philippine_Family_Income_Expenditure.csv">philippine</a></li>
 <li><a href="Data/NY_CITY_CYCLIST.csv">NYC-cyclist</a></li>
 <li><a href="Data/%20Titanic.csv">Titanic</a></li>
 <li><a href="Data/GXM_Data.csv">Alien Flora of the Caribbean</a></li>

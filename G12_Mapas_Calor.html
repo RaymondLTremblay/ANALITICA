@@ -13,8 +13,8 @@
 
 <title>G12_Mapas_Calor</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -142,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -175,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -184,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -310,7 +311,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -320,7 +321,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -353,7 +354,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -413,19 +414,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -434,10 +423,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -447,13 +439,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -462,10 +454,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -476,7 +468,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -505,8 +497,9 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
-<div id="la-lista-de-packetes-para-analisis-de-los-mapas-de-calor" class="section level2">
+<pre><code>## [1] &quot;2023-04-26&quot;</code></pre>
+<div id="la-lista-de-packetes-para-analisis-de-los-mapas-de-calor"
+class="section level2">
 <h2>La lista de packetes para analisis de los Mapas de calor</h2>
 <pre class="r"><code>library(ggversa)
 library(GGally)
@@ -514,10 +507,22 @@ library(tidyverse)
 library(kableExtra)
 library(reshape2)</code></pre>
 </div>
-<div id="mapas-de-calor-o-mapas-críticos-o-heat-maps-con-geom_tile" class="section level2">
-<h2>Mapas de calor o mapas críticos o Heat Maps con <strong>geom_tile</strong></h2>
-<p>Cuando hay muchas variables en el análisis, a veces podría ser más fácil observar las diferencias entre ellas usando colores en vez de números; por ejemplo, para visualizar los coeficientes de correlación entre pares de variables continuas. Un mapa de calor (heat map en inglés) nos puede ayudar pues justamente es una visualización con gradientes de colores de valores continuos. Continuaremos utilizando la base de datos de la orquídea <em>Dipodium</em> para explicar los tres pasos para construir un mapa de calor de los coeficientes de correlación.</p>
-<p>Primero, necesitamos calcular los coeficientes de correlación con la opción <strong>cor</strong>. Luego visualizaremos los datos con la función <strong>kable</strong>.</p>
+<div id="mapas-de-calor-o-mapas-críticos-o-heat-maps-con-geom_tile"
+class="section level2">
+<h2>Mapas de calor o mapas críticos o Heat Maps con
+<strong>geom_tile</strong></h2>
+<p>Cuando hay muchas variables en el análisis, a veces podría ser más
+fácil observar las diferencias entre ellas usando colores en vez de
+números; por ejemplo, para visualizar los coeficientes de correlación
+entre pares de variables continuas. Un mapa de calor (heat map en
+inglés) nos puede ayudar pues justamente es una visualización con
+gradientes de colores de valores continuos. Continuaremos utilizando la
+base de datos de la orquídea <em>Dipodium</em> para explicar los tres
+pasos para construir un mapa de calor de los coeficientes de
+correlación.</p>
+<p>Primero, necesitamos calcular los coeficientes de correlación con la
+opción <strong>cor</strong>. Luego visualizaremos los datos con la
+función <strong>kable</strong>.</p>
 <pre class="r"><code>DWCor=round(cor(dipodium[c(3, 6, 8, 9, 13)],
                 use=&quot;pairwise.complete.obs&quot;),3)
 
@@ -648,7 +653,13 @@ Number_of_fruits
 </tr>
 </tbody>
 </table>
-<p>Segundo, reorganizaremos los datos en un data.frame usando la librería <strong>reshape2</strong> y la opción <strong>melt</strong>. En nuestro caso, lo que queremos es producir un data.frame con solo dos columnas con las variables en pares con su respectivo valor de correlación. En el nuevo data.frame, <strong>DWMelt</strong>, vemos tres columnas cada una representando las variables y la última con el valor de correlación.</p>
+<p>Segundo, reorganizaremos los datos en un data.frame usando la
+librería <strong>reshape2</strong> y la opción <strong>melt</strong>. En
+nuestro caso, lo que queremos es producir un data.frame con solo dos
+columnas con las variables en pares con su respectivo valor de
+correlación. En el nuevo data.frame, <strong>DWMelt</strong>, vemos tres
+columnas cada una representando las variables y la última con el valor
+de correlación.</p>
 </div>
 <div id="matriz-de-correlaciones" class="section level2">
 <h2>Matriz de correlaciones</h2>
@@ -662,14 +673,33 @@ head(DWMelt)</code></pre>
 ## 4      Height_Inflo      DBH      -0.100
 ## 5  Number_of_fruits      DBH      -0.009
 ## 6               DBH Distance       0.329</code></pre>
-<p>Finalmente, el tercer paso es producir la figura con <strong>geom_tile</strong>. El gráfico de la Figura se produce sin modificar los parámetros. En el segundo gráfico se modifican los colores usando la guía de color para asignarlos a diferentes grupos a la vez que se remueven los nombres de los ejes de <strong>X</strong> y de <strong>Y</strong>. A este mapa de calor básico se le asignan las variables de <strong>x</strong> y <strong>y</strong> y el valor que queremos que tenga un rango de color, en este caso el valor de correlación. Para remover el nombre de la variables <strong>x</strong> y <strong>y</strong>, se usa <strong>labs(x=NULL, y=NULL)</strong>, ya que ggplot2 lo pone automáticamente cuando se construye un gráfico.</p>
+<p>Finalmente, el tercer paso es producir la figura con
+<strong>geom_tile</strong>. El gráfico de la Figura se produce sin
+modificar los parámetros. En el segundo gráfico se modifican los colores
+usando la guía de color para asignarlos a diferentes grupos a la vez que
+se remueven los nombres de los ejes de <strong>X</strong> y de
+<strong>Y</strong>. A este mapa de calor básico se le asignan las
+variables de <strong>x</strong> y <strong>y</strong> y el valor que
+queremos que tenga un rango de color, en este caso el valor de
+correlación. Para remover el nombre de la variables <strong>x</strong> y
+<strong>y</strong>, se usa <strong>labs(x=NULL, y=NULL)</strong>, ya que
+ggplot2 lo pone automáticamente cuando se construye un gráfico.</p>
 <pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
   geom_tile(aes(fill=Correlation))+
   theme(axis.text.y=element_text(size=10, face=&quot;bold&quot;),
         axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
   labs(fill=&quot;Correlación&quot;)</code></pre>
 <p><img src="G12_Mapas_Calor_files/figure-html/heatmap1-1.png" width="672" /></p>
-<p>Le cambiamos los colores del gráfico, usando <strong>scale_fill_gradient2</strong>. Asignamos los valores más bajos al color amarillo, los más altos al rojo y los valores intermedios al color anaranjado. Para esta opción de <strong>scale_fill_gradient2</strong>, hay que asignar tanto los colores al extremo y el del medio. El resultado se puede ver en la Figura. Note que los valores de correlaciones varían de -1 a +1. El límite del rango se asigna especificando <strong>limits=c(valor mínimo, valor máximo)</strong>. Dado esto, en este ejemplo la intensidad de colores no es tan amplia porque no hay valores muy negativos.</p>
+<p>Le cambiamos los colores del gráfico, usando
+<strong>scale_fill_gradient2</strong>. Asignamos los valores más bajos
+al color amarillo, los más altos al rojo y los valores intermedios al
+color anaranjado. Para esta opción de
+<strong>scale_fill_gradient2</strong>, hay que asignar tanto los colores
+al extremo y el del medio. El resultado se puede ver en la Figura. Note
+que los valores de correlaciones varían de -1 a +1. El límite del rango
+se asigna especificando <strong>limits=c(valor mínimo, valor
+máximo)</strong>. Dado esto, en este ejemplo la intensidad de colores no
+es tan amplia porque no hay valores muy negativos.</p>
 <pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
   geom_tile(aes(fill=Correlation))+
   scale_fill_gradient2(low=&quot;white&quot;,
@@ -683,7 +713,8 @@ head(DWMelt)</code></pre>
         axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
   labs(fill=&quot;Correlación&quot;)</code></pre>
 <p><img src="G12_Mapas_Calor_files/figure-html/heatmap2-1.png" width="672" /></p>
-<p>En el siguiente gráfico, se cambia el valor intermedio a blanco (para valores más cercanos a cero).</p>
+<p>En el siguiente gráfico, se cambia el valor intermedio a blanco (para
+valores más cercanos a cero).</p>
 <pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
   geom_tile(aes(fill=Correlation))+
   scale_fill_gradient2(low=&quot;yellow&quot;,
@@ -697,7 +728,11 @@ head(DWMelt)</code></pre>
         axis.text.x=element_text(size=8, face=&quot;bold&quot;, angle = 90, hjust = 1))+
   labs(fill=&quot;Correlación&quot;)</code></pre>
 <p><img src="G12_Mapas_Calor_files/figure-html/heatmap3-1.png" width="672" /></p>
-<p>Se puede también hacer la selección de solamente dos colores con la función <strong>scale_fill_gradient</strong> (vea que esa opción no es lo mismo que <strong>scale_fill_gradient2</strong>). En este caso los gradientes de colores en el centro de la distribución (el cero) no está definido.</p>
+<p>Se puede también hacer la selección de solamente dos colores con la
+función <strong>scale_fill_gradient</strong> (vea que esa opción no es
+lo mismo que <strong>scale_fill_gradient2</strong>). En este caso los
+gradientes de colores en el centro de la distribución (el cero) no está
+definido.</p>
 <pre class="r"><code>ggplot(DWMelt, aes(x=x1, y=y1))+
   geom_tile(aes(fill=Correlation))+
   scale_fill_gradient(low=&quot;white&quot;,
@@ -711,7 +746,10 @@ head(DWMelt)</code></pre>
 </div>
 <div id="la-función-ggcorr" class="section level2">
 <h2>La función <strong>ggcorr</strong></h2>
-<p>La función <strong>ggcor</strong> tiene la ventaja de producir un gráfico de calor que representa solamente un espejo de los resultados. En los gráficos anteriores las misma información estaba ariba y abajo de la diagonal. Este represente solamente uno de los dos.</p>
+<p>La función <strong>ggcor</strong> tiene la ventaja de producir un
+gráfico de calor que representa solamente un espejo de los resultados.
+En los gráficos anteriores las misma información estaba ariba y abajo de
+la diagonal. Este represente solamente uno de los dos.</p>
 <pre class="r"><code>ggcorr(DWCor, low = &quot;steelblue&quot;, mid = &quot;white&quot;, high = &quot;darkred&quot;, nbreaks=5)</code></pre>
 <p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Para un segundo ejemplo de <strong>ggcorr</strong></p>
@@ -720,12 +758,16 @@ head(DWMelt)</code></pre>
   scale_alpha_manual(values = c(&quot;TRUE&quot; = 0.25, &quot;FALSE&quot; = 0)) +
   guides(color = FALSE, alpha = FALSE)</code></pre>
 <p><img src="G12_Mapas_Calor_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>Para muchos ejemplos vea este enlace. <a href="https://briatte.github.io/ggcorr/" class="uri">https://briatte.github.io/ggcorr/</a></p>
+<p>Para muchos ejemplos vea este enlace. <a
+href="https://briatte.github.io/ggcorr/"
+class="uri">https://briatte.github.io/ggcorr/</a></p>
 </div>
 <div id="opciones-y-parametros-de-geom_tile" class="section level2">
 <h2>Opciones y Parametros de <strong>geom_tile</strong></h2>
 <ul>
-<li><p>ggplot(el archivo de datos, aes(x= la variable discreta, y=variable continua, ymax= el valor máximo, ymin= el valor mínimo))</p></li>
+<li><p>ggplot(el archivo de datos, aes(x= la variable discreta,
+y=variable continua, ymax= el valor máximo, ymin= el valor
+mínimo))</p></li>
 <li><p>geom_tile(x, y, alpha, color, fill, linetype, size)</p></li>
 <li><p>alpha: la intensidad del color</p></li>
 <li><p>color: el color de la línea</p></li>

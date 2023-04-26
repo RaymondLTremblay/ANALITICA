@@ -14,8 +14,8 @@
 
 <title>Facet_wrap</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -412,19 +413,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -433,10 +422,13 @@ div.tocify {
     <li>
       <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
     </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -446,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -461,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -475,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -506,7 +498,7 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-08-26&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-26&quot;</code></pre>
 <pre class="r"><code>library(ggplot2)
 library(ggversa)
 library(lubridate)
@@ -516,7 +508,17 @@ library(tidyverse)</code></pre>
 </div>
 <div id="facet_wrap-descripción-general" class="section level1">
 <h1><strong>Facet_wrap</strong>: Descripción general</h1>
-<p>En este modulo se muestra una de las grandes ventajas de usar ggplot2. Para la producción de un gráfico por diferentes grupos o categorías, se usa la opción de <strong>facet_wrap()</strong>; o sea, cada grupo genera la producción de un gráfico. Por ejemplo, observe en la Figura que cada localidad de muestreo genera su propio gráfico. Para lograr esos cuatro gráficos, se necesitaron tres variables, en que por lo menos una es categórica. En este ejemplo se representa la cantidad de <em>Anolis</em> muestreado en el periodo seco y lluvioso separado por las cuatro localidades en el bosque usando geom_bar. Note la tilde, <strong>~</strong>, antes del nombre de la variable categórica <strong>Survey_Site</strong>.</p>
+<p>En este modulo se muestra una de las grandes ventajas de usar
+ggplot2. Para la producción de un gráfico por diferentes grupos o
+categorías, se usa la opción de <strong>facet_wrap()</strong>; o sea,
+cada grupo genera la producción de un gráfico. Por ejemplo, observe en
+la Figura que cada localidad de muestreo genera su propio gráfico. Para
+lograr esos cuatro gráficos, se necesitaron tres variables, en que por
+lo menos una es categórica. En este ejemplo se representa la cantidad de
+<em>Anolis</em> muestreado en el periodo seco y lluvioso separado por
+las cuatro localidades en el bosque usando geom_bar. Note la tilde,
+<strong>~</strong>, antes del nombre de la variable categórica
+<strong>Survey_Site</strong>.</p>
 <pre class="r"><code>barraA=ggplot(Anolis, aes(SEX_AGE, fill=SEASON))
 barraA+geom_bar()+  
   facet_wrap(~Survey_Site)+
@@ -524,7 +526,10 @@ barraA+geom_bar()+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <p><img src="G10_Facet_wrap_files/figure-html/facetwrap-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
-<p>En el próximo gráfico se usa <strong>geom_point</strong> combinado con <strong>facet_wrap</strong> con las variables de tamaño de los <em>Anolis</em> y la altitud del lugar de muestreo en donde el lagarto fue encontrado.</p>
+<p>En el próximo gráfico se usa <strong>geom_point</strong> combinado
+con <strong>facet_wrap</strong> con las variables de tamaño de los
+<em>Anolis</em> y la altitud del lugar de muestreo en donde el lagarto
+fue encontrado.</p>
 <pre class="r"><code>barraC=ggplot(Anolis, aes(SVL, HEIGHT))
 barraC+geom_point()+
   facet_wrap(~Survey_Site)+
@@ -534,7 +539,9 @@ barraC+geom_point()+
 <hr />
 <div id="facet_wrap-gráficos-en-una-fila" class="section level2">
 <h2><strong>Facet_wrap</strong>: Gráficos en una fila</h2>
-<p>Para cambiar la cantidad de columnas o filas se usa <strong>nrow</strong> y <strong>ncol</strong>. En el ejemplo ponemos todos los gráficos en una fila con <strong>nrow</strong> igual a 1.</p>
+<p>Para cambiar la cantidad de columnas o filas se usa
+<strong>nrow</strong> y <strong>ncol</strong>. En el ejemplo ponemos
+todos los gráficos en una fila con <strong>nrow</strong> igual a 1.</p>
 <pre class="r"><code>barraD=ggplot(Anolis, aes(SVL, HEIGHT))
 barraD+geom_point()+
   facet_wrap(~Survey_Site, nrow=1)+
@@ -545,47 +552,76 @@ barraD+geom_point()+
 </div>
 <div id="facet_wrap-gráficos-en-una-columna" class="section level2">
 <h2>Facet_wrap: Gráficos en una columna</h2>
-<p>Por otro lado, en el próximo ejemplo reorganizamos los gráficos para que queden uno debajo de los otros en una columna con <strong>ncol</strong> igual a 1.</p>
+<p>Por otro lado, en el próximo ejemplo reorganizamos los gráficos para
+que queden uno debajo de los otros en una columna con
+<strong>ncol</strong> igual a 1.</p>
 <pre class="r"><code>barraC=ggplot(Anolis, aes(SVL, HEIGHT))
 barraC+geom_point()+
   facet_wrap(~Survey_Site, ncol=1)+
   labs(y=&quot;Altitud&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G10_Facet_wrap_files/figure-html/facetwrap3-1.png" width="672" style="display: block; margin: auto;" /> ***</p>
+<p><img src="G10_Facet_wrap_files/figure-html/facetwrap3-1.png" width="672" style="display: block; margin: auto;" />
+***</p>
 </div>
 <div id="facet_wrap-con-escala-libre" class="section level2">
 <h2><strong>Facet_wrap</strong>: Con escala libre</h2>
-<p>A veces queremos tener los gráficos por categoría sobre la misma columna <strong>ncol=1</strong> pero que a la misma vez la escala de cada grupo se refleje de acuerdo a los datos. Note que en el gráfico anterior todas los gráficos tienen la misma escala de 0 a 60. Si queremos que las escalas en los ejes de <strong>X</strong> y <strong>Y</strong> queden ajustadas de acuerdo a los datos de cada grupo, se utiliza la opción y parámetro <strong>(scales=“free”)</strong> . Note en la Figura que ahora cada gráfico tiene su propria escala:</p>
+<p>A veces queremos tener los gráficos por categoría sobre la misma
+columna <strong>ncol=1</strong> pero que a la misma vez la escala de
+cada grupo se refleje de acuerdo a los datos. Note que en el gráfico
+anterior todas los gráficos tienen la misma escala de 0 a 60. Si
+queremos que las escalas en los ejes de <strong>X</strong> y
+<strong>Y</strong> queden ajustadas de acuerdo a los datos de cada
+grupo, se utiliza la opción y parámetro <strong>(scales=“free”)</strong>
+. Note en la Figura que ahora cada gráfico tiene su propria escala:</p>
 <pre class="r"><code>barraC=ggplot(Anolis, aes(SVL, HEIGHT))
 barraC+geom_point()+
   facet_wrap(~Survey_Site, ncol=1, scales=&quot;free&quot;)+
   labs(y=&quot;Altitud&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G10_Facet_wrap_files/figure-html/facetwrap3a-1.png" width="672" style="display: block; margin: auto;" /> ***</p>
+<p><img src="G10_Facet_wrap_files/figure-html/facetwrap3a-1.png" width="672" style="display: block; margin: auto;" />
+***</p>
 </div>
 <div id="facet_wrap-con-múltiples-variables" class="section level2">
 <h2><strong>Facet_wrap</strong>: Con múltiples variables</h2>
-<p>Podríamos también querer organizar los gráficos de acuerdo a múltiples variables categóricas mostrando así la agrupación de los datos. En el ejemplo se agrupan de acuerdo al sitio de muestreo (Gap, North, South o Woods) y al periodo del año (seco o mojado). De esta forma, se pueden producir gráficos agrupados por múltiples variables discretas. Note que lo único que se tuvo que hacer fue añadir <strong>~variable1 + variable2</strong>; en nuestro caso, <strong>~Survey_Site + SEASON</strong>.</p>
+<p>Podríamos también querer organizar los gráficos de acuerdo a
+múltiples variables categóricas mostrando así la agrupación de los
+datos. En el ejemplo se agrupan de acuerdo al sitio de muestreo (Gap,
+North, South o Woods) y al periodo del año (seco o mojado). De esta
+forma, se pueden producir gráficos agrupados por múltiples variables
+discretas. Note que lo único que se tuvo que hacer fue añadir
+<strong>~variable1 + variable2</strong>; en nuestro caso,
+<strong>~Survey_Site + SEASON</strong>.</p>
 <pre class="r"><code>barraE=ggplot(Anolis, aes(SVL, HEIGHT))
 barraE+geom_point()+
   facet_wrap(~Survey_Site+SEASON)+
   labs(y=&quot;Altitud&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G10_Facet_wrap_files/figure-html/facetwrap4-1.png" width="672" style="display: block; margin: auto;" /> ***</p>
+<p><img src="G10_Facet_wrap_files/figure-html/facetwrap4-1.png" width="672" style="display: block; margin: auto;" />
+***</p>
 </div>
-<div id="facet_wrap-mostrar-los-grupos-aunque-no-tengan-datos" class="section level2">
-<h2><strong>Facet_wrap</strong>: Mostrar los grupos aunque no tengan datos</h2>
-<p>En el ejemplo que hemos estado mostrando hay localidades en que no hay datos, como en Gap Tower en la época lluviosa, en South Tower en la época seca, y en Woods Walkway Tower en la época lluviosa, y por eso no aparecen en la figura. Si queremos mostrar los gráficos de esos sitios donde no existe información, se usa la opción de <strong>drop = FALSE</strong>.</p>
+<div id="facet_wrap-mostrar-los-grupos-aunque-no-tengan-datos"
+class="section level2">
+<h2><strong>Facet_wrap</strong>: Mostrar los grupos aunque no tengan
+datos</h2>
+<p>En el ejemplo que hemos estado mostrando hay localidades en que no
+hay datos, como en Gap Tower en la época lluviosa, en South Tower en la
+época seca, y en Woods Walkway Tower en la época lluviosa, y por eso no
+aparecen en la figura. Si queremos mostrar los gráficos de esos sitios
+donde no existe información, se usa la opción de <strong>drop =
+FALSE</strong>.</p>
 <pre class="r"><code>barraE=ggplot(Anolis, aes(SVL, HEIGHT))
 barraE+geom_point()+
   facet_wrap(~Survey_Site+SEASON,drop=FALSE)+
   labs(y=&quot;Altitud&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
-<p><img src="G10_Facet_wrap_files/figure-html/facetwrap4a-1.png" width="672" style="display: block; margin: auto;" /> ***</p>
+<p><img src="G10_Facet_wrap_files/figure-html/facetwrap4a-1.png" width="672" style="display: block; margin: auto;" />
+***</p>
 </div>
 <div id="cambiando-la-escala-con-scales" class="section level2">
 <h2>Cambiando la escala con <strong>scales</strong></h2>
-<p>En la Figura anterior todos los graficos muestran la misma escala para cada uno. Para que cada uno tenga su propia escala, nuevamente usamos <strong>scales=free</strong>.</p>
+<p>En la Figura anterior todos los graficos muestran la misma escala
+para cada uno. Para que cada uno tenga su propia escala, nuevamente
+usamos <strong>scales=free</strong>.</p>
 <pre class="r"><code>barraF=ggplot(Anolis, aes(SVL, HEIGHT))
 barraF+geom_point()+
   facet_wrap(~Survey_Site, scales=&quot;free&quot;)+
@@ -596,7 +632,24 @@ barraF+geom_point()+
 </div>
 <div id="solapamiento-de-datos-entre-los-grupos" class="section level2">
 <h2>Solapamiento de datos entre los grupos</h2>
-<p>A veces puede ser más fácil interpretar los datos y la distribución de un grupo si estos están solapados con los datos de los otros grupos, especialmente si se usan colores diferentes por grupo. Una alternativa es graficar todos los datos en cada uno de los gráficos individuales, pero que los que no son del gráfico que no se quiere resaltar se muestren en un color más atenuado, mientras que los datos que se quieren resaltar salgan en un color más prominente. Para lograr ese efecto, a continuación se crea un nuevo data frame con <strong>data = transform(Anolis, Survey_Site = NULL)</strong> basándonos en el data frame anterior. Con la opción NULL estamos removiendo la variable que usamos para hacer el facetting; o sea, la distribución de datos por categoría, que en nuestro caso es <strong>Survey_Site</strong>. También se le añade un color diferente a los cuatro grupos. Note que el código para el color atenuado, en este caso <strong>grey85</strong>, tiene que escribirse antes del código que graficará la variable que queremos resaltar con color <strong>Survey_Site</strong>, ya que esta última estará en una capa superior y, a consecuencia, se esconderán algunos de los puntos de la capa inferior.</p>
+<p>A veces puede ser más fácil interpretar los datos y la distribución
+de un grupo si estos están solapados con los datos de los otros grupos,
+especialmente si se usan colores diferentes por grupo. Una alternativa
+es graficar todos los datos en cada uno de los gráficos individuales,
+pero que los que no son del gráfico que no se quiere resaltar se
+muestren en un color más atenuado, mientras que los datos que se quieren
+resaltar salgan en un color más prominente. Para lograr ese efecto, a
+continuación se crea un nuevo data frame con <strong>data =
+transform(Anolis, Survey_Site = NULL)</strong> basándonos en el data
+frame anterior. Con la opción NULL estamos removiendo la variable que
+usamos para hacer el facetting; o sea, la distribución de datos por
+categoría, que en nuestro caso es <strong>Survey_Site</strong>. También
+se le añade un color diferente a los cuatro grupos. Note que el código
+para el color atenuado, en este caso <strong>grey85</strong>, tiene que
+escribirse antes del código que graficará la variable que queremos
+resaltar con color <strong>Survey_Site</strong>, ya que esta última
+estará en una capa superior y, a consecuencia, se esconderán algunos de
+los puntos de la capa inferior.</p>
 <pre class="r"><code>ggplot(Anolis, aes(x=SVL, y=HEIGHT, colour=Survey_Site))+
   geom_point(data = transform(Anolis,
             Survey_Site = NULL), colour = &quot;grey85&quot;)+
@@ -607,9 +660,13 @@ barraF+geom_point()+
 <p><img src="G10_Facet_wrap_files/figure-html/facetwrap6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
-<div id="cambiar-la-posición-del-nombre-del-grupo-en-el-eje-de-x" class="section level2">
-<h2>Cambiar la posición del nombre del grupo en el eje de <strong>X</strong></h2>
-<p>Para que el nombre de cada grupo salga debajo de cada gráfico en el eje de <strong>X</strong>, usar strip.position = “bottom”, “top”, “left”, “right”:</p>
+<div id="cambiar-la-posición-del-nombre-del-grupo-en-el-eje-de-x"
+class="section level2">
+<h2>Cambiar la posición del nombre del grupo en el eje de
+<strong>X</strong></h2>
+<p>Para que el nombre de cada grupo salga debajo de cada gráfico en el
+eje de <strong>X</strong>, usar strip.position = “bottom”, “top”,
+“left”, “right”:</p>
 <pre class="r"><code>ggplot(Anolis, aes(x=SVL, y=HEIGHT, colour=Survey_Site))+
   geom_point(data = transform(Anolis,
             Survey_Site = NULL), colour = &quot;grey85&quot;)+
@@ -620,9 +677,11 @@ barraF+geom_point()+
 <p><img src="G10_Facet_wrap_files/figure-html/facetwrap6a-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
-<div id="cambiar-el-nombre-del-grupo-al-eje-de-y" class="section level2">
+<div id="cambiar-el-nombre-del-grupo-al-eje-de-y"
+class="section level2">
 <h2>Cambiar el nombre del grupo al eje de <strong>Y</strong></h2>
-<p>El nombre de cada grupo se cambia al eje de Y al usando la función <strong>switch=y</strong>.</p>
+<p>El nombre de cada grupo se cambia al eje de Y al usando la función
+<strong>switch=y</strong>.</p>
 <pre class="r"><code>ggplot(Anolis, aes(x=SVL, y=HEIGHT, colour=Survey_Site))+
   geom_point(data = transform(Anolis,
             Survey_Site = NULL), colour = &quot;grey85&quot;)+
@@ -630,15 +689,38 @@ barraF+geom_point()+
   facet_wrap(~Survey_Site, strip.position = &quot;left&quot;)+
   labs(y=&quot;Altitud&quot;)+
   theme(legend.position=&quot;none&quot;)</code></pre>
-<pre><code>## Warning: Removed 1232 rows containing missing values (geom_point).</code></pre>
-<pre><code>## Warning: Removed 308 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1232 rows containing missing values
+## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 308 rows containing missing values
+## (`geom_point()`).</code></pre>
 <p><img src="G10_Facet_wrap_files/figure-html/facetwrap6b-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="demostración-con-datos-climatológicos" class="section level1">
 <h1>Demostración con datos climatológicos</h1>
-<p><strong>Facet_wrap</strong> se puede usar en combinación con todas las funciones tipo <strong>geom</strong>. A continuación se demostrará un ejemplo con <strong>geom_line</strong>. Para visualizar las ventajas de esa combinación, utilizaremos datos sobre las temperaturas mínimas diurnas de la ciudad de Morelia, Michoacán, México, disponible en CLIMCOM, <a href="http://clicom-mex.cicese.mx" class="uri">http://clicom-mex.cicese.mx</a>. Los datos del archivo original van de noviembre 1947 a marzo del 2012. A continuación solo se mostrarán del 1951 hasta el 1959. Note que aparecen todos los años juntos, lo que lo hace un poco difícil de analizar. Para reproducir este gráfico, primero hay que instalar y activar la librería <strong>lubridate</strong> que se usará para manipular los datos relacionados a las fechas. En el paquete <strong>lubridate</strong> se encuentra una serie de funciones para reorganizar y manipular datos de fechas y horas en distintos formatos. El segundo paso es seleccionar solamente los datos de interés con la opción <strong>with</strong>. El tercer paso es convertir los datos de fecha que estén en tres columnas, <strong>Mes</strong>, <strong>Dia</strong> y <strong>Year</strong> (o <strong>Año</strong>), y crear una columna de fecha donde la organización de la fecha es año-mes-día. El paso final es convertir la fecha al día del año (1-365).</p>
-<p>Veamos las primeras filas del archivo, donde en la primera se muestra que en el 8 de octubre de 1947 la temperatura mínima fue de 11C°.</p>
+<p><strong>Facet_wrap</strong> se puede usar en combinación con todas
+las funciones tipo <strong>geom</strong>. A continuación se demostrará
+un ejemplo con <strong>geom_line</strong>. Para visualizar las ventajas
+de esa combinación, utilizaremos datos sobre las temperaturas mínimas
+diurnas de la ciudad de Morelia, Michoacán, México, disponible en
+CLIMCOM, <a href="http://clicom-mex.cicese.mx"
+class="uri">http://clicom-mex.cicese.mx</a>. Los datos del archivo
+original van de noviembre 1947 a marzo del 2012. A continuación solo se
+mostrarán del 1951 hasta el 1959. Note que aparecen todos los años
+juntos, lo que lo hace un poco difícil de analizar. Para reproducir este
+gráfico, primero hay que instalar y activar la librería
+<strong>lubridate</strong> que se usará para manipular los datos
+relacionados a las fechas. En el paquete <strong>lubridate</strong> se
+encuentra una serie de funciones para reorganizar y manipular datos de
+fechas y horas en distintos formatos. El segundo paso es seleccionar
+solamente los datos de interés con la opción <strong>with</strong>. El
+tercer paso es convertir los datos de fecha que estén en tres columnas,
+<strong>Mes</strong>, <strong>Dia</strong> y <strong>Year</strong> (o
+<strong>Año</strong>), y crear una columna de fecha donde la
+organización de la fecha es año-mes-día. El paso final es convertir la
+fecha al día del año (1-365).</p>
+<p>Veamos las primeras filas del archivo, donde en la primera se muestra
+que en el 8 de octubre de 1947 la temperatura mínima fue de 11C°.</p>
 <pre class="r"><code>head(MORELIA.MICH.Tmin)</code></pre>
 <pre><code>##   Mes Dia Year Tmin
 ## 1  10   8 1947 11.0
@@ -647,12 +729,19 @@ barraF+geom_point()+
 ## 4  10  11 1947 10.0
 ## 5  10  12 1947 12.0
 ## 6  10  13 1947 12.5</code></pre>
-<p>Ahora se selecciona solamente parte de los datos, del 1 de enero del 1951 al 31 de diciembre del 1959.</p>
+<p>Ahora se selecciona solamente parte de los datos, del 1 de enero del
+1951 al 31 de diciembre del 1959.</p>
 <pre class="r"><code>MM=MORELIA.MICH.Tmin%&gt;%
   filter(Year&gt;1950 &amp; Year&lt;1960)</code></pre>
-<div id="unir-columnas-de-fecha-en-una-variable-tde-tiempo" class="section level2">
+<div id="unir-columnas-de-fecha-en-una-variable-tde-tiempo"
+class="section level2">
 <h2>Unir columnas de fecha en una variable tde tiempo</h2>
-<p>Ahora se define la variable para la fecha con la función <strong>ymd</strong> para indicar que el orden de la fecha es año-mes-día. También se identifica cuántos dígitos tiene cada elemento de la fecha utilizando <strong>%04</strong> para 4 cifras para el año y <strong>%02</strong> para dos cifras para mes y día. Subsiguientemente se identifica a cuál columna corresponde ubicar a cada uno.</p>
+<p>Ahora se define la variable para la fecha con la función
+<strong>ymd</strong> para indicar que el orden de la fecha es
+año-mes-día. También se identifica cuántos dígitos tiene cada elemento
+de la fecha utilizando <strong>%04</strong> para 4 cifras para el año y
+<strong>%02</strong> para dos cifras para mes y día. Subsiguientemente
+se identifica a cuál columna corresponde ubicar a cada uno.</p>
 <pre class="r"><code>library(lubridate)
 MM$fecha &lt;- with(MM, ymd(sprintf(&#39;%04d%02d%02d&#39;,
                                  Year, Mes, Dia)))
@@ -665,9 +754,15 @@ head(MM)</code></pre>
 ## 5   1   5 1951  1.5 1951-01-05
 ## 6   1   6 1951  3.0 1951-01-06</code></pre>
 </div>
-<div id="cambiando-la-fecha-en-posición-de-1-al-365-del-año" class="section level2">
+<div id="cambiando-la-fecha-en-posición-de-1-al-365-del-año"
+class="section level2">
 <h2>Cambiando la fecha en posición de 1 al 365 del año</h2>
-<p>Con la función <strong>yday</strong> se puede identificar cuál día de los 365 del año es que corresponde dentro de cada una de las fechas. Por ejemplo, el primero de enero corresponde al día 1 y el día 15 de febrero corresponde al día 46 del año (31 días de enero más los 15 días de febrero), y así sucesivamente. La nueva variable <strong>diaanual</strong> recoge esa información:</p>
+<p>Con la función <strong>yday</strong> se puede identificar cuál día de
+los 365 del año es que corresponde dentro de cada una de las fechas. Por
+ejemplo, el primero de enero corresponde al día 1 y el día 15 de febrero
+corresponde al día 46 del año (31 días de enero más los 15 días de
+febrero), y así sucesivamente. La nueva variable
+<strong>diaanual</strong> recoge esa información:</p>
 <pre class="r"><code>library(lubridate)
 MM$diaanual=yday(MM$fecha)
 tail(MM)</code></pre>
@@ -678,7 +773,10 @@ tail(MM)</code></pre>
 ## 3285  12  29 1959  0.0 1959-12-29      363
 ## 3286  12  30 1959 -0.6 1959-12-30      364
 ## 3287  12  31 1959 -1.1 1959-12-31      365</code></pre>
-<p>Veamos ahora el resultado. El gráfico de la figura produce una línea por cada año. Note que hay que identificar que el año es un factor usando <strong>color=factor(Year)</strong>. Si no se hace así, el año se interpretará como un valor continuo.</p>
+<p>Veamos ahora el resultado. El gráfico de la figura produce una línea
+por cada año. Note que hay que identificar que el año es un factor
+usando <strong>color=factor(Year)</strong>. Si no se hace así, el año se
+interpretará como un valor continuo.</p>
 <pre class="r"><code>ggplot(MM, aes(x=diaanual, y=Tmin, color=factor(Year)))+
   geom_line()+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
@@ -688,7 +786,12 @@ tail(MM)</code></pre>
 </div>
 <div id="facet_wrap-climatológico" class="section level2">
 <h2><strong>Facet_wrap</strong> climatológico</h2>
-<p>Como podemos apreciar en la Figura las líneas que representan las fechas son muy difíciles de analizar debido al solapamiento. Ahora utilizamos <strong>facet_wrap</strong> para que aparezcan separadas por la categoría de año, <strong>Year</strong>. Note la tilde en <strong>facet_wrap</strong>, <strong>~</strong>, antes del nombre de la variable categórica, <strong>Year</strong>.</p>
+<p>Como podemos apreciar en la Figura las líneas que representan las
+fechas son muy difíciles de analizar debido al solapamiento. Ahora
+utilizamos <strong>facet_wrap</strong> para que aparezcan separadas por
+la categoría de año, <strong>Year</strong>. Note la tilde en
+<strong>facet_wrap</strong>, <strong>~</strong>, antes del nombre de la
+variable categórica, <strong>Year</strong>.</p>
 <pre class="r"><code>ggplot(MM, aes(x=diaanual, y=Tmin, color=factor(Year)))+
   geom_line()+
   facet_wrap(~Year)+
@@ -698,9 +801,18 @@ tail(MM)</code></pre>
   ylab(&quot;Temperatura mínima&quot;)</code></pre>
 <p><img src="G10_Facet_wrap_files/figure-html/facetwrap8-1.png" width="672" /></p>
 </div>
-<div id="modificar-el-orden-en-que-se-presentan-los-gráficos" class="section level2">
+<div id="modificar-el-orden-en-que-se-presentan-los-gráficos"
+class="section level2">
 <h2>Modificar el orden en que se presentan los gráficos</h2>
-<p>Por omisión, los gráficos van a la horizontal primero (de izquierda a derecha) y luego hacia abajo. Si se desea que bajen a la vertical primero (de arriba para abajo) y luego a la izquierda, se usa la opción <strong>dir</strong>. De esa manera, se puede notar que ahora se llena la primera columna, después la segunda y luego la tercera columna, y así sucesivamente. Para lograr ese efecto se utilizó la opción <strong>dir=v</strong> en la función <strong>facet_wrap</strong>, <strong>v</strong> de vertical; o sea, que baje a la vertical primero.</p>
+<p>Por omisión, los gráficos van a la horizontal primero (de izquierda a
+derecha) y luego hacia abajo. Si se desea que bajen a la vertical
+primero (de arriba para abajo) y luego a la izquierda, se usa la opción
+<strong>dir</strong>. De esa manera, se puede notar que ahora se llena
+la primera columna, después la segunda y luego la tercera columna, y así
+sucesivamente. Para lograr ese efecto se utilizó la opción
+<strong>dir=v</strong> en la función <strong>facet_wrap</strong>,
+<strong>v</strong> de vertical; o sea, que baje a la vertical
+primero.</p>
 <pre class="r"><code>ggplot(MM, aes(x=diaanual, y=Tmin, color=factor(Year)))+
   geom_line()+
   facet_wrap(~Year, dir=&quot;v&quot;)+
@@ -715,14 +827,22 @@ tail(MM)</code></pre>
 <ul>
 <li><p>ggplot(el archivo de datos, aes(la variable continua))</p>
 <ul>
-<li><p>facet_wrap(<span class="math inline">\(\sim\)</span> a + b, scales, nrow, ncol, switch, drop, dir)</p></li>
-<li><p>facet: <span class="math inline">\(\sim\)</span> a + b o se puede usar un vector c(a + b)</p></li>
-<li><p>scales: usar <strong>free</strong> si se quiere que las escalas sean determinadas por los gráficos individualmente o que todos los gráficos tengan la misma escala</p></li>
+<li><p>facet_wrap(<span class="math inline">\(\sim\)</span> a + b,
+scales, nrow, ncol, switch, drop, dir)</p></li>
+<li><p>facet: <span class="math inline">\(\sim\)</span> a + b o se puede
+usar un vector c(a + b)</p></li>
+<li><p>scales: usar <strong>free</strong> si se quiere que las escalas
+sean determinadas por los gráficos individualmente o que todos los
+gráficos tengan la misma escala</p></li>
 <li><p>nrow: la cantidad de filas</p></li>
 <li><p>ncol: la cantidad de columnas</p></li>
-<li><p>switch: presenta la identificación de la categoría abajo cuando se usa <strong>X</strong>, y a la izquierda cuando se usa Y</p></li>
-<li><p>drop: añadir drop = FALSE para que muestre también las variables que no tienen información</p></li>
-<li><p>dir: dirección <strong>h</strong> para horizontal y <strong>v</strong> vertical <strong>h</strong> es la dirección predeterminada</p></li>
+<li><p>switch: presenta la identificación de la categoría abajo cuando
+se usa <strong>X</strong>, y a la izquierda cuando se usa Y</p></li>
+<li><p>drop: añadir drop = FALSE para que muestre también las variables
+que no tienen información</p></li>
+<li><p>dir: dirección <strong>h</strong> para horizontal y
+<strong>v</strong> vertical <strong>h</strong> es la dirección
+predeterminada</p></li>
 </ul></li>
 </ul>
 </div>
