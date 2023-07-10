@@ -14,7 +14,7 @@
 
 <title>Tema_3_Graficos</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -528,7 +528,7 @@ class="uri">https://studysites.sagepub.com/dsur/study/articles.htm</a></li>
 <pre class="r"><code>library(readr)
 Exam_Anxiety &lt;- read_csv(&quot;Data/Exam Anxiety.csv&quot;)</code></pre>
 <pre><code>## Rows: 103 Columns: 5
-## ── Column specification ──────────────────────────────
+## ── Column specification ────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): Gender
 ## dbl (4): Code, Revise, Exam, Anxiety
@@ -632,7 +632,8 @@ ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety))+
   geom_smooth(method=&quot;lm&quot;, colour=&quot;aquamarine&quot;) +  # lm is for linear model 
   labs(x = &quot;El largo del Sepalo&quot;, y = &quot;El largo del Petalo&quot;)+
   ggtitle(&quot;Basic geom_point and linear regression&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code># How to add a title, &quot;ggtitle&quot;
 
@@ -640,27 +641,31 @@ ggplot(Exam_Anxiety, aes(y=Exam, x=Anxiety))+
 
 ggsave(&quot;Iris_size.png&quot;) # .jpeg/.jpg/.tiff</code></pre>
 <pre><code>## Saving 7 x 5 in image
-## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <pre class="r"><code>#Simple scatter with regression line
 scatter &lt;- ggplot(examData, aes(Anxiety, Exam))
 scatter + geom_point(shape=20, colour=&quot;red&quot;) + 
           geom_smooth(method = &quot;lm&quot;, colour = &quot;blue&quot;, se = F) +  # se = F, remueve el intervalo de confianza
   labs(x = &quot;Exam Anxiety&quot;, y = &quot;Exam Performance %&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/more%20examples-1.png" width="672" /></p>
 <p>#Simple scatter with regression line + CI</p>
 <pre class="r"><code>scatter &lt;- ggplot(examData, aes(Anxiety, Exam))
 scatter + geom_point() + 
           geom_smooth(method = &quot;lm&quot;, colour = &quot;Red&quot;)+ 
   labs(x = &quot;Exam Anxiety&quot;, y = &quot;Exam Performance %&quot;) </code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>#Regresión lineal más el intervalo de confianza.</p>
 <pre class="r"><code>scatter &lt;- ggplot(examData, aes(Anxiety, Exam))
 scatter + geom_point() + 
   geom_smooth(method = &quot;lm&quot;, colour = &quot;Red&quot;, alpha = 0.2, fill = &quot;orange&quot;) + 
   labs(x = &quot;Exam Anxiety&quot;, y = &quot;Exam Performance %&quot;) </code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>#Regresión lineal más el intervalo de confianza, usar “colour” por
 multiples grupos.</p>
@@ -671,7 +676,8 @@ multiples grupos.</p>
   geom_smooth(method=&quot;lm&quot;) +  # lm is for linear model 
   labs(x = &quot;Exam Anxiety Score&quot;, y = &quot;Exam Performance %&quot;)+
   ggtitle(&quot;Basic geom_point and linear regression&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="constructing-histograms" class="section level1">
@@ -689,7 +695,7 @@ would go down dramatically over the 3 days of the festival.</p>
 <pre class="r"><code>library(readr)
 DownloadFestival &lt;- read_csv(&quot;Data/DownloadFestival.csv&quot;)</code></pre>
 <pre><code>## Rows: 810 Columns: 5
-## ── Column specification ──────────────────────────────
+## ── Column specification ────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): gender
 ## dbl (4): ticknumb, day1, day2, day3
@@ -739,8 +745,8 @@ head(FD)  # ver las 6 primeras filas</code></pre>
 <pre class="r"><code> ggplot(FD, aes(day1))+ 
   geom_histogram(colour=&quot;white&quot;, fill=&quot;steelblue&quot;) + 
   labs(x = &quot;Hygiene (Day 1 of Festival)&quot;, y = &quot;Frequency&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value
-## with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`.
+## Pick better value with `binwidth`.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/histograms-1.png" width="672" /></p>
 <pre class="r"><code>  summary(DownloadFestival)</code></pre>
 <pre><code>##     ticknumb       gender               day1             day2       
@@ -783,8 +789,8 @@ summary(Festivalday1)</code></pre>
 festivalHistogram + 
   geom_histogram(fill=&quot;orange&quot;, colour=&quot;white&quot;) + 
   labs(x = &quot;Hygiene (Day 1 of Festival)&quot;, y = &quot;Frequency&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value
-## with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`.
+## Pick better value with `binwidth`.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/no%20outliers-1.png" width="672" /></p>
 <p>How to create boxplots</p>
 <pre class="r"><code>festivalBoxplot &lt;- ggplot(Festivalday1, aes(x=1,y=day1))
@@ -798,10 +804,11 @@ festivalBoxplot +
   geom_point()+
   geom_boxplot(fill=&quot;yellow&quot;, alpha=0.1) + 
   labs(x = &quot;Gender&quot;, y = &quot;Hygiene (Day 2 of Festival)&quot;)</code></pre>
-<pre><code>## Warning: Removed 546 rows containing non-finite values
+<pre><code>## Warning: Removed 546 rows containing
+## non-finite values
 ## (`stat_boxplot()`).</code></pre>
-<pre><code>## Warning: Removed 546 rows containing missing values
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 546 rows containing missing
+## values (`geom_point()`).</code></pre>
 <p><img src="E4-Graficos_files/figure-html/boxplots-1.png" width="672" /></p>
 <p>How to detect outliers. Determine the % of data which are outliers
 (IN Spanish, sesgado) NOTE: that I’m constructing a function, which does
@@ -877,7 +884,7 @@ Hmisc)</li>
 library(readr)
 Hiccups &lt;- read_csv(&quot;Data/Hiccups.csv&quot;)</code></pre>
 <pre><code>## Rows: 15 Columns: 4
-## ── Column specification ──────────────────────────────
+## ── Column specification ────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (4): Baseline, Tongue, Carotid, Rectum
 ## 
@@ -917,12 +924,17 @@ head(hiccups)</code></pre>
   stat_summary(fun.y = &quot;mean&quot;, geom = &quot;line&quot;, aes(group = 1),colour = &quot;Red&quot;, linetype = &quot;dashed&quot;) +      
   stat_summary(fun.data = mean_cl_boot, geom = &quot;errorbar&quot;, width = 0.2, colour=&quot;blue&quot;) + 
   labs(x = &quot;Intervention&quot;, y = &quot;Mean Number of Hiccups&quot;)</code></pre>
-<pre><code>## Warning: The `fun.y` argument of `stat_summary()` is
-## deprecated as of ggplot2 3.3.0.
-## ℹ Please use the `fun` argument instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see
-## where this warning was generated.</code></pre>
+<pre><code>## Warning: The `fun.y` argument of
+## `stat_summary()` is deprecated as
+## of ggplot2 3.3.0.
+## ℹ Please use the `fun` argument
+##   instead.
+## This warning is displayed once
+## every 8 hours.
+## Call
+## `lifecycle::last_lifecycle_warnings()`
+## to see where this warning was
+## generated.</code></pre>
 <p><img src="E4-Graficos_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(hiccups, aes(y=Num_Hiccups,x=Intervention))+ 
   stat_summary(fun.y = mean, geom = &quot;point&quot;) + 

@@ -48,7 +48,7 @@ Preparación de los datos
 names(calidad_aire)
 temp.promedio2 <- calidad_aire %>%
   dplyr::select(Mes, Temp) %>% 
-  dplyr::group_by(Mes) %>%
+  group_by(Mes) %>%
   summarise(Temp = mean( Temp))
 temp.promedio2
 ```
@@ -64,7 +64,7 @@ Ahora creamos un gráfico estático de los datos con **geom_col**.
 ```{r animado por mes barras}
 library(ggplot2)
 
-s=  ggplot(temp.promedio2, aes(Mes, Temp, fill = Temp)) +
+s=ggplot(temp.promedio2, aes(Mes, Temp, fill = Temp)) +
   geom_col() +
   scale_fill_distiller(palette = "Reds", direction = 1) +
   theme_minimal() +

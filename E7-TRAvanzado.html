@@ -14,7 +14,7 @@
 
 <title>Taller IPERT - R Avanzado</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -1680,14 +1680,16 @@ ggplot(Titanic, aes(x=Nfamily, y=Survived, na.rm = TRUE)) +
   geom_smooth(method = &quot;glm&quot;, 
     method.args = list(family = &quot;binomial&quot;), 
     se = FALSE)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E7-TRAvanzado_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(Titanic, aes(x=Age, y=Survived, na.rm = TRUE)) +
   geom_point() +
   geom_smooth(method = &quot;glm&quot;, 
     method.args = list(family = &quot;binomial&quot;), 
     se = FALSE)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y
+## ~ x&#39;</code></pre>
 <p><img src="E7-TRAvanzado_files/figure-html/unnamed-chunk-25-2.png" width="672" /></p>
 </div>
 <div id="tablas-de-contraste" class="section level3">
@@ -1719,10 +1721,6 @@ summary(reglog) </code></pre>
 ## Call:
 ## glm(formula = Survived ~ Age + Sex + Pclass + Nfamily, family = binomial(logit), 
 ##     data = Titanic)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.4140  -0.5749  -0.3683   0.4974   2.5730  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
@@ -1794,10 +1792,6 @@ summary(model1)</code></pre>
 ## glm(formula = Survived ~ Age + Sex + Pclass + Nfamily, family = binomial(logit), 
 ##     data = train.data)
 ## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.3812  -0.5904  -0.3753   0.5213   2.5877  
-## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
 ## (Intercept)  4.159842   0.488266   8.520  &lt; 2e-16 ***
@@ -1840,10 +1834,6 @@ summary(model2)</code></pre>
 ## Call:
 ## glm(formula = Survived ~ Sex + Pclass + Nfamily, family = binomial(logit), 
 ##     data = train.data)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.4628  -0.5975  -0.3861   0.4905   2.8112  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    

@@ -568,6 +568,10 @@ detach(StressAnxiety)
 ```
 
 
+For an excellent new step by step use of the beta regression and why it is usefull see this website.
+
+https://www.andrewheiss.com/blog/2021/11/08/beta-regression-guide/
+
 
 
 

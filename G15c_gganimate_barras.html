@@ -14,7 +14,7 @@
 
 <title>G15c_gganimate_barras</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -423,7 +423,7 @@ $(document).ready(function () {
 
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.1     ✔ readr     2.1.4
+## ✔ dplyr     1.1.2     ✔ readr     2.1.4
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.0
 ## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
 ## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
@@ -472,7 +472,7 @@ un nuevo data frame que llamamos <strong>temp.promedio</strong>.</p>
 <pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Viento&quot;  &quot;Temp&quot;    &quot;Mes&quot;     &quot;Día&quot;</code></pre>
 <pre class="r"><code>temp.promedio2 &lt;- calidad_aire %&gt;%
   dplyr::select(Mes, Temp) %&gt;% 
-  dplyr::group_by(Mes) %&gt;%
+  group_by(Mes) %&gt;%
   summarise(Temp = mean( Temp))
 temp.promedio2</code></pre>
 <pre><code>## # A tibble: 5 × 2
@@ -489,7 +489,7 @@ temp.promedio2</code></pre>
 <strong>geom_col</strong>.</p>
 <pre class="r"><code>library(ggplot2)
 
-s=  ggplot(temp.promedio2, aes(Mes, Temp, fill = Temp)) +
+s=ggplot(temp.promedio2, aes(Mes, Temp, fill = Temp)) +
   geom_col() +
   scale_fill_distiller(palette = &quot;Reds&quot;, direction = 1) +
   theme_minimal() +

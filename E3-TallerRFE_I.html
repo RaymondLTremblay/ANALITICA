@@ -15,7 +15,7 @@
 
 <title>Taller RFE 20191026</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -1073,7 +1073,7 @@ use the following basic code:</p>
 <pre class="r"><code>library(readr)
 honeymoondata &lt;- read_csv(&quot;Data/honeymoon.csv&quot;)</code></pre>
 <pre><code>## Rows: 115 Columns: 6
-## ── Column specification ──────────────────────────────
+## ── Column specification ────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (6): Person, Satisfaction_Base, Satisfaction_6_Months, Satisfaction_12_M...
 ## 
@@ -1114,7 +1114,7 @@ procedure.</p>
 <pre class="r"><code>library(readr)
 melocactus &lt;- read_csv(&quot;Data/melocactus.csv&quot;)</code></pre>
 <pre><code>## Rows: 145 Columns: 5
-## ── Column specification ──────────────────────────────
+## ── Column specification ────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): estado
 ## dbl (4): azimuto, distancia, alturatotal, longinflo
@@ -1326,19 +1326,27 @@ Now a more detailed histogram, including several <em>layers</em>:</p>
                 args = list(mean = mean(melodata$alturatotal, na.rm = TRUE), 
                             sd = sd(melodata$alturatotal, na.rm = TRUE)), 
                 colour = &quot;red&quot;, size = 1)</code></pre>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in
-## ggplot2 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines
+## was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see
-## where this warning was generated.</code></pre>
+## This warning is displayed once
+## every 8 hours.
+## Call
+## `lifecycle::last_lifecycle_warnings()`
+## to see where this warning was
+## generated.</code></pre>
 <pre class="r"><code>hist.melodata</code></pre>
-<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated
-## in ggplot2 3.4.0.
-## ℹ Please use `after_stat(density)` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see
-## where this warning was generated.</code></pre>
+<pre><code>## Warning: The dot-dot notation
+## (`..density..`) was deprecated in
+## ggplot2 3.4.0.
+## ℹ Please use `after_stat(density)`
+##   instead.
+## This warning is displayed once
+## every 8 hours.
+## Call
+## `lifecycle::last_lifecycle_warnings()`
+## to see where this warning was
+## generated.</code></pre>
 <p><img src="E3-TallerRFE_I_files/figure-html/histoplus-1.png" width="672" /></p>
 </div>
 </div>
