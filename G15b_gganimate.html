@@ -14,7 +14,7 @@
 
 <title>G15b_gganimate</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -515,7 +515,7 @@ con la función <strong>group</strong>.</p>
 <p>Comenzamos con cambiar el nombre de algunas variables al
 castellano</p>
 <pre class="r"><code>names(airquality) # Nombres originales</code></pre>
-<pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Wind&quot;    &quot;Temp&quot;    &quot;Month&quot;   &quot;Day&quot;</code></pre>
+<pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Viento&quot;  &quot;Temp&quot;    &quot;Mes&quot;     &quot;Día&quot;</code></pre>
 <pre class="r"><code>names(airquality)[3] &lt;- &#39;Viento&#39;
 names(airquality)[5] &lt;- &#39;Mes&#39;
 names(airquality)[6] &lt;- &#39;Día&#39;
@@ -542,14 +542,10 @@ t</code></pre>
 variable de <strong>Día</strong>, añadiendo
 <strong>transition_reveal(Día)</strong></p>
 <pre class="r"><code>t + transition_reveal( Día)</code></pre>
-<pre><code>## `geom_line()`: Each group consists
-## of only one observation.
-## ℹ Do you need to adjust the group
-##   aesthetic?
-## `geom_line()`: Each group consists
-## of only one observation.
-## ℹ Do you need to adjust the group
-##   aesthetic?</code></pre>
+<pre><code>## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
 <p><img
 src="G15b_gganimate_files/figure-html/grafico%20lineal%20transiciones-1.gif" /><!-- --></p>
 </div>
@@ -560,14 +556,10 @@ src="G15b_gganimate_files/figure-html/grafico%20lineal%20transiciones-1.gif" /><
   geom_point() +
   transition_reveal( Día)</code></pre>
 <pre class="r"><code>animate(cambio_m, height = 800, width = 800)</code></pre>
-<pre><code>## `geom_line()`: Each group consists
-## of only one observation.
-## ℹ Do you need to adjust the group
-##   aesthetic?
-## `geom_line()`: Each group consists
-## of only one observation.
-## ℹ Do you need to adjust the group
-##   aesthetic?</code></pre>
+<pre><code>## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
 <p><img
 src="G15b_gganimate_files/figure-html/salvar%20el%20grafico-1.gif" /><!-- --></p>
 <pre class="r"><code># anim_save(&quot;cambio_m.gif&quot;)</code></pre>
@@ -578,14 +570,10 @@ src="G15b_gganimate_files/figure-html/salvar%20el%20grafico-1.gif" /><!-- --></p
 seq_along(Día)</strong>.</p>
 <pre class="r"><code>t + geom_point(aes(group = seq_along( Día ))) +
   transition_reveal( Día)</code></pre>
-<pre><code>## `geom_line()`: Each group consists
-## of only one observation.
-## ℹ Do you need to adjust the group
-##   aesthetic?
-## `geom_line()`: Each group consists
-## of only one observation.
-## ℹ Do you need to adjust the group
-##   aesthetic?</code></pre>
+<pre><code>## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
 <p><img
 src="G15b_gganimate_files/figure-html/puntos%20permanentes-1.gif" /><!-- --></p>
 </div>

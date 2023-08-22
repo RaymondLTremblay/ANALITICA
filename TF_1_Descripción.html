@@ -13,8 +13,8 @@
 
 <title>Taller para Facultad</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -42,6 +42,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 
@@ -72,6 +73,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -129,11 +133,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -162,8 +170,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -171,16 +179,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -297,7 +298,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -307,7 +308,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -340,7 +341,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -400,7 +401,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Talleres
      
     <span class="caret"></span>
@@ -415,7 +416,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -454,7 +455,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -490,19 +491,33 @@ div.tocify {
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
 <hr />
 <blockquote>
-<p>“Activities reported in this website was supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
+<p>“Activities reported in this website was supported by the National
+Institute Of General Medical Sciences of the National Institutes of
+Health under Award Number R25GM121270. The content is solely the
+responsibility of the authors and does not necessarily represent the
+official views of the National Institutes of Health.”</p>
 </blockquote>
-<div id="taller-de-analisis-cuantitativo-para-especialista" class="section level1">
+<div id="taller-de-analisis-cuantitativo-para-especialista"
+class="section level1">
 <h1>Taller de Analisis Cuantitativo para especialista</h1>
-<p>Limitado a 10 personas: 2:30 horas por día y luego reuniones individuales con los participantes para consulta personal.</p>
+<p>Limitado a 10 personas: 2:30 horas por día y luego reuniones
+individuales con los participantes para consulta personal.</p>
 <hr />
 <div id="taller-virtual-plataforma-msteam" class="section level2">
 <h2>Taller virtual (plataforma MSTeam)</h2>
-<p>El plan es ofrecer el taller en noviembre (3 sábados: 2:30 horas).</p>
+<p>El plan es ofrecer el taller en noviembre (3 sábados: 2:30
+horas).</p>
 </div>
 <div id="tema" class="section level2">
 <h2>Tema:</h2>
-<p>Objetivo del taller: Evaluar diferentes enfoques de modelos lineales que incluyen información sobre la construcción del modelo en R, supuestos de los modelos, comparación de modelos. TODOS los participantes ya deben estar familiarizados con Rstudio, RMarkdown y el paquete tidyverse. Este es un taller intermedio / avanzado sobre la aplicabilidad de los siguientes enfoques de modelos lineales. Se espera que todos los participantes tengan R, RStudio, RMarkdown y los paquetes actualizados.</p>
+<p>Objetivo del taller: Evaluar diferentes enfoques de modelos lineales
+que incluyen información sobre la construcción del modelo en R,
+supuestos de los modelos, comparación de modelos. TODOS los
+participantes ya deben estar familiarizados con Rstudio, RMarkdown y el
+paquete tidyverse. Este es un taller intermedio / avanzado sobre la
+aplicabilidad de los siguientes enfoques de modelos lineales. Se espera
+que todos los participantes tengan R, RStudio, RMarkdown y los paquetes
+actualizados.</p>
 <p>Temas a cubrir:</p>
 <ol style="list-style-type: decimal">
 <li>Día 1:
@@ -521,7 +536,8 @@ div.tocify {
 </ul></li>
 <li>Día 3
 <ul>
-<li>Regresión beta (para la variable de respuesta limitado entre [0, 1])</li>
+<li>Regresión beta (para la variable de respuesta limitado entre [0,
+1])</li>
 <li>Criterio de información
 <ul>
 <li>AIC (criterio de información de Akaike)</li>
@@ -536,7 +552,11 @@ div.tocify {
 <div id="horario" class="section level1">
 <h1>Horario:</h1>
 <p>7, 14, 21 de noviembre de 2020. De 10 a 12:15 h.</p>
-<p>Además, todos los participantes tendrán acceso a al menos una consulta privada individual para su propia investigación para evaluar el método estadístico utilizado y los enfoques de visualización. Hora y fecha a coordinar con el R. L. Tremblay (preferiblemente tardes y fines de semana).</p>
+<p>Además, todos los participantes tendrán acceso a al menos una
+consulta privada individual para su propia investigación para evaluar el
+método estadístico utilizado y los enfoques de visualización. Hora y
+fecha a coordinar con el R. L. Tremblay (preferiblemente tardes y fines
+de semana).</p>
 <hr />
 <p><img src="Graficos/PROMOCION_TALLER_AVANZADO_DE_R.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>

@@ -252,7 +252,7 @@ Cuando hay un grupo no indentificado típicamente se usa **NA** en la el archivo
 
 
 conNA=dipodium%>%
-  select(Species_Name, Number_of_fruits)%>%
+  dplyr::select(Species_Name, Number_of_fruits)%>%
   ggplot(aes(Species_Name, Number_of_fruits, fill=Species_Name))+
 geom_dotplot(dotsize=.5, stackdir="center", alpha=.5, binaxis = "y") +
   labs(x="Especie de orquídea", y="Número de frutos")+
@@ -261,7 +261,7 @@ geom_dotplot(dotsize=.5, stackdir="center", alpha=.5, binaxis = "y") +
 
 
 sinNA=dipodium%>%
-  select(Species_Name, Number_of_fruits)%>%
+  dplyr::select(Species_Name, Number_of_fruits)%>%
   drop_na()%>%
   ggplot(aes(Species_Name, Number_of_fruits, fill=Species_Name))+
 geom_dotplot(dotsize=.5, stackdir="center", alpha=.9, binaxis = "y") +

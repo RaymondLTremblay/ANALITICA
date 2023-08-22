@@ -14,8 +14,8 @@
 
 <title>Gráfico de puntos de Wilkinson</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -296,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -401,45 +402,33 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -449,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -464,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -478,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -509,7 +498,7 @@ div.tocify {
 
 
 <p>Fecha de la última revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2023-08-22&quot;</code></pre>
 <div id="gráficos-de-puntos-con-geom_dotplot" class="section level1">
 <h1>Gráficos de puntos con <strong>geom_dotplot</strong></h1>
 <pre class="r"><code># Es necesario instalar los siguienntes paquetes:
@@ -522,13 +511,26 @@ library(gridExtra) # Un paquete para organizar las figuras de ggplot2
 
 # Mostrar las primeros 6 filas con la función *head*
 gt(head(dipodium)) </code></pre>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="wjgdbnbhmx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wjgdbnbhmx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wjgdbnbhmx thead, #wjgdbnbhmx tbody, #wjgdbnbhmx tfoot, #wjgdbnbhmx tr, #wjgdbnbhmx td, #wjgdbnbhmx th {
+  border-style: none;
+}
+
+#wjgdbnbhmx p {
+  margin: 0;
+  padding: 0;
 }
 
 #wjgdbnbhmx .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -551,6 +553,35 @@ gt(head(dipodium)) </code></pre>
   border-left-color: #D3D3D3;
 }
 
+#wjgdbnbhmx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wjgdbnbhmx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wjgdbnbhmx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
 #wjgdbnbhmx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
@@ -561,26 +592,6 @@ gt(head(dipodium)) </code></pre>
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
-}
-
-#wjgdbnbhmx .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#wjgdbnbhmx .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
 }
 
 #wjgdbnbhmx .gt_bottom_border {
@@ -650,14 +661,21 @@ gt(head(dipodium)) </code></pre>
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
+#wjgdbnbhmx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #wjgdbnbhmx .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -676,6 +694,7 @@ gt(head(dipodium)) </code></pre>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #wjgdbnbhmx .gt_empty_group_heading {
@@ -729,7 +748,30 @@ gt(head(dipodium)) </code></pre>
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wjgdbnbhmx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wjgdbnbhmx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wjgdbnbhmx .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
 #wjgdbnbhmx .gt_summary_row {
@@ -743,13 +785,22 @@ gt(head(dipodium)) </code></pre>
 }
 
 #wjgdbnbhmx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wjgdbnbhmx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wjgdbnbhmx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #wjgdbnbhmx .gt_grand_summary_row {
@@ -770,6 +821,16 @@ gt(head(dipodium)) </code></pre>
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#wjgdbnbhmx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
 }
 
 #wjgdbnbhmx .gt_striped {
@@ -802,7 +863,10 @@ gt(head(dipodium)) </code></pre>
 #wjgdbnbhmx .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #wjgdbnbhmx .gt_sourcenotes {
@@ -821,7 +885,10 @@ gt(head(dipodium)) </code></pre>
 
 #wjgdbnbhmx .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #wjgdbnbhmx .gt_left {
@@ -854,194 +921,221 @@ gt(head(dipodium)) </code></pre>
 }
 
 #wjgdbnbhmx .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wjgdbnbhmx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wjgdbnbhmx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wjgdbnbhmx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wjgdbnbhmx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wjgdbnbhmx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wjgdbnbhmx .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<div id="wjgdbnbhmx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Tree Number</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Tree species</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">DBH</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Plant number</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Ramet number</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Distance</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Orientation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Number_of_Flowers</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Height_Inflo</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Herbivory</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">RowPosition_NF</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Number_Flowers_position</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Number_of_fruits</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Perc_FR_set</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">pardalinum_or_roseum</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Fruit_position_effect</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Frutos_si_o_no</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">P_or_R_Infl_Lenght</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Num of fruits</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Species_Name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Cardinal orientation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">PropFR</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Tree Number">Tree Number</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Tree species">Tree species</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="DBH">DBH</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Plant number">Plant number</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ramet number">Ramet number</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Distance">Distance</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Orientation">Orientation</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number_of_Flowers">Number_of_Flowers</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Height_Inflo">Height_Inflo</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Herbivory">Herbivory</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RowPosition_NF">RowPosition_NF</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number_Flowers_position">Number_Flowers_position</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number_of_fruits">Number_of_fruits</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Perc_FR_set">Perc_FR_set</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="pardalinum_or_roseum">pardalinum_or_roseum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Fruit_position_effect">Fruit_position_effect</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Frutos_si_o_no">Frutos_si_o_no</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="P_or_R_Infl_Lenght">P_or_R_Infl_Lenght</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Num of fruits">Num of fruits</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Species_Name">Species_Name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Cardinal orientation">Cardinal orientation</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_left">E.o</td>
-      <td class="gt_row gt_right">75</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">2.47</td>
-      <td class="gt_row gt_right">40</td>
-      <td class="gt_row gt_center">11</td>
-      <td class="gt_row gt_center">35</td>
-      <td class="gt_row gt_left">n</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_center">24</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_right">0.00</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">0.0001</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_left">E.o</td>
-      <td class="gt_row gt_right">76</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">1.97</td>
-      <td class="gt_row gt_right">50</td>
-      <td class="gt_row gt_center">19</td>
-      <td class="gt_row gt_center">47</td>
-      <td class="gt_row gt_left">n</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_center">23</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_right">0.00</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_right">0.0001</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_left">E.o</td>
-      <td class="gt_row gt_right">76</td>
-      <td class="gt_row gt_center">3</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">1.95</td>
-      <td class="gt_row gt_right">350</td>
-      <td class="gt_row gt_center">18</td>
-      <td class="gt_row gt_center">63</td>
-      <td class="gt_row gt_left">n</td>
-      <td class="gt_row gt_center">3</td>
-      <td class="gt_row gt_center">25</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">0.04</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">3</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">8</td>
-      <td class="gt_row gt_right">0.0401</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">3</td>
-      <td class="gt_row gt_left">E.o</td>
-      <td class="gt_row gt_right">58</td>
-      <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">3.24</td>
-      <td class="gt_row gt_right">210</td>
-      <td class="gt_row gt_center">24</td>
-      <td class="gt_row gt_center">47</td>
-      <td class="gt_row gt_left">n</td>
-      <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_center">20</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">0.25</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">0.2501</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_left">E.o</td>
-      <td class="gt_row gt_right">NA</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">0.85</td>
-      <td class="gt_row gt_right">80</td>
-      <td class="gt_row gt_center">25</td>
-      <td class="gt_row gt_center">61</td>
-      <td class="gt_row gt_left">n</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_center">13</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_right">0.00</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_right">0.0001</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_left">E.o</td>
-      <td class="gt_row gt_right">59</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_right">2.62</td>
-      <td class="gt_row gt_right">160</td>
-      <td class="gt_row gt_center">17</td>
-      <td class="gt_row gt_center">35</td>
-      <td class="gt_row gt_left">n</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">25</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_right">0.08</td>
-      <td class="gt_row gt_left">p</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_left">r</td>
-      <td class="gt_row gt_center">2</td>
-      <td class="gt_row gt_left">p</td>
-      <td class="gt_row gt_center">4</td>
-      <td class="gt_row gt_right">0.0801</td>
-    </tr>
+    <tr><td headers="Tree Number" class="gt_row gt_right">1</td>
+<td headers="Tree species" class="gt_row gt_left">E.o</td>
+<td headers="DBH" class="gt_row gt_right">75</td>
+<td headers="Plant number" class="gt_row gt_right">1</td>
+<td headers="Ramet number" class="gt_row gt_right">1</td>
+<td headers="Distance" class="gt_row gt_right">2.47</td>
+<td headers="Orientation" class="gt_row gt_right">40</td>
+<td headers="Number_of_Flowers" class="gt_row gt_right">11</td>
+<td headers="Height_Inflo" class="gt_row gt_right">35</td>
+<td headers="Herbivory" class="gt_row gt_left">n</td>
+<td headers="RowPosition_NF" class="gt_row gt_right">1</td>
+<td headers="Number_Flowers_position" class="gt_row gt_right">24</td>
+<td headers="Number_of_fruits" class="gt_row gt_right">0</td>
+<td headers="Perc_FR_set" class="gt_row gt_right">0.00</td>
+<td headers="pardalinum_or_roseum" class="gt_row gt_left">r</td>
+<td headers="Fruit_position_effect" class="gt_row gt_right">1</td>
+<td headers="Frutos_si_o_no" class="gt_row gt_right">0</td>
+<td headers="P_or_R_Infl_Lenght" class="gt_row gt_left">r</td>
+<td headers="Num of fruits" class="gt_row gt_right">0</td>
+<td headers="Species_Name" class="gt_row gt_left">r</td>
+<td headers="Cardinal orientation" class="gt_row gt_right">1</td></tr>
+    <tr><td headers="Tree Number" class="gt_row gt_right">1</td>
+<td headers="Tree species" class="gt_row gt_left">E.o</td>
+<td headers="DBH" class="gt_row gt_right">76</td>
+<td headers="Plant number" class="gt_row gt_right">2</td>
+<td headers="Ramet number" class="gt_row gt_right">1</td>
+<td headers="Distance" class="gt_row gt_right">1.97</td>
+<td headers="Orientation" class="gt_row gt_right">50</td>
+<td headers="Number_of_Flowers" class="gt_row gt_right">19</td>
+<td headers="Height_Inflo" class="gt_row gt_right">47</td>
+<td headers="Herbivory" class="gt_row gt_left">n</td>
+<td headers="RowPosition_NF" class="gt_row gt_right">2</td>
+<td headers="Number_Flowers_position" class="gt_row gt_right">23</td>
+<td headers="Number_of_fruits" class="gt_row gt_right">0</td>
+<td headers="Perc_FR_set" class="gt_row gt_right">0.00</td>
+<td headers="pardalinum_or_roseum" class="gt_row gt_left">r</td>
+<td headers="Fruit_position_effect" class="gt_row gt_right">2</td>
+<td headers="Frutos_si_o_no" class="gt_row gt_right">0</td>
+<td headers="P_or_R_Infl_Lenght" class="gt_row gt_left">r</td>
+<td headers="Num of fruits" class="gt_row gt_right">0</td>
+<td headers="Species_Name" class="gt_row gt_left">r</td>
+<td headers="Cardinal orientation" class="gt_row gt_right">2</td></tr>
+    <tr><td headers="Tree Number" class="gt_row gt_right">2</td>
+<td headers="Tree species" class="gt_row gt_left">E.o</td>
+<td headers="DBH" class="gt_row gt_right">76</td>
+<td headers="Plant number" class="gt_row gt_right">3</td>
+<td headers="Ramet number" class="gt_row gt_right">1</td>
+<td headers="Distance" class="gt_row gt_right">1.95</td>
+<td headers="Orientation" class="gt_row gt_right">350</td>
+<td headers="Number_of_Flowers" class="gt_row gt_right">18</td>
+<td headers="Height_Inflo" class="gt_row gt_right">63</td>
+<td headers="Herbivory" class="gt_row gt_left">n</td>
+<td headers="RowPosition_NF" class="gt_row gt_right">3</td>
+<td headers="Number_Flowers_position" class="gt_row gt_right">25</td>
+<td headers="Number_of_fruits" class="gt_row gt_right">1</td>
+<td headers="Perc_FR_set" class="gt_row gt_right">0.04</td>
+<td headers="pardalinum_or_roseum" class="gt_row gt_left">r</td>
+<td headers="Fruit_position_effect" class="gt_row gt_right">3</td>
+<td headers="Frutos_si_o_no" class="gt_row gt_right">0</td>
+<td headers="P_or_R_Infl_Lenght" class="gt_row gt_left">r</td>
+<td headers="Num of fruits" class="gt_row gt_right">1</td>
+<td headers="Species_Name" class="gt_row gt_left">r</td>
+<td headers="Cardinal orientation" class="gt_row gt_right">8</td></tr>
+    <tr><td headers="Tree Number" class="gt_row gt_right">3</td>
+<td headers="Tree species" class="gt_row gt_left">E.o</td>
+<td headers="DBH" class="gt_row gt_right">58</td>
+<td headers="Plant number" class="gt_row gt_right">4</td>
+<td headers="Ramet number" class="gt_row gt_right">1</td>
+<td headers="Distance" class="gt_row gt_right">3.24</td>
+<td headers="Orientation" class="gt_row gt_right">210</td>
+<td headers="Number_of_Flowers" class="gt_row gt_right">24</td>
+<td headers="Height_Inflo" class="gt_row gt_right">47</td>
+<td headers="Herbivory" class="gt_row gt_left">n</td>
+<td headers="RowPosition_NF" class="gt_row gt_right">4</td>
+<td headers="Number_Flowers_position" class="gt_row gt_right">20</td>
+<td headers="Number_of_fruits" class="gt_row gt_right">5</td>
+<td headers="Perc_FR_set" class="gt_row gt_right">0.25</td>
+<td headers="pardalinum_or_roseum" class="gt_row gt_left">r</td>
+<td headers="Fruit_position_effect" class="gt_row gt_right">4</td>
+<td headers="Frutos_si_o_no" class="gt_row gt_right">0</td>
+<td headers="P_or_R_Infl_Lenght" class="gt_row gt_left">r</td>
+<td headers="Num of fruits" class="gt_row gt_right">5</td>
+<td headers="Species_Name" class="gt_row gt_left">r</td>
+<td headers="Cardinal orientation" class="gt_row gt_right">5</td></tr>
+    <tr><td headers="Tree Number" class="gt_row gt_right">4</td>
+<td headers="Tree species" class="gt_row gt_left">E.o</td>
+<td headers="DBH" class="gt_row gt_right">NA</td>
+<td headers="Plant number" class="gt_row gt_right">5</td>
+<td headers="Ramet number" class="gt_row gt_right">1</td>
+<td headers="Distance" class="gt_row gt_right">0.85</td>
+<td headers="Orientation" class="gt_row gt_right">80</td>
+<td headers="Number_of_Flowers" class="gt_row gt_right">25</td>
+<td headers="Height_Inflo" class="gt_row gt_right">61</td>
+<td headers="Herbivory" class="gt_row gt_left">n</td>
+<td headers="RowPosition_NF" class="gt_row gt_right">5</td>
+<td headers="Number_Flowers_position" class="gt_row gt_right">13</td>
+<td headers="Number_of_fruits" class="gt_row gt_right">0</td>
+<td headers="Perc_FR_set" class="gt_row gt_right">0.00</td>
+<td headers="pardalinum_or_roseum" class="gt_row gt_left">r</td>
+<td headers="Fruit_position_effect" class="gt_row gt_right">5</td>
+<td headers="Frutos_si_o_no" class="gt_row gt_right">0</td>
+<td headers="P_or_R_Infl_Lenght" class="gt_row gt_left">r</td>
+<td headers="Num of fruits" class="gt_row gt_right">0</td>
+<td headers="Species_Name" class="gt_row gt_left">r</td>
+<td headers="Cardinal orientation" class="gt_row gt_right">2</td></tr>
+    <tr><td headers="Tree Number" class="gt_row gt_right">5</td>
+<td headers="Tree species" class="gt_row gt_left">E.o</td>
+<td headers="DBH" class="gt_row gt_right">59</td>
+<td headers="Plant number" class="gt_row gt_right">6</td>
+<td headers="Ramet number" class="gt_row gt_right">1</td>
+<td headers="Distance" class="gt_row gt_right">2.62</td>
+<td headers="Orientation" class="gt_row gt_right">160</td>
+<td headers="Number_of_Flowers" class="gt_row gt_right">17</td>
+<td headers="Height_Inflo" class="gt_row gt_right">35</td>
+<td headers="Herbivory" class="gt_row gt_left">n</td>
+<td headers="RowPosition_NF" class="gt_row gt_right">6</td>
+<td headers="Number_Flowers_position" class="gt_row gt_right">25</td>
+<td headers="Number_of_fruits" class="gt_row gt_right">2</td>
+<td headers="Perc_FR_set" class="gt_row gt_right">0.08</td>
+<td headers="pardalinum_or_roseum" class="gt_row gt_left">p</td>
+<td headers="Fruit_position_effect" class="gt_row gt_right">6</td>
+<td headers="Frutos_si_o_no" class="gt_row gt_right">0</td>
+<td headers="P_or_R_Infl_Lenght" class="gt_row gt_left">r</td>
+<td headers="Num of fruits" class="gt_row gt_right">2</td>
+<td headers="Species_Name" class="gt_row gt_left">p</td>
+<td headers="Cardinal orientation" class="gt_row gt_right">4</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <hr />
 <div id="gráfico-para-una-variable-discreta" class="section level2">
 <h2>Gráfico para una variable discreta</h2>
-<p>Los gráficos de una variable frecuentemente tienen como objetivo evaluar la dispersión de un conjunto de datos. Estos datos pueden ser continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos (agrupados por categoría). A continuación se demuestra la producción de gráficos cuando la variable es discreta al representar el número de frutos. (Los casos en que la variable es continua se explica en detalle como un tópico aparte de visualización.)</p>
+<p>Los gráficos de una variable frecuentemente tienen como objetivo
+evaluar la dispersión de un conjunto de datos. Estos datos pueden ser
+continuos (por ejemplo, medidas de largo o ancho, conteos) o discretos
+(agrupados por categoría). A continuación se demuestra la producción de
+gráficos cuando la variable es discreta al representar el número de
+frutos. (Los casos en que la variable es continua se explica en detalle
+como un tópico aparte de visualización.)</p>
 <div id="gráficos-de-puntos-wilkinson" class="section level3">
 <h3>Gráficos de puntos Wilkinson</h3>
-<p>En el gráfico de puntos, conocido como <em>Wilkinson dotplot</em>, la posición de los compartimentos (bins), depende de los datos, mientras que la concentración de los puntos determina el ancho máximo de los compartimentos. De forma predeterminada los datos serán agrupados uno por encima de los otros en el eje de <em>Y</em>. Ese gráfico se hace con la función con <strong>geom_dotplot</strong>. Esto se demuestra en el gráfico <strong>Figura: Gráfico básico de puntos Wilkinson</strong> que utiliza los datos de la orquídea <em>dipodium</em> del archivo de <strong>ggversa</strong>. Note que se podría haber usado <strong>geom_dotplot</strong> sin parámetros adicionales y los puntos quedarían representados de color negro. El parámetro <strong>fill</strong> cambia el color de los puntos y el parámetro <strong>colour</strong> o <strong>color</strong> cambia el color de la línea que rodea los puntos.</p>
+<p>En el gráfico de puntos, conocido como <em>Wilkinson dotplot</em>, la
+posición de los compartimentos (bins), depende de los datos, mientras
+que la concentración de los puntos determina el ancho máximo de los
+compartimentos. De forma predeterminada los datos serán agrupados uno
+por encima de los otros en el eje de <em>Y</em>. Ese gráfico se hace con
+la función con <strong>geom_dotplot</strong>. Esto se demuestra en el
+gráfico <strong>Figura: Gráfico básico de puntos Wilkinson</strong> que
+utiliza los datos de la orquídea <em>dipodium</em> del archivo de
+<strong>ggversa</strong>. Note que se podría haber usado
+<strong>geom_dotplot</strong> sin parámetros adicionales y los puntos
+quedarían representados de color negro. El parámetro
+<strong>fill</strong> cambia el color de los puntos y el parámetro
+<strong>colour</strong> o <strong>color</strong> cambia el color de la
+línea que rodea los puntos.</p>
 <hr />
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))
 
@@ -1055,7 +1149,21 @@ a+geom_dotplot(fill=&quot;blue&quot;, colour=&quot;yellow&quot;,
 </div>
 <div id="definir-la-posición-de-los-puntos" class="section level3">
 <h3>Definir la posición de los puntos</h3>
-<p>Podemos definir la posición de los puntos en el eje de <em>Y</em> con la opción <strong>stackdir</strong> y los parámetros. Por ejemplo, se pueden centrar los puntos al eje de <em>Y</em> como se muestra en la <strong>Figura.a: Con puntos centrados al eje de Y</strong> (en rojo). Como se puede apreciar, para especificar la dirección en que se quieren ubicar los puntos, se indica que los puntos comiencen al centro con el parámetro <strong>center</strong>. Si se desea que se desplieguen alineados justo al centro, con <strong>centerwhole</strong> (<strong>Figura.b: Alineas justo al centro</strong>, en azul); si desde abajo, con <strong>up</strong> (<strong>Figura.c: Puntos desplegados desde arriba</strong>, en anaranjado); y desde arriba, con <strong>down</strong> (<strong>Figura.d: Puntos desplegados desde arriba</strong>, en negro). <span style="color: red;"><strong>OJO: No se ve claramente la diferencia entre parámetro center y parámetro centerwhole o algo no está bien explicado.</strong></span></p>
+<p>Podemos definir la posición de los puntos en el eje de <em>Y</em> con
+la opción <strong>stackdir</strong> y los parámetros. Por ejemplo, se
+pueden centrar los puntos al eje de <em>Y</em> como se muestra en la
+<strong>Figura.a: Con puntos centrados al eje de Y</strong> (en rojo).
+Como se puede apreciar, para especificar la dirección en que se quieren
+ubicar los puntos, se indica que los puntos comiencen al centro con el
+parámetro <strong>center</strong>. Si se desea que se desplieguen
+alineados justo al centro, con <strong>centerwhole</strong>
+(<strong>Figura.b: Alineas justo al centro</strong>, en azul); si desde
+abajo, con <strong>up</strong> (<strong>Figura.c: Puntos desplegados
+desde arriba</strong>, en anaranjado); y desde arriba, con
+<strong>down</strong> (<strong>Figura.d: Puntos desplegados desde
+arriba</strong>, en negro). <span style="color: red;"><strong>OJO: No se
+ve claramente la diferencia entre parámetro center y parámetro
+centerwhole o algo no está bien explicado.</strong></span></p>
 <pre class="r"><code># práctica cambiando stackdir con los parámetros center, centerwhole, up, down:
 
 a=ggplot(dipodium, aes(Number_of_fruits))
@@ -1093,8 +1201,23 @@ d=d+geom_dotplot(fill=&quot;black&quot;, colour=&quot;white&quot;,
 </div>
 <div id="modificar-la-estética-del-gráfico" class="section level3">
 <h3>Modificar la estética del gráfico</h3>
-<p>A continuación se demostrará cómo modificar algunas características del gráfico <strong>geom_dotplot</strong>; por ejemplo, el tamaño y color de los puntos, y la intensidad del color. (NOTE: Cuando se utilicen otras funciones tipo <strong>geom_</strong>, muchas de las opciones explicadas a continuación pueden ser viables y aplicables.)</p>
-<p>Se cambia el tamaño de los puntos con <strong>dotsize</strong>, a la vez que se cambia la orientación de los datos como se muestra en la <strong>Figura.a: Dotplot con puntos más grandes</strong>. Por otro lado, en la <strong>Figura.b: Dotplot con puntos más pequeños y menos intensos</strong> se cambia la intensidad del color usando <strong>alpha</strong> (0.5 en este caso). Esa opción tiene un rango de 0 (color pálido) a 1 (color intenso); en otras palabras, cuando se usan valores altos, resulta en mayor intensidad el color en la opción <strong>fill</strong> (color rojo en este caso), y cuando se usan valores bajos la intensidad del color es más tenue. Note que en los dos gráficos se cambia el <strong>stackratio</strong>, que es la proporción de solapamiento de puntos.</p>
+<p>A continuación se demostrará cómo modificar algunas características
+del gráfico <strong>geom_dotplot</strong>; por ejemplo, el tamaño y
+color de los puntos, y la intensidad del color. (NOTE: Cuando se
+utilicen otras funciones tipo <strong>geom_</strong>, muchas de las
+opciones explicadas a continuación pueden ser viables y aplicables.)</p>
+<p>Se cambia el tamaño de los puntos con <strong>dotsize</strong>, a la
+vez que se cambia la orientación de los datos como se muestra en la
+<strong>Figura.a: Dotplot con puntos más grandes</strong>. Por otro
+lado, en la <strong>Figura.b: Dotplot con puntos más pequeños y menos
+intensos</strong> se cambia la intensidad del color usando
+<strong>alpha</strong> (0.5 en este caso). Esa opción tiene un rango de
+0 (color pálido) a 1 (color intenso); en otras palabras, cuando se usan
+valores altos, resulta en mayor intensidad el color en la opción
+<strong>fill</strong> (color rojo en este caso), y cuando se usan
+valores bajos la intensidad del color es más tenue. Note que en los dos
+gráficos se cambia el <strong>stackratio</strong>, que es la proporción
+de solapamiento de puntos.</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))+
   geom_dotplot(fill=&quot;blue&quot;, colour=&quot;black&quot;,
                dotsize=3, stackdir=&quot;center&quot;,  stackratio = 0.2) +
@@ -1118,7 +1241,14 @@ b=ggplot(dipodium, aes(Number_of_fruits))+
 </div>
 <div id="controlar-solapamiento-de-puntos" class="section level3">
 <h3>Controlar solapamiento de puntos</h3>
-<p>La opción de <strong>stackratio</strong> es para especificar el grado de solapamiento de los puntos uno sobre el otro, o el espacio que separa cada punto. A la figura anteriormente, ahora se le añade un solapamiento diferente. Además, para que los puntos no se solapen unos con otros se usa la función <strong>position=dodge</strong>. Si quiere modificar el solapamiento tiene que usar <strong>position=position_dodge(width = 0.1)</strong> para identificar la cantidad de solapamiento de los grupos, más pequeño el número más solapamiento entre los grupos</p>
+<p>La opción de <strong>stackratio</strong> es para especificar el grado
+de solapamiento de los puntos uno sobre el otro, o el espacio que separa
+cada punto. A la figura anteriormente, ahora se le añade un solapamiento
+diferente. Además, para que los puntos no se solapen unos con otros se
+usa la función <strong>position=dodge</strong>. Si quiere modificar el
+solapamiento tiene que usar <strong>position=position_dodge(width =
+0.1)</strong> para identificar la cantidad de solapamiento de los
+grupos, más pequeño el número más solapamiento entre los grupos</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))+
   geom_dotplot(binwidth = .3, stackratio = .7, position = &quot;dodge&quot;) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
@@ -1136,7 +1266,13 @@ geom_dotplot(binwidth = .3, stackratio = .7, position=position_dodge(width = 0.7
 </div>
 <div id="cómo-apilar-los-puntos" class="section level3">
 <h3>Cómo apilar los puntos</h3>
-<p>Ahora veremos cómo ubicar los puntos uno encima de los otros o sea apilar los puntos pero que a la misma vez la cantidad de puntos cambie de acuerdo al grupo. Continuaremos con el ejemplo anterior de las orquídeas <em>Dipodium</em>. En la Figura se usa la opción <strong>stackgroups</strong> en combinación con <strong>binwidth</strong> y <strong>method</strong> para lograr ese efecto, tal como se muestra a continuación:</p>
+<p>Ahora veremos cómo ubicar los puntos uno encima de los otros o sea
+apilar los puntos pero que a la misma vez la cantidad de puntos cambie
+de acuerdo al grupo. Continuaremos con el ejemplo anterior de las
+orquídeas <em>Dipodium</em>. En la Figura se usa la opción
+<strong>stackgroups</strong> en combinación con
+<strong>binwidth</strong> y <strong>method</strong> para lograr ese
+efecto, tal como se muestra a continuación:</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
 a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = &quot;histodot&quot;, stackratio = 0.5) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
@@ -1146,7 +1282,21 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, method = &quot;histodot&quot;,
 </div>
 <div id="definir-ancho-de-compartimentos" class="section level3">
 <h3>Definir ancho de compartimentos</h3>
-<p>El ancho de los compartimentos (o puntos en nuestro caso) es por defecto 1/30 el rango de los datos. Eso se puede cambiar utilizando la opción <strong>binwidth</strong> (binwidth o sea el ancho del compartimento). Cuando el método (o sea, si se especifica la opción <strong>method</strong>) para representar los puntos es la densidad de puntos (opción <strong>dotdensity</strong>), entonces <strong>binwidth</strong> es el máximo del ancho de compartimiento. Alternativamente, cuando el método se específica como <strong>histodot</strong>, el <strong>binwidth</strong> organizará los puntos a una distancia fija de los compartimiento. A continuación, se demuestra la opción por densidad de puntos (así es por omisión) y con un ancho de 2 y de 1 por punto. Para este caso, las categorías están agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3 frutos y así subsiguientemente. Además, se cambió el tamaño de los puntos con <strong>dotsize</strong> a 0.1.</p>
+<p>El ancho de los compartimentos (o puntos en nuestro caso) es por
+defecto 1/30 el rango de los datos. Eso se puede cambiar utilizando la
+opción <strong>binwidth</strong> (binwidth o sea el ancho del
+compartimento). Cuando el método (o sea, si se especifica la opción
+<strong>method</strong>) para representar los puntos es la densidad de
+puntos (opción <strong>dotdensity</strong>), entonces
+<strong>binwidth</strong> es el máximo del ancho de compartimiento.
+Alternativamente, cuando el método se específica como
+<strong>histodot</strong>, el <strong>binwidth</strong> organizará los
+puntos a una distancia fija de los compartimiento. A continuación, se
+demuestra la opción por densidad de puntos (así es por omisión) y con un
+ancho de 2 y de 1 por punto. Para este caso, las categorías están
+agrupadas por unidades de 2; las plantas con 0 y 1 fruto, con 2 y 3
+frutos y así subsiguientemente. Además, se cambió el tamaño de los
+puntos con <strong>dotsize</strong> a 0.1.</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits))+
   geom_dotplot(binwidth = 2, dotsize=0.1) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
@@ -1162,7 +1312,11 @@ b=ggplot(dipodium, aes(Number_of_fruits))+
 </div>
 <div id="alternativa-para-apilar-los-puntos" class="section level3">
 <h3>Alternativa para apilar los puntos</h3>
-<p>Otra alternativa para lograr la misma representación de poner los puntos uno encima de los otros por grupo es utilizar la opción <strong>binpositions</strong> con el parámetro <strong>all</strong>, como se muestra en la <strong>Figura: Con los puntos apilados</strong>.</p>
+<p>Otra alternativa para lograr la misma representación de poner los
+puntos uno encima de los otros por grupo es utilizar la opción
+<strong>binpositions</strong> con el parámetro <strong>all</strong>,
+como se muestra en la <strong>Figura: Con los puntos
+apilados</strong>.</p>
 <pre class="r"><code>a=ggplot(dipodium, aes(Number_of_fruits, fill=Species_Name))
 a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = &quot;all&quot;, dotsize = .5) +
   labs(x=&quot;Número de Frutos&quot;, y=&quot;Frecuencia&quot;)+
@@ -1174,9 +1328,25 @@ a+geom_dotplot(stackgroups = TRUE, binwidth = .5, binpositions = &quot;all&quot;
 </div>
 <div id="remover-los-na-con-drop_na" class="section level2">
 <h2>Remover los <strong>NA</strong> con <strong>drop_na</strong></h2>
-<p>Cuando hay un grupo no indentificado típicamente se usa <strong>NA</strong> en la el archivo para identifica la falta de información. En otros programas por ejemplo se usa el <strong>999</strong>. En este archivo se identificó dos especie de orquídea, <em>Dipodium roseum</em> y <em>Dipodium pardalinum</em> y hubo ocasiones que no se podia asignar la información una especies especifica (ya que se parecen mucho morfologicamente). Entonces, se identificó como <strong>NA</strong> en el gráfico (la columna de puntos de la derecha). Normalmente uno no va a querer mostrar esos datos al menos que haya una razón para ello. Esos datos se pueden remover utilizando una opción de excluir datos innecesarios del archivo antes de generar el gráfico. Con las funciones en <strong>drop_na</strong> del paquete <strong>tidyr</strong> uno puede remover las variables que tienen <strong>NA</strong>. Se aprovecha y se usa también la opción binaxis para agrupar los datos en el eje de X o el eje de Y; en este ejemplo se agruparon los puntos en el eje de Y como se muestra a continuación, pero centrados los puntos de acuerdo a su especie:</p>
+<p>Cuando hay un grupo no indentificado típicamente se usa
+<strong>NA</strong> en la el archivo para identifica la falta de
+información. En otros programas por ejemplo se usa el
+<strong>999</strong>. En este archivo se identificó dos especie de
+orquídea, <em>Dipodium roseum</em> y <em>Dipodium pardalinum</em> y hubo
+ocasiones que no se podia asignar la información una especies especifica
+(ya que se parecen mucho morfologicamente). Entonces, se identificó como
+<strong>NA</strong> en el gráfico (la columna de puntos de la derecha).
+Normalmente uno no va a querer mostrar esos datos al menos que haya una
+razón para ello. Esos datos se pueden remover utilizando una opción de
+excluir datos innecesarios del archivo antes de generar el gráfico. Con
+las funciones en <strong>drop_na</strong> del paquete
+<strong>tidyr</strong> uno puede remover las variables que tienen
+<strong>NA</strong>. Se aprovecha y se usa también la opción binaxis
+para agrupar los datos en el eje de X o el eje de Y; en este ejemplo se
+agruparon los puntos en el eje de Y como se muestra a continuación, pero
+centrados los puntos de acuerdo a su especie:</p>
 <pre class="r"><code>conNA=dipodium%&gt;%
-  select(Species_Name, Number_of_fruits)%&gt;%
+  dplyr::select(Species_Name, Number_of_fruits)%&gt;%
   ggplot(aes(Species_Name, Number_of_fruits, fill=Species_Name))+
 geom_dotplot(dotsize=.5, stackdir=&quot;center&quot;, alpha=.5, binaxis = &quot;y&quot;) +
   labs(x=&quot;Especie de orquídea&quot;, y=&quot;Número de frutos&quot;)+
@@ -1185,7 +1355,7 @@ geom_dotplot(dotsize=.5, stackdir=&quot;center&quot;, alpha=.5, binaxis = &quot;
 
 
 sinNA=dipodium%&gt;%
-  select(Species_Name, Number_of_fruits)%&gt;%
+  dplyr::select(Species_Name, Number_of_fruits)%&gt;%
   drop_na()%&gt;%
   ggplot(aes(Species_Name, Number_of_fruits, fill=Species_Name))+
 geom_dotplot(dotsize=.5, stackdir=&quot;center&quot;, alpha=.9, binaxis = &quot;y&quot;) +
@@ -1198,23 +1368,43 @@ geom_dotplot(dotsize=.5, stackdir=&quot;center&quot;, alpha=.9, binaxis = &quot;
 </div>
 <div id="opciones-y-parámetros-de-geom_dotplot" class="section level1">
 <h1>Opciones y parámetros de <strong>geom_dotplot</strong></h1>
-<p>A continuación se resumen las opciones y parámetros más importantes de geom_dotplot:</p>
+<p>A continuación se resumen las opciones y parámetros más importantes
+de geom_dotplot:</p>
 <ul>
 <li>ggplot(el archivo de datos, aes(la variable continua))</li>
-<li>geom_dotplot (x, y, alpha, color, fill, na.rm, binwidth, binaxis, method, binposition, stackdir, stackratio, dotsize, stackgroup)
+<li>geom_dotplot (x, y, alpha, color, fill, na.rm, binwidth, binaxis,
+method, binposition, stackdir, stackratio, dotsize, stackgroup)
 <ul>
 <li>alpha: la intensidad del color</li>
 <li>fill: el color de los puntos</li>
-<li>color: el color de la línea alrededor (en este caso alrededor de los puntos)</li>
-<li>na.rm: remueve los datos NA con una advertencia, el valor predeterminado es {FALSE}; si se define como {TRUE}, los remueve sin advertencia</li>
-<li>binwidth: el ancho de los compartimentos donde por omisión el rango es de 1/30 el rango de los datos</li>
-<li>binaxis: determina si se agrupa en el eje de {X} (de forma predeterminada) o en el eje de {Y}</li>
-<li>method: el método predeterminado es {dotdensity}, donde los {bins} estarán organizados por la densidad de los puntos; cuando es {histodot}, estarán organizados por una distancia fija de los {bins}</li>
-<li>binposition: cuando {method} es {dotdensity}, {bygroup} (el predeterminado) posiciona los grupos {bins} por separado; cuando el {method} es {all}, determina las posiciones de los bins con todos los datos sin tomar en cuenta los diferentes grupos a que pertenecen los datos; este último parámetro se usa cuando hay más de un grupo.</li>
-<li>stackdir: determina en qué dirección se apilan los puntos; para arriba es {up} (predeterminado), para abajo es {down}, para el centro es {center}, y en el centro con los puntos alineados es {centerwhole}</li>
-<li>stackratio: determina cuán cercano se amplían los datos; el predeterminado es 1, donde los puntos apenas se tocan; si se quieren más cercanos, se usa un número más pequeño; si se quieren más separados, se usa un número más grande</li>
-<li>dotsize: el tamaño de los puntos relativo al {binwidth}; el valor predeterminado es 1</li>
-<li>stackgroup: determina si los puntos deberían estar apilados en una variable de grupo.</li>
+<li>color: el color de la línea alrededor (en este caso alrededor de los
+puntos)</li>
+<li>na.rm: remueve los datos NA con una advertencia, el valor
+predeterminado es {FALSE}; si se define como {TRUE}, los remueve sin
+advertencia</li>
+<li>binwidth: el ancho de los compartimentos donde por omisión el rango
+es de 1/30 el rango de los datos</li>
+<li>binaxis: determina si se agrupa en el eje de {X} (de forma
+predeterminada) o en el eje de {Y}</li>
+<li>method: el método predeterminado es {dotdensity}, donde los {bins}
+estarán organizados por la densidad de los puntos; cuando es {histodot},
+estarán organizados por una distancia fija de los {bins}</li>
+<li>binposition: cuando {method} es {dotdensity}, {bygroup} (el
+predeterminado) posiciona los grupos {bins} por separado; cuando el
+{method} es {all}, determina las posiciones de los bins con todos los
+datos sin tomar en cuenta los diferentes grupos a que pertenecen los
+datos; este último parámetro se usa cuando hay más de un grupo.</li>
+<li>stackdir: determina en qué dirección se apilan los puntos; para
+arriba es {up} (predeterminado), para abajo es {down}, para el centro es
+{center}, y en el centro con los puntos alineados es {centerwhole}</li>
+<li>stackratio: determina cuán cercano se amplían los datos; el
+predeterminado es 1, donde los puntos apenas se tocan; si se quieren más
+cercanos, se usa un número más pequeño; si se quieren más separados, se
+usa un número más grande</li>
+<li>dotsize: el tamaño de los puntos relativo al {binwidth}; el valor
+predeterminado es 1</li>
+<li>stackgroup: determina si los puntos deberían estar apilados en una
+variable de grupo.</li>
 </ul></li>
 </ul>
 </div>
@@ -1257,6 +1447,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

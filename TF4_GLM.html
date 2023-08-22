@@ -13,8 +13,8 @@
 
 <title>Modelo Lineal Generalizado</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -42,6 +42,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -91,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -104,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -125,13 +126,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -167,6 +175,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -224,11 +235,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -257,8 +272,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -266,16 +281,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -379,12 +387,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -392,7 +400,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -402,7 +410,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -435,7 +443,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -484,45 +492,33 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -532,13 +528,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -547,10 +543,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -561,7 +557,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -595,67 +591,114 @@ div.tocify {
 }
 </style>
 <p><img src="Graficos/Analitica.png" width="50%" /><img src="Graficos/UPR_IPERT_logo.png" width="50%" /></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,  huxtable, wakefield, SuppDists,univariateML)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(huxtable)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wakefield)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SuppDists)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(univariateML)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,  huxtable, wakefield, SuppDists,univariateML)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(huxtable)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(wakefield)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(SuppDists)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(univariateML)</span></code></pre></div>
 <hr />
 <div id="introdución" class="section level1">
 <h1>Introdución</h1>
 <div id="modelos-lineales" class="section level2">
 <h2>Modelos lineales</h2>
-<p>Los modelos lineales generalizados, GLM por sus siglas en ingles, son una extensión de los modelos lineales donde la variable dependiente tiene una distribución normal. Recordamos que en una regresión lineal la variable dependiente sigue el modelo <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i\)</span>, donde <span class="math inline">\(\beta_0\)</span> es el intercepto y la <span class="math inline">\(\beta_1\)</span> es el coeficiente, o sea la pendiente y la <span class="math inline">\(x_i\)</span> son los valores de x’s. Uno de los supuestos es que la variación en los valores de <span class="math inline">\(\mu_i\)</span>, que son los <span class="math inline">\(y_i\)</span> tienen una distribución normal en cada x’s y que haya homogeneidad de varianza.</p>
-<p><span class="math display">\[\mu_i=\beta_0+\beta_1x_i\]</span> Un supuesto importante es el supuesto que la variación en los <span class="math inline">\(y_i\)</span> tienen una distribución normal y que hay homogeneidad de varianza.</p>
-<p><span class="math display">\[y_i\sim N\left(\mu_i,\ \epsilon\right)\]</span> Lo podemos visualizar con con la siguiente figura, donde los valores de y’s tienen una distribución normal y que esta distribución es homogenea a través de los valores de x’s.</p>
+<p>Los modelos lineales generalizados, GLM por sus siglas en ingles, son
+una extensión de los modelos lineales donde la variable dependiente
+tiene una distribución normal. Recordamos que en una regresión lineal la
+variable dependiente sigue el modelo <span class="math inline">\(y_i =
+\beta_0 + \beta_1 x_i\)</span>, donde <span
+class="math inline">\(\beta_0\)</span> es el intercepto y la <span
+class="math inline">\(\beta_1\)</span> es el coeficiente, o sea la
+pendiente y la <span class="math inline">\(x_i\)</span> son los valores
+de x’s. Uno de los supuestos es que la variación en los valores de <span
+class="math inline">\(\mu_i\)</span>, que son los <span
+class="math inline">\(y_i\)</span> tienen una distribución normal en
+cada x’s y que haya homogeneidad de varianza.</p>
+<p><span class="math display">\[\mu_i=\beta_0+\beta_1x_i\]</span> Un
+supuesto importante es el supuesto que la variación en los <span
+class="math inline">\(y_i\)</span> tienen una distribución normal y que
+hay homogeneidad de varianza.</p>
+<p><span class="math display">\[y_i\sim N\left(\mu_i,\
+\epsilon\right)\]</span> Lo podemos visualizar con con la siguiente
+figura, donde los valores de y’s tienen una distribución normal y que
+esta distribución es homogenea a través de los valores de x’s.</p>
 </div>
 </div>
-<div id="necesito-cambiar-este-gráfico-ya-que-viene-del-web-del-siguiente-website-httpstowardsdatascience.com." class="section level1">
-<h1>Necesito cambiar este gráfico, ya que viene del web (del siguiente website “<a href="https://towardsdatascience.com" class="uri">https://towardsdatascience.com</a>”).</h1>
+<div
+id="necesito-cambiar-este-gráfico-ya-que-viene-del-web-del-siguiente-website-httpstowardsdatascience.com."
+class="section level1">
+<h1>Necesito cambiar este gráfico, ya que viene del web (del siguiente
+website “<a href="https://towardsdatascience.com"
+class="uri">https://towardsdatascience.com</a>”).</h1>
 <div class="figure">
 <img src="Graficos/Reg_Normal.png" alt="Del siguiente website; https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab" width="50%" />
 <p class="caption">
-Del siguiente website; <a href="https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab" class="uri">https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab</a>
+Del siguiente website; <a
+href="https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab"
+class="uri">https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab</a>
 </p>
 </div>
 <hr />
-<div id="cuando-la-variable-dependiente-no-es-lineal" class="section level2">
+<div id="cuando-la-variable-dependiente-no-es-lineal"
+class="section level2">
 <h2>Cuando la variable dependiente no es lineal</h2>
-<p>El problema principal por mucho tiempo ha sido que la variable dependiente no tiene distribución normal y por consecuencia no cumplía con los supuestos de la regresión lineal. El método de linearizar la variable de respuesta fue desarrollado por Nelder y Wedderburn 1972. Puede encontrar información sobre la prueba y su evolución de GLM en <a href="https://encyclopediaofmath.org/wiki/Generalized_linear_models" class="uri">https://encyclopediaofmath.org/wiki/Generalized_linear_models</a>. Con el avance del uso de las computadoras en los años 80 terminó en ser uno de los métodos estadísticos más utilizados.</p>
-<p>El termino GLM se refiere a un gran variedad de modelos de regresión. El supuesto en estos modelos es que la variable de respuesta <span class="math inline">\(y_i\)</span> sigue una distribución dentro de la familia de distribuciones exponencial con un promedio <span class="math inline">\(\mu_i\)</span>, donde se asume una función <span class="math inline">\(\mu_i^T\beta\)</span> que frecuentemente no es lineal. Para linearizar la variable es necesario usar un “link” para convertir la variable dependiente, <span class="math inline">\(y_i\)</span>.</p>
+<p>El problema principal por mucho tiempo ha sido que la variable
+dependiente no tiene distribución normal y por consecuencia no cumplía
+con los supuestos de la regresión lineal. El método de linearizar la
+variable de respuesta fue desarrollado por Nelder y Wedderburn 1972.
+Puede encontrar información sobre la prueba y su evolución de GLM en <a
+href="https://encyclopediaofmath.org/wiki/Generalized_linear_models"
+class="uri">https://encyclopediaofmath.org/wiki/Generalized_linear_models</a>.
+Con el avance del uso de las computadoras en los años 80 terminó en ser
+uno de los métodos estadísticos más utilizados.</p>
+<p>El termino GLM se refiere a un gran variedad de modelos de regresión.
+El supuesto en estos modelos es que la variable de respuesta <span
+class="math inline">\(y_i\)</span> sigue una distribución dentro de la
+familia de distribuciones exponencial con un promedio <span
+class="math inline">\(\mu_i\)</span>, donde se asume una función <span
+class="math inline">\(\mu_i^T\beta\)</span> que frecuentemente no es
+lineal. Para linearizar la variable es necesario usar un “link” para
+convertir la variable dependiente, <span
+class="math inline">\(y_i\)</span>.</p>
 <hr />
 </div>
 <div id="link-disponible" class="section level2">
 <h2>Link disponible</h2>
-<p>Aquí enseño una lista parcial de los diferentes tipos de “links” para diferentes tipos de datos (o distribuciones) de la variable independiente, <span class="math inline">\(y_i\)</span>. La decisión de cual transformación o <strong>link</strong> utilizar es necesaria dependerá de los tipos de datos y sus distribución.</p>
+<p>Aquí enseño una lista parcial de los diferentes tipos de “links” para
+diferentes tipos de datos (o distribuciones) de la variable
+independiente, <span class="math inline">\(y_i\)</span>. La decisión de
+cual transformación o <strong>link</strong> utilizar es necesaria
+dependerá de los tipos de datos y sus distribución.</p>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-4">
 <caption style="caption-side: top; text-align: center;">Links comun utilizado con GLM.</caption><col><col><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Modelo</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Variable_Dep</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Link</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Variables_Independiente</span></th></tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Regresión Lineal</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Normal</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Identidad</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Contínua</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">ANOVA</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Normal</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Identidad</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Categórico</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">ANOVA</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Normal</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Identidad</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Categórico</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Regresión logistica</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Binomial</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Logit</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Mixto</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Regresión logistica</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Binomial</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Logit</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Mixto</td></tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Regresión Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Log</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Mixto</td></tr>
 </table>
 
-<p>Aunque las distribuciones anteriores son bien comunes no son los únicos links disponibles para transformar los datos. Aquí hay información suplementaria sobre algunos otros links que están disponible R en ciertos paquetes.</p>
+<p>Aunque las distribuciones anteriores son bien comunes no son los
+únicos links disponibles para transformar los datos. Aquí hay
+información suplementaria sobre algunos otros links que están disponible
+R en ciertos paquetes.</p>
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-5">
 <caption style="caption-side: top; text-align: center;">Links comun utilizado con GLM.</caption><col><col><tr>
 <th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Familia</span></th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;"><span style="color: rgb(255, 0, 0);">Links</span></th></tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Gaussian/Normal</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">identidad, log, inversa</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Binomial</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">logit, probit, cauchit, log, cloglog</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Binomial</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">logit, probit, cauchit, log, cloglog</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Gamma</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">inversa, identidad, log</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Gamma</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">inversa, identidad, log</td></tr>
 <tr>
-<td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">log, identidad, raiz cuadrada</td></tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Poisson</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">log, identidad, raiz cuadrada</td></tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">Gausian inversa</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 1pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1/µ^2, inversa, identidad, log</td></tr>
 </table>
@@ -665,48 +708,87 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <div id="los-supuestos" class="section level2">
 <h2>Los supuestos</h2>
 <ul>
-<li>La ventaja es que ahora la variable dependiente no tiene que tener una distribución normal.</li>
-<li>Además los datos sin transformar no tienen que tener una relación lineal. Sin embargo los datos tienen que provenir de una distribución de la familia exponencial, por ejemplo, binomial, Poisson, multinomial, normal, normal inversa, etc.<br />
+<li>La ventaja es que ahora la variable dependiente no tiene que tener
+una distribución normal.</li>
+<li>Además los datos sin transformar no tienen que tener una relación
+lineal. Sin embargo los datos tienen que provenir de una distribución de
+la familia exponencial, por ejemplo, binomial, Poisson, multinomial,
+normal, normal inversa, etc.<br />
 </li>
-<li>GLM no asume una relación lineal entre la variable dependiente y independiente, pero asume una relación lineal de los datos de la variable dependiente transformado y la variable independiente. Por consecuencia se asume una relación lineal entre la variable binaria y la variable explicativa despúes de usar la transformación con el link, <span class="math inline">\(logit\left(\pi\right)=\beta_0+\beta_1\cdot x_i\)</span>.</li>
-<li>No se tiene que tomar en cuenta el supuesto de igualdad de varianza (homogeneity of variance)</li>
-<li>Los errores tienen que ser independientes pero no importa si cumple con una la distribución normal.</li>
+<li>GLM no asume una relación lineal entre la variable dependiente y
+independiente, pero asume una relación lineal de los datos de la
+variable dependiente transformado y la variable independiente. Por
+consecuencia se asume una relación lineal entre la variable binaria y la
+variable explicativa despúes de usar la transformación con el link,
+<span class="math inline">\(logit\left(\pi\right)=\beta_0+\beta_1\cdot
+x_i\)</span>.</li>
+<li>No se tiene que tomar en cuenta el supuesto de igualdad de varianza
+(homogeneity of variance)</li>
+<li>Los errores tienen que ser independientes pero no importa si cumple
+con una la distribución normal.</li>
 </ul>
 <hr />
 </div>
 <div id="las-ventajas-de-glm" class="section level2">
 <h2>Las ventajas de GLM</h2>
 <ul>
-<li>Los parámetros se estiman usando la verosimilitud (MLE = Maximum Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary least square). Los modelos se estiman vía la verosimilitud, entonces optimizan los estimadores, <span class="math inline">\(\beta\)</span>.</li>
-<li>No hay que transformar los datos de la variable dependiente para normalizarlos.</li>
-<li>La selección del “link” es independiente de la variable(s) dependiente(s), que hace más fácil crear modelos.</li>
-<li>Las herramientas para evaluar las inferencias y los modelos están disponible tal como evaluar los residuales, los intervalos de confianza, desviación, likelihood ratio test entre otros.</li>
+<li>Los parámetros se estiman usando la verosimilitud (MLE = Maximum
+Likelihood estimators), no con los mínimos cuadrados (OLS =ordinary
+least square). Los modelos se estiman vía la verosimilitud, entonces
+optimizan los estimadores, <span
+class="math inline">\(\beta\)</span>.</li>
+<li>No hay que transformar los datos de la variable dependiente para
+normalizarlos.</li>
+<li>La selección del “link” es independiente de la variable(s)
+dependiente(s), que hace más fácil crear modelos.</li>
+<li>Las herramientas para evaluar las inferencias y los modelos están
+disponible tal como evaluar los residuales, los intervalos de confianza,
+desviación, likelihood ratio test entre otros.</li>
 </ul>
 <hr />
 </div>
 <div id="modelos-binomial-o-bernoulli" class="section level2">
 <h2>Modelos binomial o Bernoulli</h2>
-<p>Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la función <strong>logit</strong> como función de enlace y la distribución binomial/Bernoulli como distribución de probabilidad, el modelo se denomina <strong>Regresión logística</strong>.</p>
-<p><span class="math display">\[\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i\]</span></p>
-<p>donde la distribución es una binomial con <span class="math inline">\(y_i\sim Binomial\left(q_i\right)\)</span>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(wakefield)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">r_sample_binary</span>(<span class="dv">50</span>, <span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">prob =</span><span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.7</span>), <span class="at">name =</span> <span class="st">&quot;Binary&quot;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#x</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">as.factor</span>(x))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#df</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x))<span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Binary Values&quot;</span>)</span></code></pre></div>
+<p>Si la variable es binomial, hay solamente dos alternativas, 0 y 1, o
+si o no, muerto o vivo, se usa la distribución binomial. Se utiliza la
+función <strong>logit</strong> como función de enlace y la distribución
+binomial/Bernoulli como distribución de probabilidad, el modelo se
+denomina <strong>Regresión logística</strong>.</p>
+<p><span
+class="math display">\[\log\frac{q_i}{1-q_i}=\beta_0+\beta_1X_i\]</span></p>
+<p>donde la distribución es una binomial con <span
+class="math inline">\(y_i\sim Binomial\left(q_i\right)\)</span>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#library(wakefield)</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">r_sample_binary</span>(<span class="dv">50</span>, <span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">prob =</span><span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.7</span>), <span class="at">name =</span> <span class="st">&quot;Binary&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#x</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">as.factor</span>(x))</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#df</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x))<span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Binary Values&quot;</span>)</span></code></pre></div>
 <p><img src="TF4_GLM_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <hr />
 <div id="distribución-gamma" class="section level3">
 <h3>Distribución Gamma</h3>
-<p>La distribución gamma se utiliza frecuentemente para tomar en cuenta variables que tienen colas muy largas y grandes (Heavy-Tailed distributions). La distribución se usa mucho en el área de econometría y estimados de supervivencia.</p>
-<p>La distribución gamma puede ser parametizado con un termino de "<strong>shape</strong> <span class="math inline">\(\alpha = k\)</span> y el inverso de un parámetro de escala (scale) <span class="math inline">\(\beta=1/\theta\)</span> que se conoce como un parametro de <strong>rate</strong>.</p>
-<p><span class="math display">\[f\left(x\right)=\frac{\left(\beta^{\alpha}\cdot x^{\alpha-1}e^{-\beta x}\right)}{\Gamma\left(\alpha\right)}\ para\ x&gt;0,\ \ \alpha,\ \beta&gt;0\]</span></p>
-<p>donde <span class="math inline">\(\Gamma\left(\alpha\right)\)</span> is la función gamma. Para cada valor entero <span class="math inline">\(\Gamma\left(\alpha\right)=\left(\alpha-1\right)!\)</span></p>
-<p>En otra palabra la distribución gamma es para modelar variables continuas que siempre son positivas y tienen distribuciones sesgadas</p>
+<p>La distribución gamma se utiliza frecuentemente para tomar en cuenta
+variables que tienen colas muy largas y grandes (Heavy-Tailed
+distributions). La distribución se usa mucho en el área de econometría y
+estimados de supervivencia.</p>
+<p>La distribución gamma puede ser parametizado con un termino de
+“<strong>shape</strong> <span class="math inline">\(\alpha = k\)</span>
+y el inverso de un parámetro de escala (scale) <span
+class="math inline">\(\beta=1/\theta\)</span> que se conoce como un
+parametro de <strong>rate</strong>.</p>
+<p><span
+class="math display">\[f\left(x\right)=\frac{\left(\beta^{\alpha}\cdot
+x^{\alpha-1}e^{-\beta x}\right)}{\Gamma\left(\alpha\right)}\ para\
+x&gt;0,\ \ \alpha,\ \beta&gt;0\]</span></p>
+<p>donde <span class="math inline">\(\Gamma\left(\alpha\right)\)</span>
+is la función gamma. Para cada valor entero <span
+class="math inline">\(\Gamma\left(\alpha\right)=\left(\alpha-1\right)!\)</span></p>
+<p>En otra palabra la distribución gamma es para modelar variables
+continuas que siempre son positivas y tienen distribuciones sesgadas</p>
 <p>Ejemplos donde se usa la distribución gamma</p>
 <ul>
 <li>el tiempo hasta el momento de fracaso de un equipo</li>
@@ -715,41 +797,73 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <li>el tamaño de los préstamos impagos</li>
 </ul>
 <p>Veamos algunas distribuciones gamma</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dgamma(x,shape=k, scale=theta)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">1</span>, <span class="at">scale=</span><span class="dv">2</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Gráfico distribución Gamma&quot;</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">2</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">6</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x,<span class="at">shape =</span><span class="dv">5</span>, <span class="at">scale=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">7</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">9</span>, <span class="at">scale=</span><span class="fl">0.5</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="fl">7.5</span>, <span class="at">scale=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;k=1,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=4&quot;</span>,<span class="st">&quot;k=5,theta=1&quot;</span>,<span class="st">&quot;k=9,theta=0.5&quot;</span>, <span class="st">&quot;k=7.5,theta=1.0&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
-<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-7-1.png" width="672" /> # Los parámetros básicos de la gamma.</p>
-<p>Note: El <strong>scale</strong> es un indice de dispersión, y a mayor el número más larga es la cola.</p>
-<p>El promedio es igual a la multiplicación del shape=k por el scale = theta, <span class="math display">\[promedio=k\cdot\theta\]</span>.</p>
-<p>La varianza es igual a la multiplicación de del shape=k por el scale = (theta)^2, <span class="math display">\[varianza=k\cdot\theta^2\]</span></p>
-<p>Se puede encontrar las formulas para calcular otros parámetros en la página de wikipedia.<br />
-<a href="https://en.wikipedia.org/wiki/Gamma_distribution" class="uri">https://en.wikipedia.org/wiki/Gamma_distribution</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#dgamma(x,shape=k, scale=theta)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">1</span>, <span class="at">scale=</span><span class="dv">2</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Gráfico distribución Gamma&quot;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">2</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">6</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x,<span class="at">shape =</span><span class="dv">5</span>, <span class="at">scale=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">7</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="dv">9</span>, <span class="at">scale=</span><span class="fl">0.5</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dgamma</span>(x, <span class="at">shape=</span><span class="fl">7.5</span>, <span class="at">scale=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="fl">0.4</span>, <span class="dv">20</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, </span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;k=1,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=2&quot;</span>, <span class="st">&quot;k=2,theta=4&quot;</span>,<span class="st">&quot;k=5,theta=1&quot;</span>,<span class="st">&quot;k=9,theta=0.5&quot;</span>, <span class="st">&quot;k=7.5,theta=1.0&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="TF4_GLM_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+# Los parámetros básicos de la gamma.</p>
+<p>Note: El <strong>scale</strong> es un indice de dispersión, y a mayor
+el número más larga es la cola.</p>
+<p>El promedio es igual a la multiplicación del shape=k por el scale =
+theta, <span class="math display">\[promedio=k\cdot\theta\]</span>.</p>
+<p>La varianza es igual a la multiplicación de del shape=k por el scale
+= (theta)^2, <span
+class="math display">\[varianza=k\cdot\theta^2\]</span></p>
+<p>Se puede encontrar las formulas para calcular otros parámetros en la
+página de wikipedia.<br />
+<a href="https://en.wikipedia.org/wiki/Gamma_distribution"
+class="uri">https://en.wikipedia.org/wiki/Gamma_distribution</a></p>
 <hr />
 </div>
 <div id="la-distribución-gaussiana-inversa" class="section level3">
 <h3>La distribución gaussiana inversa</h3>
-<p>En la teoría de la probabilidad, la distribución gaussiana inversa es una familia de dos parámetros de distribuciones de probabilidad continuas con apoyo en (0, ∞).</p>
-<p>La distribución sigue la siguiente forma <span class="math display">\[f\left(x;µ,\lambda\right)=\sqrt{\frac{\lambda}{2\pi x^3}}\exp\left(-\frac{\lambda\left(x-µ\right)^2}{2µ^2x}\right)\]</span></p>
-<p>donde <span class="math inline">\(x&gt;0\)</span>, <span class="math inline">\(µ&gt;0\)</span>, y <span class="math inline">\(\lambda\)</span> es la forma de distribución y siempre es mayor de cero. Mayor es el <span class="math inline">\(\lambda\)</span> (el shape parameter) más simétrica es la distribución.</p>
-<p>Cuando λ tiende al infinito, la distribución gaussiana inversa se parece a una distribución normal (gaussiana). La distribución gaussiana inversa se conoce también como la distribución Wald.</p>
-<p>#La distribución se usa cuando la distribución de población donde la distribución lognormal tiene una cola derecha demasiado pesada. Cuando se refiere a cola pesadas en estadistica, se refiere a que hay más probabilidades en esta region que una distribución normal. Por consecuencia las probabilidades en esta region es mayor.</p>
-<p>La distribución es utiliza para modelar datos no negativos que son sesgados positivamente. En otra palabra todos los valores son positivos y la cola tiende a disminiur más lentamente que en una distribución normal.</p>
+<p>En la teoría de la probabilidad, la distribución gaussiana inversa es
+una familia de dos parámetros de distribuciones de probabilidad
+continuas con apoyo en (0, ∞).</p>
+<p>La distribución sigue la siguiente forma <span
+class="math display">\[f\left(x;µ,\lambda\right)=\sqrt{\frac{\lambda}{2\pi
+x^3}}\exp\left(-\frac{\lambda\left(x-µ\right)^2}{2µ^2x}\right)\]</span></p>
+<p>donde <span class="math inline">\(x&gt;0\)</span>, <span
+class="math inline">\(µ&gt;0\)</span>, y <span
+class="math inline">\(\lambda\)</span> es la forma de distribución y
+siempre es mayor de cero. Mayor es el <span
+class="math inline">\(\lambda\)</span> (el shape parameter) más
+simétrica es la distribución.</p>
+<p>Cuando λ tiende al infinito, la distribución gaussiana inversa se
+parece a una distribución normal (gaussiana). La distribución gaussiana
+inversa se conoce también como la distribución Wald.</p>
+<p>#La distribución se usa cuando la distribución de población donde la
+distribución lognormal tiene una cola derecha demasiado pesada. Cuando
+se refiere a cola pesadas en estadistica, se refiere a que hay más
+probabilidades en esta region que una distribución normal. Por
+consecuencia las probabilidades en esta region es mayor.</p>
+<p>La distribución es utiliza para modelar datos no negativos que son
+sesgados positivamente. En otra palabra todos los valores son positivos
+y la cola tiende a disminiur más lentamente que en una distribución
+normal.</p>
 <div id="historia-gausiana-inversa" class="section level4">
 <h4>Historia gausiana inversa</h4>
-<p>Información historica sobre la distribución gaussiana inversa es poco limitado. La distribución fue aparentemente derivada por la primera vez por Louis Bachelier en 1900, cuando el trataba de estimar el precio de la bolsa de valores para diferentes companias. Pero el nombre de “Inverse Gaussian” fue sugerido por Maurice Tweedie en 1945. Vea este enlace para más detalles.</p>
-<p><a href="https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution" class="uri">https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution</a></p>
+<p>Información historica sobre la distribución gaussiana inversa es poco
+limitado. La distribución fue aparentemente derivada por la primera vez
+por Louis Bachelier en 1900, cuando el trataba de estimar el precio de
+la bolsa de valores para diferentes companias. Pero el nombre de
+“Inverse Gaussian” fue sugerido por Maurice Tweedie en 1945. Vea este
+enlace para más detalles.</p>
+<p><a
+href="https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution"
+class="uri">https://en.wikipedia.org/wiki/Normal-inverse_Gaussian_distribution</a></p>
 <p>Ejemplos que pudiese ser de este tipo de distribución</p>
 <ul>
 <li>el tiempo que toma llegar a un sitio.<br />
@@ -759,37 +873,41 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <li>la supervivencia de organismos (survival data)</li>
 </ul>
 <p>Nota</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SuppDists) </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dinvGauss(x, nu, lambda, log=FALSE)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span>.<span class="dv">7</span>, <span class="at">lambda=</span><span class="fl">0.2</span>, <span class="at">log=</span><span class="cn">FALSE</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Gráfico distribución Gausiana Inversa&quot;</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span>.<span class="dv">7</span>, <span class="at">lambda=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span>.<span class="dv">7</span>, <span class="at">lambda=</span><span class="dv">3</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">6</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">0.2</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">7</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">1</span>, <span class="at">lambda=</span><span class="dv">40</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;nu=.7,lambda=0.2&quot;</span>, <span class="st">&quot;nu=.7,lambda=1&quot;</span>, <span class="st">&quot;nu=.7,lambda=3&quot;</span>,<span class="st">&quot;nu=2,lambda=0.2&quot;</span>,<span class="st">&quot;nu=2,lambda=1&quot;</span>, <span class="st">&quot;nu=2,lambda=4&quot;</span>,<span class="st">&quot;nu=1,lambda=40&quot;</span>), </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(SuppDists) </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#dinvGauss(x, nu, lambda, log=FALSE)</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span>.<span class="dv">7</span>, <span class="at">lambda=</span><span class="fl">0.2</span>, <span class="at">log=</span><span class="cn">FALSE</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Gráfico distribución Gausiana Inversa&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span>.<span class="dv">7</span>, <span class="at">lambda=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span>.<span class="dv">7</span>, <span class="at">lambda=</span><span class="dv">3</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">6</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="fl">0.2</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">7</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">2</span>, <span class="at">lambda=</span><span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dinvGauss</span>(x, <span class="at">nu=</span><span class="dv">1</span>, <span class="at">lambda=</span><span class="dv">40</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x;k,theta)&quot;</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;nu=.7,lambda=0.2&quot;</span>, <span class="st">&quot;nu=.7,lambda=1&quot;</span>, <span class="st">&quot;nu=.7,lambda=3&quot;</span>,<span class="st">&quot;nu=2,lambda=0.2&quot;</span>,<span class="st">&quot;nu=2,lambda=1&quot;</span>, <span class="st">&quot;nu=2,lambda=4&quot;</span>,<span class="st">&quot;nu=1,lambda=40&quot;</span>), </span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">6</span>, <span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">inset =</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <p><img src="TF4_GLM_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
-<div id="los-parámetros-de-la-distribución-inversa-de-gauss" class="section level4">
+<div id="los-parámetros-de-la-distribución-inversa-de-gauss"
+class="section level4">
 <h4>Los parámetros de la distribución inversa de Gauss</h4>
 <p>El promedio se calcula de la siguiente forma</p>
-<p><span class="math display">\[E\left[X\right]=\frac{1}{\mu}+\frac{1}{\lambda}\]</span></p>
+<p><span
+class="math display">\[E\left[X\right]=\frac{1}{\mu}+\frac{1}{\lambda}\]</span></p>
 <p>La varianza se calcula de la siguiente forma</p>
-<p><span class="math display">\[Var\left[X\right]=\frac{1}{\mu\lambda}+\frac{2}{\lambda^2}\]</span></p>
+<p><span
+class="math display">\[Var\left[X\right]=\frac{1}{\mu\lambda}+\frac{2}{\lambda^2}\]</span></p>
 <p>Para otros parámetros vean este enlace</p>
-<p><a href="https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution" class="uri">https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution"
+class="uri">https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution</a></p>
 <hr />
 </div>
 </div>
@@ -797,56 +915,67 @@ Del siguiente website; <a href="https://towardsdatascience.com/generalized-linea
 <div id="evaluando-distribuciones" class="section level2">
 <h2>Evaluando distribuciones</h2>
 <p>Evaluar un conjunto de datos para visualizar la distribución.</p>
-<p>Si necesita hacer análisis de regresión con datos que tienen una distribución gaussiana inversa el siguiente paquete esta disponible <strong>invGauss</strong> y si quiere determinar cual es la mejor distribución para sus datos con el paquete <strong>univariateML</strong> hay unas funciones para ayudar a determinar.</p>
-<p>Entre tanto que desarollo este tema más profundo le suguiero este enlace.</p>
-<p><a href="https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html" class="uri">https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(invGauss)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(univariateML)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(d.oropha.rec)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#d.oropha.rec</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> d.oropha.rec) <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span>  <span class="fu">after_stat</span>(density)),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">40</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mlnorm</span>(d.oropha.rec<span class="sc">$</span>time))},</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;normal&quot;</span>),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mlinvgauss</span>(d.oropha.rec<span class="sc">$</span>time))},</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;inverse-normal&quot;</span>),</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span>),</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de tiempo de dessarrolo&quot;</span>,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Distribución&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p>Si necesita hacer análisis de regresión con datos que tienen una
+distribución gaussiana inversa el siguiente paquete esta disponible
+<strong>invGauss</strong> y si quiere determinar cual es la mejor
+distribución para sus datos con el paquete <strong>univariateML</strong>
+hay unas funciones para ayudar a determinar.</p>
+<p>Entre tanto que desarollo este tema más profundo le suguiero este
+enlace.</p>
+<p><a
+href="https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html"
+class="uri">https://www.cienciadedatos.net/documentos/55_ajuste_distribuciones_con_r.html</a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(invGauss)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(univariateML)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">data</span>(d.oropha.rec)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#d.oropha.rec</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> d.oropha.rec) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span>  <span class="fu">after_stat</span>(density)),</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">40</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mlnorm</span>(d.oropha.rec<span class="sc">$</span>time))},</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;normal&quot;</span>),</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mlinvgauss</span>(d.oropha.rec<span class="sc">$</span>time))},</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de tiempo de dessarrolo&quot;</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Distribución&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="TF4_GLM_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nota que la cola de tiempo es larga un no tiene una distribución normal</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Nota que la cola de tiempo es larga un no tiene una distribución normal</span></span></code></pre></div>
 <p>Ejemplo de los precios de diamantes del paquete ggplot2</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(univariateML)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span>  <span class="fu">after_stat</span>(density)),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">40</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mllnorm</span>(diamonds<span class="sc">$</span>price))},</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;log-normal&quot;</span>),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mlinvgauss</span>(diamonds<span class="sc">$</span>price))},</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;inverse-normal&quot;</span>),</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;log-normal&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span>),</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;log-normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución precio diamantes&quot;</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Distribución&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#library(univariateML)</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span>  <span class="fu">after_stat</span>(density)),</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">40</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mllnorm</span>(diamonds<span class="sc">$</span>price))},</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;log-normal&quot;</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(.x){<span class="fu">dml</span>(<span class="at">x =</span> .x, <span class="at">obj =</span> <span class="fu">mlinvgauss</span>(diamonds<span class="sc">$</span>price))},</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;log-normal&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;log-normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;inverse-normal&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución precio diamantes&quot;</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Distribución&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="TF4_GLM_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <hr />
 <blockquote>
-<p>“Activities reported in this website was supported by the National Institute of General Medical Sciences of the National Institutes of Health under Award Number R25GM121270. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.”</p>
+<p>“Activities reported in this website was supported by the National
+Institute of General Medical Sciences of the National Institutes of
+Health under Award Number R25GM121270. The content is solely the
+responsibility of the authors and does not necessarily represent the
+official views of the National Institutes of Health.”</p>
 </blockquote>
 <p><img src="Graficos/UPR_Logos.png" width="100%" /></p>
 </div>
@@ -890,6 +1019,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

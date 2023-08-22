@@ -195,7 +195,7 @@ Primero vamos a convertir los datos en proporción ya que el programa tiene que 
 
 ```{r}
 Smokers$Y2000P=(Smokers$Y2000)/100 # convertir en proporción
-Smokers %>% select(Country_Name, Y2000P)
+Smokers %>% dplyr::select(Country_Name, Y2000P)
 ```
 
 ***
@@ -337,7 +337,7 @@ library(tidyverse)
 dipodium$PropFR=dipodium$Perc_FR_set+0.0001 # solucionar para remover los cero
 #dipodium$PropFR
 dipodium2=dipodium %>% 
-  select(PropFR, Number_of_Flowers,Height_Inflo, Distance) %>% 
+  dplyr::select(PropFR, Number_of_Flowers,Height_Inflo, Distance) %>% 
   filter(complete.cases(PropFR, Number_of_Flowers,Height_Inflo, Distance))
 #dipodium2
 write.csv(x=dipodium2, file="dipodium2.csv")
@@ -468,10 +468,10 @@ Se seleccionan valores específicos para la visualizar la distribución, las pla
 ```{r}
 
 dpQ=dp2 %>% 
-  select(c(1, 6:26))
+  dplyr::select(c(1, 6:26))
 
 dpQ2=dpQ%>% 
-  filter(Number_of_Flowers== 35) %>% select(c(2:22))%>% t %>% as.data.frame
+  filter(Number_of_Flowers== 35) %>% dplyr::select(c(2:22))%>% t %>% as.data.frame
 dpQ2$Quartiles=c(.01, 0.05, .1, .15, .2, .25, .30, .35, .4, .45, .5, .55, .6, .65,  .7,.75, .8, .85, .9, .95, .99 )
 
 mean(dpQ2$V1, na.rm=FALSE)

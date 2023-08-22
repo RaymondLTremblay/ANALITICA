@@ -14,8 +14,8 @@
 
 <title>Histogramas con geom_histogram</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -296,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -401,45 +402,33 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -449,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -464,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -478,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -501,7 +490,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Histogramas con <strong>geom_histogram</strong></h1>
+<h1 class="title toc-ignore">Histogramas con
+<strong>geom_histogram</strong></h1>
 <h4 class="author">RLT</h4>
 <h4 class="date">6/30/2020</h4>
 
@@ -509,15 +499,38 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2023-08-22&quot;</code></pre>
 <pre class="r"><code>library(ggversa)
 library(ggplot2)</code></pre>
 <hr />
 <div id="histogramas-con-geom_histogram" class="section level1">
 <h1>Histogramas con geom_histogram</h1>
-<p>Un histograma es una representación gráfica de los datos agrupados en compartimentos o <em>bins</em>. Estos compartimentos incluyen individuos con factores o agrupaciones de valores similares o cercanos numéricamente. Subsiguiente a la determinación de los compartimentos, se suma la cantidad de observaciones para cada uno de ellos. Un histograma es un tipo de gráfico muy común para visualizar la dispersión de esos datos. Continuaremos con el ejemplo de <em>Dipodium</em> para demostrar la función de <strong>geom_histogram</strong> a continuación.</p>
-<p>En el primer caso de <strong>geom_histogram</strong> la cantidad de observaciones (datos) se suma de acuerdo a la posición de los compartimentos o <em>bins</em>.</p>
-<p>En el segundo caso, para mostrar menos barras y ver la agrupación por grupos de 2, se escribe con <strong>geom_histogram (binwidth=1)</strong>. Como se puede apreciar, el número de compartimentos se cambia utilizando el parámetro <em>binwidth</em>, donde su valor representa el ancho del compartimento (en nuestro caso es igual a 1). El número de <em>bins</em> predeterminado es 30, pero no necesariamente todos tendrán una barra ya que eso depende de la distribución de los datos. Cada barra representa la frecuencia de observaciones en la categoría a un metro de distancia. En ambos casos se usó color=white (o sea, color blanco) para poner una línea blanca alrededor de cada barra y así diferenciar mejor los grupos o <em>bins</em>. Nota que el programa retorna el mensaje <strong><code>stat_bin()</code> using <code>bins = 30</code>. Pick better value with <code>binwidth</code></strong>. Esto porque se acepto la cantidad de compartimiento prederminado.</p>
+<p>Un histograma es una representación gráfica de los datos agrupados en
+compartimentos o <em>bins</em>. Estos compartimentos incluyen individuos
+con factores o agrupaciones de valores similares o cercanos
+numéricamente. Subsiguiente a la determinación de los compartimentos, se
+suma la cantidad de observaciones para cada uno de ellos. Un histograma
+es un tipo de gráfico muy común para visualizar la dispersión de esos
+datos. Continuaremos con el ejemplo de <em>Dipodium</em> para demostrar
+la función de <strong>geom_histogram</strong> a continuación.</p>
+<p>En el primer caso de <strong>geom_histogram</strong> la cantidad de
+observaciones (datos) se suma de acuerdo a la posición de los
+compartimentos o <em>bins</em>.</p>
+<p>En el segundo caso, para mostrar menos barras y ver la agrupación por
+grupos de 2, se escribe con <strong>geom_histogram
+(binwidth=1)</strong>. Como se puede apreciar, el número de
+compartimentos se cambia utilizando el parámetro <em>binwidth</em>,
+donde su valor representa el ancho del compartimento (en nuestro caso es
+igual a 1). El número de <em>bins</em> predeterminado es 30, pero no
+necesariamente todos tendrán una barra ya que eso depende de la
+distribución de los datos. Cada barra representa la frecuencia de
+observaciones en la categoría a un metro de distancia. En ambos casos se
+usó color=white (o sea, color blanco) para poner una línea blanca
+alrededor de cada barra y así diferenciar mejor los grupos o
+<em>bins</em>. Nota que el programa retorna el mensaje
+<strong><code>stat_bin()</code> using <code>bins = 30</code>. Pick
+better value with <code>binwidth</code></strong>. Esto porque se acepto
+la cantidad de compartimiento prederminado.</p>
 <pre class="r"><code>DW=dipodium # este archivo de datos se encuentra en el paquete &quot;ggversa&quot;
 
 a=ggplot(DW, aes(Distance))
@@ -528,9 +541,21 @@ a+geom_histogram(color=&quot;white&quot;, fill=&quot;blue&quot;)+
 <p><img src="G6_geom_histogram_files/figure-html/dipodium-histograma-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="cambio-del-tamaño-de-los-compartimiento-con-binwidth" class="section level1">
+<div id="cambio-del-tamaño-de-los-compartimiento-con-binwidth"
+class="section level1">
 <h1>Cambio del tamaño de los compartimiento con <em>binwidth</em></h1>
-<p>Este histograma demuestra las distancias de las orquídeas <em>Dipodium roseum</em> a los árboles más cercanos. Esta especie de orquídea es parasítica de hongos/micorrizas y no produce fotosíntesis. La hipótesis es que las micorrizas, <strong>hongos</strong>, reciben nutrientes de las raíces de los árboles y los nutrientes son transferidos a las orquídeas a través de las micorrizas. A consecuencia, se debería hipotéticamente observar una distancia óptima de la orquídea a los árboles que sostienen las micorrizas si la hipótesis tiene alguna veracidad. Como se explicó antes, en el segundo gráfico, se cambió el binwidth a 1, que representa en este caso la distancia de 1 metro, y los <strong>bins</strong> van de -.5 a .5 m., el segundo <strong>bin</strong> de &gt;0.5 a 1.5 metros y así sucesivamente.</p>
+<p>Este histograma demuestra las distancias de las orquídeas
+<em>Dipodium roseum</em> a los árboles más cercanos. Esta especie de
+orquídea es parasítica de hongos/micorrizas y no produce fotosíntesis.
+La hipótesis es que las micorrizas, <strong>hongos</strong>, reciben
+nutrientes de las raíces de los árboles y los nutrientes son
+transferidos a las orquídeas a través de las micorrizas. A consecuencia,
+se debería hipotéticamente observar una distancia óptima de la orquídea
+a los árboles que sostienen las micorrizas si la hipótesis tiene alguna
+veracidad. Como se explicó antes, en el segundo gráfico, se cambió el
+binwidth a 1, que representa en este caso la distancia de 1 metro, y los
+<strong>bins</strong> van de -.5 a .5 m., el segundo
+<strong>bin</strong> de &gt;0.5 a 1.5 metros y así sucesivamente.</p>
 <pre class="r"><code>DW=dipodium
 a=ggplot(DW, aes(Distance))
 a+geom_histogram(binwidth=1,color=&quot;white&quot;, fill=&quot;blue&quot;)+
@@ -538,9 +563,18 @@ a+geom_histogram(binwidth=1,color=&quot;white&quot;, fill=&quot;blue&quot;)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))</code></pre>
 <p><img src="G6_geom_histogram_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
-<div id="números-de-camas-hospitaria-por-1000-habitantes-en-diferenctes-paises" class="section level1">
-<h1>Números de camas hospitaria por 1000 habitantes en diferenctes paises</h1>
-<p>En el siguiente gráfico, vemos la frecuencia de número de camas de hospital por cada 1000 habitantes para 67 países utilizando la base de datos <strong>Camas_Hospital</strong>. Se hizo con la información que estaba disponible solo para los años 1996 y 2006. Tenemos dos gráficos solapados para visualizar si la distribución ha cambiado de entre el año 1996 y 2006. Note que las frecuencias del 2006 aparecen sobre las del 1996.</p>
+<div
+id="números-de-camas-hospitaria-por-1000-habitantes-en-diferenctes-paises"
+class="section level1">
+<h1>Números de camas hospitaria por 1000 habitantes en diferenctes
+paises</h1>
+<p>En el siguiente gráfico, vemos la frecuencia de número de camas de
+hospital por cada 1000 habitantes para 67 países utilizando la base de
+datos <strong>Camas_Hospital</strong>. Se hizo con la información que
+estaba disponible solo para los años 1996 y 2006. Tenemos dos gráficos
+solapados para visualizar si la distribución ha cambiado de entre el año
+1996 y 2006. Note que las frecuencias del 2006 aparecen sobre las del
+1996.</p>
 <pre class="r"><code>#Camas_Hospital
 head(Camas_Hospital, n=2)</code></pre>
 <pre><code>##        Pais Year Poblacion Camas
@@ -552,9 +586,25 @@ a+geom_histogram(stat=&quot;bin&quot;)+
   ylab(&quot;Frecuencia&quot;)</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="G6_geom_histogram_files/figure-html/dipodium-histogram2-1.png" width="672" /></p>
-<div id="modificando-las-escalas-continuas-con-scale_y_continuous-y-scale_x_continuous" class="section level2">
-<h2>Modificando las escalas continuas con scale_y_continuous y scale_x_continuous</h2>
-<p>Se demuestra también cómo modificar la escala, primero con un método poco práctico numerando en el eje de <strong>Y</strong> cada valor donde queremos una línea. Note que se excluye el número 10 y por eso no aparece en el eje de <strong>Y</strong> la función es <strong>scale_y_continuous(breaks=c(x,x,x…x)</strong>. En el eje de <strong>X</strong> se numera también pero esta vez se define la escala con <strong>scale_x_continuous(breaks=c( )</strong>, y <strong>c(x:xx)</strong> con un valor inicial de 1 y final de 15 para identificar cual son los valores que uno quiere en los ejes; eso es más práctico e incluye al valor 10. También se modifica la información de los ejes usando <strong>xlab</strong> y <strong>ylab</strong>, de manera tal que la descripción de la columnas se pueda presentar de forma específica y así hacer la información más clara para propósitos del gráfico. =</p>
+<div
+id="modificando-las-escalas-continuas-con-scale_y_continuous-y-scale_x_continuous"
+class="section level2">
+<h2>Modificando las escalas continuas con scale_y_continuous y
+scale_x_continuous</h2>
+<p>Se demuestra también cómo modificar la escala, primero con un método
+poco práctico numerando en el eje de <strong>Y</strong> cada valor donde
+queremos una línea. Note que se excluye el número 10 y por eso no
+aparece en el eje de <strong>Y</strong> la función es
+<strong>scale_y_continuous(breaks=c(x,x,x…x)</strong>. En el eje de
+<strong>X</strong> se numera también pero esta vez se define la escala
+con <strong>scale_x_continuous(breaks=c( )</strong>, y
+<strong>c(x:xx)</strong> con un valor inicial de 1 y final de 15 para
+identificar cual son los valores que uno quiere en los ejes; eso es más
+práctico e incluye al valor 10. También se modifica la información de
+los ejes usando <strong>xlab</strong> y <strong>ylab</strong>, de manera
+tal que la descripción de la columnas se pueda presentar de forma
+específica y así hacer la información más clara para propósitos del
+gráfico. =</p>
 <pre class="r"><code>a=ggplot(Camas_Hospital, aes(Camas, fill=factor(Year)))+
   geom_histogram(stat=&quot;bin&quot;, alpha=0.5)+
   scale_y_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9,11,12,13,14,15))+
@@ -565,9 +615,20 @@ a</code></pre>
 <p><img src="G6_geom_histogram_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 </div>
-<div id="solapamiento-de-frecuencia-y-intensidad-de-color" class="section level1">
+<div id="solapamiento-de-frecuencia-y-intensidad-de-color"
+class="section level1">
 <h1>Solapamiento de frecuencia y intensidad de color</h1>
-<p>Podríamos pensar que, debido a que las frecuencias están solapadas, es difícil tener una buena apreciación de la distribución de los datos. Para comparar las frecuencias entre los grupos con más facilidad, se pueden diferenciar las frecuencias con 3 colores; en este caso el color azul para el año 2006, el color durazno para el año 1996, y el color grisáceo para las frecuencias que se solapan con ambos años. Se usa <strong>position=identity</strong> y <strong>alpha=</strong> pata modicar la intensidades de color de la barras. Ahora vemos que, por ejemplo, en el año 1996 la frecuencia más común en los países era de menos de 2 camas por 1,000 habitantes, y que ya para el año 2006 ya era de 2 y 8 camas por cada 1,000 habitantes.</p>
+<p>Podríamos pensar que, debido a que las frecuencias están solapadas,
+es difícil tener una buena apreciación de la distribución de los datos.
+Para comparar las frecuencias entre los grupos con más facilidad, se
+pueden diferenciar las frecuencias con 3 colores; en este caso el color
+azul para el año 2006, el color durazno para el año 1996, y el color
+grisáceo para las frecuencias que se solapan con ambos años. Se usa
+<strong>position=identity</strong> y <strong>alpha=</strong> pata
+modicar la intensidades de color de la barras. Ahora vemos que, por
+ejemplo, en el año 1996 la frecuencia más común en los países era de
+menos de 2 camas por 1,000 habitantes, y que ya para el año 2006 ya era
+de 2 y 8 camas por cada 1,000 habitantes.</p>
 <pre class="r"><code>a=ggplot(Camas_Hospital, aes(Camas, fill=factor(Year)))
 a+geom_histogram(stat=&quot;bin&quot;, alpha=0.5,
                  position=&quot;identity&quot;)+
@@ -579,8 +640,11 @@ a+geom_histogram(stat=&quot;bin&quot;, alpha=0.5,
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="G6_geom_histogram_files/figure-html/dipodium-histogram4-1.png" width="672" /></p>
 </div>
-<div id="posicionar-las-barras-uno-al-lado-del-otro-con-la-función-dodge" class="section level1">
-<h1>Posicionar las barras uno al lado del otro con la función <strong>dodge</strong></h1>
+<div
+id="posicionar-las-barras-uno-al-lado-del-otro-con-la-función-dodge"
+class="section level1">
+<h1>Posicionar las barras uno al lado del otro con la función
+<strong>dodge</strong></h1>
 <pre class="r"><code>a=ggplot(Camas_Hospital, aes(Camas, fill=factor(Year)))
 a+geom_histogram(stat=&quot;bin&quot;, alpha=0.9,
                  position=&quot;dodge&quot;)+
@@ -594,9 +658,18 @@ a+geom_histogram(stat=&quot;bin&quot;, alpha=0.9,
 </div>
 <div id="gráficos-para-grupo-con-facet_wrap" class="section level1">
 <h1>Gráficos para grupo con <strong>Facet_wrap</strong></h1>
-<div id="cambio-de-colores-del-gráfico-manualmente" class="section level2">
+<div id="cambio-de-colores-del-gráfico-manualmente"
+class="section level2">
 <h2>Cambio de colores del gráfico manualmente</h2>
-<p>Otra alternativa es usar dos gráficos para cada año; o sea, uno por cada grupo. En tal caso usaremos la opción <strong>facet_wrap</strong>. <strong>facet_wrap</strong> se explican con más detalle más adelante. Podemos cambiar el color de las barras usando <strong>scale_fill_manual</strong>; en nuestro caso, <strong>cyan4</strong> para el 1996 y <strong>darkorange</strong> para el 2006. Además, note que con <strong>scale_color_manual</strong> podemos cambiar la línea alrededor de las barras; en nuestro caso la cambiamos a negro o <strong>black</strong>.</p>
+<p>Otra alternativa es usar dos gráficos para cada año; o sea, uno por
+cada grupo. En tal caso usaremos la opción <strong>facet_wrap</strong>.
+<strong>facet_wrap</strong> se explican con más detalle más adelante.
+Podemos cambiar el color de las barras usando
+<strong>scale_fill_manual</strong>; en nuestro caso,
+<strong>cyan4</strong> para el 1996 y <strong>darkorange</strong> para
+el 2006. Además, note que con <strong>scale_color_manual</strong>
+podemos cambiar la línea alrededor de las barras; en nuestro caso la
+cambiamos a negro o <strong>black</strong>.</p>
 <pre class="r"><code>a=ggplot(Camas_Hospital, aes(Camas, fill=factor(Year),
                              color=factor(Year)))
 a+geom_histogram(stat=&quot;bin&quot;, alpha=0.5)+
@@ -614,16 +687,20 @@ a+geom_histogram(stat=&quot;bin&quot;, alpha=0.5)+
 <p><img src="G6_geom_histogram_files/figure-html/dipodium-histogram3-1.png" width="672" /></p>
 </div>
 </div>
-<div id="opciones-y-parametros-de-geom_histogram" class="section level1">
+<div id="opciones-y-parametros-de-geom_histogram"
+class="section level1">
 <h1>Opciones y Parametros de <strong>geom_histogram</strong>:</h1>
 <ul>
 <li><p>ggplot(el archivo de datos, aes(la variable continua))</p>
 <ul>
-<li>geom_histogram (), binwidth, x, y, alpha, color, fill, stat, position.</li>
-<li>binwidth: el ancho de los compartimentos donde por defecto es de 1/30 el rango de los datos.</li>
+<li>geom_histogram (), binwidth, x, y, alpha, color, fill, stat,
+position.</li>
+<li>binwidth: el ancho de los compartimentos donde por defecto es de
+1/30 el rango de los datos.</li>
 <li>alpha: la intensidad del color</li>
 <li>fill: el color del área; ej., color=blue</li>
-<li>color: el color de la línea alrededor del área; ej., color=white</li>
+<li>color: el color de la línea alrededor del área; ej.,
+color=white</li>
 <li>position: “identity”, “stack”, “dodge”.</li>
 </ul></li>
 </ul>
@@ -667,6 +744,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -80,7 +80,7 @@ En el primer paso se muestran las filas del 1 al 7 usando **head( )** y se selec
 ```{r}
 
 Anolis %>%
-  select(WEIGHT, SVL)%>%  # selecciona
+  dplyr::select(WEIGHT, SVL)%>%  # selecciona
   filter(WEIGHT<4 & SVL>20)%>%
   head(n=7)%>%            # solo muestra los primeros siete
   gt()
@@ -99,7 +99,7 @@ A continuación, en la **Figura. Gráfico básico con geom_point**, se muestra u
 ```{r geom point-count}
 
 Anolis %>%
-  select(WEIGHT, SVL)%>%
+  dplyr::select(WEIGHT, SVL)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT))+
   geom_point()+
@@ -116,7 +116,7 @@ Al gráfico anterior se le pueden hacer modificaciones a los nombres de los ejes
 
 ```{r}
 Anolis %>%
-  select(WEIGHT, SVL)%>%
+  dplyr::select(WEIGHT, SVL)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT))+
   geom_point()+
@@ -140,7 +140,7 @@ Por otro lado, la función **geom_count** varía el tamaño de los puntos de acu
 ```{r geom count1}
 
 Anolis %>%
-  select(WEIGHT, SVL)%>%
+  dplyr::select(WEIGHT, SVL)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT))+
   geom_count()+
@@ -162,7 +162,7 @@ Se puede representar la frecuencia en proporción a los datos.  En el gráfico s
 ```{r geom count2}
 
 Anolis %>%
-  select(WEIGHT, SVL)%>%
+  dplyr::select(WEIGHT, SVL)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT))+
   geom_count(aes(size=..prop.., group=1))+
@@ -182,7 +182,7 @@ En el siguiente gráfico, **Figura. Puntos en proporción a una variable**, las 
 ```{r geom count2a}
 
 Anolis %>%
-  select(WEIGHT, SVL)%>%
+  dplyr::select(WEIGHT, SVL)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT))+
   geom_count(aes(size=..prop.., group=SVL))+
@@ -203,7 +203,7 @@ Si hay más de un grupo (digamos, muestras tomadas en la época seca del año y 
 ```{r geom count3}
 
 Anolis %>%
-  select(WEIGHT, SVL, SEASON)%>%
+  dplyr::select(WEIGHT, SVL, SEASON)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(aes(size=..prop.., group=WEIGHT))+
@@ -226,7 +226,7 @@ names(Anolis) # para mostrar los nombres de las columnas
 
   
 Anolis %>%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%>%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(aes(size=..prop.., group=WEIGHT))+
@@ -254,7 +254,7 @@ La opción de **shape** es para modificar los tipos de símbolo disponibles para
 ```{r geom count5.1}
 
 Anolis %>%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%>%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(shape=12,colour="black",
@@ -269,7 +269,7 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 ```{r geom count5.2}
 
 Anolis %>%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%>%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(shape=21, fill="yellow", colour="black",
@@ -289,7 +289,7 @@ En el siguiente gráfico, **Figura. Puntos cuadrados con bordes más gruesos**, 
 
 ```{r geom count6}
 Anolis %>%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%>%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%>%
   filter(WEIGHT<4 & SVL>20)%>%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(shape=22, stroke=2,

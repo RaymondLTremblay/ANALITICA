@@ -14,7 +14,7 @@
 
 <title>Documento_RMarkdown</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -617,18 +617,17 @@ demuestra como usando añadir un gráfico. El primer paso es añadir un
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 head(x)</code></pre>
 <pre><code>## # A tibble: 6 × 1
-##     value
-##     &lt;dbl&gt;
-## 1 -0.206 
-## 2  1.85  
-## 3 -0.0104
-## 4 -1.50  
-## 5 -0.175 
-## 6  0.415</code></pre>
+##    value
+##    &lt;dbl&gt;
+## 1  0.508
+## 2  0.273
+## 3  0.744
+## 4  0.916
+## 5 -1.33 
+## 6 -0.683</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`.
-## Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="Documento_RMarkdown-ed2_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div id="section-9" class="section level6">
 <h6>—————————————————</h6>

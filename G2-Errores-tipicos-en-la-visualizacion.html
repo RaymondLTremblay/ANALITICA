@@ -14,8 +14,8 @@
 
 <title>Errores típicos en la visualización</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -296,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -401,45 +402,33 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -449,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -464,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -478,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -509,16 +498,39 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2023-08-22&quot;</code></pre>
 <div id="representaciones-problemáticas" class="section level1">
 <h1>Representaciones problemáticas</h1>
-<div id="errores-típicos-en-la-producción-de-gráficos" class="section level2">
+<div id="errores-típicos-en-la-producción-de-gráficos"
+class="section level2">
 <h2>Errores típicos en la producción de gráficos</h2>
-<p>Uno de los errores más comunes cuando se producen gráficos es dedicar demasiado tiempo a la decoración para dar una impresión grandiosa en vez de concentrarse en diseñarlos para comunicar efectivamente el mensaje a la audiencia. Por ejemplo, el uso de múltiples dimensiones, una definición confusa de las escalas en los ejes, una cantidad exagerada o insuficiente de “ticks” en los ejes, o el utilizar valores inadecuados en las escalas. Ejemplos de esos errores típicos se presentan a continuación.</p>
+<p>Uno de los errores más comunes cuando se producen gráficos es dedicar
+demasiado tiempo a la decoración para dar una impresión grandiosa en vez
+de concentrarse en diseñarlos para comunicar efectivamente el mensaje a
+la audiencia. Por ejemplo, el uso de múltiples dimensiones, una
+definición confusa de las escalas en los ejes, una cantidad exagerada o
+insuficiente de “ticks” en los ejes, o el utilizar valores inadecuados
+en las escalas. Ejemplos de esos errores típicos se presentan a
+continuación.</p>
 <div id="embellecimiento-innecesario" class="section level3">
 <h3>Embellecimiento innecesario</h3>
-<p>Un ejemplo de embellecimiento innecesario en un gráfico es el uso de tres dimensiones en una representación 3D para comunicar el conteo de una medida. Frecuentemente lo vemos en muchos sitios de la Internet, en artículos científicos, revistas y periódicos y trabajos de estudiantes. En el caso de un conteo (y en muchos otros casos), <strong>NO</strong> hay razón para añadir otra dimensión en el gráfico pues eso no ayuda a entender los datos y hasta podría causar dificultad para percibir rápidamente los valores reales que representan las barras. Infortunadamente, la facilidad de crear gráficos en 3D con cualquier tipo de valores, por ejemplo, en MS-Excel, ha amplificado el mal uso de este tipo de representación de datos.</p>
-<p>En la <strong>Figura: Gráfico con dimensiones innecesarias</strong> demostramos que la tercera dimensión (3D) no aporta al entendimiento de los resultados. Vemos que el valor de las barras en el eje de “y” que representa la magnitud de ese valor en la barra en 3D se muestra en el frente o detrás de la caja 3D. Añadir 3D en este caso es complicar la apreciación de esos valores.</p>
+<p>Un ejemplo de embellecimiento innecesario en un gráfico es el uso de
+tres dimensiones en una representación 3D para comunicar el conteo de
+una medida. Frecuentemente lo vemos en muchos sitios de la Internet, en
+artículos científicos, revistas y periódicos y trabajos de estudiantes.
+En el caso de un conteo (y en muchos otros casos), <strong>NO</strong>
+hay razón para añadir otra dimensión en el gráfico pues eso no ayuda a
+entender los datos y hasta podría causar dificultad para percibir
+rápidamente los valores reales que representan las barras.
+Infortunadamente, la facilidad de crear gráficos en 3D con cualquier
+tipo de valores, por ejemplo, en MS-Excel, ha amplificado el mal uso de
+este tipo de representación de datos.</p>
+<p>En la <strong>Figura: Gráfico con dimensiones innecesarias</strong>
+demostramos que la tercera dimensión (3D) no aporta al entendimiento de
+los resultados. Vemos que el valor de las barras en el eje de “y” que
+representa la magnitud de ese valor en la barra en 3D se muestra en el
+frente o detrás de la caja 3D. Añadir 3D en este caso es complicar la
+apreciación de esos valores.</p>
 <div class="figure" style="text-align: center">
 <img src="Graficos/A3D.png" alt="Figura: Gráfico con dimensiones innecesarias" width="50%" />
 <p class="caption">
@@ -528,25 +540,72 @@ Figura: Gráfico con dimensiones innecesarias
 </div>
 <div id="errores-de-escala-en-los-ejes" class="section level3">
 <h3>Errores de escala en los ejes</h3>
-<p>Muchas veces la variable en “x” tiene intervalos que no corresponden a la escala de la variable. En el gráfico en la <strong>Figura a. Gráfico con escala incorrecta en el eje de X</strong> se muestra una línea que representa la cantidad de casos de una enfermedad. El eje de “X” representa el año de recolección de los datos. Note que la escala no es consistente. Primero comienza el intervalo de 10 en 10, luego pasa a un intervalo de 15 y luego termina con un intervalo de 45. Eso afecta el comportamiento de la línea en cuanto la rapidez de la progresión de casos.</p>
-<p>Por otro lado, veamos que el gráfico en la <strong>Figura b. Mismo gráfico con la escala corregida en el eje de X</strong> resuelve el problema al dejar que la escala se ajuste al intervalo correcto de años. Podemos notar que ahora los mismos datos quedan representados en la línea de forma más a tono con el comportamiento real de los datos.</p>
+<p>Muchas veces la variable en “x” tiene intervalos que no corresponden
+a la escala de la variable. En el gráfico en la <strong>Figura a.
+Gráfico con escala incorrecta en el eje de X</strong> se muestra una
+línea que representa la cantidad de casos de una enfermedad. El eje de
+“X” representa el año de recolección de los datos. Note que la escala no
+es consistente. Primero comienza el intervalo de 10 en 10, luego pasa a
+un intervalo de 15 y luego termina con un intervalo de 45. Eso afecta el
+comportamiento de la línea en cuanto la rapidez de la progresión de
+casos.</p>
+<p>Por otro lado, veamos que el gráfico en la <strong>Figura b. Mismo
+gráfico con la escala corregida en el eje de X</strong> resuelve el
+problema al dejar que la escala se ajuste al intervalo correcto de años.
+Podemos notar que ahora los mismos datos quedan representados en la
+línea de forma más a tono con el comportamiento real de los datos.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="cantidad-incorrecta-de-ticks" class="section level3">
 <h3>Cantidad incorrecta de “ticks”</h3>
-<p>La cantidad de “ticks” en los ejes de “X” o “Y” es frecuentemente un problema porque o hay demasiada o no hay suficiente información para visualizar la escala. Vemos aquí dos ejemplos de esos problemas. En el gráfico <strong>Figura a: Demasiados “ticks” en el eje de “X”</strong> no se puede leer con facilidad la secuencia de los datos en la variable “x”. En el segundo gráfico, <strong>Figura b. Insuficientes “ticks” en el eje de “X”</strong>, no se enseña suficiente información. La escala y los valores que se desean representar deberían ser fáciles de entender y que claramente reflejen las ideas que el científico u otro profesional desea comunicar.</p>
+<p>La cantidad de “ticks” en los ejes de “X” o “Y” es frecuentemente un
+problema porque o hay demasiada o no hay suficiente información para
+visualizar la escala. Vemos aquí dos ejemplos de esos problemas. En el
+gráfico <strong>Figura a: Demasiados “ticks” en el eje de “X”</strong>
+no se puede leer con facilidad la secuencia de los datos en la variable
+“x”. En el segundo gráfico, <strong>Figura b. Insuficientes “ticks” en
+el eje de “X”</strong>, no se enseña suficiente información. La escala y
+los valores que se desean representar deberían ser fáciles de entender y
+que claramente reflejen las ideas que el científico u otro profesional
+desea comunicar.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="problemas-de-escala" class="section level3">
 <h3>Problemas de escala</h3>
-<p>En muchas ocasiones, el no incluir una escala adecuada en la variable dependiente (“y”) resulta en resultados muy difíciles de interpretar. A continuación podremos observar dos gráficos que ilustran tal condición. En el primero, <strong>Figura a: NO comienza con valor cero en eje de Y </strong>, da la impresión que hay diferencias entre los grupos (por ejemplo el grupo “D” tiene valores más pequeños por estar mucho más abajo en la escala del eje de “Y”). Pero cuando se cambia de escala de manera que incluya al cero, ver <strong>Figura b: SÍ comienza con valor cero en eje de Y </strong>, a pesar de estar representados los mismos datos, no se aprecia esa diferencia tan marcada. El único componente que se cambió fue la escala, pero aún se utilizaron los mismos datos.</p>
-<p>En general, ¿cúal debe ser la escala correcta? ¿Se debe siempre comenzar con el cero? Depende de los tipos de valores y el mensaje que el investigador quiere transmitir. Por ejemplo, si en realidad NUNCA es posible (o improbable) que los valores en “y” lleguen al valor cero, no sería correcto mostrar la escala comenzando con el cero. Un ejemplo exagerado sería que si se mide la temperatura en la escala de Kelvin y Ud representa en un gráfico la temperatura típica de un lugar, por ejemplo, si el grupo “D” representa la temperatura en la ciudad de Madrid, no sería lógico mostrar en el eje de “y” temperaturas que comiencen con 0° Kelvin ya que la temperatura de esa ciudad no puede llegar a esa medida. Al contrario, lo lógico sería tener una escala que represente los valores mínimo y máximo típicos en el período del estudio.</p>
+<p>En muchas ocasiones, el no incluir una escala adecuada en la variable
+dependiente (“y”) resulta en resultados muy difíciles de interpretar. A
+continuación podremos observar dos gráficos que ilustran tal condición.
+En el primero, <strong>Figura a: NO comienza con valor cero en eje de Y
+</strong>, da la impresión que hay diferencias entre los grupos (por
+ejemplo el grupo “D” tiene valores más pequeños por estar mucho más
+abajo en la escala del eje de “Y”). Pero cuando se cambia de escala de
+manera que incluya al cero, ver <strong>Figura b: SÍ comienza con valor
+cero en eje de Y </strong>, a pesar de estar representados los mismos
+datos, no se aprecia esa diferencia tan marcada. El único componente que
+se cambió fue la escala, pero aún se utilizaron los mismos datos.</p>
+<p>En general, ¿cúal debe ser la escala correcta? ¿Se debe siempre
+comenzar con el cero? Depende de los tipos de valores y el mensaje que
+el investigador quiere transmitir. Por ejemplo, si en realidad NUNCA es
+posible (o improbable) que los valores en “y” lleguen al valor cero, no
+sería correcto mostrar la escala comenzando con el cero. Un ejemplo
+exagerado sería que si se mide la temperatura en la escala de Kelvin y
+Ud representa en un gráfico la temperatura típica de un lugar, por
+ejemplo, si el grupo “D” representa la temperatura en la ciudad de
+Madrid, no sería lógico mostrar en el eje de “y” temperaturas que
+comiencen con 0° Kelvin ya que la temperatura de esa ciudad no puede
+llegar a esa medida. Al contrario, lo lógico sería tener una escala que
+represente los valores mínimo y máximo típicos en el período del
+estudio.</p>
 <p><img src="G2-Errores-tipicos-en-la-visualizacion_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 </div>
-<div id="errores-típicos-en-la-construcción-de-tablas" class="section level2">
+<div id="errores-típicos-en-la-construcción-de-tablas"
+class="section level2">
 <h2>Errores típicos en la construcción de tablas</h2>
-<p>Hasta ahora hemos visto errores de representación al producir gráficos. El mismo problema de representación visual frecuentemente se da al presentar datos en forma tabular. A continuación se muestran algunos errores comunes cuando se presentan datos en tablas.</p>
+<p>Hasta ahora hemos visto errores de representación al producir
+gráficos. El mismo problema de representación visual frecuentemente se
+da al presentar datos en forma tabular. A continuación se muestran
+algunos errores comunes cuando se presentan datos en tablas.</p>
 <div id="cifras-significativas-excesivas" class="section level3">
 <h3>Cifras significativas excesivas</h3>
 <p>No se deben incluir valores significativos excesivamente.</p>
@@ -557,7 +616,11 @@ Figura: Gráfico con dimensiones innecesarias
 </div>
 <div id="justificaciones-incorrectas" class="section level3">
 <h3>Justificaciones incorrectas</h3>
-<p>Es importante que los valores numéricos estén justificados a la derecha. Recordemos que nuestra apreciación de las diferencias numéricas van de derecha a izquierda. Por ejemplo, el valor 112 se aprecia automáticamente como más grande que un valor que tiene dos dígitos (digamos el 12).</p>
+<p>Es importante que los valores numéricos estén justificados a la
+derecha. Recordemos que nuestra apreciación de las diferencias numéricas
+van de derecha a izquierda. Por ejemplo, el valor 112 se aprecia
+automáticamente como más grande que un valor que tiene dos dígitos
+(digamos el 12).</p>
 </div>
 <div id="falta-de-unidades" class="section level3">
 <h3>Falta de unidades</h3>
@@ -565,9 +628,20 @@ Figura: Gráfico con dimensiones innecesarias
 <div id="ejemplo" class="section level4">
 <h4>Ejemplo</h4>
 <p>Ahora veamos un ejemplo de esos problemas.</p>
-<p>A ver, mire la <strong>Tabla a</strong> y la <strong>Tabla b</strong>. ¿Encuentra los errores? Vea que la <strong>Tabla a</strong> muestra los valores con demasiadas cifras significativas, justificaciones ilógicas, formato inconsistente y no especifica las unidades de los valores. Vemos en la <strong>Tabla b</strong> que ahora las cifras significativas aparecen de forma consistente y en el mismo formato (2da y 3ra columnas), todos los números están justificados a la derecha y las unidades de cm se especifican (3ra columna).</p>
-<p>En conclusión, no solo la <strong>Tabla b</strong> se ve más presentable, si no que también corrige los problemas, de ahí la importancia de presentar datos tabulados de forma que facilite su comunicación a la audiencia.</p>
-<p><strong>Tabla a. Errores de formato, justificación y escala</strong></p>
+<p>A ver, mire la <strong>Tabla a</strong> y la <strong>Tabla
+b</strong>. ¿Encuentra los errores? Vea que la <strong>Tabla a</strong>
+muestra los valores con demasiadas cifras significativas,
+justificaciones ilógicas, formato inconsistente y no especifica las
+unidades de los valores. Vemos en la <strong>Tabla b</strong> que ahora
+las cifras significativas aparecen de forma consistente y en el mismo
+formato (2da y 3ra columnas), todos los números están justificados a la
+derecha y las unidades de cm se especifican (3ra columna).</p>
+<p>En conclusión, no solo la <strong>Tabla b</strong> se ve más
+presentable, si no que también corrige los problemas, de ahí la
+importancia de presentar datos tabulados de forma que facilite su
+comunicación a la audiencia.</p>
+<p><strong>Tabla a. Errores de formato, justificación y
+escala</strong></p>
 <table>
 <thead>
 <tr class="header">
@@ -673,6 +747,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

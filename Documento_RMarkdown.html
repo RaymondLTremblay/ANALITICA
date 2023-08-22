@@ -14,7 +14,7 @@
 
 <title>Documento_RMarkdown</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -548,42 +548,40 @@ x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
 ##      value
 ##      &lt;dbl&gt;
-##  1 -0.662 
-##  2  0.732 
-##  3  0.318 
-##  4 -1.65  
-##  5  0.0630
-##  6  0.557 
-##  7  0.407 
-##  8  0.567 
-##  9 -0.130 
-## 10 -0.0125
+##  1  0.283 
+##  2 -2.92  
+##  3 -0.410 
+##  4 -0.691 
+##  5  0.356 
+##  6  1.11  
+##  7  0.148 
+##  8 -0.802 
+##  9 -0.0768
+## 10 -1.01  
 ## # ℹ 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`.
-## Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="Documento_RMarkdown_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
 ##     value
 ##     &lt;dbl&gt;
-##  1 -0.696
-##  2  0.741
-##  3 -0.567
-##  4  2.53 
-##  5  0.806
-##  6  1.15 
-##  7 -0.152
-##  8 -0.168
-##  9  0.573
-## 10  0.332
+##  1 -0.310
+##  2  0.721
+##  3  1.78 
+##  4  0.423
+##  5 -0.318
+##  6  0.308
+##  7 -0.336
+##  8 -0.191
+##  9 -0.969
+## 10  0.143
 ## # ℹ 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`.
-## Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="Documento_RMarkdown_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <hr />
 <blockquote>

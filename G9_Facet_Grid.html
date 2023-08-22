@@ -14,8 +14,8 @@
 
 <title>Facet_Grid</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -296,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -401,45 +402,33 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -449,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -464,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -478,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -509,18 +498,30 @@ div.tocify {
 
 
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2023-08-22&quot;</code></pre>
 <pre class="r"><code>library(ggplot2)
 library(ggversa)</code></pre>
 <hr />
 <div id="gráficos-en-cuadrícula-con-facet_grid" class="section level1">
 <h1>Gráficos en cuadrícula con <strong>facet_grid</strong></h1>
-<p>Esta opción forma una matriz de gráficos por fila y columna por una variable seleccionada. Es una opción que facilita ver los patrones cuando hay dos variables discretas.</p>
-<p><strong>Facet grid</strong> es un opción de gran ventaja de usar ggplot2: Organizando los gráficos en una cuadrícula. Eso resulta ser muy útil para la producción de un gráfico por cada par de variable discreta; o sea, cada grupo producirá un gráfico de acuerdo a su categoría. Los próximos ejemplos se basan en la base de datos del lagartijo <em>Anolis</em>.</p>
+<p>Esta opción forma una matriz de gráficos por fila y columna por una
+variable seleccionada. Es una opción que facilita ver los patrones
+cuando hay dos variables discretas.</p>
+<p><strong>Facet grid</strong> es un opción de gran ventaja de usar
+ggplot2: Organizando los gráficos en una cuadrícula. Eso resulta ser muy
+útil para la producción de un gráfico por cada par de variable discreta;
+o sea, cada grupo producirá un gráfico de acuerdo a su categoría. Los
+próximos ejemplos se basan en la base de datos del lagartijo
+<em>Anolis</em>.</p>
 <hr />
 <div id="facet_grid-con-cuadrículas-paradas" class="section level2">
 <h2><strong>Facet_grid</strong> con cuadrículas paradas</h2>
-<p>En la Figura hacemos una demostración utilizando la altura del sitio de muestreo, pero con las categorías se generó una al lado de las otras en una serie. Note la tilde, <strong>~</strong>, antes del nombre de la variable SEX_AGE. Si usamos solamente una variable (como en este caso), la presentación de los gráficos cambiará dependiendo si la tilde está antes o después de la variable, tal demostrado a más adelante.</p>
+<p>En la Figura hacemos una demostración utilizando la altura del sitio
+de muestreo, pero con las categorías se generó una al lado de las otras
+en una serie. Note la tilde, <strong>~</strong>, antes del nombre de la
+variable SEX_AGE. Si usamos solamente una variable (como en este caso),
+la presentación de los gráficos cambiará dependiendo si la tilde está
+antes o después de la variable, tal demostrado a más adelante.</p>
 <pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
 
 rr+geom_point(aes(color=Survey_Site))+
@@ -534,7 +535,9 @@ rr+geom_point(aes(color=Survey_Site))+
 </div>
 <div id="facet_grid-con-cuadrículas-acostadas" class="section level2">
 <h2><strong>Facet_grid</strong> con cuadrículas acostadas</h2>
-<p>Ahora ponemos la variable antes de la <strong><sub><strong>, pero note que después de la </strong></sub></strong> hay un punot <strong>.</strong>. Notemos el efecto en la Figura a continuación.</p>
+<p>Ahora ponemos la variable antes de la <strong><sub><strong>, pero
+note que después de la </strong></sub></strong> hay un punot
+<strong>.</strong>. Notemos el efecto en la Figura a continuación.</p>
 <pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
 
 rr+geom_point(aes(color=Survey_Site))+
@@ -546,9 +549,15 @@ rr+geom_point(aes(color=Survey_Site))+
 <p><img src="G9_Facet_Grid_files/figure-html/facetgrid1-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="facet_grid-con-cuadrículas-representando-dos-variables" class="section level2">
-<h2><strong>Facet_grid</strong> con cuadrículas representando dos variables</h2>
-<p>Ahora veremos en la enorme ventaja de <strong>facet_grid</strong> al representar dos variables discretas simultáneamente, la edad_sexo de los <em>Anolis</em> y el periodo del año (seco o lluviosos) del muestreo. Note que el parámetro ahora es SEX_AGE<span class="math inline">\(\sim\)</span>SEASON.</p>
+<div id="facet_grid-con-cuadrículas-representando-dos-variables"
+class="section level2">
+<h2><strong>Facet_grid</strong> con cuadrículas representando dos
+variables</h2>
+<p>Ahora veremos en la enorme ventaja de <strong>facet_grid</strong> al
+representar dos variables discretas simultáneamente, la edad_sexo de los
+<em>Anolis</em> y el periodo del año (seco o lluviosos) del muestreo.
+Note que el parámetro ahora es SEX_AGE<span
+class="math inline">\(\sim\)</span>SEASON.</p>
 <pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
 
 rr+geom_point(aes(color=Survey_Site))+
@@ -562,7 +571,12 @@ rr+geom_point(aes(color=Survey_Site))+
 </div>
 <div id="escalas-libres-en-los-ejes" class="section level2">
 <h2>Escalas libres en los ejes</h2>
-<p>Ahora dejemos que en la escala en el eje de X sea variable. La escala del periodo seco va de 20 a 50 cm y del periodo lluvioso va de 0 a 50 cm. Con esta representación se puede apreciar mejor que los nuevos especímenes nacen en mayores cantidades en el periodo lluvioso. Note que el parámetro ahora es <strong>SEX_AGE~SEASON</strong> y <strong>scales=free_x</strong>.</p>
+<p>Ahora dejemos que en la escala en el eje de X sea variable. La escala
+del periodo seco va de 20 a 50 cm y del periodo lluvioso va de 0 a 50
+cm. Con esta representación se puede apreciar mejor que los nuevos
+especímenes nacen en mayores cantidades en el periodo lluvioso. Note que
+el parámetro ahora es <strong>SEX_AGE~SEASON</strong> y
+<strong>scales=free_x</strong>.</p>
 <pre class="r"><code>rr=ggplot(Anolis, aes(SVL, HEIGHT))
 
 rr+geom_point(aes(color=Survey_Site))+
@@ -574,15 +588,32 @@ rr+geom_point(aes(color=Survey_Site))+
 <p><img src="G9_Facet_Grid_files/figure-html/facetgrid3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
-<div id="cambio-de-las-posiciones-de-las-descripciones" class="section level2">
+<div id="cambio-de-las-posiciones-de-las-descripciones"
+class="section level2">
 <h2>Cambio de las posiciones de las descripciones</h2>
-<p>En el próximo gráfico veremos cómo cambiar el lugar donde están colocadas las descripciones de las categorías (sexo y estación del año) usando <strong>switch</strong>. Si se usa <strong>switch</strong> en el eje de <strong>X</strong>, la descripción de ese eje, que antes estaba arriba, ahora pasará abajo. Si se usa en el eje de <strong>Y</strong>, la descripción de la derecha pasa a la izquierda. Si se usa el parámetro <strong>both</strong> ambas descripciones cambian a su lado opuesto.</p>
+<p>En el próximo gráfico veremos cómo cambiar el lugar donde están
+colocadas las descripciones de las categorías (sexo y estación del año)
+usando <strong>switch</strong>. Si se usa <strong>switch</strong> en el
+eje de <strong>X</strong>, la descripción de ese eje, que antes estaba
+arriba, ahora pasará abajo. Si se usa en el eje de <strong>Y</strong>,
+la descripción de la derecha pasa a la izquierda. Si se usa el parámetro
+<strong>both</strong> ambas descripciones cambian a su lado opuesto.</p>
 <p><img src="G9_Facet_Grid_files/figure-html/facetgrid4-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="facet_grid-con-las-escalas-de-los-ejes-variable-en-x-y-y" class="section level2">
+<div id="facet_grid-con-las-escalas-de-los-ejes-variable-en-x-y-y"
+class="section level2">
 <h2>Facet_grid con las escalas de los ejes variable en X y Y</h2>
-<p>La opción de <strong>space</strong> con <strong>facet_grid</strong>, da la oportunidad de modificar el rango de los ejes de <strong>Y</strong> y <strong>X</strong>. Por conveniencia, algunos de los rangos de los ejes de las figuras anteriores son iguales. Pero si uno quisiera que cada figura tuviera su propio rango, uno usa <strong>space=free_y</strong> o <strong>free_x</strong> para que sean proporcionales a la escala de los datos en uno o el otro eje. Sin embargo, a veces se quiere que ambos ejes sean proporcionales al rango de los datos y en tal caso se usa <strong>free</strong> solamente como se demuestra en la Figura.</p>
+<p>La opción de <strong>space</strong> con <strong>facet_grid</strong>,
+da la oportunidad de modificar el rango de los ejes de
+<strong>Y</strong> y <strong>X</strong>. Por conveniencia, algunos de
+los rangos de los ejes de las figuras anteriores son iguales. Pero si
+uno quisiera que cada figura tuviera su propio rango, uno usa
+<strong>space=free_y</strong> o <strong>free_x</strong> para que sean
+proporcionales a la escala de los datos en uno o el otro eje. Sin
+embargo, a veces se quiere que ambos ejes sean proporcionales al rango
+de los datos y en tal caso se usa <strong>free</strong> solamente como
+se demuestra en la Figura.</p>
 <pre class="r"><code>rr+geom_point(aes(color=Survey_Site))+
   facet_grid(~SEX_AGE, scales=&quot;free&quot;)+
   labs(y=&quot;Altitud, m&quot;)+
@@ -599,11 +630,21 @@ rr+geom_point(aes(color=Survey_Site))+
 <li><p>ggplot(el archivo de datos, aes(la variable continua))</p>
 <ul>
 <li><p>facet_grid(.~a, scales, space, switch, drop)</p></li>
-<li><p>facet: a~b para presentar una serie de gráficos tabulados en X y Y</p></li>
-<li><p>scales: usar free si se quiere que las escalas sean determinadas por los gráficos individualmente; si no, todas los gráficos tendrán la misma escala.</p></li>
-<li><p>space: la producción de los gráficos se hará al mismo tamaño; pero si usa free_y, la altura será proporcional a la escala de Y; y si es free_x, el ancho será proporcional a la escala de X; si usa free, entones ambos ejes variarán individualmente; note que este parámetro no tiene efecto si los datos no varían en los diferentes grupos.</p></li>
-<li><p>switch: ubica la descripción abajo cuando es X, y a la izquierda cuando se usa Y, o cambia ambos al usar usar both.</p></li>
-<li><p>drop: añadir drop=FALSE para que muestre todas las variables aunque no tengan información; solamente funciona si toda la fila o columna de datos está vacía.</p></li>
+<li><p>facet: a~b para presentar una serie de gráficos tabulados en X y
+Y</p></li>
+<li><p>scales: usar free si se quiere que las escalas sean determinadas
+por los gráficos individualmente; si no, todas los gráficos tendrán la
+misma escala.</p></li>
+<li><p>space: la producción de los gráficos se hará al mismo tamaño;
+pero si usa free_y, la altura será proporcional a la escala de Y; y si
+es free_x, el ancho será proporcional a la escala de X; si usa free,
+entones ambos ejes variarán individualmente; note que este parámetro no
+tiene efecto si los datos no varían en los diferentes grupos.</p></li>
+<li><p>switch: ubica la descripción abajo cuando es X, y a la izquierda
+cuando se usa Y, o cambia ambos al usar usar both.</p></li>
+<li><p>drop: añadir drop=FALSE para que muestre todas las variables
+aunque no tengan información; solamente funciona si toda la fila o
+columna de datos está vacía.</p></li>
 </ul></li>
 </ul>
 </div>
@@ -646,6 +687,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

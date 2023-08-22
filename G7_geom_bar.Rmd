@@ -93,7 +93,7 @@ Ahora le añadiremos una variable discreta que representa las frecuencias de las
 
 
 DW%>%
-  select(Fruit_position_effect,Frutos_si_o_no )%>%
+  dplyr::select(Fruit_position_effect,Frutos_si_o_no )%>%
   drop_na(Fruit_position_effect)%>%
 ggplot(aes(Fruit_position_effect))+
 geom_bar(aes(fill=factor(Frutos_si_o_no)),color="white")+
@@ -114,7 +114,7 @@ Para presentar los grupos uno al lado del otro se usa el parámetro **position =
 ```{r dipodium-barra3,  echo=TRUE}
 
 DW%>%
-  select(Fruit_position_effect,Frutos_si_o_no )%>%
+  dplyr::select(Fruit_position_effect,Frutos_si_o_no )%>%
   drop_na(Fruit_position_effect)%>%
   ggplot(aes(Fruit_position_effect))+
   geom_bar(aes(fill=factor(Frutos_si_o_no)),color="white",
@@ -137,7 +137,7 @@ En el próximo gráfico, la frecuencia de ambos grupos comienza en cero pero aú
 ```{r dipodium-barra3b,  echo=TRUE}
 
 DW%>%
-  select(Fruit_position_effect,Frutos_si_o_no )%>%
+  dplyr::select(Fruit_position_effect,Frutos_si_o_no )%>%
   drop_na(Fruit_position_effect)%>%
   ggplot(aes(Fruit_position_effect))+
   geom_bar(aes(fill=factor(Frutos_si_o_no)),color="white",
@@ -162,7 +162,7 @@ fill=factor(Frutos_si_o_no)
 
 
 DW%>%
-  select(Fruit_position_effect,Frutos_si_o_no )%>%
+  dplyr::select(Fruit_position_effect,Frutos_si_o_no )%>%
   drop_na(Fruit_position_effect)%>%
   ggplot(aes(Fruit_position_effect))+
   geom_bar(aes(y=(..count..)/sum(..count..), 
@@ -185,7 +185,7 @@ Para que cada barra represente el 100% de los grupos en el eje de **X**, se usa 
 require(scales)
 
 DW%>%
-  select(Fruit_position_effect,Frutos_si_o_no )%>%
+  dplyr::select(Fruit_position_effect,Frutos_si_o_no )%>%
   drop_na(Fruit_position_effect)%>%
 ggplot(aes(factor(Fruit_position_effect),
              fill=factor(Frutos_si_o_no)))+
@@ -215,7 +215,7 @@ reorder_size <- function(x) {
 
 
 DW%>%
-  select(Number_of_Flowers )%>%
+  dplyr::select(Number_of_Flowers )%>%
   drop_na(Number_of_Flowers)%>%
 ggplot(aes(reorder_size(Number_of_Flowers)))+
 geom_bar(fill="olivedrab")+

@@ -14,7 +14,7 @@
 
 <title>Taller IPERT - R Avanzado</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -637,7 +637,7 @@ model &lt;- lm(BMI ~ Age + Cholesterol + Glucose, data = reg.multiple)
 dbt &lt;- durbinWatsonTest(model, simulate = TRUE)
 dbt</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.06609505      1.823275   0.492
+##    1      0.06609505      1.823275    0.55
 ##  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <div id="linealidad" class="section level4">
@@ -1015,9 +1015,9 @@ class="section level5">
 - \bar{\bar y})^2\]</span></p>
 <p><strong>Ejemplo de tabla de resultados de prueba de hipótesis ANOVA
 de una vía</strong></p>
-<div class="figure">
-<img src="onewayanovaresults.png" alt="" />
-<p class="caption">(tomado de Rosner, 2016)</p>
+<div class="float">
+<img src="onewayanovaresults.png" alt="(tomado de Rosner, 2016)" />
+<div class="figcaption">(tomado de Rosner, 2016)</div>
 </div>
 </div>
 <div id="ejemplo-2-y-datos" class="section level4">
@@ -1680,16 +1680,14 @@ ggplot(Titanic, aes(x=Nfamily, y=Survived, na.rm = TRUE)) +
   geom_smooth(method = &quot;glm&quot;, 
     method.args = list(family = &quot;binomial&quot;), 
     se = FALSE)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y
-## ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E7-TRAvanzado_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(Titanic, aes(x=Age, y=Survived, na.rm = TRUE)) +
   geom_point() +
   geom_smooth(method = &quot;glm&quot;, 
     method.args = list(family = &quot;binomial&quot;), 
     se = FALSE)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y
-## ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E7-TRAvanzado_files/figure-html/unnamed-chunk-25-2.png" width="672" /></p>
 </div>
 <div id="tablas-de-contraste" class="section level3">

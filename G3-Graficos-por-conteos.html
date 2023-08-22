@@ -14,8 +14,8 @@
 
 <title>Gráficos para conteos</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -141,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -296,12 +297,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -309,7 +310,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +320,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Estadística básica
      
     <span class="caret"></span>
@@ -352,7 +353,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Visualización
      
     <span class="caret"></span>
@@ -401,45 +402,33 @@ div.tocify {
       <a href="G14_geom_point_geom_jitter.html">Geom_point y geom_jitter</a>
     </li>
     <li>
-      <a href="G15_gganimate.html">Gráficos animados en movimiento</a>
+      <a href="G15_gganimate.html">Gráficos animados (en movimiento) 1</a>
+    </li>
+    <li>
+      <a href="G15b_gganimate.html">Gráficos animados (en movimiento) 2</a>
+    </li>
+    <li>
+      <a href="G15c_gganimate_barras.html">Gráficos animados (en movimiento) 3</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sreencasts
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="screencast_t_test.html">t-test Screencast</a>
+      <a href="Documento_RMarkdown-ed">Una breve introducción a RMarkdown</a>
+    </li>
+    <li>
+      <a href="Documento_dplyr">Una breve introducción a dplyr</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ejercicios
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Plataforma.html">Lo básico de RStudio</a>
-    </li>
-    <li>
-      <a href="RMarkdown.html">RMarkdown: Lo básico</a>
-    </li>
-    <li>
-      <a href="Tendencias_Centrales.html"> Tendencias Centrales</a>
-    </li>
-    <li>
-      <a href="Medidas_Dispersión.html"> Medidas de Dispersión</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Taller para Facultad
      
     <span class="caret"></span>
@@ -449,13 +438,13 @@ div.tocify {
       <a href="TF_1_Descripción.html">Descripción del taller</a>
     </li>
     <li>
-      <a href="TF1_Regresion_Lineal.html">Regresion_Lineal</a>
+      <a href="TF1_Regresion_Lineal.html">Regresión Lineal</a>
     </li>
     <li>
-      <a href="TF2_Regresion_Cuadratica_otro.html">Regresion no lineal</a>
+      <a href="TF2_Regresion_Cuadratica_otro.html">Regresión no lineal</a>
     </li>
     <li>
-      <a href="TF3_Regresion_Multiples.html">Regresion Multiples</a>
+      <a href="TF3_Regresion_Multiples.html">Regresión Multiples</a>
     </li>
     <li>
       <a href="TF4_GLM.html">Modelos Lineales Generalizados</a>
@@ -464,10 +453,10 @@ div.tocify {
       <a href="TF5_Regresion_logistica.html">Regresion Logística</a>
     </li>
     <li>
-      <a href="TF6_Regresion_Poisson.html">Regresion Poisson</a>
+      <a href="TF6_Regresion_Poisson.html">Regresión Poisson</a>
     </li>
     <li>
-      <a href="TF7_Regresion_beta.html">Regresion Beta</a>
+      <a href="TF7_Regresion_beta.html">Regresión Beta</a>
     </li>
     <li>
       <a href="TF8_Akaike_Information_Criterion.html">Criterio de Selección</a>
@@ -478,7 +467,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Los Datos
      
     <span class="caret"></span>
@@ -509,18 +498,30 @@ div.tocify {
 
 
 <p>Fecha de la última revisión</p>
-<pre><code>## [1] &quot;2021-04-22&quot;</code></pre>
+<pre><code>## [1] &quot;2023-08-22&quot;</code></pre>
 <div id="gráficos-con-geom_point-y-geom_count" class="section level1">
-<h1>Gráficos con <strong>geom_point</strong> y <strong>geom_count</strong></h1>
+<h1>Gráficos con <strong>geom_point</strong> y
+<strong>geom_count</strong></h1>
 <hr />
-<p>La función <em>geom_point</em> se utiliza para hacer gráficos con los datos en forma de puntitos. La función <em>geom_count</em> hace lo mismo, pero da más flexibilidad en la representación de los puntitos. Con esos gráficos, típicamente tenemos información en los ejes de <strong>X</strong> y de <strong>Y</strong>, de manera que esas funciones proyectan los datos distribuidos en ambos ejes.</p>
-<p>Comenzaremos la demostración de <em>geom_point</em> primero y luego la de <em>geom_count</em>. Así podremos apreciar mejor las ventajas de utilizar el gráfico <em>geom_count</em>.</p>
+<p>La función <em>geom_point</em> se utiliza para hacer gráficos con los
+datos en forma de puntitos. La función <em>geom_count</em> hace lo
+mismo, pero da más flexibilidad en la representación de los puntitos.
+Con esos gráficos, típicamente tenemos información en los ejes de
+<strong>X</strong> y de <strong>Y</strong>, de manera que esas funciones
+proyectan los datos distribuidos en ambos ejes.</p>
+<p>Comenzaremos la demostración de <em>geom_point</em> primero y luego
+la de <em>geom_count</em>. Así podremos apreciar mejor las ventajas de
+utilizar el gráfico <em>geom_count</em>.</p>
 <pre class="r"><code># preparar las librerías primero:
 library(ggversa) # la función &quot;library&quot; activa el packete de **ggversa** donde se encuentra los archivos
 library(ggplot2) # ggplot2 es la librería que se usará para graficar los datos
 library(tidyverse) # una serie de paquetes para organizar y visualizar los datos
 library(gt) # para que las tablas se vean más organizadas</code></pre>
-<p>Para visualizar gráficos con <strong>geom_point</strong> y <strong>geom_count</strong>, utilizaremos los datos que se encuentran en el archivo <strong>Anolis</strong> en el paquete <strong>ggversa</strong>. Aquí se muestran las primeras seis filas del archivo.</p>
+<p>Para visualizar gráficos con <strong>geom_point</strong> y
+<strong>geom_count</strong>, utilizaremos los datos que se encuentran en
+el archivo <strong>Anolis</strong> en el paquete
+<strong>ggversa</strong>. Aquí se muestran las primeras seis filas del
+archivo.</p>
 <pre class="r"><code>h=head(Anolis) # la función *head* es para visualizar las primeros 6 filas
 h$DATE=as.Date(h$DATE, &quot;%m/%d/%Y %H:%M:%S&quot;) # convertir la columna de fecha de tipo caracter a tipo fecha
 
@@ -540,14 +541,32 @@ h%&gt;%
     columns = vars(DATE),
     date_style = 8
   )</code></pre>
-<pre><code>## Warning: The `.dots` argument of `group_by()` is deprecated as of dplyr 1.0.0.</code></pre>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<pre><code>## Warning: Since gt v0.3.0, `columns = vars(...)` has been deprecated.
+## • Please use `columns = c(...)` instead.
+## Since gt v0.3.0, `columns = vars(...)` has been deprecated.
+## • Please use `columns = c(...)` instead.
+## Since gt v0.3.0, `columns = vars(...)` has been deprecated.
+## • Please use `columns = c(...)` instead.</code></pre>
+<div id="hlftetwyzv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hlftetwyzv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hlftetwyzv thead, #hlftetwyzv tbody, #hlftetwyzv tfoot, #hlftetwyzv tr, #hlftetwyzv td, #hlftetwyzv th {
+  border-style: none;
+}
+
+#hlftetwyzv p {
+  margin: 0;
+  padding: 0;
 }
 
 #hlftetwyzv .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -570,6 +589,35 @@ h%&gt;%
   border-left-color: #D3D3D3;
 }
 
+#hlftetwyzv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hlftetwyzv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hlftetwyzv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
 #hlftetwyzv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
@@ -580,26 +628,6 @@ h%&gt;%
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
-}
-
-#hlftetwyzv .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#hlftetwyzv .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
 }
 
 #hlftetwyzv .gt_bottom_border {
@@ -669,14 +697,21 @@ h%&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
+#hlftetwyzv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #hlftetwyzv .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -695,6 +730,7 @@ h%&gt;%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #hlftetwyzv .gt_empty_group_heading {
@@ -748,7 +784,30 @@ h%&gt;%
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlftetwyzv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hlftetwyzv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hlftetwyzv .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
 #hlftetwyzv .gt_summary_row {
@@ -762,13 +821,22 @@ h%&gt;%
 }
 
 #hlftetwyzv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hlftetwyzv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hlftetwyzv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #hlftetwyzv .gt_grand_summary_row {
@@ -789,6 +857,16 @@ h%&gt;%
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#hlftetwyzv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
 }
 
 #hlftetwyzv .gt_striped {
@@ -821,7 +899,10 @@ h%&gt;%
 #hlftetwyzv .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #hlftetwyzv .gt_sourcenotes {
@@ -840,7 +921,10 @@ h%&gt;%
 
 #hlftetwyzv .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #hlftetwyzv .gt_left {
@@ -873,162 +957,205 @@ h%&gt;%
 }
 
 #hlftetwyzv .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hlftetwyzv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hlftetwyzv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hlftetwyzv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hlftetwyzv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hlftetwyzv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hlftetwyzv .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<div id="hlftetwyzv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="15" class="gt_heading gt_title gt_font_normal" style>Datos lagartija <em>Anolis</em> de Puerto Rico</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="15" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Datos lagartija <em>Anolis</em> de Puerto Rico</td>
     </tr>
-    <tr>
-      <th colspan="15" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">STUDY</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Survey_Site</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">LOCATION</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">TIME</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">DATE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">SEASON</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">SPECIES</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">SEX_AGE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">HEIGHT</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">DISTANCE_FROM_CENTERLINE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">PERCH_SUBSTRATE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">PERCH_DIAMETER</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">WEIGHT</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">SVL</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">TAIL</th>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="STUDY">STUDY</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Survey_Site">Survey_Site</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="LOCATION">LOCATION</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="TIME">TIME</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="DATE">DATE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="SEASON">SEASON</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="SPECIES">SPECIES</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="SEX_AGE">SEX_AGE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="HEIGHT">HEIGHT</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="DISTANCE_FROM_CENTERLINE">DISTANCE_FROM_CENTERLINE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="PERCH_SUBSTRATE">PERCH_SUBSTRATE</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="PERCH_DIAMETER">PERCH_DIAMETER</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="WEIGHT">WEIGHT</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="SVL">SVL</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="TAIL">TAIL</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">Mark/recap</td>
-      <td class="gt_row gt_left">North Tower</td>
-      <td class="gt_row gt_left">El Verde</td>
-      <td class="gt_row gt_center">10:46:00</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_left">dry</td>
-      <td class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
-      <td class="gt_row gt_left">Female</td>
-      <td class="gt_row gt_right">0.0</td>
-      <td class="gt_row gt_right">2.7</td>
-      <td class="gt_row gt_left">ground</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_right">NA</td>
-      <td class="gt_row gt_right">NA</td>
-      <td class="gt_row gt_right">NA</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Mark/recap</td>
-      <td class="gt_row gt_left">Woods walkway tower</td>
-      <td class="gt_row gt_left">El Verde</td>
-      <td class="gt_row gt_center">10:15:00</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_left">dry</td>
-      <td class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
-      <td class="gt_row gt_left">Juvenil</td>
-      <td class="gt_row gt_right">0.0</td>
-      <td class="gt_row gt_right">2.0</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_center">NA</td>
-      <td class="gt_row gt_right">NA</td>
-      <td class="gt_row gt_right">29</td>
-      <td class="gt_row gt_right">NA</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Mark/recap</td>
-      <td class="gt_row gt_left">Woods walkway tower</td>
-      <td class="gt_row gt_left">El Verde</td>
-      <td class="gt_row gt_center">11:15:00</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_left">dry</td>
-      <td class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
-      <td class="gt_row gt_left">Male</td>
-      <td class="gt_row gt_right">0.0</td>
-      <td class="gt_row gt_right">1.4</td>
-      <td class="gt_row gt_left">on root at base</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_right">NA</td>
-      <td class="gt_row gt_right">NA</td>
-      <td class="gt_row gt_right">NA</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Mark/recap</td>
-      <td class="gt_row gt_left">North Tower</td>
-      <td class="gt_row gt_left">El Verde</td>
-      <td class="gt_row gt_center">11:06:00</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_left">dry</td>
-      <td class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
-      <td class="gt_row gt_left">Juvenil</td>
-      <td class="gt_row gt_right">0.3</td>
-      <td class="gt_row gt_right">1.0</td>
-      <td class="gt_row gt_left">tower</td>
-      <td class="gt_row gt_center">30</td>
-      <td class="gt_row gt_right">7.0</td>
-      <td class="gt_row gt_right">26</td>
-      <td class="gt_row gt_right">3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Mark/recap</td>
-      <td class="gt_row gt_left">North Tower</td>
-      <td class="gt_row gt_left">El Verde</td>
-      <td class="gt_row gt_center">12:31:00</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_left">dry</td>
-      <td class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
-      <td class="gt_row gt_left">Male</td>
-      <td class="gt_row gt_right">0.3</td>
-      <td class="gt_row gt_right">0.9</td>
-      <td class="gt_row gt_left">tower</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">2.4</td>
-      <td class="gt_row gt_right">45</td>
-      <td class="gt_row gt_right">71</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Mark/recap</td>
-      <td class="gt_row gt_left">North Tower</td>
-      <td class="gt_row gt_left">El Verde</td>
-      <td class="gt_row gt_center">01:00:00</td>
-      <td class="gt_row gt_left">NA</td>
-      <td class="gt_row gt_left">dry</td>
-      <td class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
-      <td class="gt_row gt_left">Female</td>
-      <td class="gt_row gt_right">0.4</td>
-      <td class="gt_row gt_right">0.9</td>
-      <td class="gt_row gt_left">tower</td>
-      <td class="gt_row gt_center">5</td>
-      <td class="gt_row gt_right">1.6</td>
-      <td class="gt_row gt_right">37</td>
-      <td class="gt_row gt_right">58</td>
-    </tr>
+    <tr><td headers="STUDY" class="gt_row gt_left">Mark/recap</td>
+<td headers="Survey_Site" class="gt_row gt_left">North Tower</td>
+<td headers="LOCATION" class="gt_row gt_left">El Verde</td>
+<td headers="TIME" class="gt_row gt_center">10:46:00</td>
+<td headers="DATE" class="gt_row gt_right">NA</td>
+<td headers="SEASON" class="gt_row gt_left">dry</td>
+<td headers="SPECIES" class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
+<td headers="SEX_AGE" class="gt_row gt_left">Female</td>
+<td headers="HEIGHT" class="gt_row gt_right">0.0</td>
+<td headers="DISTANCE_FROM_CENTERLINE" class="gt_row gt_right">2.7</td>
+<td headers="PERCH_SUBSTRATE" class="gt_row gt_left">ground</td>
+<td headers="PERCH_DIAMETER" class="gt_row gt_right">6</td>
+<td headers="WEIGHT" class="gt_row gt_right">NA</td>
+<td headers="SVL" class="gt_row gt_right">NA</td>
+<td headers="TAIL" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="STUDY" class="gt_row gt_left">Mark/recap</td>
+<td headers="Survey_Site" class="gt_row gt_left">Woods walkway tower</td>
+<td headers="LOCATION" class="gt_row gt_left">El Verde</td>
+<td headers="TIME" class="gt_row gt_center">10:15:00</td>
+<td headers="DATE" class="gt_row gt_right">NA</td>
+<td headers="SEASON" class="gt_row gt_left">dry</td>
+<td headers="SPECIES" class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
+<td headers="SEX_AGE" class="gt_row gt_left">Juvenil</td>
+<td headers="HEIGHT" class="gt_row gt_right">0.0</td>
+<td headers="DISTANCE_FROM_CENTERLINE" class="gt_row gt_right">2.0</td>
+<td headers="PERCH_SUBSTRATE" class="gt_row gt_left">NA</td>
+<td headers="PERCH_DIAMETER" class="gt_row gt_right">NA</td>
+<td headers="WEIGHT" class="gt_row gt_right">NA</td>
+<td headers="SVL" class="gt_row gt_right">29</td>
+<td headers="TAIL" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="STUDY" class="gt_row gt_left">Mark/recap</td>
+<td headers="Survey_Site" class="gt_row gt_left">Woods walkway tower</td>
+<td headers="LOCATION" class="gt_row gt_left">El Verde</td>
+<td headers="TIME" class="gt_row gt_center">11:15:00</td>
+<td headers="DATE" class="gt_row gt_right">NA</td>
+<td headers="SEASON" class="gt_row gt_left">dry</td>
+<td headers="SPECIES" class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
+<td headers="SEX_AGE" class="gt_row gt_left">Male</td>
+<td headers="HEIGHT" class="gt_row gt_right">0.0</td>
+<td headers="DISTANCE_FROM_CENTERLINE" class="gt_row gt_right">1.4</td>
+<td headers="PERCH_SUBSTRATE" class="gt_row gt_left">on root at base</td>
+<td headers="PERCH_DIAMETER" class="gt_row gt_right">0</td>
+<td headers="WEIGHT" class="gt_row gt_right">NA</td>
+<td headers="SVL" class="gt_row gt_right">NA</td>
+<td headers="TAIL" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="STUDY" class="gt_row gt_left">Mark/recap</td>
+<td headers="Survey_Site" class="gt_row gt_left">North Tower</td>
+<td headers="LOCATION" class="gt_row gt_left">El Verde</td>
+<td headers="TIME" class="gt_row gt_center">11:06:00</td>
+<td headers="DATE" class="gt_row gt_right">NA</td>
+<td headers="SEASON" class="gt_row gt_left">dry</td>
+<td headers="SPECIES" class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
+<td headers="SEX_AGE" class="gt_row gt_left">Juvenil</td>
+<td headers="HEIGHT" class="gt_row gt_right">0.3</td>
+<td headers="DISTANCE_FROM_CENTERLINE" class="gt_row gt_right">1.0</td>
+<td headers="PERCH_SUBSTRATE" class="gt_row gt_left">tower</td>
+<td headers="PERCH_DIAMETER" class="gt_row gt_right">30</td>
+<td headers="WEIGHT" class="gt_row gt_right">7.0</td>
+<td headers="SVL" class="gt_row gt_right">26</td>
+<td headers="TAIL" class="gt_row gt_right">3</td></tr>
+    <tr><td headers="STUDY" class="gt_row gt_left">Mark/recap</td>
+<td headers="Survey_Site" class="gt_row gt_left">North Tower</td>
+<td headers="LOCATION" class="gt_row gt_left">El Verde</td>
+<td headers="TIME" class="gt_row gt_center">12:31:00</td>
+<td headers="DATE" class="gt_row gt_right">NA</td>
+<td headers="SEASON" class="gt_row gt_left">dry</td>
+<td headers="SPECIES" class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
+<td headers="SEX_AGE" class="gt_row gt_left">Male</td>
+<td headers="HEIGHT" class="gt_row gt_right">0.3</td>
+<td headers="DISTANCE_FROM_CENTERLINE" class="gt_row gt_right">0.9</td>
+<td headers="PERCH_SUBSTRATE" class="gt_row gt_left">tower</td>
+<td headers="PERCH_DIAMETER" class="gt_row gt_right">5</td>
+<td headers="WEIGHT" class="gt_row gt_right">2.4</td>
+<td headers="SVL" class="gt_row gt_right">45</td>
+<td headers="TAIL" class="gt_row gt_right">71</td></tr>
+    <tr><td headers="STUDY" class="gt_row gt_left">Mark/recap</td>
+<td headers="Survey_Site" class="gt_row gt_left">North Tower</td>
+<td headers="LOCATION" class="gt_row gt_left">El Verde</td>
+<td headers="TIME" class="gt_row gt_center">01:00:00</td>
+<td headers="DATE" class="gt_row gt_right">NA</td>
+<td headers="SEASON" class="gt_row gt_left">dry</td>
+<td headers="SPECIES" class="gt_row gt_left" style="font-style: italic;">Anolis stratulus</td>
+<td headers="SEX_AGE" class="gt_row gt_left">Female</td>
+<td headers="HEIGHT" class="gt_row gt_right">0.4</td>
+<td headers="DISTANCE_FROM_CENTERLINE" class="gt_row gt_right">0.9</td>
+<td headers="PERCH_SUBSTRATE" class="gt_row gt_left">tower</td>
+<td headers="PERCH_DIAMETER" class="gt_row gt_right">5</td>
+<td headers="WEIGHT" class="gt_row gt_right">1.6</td>
+<td headers="SVL" class="gt_row gt_right">37</td>
+<td headers="TAIL" class="gt_row gt_right">58</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <hr />
-<div id="creación-de-subgrupos-con-select-y-filter" class="section level2">
-<h2>Creación de subgrupos con <strong>select()</strong> y <strong>filter()</strong></h2>
-<p>Antes de comenzar la demostración, vamos a preparar los datos. Se usará un subgrupo de los datos de unas de las especies de <em>Anolis</em>, el pequeño lagartijo que es nativo de Puerto Rico. Primero se visualizan las primeras 7 filas del archivo con las dos variables de interés. Específicamente, utilizaremos los datos de los lagartijos con individuos que tienen entre 4 cm y 20 cm de largo. El primer paso es seleccionar las columnas de interés usando la función <strong>select( )</strong>. El segundo paso es filtrar los datos con la opción <em>filter</em> para solo obtener los <em>Anolis</em> que tienen un peso menor de 4 cm y un SVL mayor a 20 cm.</p>
-<p>En el primer paso se muestran las filas del 1 al 7 usando <strong>head( )</strong> y se seleccionan las columnas de peso, WEIGHT, de los lagartijos con valor menor de 4 y tamaño SVL mayor a 20. Note que se utiliza <strong>&amp;</strong> para indicar que cada fila tiene que cumplir con ambas condiciones; o sea, el lagartijo tiene que tener un peso menor de 4 cm y un tamaño mayor de 20 cm (de la cloaca al hocico). Si una de las dos condiciones no se cumple, no se incluirá ese espécimen en particular, de tal manera que obtendremos un archivo más reducido.</p>
+<div id="creación-de-subgrupos-con-select-y-filter"
+class="section level2">
+<h2>Creación de subgrupos con <strong>select()</strong> y
+<strong>filter()</strong></h2>
+<p>Antes de comenzar la demostración, vamos a preparar los datos. Se
+usará un subgrupo de los datos de unas de las especies de
+<em>Anolis</em>, el pequeño lagartijo que es nativo de Puerto Rico.
+Primero se visualizan las primeras 7 filas del archivo con las dos
+variables de interés. Específicamente, utilizaremos los datos de los
+lagartijos con individuos que tienen entre 4 cm y 20 cm de largo. El
+primer paso es seleccionar las columnas de interés usando la función
+<strong>select( )</strong>. El segundo paso es filtrar los datos con la
+opción <em>filter</em> para solo obtener los <em>Anolis</em> que tienen
+un peso menor de 4 cm y un SVL mayor a 20 cm.</p>
+<p>En el primer paso se muestran las filas del 1 al 7 usando
+<strong>head( )</strong> y se seleccionan las columnas de peso, WEIGHT,
+de los lagartijos con valor menor de 4 y tamaño SVL mayor a 20. Note que
+se utiliza <strong>&amp;</strong> para indicar que cada fila tiene que
+cumplir con ambas condiciones; o sea, el lagartijo tiene que tener un
+peso menor de 4 cm y un tamaño mayor de 20 cm (de la cloaca al hocico).
+Si una de las dos condiciones no se cumple, no se incluirá ese espécimen
+en particular, de tal manera que obtendremos un archivo más
+reducido.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL)%&gt;%  # selecciona
+  dplyr::select(WEIGHT, SVL)%&gt;%  # selecciona
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
   head(n=7)%&gt;%            # solo muestra los primeros siete
   gt()</code></pre>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="zwxhrdfesf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zwxhrdfesf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zwxhrdfesf thead, #zwxhrdfesf tbody, #zwxhrdfesf tfoot, #zwxhrdfesf tr, #zwxhrdfesf td, #zwxhrdfesf th {
+  border-style: none;
+}
+
+#zwxhrdfesf p {
+  margin: 0;
+  padding: 0;
 }
 
 #zwxhrdfesf .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -1051,6 +1178,35 @@ h%&gt;%
   border-left-color: #D3D3D3;
 }
 
+#zwxhrdfesf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zwxhrdfesf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zwxhrdfesf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
 #zwxhrdfesf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
@@ -1061,26 +1217,6 @@ h%&gt;%
   border-right-style: none;
   border-right-width: 1px;
   border-right-color: #D3D3D3;
-}
-
-#zwxhrdfesf .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#zwxhrdfesf .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
 }
 
 #zwxhrdfesf .gt_bottom_border {
@@ -1150,14 +1286,21 @@ h%&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
+#zwxhrdfesf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #zwxhrdfesf .gt_group_heading {
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1176,6 +1319,7 @@ h%&gt;%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #zwxhrdfesf .gt_empty_group_heading {
@@ -1229,7 +1373,30 @@ h%&gt;%
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zwxhrdfesf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zwxhrdfesf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zwxhrdfesf .gt_row_group_first th {
+  border-top-width: 2px;
 }
 
 #zwxhrdfesf .gt_summary_row {
@@ -1243,13 +1410,22 @@ h%&gt;%
 }
 
 #zwxhrdfesf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zwxhrdfesf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zwxhrdfesf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
 }
 
 #zwxhrdfesf .gt_grand_summary_row {
@@ -1270,6 +1446,16 @@ h%&gt;%
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#zwxhrdfesf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
 }
 
 #zwxhrdfesf .gt_striped {
@@ -1302,7 +1488,10 @@ h%&gt;%
 #zwxhrdfesf .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #zwxhrdfesf .gt_sourcenotes {
@@ -1321,7 +1510,10 @@ h%&gt;%
 
 #zwxhrdfesf .gt_sourcenote {
   font-size: 90%;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #zwxhrdfesf .gt_left {
@@ -1354,58 +1546,75 @@ h%&gt;%
 }
 
 #zwxhrdfesf .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zwxhrdfesf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zwxhrdfesf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zwxhrdfesf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zwxhrdfesf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zwxhrdfesf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zwxhrdfesf .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<div id="zwxhrdfesf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">WEIGHT</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">SVL</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="WEIGHT">WEIGHT</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="SVL">SVL</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_right">2.4</td>
-      <td class="gt_row gt_right">45</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_right">1.6</td>
-      <td class="gt_row gt_right">37</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_right">1.4</td>
-      <td class="gt_row gt_right">36</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_right">2.0</td>
-      <td class="gt_row gt_right">43</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_right">1.8</td>
-      <td class="gt_row gt_right">38</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_right">1.1</td>
-      <td class="gt_row gt_right">35</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_right">0.7</td>
-      <td class="gt_row gt_right">28</td>
-    </tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">2.4</td>
+<td headers="SVL" class="gt_row gt_right">45</td></tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">1.6</td>
+<td headers="SVL" class="gt_row gt_right">37</td></tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">1.4</td>
+<td headers="SVL" class="gt_row gt_right">36</td></tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">2.0</td>
+<td headers="SVL" class="gt_row gt_right">43</td></tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">1.8</td>
+<td headers="SVL" class="gt_row gt_right">38</td></tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">1.1</td>
+<td headers="SVL" class="gt_row gt_right">35</td></tr>
+    <tr><td headers="WEIGHT" class="gt_row gt_right">0.7</td>
+<td headers="SVL" class="gt_row gt_right">28</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <hr />
 </div>
 <div id="gráfico-geom_point" class="section level2">
 <h2>Gráfico <strong>geom_point</strong></h2>
-<p>A continuación, en la <strong>Figura. Gráfico básico con geom_point</strong>, se muestra un gráfico básico. Como se puede apreciar, los puntos son negros y de un tamaño específico, y los nombres de los ejes de <strong>X</strong> y <strong>Y</strong> son los nombres de las columnas tal como aparecen en el archivo de datos.</p>
+<p>A continuación, en la <strong>Figura. Gráfico básico con
+geom_point</strong>, se muestra un gráfico básico. Como se puede
+apreciar, los puntos son negros y de un tamaño específico, y los nombres
+de los ejes de <strong>X</strong> y <strong>Y</strong> son los nombres
+de las columnas tal como aparecen en el archivo de datos.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL)%&gt;%
+  dplyr::select(WEIGHT, SVL)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT))+
   geom_point()+
@@ -1414,9 +1623,20 @@ ggplot(aes(SVL, WEIGHT))+
 <hr />
 <div id="añadir-detalles-al-gráfico" class="section level3">
 <h3>Añadir detalles al gráfico</h3>
-<p>Al gráfico anterior se le pueden hacer modificaciones a los nombres de los ejes, y el estilo y tamaño de las letras. Se cambia el nombre de las variables con <strong>xlab</strong> y <strong>ylab</strong>. El tamaño y estilo de las letras de las variables se cambian a itálicas y color rojo con <strong>theme(axis.title=element_text(size=10,face=“italic”, colour=“red”)</strong>. Además, se le puede añadir un título verde y en negrilla con <strong>ggtitle(“Nuevo título con tipo/tamaño/aspecto que Ud desee”)</strong>, y el tamaño y estilo del título con <strong>theme(title=element_text(size=20,face=“bold”, colour=“green”))</strong>, tal como se muestra en el gráfico siguiente.</p>
+<p>Al gráfico anterior se le pueden hacer modificaciones a los nombres
+de los ejes, y el estilo y tamaño de las letras. Se cambia el nombre de
+las variables con <strong>xlab</strong> y <strong>ylab</strong>. El
+tamaño y estilo de las letras de las variables se cambian a itálicas y
+color rojo con
+<strong>theme(axis.title=element_text(size=10,face=“italic”,
+colour=“red”)</strong>. Además, se le puede añadir un título verde y en
+negrilla con <strong>ggtitle(“Nuevo título con tipo/tamaño/aspecto que
+Ud desee”)</strong>, y el tamaño y estilo del título con
+<strong>theme(title=element_text(size=20,face=“bold”,
+colour=“green”))</strong>, tal como se muestra en el gráfico
+siguiente.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL)%&gt;%
+  dplyr::select(WEIGHT, SVL)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT))+
   geom_point()+
@@ -1426,15 +1646,27 @@ ggplot(aes(SVL, WEIGHT))+
   theme(title=element_text(size=18,face=&quot;bold&quot;, colour=&quot;green&quot;))+
   ggtitle(&quot;Título con tipo/tamaño/aspecto que Ud desee&quot;)</code></pre>
 <p><img src="G3-Graficos-por-conteos_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>En este último gráfico tenemos la peculiaridad que hay múltiples lagartijas con el mismo peso y tamaño, por lo que los puntos quedarán solapados. A consecuencia de esto, uno no necesariamente va a poder apreciar la frecuencia de los datos. Más adelante se demostrará cómo resolver ese problema.</p>
+<p>En este último gráfico tenemos la peculiaridad que hay múltiples
+lagartijas con el mismo peso y tamaño, por lo que los puntos quedarán
+solapados. A consecuencia de esto, uno no necesariamente va a poder
+apreciar la frecuencia de los datos. Más adelante se demostrará cómo
+resolver ese problema.</p>
 <hr />
 </div>
 </div>
 <div id="gráfico-geom_count" class="section level2">
 <h2>Gráfico <strong>geom_count</strong></h2>
-<p>Por otro lado, la función <strong>geom_count</strong> varía el tamaño de los puntos de acuerdo a como varía la frecuencia de una variable. Esta función es una extensión de <strong>geom_point</strong>. Con <strong>geom_count</strong> veremos que la diferencia es que ahora el tamaño de los puntos está relacionado a su frecuencia en el archivo de datos. El tamaño de cada punto representa la frecuencia o valores de la cantidad de lagartijas; o sea, los puntos más grandes representan especímenes que son más comunes. Esto se demuestra en la <strong>Figura: Puntos de acuerdo a la frecuencia</strong> a continuación:</p>
+<p>Por otro lado, la función <strong>geom_count</strong> varía el tamaño
+de los puntos de acuerdo a como varía la frecuencia de una variable.
+Esta función es una extensión de <strong>geom_point</strong>. Con
+<strong>geom_count</strong> veremos que la diferencia es que ahora el
+tamaño de los puntos está relacionado a su frecuencia en el archivo de
+datos. El tamaño de cada punto representa la frecuencia o valores de la
+cantidad de lagartijas; o sea, los puntos más grandes representan
+especímenes que son más comunes. Esto se demuestra en la <strong>Figura:
+Puntos de acuerdo a la frecuencia</strong> a continuación:</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL)%&gt;%
+  dplyr::select(WEIGHT, SVL)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT))+
   geom_count()+
@@ -1444,11 +1676,21 @@ ggplot(aes(SVL, WEIGHT))+
   labs(title=&quot;Figura. Puntos de acuerdo a la frecuencia&quot;)</code></pre>
 <p><img src="G3-Graficos-por-conteos_files/figure-html/geom%20count1-1.png" width="672" /></p>
 <hr />
-<div id="tamaño-de-puntos-proporcional-a-frecuencia" class="section level3">
+<div id="tamaño-de-puntos-proporcional-a-frecuencia"
+class="section level3">
 <h3>Tamaño de puntos proporcional a frecuencia</h3>
-<p>Se puede representar la frecuencia en proporción a los datos. En el gráfico siguiente, <strong>Figura. Puntos en proporción a la frecuencia</strong>, los tamaños de los puntos están proporcionales a su frecuencia. Note que hay que añadir <strong>(size=..prop.. y group=1)</strong> en la función <strong>geom_count()</strong>. Note que en este caso la suma de todas las frecuencias es 1. Tengamos en cuenta que en la figura anterior los puntos representan la frecuencia. Pero, ahora, los puntos salen en proporción a la frecuencia. La frecuencia en este caso es calculada utilizando como denominador la cantidad total de todos los especímenes en el archivo.</p>
+<p>Se puede representar la frecuencia en proporción a los datos. En el
+gráfico siguiente, <strong>Figura. Puntos en proporción a la
+frecuencia</strong>, los tamaños de los puntos están proporcionales a su
+frecuencia. Note que hay que añadir <strong>(size=..prop.. y
+group=1)</strong> en la función <strong>geom_count()</strong>. Note que
+en este caso la suma de todas las frecuencias es 1. Tengamos en cuenta
+que en la figura anterior los puntos representan la frecuencia. Pero,
+ahora, los puntos salen en proporción a la frecuencia. La frecuencia en
+este caso es calculada utilizando como denominador la cantidad total de
+todos los especímenes en el archivo.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL)%&gt;%
+  dplyr::select(WEIGHT, SVL)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT))+
   geom_count(aes(size=..prop.., group=1))+
@@ -1459,11 +1701,22 @@ ggplot(aes(SVL, WEIGHT))+
 <p><img src="G3-Graficos-por-conteos_files/figure-html/geom%20count2-1.png" width="672" /></p>
 <hr />
 </div>
-<div id="tamaño-de-puntos-proporcional-a-una-variable" class="section level3">
+<div id="tamaño-de-puntos-proporcional-a-una-variable"
+class="section level3">
 <h3>Tamaño de puntos proporcional a una variable</h3>
-<p>En el siguiente gráfico, <strong>Figura. Puntos en proporción a una variable</strong>, las variable WEIGHT, o peso de las lagartijas, se usa para que la suma de la proporción equivalga a 1. Entonces aquí cada grupo en “Y” suma 1. Note que los grupos se forman a base del tamaño del hocico a la cloaca (SVL) utilizando <strong>geom_count(aes(size=..prop.., group=SVL))</strong>. Por ejemplo, en los <em>Anolis</em> que tienen el tamaño de 35 hay 4 puntos cada uno con valor 0.25, lo que da una suma de 1 (hay 4 cuatro lagartijas que tienen un SVL de 35cm). Note que la frecuencia en este caso es calculada utilizando como denominador la cantidad total de los valores que corresponden a un valor específico en “X”.</p>
+<p>En el siguiente gráfico, <strong>Figura. Puntos en proporción a una
+variable</strong>, las variable WEIGHT, o peso de las lagartijas, se usa
+para que la suma de la proporción equivalga a 1. Entonces aquí cada
+grupo en “Y” suma 1. Note que los grupos se forman a base del tamaño del
+hocico a la cloaca (SVL) utilizando
+<strong>geom_count(aes(size=..prop.., group=SVL))</strong>. Por ejemplo,
+en los <em>Anolis</em> que tienen el tamaño de 35 hay 4 puntos cada uno
+con valor 0.25, lo que da una suma de 1 (hay 4 cuatro lagartijas que
+tienen un SVL de 35cm). Note que la frecuencia en este caso es calculada
+utilizando como denominador la cantidad total de los valores que
+corresponden a un valor específico en “X”.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL)%&gt;%
+  dplyr::select(WEIGHT, SVL)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT))+
   geom_count(aes(size=..prop.., group=SVL))+
@@ -1476,9 +1729,18 @@ ggplot(aes(SVL, WEIGHT))+
 </div>
 <div id="grupos-separados-por-color" class="section level3">
 <h3>Grupos separados por color</h3>
-<p>Si hay más de un grupo (digamos, muestras tomadas en la época seca del año y las tomadas en la época lluviosa), se puede mostrar la proporción basada en los grupos/factores usando la función <strong>colour</strong> o <strong>color</strong>. En el gráfico <strong>Figura. Grupos con diferentes colores</strong>, vemos el efecto de usar el color. Del patrón obtenido se puede observar que la mayoría de los <em>Anolis</em> pequeños se observa en el periodo lluvioso y los grandes en el periodo seco. Note que aquí se añade la variable que queremos separada por color; o sea, se identifica la estación de tiempo seco o húmedo con la columna <em>Season</em>.</p>
+<p>Si hay más de un grupo (digamos, muestras tomadas en la época seca
+del año y las tomadas en la época lluviosa), se puede mostrar la
+proporción basada en los grupos/factores usando la función
+<strong>colour</strong> o <strong>color</strong>. En el gráfico
+<strong>Figura. Grupos con diferentes colores</strong>, vemos el efecto
+de usar el color. Del patrón obtenido se puede observar que la mayoría
+de los <em>Anolis</em> pequeños se observa en el periodo lluvioso y los
+grandes en el periodo seco. Note que aquí se añade la variable que
+queremos separada por color; o sea, se identifica la estación de tiempo
+seco o húmedo con la columna <em>Season</em>.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL, SEASON)%&gt;%
+  dplyr::select(WEIGHT, SVL, SEASON)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(aes(size=..prop.., group=WEIGHT))+
@@ -1491,7 +1753,17 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 </div>
 <div id="grupos-separados-por-variable-discreta" class="section level3">
 <h3>Grupos separados por variable discreta</h3>
-<p>En la siguiente demostración, <strong>Figura. Grupos separados por variable discreta</strong>, se representan dos gráficos separados de acuerdo al sitio de muestreo usando <strong>facet_wrap</strong> y al añadir en <strong>aes(, group=la variable)</strong>. Aquí se observa que el muestreo en la localidad llamada <em>Torre Sur</em> se hizo solamente en el periodo lluvioso. Note que para crear los dos gráficos separados por una variable discreta se usa <strong>facet_wrap</strong> con una tilde, “~”, seguido del nombre de la variable, que en este caso es la localidad de muestreo, <strong>Survey_Site</strong>. (<strong>facet_wrap</strong> se explica en detalle como un tópico aparte de visualización.)</p>
+<p>En la siguiente demostración, <strong>Figura. Grupos separados por
+variable discreta</strong>, se representan dos gráficos separados de
+acuerdo al sitio de muestreo usando <strong>facet_wrap</strong> y al
+añadir en <strong>aes(, group=la variable)</strong>. Aquí se observa que
+el muestreo en la localidad llamada <em>Torre Sur</em> se hizo solamente
+en el periodo lluvioso. Note que para crear los dos gráficos separados
+por una variable discreta se usa <strong>facet_wrap</strong> con una
+tilde, “~”, seguido del nombre de la variable, que en este caso es la
+localidad de muestreo, <strong>Survey_Site</strong>.
+(<strong>facet_wrap</strong> se explica en detalle como un tópico aparte
+de visualización.)</p>
 <pre class="r"><code>names(Anolis) # para mostrar los nombres de las columnas</code></pre>
 <pre><code>##  [1] &quot;STUDY&quot;                    &quot;Survey_Site&quot;             
 ##  [3] &quot;LOCATION&quot;                 &quot;TIME&quot;                    
@@ -1502,7 +1774,7 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 ## [13] &quot;WEIGHT&quot;                   &quot;SVL&quot;                     
 ## [15] &quot;TAIL&quot;</code></pre>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(aes(size=..prop.., group=WEIGHT))+
@@ -1517,9 +1789,19 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 </div>
 <div id="cambiar-la-forma-de-los-puntos" class="section level3">
 <h3>Cambiar la forma de los puntos</h3>
-<p>La opción de <strong>shape</strong> es para modificar los tipos de símbolo disponibles para representar los puntos. Los símbolos se escogen indicando un número del 0 al 25. En el gráfico siguiente, <strong>Figura. Cambio en la forma de los puntos</strong>, se cambia la forma de los puntos con esta opción y el número de símbolo 12. El símbolo típicamente utilizado en los gráficos de <strong>ggplot2</strong> es el 16 (un punto). Cabe mencionar que solamente los números 21 al 25 son símbolos rellenados con color, lo que se hace al utilizar la opción de <strong>fill</strong> e indicando el color deseado, tal como se muestra en la <strong>Figura. Puntos rellenados en amarillo</strong>.</p>
+<p>La opción de <strong>shape</strong> es para modificar los tipos de
+símbolo disponibles para representar los puntos. Los símbolos se escogen
+indicando un número del 0 al 25. En el gráfico siguiente,
+<strong>Figura. Cambio en la forma de los puntos</strong>, se cambia la
+forma de los puntos con esta opción y el número de símbolo 12. El
+símbolo típicamente utilizado en los gráficos de
+<strong>ggplot2</strong> es el 16 (un punto). Cabe mencionar que
+solamente los números 21 al 25 son símbolos rellenados con color, lo que
+se hace al utilizar la opción de <strong>fill</strong> e indicando el
+color deseado, tal como se muestra en la <strong>Figura. Puntos
+rellenados en amarillo</strong>.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(shape=12,colour=&quot;black&quot;,
@@ -1531,7 +1813,7 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   labs(title=&quot;Figura. Cambio en la forma de los puntos&quot;)</code></pre>
 <p><img src="G3-Graficos-por-conteos_files/figure-html/geom%20count5.1-1.png" width="672" /></p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(shape=21, fill=&quot;yellow&quot;, colour=&quot;black&quot;,
@@ -1541,13 +1823,19 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   facet_wrap(~Survey_Site)+
   theme(axis.title=element_text(size=10,face=&quot;bold&quot;))+
   labs(title=&quot;Figura. Puntos rellenados en amarillo&quot;)</code></pre>
-<p><img src="G3-Graficos-por-conteos_files/figure-html/geom%20count5.2-1.png" width="672" /> ***</p>
+<p><img src="G3-Graficos-por-conteos_files/figure-html/geom%20count5.2-1.png" width="672" />
+***</p>
 </div>
-<div id="cambiar-las-características-de-los-puntos" class="section level3">
+<div id="cambiar-las-características-de-los-puntos"
+class="section level3">
 <h3>Cambiar las características de los puntos</h3>
-<p>En el siguiente gráfico, <strong>Figura. Puntos cuadrados con bordes más gruesos</strong>, se cambian la forma de los puntos a un cuadrado con la opción <strong>shape</strong> y el grosor del borde con la opción <strong>stroke</strong>, seguido de la asignación del parámetro correspondiente, en este caso 22 y 2 respectivamente.</p>
+<p>En el siguiente gráfico, <strong>Figura. Puntos cuadrados con bordes
+más gruesos</strong>, se cambian la forma de los puntos a un cuadrado
+con la opción <strong>shape</strong> y el grosor del borde con la opción
+<strong>stroke</strong>, seguido de la asignación del parámetro
+correspondiente, en este caso 22 y 2 respectivamente.</p>
 <pre class="r"><code>Anolis %&gt;%
-  select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
+  dplyr::select(WEIGHT, SVL, SEASON, Survey_Site)%&gt;%
   filter(WEIGHT&lt;4 &amp; SVL&gt;20)%&gt;%
 ggplot(aes(SVL, WEIGHT, colour=SEASON))+
   geom_count(shape=22, stroke=2,
@@ -1562,10 +1850,13 @@ ggplot(aes(SVL, WEIGHT, colour=SEASON))+
 </div>
 <div id="opciones-y-parámetros" class="section level2">
 <h2>Opciones y parámetros</h2>
-<p>A continuación se resumen las opciones y parámetros más importantes de <strong>geom_point</strong> y <strong>geom_count</strong>:</p>
+<p>A continuación se resumen las opciones y parámetros más importantes
+de <strong>geom_point</strong> y <strong>geom_count</strong>:</p>
 <ul>
-<li><p>ggplot(el archivo de datos, aes(x= la variable secuencial, y = la variable secuencial más de un grupo, color= si hay necesidad))</p></li>
-<li><p>geom_point(x, y, alpha, colour, fill, shape, size, stroke)</p></li>
+<li><p>ggplot(el archivo de datos, aes(x= la variable secuencial, y = la
+variable secuencial más de un grupo, color= si hay necesidad))</p></li>
+<li><p>geom_point(x, y, alpha, colour, fill, shape, size,
+stroke)</p></li>
 <li><p>geom_count(x, y, alpha, colour, fill, shape, size, stroke)</p>
 <ul>
 <li>alpha: la intensidad de los colores (explicado más adelante)</li>
@@ -1617,6 +1908,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

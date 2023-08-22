@@ -15,7 +15,7 @@
 
 <title>Taller RFE 20191102</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -598,20 +598,15 @@ ggplot(data=women, aes(x=women$height, y=women$weight)) +
   geom_point(pch=19, color=&quot;blue&quot;, size=2) +
   geom_smooth(method=&quot;lm&quot;, color=&quot;red&quot;, linetype=2) +
   labs(x=&quot;Height, inches&quot;, y=&quot;Weight, lb&quot;)</code></pre>
-<pre><code>## Warning: Use of `women$height` is
-## discouraged.
+<pre><code>## Warning: Use of `women$height` is discouraged.
 ## ℹ Use `height` instead.</code></pre>
-<pre><code>## Warning: Use of `women$weight` is
-## discouraged.
+<pre><code>## Warning: Use of `women$weight` is discouraged.
 ## ℹ Use `weight` instead.</code></pre>
-<pre><code>## Warning: Use of `women$height` is
-## discouraged.
+<pre><code>## Warning: Use of `women$height` is discouraged.
 ## ℹ Use `height` instead.</code></pre>
-<pre><code>## Warning: Use of `women$weight` is
-## discouraged.
+<pre><code>## Warning: Use of `women$weight` is discouraged.
 ## ℹ Use `weight` instead.</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y
-## ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="E6-TallerRFE_II_files/figure-html/regr_linear-1.png" width="672" /></p>
 <pre class="r"><code>#graph: residuals
 plot(women$height,residuals(fit),
@@ -668,17 +663,13 @@ summary(fit2)</code></pre>
   geom_point(aes(x = women$height, y = women$weight), color =&quot;blue&quot;) +
   stat_smooth(aes(), method = &quot;lm&quot;, formula = y ~ poly(x,2), color =&quot;red&quot;, linetype=2, se =TRUE, size = 1) +
   labs(x=&quot;Height, inches&quot;, y=&quot;Weight, lb.&quot;)</code></pre>
-<pre><code>## Warning: Use of `women$height` is
-## discouraged.
+<pre><code>## Warning: Use of `women$height` is discouraged.
 ## ℹ Use `height` instead.</code></pre>
-<pre><code>## Warning: Use of `women$weight` is
-## discouraged.
+<pre><code>## Warning: Use of `women$weight` is discouraged.
 ## ℹ Use `weight` instead.</code></pre>
-<pre><code>## Warning: Use of `women$height` is
-## discouraged.
+<pre><code>## Warning: Use of `women$height` is discouraged.
 ## ℹ Use `height` instead.</code></pre>
-<pre><code>## Warning: Use of `women$weight` is
-## discouraged.
+<pre><code>## Warning: Use of `women$weight` is discouraged.
 ## ℹ Use `weight` instead.</code></pre>
 <p><img src="E6-TallerRFE_II_files/figure-html/regr_polyn-1.png" width="672" /></p>
 <pre class="r"><code>plot(women$height,residuals(fit2),

@@ -15,7 +15,7 @@
 
 <title>Exponential_model</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -465,8 +465,7 @@ ggplot(A, aes(Time, Counts))+
               color =&quot;red&quot;, se =TRUE, size = 1)+
   geom_smooth(aes(), method = &quot;lm&quot;, formula = y ~ log(x+1), 
               color =&quot;orange&quot;, se =TRUE, size = 1)</code></pre>
-<pre><code>## `geom_smooth()` using formula = &#39;y
-## ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="Exponential-Model_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 <pre class="r"><code>model1=glm(Counts~Time, family=Gamma(link=&quot;log&quot;), data = A)
 summary(model1)</code></pre>

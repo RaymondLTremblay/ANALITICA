@@ -14,7 +14,7 @@
 
 <title>Documento_RMarkdown</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -547,44 +547,42 @@ mi_tabla</code></pre>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
-##       value
-##       &lt;dbl&gt;
-##  1  0.00642
-##  2 -0.308  
-##  3 -0.434  
-##  4 -0.280  
-##  5 -1.44   
-##  6  0.420  
-##  7 -0.0879 
-##  8  0.800  
-##  9 -0.453  
-## 10 -1.07   
+##      value
+##      &lt;dbl&gt;
+##  1  1.05  
+##  2 -0.0107
+##  3 -0.743 
+##  4 -0.0658
+##  5  1.94  
+##  6  0.483 
+##  7 -2.04  
+##  8  1.42  
+##  9  0.541 
+## 10 -0.0336
 ## # ℹ 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`.
-## Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="Documento_RMarkdown-ed2_GT_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>x=as_tibble(rnorm(1000, 0,1)) # Creamos un conjunto de datos
 x</code></pre>
 <pre><code>## # A tibble: 1,000 × 1
 ##      value
 ##      &lt;dbl&gt;
-##  1 -0.364 
-##  2  0.637 
-##  3 -0.967 
-##  4  0.0396
-##  5  0.191 
-##  6  0.666 
-##  7  0.235 
-##  8  0.0419
-##  9  0.350 
-## 10 -1.68  
+##  1  0.416 
+##  2  1.59  
+##  3 -0.386 
+##  4 -2.15  
+##  5  0.0257
+##  6  0.650 
+##  7 -0.401 
+##  8  1.40  
+##  9  1.09  
+## 10  0.537 
 ## # ℹ 990 more rows</code></pre>
 <pre class="r"><code>ggplot(x, aes(value))+
   geom_histogram(colour=&quot;white&quot;)</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`.
-## Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="Documento_RMarkdown-ed2_GT_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <hr />
 <blockquote>

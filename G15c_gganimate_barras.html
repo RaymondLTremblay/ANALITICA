@@ -14,7 +14,7 @@
 
 <title>G15c_gganimate_barras</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -421,18 +421,8 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.2     ✔ readr     2.1.4
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-## ✔ purrr     1.0.1     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>library(gganimate)
+<pre class="r"><code>library(tidyverse)
+library(gganimate)
 library(rgl)
 library(gapminder)
 library(ggplot2)
@@ -446,7 +436,7 @@ con la función <strong>group</strong>.</p>
 <p>Comenzamos con cambiar el nombre de algunas variables al
 castellano</p>
 <pre class="r"><code>names(airquality) # Nombres originales</code></pre>
-<pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Wind&quot;    &quot;Temp&quot;    &quot;Month&quot;   &quot;Day&quot;</code></pre>
+<pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Viento&quot;  &quot;Temp&quot;    &quot;Mes&quot;     &quot;Día&quot;</code></pre>
 <pre class="r"><code>names(airquality)[3] &lt;- &#39;Viento&#39;
 names(airquality)[5] &lt;- &#39;Mes&#39;
 names(airquality)[6] &lt;- &#39;Día&#39;
@@ -475,14 +465,8 @@ un nuevo data frame que llamamos <strong>temp.promedio</strong>.</p>
   group_by(Mes) %&gt;%
   summarise(Temp = mean( Temp))
 temp.promedio2</code></pre>
-<pre><code>## # A tibble: 5 × 2
-##     Mes  Temp
-##   &lt;int&gt; &lt;dbl&gt;
-## 1     5  65.5
-## 2     6  79.1
-## 3     7  83.9
-## 4     8  84.0
-## 5     9  76.9</code></pre>
+<pre><code>##       Temp
+## 1 77.88235</code></pre>
 <div id="gráfico-de-barra-estático" class="section level2">
 <h2>Gráfico de barra estático</h2>
 <p>Ahora creamos un gráfico estático de los datos con
@@ -499,7 +483,6 @@ s=ggplot(temp.promedio2, aes(Mes, Temp, fill = Temp)) +
     panel.ontop = TRUE
   )
 s</code></pre>
-<p><img src="G15c_gganimate_barras_files/figure-html/animado%20por%20mes%20barras-1.png" width="672" /></p>
 </div>
 <div id="añadiendo-efecto-de-transición-en-las-columnas"
 class="section level2">
@@ -508,8 +491,6 @@ class="section level2">
 <strong>transition_states()</strong>. Si uno añade solamente esta
 función aparece solamente una barra a la vez.</p>
 <pre class="r"><code>s + transition_states( Mes, wrap = FALSE) </code></pre>
-<p><img
-src="G15c_gganimate_barras_files/figure-html/transiciones-1.gif" /><!-- --></p>
 </div>
 <div id="añadiendo-efecto-de-transición-y-shadow-o-sea-una-sombra"
 class="section level2">
@@ -517,8 +498,6 @@ class="section level2">
 sombra</h2>
 <pre class="r"><code>s + transition_states( Mes, wrap = FALSE) +
   shadow_mark()</code></pre>
-<p><img
-src="G15c_gganimate_barras_files/figure-html/con%20sombras-1.gif" /><!-- --></p>
 <p>Para más ejemplos de como usar <strong>gganimate</strong> ver este
 enlace <a
 href="https://semba-blog.netlify.com/10/29/2018/animating-oceanographic-data-in-r-with-ggplot2-and-gganimate/">Oceonografia</a></p>

@@ -297,9 +297,9 @@ formattable(ALL_models, digits=4, format="html")
 #### Calcular el coeficientes ponderados
 
 ```{r, message=FALSE, warning=FALSE}
-allmodels=format(round(ALL_models, digits=3), scientific=FALSE)
-library(data.table)
-write.csv(allmodels, "allmodelsdata.csv")
+#allmodels=format(round(ALL_models, digits=3), scientific=FALSE)
+#library(data.table)
+#write.csv(allmodels, "allmodelsdata.csv")
 
 ```
 

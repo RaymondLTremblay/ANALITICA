@@ -61,7 +61,7 @@ temp.promedio2
 Ahora creamos un gráfico estático de los datos con **geom_col**.  
 
 
-```{r animado por mes barras}
+```{r animado por mes barras, eval=FALSE}
 library(ggplot2)
 
 s=ggplot(temp.promedio2, aes(Mes, Temp, fill = Temp)) +
@@ -82,14 +82,14 @@ s
 
 El efecto de transición de un mes al otro se añade con la función **transition_states()**. Si uno añade solamente esta función aparece solamente una barra a la vez.  
 
-```{r transiciones}
+```{r transiciones, eval=FALSE}
 s + transition_states( Mes, wrap = FALSE) 
 ```
 
 
 ## Añadiendo efecto de transición y **shadow** o sea una sombra
 
-```{r con sombras}
+```{r con sombras, eval=FALSE}
 s + transition_states( Mes, wrap = FALSE) +
   shadow_mark()
 ```
